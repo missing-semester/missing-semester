@@ -365,7 +365,7 @@ there.
  3. Use `touch` to create a new file called `semester` in `missing`.
  4. Write the following into that file, one line at a time:
     ```
-    #!/bin/sh
+    #!/bin/bash
     curl --head --silent https://missing.csail.mit.edu
     ```
     The first line might be tricky to get working. It's helpful to know that
