@@ -465,6 +465,12 @@ command is used for merging.
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
 
+## Undo Git
+
+- `git commit --amend`: add the current commit to previous commit (only for commits not pushed)
+- `git reset HEAD <file>`: unstage a file
+- `git checkout -- <file>`: discard changes
+
 ## Advanced Git
 
 - `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
