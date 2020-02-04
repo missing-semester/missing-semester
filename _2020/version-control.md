@@ -465,7 +465,7 @@ command is used for merging.
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
 
-# Advanced Git
+## Advanced Git
 
 - `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
 - `git clone --shallow`: clone without entire version history
