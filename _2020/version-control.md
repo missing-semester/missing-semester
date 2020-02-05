@@ -425,7 +425,6 @@ index 94bab17..f0013b2 100644
 - `git add <filename>`: adds files to staging area
 - `git commit`: creates a new commit
     - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
-- `git commit --amend`: edit a commit's contents/message
 - `git log`: shows a flattened log of history
 - `git log --all --graph --decorate`: visualizes history as a DAG
 - `git diff <filename>`: show differences since the last commit
@@ -465,13 +464,13 @@ command is used for merging.
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
 
-## Undo Git
+## Undo 
 
-- `git commit --amend`: add the current commit to previous commit (only for commits not pushed)
+- `git commit --amend`: edit a commit's contents/message
 - `git reset HEAD <file>`: unstage a file
 - `git checkout -- <file>`: discard changes
 
-## Advanced Git
+# Advanced Git
 
 - `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
 - `git clone --shallow`: clone without entire version history
