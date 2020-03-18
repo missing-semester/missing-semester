@@ -1,3 +1,9 @@
 .bundle/
 _site/
 .jekyll-metadata
+
+ebook/the-missing-semester.epub
+
+ebook/bundled.md
+
+ebook/ebook.epub
