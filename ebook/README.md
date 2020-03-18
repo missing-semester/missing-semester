@@ -2,6 +2,14 @@
 
 ### The ebook
 #### Build the ebook
+##### Requirements
+Requires the packages Pandoc and MarkdownPP:
+
+```
+pip install pandoc MarkdownPP
+```
+
+##### Generate the ebook
 Go to folder **ebook** and type
 ```
 markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc
@@ -21,8 +29,6 @@ open the-missing-semester.epub
 What can be improved : 
 - Add a nice cover image ( in metadata.yaml, I guess)
 - Correct authors (I didn't really know what to put)
-
 - Generate ebook directly from original articles (the ones in _2020)
----
 
-I was largely inspired by this article : https://medium.com/@davidgrophland/making-an-ebook-from-markdown-to-kindle-cf224326b1a2
+I was largely inspired by [this article](https://medium.com/@davidgrophland/making-an-ebook-from-markdown-to-kindle-cf224326b1a2).
