@@ -1,9 +1,9 @@
 
 
 
-The build command to create the ebook : 
+The build command to create the ebook ( in the folder /ebook):
 ```
-markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc;
+markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc
 open the-missing-semester.epub
 ```
 ## Explanation
