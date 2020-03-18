@@ -26,7 +26,7 @@ pip install pandoc MarkdownPP
 ##### Generate the ebook
 Go to folder **ebook** and type
 ```
-markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc
+markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc ;
 open the-missing-semester.epub
 ```
 #### Explanation
