@@ -35,15 +35,21 @@ open the-missing-semester.epub
 
 [Pandoc](https://pandoc.org/) is a tool to convert a markdown file to another format (I used epub here, but you could also make it a PDF)
 
-- I created a new folder "/ebook" where I made a copy of all articles and remove their metadata ( YAML front-matter)
-- I also removed some Jekyll lines
-- metadata.yaml contains the metadata of the ebook-to-be.
+- The folder "/ebook" contains copy of all articles where metadata ( YAML front-matter) was removed, as well as some Jekyll syntax.
+
+1. skeleton.md contains the structure of the ebook and specified which articles will be imported.
+2. Markdown-pp performs the imports and outputs a file (bundled.md).
+3. Pandoc converts the bundled.md file into a EPUB file, using metadata.yaml for filling the metadata (title, authors,...) of the EPUB. `--toc` creates a table of contents in the document.
+
+More info for the metadata : https://pandoc.org/MANUAL.html#epub-metadata
+
 
 #### Roadmap
 What can be improved : 
-- Add a nice cover image ( in metadata.yaml, I guess)
-- Correct authors (I didn't really know what to put)
-- Generate ebook directly from original articles (the ones in _2020)
+- In metadata.yaml : 
+    - Add a better cover image
+    - Correct authors (I didn't really know what to put)
+- Generate ebook directly from original articles (the ones in _2020). For now, changes in original articles are not transmitted to the ebook.
 
 The process for the ebook was inspired by [this article](https://medium.com/@davidgrophland/making-an-ebook-from-markdown-to-kindle-cf224326b1a2).
 ## License
