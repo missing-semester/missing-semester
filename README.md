@@ -14,7 +14,7 @@ bundle exec jekyll serve -w
 ```
 
 
-### The ebook
+### The ebook 📕
 #### Build the ebook
 ##### Requirements
 Requires the packages Pandoc and MarkdownPP:
