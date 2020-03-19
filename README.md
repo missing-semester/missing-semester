@@ -35,7 +35,7 @@ open the-missing-semester.epub
 
 [Pandoc](https://pandoc.org/) is a tool to convert a markdown file to another format (I used epub here, but you could also make it a PDF)
 
-- The folder "/ebook" contains copy of all articles where metadata ( YAML front-matter) was removed, as well as some Jekyll syntax.
+**The folder "/ebook" contains copy of all articles where metadata (YAML front-matter) was removed, as well as some Jekyll syntax.**
 
 1. skeleton.md contains the structure of the ebook and specified which articles will be imported.
 2. Markdown-pp performs the imports and outputs a file (bundled.md).
