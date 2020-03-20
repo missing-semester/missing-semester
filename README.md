@@ -24,10 +24,10 @@ pip install pandoc MarkdownPP
 ```
 
 ##### Generate the ebook
-Go to folder **ebook** and type
+Go to folder **ebook** and run the bash script **makeBook** :
+ 
 ```
-markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc ;
-open the-missing-semester.epub
+./makeBook
 ```
 #### Explanation
 
@@ -37,6 +37,7 @@ open the-missing-semester.epub
 
 **The folder "/ebook" contains copy of all articles where metadata (YAML front-matter) was removed, as well as some Jekyll syntax.**
 
+What the `makeBook` script does : 
 1. skeleton.md contains the structure of the ebook and specified which articles will be imported.
 2. Markdown-pp performs the imports and outputs a file (bundled.md).
 3. Pandoc converts the bundled.md file into a EPUB file, using metadata.yaml for filling the metadata (title, authors,...) of the EPUB. `--toc` creates a table of contents in the document.

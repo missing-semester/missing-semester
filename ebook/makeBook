@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+echo "Creating ebook..."
+markdown-pp skeleton.md > bundled.md ; pandoc -o the-missing-semester.epub metadata.yaml bundled.md --toc ;
+echo "Done.";
+open the-missing-semester.epub
