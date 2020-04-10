@@ -19,7 +19,7 @@ data loss or inability to complete certain tasks.
 
 These topics are not taught as part of the university curriculum: students are
 never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
+efficiently, and thus waste time and effort on tasks that should be simple.
 The standard CS curriculum is missing critical topics about the computing
 ecosystem that could make students' lives significantly easier.
 
