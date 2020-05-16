@@ -7,8 +7,6 @@ video:
   id: 74MhV-7hYzg
 ---
 
-[Reddit Discussion](https://www.reddit.com/r/hackertools/comments/anidrp/program_introspection_iap_2019/)
-
 # Debugging
 
 When printf-debugging isn't good enough: use a debugger.

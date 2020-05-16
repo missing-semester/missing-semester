@@ -8,10 +8,6 @@ video:
   id: sz_dsktIjt4
 ---
 
-{% comment %}
-[Reddit Discussion](https://www.reddit.com/r/hackertools/comments/anicor/data_wrangling_iap_2019/)
-{% endcomment %}
-
 Have you ever wanted to take data in one format and turn it into a
 different format? Of course you have! That, in very general terms, is
 what this lecture is all about. Specifically, massaging data, whether in

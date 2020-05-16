@@ -8,10 +8,6 @@ video:
   id: Z56Jmr9Z34Q
 ---
 
-{% comment %}
-[Reddit Discussion](https://www.reddit.com/r/hackertools/comments/anic30/course_overview_iap_2019/)
-{% endcomment %}
-
 # Motivation
 
 As computer scientists, we know that computers are great at aiding in

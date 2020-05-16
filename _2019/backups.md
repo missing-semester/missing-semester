@@ -7,8 +7,6 @@ video:
   id: lrpqYF8tcYQ
 ---
 
-[Reddit Discussion](https://www.reddit.com/r/hackertools/comments/anifrx/backups_iap_2019/)
-
 There are two types of people:
 
 - Those who do backups
