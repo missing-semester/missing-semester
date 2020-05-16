@@ -151,11 +151,14 @@ but keep in mind that you're trusting the VPN provider _a lot_. Do you
 really trust them more than your ISP? If you truly want a VPN, use a
 provider you're sure you trust, and you should probably pay for it. Or
 set up [WireGuard](https://www.wireguard.com/) for yourself -- it's
-[excellent](https://latacora.singles/2018/05/16/there-will-be.html)!
+[excellent](https://latacora.micro.blog/there-will-be/)!
 
-There are also secure configuration settings for a lot of
-internet-enabled applications at [cipherli.st](https://cipherli.st/). If
-you're particularly privacy-oriented,
+{% comment %}
+https://raymii.org/s/blog/Cancellation_notice_for_cipherlist_ssldecoder_and_certificatemonitor.html
+cipherli.st and ssldecoder.org are cancelled
+{% endcomment %}
+
+If you're particularly privacy-oriented,
 [privacytools.io](https://privacytools.io) is also a good resource.
 
 Some of you may wonder about [Tor](https://www.torproject.org/). Keep in
@@ -175,8 +178,7 @@ SSL/TLS is
 [critical](https://www.troyhunt.com/ssl-is-not-about-encryption/), and
 it's _not_ just about encryption, but also about being able to verify
 that you're talking to the right service in the first place! If you run
-your own web server, [test it](https://ssldecoder.org/) and [test it
-again](https://www.ssllabs.com/ssltest/index.html). TLS configuration
+your own web server, [test it](https://www.ssllabs.com/ssltest/index.html). TLS configuration
 [can get hairy](https://wiki.mozilla.org/Security/Server_Side_TLS).
 HTTPS Everywhere will do its very best to never navigate you to HTTP
 sites when there's an alternative. That doesn't save you, but it helps.

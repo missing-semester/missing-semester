@@ -21,7 +21,7 @@ to customize your tools, and how to extend your tools.
 
 # Class structure
 
-We have 6 lectures covering a [variety of topics](/schedule/). We have lecture
+We have 6 lectures covering a [variety of topics](/2019/). We have lecture
 notes online, but there will be a lot of content covered in class (e.g. in the
 form of demos) that may not be in the notes. We will be recording lectures.
 

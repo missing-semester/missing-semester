@@ -324,11 +324,10 @@ security concepts, tips
     1. Suppose an attacker can try guessing 10,000 passwords per second. On
        average, how long will it take to break each of the passwords?
 1. **Cryptographic hash functions.** Download a Debian image from a
-   [mirror](https://www.debian.org/CD/http-ftp/) (e.g. [this
-   file](http://debian.xfree.com.ar/debian-cd/10.2.0/amd64/iso-cd/debian-10.2.0-amd64-netinst.iso)
-   from an Argentinean mirror). Cross-check the hash (e.g. using the
-   `sha256sum` command) with the hash retrieved from the official Debian site
-   (e.g. [this
+   [mirror](https://www.debian.org/CD/http-ftp/) (e.g. [from this Argentinean
+   mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/).
+   Cross-check the hash (e.g. using the `sha256sum` command) with the hash
+   retrieved from the official Debian site (e.g. [this
    file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS)
    hosted at `debian.org`, if you've downloaded the linked file from the
    Argentinean mirror).

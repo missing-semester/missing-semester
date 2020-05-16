@@ -42,7 +42,7 @@ The searchbar is a powerful tool too. Most browsers can infer search engines fro
 
 For example you can make so that `y SOME SEARCH TERMS` to directly search in youtube.
 
-Moreover, if you own a domain you can setup subdomain forwards using your registrar. For instance I have mapped [ht.josejg.com](https://ht.josejg.com) to this course website. That way I can just type `ht.` and the searchbar will autocomplete. Another good feature of this setup is that unlike bookmarks they will work in every browser.
+Moreover, if you own a domain you can setup subdomain forwards using your registrar. For instance I have mapped `https://ht.josejg.com` to this course website. That way I can just type `ht.` and the searchbar will autocomplete. Another good feature of this setup is that unlike bookmarks they will work in every browser.
 
 ## Privacy extensions
 
