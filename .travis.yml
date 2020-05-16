@@ -5,4 +5,12 @@ before_script:
   - gem install html-proofer
 script:
   - bundle exec jekyll build
-  - htmlproofer --check-html --check-favicon ./_site
+  - >-
+    htmlproofer ./_site
+    --check-html
+    --check-favicon
+    --check-external-hash
+    --check-img-http
+    --check-opengraph
+    --empty-alt-ignore
+    --url-ignore $(paste -sd ',' < .ci/url_ignore)
