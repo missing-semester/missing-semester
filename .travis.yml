@@ -10,7 +10,6 @@ script:
     --check-html
     --check-favicon
     --check-external-hash
-    --check-img-http
     --check-opengraph
     --empty-alt-ignore
     --url-ignore $(paste -sd ',' < .ci/url_ignore)
