@@ -154,7 +154,7 @@ utilities, examples, and tutorials
 1. Set up a method to install your dotfiles quickly (and without manual effort)
    on a new machine. This can be as simple as a shell script that calls `ln -s`
    for each file, or you could use a [specialized
-   utility](http://dotfiles.github.io/#general-purpose-dotfile-utilities).
+   utility](http://dotfiles.github.io/utilities/).
 
 1. Test your installation script on a fresh virtual machine.
 

@@ -35,7 +35,7 @@ The editor learning curves graph is a myth. Learning the basics of a powerful
 editor is quite easy (even though it might take years to master).
 
 Which editors are popular today? See this [Stack Overflow
-survey](https://insights.stackoverflow.com/survey/2018/#technology-most-popular-development-environments)
+survey](https://insights.stackoverflow.com/survey/2018/#development-environments-and-tools)
 (there may be some bias because Stack Overflow users may not be representative
 of programmers as a whole).
 
