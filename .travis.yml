@@ -1,0 +1,8 @@
+language: ruby
+before_install:
+  - gem update --system # necessary, see https://bundler.io/blog/2019/05/14/solutions-for-cant-find-gem-bundler-with-executable-bundle.html
+before_script:
+  - gem install html-proofer
+script:
+  - bundle exec jekyll build
+  - htmlproofer --check-html --check-favicon ./_site
