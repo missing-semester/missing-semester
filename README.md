@@ -1,4 +1,4 @@
-# The Missing Semester of Your CS Education
+# The Missing Semester of Your CS Education [[![Build Status](https://travis-ci.com/missing-semester/missing-semester.svg?branch=master)](https://travis-ci.com/missing-semester/missing-semester)]
 
 Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
 
