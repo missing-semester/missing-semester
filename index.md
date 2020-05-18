@@ -67,6 +67,17 @@ benefit from these resources. You can find posts and discussion on
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
+# Translations
+
+- [Chinese: missing-semester-cn.github.io](https://missing-semester-cn.github.io/)
+
+Note: these are external links to community translations. We have not vetted
+them.
+
+Have you created a translation of the course notes from this class? Submit a
+[pull request](https://github.com/missing-semester/missing-semester/pulls) so
+we can add it to the list!
+
 ## Acknowledgements
 
 We thank Elaine Mello, Jim Cain, and [MIT Open
