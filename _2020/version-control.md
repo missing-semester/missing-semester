@@ -483,14 +483,14 @@ command is used for merging.
 
 # Miscellaneous
 
-- **GUIs**: There are many [GUI clients](https://git-scm.com/downloads/guis)
+- **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
 out there for Git. We personally don't use them and use the command-line
 interface instead.
-- **Shell integration**: It's super handy to have a Git status as part of your
+- **Shell integration**: it's super handy to have a Git status as part of your
 shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
 [bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
 frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: Similarly to the above, handy integrations with many
+- **Editor integration**: similarly to the above, handy integrations with many
 features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
 one for Vim.
 - **Workflows**: we taught you the data model, plus some basic commands; we
