@@ -6,7 +6,7 @@ before_script:
 script:
   - bundle exec jekyll build
   - >-
-    htmlproofer ./_site
+    travis_retry htmlproofer ./_site
     --check-html
     --check-favicon
     --check-external-hash
