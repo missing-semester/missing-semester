@@ -229,7 +229,7 @@ dependency. Usually, you need to explicitly run an update program to
 upgrade to newer versions of your dependencies. There are many reasons
 for this, such as avoiding unnecessary recompiles, having reproducible
 builds, or not automatically updating to the latest version (which may
-be broken). And extreme version of this kind of dependency locking is
+be broken). An extreme version of this kind of dependency locking is
 _vendoring_, which is where you copy all the code of your dependencies
 into your own project. That gives you total control over any changes to
 it, and lets you introduce your own changes to it, but also means you
