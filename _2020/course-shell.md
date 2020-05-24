@@ -26,7 +26,7 @@ We want to teach you how to make the most of the tools you know, show
 you new tools to add to your toolbox, and hopefully instill in you some
 excitement for exploring (and perhaps building) more tools on your own.
 This is what we believe to be the missing semester from most Computer
-Science curriculum.
+Science curricula.
 
 # Class structure
 
