@@ -156,7 +156,7 @@ for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
 
-The shell knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
+The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
 It is good practice to write shebang lines using the [`env`](http://man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
 For this example the shebang line would look like `#!/usr/bin/env python`.
 
