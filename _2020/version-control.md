@@ -425,6 +425,7 @@ index 94bab17..f0013b2 100644
 - `git add <filename>`: adds files to staging area
 - `git commit`: creates a new commit
     - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
+    - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
 - `git log`: shows a flattened log of history
 - `git log --all --graph --decorate`: visualizes history as a DAG
 - `git diff <filename>`: show differences since the last commit
