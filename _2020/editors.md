@@ -82,22 +82,22 @@ of text. For this reason, Vim has multiple operating modes.
 - **Normal**: for moving around a file and making edits
 - **Insert**: for inserting text
 - **Replace**: for replacing text
-- **Visual** (plain, line, or block) mode: for selecting blocks of text
+- **Visual** (plain, line, or block): for selecting blocks of text
 - **Command-line**: for running a command
 
 Keystrokes have different meanings in different operating modes. For example,
-the letter `x` in insert mode will just insert a literal character 'x', but in
-normal mode, it will delete the character under the cursor, and in visual mode,
+the letter `x` in Insert mode will just insert a literal character 'x', but in
+Normal mode, it will delete the character under the cursor, and in Visual mode,
 it will delete the selection.
 
 In its default configuration, Vim shows the current mode in the bottom left.
-The initial/default mode is normal mode. You'll generally spend most of your
-time between normal mode and insert mode.
+The initial/default mode is Normal mode. You'll generally spend most of your
+time between Normal mode and Insert mode.
 
 You change modes by pressing `<ESC>` (the escape key) to switch from any mode
-back to normal mode. From normal mode, enter insert mode with `i`, replace mode
-with `R`, visual mode with `v`, visual line mode with `V`, visual block mode
-with `<C-v>` (Ctrl-V, sometimes also written `^V`), and command-line mode with
+back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode
+with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode
+with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with
 `:`.
 
 You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to
@@ -108,11 +108,11 @@ instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
 
 ## Inserting text
 
-From normal mode, press `i` to enter insert mode. Now, Vim behaves like any
-other text editor, until you press `<ESC>` to return to normal mode. This,
+From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any
+other text editor, until you press `<ESC>` to return to Normal mode. This,
 along with the basics explained above, are all you need to start editing files
 using Vim (though not particularly efficiently, if you're spending all your
-time editing from insert mode).
+time editing from Insert mode).
 
 ## Buffers, tabs, and windows
 
@@ -128,7 +128,7 @@ By default, Vim opens with a single tab, which contains a single window.
 
 ## Command-line
 
-Command mode can be entered by typing `:` in normal mode. Your cursor will jump
+Command mode can be entered by typing `:` in Normal mode. Your cursor will jump
 to the command line at the bottom of the screen upon pressing `:`. This mode
 has many functionalities, including opening, saving, and closing files, and
 [quitting Vim](https://twitter.com/iamdevloper/status/435555976687923200).
@@ -151,7 +151,7 @@ commands become muscle memory.
 
 ## Movement
 
-You should spend most of your time in normal mode, using movement commands to
+You should spend most of your time in Normal mode, using movement commands to
 navigate the buffer. Movements in Vim are also called "nouns", because they
 refer to chunks of text.
 
@@ -185,7 +185,7 @@ using editing commands that compose with movement commands. Here's where Vim's
 interface starts to look like a programming language. Vim's editing commands
 are also called "verbs", because verbs act on nouns.
 
-- `i` enter insert mode
+- `i` enter Insert mode
     - but for manipulating/deleting text, want to use something more than
     backspace
 - `o` / `O` insert line below / above
@@ -197,7 +197,7 @@ are also called "verbs", because verbs act on nouns.
     - like `d{motion}` followed by `i`
 - `x` delete character (equal do `dl`)
 - `s` substitute character (equal to `xi`)
-- visual mode + manipulation
+- Visual mode + manipulation
     - select text, `d` to delete it or `c` to change it
 - `u` to undo, `<C-r>` to redo
 - `y` to copy / "yank" (some other commands like `d` also copy)
@@ -353,7 +353,7 @@ With this setting, for example, the Python REPL will support Vim bindings.
 ## Others
 
 There are even vim keybinding extensions for web
-[browsers](http://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers), some
+[browsers](http://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers) - some
 popular ones are
 [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)
 for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for
@@ -417,7 +417,7 @@ better way of doing this", there probably is: look it up online.
 
 # Resources
 
-- `vimtutor` is a tutorial that comes installed with Vim
+- `vimtutor` is a tutorial that comes installed with Vim - if Vim is installed, you should be able to run `vimtutor` from your shell
 - [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
 - [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
 - [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
