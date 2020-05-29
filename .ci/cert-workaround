@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+mkdir -p /usr/local/share/ca-certificates/extra
+cd /usr/local/share/ca-certificates/extra
+
+# Manually get intermediate CA certificates to deal with websites that don't
+# serve a full certificate chain. These are misconfigured websites, but we want
+# to be able to handle them anyways.
+wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt -O lets-encrypt-x3-cross-signed.crt
+wget https://spaces.at.internet2.edu/download/attachments/24576265/InCommonRSAServerCA_2.crt
+
+update-ca-certificates
