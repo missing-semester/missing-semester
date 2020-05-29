@@ -110,7 +110,7 @@ done
 ```
 
 In the comparison we tested whether `$?` was not equal to 0.
-Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](http://man7.org/linux/man-pages/man1/test.1.html).
+Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
 When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
 
 When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
@@ -157,13 +157,13 @@ for arg in reversed(sys.argv[1:]):
 ```
 
 The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
-It is good practice to write shebang lines using the [`env`](http://man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
+It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
 For this example the shebang line would look like `#!/usr/bin/env python`.
 
 Some differences between shell functions and scripts that you should keep in mind are:
 - Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
 - Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](http://man7.org/linux/man-pages/man1/export.1p.html)
+- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
 - As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
 
 # Shell Tools
@@ -175,7 +175,7 @@ More generally, given a command, how do you go about finding out what it does an
 You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
 
 As we saw in the shell lecture, the first-order approach is to call said command with the `-h` or `--help` flags. A more detailed approach is to use the `man` command.
-Short for manual, [`man`](http://man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
+Short for manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
 For example, `man rm` will output the behavior of the `rm` command along with the flags that it takes, including the `-i` flag we showed earlier.
 In fact, what I have been linking so far for every command is the online version of the Linux manpages for the commands.
 Even non-native commands that you install will have manpage entries if the developer wrote them and included them as part of the installation process.
@@ -189,7 +189,7 @@ For instance, I find myself referring back to the tldr pages for [`tar`](https:/
 ## Finding files
 
 One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](http://man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
 
 ```bash
 # Find all directories named src
@@ -219,9 +219,9 @@ It offers some nice defaults like colorized output, default regex matching, and 
 For example, the syntax to find a pattern `PATTERN` is `fd PATTERN`.
 
 Most would agree that `find` and `fd` are good, but some of you might be wondering about the efficiency of looking for files every time versus compiling some sort of index or database for quickly searching.
-That is what [`locate`](http://man7.org/linux/man-pages/man1/locate.1.html) is for.
-`locate` uses a database that is updated using [`updatedb`](http://man7.org/linux/man-pages/man1/updatedb.1.html).
-In most systems, `updatedb` is updated daily via [`cron`](http://man7.org/linux/man-pages/man8/cron.8.html).
+That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) is for.
+`locate` uses a database that is updated using [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
+In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
 Therefore one trade-off between the two is speed vs freshness.
 Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
 A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
@@ -230,7 +230,7 @@ A more in-depth comparison can be found [here](https://unix.stackexchange.com/qu
 
 Finding files by name is useful, but quite often you want to search based on file *content*. 
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
-To achieve this, most UNIX-like systems provide [`grep`](http://man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
+To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
 `grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
 
 For now, know that `grep` has many flags that make it a very versatile tool.
@@ -283,7 +283,7 @@ If you make the mistake of not adding the leading space, you can always manually
 ## Directory Navigation
 
 So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
-There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](http://man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
+There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
 
 As with the theme of this course, you often want to optimize for the common case.
 Finding frequent and/or recent files and directories can be done through tools like [`fasd`](https://github.com/clvv/fasd) and [`autojump`](https://github.com/wting/autojump).
@@ -294,7 +294,7 @@ More complex tools exist to quickly get an overview of a directory structure [`t
 
 # Exercises
 
-1. Read [`man ls`](http://man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
+1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
 
     - Includes all files, including hidden files
     - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
@@ -365,7 +365,7 @@ cat out.txt
 However, what if we want to do something with **all** the files, like creating a zip file?
 As you have seen so far commands will take input from both arguments and STDIN.
 When piping commands, we are connecting STDOUT to STDIN, but some commands like `tar` take inputs from arguments.
-To bridge this disconnect there's the [`xargs`](http://man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
+To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
 For example `ls | xargs rm` will delete the files in the current directory.
 
     Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`)
