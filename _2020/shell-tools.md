@@ -82,6 +82,7 @@ false && echo "Will not be printed"
 false ; echo "This will always run"
 # This will always run
 ```
+When running a command with the OR conditional ||, if the first statement evaluates to true, there is no reason for the next statement to execute as the conditional has already been met. This is mirrored with the AND conditional && that starts with false.
 
 Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
 Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
