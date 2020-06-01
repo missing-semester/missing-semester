@@ -62,7 +62,7 @@ Commands will often return output using `STDOUT`, errors through `STDERR`, and a
 The return code or exit status is the way scripts/commands have to communicate how execution went.
 A value of 0 usually means everything went OK; anything different from 0 means an error occurred.
 
-Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator). Commands can also be separated within the same line using a semicolon `;`.
+Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator), both of which are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators. Commands can also be separated within the same line using a semicolon `;`.
 The `true` program will always have a 0 return code and the `false` command will always have a 1 return code.
 Let's see some examples
 
@@ -78,6 +78,9 @@ true && echo "Things went well"
 
 false && echo "Will not be printed"
 #
+
+true ; echo "This will always run"
+# This will always run
 
 false ; echo "This will always run"
 # This will always run
