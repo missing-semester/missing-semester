@@ -130,7 +130,7 @@ It may be instructive to see Git's data model written down in pseudocode:
 type blob = array<byte>
 
 // a directory contains named files and directories
-type tree = map<string, tree | file>
+type tree = map<string, tree | blob>
 
 // a commit has parents, metadata, and the top-level tree
 type commit = struct {
