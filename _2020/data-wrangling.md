@@ -259,7 +259,7 @@ ssh myserver journalctl
 ```
 
 Let's start with `paste`: it lets you combine lines (`-s`) separated by a given
-single-character delimiter (`-d`), in this case `,`. But what's this `awk` business?
+single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
 
 ## awk -- another editor
 
