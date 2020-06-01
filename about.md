@@ -95,7 +95,7 @@ In the example below we use `tmux` to keep sessions alive in remote servers and 
 
 ## Finding files
 
-How to quickly find files that you are looking for.  No
+How to quickly find files that you are looking for. No
 more clicking through files in your project until you find the one
 that has the code you want.
 
