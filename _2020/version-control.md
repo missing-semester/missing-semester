@@ -8,8 +8,8 @@ video:
   id: 2sjqTHE0zok
 ---
 
-Version control systems (VCSs) are tools used to track changes to source code
-(or other collections of files and folders). As the name implies, these tools
+Version Control Systems (VCSs) are tools used to track changes to source code
+(or other collections of files and folders). As its name implies, these tools
 help maintain a history of changes; furthermore, they facilitate collaboration.
 VCSs track changes to a folder and its contents in a series of snapshots, where
 each snapshot encapsulates the entire state of files/folders within a top-level
