@@ -1,4 +1,6 @@
 language: ruby
+os: bionic
+
 before_install:
   - gem update --system # necessary, see https://bundler.io/blog/2019/05/14/solutions-for-cant-find-gem-bundler-with-executable-bundle.html
   - sudo .ci/cert-workaround

@@ -9,4 +9,7 @@ cd /usr/local/share/ca-certificates/extra
 wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt -O lets-encrypt-x3-cross-signed.crt
 wget https://spaces.at.internet2.edu/download/attachments/24576265/InCommonRSAServerCA_2.crt
 
+# Remove expired root certificates to work around OpenSSL 1.0.x issue.
+sed -i 's/^\(mozilla\/AddTrust_External_Root.crt\)$/!\1/' /etc/ca-certificates.conf
+
 update-ca-certificates
