@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Hiç almadığınız Bilgisayar Bilimleri Döneminiz
+title: Hiç Anlatılmamış Bilgisayar Bilimleri Döneminiz
 ---
 
-Dersler, işletim sistemlerinden makine öğrenmesine kadar bilgisyar bilimlerideki ileri düzey konular hakkında her şeyi size öğretir, ancak nadiren ele alınan ve daha çok öğrencilere kendi başlarına anlamaları için bırakılan kritik bir konu vardır ki bu konu: **elimizdeki araçlara hakimiyettir**. Biz size komut satırında nasıl ustalaşacağınızı, güçlü bir metin düzenleyiciyi nasıl kullanacağınızı, versiyon kontrol sistemlerinin süslü özelliklerini nasıl kullanacağınızı ve çok daha fazlasını öğreteceğiz!
+Dersler, işletim sistemlerinden makine öğrenmesine kadar bilgisayar bilimlerindeki ileri düzey konular hakkında her şeyi size öğretir, ancak nadiren ele alınan ve daha çok öğrencilere kendi başlarına anlamaları için bırakılan kritik bir konu vardır ki bu konu: **elimizdeki araçlara hakimiyettir**. Biz size komut satırında nasıl ustalaşacağınızı, güçlü bir metin düzenleyiciyi nasıl kullanacağınızı, versiyon kontrol sistemlerinin havalı özelliklerini nasıl kullanacağınızı ve çok daha fazlasını öğreteceğiz!
 
-Öğrenciler eğitim hayatları boyunca bu araçları kullanarak yüzlerce saat geçirirler(ve kariyerleri boyunca da binlerce saat)Bu nedenle bu deneyimi olabildiğine akıcı ve partik hale getirmek son derece mantıklıdır. Bu araçlara hakim olmak, elinizdeki aletleri doğru yerde ve doğru şekilde nasıl kullanacağınızı anlamak için tek başınıza sarf edeceğiniz süreyi kısaltmak ile kalmaz, aynı zamanda daha önce imkansız derecede karmaşık görünen sorunları çözmenize de olanak tanır.
+Öğrenciler eğitim hayatları boyunca bu araçları kullanarak yüzlerce saat geçirirler(ve kariyerleri boyunca da binlerce saat)Bu nedenle bu deneyimi olabildiğine akıcı ve pratik hale getirmek son derece mantıklıdır. Bu araçlara hakim olmak, elinizdeki aletleri doğru yerde ve doğru şekilde nasıl kullanacağınızı anlamak için sarf edeceğiniz süreyi kısaltmak ile kalmaz, aynı zamanda daha önce imkansız derecede karmaşık görünen sorunları çözmenize de olanak tanır.
 
-Bu sınıfın arkasındakı [motivasyonu oku](/about/).
+Bu derslerin arkasındaki [motivasyonu oku](/about/).
 
 {% comment %}
 # Registration
@@ -42,10 +42,10 @@ Derslerin video kayıtları [Youtube'da](https://www.youtube.com/playlist?list=P
 
 # Sınıf Hakkında
 
-**Staff**:  Dersler [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), ve [Jose](http://josejg.com/) tarafından verildi.  
-**Questions**: Bize e-posta gönderin [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Kadro**:  Dersler [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), ve [Jose](http://josejg.com/) tarafından verildi.  
+**Sorular**: Bize e-posta gönderin [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-# Beyond MIT
+# MIT Haricinde
 
 Ayrıca başkalarının da bu kaynaklardan yararlanması ümidiyle bu dersleri MIT dışına da paylaştık. İlgili yayınları ve tartışmaları aşağıdan bulabilirsiniz.
 
