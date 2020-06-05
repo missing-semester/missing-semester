@@ -1,22 +1,13 @@
 ---
 layout: page
-title: The Missing Semester of Your CS Education
+title: Hiç almadığınız Bilgisayar Bilimleri Döneminiz
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there’s one critical subject that’s rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We’ll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
+Dersler, işletim sistemlerinden makine öğrenmesine kadar bilgisyar bilimlerideki ileri düzey konular hakkında her şeyi size öğretir, ancak nadiren ele alınan ve daha çok öğrencilere kendi başlarına anlamaları için bırakılan kritik bir konu vardır ki bu konu: **elimizdeki araçlara hakimiyettir**. Biz size komut satırında nasıl ustalaşacağınızı, güçlü bir metin düzenleyiciyi nasıl kullanacağınızı, versiyon kontrol sistemlerinin süslü özelliklerini nasıl kullanacağınızı ve çok daha fazlasını öğreteceğiz!
 
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
+Öğrenciler eğitim hayatları boyunca bu araçları kullanarak yüzlerce saat geçirirler(ve kariyerleri boyunca da binlerce saat)Bu nedenle bu deneyimi olabildiğine akıcı ve partik hale getirmek son derece mantıklıdır. Bu araçlara hakim olmak, elinizdeki aletleri doğru yerde ve doğru şekilde nasıl kullanacağınızı anlamak için tek başınıza sarf edeceğiniz süreyi kısaltmak ile kalmaz, aynı zamanda daha önce imkansız derecede karmaşık görünen sorunları çözmenize de olanak tanır.
 
-Read about the [motivation behind this class](/about/).
+Bu sınıfın arkasındakı [motivasyonu oku](/about/).
 
 {% comment %}
 # Registration
@@ -24,7 +15,7 @@ Read about the [motivation behind this class](/about/).
 Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
 {% endcomment %}
 
-# Schedule
+# Ders Programı
 
 {% comment %}
 **Lecture**: 35-225, 2pm--3pm<br>
@@ -47,18 +38,16 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on
-YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+Derslerin video kayıtları [Youtube'da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) mevcut.
 
-# About the class
+# Sınıf Hakkında
 
-**Staff**: This class is co-taught by [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/).
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Staff**:  Dersler [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), ve [Jose](http://josejg.com/) tarafından verildi.  
+**Questions**: Bize e-posta gönderin [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Beyond MIT
 
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+Ayrıca başkalarının da bu kaynaklardan yararlanması ümidiyle bu dersleri MIT dışına da paylaştık. İlgili yayınları ve tartışmaları aşağıdan bulabilirsiniz.
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -67,29 +56,24 @@ benefit from these resources. You can find posts and discussion on
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Translations
+# Çeviriler
 
+- [Turkish: missing-semester-tr](#)
 - [Chinese: missing-semester-cn.github.io](https://missing-semester-cn.github.io/)
+  
 
-Note: these are external links to community translations. We have not vetted
-them.
+*Not: Bunlar topluluk çevirileri dışında bağlantılardır. Bunları henüz incelemedik.*
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+Bu sınıfın ders notlarının bir çevirisini oluşturdun mu? [Pull request](https://github.com/missing-semester/missing-semester/pulls) gönder ve çevirini listeye ekleyelim!
 
-## Acknowledgements
+## Teşekkür
 
-We thank Elaine Mello, Jim Cain, and [MIT Open
-Learning](https://openlearning.mit.edu/) for making it possible for us to
-record lecture videos; Anthony Zolnik and [MIT
-AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and
-[MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+Elaine Mello, Jim Cain, ve [MIT OpenLearning](https://openlearning.mit.edu/)'a ders videolarını kaydetmemizi mümkün kıldığı için; Anthony Zolnik ve [MITAeroAstro](https://aeroastro.mit.edu/)'ya A/V ekipmanları için; ve Brandi Adams'a ve [MIT EECS](https://www.eecs.mit.edu/)'e  bu sınıfı destekledikleri için teşekkür ederiz.
 
 ---
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester">Source code</a>.</p>
-<p>Licensed under CC BY-NC-SA.</p>
-<p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
+<p><a href="https://github.com/missing-semester/missing-semester">Kaynak kodu</a>.</p>
+<p>CC BY-NC-SA lisansı altında.</p>
+<p>Katkı yapmak &amp;  çeviri rehberine ulaşmak için <a href="/license/">buraya bak</a>.</p>
 </div>
