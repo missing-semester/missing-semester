@@ -58,7 +58,7 @@ Ayrıca başkalarının da bu kaynaklardan yararlanması ümidiyle bu dersleri M
 
 # Çeviriler
 
-- [Turkish: missing-semester-tr](#)
+- [Turkish: missing-semester-tr.github.io](https://missing-semester-tr.github.io/)
 - [Chinese: missing-semester-cn.github.io](https://missing-semester-cn.github.io/)
   
 
