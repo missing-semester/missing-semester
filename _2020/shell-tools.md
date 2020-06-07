@@ -101,8 +101,8 @@ echo "Starting program at $(date)" # Date will be substituted
 
 echo "Running program $0 with $# arguments with pid $$"
 
-for file in $@; do
-    grep foobar $file > /dev/null 2> /dev/null
+for file in "$@"; do
+    grep foobar "$file" > /dev/null 2> /dev/null
     # When pattern is not found, grep has exit status 1
     # We redirect STDOUT and STDERR to a null register since we do not care about them
     if [[ $? -ne 0 ]]; then
@@ -198,7 +198,7 @@ All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man
 # Find all directories named src
 find . -name src -type d
 # Find all python files that have a folder named test in their path
-find . -path '**/test/**/*.py' -type f
+find . -path '*/test/*/*.py' -type f
 # Find all files modified in the last day
 find . -mtime -1
 # Find all zip files with size in range 500k to 10M
@@ -210,7 +210,7 @@ This property can be incredibly helpful to simplify what could be fairly monoton
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {.}.jpg \;
+find . -name '*.png' -exec convert {} {}.jpg \;
 ```
 
 Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
@@ -260,7 +260,7 @@ Note that as with `find`/`fd`, it is important that you know that these problems
 ## Finding shell commands
 
 So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
-The first thing to know is that the typing up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
+The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
 
 The `history` command will let you access your shell history programmatically.
 It will print your shell history to the standard output.
@@ -273,7 +273,7 @@ As you keep pressing it, you will cycle through the matches in your history.
 This can also be enabled with the UP/DOWN arrows in [zsh](https://github.com/zsh-users/zsh-history-substring-search).
 A nice addition on top of `Ctrl+R` comes with using [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
 `fzf` is a general-purpose fuzzy finder that can be used with many commands.
-Here is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
+Here it is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
 
 Another cool history-related trick I really enjoy is **history-based autosuggestions**.
 First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
@@ -293,7 +293,7 @@ Finding frequent and/or recent files and directories can be done through tools l
 Fasd ranks files and directories by [_frecency_](https://developer.mozilla.org/en/The_Places_frecency_algorithm), that is, by both _frequency_ and _recency_.
 By default, `fasd` adds a `z` command that you can use to quickly `cd` using a substring of a _frecent_ directory. For example, if you often go to `/home/user/files/cool_project` you can simply use `z cool` to jump there. Using autojump, this same change of directory could be accomplished using `j cool`.
 
-More complex tools exist to quickly get an overview of a directory structure [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger)
+More complex tools exist to quickly get an overview of a directory structure: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger).
 
 # Exercises
 
