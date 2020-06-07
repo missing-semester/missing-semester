@@ -58,6 +58,7 @@ Ayrıca başkalarının da bu kaynaklardan yararlanması ümidiyle bu dersleri M
 
 # Çeviriler
 
+- [İngilizce: Orjinal Kaynak, missing.csail.mit.edu](https://missing.csail.mit.edu/)
 - [Turkish: missing-semester-tr.github.io](https://missing-semester-tr.github.io/)
 - [Chinese: missing-semester-cn.github.io](https://missing-semester-cn.github.io/)
   
