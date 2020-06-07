@@ -1,141 +1,106 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Bu dersleri niye veriyoruz"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+Geleneksel Bilgisayar Bilimi eğitimi sırasında, İşletim Sistemleri, Programlama Dilleri 
+ve Makine Öğrenmesi gibi bir çok gelişmiş konuyu öğreten çok sayıda ders alacaksınız.
+Ancak birçok kurumda nadiren kapsanan ve bunun yerine öğrencilerin kendi başlarına 
+başa çıkmaları gereken bir konu vardır. **computing ecosystem literacy.**
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+Yıllar içinde, MIT'de birkaç dersin öğretilmesine yardımcı olduk ve defalarca birçok öğrencinin kullanabileceği araçlar hakkında sınırlı bilgiye sahip olduğunu gördük. Bilgisayarlar manuel görevleri otomatikleştirmek için oluşturulmuştur, ancak öğrenciler genellikle tekrarlayan görevleri elle gerçekleştirir ya da sürüm kontrolü ve metin editörleri gibi güçlü araçlardan tam olarak yararlanamazlar. Bu durum; verimsizliklere ve zaman kaybına neden olduğu gibi veri kaybı veya belirli görevleri tamamlayamama gibi sorunlara da yol açar.
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+Bu konular üniversite müfredatının bir parçası olarak öğretilmez: öğrencilere asla bu araçların nasıl kullanılacağı veya en azından bunların nasıl verimli bir şekilde kullanılacağı gösterilmez ve böylece basit olması gereken görevler için bile zaman ve çaba harcanır. Standart Bilgisayar Bilimleri müfredatında bilgisayar ekosistemi ile ilgili olarak öğrencilerin hayatlarını önemli ölçüde kolaylaştırabilecek kritik konular eksiktir.
 
-# The missing semester of your CS education
+# Hiç Anlatılmamış Bilgisayar Bilimleri Döneminiz
 
-To help remedy this, we are running a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The class is being run during MIT's "Independent
-Activities Period" in January 2020 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to MIT
-students, we will provide all lecture materials along with video recordings of
-lectures to the public.
+Bu duruma çare olmak amacı ile; etkili bir bilgisayar bilimcisi ve programcısı olmak için gereken tüm başlıkları kapsayan bir müfredat yürütüyoruz. Bu müfredat eğitici ve pratiktir ve karşılaşabileceğiniz çeşitli durumlarda hemen uygulayabileceğiniz araçlara ve tekniklere uygulamalı bir giriş sağlar. Bu ders, MIT'nin Ocak 2020'deki "Bağımsız Faaliyetler Dönemi" sırasında  öğrenci tarafından yürütülen daha kısa sınıflar içeren bir aylık bir dönem boyunca yürütülmektedir. Dersler sadece MIT öğrencilerine açık olsa da, tüm ders materyallerini ve derslerin video kayıtlarını halka sunacağız.
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+Bu sizin için uygun gibi görünüyorsa, sınıfın ne öğreteceğine dair bazı somut örnekler:
 
 ## Command shell
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+Alias'lar(takma adlar), script'ler ve derleme sistemleri ile ortak ve tekrarlanan görevleri nasıl otomatikleştiririz?
+Artık bir metin belgesinden kopyala-yapıştır komut kullanmak yok!
+Artık 15 komutu arka arkaya çalıştırmak yok!
+Artık "şunu çalıştırmayı unutmuşsun!" ya da "Şu parametreyi atlamışsın!" gibi hatalar görmek yok!
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+Örneğin, geçmişinizde hızlı bir şekilde arama yapmak büyük bir zaman tasarrufu olabilir. Aşağıdaki örnekte, `convert` komutları için shell geçmişinizde gezinmeyle ilgili birkaç püf noktası gösteriyoruz.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Versiyon Kontrolü
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Versiyon kontrol sistemlerini doğru bir şekilde nasıl kullanabiliriz ve sizi bir felaketten kurtarmak için bundan nasıl yararlanabilirsiniz? Başkalarıyla işbirliği yapın ve sorunlu değişiklikleri hızla bulun ve izole edin. Artık `rm -rf; git clone` yok! Artık `merge conflict`'ler yok!(en azından daha az) Artık devası yorum satırları yok! Artık kodunuzun çalışmasına neyin engel olduğunu nasıl bulacağınız konusunda endişelenmenize gerek yok! Artık "Hayırr! Çalışan kodu mu sildim!" demek yok! Hatta size diğer insanların projelerine pull request atarak nasıl katkı sağlayacağınızı bile öğreteceğiz!
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+Aşağıdaki örnekte, bir birim testini(unit test) hangi commit'in bozduğunu bulmak için `git bisect`'i kullanıyoruz ve daha sonra bunu `git revert` ile düzeltiyoruz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Metin düzenleme
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Dosyaları hem yerel olarak hem de uzaktan komut satırında nasıl etkili şekilde düzenlersiniz? 
+No more copying files back and forth.
+Artık habire  dosyaları kopyalamakla uğraşmayacaksınız.
+Artık kendini tekrarlayan dosya düzenlemeleri yok
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Vim makroları en iyi özelliklerinden biridir, aşağıdaki örnekte, bir html tablosunu iç içe bir vim makrosu kullanarak hızlı bir şekilde csv formatına dönüştürüyoruz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Uzak makineler
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+SSH anahtarları ve terminal multiplexing kullanark uzak makinelerle çalışırken nasıl aklımız başımızda kalır?
+Artık bir kerede iki komutu çalıştırmak için birçok terminali açık tutmaya gerek yok.
+Artık her bağlandığınızda prolanızı yazmanıza gerek yok.
+Artık internet bağlantınız kesildiğinden veya dizüstü bilgisayarınızı yeniden başlattığınızdan her şeyi kaybetmenize gerek yok.
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
+Aşağıdaki örnekte, oturumları uzak sunucularda canlı tutmak için "tmux" ve ağ dolaşımını ve bağlantıyı kesmek için "mosh" kullanıyoruz.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Dosyaları bulmak
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+Aradığınız dosyaları nasıl hızlı şekilde bulursunuz?
+Artık aradığınız kod parçasını bulmak için projenizdeki tüm dosyalara tıklamanıza gerek yok.
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
-
+Aşağıdaki örnekte hızlı bir şekilde `fd` içeren dosyaları ve `rg` içeren kod parçacıklarını ararız. Ayrıca `fasd` kullanarak hızlı bir şekilde  cd've vim'de en son/sıklıkla kullanılan dosya/klasörleri görebiliriz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Veri düzenleme
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Verileri ve dosyaları doğrudan komut satırından hızlı ve kolay bir şekilde nasıl değiştirebilir, görüntüleyebilir, ayrıştırabilir, çizebilir ve hesaplayabilirsiniz?
+Artık 'log' dosyalarından kopya yapıştırmaya gerek yok.
+Artık veriler üzerinden elle hesap yapmaya gerek yok.
+Artık elle tablolar çizmek yok.
 
-## Virtual machines
+## Sanal makineler
 
-How to use virtual machines to try out new operating systems, isolate
-unrelated projects, and keep your main machine clean and tidy. No
-more accidentally corrupting your computer while doing a security
-lab. No more millions of randomly installed packages with differing
-versions.
+Yeni işletim sistemlerini denemek, ilgisiz projeleri izole etmek ve ana makinenizi temiz ve düzenli tutmak için sanal makineleri nasıl kullanabilirsiniz?
+Artık bir security lab yaparken bilgisayarınızı yanlışlıkla bozmayacaksınız.
+Farklı versiyonlara sahip milyonlarca rastgele kurulmuş paket yok.
 
-## Security
+## Güvenlik
 
-How to be on the Internet without immediately revealing all of your
-secrets to the world. No more coming up with passwords that match the
-insane criteria yourself. No more unsecured, open WiFi networks. No
-more unencrypted messaging.
+Tüm sırlarınızı dünyaya açmadan internette nasıl var olabilirsiniz?
+Artık kendi başınıza çılgın kriterlere uyması gereken parolalar bulmaya son.
+Artık güvenli olmayan, açık WiFi ağları yok.
+Artık şifrelenmemiş mesajlaşmalar yok.
 
-# Conclusion
+# Sonuç
 
-This, and more, will be covered across the 12 class lectures, each including an
-exercise for you to get more familiar with the tools on your own. If you can't
-wait for January, you can also take a look at the lectures from [Hacker
-Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
-year. It is the precursor to this class, and covers many of the same topics.
+Bu ve daha fazlası, her bir araça daha fazla aşina olmanız için egzersizle birlikte 12 bölüm halinde ele alınacaktır.
+Ocak ayı için sabırsızlanıyorsanız, geçen yıl IAP boyunca yürüttüğümüz[Hacker Tools](https://hacker-tools.github.io/lectures) derslerine de göz atabilirsiniz. Aynı konuların çoğunu kapsar.
 
-We hope to see you in January, whether virtually or in person!
+Ocak ayında görüşmek dileğiyle.
 
-Happy hacking,<br>
-Anish, Jose, and Jon
+İyi hacklemeler,<br>
+Anish, Jose, ve Jon
