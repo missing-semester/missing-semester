@@ -74,6 +74,6 @@ Elaine Mello, Jim Cain, ve [MIT OpenLearning](https://openlearning.mit.edu/)'a d
 
 <div class="small center">
 <p><a href="https://github.com/missing-semester/missing-semester">Kaynak kodu</a>.</p>
-<p>CC BY-NC-SA lisansı altında.</p>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a> lisansı ile lisanslanmıştır.</p>
 <p>Katkı yapmak &amp;  çeviri rehberine ulaşmak için <a href="/license/">buraya bak</a>.</p>
 </div>
