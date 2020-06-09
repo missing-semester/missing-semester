@@ -74,7 +74,6 @@ benefit from these resources. You can find posts and discussion on
 - [Korean: missing-semester-kr.github.io](https://missing-semester-kr.github.io/)
 - [Turkish: missing-semester-tr.github.io](https://missing-semester-tr.github.io/)
 
-
 Note: these are external links to community translations. We have not vetted
 them.
 
