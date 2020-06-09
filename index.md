@@ -69,10 +69,10 @@ benefit from these resources. You can find posts and discussion on
 
 # Translations
 
-- [Chinese (Simplified): missing-semester-cn.github.io](https://missing-semester-cn.github.io/)
-- [Chinese (Traditional): missing-semester-zh-hant.github.io](https://missing-semester-zh-hant.github.io/)
-- [Korean: missing-semester-kr.github.io](https://missing-semester-kr.github.io/)
-- [Turkish: missing-semester-tr.github.io](https://missing-semester-tr.github.io/)
+- [Chinese (Simplified)](https://missing-semester-cn.github.io/)
+- [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
+- [Korean](https://missing-semester-kr.github.io/)
+- [Turkish](https://missing-semester-tr.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
