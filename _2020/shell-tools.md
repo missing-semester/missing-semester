@@ -198,7 +198,7 @@ All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man
 # Find all directories named src
 find . -name src -type d
 # Find all python files that have a folder named test in their path
-find . -path '*/test/*/*.py' -type f
+find . -path '*/test/*.py' -type f
 # Find all files modified in the last day
 find . -mtime -1
 # Find all zip files with size in range 500k to 10M
