@@ -2,7 +2,7 @@
 layout: lecture
 title: "Command-line Environment"
 date: 2019-01-21
-ready: true
+ready: false
 video:
   aspect: 56.25
   id: e8BO_dYxk5c

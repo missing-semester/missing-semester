@@ -3,7 +3,7 @@ layout: lecture
 title: "Metaprogramming"
 details: build systems, dependency management, testing, CI
 date: 2019-01-27
-ready: true
+ready: false
 video:
   aspect: 56.25
   id: _Ms1Z4xfqv4
