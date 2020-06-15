@@ -2,7 +2,7 @@
 layout: lecture
 title: "Course overview + the shell"
 date: 2019-01-13
-ready: true
+ready: false
 video:
   aspect: 56.25
   id: Z56Jmr9Z34Q

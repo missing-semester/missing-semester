@@ -23,19 +23,21 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endcomment %}
 
 <ul>
-{% assign lectures = site['2020'] | sort: 'date' %}
-{% for lecture in lectures %}
+    {% assign lectures = site['2020'] | sort: 'date' %}
+    {% for lecture in lectures %}
     {% if lecture.phony != true %}
-        <li>
+    <li>
         <strong>{{ lecture.date | date: '%-m/%d' }}</strong>:
         {% if lecture.ready %}
-            <a href="{{ lecture.url }}">{{ lecture.title }}</a>
+        <a href="{{ lecture.url }}">{{ lecture.title }}</a><span style="float:right"><img
+                src="https://img.shields.io/badge/Türkçe-✔-green"></span>
         {% else %}
-            {{ lecture.title }} {% if lecture.noclass %}[no class]{% endif %}
+        <a href="{{ lecture.url }}">{{ lecture.title }} {% if lecture.noclass %}[no class]{% endif %}</a><span
+            style="float:right"><img src="https://img.shields.io/badge/Türkçe-✘-orange"></span>
         {% endif %}
-        </li>
+    </li>
     {% endif %}
-{% endfor %}
+    {% endfor %}
 </ul>
 
 Derslerin video kayıtları [Youtube'da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) mevcut.

@@ -2,7 +2,7 @@
 layout: lecture
 title: "Potpourri"
 date: 2019-01-29
-ready: true
+ready: false
 video:
   aspect: 56.25
   id: JZDt-PRq0uo
