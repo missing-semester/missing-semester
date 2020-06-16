@@ -1,18 +1,20 @@
 # The Missing Semester of Your CS Education [[![Build Status](https://travis-ci.com/missing-semester/missing-semester.svg?branch=master)](https://travis-ci.com/missing-semester/missing-semester)]
 
-Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
+[The Missing Semester of Your CS Education](https://missing-semester-tr.github.io/) için websitesi! (**Türkçe çeviri**)
 
-Contributions are most welcome! If you have edits or new content to add, please
-open an issue or submit a pull request.
+İngilizce versiyonu(orjinal kaynak) [missing.csail.mit.edu](https://missing.csail.mit.edu/)
 
-## Development
+Katkıları memnuniyetle karşılıyoruz! Eklenecek düzenlemeleriniz veya yeni içeriğiniz varsa, lütfen
+bir sorun açın veya bir pull request gönderin.
 
-To build and view the site locally, run:
+## Geliştirme
+
+Siteyi yerel olarak oluşturmak ve görüntülemek için şunu çalıştırın:
 
 ```bash
 bundle exec jekyll serve -w
 ```
 
-## License
+## Lisans
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
+Bu dersteki web sitesi kaynak kodu, ders notları, alıştırmalar ve ders videoları dahil tüm içerikler Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) altında lisanslanmıştır. Katkılar veya çeviriler hakkında daha fazla bilgi için [buraya](https://missing-semester-tr.github.io/license/) bakın.
