@@ -5,7 +5,7 @@
 İngilizce versiyonu(orjinal kaynak) [missing.csail.mit.edu](https://missing.csail.mit.edu/)
 
 Katkıları memnuniyetle karşılıyoruz! Eklenecek düzenlemeleriniz veya yeni içeriğiniz varsa, lütfen
-bir sorun açın veya bir pull request gönderin.
+bir issue açın veya bir pull request gönderin.
 
 ## Geliştirme
 
