@@ -4,30 +4,32 @@ title: "License"
 permalink: /license/
 ---
 
-# License
+# Lisans
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Bu dersteki web sitesi kaynak kodu, ders notları, alıştırmalar ve ders videoları dahil tüm içerikler Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) altında lisanslanmıştır.
 
-This means that you are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+Bu, şunları yapmakta özgür olduğunuz anlamına gelir:
+- **Share** _(Paylaş)_ — Materyali herhangi bir ortamda veya biçimde kopyalayıp yeniden dağıtın
+- **Adapt** _(Adapte Ol)_ — Materyalleri düzenle, dönüştür ve üzerine inşa et
 
-Under the following terms:
+Aşağıdaki şartlar altında:
 
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+- **Attribution** _(Atfetme)_ — Uygun kredi vermeli, lisansa bir bağlantı vermeli ve eğer değişiklik yapıldıysa belirtmelisiniz. Bunu uygun olacak bir şekilde yapabilirsiniz, ancak lisans verenin sizi veya kullanımınızı onayladığını hiçbir şekilde gösteremezsiniz.
+- **NonCommercial** _(Ticari Olmayan)_— Materyalleri ticari amaçlarla kullanamazsınız.
+- **ShareAlike** _(Beğeni Paylaş)_ — Bu materyal üzerinde düzenleme, değişiklik ve ekleme yaparsanız katkılarınızı orjinal lisansın aynısı ile paylaşmalısınız. 
 
-This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Bu, okunabilir bir özettir ve bu [lisans](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) yerine geçmez.
 
-## Contribution guidelines
+## Katkı yapma yönergeleri
 
-You can submit corrections and suggestions to the course material by submitting issues and pull requests on our GitHub [repo](https://github.com/missing-semester/missing-semester). This includes the captions for the video lectures which are also in the repo (see [here](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
 
-## Translation guidelines
+Github [repomuza](https://github.com/missing-semester/missing-semester) kurs materyalleri hakkındaki düzeltmelerinizi ve önerilerinizi issue'larla ve pull request'lerle gönderebilirsiniz. Bu, aynı zamanda repoda olan video dersleri için [altyazıları](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020) içerir.
 
-You are free to translate the lecture notes and exercises as long as you follow the license terms.
-If your translation mirrors the course structure, please contact us so we can link your translated version from our page.
 
-For translating the video captions, please submit your translations as community contributions in YouTube.
+## Çeviri kılavuzu
+
+Lisans koşullarını takip ettiğiniz sürece ders notlarını ve alıştırmaları çevirmekte özgürsünüz.
+Çeviriniz kurs yapısını yansıtıyorsa, çevrilmiş versiyonunuzu sayfamızdan bağlayabilmemiz için lütfen bize ulaşın.
+
+Video altyazılarını çevirmek için lütfen çevirilerinizi YouTube'a topluluk katkısı olarak gönderin.
 
