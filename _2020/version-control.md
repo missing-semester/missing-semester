@@ -10,48 +10,48 @@ video:
 
 Versiyon kontrol sistemleri (VKS'leri), kaynak koddaki (veya diğer dosya ve klasörlerdeki) değişiklikleri izlemek için kullanılan araçlardır. 
 Adından da anlaşılacağı gibi, bu araçlar değişiklik geçmişinin korunmasına yardımcı olur; ayrıca, işbirliğini de kolaylaştırırlar.
-VKS'ler bir klasördeki ve içeriğindeki değişiklikleri bir dizi snapshots'da(anlık görüntüde) izler,
-burada her snapshot(anlık görüntü), üst düzey bir dizindeki tüm dosya/klasör durumunu kapsar.
+VKS'ler bir klasördeki ve içeriğindeki değişiklikleri bir dizi snapshots'da (anlık görüntüde) izler,
+burada her snapshot (anlık görüntü), üst düzey bir dizindeki tüm dosya/klasör durumunu kapsar.
 Ayrıca VKS'ler oluşturulan tüm snapshot'larda bu snapshot'ı oluşturanın kim olduğunu ve snapshot ile ilişkilenmiş mesajlar ve benzeri meta verileri de beraberinde saklar.
 
 Versiyon kontrolü neden yararlıdır? Kendi kendinize çalışırken bile, bir projenin eski anlık görüntülerine bakmanıza, belirli 
 değişikliklerin neden yapıldığına dair kayıtlar tutmanıza, paralel gelişimtirme dallarında çalışmanıza ve çok daha fazlasına izin 
 verebilir.
-Başkalarıyla çalışırken, diğer insanların neleri değiştirdiğini görmek ve eş zamanlı geliştirmedeki conflict'leri(çatışmaları) çözmek için paha biçilmez bir araçtır.
+Başkalarıyla çalışırken, diğer insanların neleri değiştirdiğini görmek ve eş zamanlı geliştirmedeki conflict'leri (çatışmaları) çözmek için paha biçilmez bir araçtır.
  
 Ayrıca modern VKS'ler aşağıdaki soruları kolayca (ve genellikle otomatik olarak) cevaplamanızı sağlar:
 
 - Bu modülü kim yazdı?
 - Bu dosyanın bu satırı ne zaman düzenlendi? Kim tarafından? Neden düzenlendi?
-- 1000'in üzerinde revizyondan sonra belirli bir birim testi(unit test) neden/ne zaman çalışmayı durdurdu?
+- 1000'in üzerinde revizyondan sonra belirli bir birim testi (unit test) neden/ne zaman çalışmayı durdurdu?
 
-Bir çok VKS'i mevcut olsa da **Git**, versiyon kontrolü için fiili standarttır.
+Birçok VKS mevcut olsa da **Git**, versiyon kontrolü için fiili standarttır.
 Bu [XKCD karikatürü](https://xkcd.com/1597/) Git'in izlenimini anlatır.
 
 ![xkcd 1597](https://imgs.xkcd.com/comics/git.png)
 
-Çünkü Git arayüzüleri bazen soyut kalıp kafa karışıklığına sebep olabiliyor. 
-Buna başlarken seçtiğiniz arayüz sebep olabilir(komut satırı arayüzü ya da görsel arayüzlü arabirim).
+Çünkü Git arayüzleri bazen soyut kalıp kafa karışıklığına sebep olabiliyor. 
+Buna başlarken seçtiğiniz arayüz sebep olabilir (komut satırı arayüzü ya da görsel arayüzlü arabirim).
 Bir avuç komutu ezberleyip onları büyülü sözler gibi düşünmek ve bir şeyler ters gittiğinde
  yukarıdaki karikatür gibi davranmak mümkündür.
 
-Hiç kuşkusuz ki Git'in çirkin bir arayüzü olsada altında yatan fikri ve tasarımı çok güzeldir.
+Hiç kuşkusuz ki Git'in çirkin bir arayüzü olsa da altında yatan fikri ve tasarımı çok güzeldir.
 Çirkin bir arayüzün _ezberlenmesi_ gerekirken, güzel bir tasarım _anlaşılabilir._
-Bu nedenle, Git'in veri modelinden başlayıp daha sonra komut satırı arayüzünüyle devam eden tepeden tırnağa bir anlatımını yapacağız.
+Bu nedenle, Git'in veri modelinden başlayıp daha sonra komut satırı arayüzüyle devam eden tepeden tırnağa bir anlatımını yapacağız.
 Veri modeli anlaşıldıktan sonra, komutların "temeldeki veri modelini nasıl manipüle ettikleri" daha iyi anlaşılabilir.
 
 # Git'in veri modelleri
 
 Versiyon kontrolünde uygulayabileceğiniz birçok geçici yaklaşım vardır.
-Git, versiyon kontrolünün; versiyon geçmişini yönetebilmek, dallar(branch'lar) ile çalışmayı desteklemek 
-ve işbirliği içinde çalışmayı mümkün kılmak gibi güzel özellikler sağlayan iyi düşünülmüş bir modele sahiptir.
+Git, versiyon kontrolünün; versiyon geçmişini yönetebilmek, dallar (branch'lar) ile çalışmayı desteklemek 
+ve iş birliği içinde çalışmayı mümkün kılmak gibi güzel özellikler sağlayan iyi düşünülmüş bir modele sahiptir.
 
-## Snapshots(Anlık görüntüler)
+## Snapshots (Anlık görüntüler)
 
-Git, dosya ve dizinlerdeki kollesiyonların geçimişini bazı üst düzey dizinler içinde anlık görüntüler(snapshots) halinde modeller.
+Git, dosya ve dizinlerdeki kolleksiyonların geçmişini bazı üst düzey dizinler içinde anlık görüntüler (snapshots) halinde modeller.
 Git terminolojisinde bir dosyaya "blob" denir ve bu sadece bir bayt'tır.
 Bir dizin "tree" olarak adlandırılır ve adları blob'larla veya tree'lerle eşleştirilir (böylece dizinler başka dizinler de içerebilir).
-Snapshot'lar(anlık görüntüler), izlenmekte olan en üst düzey tree'lerdir.
+Snapshot'lar (anlık görüntüler), izlenmekte olan en üst düzey tree'lerdir.
 Örneğin, aşağıdaki gibi bir ağacımız olabilir:
 
 ```
@@ -67,20 +67,20 @@ Snapshot'lar(anlık görüntüler), izlenmekte olan en üst düzey tree'lerdir.
 Üst düzey tree iki eleman içerir. Bunlar; biri tree olan "foo" (bu da adı "bar.txt" olan bir blob element barındırır) 
 ile bir blob olan "baz.txt" dir.
 
-## Geçmiş modellemesi: ilişkili anlık görüntüler(snapshot'lar)
+## Geçmiş modellemesi: ilişkili anlık görüntüler (snapshot'lar)
 
 Bir versiyon kontrol sistemi anlık görüntüleri nasıl ilişkilendirmelidir? 
 Basit bir model doğrusal bir geçmişe sahip olurdu. 
 Bu geçmiş, snapshot'ların zaman sıralamasına uygun şekilde bir listesi olurdu.
 Birçok nedenden dolayı Git böyle basit bir model kullanmaz.
 
-Git'te geçmiş, anlık görüntülerin(snapshots'ların) yönlendirilmiş çevrimsel olmayan bir grafiğidir (DAG directed acyclic graph).
+Git'te geçmiş, anlık görüntülerin (snapshots'ların) yönlendirilmiş çevrimsel olmayan bir grafiğidir (DAG directed acyclic graph).
 Bu kulağa havalı bir matematik cümlesi gibi gelebilir ama sizi korkutmamalıdır. Tüm bunlar, Git'deki her anlık görüntünün
 (snapshot'ın) kendinden önceki bir dizi "ebeveyn'lerle" ilişkisi var demektir. Bu, tek bir ebeveyn yerine bir ebeveyn grubudur, 
-çünkü bir anlık görüntü(snapshot) birden çok ebeveynden gelebilir(doğrusal bir tarihte olduğu gibi). Örneğin, iki paralel 
-geliştirme dalının birleştirilmesi(merge) gibi.
+çünkü bir anlık görüntü (snapshot) birden çok ebeveynden gelebilir (doğrusal bir tarihte olduğu gibi). Örneğin, iki paralel 
+geliştirme dalının birleştirilmesi (merge) gibi.
 
-Git, bu anlık görüntüleri(snapshot'ları) **"commit"** olarak  adlandırır. Bir commit geçmişini görselleştirmek bu şekilde görünebilir:
+Git, bu anlık görüntüleri (snapshot'ları) **"commit"** olarak  adlandırır. Bir commit geçmişini görselleştirmek bu şekilde görünebilir:
 
 ```
 o <-- o <-- o <-- o
@@ -89,11 +89,11 @@ o <-- o <-- o <-- o
               --- o <-- o
 ```
 
-Yukarıdaki ASCII sanatında, `o`lar tekil commit'lere(snapshot'lara) karşılık gelir.
-Oklar her bir commit'in ebeveynini işareteder(Bu "önce gelir" ilişkisidir; "sonra gelir" değil).
-Üçüncü commit'den sonra dallanma geçmişi, iki ayrı dala(branch'a) ayrılıyor. 
+Yukarıdaki ASCII sanatında, `o`lar tekil commit'lere (snapshot'lara) karşılık gelir.
+Oklar her bir commit'in ebeveynini işareteder (Bu "önce gelir" ilişkisidir; "sonra gelir" değil).
+Üçüncü commit'den sonra dallanma geçmişi, iki ayrı dala (branch'a) ayrılıyor. 
 Bu iki ayrı özelliğin birbirinden bağımsız aynı anda geliştirilmesine örnek olabilir.
-Bu brach'lar gelecekte her iki özelliği de barındıran yeni bir snapshot oluşturmak için birleştirilebilir(merge edilebilir). 
+Bu brach'lar gelecekte her iki özelliği de barındıran yeni bir snapshot oluşturmak için birleştirilebilir (merge edilebilir). 
 Ve yeni üretilen bu geçmiş kalın puntolarla gösterilir:
 
 <pre>
@@ -105,7 +105,7 @@ o <-- o <-- o <-- o <---- <strong>o</strong>
 
 Git'teki commit'ler değişmezler. Bu, hataların düzeltilemeyeceği anlamına gelmez.
 Şu var ki commit geçmişini düzenlemek için aslında tamamen yeni bir commit oluşturuyoruz 
-ve referanslar(aşağıya bakınız) yenilerini gösterecek şekilde güncelleniyor.
+ve referanslar (aşağıya bakınız) yenilerini gösterecek şekilde güncelleniyor.
 
 ## Sözde kod olarak veri modeli
 
@@ -151,7 +151,7 @@ def load(id):
     return objects[id]
 ```
 
-Blob'lar, tree'ler ve commit'ler bu şekilde birleştirilir ve hepsi nesnedir. Bunlar başka bir objeyi referans edeceklerinde aslında onları kendi disk gösterimlerinde direk _içermezler_ ama onları hash'lerle refearns gösterirler.
+Blob'lar, tree'ler ve commit'ler bu şekilde birleştirilir ve hepsi nesnedir. Bunlar başka bir objeyi referans edeceklerinde aslında onları kendi disk gösterimlerinde direkt _içermezler_ ama onları hash'lerle referans gösterirler.
 
 Örnek olarak; [Yukarıdaki](#snapshots)  örnek dizin yapısı için tree şöyle görünür: (görselleştirilmek için `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d` kullanıldı)
 
@@ -160,7 +160,7 @@ Blob'lar, tree'ler ve commit'ler bu şekilde birleştirilir ve hepsi nesnedir. B
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
 
-Tree, içindeki bilgiler için işaretçilere(pointer'lara) sahiptir, baz.txt(blob) ve foo(tree). Eğer baz.txt'ye uyumlu hash tarafından adreslenmiş içeriklere `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85` ile bakarsak aşağıdakini elde ederiz:
+Tree, içindeki bilgiler için işaretçilere (pointer'lara) sahiptir, baz.txt (blob) ve foo (tree). Eğer baz.txt'ye uyumlu hash tarafından adreslenmiş içeriklere `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85` ile bakarsak aşağıdakini elde ederiz:
 
 ```
 git is wonderful
@@ -174,7 +174,7 @@ Bu elverişli değildir çünkü insanlar 40 karakterli hexadecimal sayıları h
 Git’in bu soruna çözümü, SHA-1 hashleri yerine “referanslar” adı verilen, insanlar tarafından okunabilir
 isimlerdir. Referanslar commit'leri işaret ederler. Değişmez olan obje'lerin aksine, referanslar 
 değiştirilebilirdir. (yeni bir commit'i işaret edecek şekilde güncellenebilir). Örneğin; `master` 
-referansı genellikle ana geliştirme branch'daki(daldaki) son commit'i işaret eder.
+referansı genellikle ana geliştirme branch'daki (daldaki) son commit'i işaret eder.
 
 ```
 references = map<string, string>
@@ -203,26 +203,26 @@ Git'te “şu anda bulunduğumuz yer”, “HEAD” adı verilen özel bir refer
 Son olarak Git _repo'larını_; veri `objeleri` ve `referanslar` olarak  kabaca tanımlayabiliriz.
 
 Diskte, tüm Git depoları nesneler ve referanslardan oluşmaktadır: Git’in veri modeli bundan ibarettir. Bütün `git` komutları 
-objeler ekleyip ve referasnlar ekleyip/güncelleyerek bazı commit DAG(directed acyclic graph) maniplasyonları ile ilişkilidir.
+objeler ekleyip ve referanslar ekleyip/güncelleyerek bazı commit DAG (directed acyclic graph) manipülasyonları ile ilişkilidir.
 
 Herhangi bir komut yazarken, komutun grafik ve veri yapısının altında ne gibi bir değişiklik yaptığını düşünün. Buna karşılık,
 commit DAG'de belli başlı bir değişiklik yapmaya çalışıyorsanız örnek olarak; "commit edilmemiş değişiklikleri atın ve `5d83f9` 
 commit'ini işlemek için ‘master’ referans noktası olarak belirtin". _Muhtemelen, bunu uygulamak için bir komut vardır._
 (Bu duruma örnek olarak `git checkout master; git reset -- hard 5d83f9e`)
 
-# Staging area(hazırlanma alanı)
+# Staging area (Hazırlanma alanı)
 
 Bu, veri modeline dikey olan başka bir konsepttir. Fakat commit oluşturmak için gereken arayüzün bir parçasıdır da.
 
 Anlık görüntü uygulamasının yukarıda açıklandığı gibi uygulanacağını hayal etmenin bir yolu da, çalışma dizininin mevcut durumuna 
-göre yeni bir anlık görüntü oluştur **"anlık görüntü(snapshot) oluştur"** komutuna sahip olmaktır. Bazı versiyon kontrol 
+göre yeni bir anlık görüntü oluştur **"anlık görüntü (snapshot) oluştur"** komutuna sahip olmaktır. Bazı versiyon kontrol 
 araçları bu şekilde çalışır, ama Git bu şekilde çalışmaz. Temiz anlık görüntüler isteriz ve mevcut durumdan anlık görüntü 
 oluşturmak her zaman ideal olmayabilir. Örneğin, iki ayrı özellik uyguluyoruz; Birincisinin **A** özelliğini, 
 diğerinin de **B** özelliğini tanıttığı iki ayrı commit oluşturmak istiyorsunuz ve bugfix'ler ile beraber kodunuzun her yerine 
-hata ayıklma ekran çıktıları eklemek istiyorsunuz. Tüm bu hata ayıklama ekran çıktılarını göndermeden(discarding) bir 
+hata ayıklama ekran çıktıları eklemek istiyorsunuz. Tüm bu hata ayıklama ekran çıktılarını göndermeden (discarding) bir 
 yandan da bugfix'i commit'lemek istediğiniz bir senaryo düşünün.
 
-Git "staging area" denen bir mekanzima ile bir dahaki snapshot'da hangi değişikliklerin olması gerektiğini belirlemenizi yarayacak senaryolar sağlar.
+Git "staging area" denen bir mekanizma ile bir dahaki snapshot'da hangi değişikliklerin olması gerektiğini belirlemenizi yarayacak senaryolar sağlar.
 
 # Git komut satırı arabirimi
 
@@ -386,17 +386,17 @@ index 94bab17..f0013b2 100644
 - `git help <command>`: bir git  komutu için yardım alın
 - `git init`: yeni bir git repo'su oluşturur, ilgili verileri `.git` dizininde saklar
 - `git status`: neler olduğunu söyler
-- `git add <filename>`: dosyaları staging area'ya(sahne alanına) ekler
+- `git add <filename>`: dosyaları staging area'ya (sahne alanına) ekler
 - `git commit`: yeni bir commit oluşturur
     - Güzel commit mesajları [yazın](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
     - Güzel commit mesajları yazmak için [daha fazla neden](https://chris.beams.io/posts/git-commit/)!
 - `git log`: commit geçmişini sade bir şekilde gösterir
 - `git log --all --graph --decorate`: git geçmişini DAG'a göre görselleştirir
-- `git diff <filename>`: son comit'ten bu yana yapılan değişiklikleri gösterir
+- `git diff <filename>`: son commit'ten bu yana yapılan değişiklikleri gösterir
 - `git diff <revision> <filename>`: snapshot'lar arasındaki dosya farklılığını gösterir
 - `git checkout <revision>`: HEAD'i ve mevcut brach'ı günceller
 
-## Dallanma(Branching) ve birleştirme(merging)
+## Dallanma (Branching) ve birleştirme (merging)
 
 {% comment %}
 
@@ -415,11 +415,11 @@ command is used for merging.
 - `git branch <name>`: bir branch oluşturur
 - `git checkout -b <name>`: bir branch oluşturur ve ona geçer
     - buna eşdeğerdir `git branch <name>; git checkout <name>`
-- `git merge <revision>`: mevcut dalla birleştirir(merge eder)
-- `git mergetool`: birleştirme çakışmalarını(merge conflict'lerini) çözmek için havalı bir araç kullanın
+- `git merge <revision>`: mevcut dalla birleştirir (merge eder)
+- `git mergetool`: birleştirme çakışmalarını (merge conflict'lerini) çözmek için havalı bir araç kullanın
 - `git rebase`: yeni base'e yamaları yükler
 
-## Remotes(Uzak repo)
+## Remotes (Uzak repo)
 
 - `git remote`: uzak depoları listeler
 - `git remote add <name> <url>`: uzak bir depo ekler
@@ -452,9 +452,9 @@ olarak [belirtir](https://git-scm.com/docs/gitignore)
 
 - **GUI'lar**: Git için çok sayıda [GUI istemcisi](https://git-scm.com/downloads/guis) var.
 Şahsen biz bunları kullanmıyoruz. Bunların yerine komut satırı arayüzünü kullanıyoruz.
-- **Kabuk(Shell) entegrasyonu**: Kabuğunuzun(shell'inizin) ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
+- **Kabuk (Shell) entegrasyonu**: Kabuğunuzun (shell'inizin) ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
 [bash](https://github.com/magicmonty/bash-git-prompt)) bir parçası olarak Git durumuna sahip olmak son derece kullanışlıdır.
-Genellikle [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) gibi uygulama çatılarında(framework'lerde) bu, dahil olarak gelir.
+Genellikle [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) gibi uygulama çatılarında (framework'lerde) bu, dahil olarak gelir.
 - **Editör entegrasyonu**: Yukarıdakine benzer şekilde, birçok özelliğe sahip kullanışlı entegrasyonlar. [fugitive.vim](https://github.com/tpope/vim-fugitive) Vim için standart olandır.
 - **İş akışları** :  Size veri modelini ve bazı temel komutları öğrettik; fakat büyük projeler üzerinde çalışırken hangi uygulamaları takip edeceğinizi söylemedik. (ve [birçok](https://nvie.com/posts/a-successful-git-branching-model/)
 [farklı](https://www.endoflineblog.com/gitflow-considered-harmful)
@@ -487,7 +487,7 @@ Veri modellerini anladığınıza göre, 1-5 bölümlerinin üzerinden geçmek s
 `git stash` ile yaptıklarınızı geri almak için `git stash pop` komutunu çalıştırın. 
 Hangi senaryoda bu yararlı olabilir?
 1. Birçok komut satırı aracı gibi Git de `~/.gitconfig` adlı bir yapılandırma dosyası (veya dotfile) 
-sağlar. `git graph` komutunu çalıştırdığınızda `git log --all --graph --decorate --oneline` çıktısını almanız için `~/.gitconfig` içinde bir takma ad(alias) oluşturun.  
+sağlar. `git graph` komutunu çalıştırdığınızda `git log --all --graph --decorate --oneline` çıktısını almanız için `~/.gitconfig` içinde bir takma ad (alias) oluşturun.  
 1. `git config --global core.excludesfile ~/.gitignore_global` komutunu çalıştırdıktan sonra `~/.gitignore_global` içinde global yok sayma kalıplarını tanımlayabilirsiniz. Bunu yapın ve genel gitignore dosyanızı, `.DS_Store` gibi işletim sistemine özgü veya metin editörlerine özgü geçici dosyaları yok sayacak şekilde ayarlayın.
 1. [Sınıfın web sitesinden repoyu](https://github.com/missing-semester-tr/missing-semester-tr.github.io) clone'layın
-ve yapabileceğiniz bir iyileştirme bulun(yazım yanlışı gibi) ve Github'dan bir [pull request gönderin](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/version-control.md).
+ve yapabileceğiniz bir iyileştirme bulun (yazım yanlışı gibi) ve Github'dan bir [pull request gönderin](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/version-control.md).
