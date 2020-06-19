@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Security and Cryptography"
+title: "Güvenlik ve Kriptografi"
 date: 2019-01-28
 ready: false
 video:
@@ -8,52 +8,45 @@ video:
   id: tjwobAmnKTo
 ---
 
-Last year's [security and privacy lecture](/2019/security/) focused on how you
-can be more secure as a computer _user_. This year, we will focus on security
-and cryptography concepts that are relevant in understanding tools covered
-earlier in this class, such as the use of hash functions in Git or key
-derivation functions and symmetric/asymmetric cryptosystems in SSH.
+Geçen yılın [güvenlik ve gizlilik dersi](/2019/security/) bir bilgisayar 
+_kullanıcısı_ olarak nasıl daha güvende olacağımıza odaklandı. Bu yıl, amacına
+uygun olarak Git'de Hash Fonksiyonları kullanımı ya da anahtar türetme 
+fonksiyonları ve SSH'da simetrik/asimetrik şifreleme sistemleri gibi daha önce 
+bu sınıfta bahsettiğimiz araçların güvenlik ve şifreleme konseptlerine odaklanacağız.
 
-This lecture is not a substitute for a more rigorous and complete course on
-computer systems security ([6.858](https://css.csail.mit.edu/6.858/)) or
-cryptography ([6.857](https://courses.csail.mit.edu/6.857/) and 6.875). Don't
-do security work without formal training in security. Unless you're an expert,
-don't [roll your own
-crypto](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html).
-The same principle applies to systems security.
+Bu kurs bilgisayar sistem güvenliği ([6.858](https://css.csail.mit.edu/6.858/)) ya da
+kriptografi ([6.857](https://courses.csail.mit.edu/6.857/) and 6.875) dersinin yerini 
+tutacak kadar detaylı değildir. Güvenlik konusunda resmi bir eğitim almadan güvenlik ile
+alakalı bir çalışma yapmayın. Uzman olana kadar, sakın [kendi şifreleme 
+algoritmanızı](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html) oluşturup
+kullanmayın.
 
-This lecture has a very informal (but we think practical) treatment of basic
-cryptography concepts. This lecture won't be enough to teach you how to
-_design_ secure systems or cryptographic protocols, but we hope it will be
-enough to give you a general understanding of the programs and protocols you
-already use.
+Aynı durum sistem  güvenliği için de geçerlidir.
 
-# Entropy
+Bu ders temel kriptografi konseptleri hakkında resmi olmayan (ama pratik olduğunu düşündüğümüz) bir işleyişe sahip. Bu ders güvenli sistemler ya da güvenlik protokolleri _tasarlamak_ için yeterli değil, ancak size kullandığınız programları ve protokolleri anlayacak kadar genel bilgi vereceğini umut ediyoruz.
 
-[Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) is a
-measure of randomness. This is useful, for example, when determining the
-strength of a password.
+# Entropi
+
+[Entropi](https://en.wikipedia.org/wiki/Entropy_(information_theory)) rastgeleliğin ölçüsüdür. Parolaların gücünün belirlenmesi gibi alanlarda oldukça kullanışlı.
 
 ![XKCD 936: Password Strength](https://imgs.xkcd.com/comics/password_strength.png)
 
-As the above [XKCD comic](https://xkcd.com/936/) illustrates, a password like
-"correcthorsebatterystaple" is more secure than one like "Tr0ub4dor&3". But how
-do you quantify something like this?
+Yukarıdaki [XKCD karikatüründeki](https://xkcd.com/936/) bahsedildiği gibi,
+"correcthorsebatterystaple" gibi bir şifre "Tr0ub4dor&3" gibi bir şifreden daha güvenli.
+Ama böyle bir şey nasıl ölçülebilir?
 
-Entropy is measured in _bits_, and when selecting uniformly at random from a
-set of possible outcomes, the entropy is equal to `log_2(# of possibilities)`.
-A fair coin flip gives 1 bit of entropy. A dice roll (of a 6-sided die) has
-\~2.58 bits of entropy.
+Entropi _bit_ cinsinden ölçülür, bir olasılıklar kümesi için entropi hesaplanırken şu
+şekilde hesaplanır: `log_2(olasılıkların sayısı)`. Yani adil bir madeni paranın yazı tura
+atılmasının entropisi 1 bittir (log_2(2)). 6 yüzlü bir zar atıldığında entropisi
+\~2.58 bit olacaktır (log_2(6)).
 
-You should consider that the attacker knows the _model_ of the password, but
-not the randomness (e.g. from [dice
-rolls](https://en.wikipedia.org/wiki/Diceware)) used to select a particular
-password.
+Saldırganın parolanın _modelini_ bildiği, ancak
+parola seçmek için kullanılan rastgeleliği (örneğin [zar atmak](https://en.wikipedia.org/wiki/Diceware))
+bilmediği varsayılır.
 
-How many bits of entropy is enough? It depends on your threat model. For online
-guessing, as the XKCD comic points out, \~40 bits of entropy is pretty good. To
-be resistant to offline guessing, a stronger password would be necessary (e.g.
-80 bits, or more).
+Ne kadar entropi yeterlidir? Bu sizin tehdit modelinize bağlıdır. Online tahminler için XKCD karikatüründe
+de göründüğü gibi \~40 bit entropi yeterlidir. Offline bir tahmin saldırısı için daha sağlam parolalar
+önemlidir. (80 bit ya da daha fazla.)
 
 # Hash functions
 
