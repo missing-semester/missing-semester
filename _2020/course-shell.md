@@ -1,134 +1,135 @@
 ---
 layout: lecture
-title: "Course overview + the shell"
+title: "Kursa genel bakış + shell"
 date: 2019-01-13
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: Z56Jmr9Z34Q
 ---
 
-# Motivation
+# Motivasyon
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+Bilgisayar bilimcileri olarak, bilgisayarların tekrarlayan görevlere
+yardımcı olma konusunda ne kadar harika olduklarını biliyoruz. Ancak,
+bunun programların gerçekleştirmesini istediğimiz hesaplamalar için
+olduğu kadar bilgisayar kullanımımız için de geçerli olduğunu sıkça
+unutuyoruz.  Elimizin altında, bilgisayarla ilgili herhangi bir problem
+üzerinde çalışırken daha üretken olabilmemizi ve daha karmaşık sorunları
+çözebilmemizi sağlayan çok sayıda araç var. Buna rağmen çoğumuz bu
+araçların sadece küçük bir kısmını kullanıyoruz; bizi idare etmeye
+yetecek birkaç sihirli sözcük biliyoruz, takıldığımızda ise
+internetten körlemesine kopyalayıp yapıştırıyoruz.
 
-This class is an attempt to address this.
+Bu ders, bunun üzerine gitmeyi hedefler.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Halihazırda bildiğiniz araçlardan en iyi şekilde nasıl yararlanacağınızı
+öğretmek, alet çantanıza ekleyebileceğiniz yeni araçlar göstermek ve daha
+fazlasını kendi başınıza keşfetmeniz için biraz heyecan aşılamak
+istiyoruz. Ve bunun çoğu Bilgisayar Bilimi müfredatında eksik bir dönem
+olduğuna inanıyoruz.
 
-# Class structure
+# Dersin yapısı
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+Bu ders, her biri [spesifik bir konuya](/2020/) odaklanan birer saatlik 11
+dersten oluşmaktadır. Dersler büyük ölçüde bağımsız olsa da kursta
+ilerledikçe önceki derslerin içeriğine aşina olduğunuzu varsayacağız.
+Online ders notlarımız da olacak ancak bu notlarda bulunmayan çok sayıda
+içerik (demolar şeklinde) ele alınacaktır. Dersleri kaydedeceğiz ve
+kayıtlarını online olarak yayınlayacağız.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+11 ders boyunca çok fazla noktaya değinmeye çalışıyoruz, bu yüzden
+dersler oldukça yoğun. İçeriği kendi temponuzda öğrenmenize zaman tanımak
+için her ders, sizi dersin kilit noktalarında yönlendiren bir dizi
+alıştırma içeriyor. Her dersin sonunda sorularınızı yanıtlamanıza
+yardımcı olmak için hazır olacağımız ofis saatleri düzenliyoruz. Kursa
+online olarak katılıyorsanız, sorularınızı bize
+[missing-semester@mit.edu](mailto:missing-semester@mit.edu) adresinden
+yönlendirebilirsiniz.
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+Sahip olduğumuz sınırlı zaman nedeniyle, içeriğimizi tüm araçlara ve
+araçların her özelliğine değinen bir dersle aynı düzeyde tutamayacağız.
+Mümkün oldukça, sizi bir aracın veya konunun derinlerine inebilmeniz için
+başka kaynaklara yönlendirmeye çalışacağız. Ancak aklınıza özellikle
+takılan bir şey olursa, bize ulaşmaktan ve tavsiye istemekten çekinmeyin!
 
-# Topic 1: The Shell
+# Konu 1: Shell
 
-## What is the shell?
+## Shell (Kabuk) nedir?
 
-Computers these days have a variety of interfaces for giving them
-commands; fancyful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Bilgisayarlar, günümüzde komutlar verebilmemiz için çeşitli arayüzlere
+sahiptirler; fantastik kullanıcı grafik arayüzler, ses arayüzleri ve
+hatta AR/VR her yerdeler. Bunlar, kullanım durumlarının %80'i için
+mükemmeldirler, ancak genellikle yapmanıza izin verdikleri şeyler
+sınırlıdır - olmayan bir butona basamaz ve önceden tanımlanmamış sesli
+komut veremezsiniz. Bilgisayarınızın sağladığı araçlardan tam olarak
+yararlanmak için geleneksel bir yönteme dönmeli ve metin tabanlı bir
+arayüze bakmalıyız: Shell.
 
-Nearly all platforms you can get your hand on has a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Elinizin altında bulunan neredeyse her platformda bir şekilde shell
+bulunur ve ayrıca çoğunda da seçim yapabileceğiniz birkaç farklı shell
+mevcuttur. Teferruatta farklılık gösterseler de, özlerinde hepsi kabaca
+aynıdır: programları çalıştırmanıza, onlara girdi vermenize ve
+çıktılarını yarı yapılandırılmış şekilde gözden geçirmenize izin
+verirler.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+Bu derste Bourne Again SHell yani kısaca "bash" üzerine odaklanacağız. Bu
+shell, en yaygın kullanılanlardan birisidir ve sözdizimi birçok shell ile
+benzerdir. Komutlarınızı yazabileceğiniz yer olan Shell _prompt_'u
+(kabuk istemi) açmak için, önce bir _terminale_ ihtiyacınız vardır.
+Cihazınızda muhtemelen bir tane kuruludur. Yoksa da kolayca bir tane
+kurabilirsiniz.
 
-## Using the shell
+## Shell kullanımı
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Terminalinizi başlattığınızda, genellikle şöyle görünen bir
+_istem (prompt)_ ile karşılaşırsınız:
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Bu, shell için ana metin tabanlı arayüzdür. `missing` makinesinde
+olduğunuzu ve halihazırda bulunduğunuz yer olan geçerli çalışma
+dizininizin, `~` yani home (ev) olduğunu gösterir. `$` ise root (kök)
+kullanıcı olmadığınızı gösterir (ileride buna değinilecek). Bu istemde,
+shell tarafından yorumlanacak bir _komut_ yazabilirsiniz. En temel komut
+bir programı yürütmektir:
 
 ```console
 missing:~$ date
-Fri 10 Jan 2020 11:49:31 AM EST
+Cum 19 Haz 2020 14:27:32 +03
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Burada, (beklenildiği gibi) mevcut tarih ve saati yazdıran `date`
+programını yürüttük. Shell sonrasında bizden, yürütmek için başka bir
+komut ister. Aynı zamanda, bir komutu _argümanlar_ ile birlikte
+yürütebiliriz:
 
 ```console
-missing:~$ echo hello
-hello
+missing:~$ echo merhaba
+merhaba
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Bu örnekte, shell'e `echo` programını `merhaba` argümanıyla yürütmesini
+söyledik. `echo` programı basitçe argümanlarını yazdırır. Shell, komutu
+boşluk karakterlerinden bölerek ayrıştırır ve ardından ilk sözcük
+tarafından belirtilen programı çalıştırır.  Sonraki sözcükleri programa
+erişebileceği bir argüman olarak sağlar. Boşluk veya başka özel
+karakterler içeren argümanlar vermek isterseniz (örn. "Aile Fotograflari"
+isminde bir dizin), argümanı `'` veya `"` tırnak işaretleri arasına
+alabilir (`"Aile Fotograflari"`) veya ilgili karakterlerden  `\` ile
+kaçınabilirsiniz (`Aile\ Fotograflari`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+Peki shell `date` veya `echo` programlarını nerede bulacağını nasıl
+biliyor? Shell esasen bir programlama ortamıdır, tıpkı Python veya Ruby
+gibi. Bu nedenle değişkenler, koşullar, döngüler ve fonksiyonlara (bir
+sonraki derste değinilecek) sahiptir. Bir komut çalıştırdığınızda,
+shell'inizin yorumladığı ufak bir kod yazmış olursunuz. Barındırdığı
+anahtar sözcüklerden biriyle eşleşmeyen bir komutu yürütmesi istendiğinde
+shell, programı hangi dizinlerde  araması gerektiğini listeleyen `$PATH`
+isimli _ortam değişkenine_ başvurur:
 
 
 ```console
@@ -140,26 +141,28 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+`echo` komutunu çalıştırdığımızda, shell `echo` programını yürütmesi
+gerektiğini anlar ve bu isimdeki dosyayı bulmak için `$PATH` 'te bulunan
+stringi `:` ile ayırarak elde ettiği dizinlerde arama yapar. Bulduğunda
+ise çalıştırır (dosyanın _executable_ (yürütülebilir) olduğu göz önüne
+alınırsa, buna ileride değinilecek). `which` programını kullanarak
+verilen bir program için hangi dosyanın yürütüldüğünü bulabiliriz. Aynı
+zamanda, yürütmek istediğimiz dosyanın _yolunu_ vererek `$PATH` 'i
+tamamen es geçebiliriz.
 
-## Navigating in the shell
+## Shell içerisinde gezinme
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Shell içerisinde bir path (yol), dizin listesinin birleştirilmiş halidir;
+macOS ve Linux'ta `/` , Windows'ta ise `\` ile birleştirilmiştir. Linux
+ve macOS'ta `/` yolu dosya sisteminin "root" (kök) dizinidir. Diğer tüm
+dizinleri ve dosyaları altında barındırır. Windows'ta ise her disk bölümü
+için ayrı root dizin vardır (örn `C:\`). Bu derste genel olarak Linux
+dosya sistemi kullandığınızı varsayacağız. `/` ile başlayan yola
+_absolute path_ (mutlak yol), diğerlerine ise _relative path_
+(göreceli yol) denir. Realtive path'ler, `pwd` komutuyla görebildiğimiz
+ve `cd` komutuyla değiştirebileceğimiz, geçerli çalışma dizinine
+bağlıdır. Bir path'de (yolda) `.` mevcut dizini, `..` ise üst dizini
+belirtir:
 
 ```console
 missing:~$ pwd
@@ -176,19 +179,20 @@ missing:/home$ pwd
 missing:/home$ cd missing
 missing:~$ pwd
 /home/missing
-missing:~$ ../../bin/echo hello
-hello
+missing:~$ ../../bin/echo merhaba
+merhaba
 ```
+Shell istemimizin geçerli çalışma dizininin ne olduğu konusunda bizi
+bilgilendirdiğine dikkat edin. İsteminizi, her çeşit yararlı bilgiyi
+gösterecek şekilde yapılandırabilirsiniz. Bunu sonraki bir derste ele
+alacağız.
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Genel olarak, bir programı çalıştırdığımızda, aksi belirtilmedikçe
+geçerli dizinde çalışır. Örneğin, dosyaları orada arar ve gerektiğinde
+yeni dosyalar orada oluşturur.
 
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
-
-To see what lives in a given directory, we use the `ls` command:
+Belirli bir dizinde nelerin var olduğunu görmek için `ls` komutunu
+kullanırız:
 
 ```console
 missing:~$ ls
@@ -205,15 +209,16 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-(`/?` on Windows) will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+İlk argüman olarak bir dizin verilmedikçe, `ls` geçerli dizinin içeriğini
+yazdırır. Çoğu komut, davranışlarını değiştiren `-` ile başlayan flag
+(bayrak) ve option (seçenek: bir değere sahip bayrak) ifadeleri alır.
+Genelde, `-h` veya `--help` bayrağıyla (Windows'ta `/?`) bir programı
+çalıştırmak, size hangi bayrakları ve seçenekleri kullanabileceğinizi
+bildiren yardım metni yazdırır. Örneğin, `ls --help` bize şunu söyler:
 
 ```
   -l                         use a long listing format
+                             (uzun liste biçimi kullan)
 ```
 
 ```console
@@ -221,61 +226,63 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+Bu, bize mevcut her dosya ve dizin hakkında daha fazla bilgi verir. İlk
+olarak, satırın başındaki `d` bize `missing` 'in bir dizin olduğunu
+söyler.Ardından üç karakterden oluşan üç grup (`rwx`, `r-x`, `r-x`)
+gelir. Bunlar, sırasıyla dosya sahibinin (`missing`), dosya sahibinin
+bulunduğu grubun (`users`) ve diğerlerinin ilgili öğe üzerinde hangi
+izinlere sahip olduğunu gösterir. `-` ilgili kişinin ilgili izne sahip
+olmadığını belirtir. Yukarıdaki örnekte, `missing` dizininde yalnızca
+dosya sahibine değişiklik yapma (`w`)  izni verilir
+(örn. dosya ekleme/silme). Bir dizine girebilmek için, kullanıcının bu
+dizinde ve üst dizinlerinde arama (`x`) iznine sahip olması gerekir.
+İçeriğini listelemek için ise kullanıcının bu dizinde okuma (`r`) iznine
+sahip olması gerekir. Dosya izinleri de beklediğiniz gibidir. `/bin`
+dizinindeki hemen hemen tüm dosyaların son grubumuz olan "diğerleri"
+için `x` iznine sahip olduğuna dikkat edin, böylece herkes bu programları
+yürütebilir.
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+Bu noktada bilinmesi gereken diğer kullanışlı programlardan bazıları
+şunlardır:  `mv` (dosya adlandırma/taşıma), `cp` (dosya kopyalama) ve
+`mkdir` (yeni dizin oluşturma).
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+Bir programın argümanları, girdileri, çıktıları ve genel olarak nasıl
+çalıştığı hakkında _daha fazla_ bilgi edinmek isterseniz `man` programını
+bir deneyin. Argüman olarak programın adını alır ve size manuel sayfasını
+gösterir. Çıkmak isterseniz `q` tuşuna basın.
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Programları bağlama
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Shell (kabuk) içerisinde, programlar kendileriyle ilişkili iki ana akışa
+sahiptir: input stream (girdi akışı), output stream (çıktı akışı).
+Program girdi okumaya çalıştığında girdi akışından okur, bir şey
+yazdıracağı zaman çıktı akışına yazdırır. Normalde, bir programın girdi
+ve çıktı akışı terminalinizdir. Yani, girdi olarak klavyeniz ve çıktı
+olarak ekranınız. Ancak, bu akışları yeniden düzenleyebilirsiniz!
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+En basit yönlendirme şekli `< file` ve `> file` 'dır. Bunlar, bir
+programın girdi ve çıktı akışlarını sırasıyla bir dosyaya yönlendirmenize
+müsade ederler:
 
 ```console
-missing:~$ echo hello > hello.txt
-missing:~$ cat hello.txt
-hello
-missing:~$ cat < hello.txt
-hello
-missing:~$ cat < hello.txt > hello2.txt
-missing:~$ cat hello2.txt
-hello
+missing:~$ echo merhaba > merhaba.txt
+missing:~$ cat merhaba.txt
+merhaba
+missing:~$ cat < merhaba.txt
+merhaba
+missing:~$ cat < merhaba.txt > merhaba2.txt
+missing:~$ cat merhaba2.txt
+merhaba
 ```
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+Ayrıca bir dosyaya ekleme yapmak için `>>` kullanabilirsiniz. Bu tür
+girdi / çıktı yönlendirmesinin en başarılı olduğu yer _pipe_'ların
+kullanımıdır. `|` operatörü, programları birinin çıktısını diğerinin
+girdisi olacak şekilde "zincirlemenizi" sağlar:
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -284,36 +291,40 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+"Data wrangling" üzerine yapacağımız derste, pipe'lardan nasıl
+faydalanılacağı hakkında daha fazla detaya gireceğiz.
 
-## A versatile and powerful tool
+## Çok amaçlı ve güçlü bir araç
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
+Unix benzeri sistemlerin çoğunda, özel bir kullanıcı vardır: "root" (kök)
+kullanıcısı. Yukarıda dosya listelemesinde görmüş olabilirsiniz. Root
+kullanıcısı (neredeyse) tüm erişim kısıtlamalarının üzerindedir ve
+sistemde herhangi bir dosyayı oluşturabilir, okuyabilir ve silebilir.
+Ancak, yanlışlıkla bir şeyleri berbat etmek çok kolay olduğundan,
+sisteminizde genellikle root kullanıcısı olarak oturum açmazsınız. Bunun
+yerine, `sudo` komutunu kullanırsınız. Adından da anlaşılacağı gibi, "su"
+ve "do" kavramlarından oluşur. “su”, “super user” (süper kullanıcı) veya
+root kullanıcısı anlamına gelir. "do" ise bildiğiniz gibi yapmak anlamına
+gelir. "İzin reddedildi" (Permission denied) hatası aldığınızda, nedeni
+genelde o işi root olarak yapmanız gerektiğindendir. Yine de öncesinde
+gerçekten bunu yapmak istediğinizi iki kez kontrol ettiğinizden emin olun!
 
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+Örneğin, yapılabilmesi için root kullanıcısı olunması gereken bir şey,
+`/sys` dizinine bağlanan `sysfs` dosya sisteminde değişiklik yapmaktır.
+`sysfs` , birtakım kernel (çekirdek) parametrelerini dosya olarak saklar,
+böylece özel araçlar kullanmadan, kerneli o anda kolayca yeniden
+yapılandırabilirsiniz.
+**sysfs'nin Windows ve macOS'ta mevcut olmadığını unutmayın.**
 
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
+Örneğin, dizüstü bilgisayarınızın ekranının parlaklığı, bu dizin altında
+`brightness` olarak adlandırılan bir dosyada tutulur:
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
+Bu dosyaya bir değer yazarak ekran parlaklığını değiştirebiliriz. İlk
+düşünceniz şöyle bir şey yapmak olabilir:
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -324,70 +335,74 @@ An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
 
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+Bu hata süpriz olabilir. Oysa komutu `sudo` ile çalıştırmıştık! Bu shell
+hakkında bilmek gereken önemli bir şeydir. `|`, `>` ve `<` gibi işlemler
+programın kendisi tarafından değil, _shell tarafından_ gerçekleştirilir.
+`echo` ve arkadaşlarının `|` 'den haberi olmaz. Her ne olursa olsun
+girdilerinden okur ve çıktılarına yazarlar. Yukarıdaki durumda; _shell_,
+bunu `sudo echo` 'nun çıktısı olarak ayarlamadan önce parlaklık dosyasını
+yazmak için açmaya çalışır. Ancak shell, root olarak çalışmadığı için
+bunu yapması engellenir. Bu bilgiyi kullanarak bu sorunu çözebiliriz:
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+`tee` programı, `brightness` dosyasını yazmak için açan bir program
+olduğundan ve root olarak çalıştığından dolayı tüm izinlere sahiptir.
+`/sys` aracılığıyla her çeşit eğlenceli ve yararlı şeyi kontrol
+edebilirsiniz, örneğin sistem LEDlerinin durumu gibi (dosya yolunuz
+farklı olabilir):
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Sonraki adımlar
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+Gelinen noktada, temel görevleri yerine getirmek için shell kullanırken
+nasıl bir yol izleyeceğinizi biliyorsunuz. İlgilenilen dosyaları bulmak
+için gezinebilmeniz ve çoğu programın temel fonksiyonlarını
+kullanabilmeniz gerekir. Bir sonraki derste, shell ve birçok kullanışlı
+komut satırı programını kullanarak, daha karmaşık görevlerin nasıl
+gerçekleştirileceği ve otomatikleştirileceği hakkında konuşacağız.
 
-# Exercises
+# Alıştırmalar
 
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
+ 1. `/tmp` altında  `missing` isimli yeni bir dizin oluşturun.
+ 1. `touch` programının nasıl kullanıldığına bir göz atın. `man` programı
+ yardımcınız olacaktır.
+ 1. `touch` programını kullanarak `missing` içerisinde `semester` isimli
+ yeni
+    bir dosya oluşturun.
+ 1. Bu dosyaya her seferinde bir satır olarak aşağıdakileri yazın:
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu
     ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
+    İlk satır başlarda karmaşık gelebilir. `#` işaretinin bash'te yorum
+    satırı başlattığını ve `!` operatörünün çift tırnaklı (") stringlerin
+    içinde özel bir anlamının olduğunu bilmek faydalı olacaktır. Bash,
+    tek tırnaklı stringlere (') farklı davranır: içindeki her değer kendi
+    değerini korur. Daha fazla bilgi için bash'in
     [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+    manuel sayfasına bakın.
+ 1. Dosyayı yürütmeyi deneyin, yani shell'de scriptin yolunu (`./semester`)
+    yazın ve enter tuşuna basın. `ls` çıktısına danışarak neden işe
+    yaramadığını kavrayın (ipucu: dosya izinlerine bakın).
+ 1. `sh` yorumlayıcısını başlatıp `semester` dosyasını ilk argüman olarak
+ vererek komutu çalıştırın, yani `sh semester`. `./semester` çalışmazken
+ bu neden işe yaradı?
+ 1. `chmod` nasıl kullanıldığına bir göz atın (örneğin `man chmod`).
+ 1. `sh semester` kullanmak yerine `./semester` kullanabilmeyi sağlamak
+ için `chmod` kullanın. Shell dosyanızın sh kullanılarak yorumlanması
+ gerektiğini nereden biliyor? Daha fazla bilgi için
+ [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) hakkındaki bu
+ sayfaya bakın.
+ 1. `semester` dosyasındaki "Last-Modified" yani değiştirilme tarihinin
+ çıktısını, ev dizininizde `last-modified.txt` isimli bir dosyaya
+ yazdırmak için `|` ve `>` kullanın.
+ 1. Dizüstü bilgisayarınızın pil düzeyini veya masaüstü bilgisayarınızın
+ CPU sıcaklığını `/sys` 'den okuyan bir komut yazın. NOT: macOS veya
+ Windows kullanıcısısıysanız, işletim sisteminizin sysfs'si yoktur, bu
+ nedenle bu egzersizi atlayabilirsiniz.
