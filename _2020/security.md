@@ -48,21 +48,17 @@ Ne kadar entropi yeterlidir? Bu sizin tehdit modelinize bağlıdır. Online tahm
 de göründüğü gibi \~40 bit entropi yeterlidir. Offline bir tahmin saldırısı için daha sağlam parolalar
 önemlidir. (80 bit ya da daha fazla.)
 
-# Hash functions
+# Hash fonksiyonları (Özet fonksiyonları)
 
-A [cryptographic hash
-function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) maps data
-of arbitrary size to a fixed size, and has some special properties. A rough
-specification of a hash function is as follows:
+[Kriptografik hash fonksiyonu](https://en.wikipedia.org/wiki/Cryptographic_hash_function) değişken uzunluklu veri kümelerini, sabit uzunluklu veri kümelerine haritalayan algoritma veya alt programdır.
+Bazı özel özelliklere sahiptir. Bir hash fonksiyonu kabaca aşağıdaki özelliklere sahiptir:
 
 ```
-hash(value: array<byte>) -> vector<byte, N>  (for some fixed N)
+hash(value: array<byte>) -> vector<byte, N>  (Sabit bir N için)
 ```
 
-An example of a hash function is [SHA1](https://en.wikipedia.org/wiki/SHA-1),
-which is used in Git. It maps arbitrary-sized inputs to 160-bit outputs (which
-can be represented as 40 hexadecimal characters). We can try out the SHA1 hash
-on an input using the `sha1sum` command:
+Hash fonksiyonlarına örnek olarak, Git'de de kullanılan [SHA1](https://en.wikipedia.org/wiki/SHA-1)
+verilebilir. İsteğe bağlı uzunlukla bir karakter dizisini 160 bit'e haritalar. (40 onaltılık karakter olarak gösterilebilir.). `sha1sum` komutu ile bir girdi kullanarak SHA1'i deneyebiliriz:
 
 ```console
 $ printf 'hello' | sha1sum
@@ -73,47 +69,50 @@ $ printf 'Hello' | sha1sum
 f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0
 ```
 
-At a high level, a hash function can be thought of as a hard-to-invert
-random-looking (but deterministic) function (and this is the [ideal model of a
-hash function](https://en.wikipedia.org/wiki/Random_oracle)). A hash function
-has the following properties:
+Yüksek düzeyden bakıldığında, bir hash fonksiyonu tersinin alınması çok zor, rastgele görünümlü (ancak deterministik) bir fonksiyondur (ve bu [hash fonksiyonunun ideal bir modelidir](https://en.wikipedia.org/wiki/Random_oracle)). Bir hash fonksiyonu aşağıdaki özelliklere sahiptir:
 
-- Deterministic: the same input always generates the same output.
-- Non-invertible: it is hard to find an input `m` such that `hash(m) = h` for
-some desired output `h`.
-- Target collision resistant: given an input `m_1`, it's hard to find a
-different input `m_2` such that `hash(m_1) = hash(m_2)`.
-- Collision resistant: it's hard to find two inputs `m_1` and `m_2` such that
-`hash(m_1) = hash(m_2)` (note that this is a strictly stronger property than
-target collision resistance).
+- Deterministik: her zaman aynı girdi için aynı çıktıyı verir. Rastgelelik yoktur.
+- Tersinemez (Ters görüntüye dayanıklılık): `m` girdisi için `hash(m) = h` ise `h`'ı kullanarak `m`'i
+  bulmak zor olmalıdır. Hash fonksiyonu tek yönlü olmalıdır.
+- Hedef çakışması direnci: İki ayrı mesajın aynı hash’inin olması çok zor olmalıdır. Bir `m_1` mesajının
+  hash değeri ile farklı bir mesaj olan `m_2`'nin hash değerinin aynı olmasının zorluğudur. Çakışma örneği:
+  `hash(m_1) = hash(m_2)`.
+- Çakışma Direnci: Herhangi iki farklı girdinin aynı özeti çıktı olarak üretmemesidir. Hash değerleri aynı
+  olan `hash(m_1) = hash(m_2)` iki girdinin `m_1` `m_2` bulunması zor olmalıdır. (bunun kesinlikle daha
+  güçlü bir özellik olduğunu unutmayın).
 
-Note: while it may work for certain purposes, SHA-1 is [no
-longer](https://shattered.io/) considered a strong cryptographic hash function.
-You might find this table of [lifetimes of cryptographic hash
-functions](https://valerieaurora.org/hash.html) interesting. However, note that
-recommending specific hash functions is beyond the scope of this lecture. If you
-are doing work where this matters, you need formal training in
-security/cryptography.
+Not: belirli amaçlar için çalışabilse de, SHA-1 [artık](https://shattered.io/) güçlü
+bir kriptografik hash fonksiyonu değildir. [Kriptografik hash fonksiyonlarının yaşam süresi](https://valerieaurora.org/hash.html)
+ile ilgili ilgi çekici bir tablo bulabilirsiniz. Ancak, spesifik hash fonksiyonlarının önerilmesi bu dersin
+hedeflerinden ve amaçlarından değil. Eğer önemli bir işte bir hash fonksiyonu kullanacaksınız, önce
+güvenlik ve kriptografi alanında ciddi bir ders almalısınız. 
 
-## Applications
+## Uygulamalar
 
-- Git, for content-addressed storage. The idea of a [hash
-function](https://en.wikipedia.org/wiki/Hash_function) is a more general
-concept (there are non-cryptographic hash functions). Why does Git use a
-cryptographic hash function?
-- A short summary of the contents of a file. Software can often be downloaded
-from (potentially less trustworthy) mirrors, e.g. Linux ISOs, and it would be
-nice to not have to trust them. The official sites usually post hashes
-alongside the download links (that point to third-party mirrors), so that the
-hash can be checked after downloading a file.
-- [Commitment schemes](https://en.wikipedia.org/wiki/Commitment_scheme).
-Suppose you want to commit to a particular value, but reveal the value itself
-later. For example, I want to do a fair coin toss "in my head", without a
-trusted shared coin that two parties can see. I could choose a value `r =
-random()`, and then share `h = sha256(r)`. Then, you could call heads or tails
-(we'll agree that even `r` means heads, and odd `r` means tails). After you
-call, I can reveal my value `r`, and you can confirm that I haven't cheated by
-checking `sha256(r)` matches the hash I shared earlier.
+- Git, içerik adresli depolama için kullanır. [Hash fonksiyonu](https://en.wikipedia.org/wiki/Hash_function)
+  fikri daha genel bir konsepttir (kriptografik olmayan hash fonksiyonu).
+  Git neden kriptografik hash fonksiyonu kullanır?
+
+- Dosya içeriğinin kısa bir özeti. Yazılımlar bazen (potansiyel 
+  olarak daha az güvenilir) mirrorlardan indirilebilir. Örneğin: Linux ISOları,
+  ve onlara güvenmemek iyi bir seçim olabilir. Resmi siteler genellikle dosyaların
+  hashlerini indirme linklerinin (üçüncü parti bir siteye referans eden) yanında 
+  gösterirler, böylece hashler dosya indirildikten sonra kontrol edilebilir.
+
+- [Üstlenme şemaları](https://en.wikipedia.org/wiki/Commitment_scheme).
+Belirli bir değere bağlı kalmak istediğinizi, ancak değerin kendisini daha sonra 
+ortaya çıkardığını varsayalım. Örneğin, Alice ve Bob'un aynı ortamda bulunmadığını
+ve bir kişi seçmek için yazı tura atacaklarını varsayalım. Alice ve Bob birer tane
+madeni parayı atacaklar ve ikisinin sonucu aynıysa Alice bir yemek ısmarlayacak,
+eğer ikisinin sonuçları farklı olursa Bob yemek ısmarlayacak. Bu durumda ilk kimin
+sonucunu söyleyeceği karşı tarafın hile yapması ile sonuçlanabilir. Dolayısı ile şöyle
+bir yol izlenebilir. Tek sayıların yazıyı, çift sayıların turayı var sayılarak sonuçlar
+önce bir hash fonksiyonundan geçirilir. `a` Alice'in sonucunu (yazı geldiğini varsayıyoruz)
+temsil eden sayı örneğin "1789" ve `b` Bob'un sonucunu (tura geldiğini varsayıyoruz)
+"59980" temsil ediyor. Her iki tarafta da birbirlerine hash fonskiyonalrı sonucu
+`hash(a)` ve `hash(b)`  birbirleriyle paylaşılabilir 2 tarafta bu hashleri aldıktan sonra
+birbirlerine söyledikleri (teklik ve çiftlik durumuna göre yazı ya da tura olduğu belirlenen)
+sayıları teyit edebilirler. Böylece iki tarafın da hile yapmasının önüne geçilir.
 
 # Key derivation functions
 
