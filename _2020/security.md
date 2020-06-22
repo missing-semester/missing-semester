@@ -114,49 +114,48 @@ temsil eden sayı örneğin "1789" ve `b` Bob'un sonucunu (tura geldiğini varsa
 birbirlerine söyledikleri (teklik ve çiftlik durumuna göre yazı ya da tura olduğu belirlenen)
 sayıları teyit edebilirler. Böylece iki tarafın da hile yapmasının önüne geçilir.
 
-# Key derivation functions
+# Anahtar türetme fonksiyonları
 
-A related concept to cryptographic hashes, [key derivation
-functions](https://en.wikipedia.org/wiki/Key_derivation_function) (KDFs) are
-used for a number of applications, including producing fixed-length output for
-use as keys in other cryptographic algorithms. Usually, KDFs are deliberately
-slow, in order to slow down offline brute-force attacks.
+Kriptografik hashlerle ilgili bir terim, [anahtar türetme
+fonksiyonları](https://en.wikipedia.org/wiki/Key_derivation_function) (ATF)
+diğer kriptografik fonksiyonlarda anahtar olarak kullanılacak belirli uzunlukta
+çıktılar üretmeyi de içeren bir dizi işlemde kullanılır. Genellikle ATF'ler kasıtlı
+olarak yavaş tutulur. Burada amaç çevrimdışı kaba kuvvet saldırılarını yavaşlatmaktır.
 
-## Applications
+## Uygulamalar
 
-- Producing keys from passphrases for use in other cryptographic algorithms
-(e.g. symmetric cryptography, see below).
-- Storing login credentials. Storing plaintext passwords is bad; the right
-approach is to generate and store a random
-[salt](https://en.wikipedia.org/wiki/Salt_(cryptography)) `salt = random()` for
-each user, store `KDF(password + salt)`, and verify login attempts by
-re-computing the KDF given the entered password and the stored salt.
+- Diğer kriptografik fonksiyonlarda kullanmak için parolalardan anahtar üretimi.
+(Örneğin: simetrik kriptografi, aşağıda bahsediliyor).
+- Giriş bilgilerini saklamada kullanılır. Parolaları düz metin halinde tutmak kötüdür;
+  doğru yaklaşım her kullanıcı için bir [salt (tuz)](https://en.wikipedia.org/wiki/Salt_(cryptography)) oluşturmak `salt = random()` ve saklamaktır. `ATF(password + salt)` değeri de saklanır.
+  Giriş isteği saklanan salt ve girilen parola kullanılarak ATF değerinin yeniden hesaplanması
+  ve saklanan değer ile karşılaştırılması ile kontrol edilir.
 
-# Symmetric cryptography
+# Simetrik şifreleme
 
-Hiding message contents is probably the first concept you think about when you
-think about cryptography. Symmetric cryptography accomplishes this with the
-following set of functionality:
+Kriptografi hakkında düşündüğünüzde mesaj içeriklerinin gizlenmesi muhtemelen aklınıza
+gelen ilk konsept olacaktır. Simetrik şifreleme bunu aşağıdaki fonksiyon seti ile başarır:
 
 ```
-keygen() -> key  (this function is randomized)
+keygen() -> anahtar  (bu fonksiyon rastgele'dir)
 
-encrypt(plaintext: array<byte>, key) -> array<byte>  (the ciphertext)
-decrypt(ciphertext: array<byte>, key) -> array<byte>  (the plaintext)
+şifrele(düz metin: array<byte>, anahtar) -> array<byte>  (şifreli metin)
+şifreyiçöz(şifreli metin: array<byte>, anahtar) -> array<byte>  (düz metin)
 ```
 
-The encrypt function has the property that given the output (ciphertext), it's
-hard to determine the input (plaintext) without the key. The decrypt function
-has the obvious correctness property, that `decrypt(encrypt(m, k), k) = m`.
+Şifreleme fonksiyonu sonuç olarak bir çıktı verir (şifreli metin), key olmadan
+şifrelemeyi çözmek ve veriye (düz metin) ulaşmak oldukça zordur. Şifre
+çözme fonksiyonu tam doğruluk özelliğine sahiptir, `şifrele(çöz(m, k), k) = m`'dir.
 
-An example of a symmetric cryptosystem in wide use today is
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+Günümüzde yaygın olarak kullanılan bir simetrik şifreleme sistemi de
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)tir.
 
-## Applications
+## Uygulamalar
 
-- Encrypting files for storage in an untrusted cloud service. This can be
-combined with KDFs, so you can encrypt a file with a passphrase. Generate `key
-= KDF(passphrase)`, and then store `encrypt(file, key)`.
+- Güvenilmeyen bir bulut saklama servisinde dosyaları saklamak için kullanılabilir. 
+  ATF ile birlikte kullanılabilir, böylece bir parola kullanılarak dosyalarınızı 
+  şifreleyebilirsiniz. Anahtarı üretin `anahtar = ATF(passphrase)`, ve daha sonra
+  `şifrele(dosya, anahtar)` sonucunu depolayabilirsiniz.
 
 # Asymmetric cryptography
 
