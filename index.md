@@ -69,18 +69,12 @@ benefit from these resources. You can find posts and discussion on
 
 # Translations
 
-- [Chinese (Simplified)](https://missing-semester-cn.github.io/)
-- [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
+- [繁体中文](https://missing-semester-zh-hant.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 
-Note: these are external links to community translations. We have not vetted
-them.
-
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+注意: 上述连接为社区翻译，我们并未验证其内容
 
 ## Acknowledgements
 
