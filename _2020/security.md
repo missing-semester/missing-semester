@@ -137,10 +137,10 @@ Kriptografi hakkında düşündüğünüzde mesaj içeriklerinin gizlenmesi muht
 gelen ilk konsept olacaktır. Simetrik şifreleme bunu aşağıdaki fonksiyon seti ile başarır:
 
 ```
-keygen() -> anahtar  (bu fonksiyon rastgele'dir)
+keygen() -> anahtar  (bu fonksiyon rastgeledir)
 
-şifrele(düz metin: array<byte>, anahtar) -> array<byte>  (şifreli metin)
-şifreyiçöz(şifreli metin: array<byte>, anahtar) -> array<byte>  (düz metin)
+şifrele(düz metin: array<byte>, anahtar) -> array<byte>  (şifrelenmiş metin)
+çöz(şifrelenmiş metin: array<byte>, anahtar) -> array<byte>  (çözümlenmiş düz metin)
 ```
 
 Şifreleme fonksiyonu sonuç olarak bir çıktı verir (şifreli metin), key olmadan
@@ -157,22 +157,22 @@ Günümüzde yaygın olarak kullanılan bir simetrik şifreleme sistemi de
   şifreleyebilirsiniz. Anahtarı üretin `anahtar = ATF(passphrase)`, ve daha sonra
   `şifrele(dosya, anahtar)` sonucunu depolayabilirsiniz.
 
-# Asymmetric cryptography
+# Asimetrik şifreleme
 
-The term "asymmetric" refers to there being two keys, with two different roles.
-A private key, as its name implies, is meant to be kept private, while the
-public key can be publicly shared and it won't affect security (unlike sharing
-the key in a symmetric cryptosystem). Asymmetric cryptosystems provide the
-following set of functionality, to encrypt/decrypt and to sign/verify:
+"Asimetrik" terimi burada iki farklı role sahip iki anahtar kullanıldığına referans eder.
+Hususi (private) anahtarın adından da anlaşılabileceği gibi gizli tutulması gerekir. Umumi (public)
+anahtar herekese açık olarak paylaşılabilir. Simetrik şifrelemenin aksine güvenliği etkilemez.
+Asimetrik şifreleme sitemleri şifrelemek/çözmek ve imzalamak/doğrulamak için aşağıdaki fonksiyonları
+takip eder:
 
 ```
-keygen() -> (public key, private key)  (this function is randomized)
+keygen() -> (umumi anahtar, hususi anahtar)  (bu fonksiyon rastgeledir)
 
-encrypt(plaintext: array<byte>, public key) -> array<byte>  (the ciphertext)
-decrypt(ciphertext: array<byte>, private key) -> array<byte>  (the plaintext)
+şifrele(düz metin: array<byte>, umumi anahtar) -> array<byte>  (şifrelenmiş metin)
+çöz(şifrelenmiş metin: array<byte>, hususi anahtar) -> array<byte>  (çözümlenmiş düz metin)
 
-sign(message: array<byte>, private key) -> array<byte>  (the signature)
-verify(message: array<byte>, signature: array<byte>, public key) -> bool  (whether or not the signature is valid)
+imzala(mesaj: array<byte>, hususi anahtar) -> array<byte>  (imza)
+doğrula(mesaj: array<byte>, imza: array<byte>, umumi anahtar) -> bool  (imzanın geçerli olup olmadığı)
 ```
 
 The encrypt/decrypt functions have properties similar to their analogs from
@@ -219,126 +219,121 @@ proof](https://keybase.io/blog/chat-apps-softer-than-tofu) (along with other
 neat ideas). Each model has its merits; we (the instructors) like Keybase's
 model.
 
-# Case studies
+# Örnek çalışmalar
 
-## Password managers
+## Parola yöneticileri
 
-This is an essential tool that everyone should try to use (e.g.
-[KeePassXC](https://keepassxc.org/)). Password managers let you use unique,
-randomly generated high-entropy passwords for all your websites, and they save
-all your passwords in one place, encrypted with a symmetric cipher with a key
-produced from a passphrase using a KDF.
+Herkesin kullanmayı denemesi gereken gerekli bir araçtır. (örneğin,
+[KeePassXC](https://keepassxc.org/)). Parola yöneticileri ziyaret ettiğiniz websiteleri için
+benzersiz, rastgele üretilmiş yüksek entropili parolalar oluşturur. Bu parolaları
+sizin parola yöneticisi veri tabanı için kullandığınız ana parolayı ATF'den geçirerek ürettiği
+anahtar yardımıyla simetrik olarak şifrelenmiş şekilde tek bir yerde saklarlar.
 
-Using a password manager lets you avoid password reuse (so you're less impacted
-when websites get compromised), use high-entropy passwords (so you're less likely to
-get compromised), and only need to remember a single high-entropy password.
+Parola yöneticisi kullanmak parolanın yeniden kullanmanızı önlemenizi sağlar (böylece web sitelerinin
+güvenliği ihlal edildiğinde daha az etkilenirsiniz), yüksek entropi parolaları kullanırsınız (bu 
+nedenle güvenlik tehlikesi daha düşüktür) ve yalnızca tek bir yüksek entropi parolasını hatırlamanız 
+gerekir.
 
-## Two-factor authentication
+## 2 faktörlü kimlik doğrulama
 
-[Two-factor
-authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication)
-(2FA) requires you to use a passphrase ("something you know") along with a 2FA
-authenticator (like a [YubiKey](https://www.yubico.com/), "something you have")
-in order to protect against stolen passwords and
-[phishing](https://en.wikipedia.org/wiki/Phishing) attacks.
+[2 faktörlü kimlik doğrulama](https://en.wikipedia.org/wiki/Multi-factor_authentication)
+(2FA) kimlik doğrulama yöntemi 2FA doğrulayıcısı ([YubiKey](https://www.yubico.com/) gibi,
+"sahip olduğun bir şey") yanında "bildiğin bir parola" gerektirir. Çalınan parolalara ve
+[oltalama (phishing)](https://en.wikipedia.org/wiki/Phishing) ataklarına karşı korumak için kullanılır.
 
-## Full disk encryption
+## Tam disk şifrelenmesi
 
-Keeping your laptop's entire disk encrypted is an easy way to protect your data
-in the case that your laptop is stolen. You can use [cryptsetup +
-LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system)
-on Linux,
-[BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/) on
-Windows, or [FileVault](https://support.apple.com/en-us/HT204837) on macOS.
-This encrypts the entire disk with a symmetric cipher, with a key protected by
-a passphrase.
+Dizüstü bilgisayarınızın tüm diskini şifreli tutmak, dizüstü bilgisayarınızın
+çalınması durumunda verilerinizi korumanın kolay bir yoludur. Linux'ta [cryptsetup +
+LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system),
+Windows'ta [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/),
+ya da macOS'te [FileVault](https://support.apple.com/en-us/HT204837) kullanabilirsiniz.
+Bu tüm diski parolanızdan türetilecek bir anahtar ile simetrik bir şifreleme metodu
+ile şifreleyecektir.
 
-## Private messaging
+## Özel mesajlaşma
 
-Use [Signal](https://signal.org/) or [Keybase](https://keybase.io/). End-to-end
-security is bootstrapped from asymmetric-key encryption. Obtaining your
-contacts' public keys is the critical step here. If you want good security, you
-need to authenticate public keys out-of-band (with Signal or Keybase), or trust
-social proofs (with Keybase).
+[Signal](https://signal.org/) ya da [Keybase](https://keybase.io/) kullanın. Uçtan uca
+güvenlik asimetrik şifrelemeden ön yüklenmiştir. Burada kişilerinizin umumi anahtarlarını
+elde edebilmek kritik bir adımdır. Eğer iyi bir güvenlik istiyorsanız, umumi anahtarları
+bant dışı doğrulamaya ihtiyacınız var (Signal ya da Keybase ile), ya da
+sosyal kanıtlara güvenmeniz gerekecektir (Keybase ile).
 
 ## SSH
 
-We've covered the use of SSH and SSH keys in an [earlier
-lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
-aspects of this.
+[Önceki derslerden birinde](/2020/command-line/#remote-machines) SSH kullanımını
+ve SSH anahtarları işlendi. Bunun kriptografik yönlerine bakalım.
 
-When you run `ssh-keygen`, it generates an asymmetric keypair, `public_key,
-private_key`. This is generated randomly, using entropy provided by the
-operating system (collected from hardware events, etc.). The public key is
-stored as-is (it's public, so keeping it a secret is not important), but at
-rest, the private key should be encrypted on disk. The `ssh-keygen` program
-prompts the user for a passphrase, and this is fed through a key derivation
-function to produce a key, which is then used to encrypt the private key with a
-symmetric cipher.
+`ssh-keygen` çalıştırıldığında size `umumi anahtar ve hususi anahtar` içeren bir
+anahtar çifti oluşturur. İşletim sistemi tarafından sağlanan entropi kullanılarak,
+rastgele oluşturulur. (donanım etkinliklerinden toplanan vs.). Umumi anahtar
+olduğu gibi saklanmalıdır (herkese açıktır, saklamaya gerek yoktur), ancak
+hususi anahtar diskte şifrelenmiş olarak saklanmalıdır. `ssh-keygen` programı
+kullanıcıdan bir parola ister. Bir anahtar üretmek için bu parolayı anahtar türetme
+fonksiyonundan geçirir. Üretilen anahtar hususi anahtarı simetrik olarak şifrelemede
+kullanılır.
 
-In use, once the server knows the client's public key (stored in the
-`.ssh/authorized_keys` file), a connecting client can prove its identity using
-asymmetric signatures. This is done through
-[challenge-response](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication).
-At a high level, the server picks a random number and sends it to the client.
-The client then signs this message and sends the signature back to the server,
-which checks the signature against the public key on record. This effectively
-proves that the client is in possession of the private key corresponding to the
-public key that's in the server's `.ssh/authorized_keys` file, so the server
-can allow the client to log in.
+Kullanımda, sunucuda istemcinin herkese açık (umumi) anahtarı bulunur (`.ssh/authorized_keys`
+dosyasında saklanır), bir istemci bağlantı için kimliğini asimetrik imzaları kullanarak kanıtlar.
+Bu işlem [challenge-response](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication)
+sayesinde yapılır. Basitçe anlatmak gerekirse, sunucu rastgele bir sayı seçer ve onu
+istemciye gönderir. Sonrasında, istemci bu mesajı imzalayıp imzayı sunucuya geri gönderir.
+Sunucu gelen imzalanmış veriyi kendisinde olan umumi anahtarı kullanarak kontrol eder.
+Bu yöntem etkili olarak istemcinin, sunucuda bulunan `.ssh/authorized_keys` dosyasındaki umumi
+anahtarın, hususi anahtarına sahip olduğunu doğrulamaya yarar.
 
 {% comment %}
-extra topics, if there's time
+zaman ayırabilecekler için, ekstra başlıklar
 
-security concepts, tips
-- biometrics
+güvenlik kavramları ve ipuçları,
+- biyometrikler
 - HTTPS
 {% endcomment %}
 
-# Resources
+# Kaynaklar
 
-- [Last year's notes](/2019/security/): from when this lecture was more focused on security and privacy as a computer user
-- [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): answers "what crypto should I use for X?" for many common X.
+- [Geçen yılın notları](/2019/security/): bir bilgisayar kullanıcısı olarak nasıl daha güvende olacağımıza odaklanır
+- [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): yaygın X'ler için "X için hangi şifrelemeyi kullanmalıyım?" sorusunu cevaplar.
 
-# Exercises
+# Egzersizler
 
-1. **Entropy.**
-    1. Suppose a password is chosen as a concatenation of five lower-case
-       dictionary words, where each word is selected uniformly at random from a
-       dictionary of size 100,000. An example of such a password is
-       `correcthorsebatterystaple`. How many bits of entropy does this have?
-    1. Consider an alternative scheme where a password is chosen as a sequence
-       of 8 random alphanumeric characters (including both lower-case and
-       upper-case letters). An example is `rg8Ql34g`. How many bits of entropy
-       does this have?
-    1. Which is the stronger password?
-    1. Suppose an attacker can try guessing 10,000 passwords per second. On
-       average, how long will it take to break each of the passwords?
-1. **Cryptographic hash functions.** Download a Debian image from a
-   [mirror](https://www.debian.org/CD/http-ftp/) (e.g. [from this Argentinean
-   mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/).
-   Cross-check the hash (e.g. using the `sha256sum` command) with the hash
-   retrieved from the official Debian site (e.g. [this
-   file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS)
-   hosted at `debian.org`, if you've downloaded the linked file from the
-   Argentinean mirror).
-1. **Symmetric cryptography.** Encrypt a file with AES encryption, using
-   [OpenSSL](https://www.openssl.org/): `openssl aes-256-cbc -salt -in {input
-   filename} -out {output filename}`. Look at the contents using `cat` or
-   `hexdump`. Decrypt it with `openssl aes-256-cbc -d -in {input filename} -out
-   {output filename}` and confirm that the contents match the original using
-   `cmp`.
-1. **Asymmetric cryptography.**
-    1. Set up [SSH
-       keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
-       on a computer you have access to (not Athena, because Kerberos interacts
-       weirdly with SSH keys). Rather than using RSA keys as in the linked
-       tutorial, use more secure [ED25519
-       keys](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519). Make sure
-       your private key is encrypted with a passphrase, so it is protected at
-       rest.
-    1. [Set up GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
-    1. Send Anish an encrypted email ([public key](https://keybase.io/anish)).
-    1. Sign a Git commit with `git commit -S` or create a signed Git tag with
-       `git tag -s`. Verify the signature on the commit with `git show
-       --show-signature` or on the tag with `git tag -v`.
+1. **Entropi.**
+    1. 100,000 kelimeye sahip bir sözlükten rastgele benzersiz 5 kelime seçtiğimizi,
+       ve bu 5 kelimeyi birleştirerek bir parola ürettiğimizi varsayalım.
+       Örnek olarak şuna benzeyecek: `correcthorsebatterystaple`. Oluşan parola kaç
+       bit entropiye sahip olur?
+
+    2. İkinci bir alternatif şema hayal edin. 8 rastgele alfa-numerik karakterden oluşan
+       (küçük ve büyük harflerin ikisini de barındırabilir) bir parola ürettiniz.
+       Örneğin, `rg8Ql34g`. Bu parola kaç bit entropiye sahip olur?
+
+    3. Hangisi daha güçlü bir paroladır.
+
+    4. Bir saldırganın saniyede 10,000 parola deneyebildiğini varsayın. Ortalama
+       olarak, bu iki parolayı kırma süresi ne kadar olabilir?
+
+2. **Kriptografik özet fonksiyonları.** Bir [mirror](https://www.debian.org/CD/http-ftp/)'dan
+   Debian imajı indirin. (Örneğin, [Arjantin'deki
+   bir mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/).
+   Resmi Debian web sitesinden verilen hashi kullanarak (Arjantin örneği için [bu
+   dosya](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) hash'e çapraz
+   kontrol uygulayın (örneğin, `sha256sum` komutunu kullanarak).
+
+3. **Simetrik şifreleme.** [OpenSSL](https://www.openssl.org/)
+   kullanarak bir dosyayı AES ile şifreleyin: `openssl aes-256-cbc -salt -in {giren 
+   dosya} -out {çıkış dosyası}`. İçeriğine `cat` ya da
+   `hexdump` kullanarak bakın. `openssl aes-256-cbc -d -in {giren dosya} -out
+   {çıkış dosyası}` ile şifreyi çözün ve `cmp` çözülmüş dosya ile ilk dosyanın içeriğinin
+   aynı olduğunu doğrulayın.
+
+4. **Asimetrik şifreleme.**
+    1. [SSH
+       anahtarlarınızı](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
+       erişimizin olduğu bir bilgisayara kurun. Bağlantıdaki öğreticide anlatılan RSA yerine,
+       daha güvenli olan [ED25519 anahtarlarını](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519) kullanın.
+       Hususi anahtarınızın bir parola ile şifrelendiğinden emin olun, böylece dosya duruyorken korunur.
+    2. [GPG kullanın](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
+    3. Çalgan'a şifrelenmiş bir e-posta gönderin ([umumi anahtarı](https://keybase.io/calganaygun)).
+    4. `git commit -S` kullanarak bir Git commiti imzalayın ya da `git tag -s` ile imzalanmış
+       bir Git etiketi oluşturun. `git show
+       --show-signature` ile committeki imzayı doğrulayın ya da `git tag -v` ile etiket için doğrulayın.
