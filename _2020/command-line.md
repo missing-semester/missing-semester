@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Komut Satırı Ortamı"
 date: 2019-01-21
 ready: false
 video:
@@ -8,31 +8,30 @@ video:
   id: e8BO_dYxk5c
 ---
 
-In this lecture we will go through several ways in which you can improve your workflow when using the shell. We have been working with the shell for a while now, but we have mainly focused on executing different commands. We will now see how to run several processes at the same time while keeping track of them, how to stop or pause a specific process and how to make a process run in the background.
+Bu dersimizde komut satırındaki iş yapma şeklimizi ve iş akışımızı iyileştirecek birkaç yöntemi ele alacağız. Dersimizin önceki bölümlerinde komut satırını kullandık, ancak bu aşamaya kadar komut satırında komutları çalıştırmaya odaklanmıştık. Bu dersimizde ise processleri (programların çalışan hali, işlem de denilebilir) eş zamanlı çalıştırmayı ve izlerini sürmeyi, processleri durdurmayı ve askıya almayı ve processleri arka planda çalıştırmayı ele alacağız.     
 
-We will also learn about different ways to improve your shell and other tools, by defining aliases and configuring them using dotfiles. Both of these can help you save time, e.g. by using the same configurations in all your machines without having to type long commands. We will look at how to work with remote machines using SSH.
+Dersimizin bu bölümünde yukarıdaki konulara ilave olarak komut satırı ortamımızı daha yetkin hale getirmek için kullanabileceğimiz araçlardan bazıları olan **alias** (kısaltmalar) kavramını ve **dotfile** adı verilen konfigürasyon dosyalarının kullanımını öğreneceğiz. Alias tanımları ve dotfile dosyaları uzun komutları tekrar tekrar yazmamıza gerek kalmadan kullanmamızı sağlarlar. Örneğin, farklı bilgisayarlarda çalışırken bu araçların kullanılması bize zaman kazandırır. Son olarak bu dersimizde uzaktaki bilgisayarlara SSH kullanarak nasıl erişebileceğimizi de ele alacağız.
 
+# Görev Kontrolü
 
-# Job Control
+Bazı durumlarda devam eden bir görevi sonlandırma ihtiyacınız olacak. Örneğin uzun süren bir görevin (kapsamlı bir dizin yapısında arama yapmak için kullanılan `find` komutu gibi) durdurulması gibi. Çoğu zaman bu tür görevleri `Ctrl-C` tuş kombinasyonu ile durdurabilirsiniz. Gelin şimdi bu tuş kombinasyonun nasıl çalıştığını ve bazen processleri durdururken neden hata verdiğini ayrıntıları ile inceleyelim.
 
-In some cases you will need to interrupt a job while it is executing, for instance if a command is taking too long to complete (such as a `find` with a very large directory structure to search through).
-Most of the time, you can do `Ctrl-C` and the command will stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+## Processleri Sonlandırma
 
-## Killing a process
+Komut satırınız processler ile bilgi paylaşımında bulunmak için UNIX işletim sistemi seviyesinde yer alan ve _signal_ (sinyal) adı verilen bir iletişim yöntemi kullanır. Herhangi bir processese bir sinyal geldiğinde process çalışmasını durdurur, gelen sinyali işler ve sinyalin tipine ve içeriğine göre akışını değiştirir. Bu nedenle sinyaller kavram olarak birer _software interrupt_ (yazılım kesmesi) olarak değerlendirilir. 
 
-Your shell is using a UNIX communication mechanism called a _signal_ to communicate information to the process. When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+> **Çevirmenin Notu:** Interrupt (kesme) kavramını yazılım veya donanım seviyesinde sistem bileşenlerinin birbirleri ile haberleşmek için kullandıkları bir yapı olarak düşünebilirsiniz. Yazılım seviyesinde kullanılan kesmeler _sofware interrput_ (yazılım kesmesi) olarak adlandırılır. Donanım (CPU, GPU) seviyesinde kullanılan kesmelere ise _hardware imterrupt_ (donanım kesmesi) olarak adlandırılır. Donanım kesmeleri için IRQ adı verilen ve donanıma doğrudan bağlı fiziksel veri yolu hatları kullanılır.
 
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
+Bizim örneğimizdeki `Ctrl-C` tuş kombinasyonu uygulandığında komut satırı `SIGINT` adı verilen sinyali process'e gönderir.
 
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+Aşağıda `SIGINT` sinyalini yakalayan ve bu sinyali göz ardı ederek çalışmasına devam eden örnek bir Python programı örneği yer alıyor. Bu programı sonlandırmak için `Ctrl-\` tuş kombinasyonu ile üretilen `SIGQUIT` isimli sinyali kullanabiliriz.
 
 ```python
 #!/usr/bin/env python
 import signal, time
 
 def handler(signum, time):
-    print("\nI got a SIGINT, but I am not stopping")
+    print("\nSIGINT sinyalini yakaladım ama durmayacağım")
 
 signal.signal(signal.SIGINT, handler)
 i = 0
@@ -42,38 +41,43 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+Aşağıdaki terminal çıktısında örnek programımızın arka arkaya iki defa `SIGINT` sinyali alıp ardından da `SIGQUIT` sinyalini aldığında sergileyeceği davranışı görebilirsiniz. 
+
+> Terminal çıktısında `Ctrl` tuşu `^` sembolü ile temsil edilmektedir.
 
 ```
 $ python sigint.py
 24^C
-I got a SIGINT, but I am not stopping
+SIGINT sinyalini yakaladım ama durmayacağım
 26^C
-I got a SIGINT, but I am not stopping
+SIGINT sinyalini yakaladım ama durmayacağım
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+> **Çevirmenin Notu:** Terminal, komut satırı (shell) uygulamasının kullanıcı ile etkileşimde bulunması için kullanılan uygulamalara verilen genel bir isimdir.
 
-## Pausing and backgrounding processes
+Genelde terminal ile alakalı kesme istekleri `SIGINT` ve `SIGQUIT` sinyalleri ile ilişkilendirilir. Ancak, process'leri düzgün bir şekilde sonlandırmak için daha jenerik bir sinyal olan `SIGTERM` kullanılır. Process'e `SIGTERM` sinyalini göndermek için [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) komutunu `kill -TERM <PID>` şeklinde kullanabiliriz.
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+## Processleri Askıya Alma ve Arka Plana Atma
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+Sinyaller processleri durdurmanın yanı sıra farklı amaçlar için de kullanılabilir. Örneğin, `SIGSTOP` sinyali process'i askıya alır. Terminal'de `Ctrl-Z` tuş kombinasyonu uygulandığında komut satırı process'e `SIGTSTP` sinyalini gönderir. `SIGTSTP` sinyali _Terminal Stop_ ifadesinin kısaltmasıdır (`SIGSTOP` sinyalinin terminal versiyonu olarak da düşünebilirsiniz)
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case).
+Askıya alınan görevlerin ön planda çalışmaya devam etmeleri için [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) komutunu, arka planda çalışmaya devam etmeleri için de [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html) komutunu kullanabiliriz. 
 
-To background an already running program you can do `Ctrl-Z` followed by `bg`.
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
+[`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) komutu aktif terminal oturumunda çalışan görevleri listelemek için kullanılır. Bu görevler ile ilişkili komutlarınızda görevlerin pid ( görevleri adları ile veya farklı özellikleri ile aramak için [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html komutunu kullanabilirsiniz) değerlerini kullanabilirsiniz. Process'lere referans vermek için pid değerlerine alternatif olarak, daha kolay bir kullanım sunan, `%` sembolü ve görev numarası (`jobs` komutu tarafından listelenir) kombinasyonunu da kullanabilirsiniz. En son çalıştırılan arka plan görevine referans vermek için ise `$!` özel parametre değerini kullanabilirsiniz.
 
-Below is a sample session to showcase some of these concepts.
+> **Çevirmenin Notu:** PID, UNIX'de _Process Identification Number_ adı verilen ve işletim sistemi tarafından otomatik olarak her process için üretilen 5 basamaklı sayısal bir değerdir.
+
+
+Son bir bilgi olarak, herhangi bir komutun sonuna `&` eklerseniz ilgili komutun arka planda çalışacağını paylaşalım. Bu sayede komut satırı farklı komutlar girebilmeniz için serbest kalır. Ancak, `&` son eki ile çalıştırılan komutlar STDOUT olarak hala sizin komut satırınızı kullanacak ve bu durum zaman zaman işinizi zorlaştıracaktır (bu durumda arka plan komutlarının çıktıları için komut satırı yönlendirmelerini kullanabilirsiniz). 
+
+> **Çevrimenin Notu:** STDOUT, _standard output_ ifadesinin kısaltmasıdır. STDOUT UNIX benzeri işletim sistemlerinde processlerin çıktılarını yazabileceği bir dosya tanımlayıcısını ifade eder. Genel olarak STDOUT ekranda çıktıları görmemizi sağlayan terminali ifade ederken uç bir örnek olarak bir yazıcının da STDOUT olarak tanımlanması ve process çıktılarının doğrudan yazıcıya gönderilmesi de mümkündür.
+
+
+Çalışan bir process'i arka plana göndermek için process çalışırken `Ctrl-Z` tuş kombinasyonunu uygulayıp hemen ardından `bg` komutunu yazmalısınız. Ancak, arka plan processlerinizin terminalinizin alt processleri olduğunu unutmayın. Terminalinizi kapattığınızda ön planda veya arka planda çalışan tüm processleriniz de terminaliniz ile birlikte sonlandırılacaktır (bu durumda alt processlere `SIGHUP` sinyali gönderilir). Terminal kapatıldığında alt processlerin de sonlandırılmasını önlemek için processi [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (`SIGHUP` sinyalini yakalayıp göz ardı eden bir çerçeve kod parçası veya programcık) veya `disown` parametreleri ile çalıştırmalısınız. Bu parametrelere alternatif olarak, bir sonraki bölümde ele alacağımız, terminal çoklayıcıları (multiplexer) da kullanabilirsiniz.
+
+Yukarıdaki kavramların kullanımını gösteren örnek terminal çıktısını aşağıda inceleyebilirsiniz.
 
 ```
 $ sleep 1000
@@ -120,273 +124,244 @@ $ jobs
 
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+Özel bir sinyal olan `SIGKILL` process'ler tarafından yakalanamaz ve bu sinyal processleri anında sonlandırır. Ancak, bu sinyal alt processleri yetim (orphaned) bırakmak gibi yan etkilere sahiptir.
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -t`.
+Bahsettiğimiz sinyaller ve diğer sinyaller hakkında daha fazla bilgi almak için [şu linkten](https://en.wikipedia.org/wiki/Signal_(IPC)) faydalanabilir veya komut satırında [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html)  veya `kill -t` komutlarını kullanabilirsiniz.
 
 
-# Terminal Multiplexers
+# Terminal Çoklayıcılar (Multiplexer)
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+Komut satırı ara yüzünü kullanırken zaman zaman aynı anda birden fazla şey yapmak isteyeceksiniz. Örneğin, kod editörünüz ile programınızı yan yana aynı anda çalıştırmak isteyebilirsiniz. Bu işlemleri ihtiyaç duydukça yeni terminal penceresi açarak yapabileceğiniz gibi bir terminal çoklayıcılar kullanarak daha esnek bir şekilde yapabilirsiniz.
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-This can make your workflow much better when working with remote machines since it voids the need to use `nohup` and similar tricks.
+[`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) gibi terminal çoklayıcılar terminal pencerelerini sekmeler (tab) veya bölmeler (pane) kullanarak çoklamanızı ve birden fazla komut satırı oturumundan bu pencerelere erişmenizi ve işlem yapmanızı sağlarlar. Tüm bunlara ilave olarak, terminal çoklayıcılar herhangi bir terminal oturumunu ayırarak bağımsız kullanmanızı ve daha sonra ihtiyaç duymanız halinde bu oturumu var olan bir terminal oturum ile ilişkilendirerek birleştirmenizi sağlarlar. Bu imkanlar, özellikle uzaktan eriştiğiniz bilgisayarlar ile çalışırken `nohup` gibi araçları kullanmaya gerek kalmadan iş akışınızı iyileştirecektir.  
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+Son zamanların en popüler terminal çoklayıcı aracı [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html)'dur. `tmux`, ciddi anlamda konfigüre edilebilen ve tuş kombinasyonu eşleştirmeleri sayesinde farklı sekmeler ve bölmeler arasında hızlıca konumlanmanızı sağlayan esnek bir yapıya sahiptir.
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+`tmux` kullanırken tuş kombinasyonu eşleştirmelerini bilmeniz gerekir. Bu eşleştirmeler `<C-b> x` formatında olup (1) önce `Ctrl+b` kombinasyonuna basmanız, (2) ardından `Ctrl+b` tuş kombinasyonunu serbest bırakıp (3) son olarak `x`'e basmanız gerekir.`tmux`, aşağıdaki nesne hiyerarşisine sahiptir:
+- **Oturumlar** (Sessions) - oturum bir veya daha fazla penceresi olan bağımsız bir çalışma alanıdır
+    + `tmux` yeni bir oturum başlatır.
+    + `tmux new -s NAME` NAME parametresi ile adı belirtilen yeni bir oturum başlatır.
+    + `tmux ls` tüm oturumları listeler.
+    + `tmux` aktif durumda iken `<C-b> d` tuş kombinasyonu kullanarak o anki oturumu sökerek bağımsız hale getirebilirsiniz.
+    + `tmux a` son oturumu birleştirmenizi sağlar. `-t` flag'ini kullanarak hangi oturumu birleştireceğinizi belirtebilirsiniz.
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Pencereler** (Windows) - Kod editörleri veya tarayıcılardaki sekmelere benzerler. Pencereler aynı oturumun görsel olarak bağımsız parçalarıdır
+    + `<C-b> c` Yeni bir pencere oluşturur. Açık pencereyi kapatmak için komut satırında `<C-d>` tuş kombinasyonunu kullanmanız yeterlidir.
+    + `<C-b> N` _N._ pencereye konumlanmanızı sağlar. Her pencerenin bir numarası vardır.
+    + `<C-b> p` Önceki pencereye konumlanmanızı sağlar.
+    + `<C-b> n` Önceki pencereye konumlanmanızı sağlar.
+    + `<C-b> ,` Aktif pencerenin ismini değiştirmenizi sağlar.
+    + `<C-b> w` Pencereleri listelemenizi sağlar.
 
-For further reading,
-[here](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) is a quick tutorial on `tmux` and [this](http://linuxcommand.org/lc3_adv_termmux.php) has a more detailed explanation that covers the original `screen` command. You might also want to familiarize yourself with [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), since it comes installed in most UNIX systems.
+- **Bölmeler** (Panes) - vim'deki ayrılmış editör alanları gibi, bölmeler aynı ekranda birden fazla komut satırı kullanılabilmesini sağlarlar.
+    + `<C-b> "` Bölmeyi yatay olarak ikiye bölmenizi sağlar.
+    + `<C-b> %` Bölmeyi dikey olarak ikiye bölmenizi sağlar.
+    + `<C-b> <direction>` Belirtilen _yön_'deki bölmeye konumlanmanızı sağlar. `<direction>` ile kastedilen yön tuşlarıdır.
+    + `<C-b> z` Bölmenin yakınlaştırma faktörünü değiştirmenizi sağlar.
+    + `<C-b> [` Geriye doğru kaydırma işlemini başlatır. Bu işlemi başlattıktan sonra `<space>` tuşuna basarak seçme işlemi başlatıp ardından da `<enter>` tuşuna basarak seçimi kopyalamanızı sağlar.
+    + `<C-b> <space>` Bölmeler arasında sıralı olarak gezinmenizi sağlar.
 
-# Aliases
+Daha fazla ayrıntı için,
+[şu linkte](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) yer alan `tmux` ile ilgili yazıyı ve [şu linkte](http://linuxcommand.org/lc3_adv_termmux.php) yer alan daha ayrıntılı ve `screen` komutunu da ele alan yazıyı okuyabilirsiniz. Bu iki kaynağa ilave olarak çoğu UNIX sistemde kurulu olarak gelen [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html) komutunun ayrıntılarına da bakmak isteyebilirsiniz.
 
-It can become tiresome typing long commands that involve many flags or verbose options.
-For this reason, most shells support _aliasing_.
-A shell alias is a short form for another command that your shell will replace automatically for you.
-For instance, an alias in bash has the following structure:
+# Komut Kısaltmaları (Aliases)
+
+
+Birçok flag ve ayrıntılı seçenek içeren komutları her defasında tekrar tekrar yazmak yorucu olabilir. Bu nedenle, çoğu komut satırı _komut kısaltmalarını_ destekler. Komut kısaltması, komut satırınızın sizin yerinize otomatik olarak yer değiştireceği uzun bir komutun kısa halidir. Örneğin, bash komut satırındaki komut kısaltmaları aşağıdaki yapıya sahiptir:
 
 ```bash
-alias alias_name="command_to_alias arg1 arg2"
+alias alias_name="kisaltilacak_komut arg1 arg2"
 ```
 
-Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+Yukarıdaki örnekte `=` sembolünün önünde ve arkasında boşluk olmadığına dikkat edin. Bunun nedeni [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) komutunun tek argüman alan bir komut olmasıdır.
 
-Aliases have many convenient features:
+Komut kısaltmalarının kullanışlı pek çok özelliği vardır:
 
 ```bash
-# Make shorthands for common flags
+# Yaygın kullanılan -lh gibi flag'ler için kısayol oluşturmak için
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# Yagın kullanılan uzun komutlar için kısayol oluşturma ve basılan tuş sayısını azaltmak için
 alias gs="git status"
 alias gc="git commit"
 alias v="vim"
 
-# Save you from mistyping
+# Hatalı yazımları tölere etmek için
 alias sl=ls
 
-# Overwrite existing commands for better defaults
-alias mv="mv -i"           # -i prompts before overwrite
-alias mkdir="mkdir -p"     # -p make parent dirs as needed
-alias df="df -h"           # -h prints human readable format
+# Var olan komutları daha kullanışlı varsayılan değerler ile tanımlamak için
+alias mv="mv -i"           # -i dosyanın üstüne yazmadan önce onay almak için kullanılan flag
+alias mkdir="mkdir -p"     # -p ihtiyaç halinde üst dizinleri de oluşturmak için kullanılan flag
+alias df="df -h"           # -h daha kolay okunabilir formatta basmak için kullanılan flag
 
-# Alias can be composed
+# Kısaltma tanımında başka kısaltmalar da kullanılabilir
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# Kısaltmalar ile ezdiğiniz var olan bir komutun orjinalini kullanmak için önüne \ koyun
 \ls
-# Or disable an alias altogether with unalias
+# Tanımlı bir kısaltmayı unalias ile devre dışı bırakabilirsiniz
 unalias la
 
-# To get an alias definition just call it with alias
+# Kısaltmanın tanımını görmek için alias komutunu kısaltma adı parametresi ile çağırın 
 alias ll
-# Will print ll='ls -lh'
+# Çıktısı ll='ls -lh' olacaktır
 ```
 
-Note that aliases do not persist shell sessions by default.
-To make an alias persistent you need to include it in shell startup files, like `.bashrc` or `.zshrc`, which we are going to introduce in the next section.
+Komut kısaltmaları komut satırı oturumu sonlandığında geçersiz hale gelirler, yani normal şartlar altında kısaltmalarınız sadece tanımlı oldukları oturum için geçerlidirler. Komut kısaltmalarınızı tüm komut satırı oturumlarınızda kullanmak için kısaltmaları komut satırı konfigürasyon dosyalarının içinde tanımlamanız gerekir. Örneğin, bash komut satırı için kısaltmalarınızı `.bashrc` içinde veya benzer bir şekilde zsh kısaltmalarınızı da `.zshrc` konfigürasyon dosyası içinde tanımlamanız gerekir.
 
 
-# Dotfiles
+# Konfigürasyon Dosyaları (Dotfiles)
 
-Many programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+Çoğu programın konfigürasyonu _dotfiles_ adı verilen saf metin dosyalarında tanımlanır. Bu dosyalara _dotfiles_ denilmesinin nedeni dosya isimlerinin `.` ile başlamasıdır. Örneğin, `~/.vimrc` vim editörünün konfigürasyon dosyasıdır. Dosya isimlerinin `.` ile başlaması nedeni ile `ls` komutu varsayılan olarak gizili olan bu dosyaları listelemez.
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell, whether you are starting a login and/or interactive the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Komut satırları bu tür dosyalar kullanılarak konfigüre edilen programlara iyi bir örnektir. Komut satırı programı çalıştırıldığında konfigürasyonlarını farklı birçok dosyadan okurlar. Komut satırı programınıza (bash, zsh vb.), komut satırını etkileşimli ve/veya kullanıcı oturumu ile başlatıp başlatmadığınıza bağlı olarak komut satırı programının başlatılma adımları çok karmaşık olabilir. Bu adımların ayrıntılarına harika bir kaynak olan [şu linkteki](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) yazıdan bakabilirsiniz. 
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable.
-In fact, many programs will ask you to include a line like `export PATH="$PATH:/path/to/program/bin"` in your shell configuration file so their binaries can be found.
 
-Some other examples of tools that can be configured through dotfiles are:
+`bash` komut satırını kullanıyorsanız `.bashrc` veya `.bash_profile` dosyasını düzenlemeniz çoğu UNIX sisteminde yeterli olacaktır. Bu dosyalara, önceki bölümde bahsettiğimiz kısaltmalar veya `PATH` ortam değişkeninin içeriği gibi, komut satırı ilk çalışma anında yapılmasını istediğiniz işlemleri konfigürasyon olarak tanımlayabilirsiniz. Aslında kullandığınız çoğu programı komut satırından çalıştırabilmek için bu programların yer aldığı dizinleri komut satırı konfigürasyon dosyasına `export PATH="$PATH:/path/to/program/bin"` benzeri bir değer ile tanımlamanız gerekir. 
 
-- `bash` - `~/.bashrc`, `~/.bash_profile`
-- `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
-- `ssh` - `~/.ssh/config`
-- `tmux` - `~/.tmux.conf`
+Dotfiles dosyalarını kullanarak konfigüre edebileceğiniz diğer bazı programlar şunlardır:
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+- `bash` komut satırı için `~/.bashrc`, `~/.bash_profile` 
+- `git` kaynak kodu kontrol programını için `~/.gitconfig` 
+- `vim` kod editörü için `~/.vimrc` dosyası ve `~/.vim` dizini.
+- `ssh` uzak bilgisayarlara erişim programı için `~/.ssh/config`
+- `tmux` komut satırı çoklayıcısı için`~/.tmux.conf`
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on Github --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+Dotfile dosyalarını nasıl organize etmelisiniz? Bu dosyaların kendi dizinlerinde, kaynak kodu kontrolü altında (git, mercurial vb.) ve sembolik linkler kullanılarak tanımlanması gerekir.
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+> **Çevirmenin Notu:** Sembolik linkler UNIX benzeri işletim sistemlerinde özel bir dosya türü olup orjinal dosyanın konumunu barındırırlar.
+
+Bu organizasyon şeklinin şu avantajları vardır:
+
+- **Kolay kurulum**: yeni bir bilgisayara giriş yaptığınızda kendi konfigürasyonu bu bilgisayara dakikalar içinde uygulayabilirsiniz.
+- **Taşınabilirlik**: araçlarınız her yerde aynı şekilde çalışacaktır.
+- **Senkronizasyon**: dotfile dosyalarınız istediğiniz bilgisayarda düzenleyip diğer tüm bilgisayarlarınıza senkronize tutabilirsiniz.
+- **Değişiklik takibi**: yazılımcılık kariyeriniz boyunca dotfile dosyalarınızı yönetmeniz gerekecektir. Bu nedenle değişiklik tarihçesine sahip olmak uzun soluklu çalışmalarınızda iyi olacaktır.
+
+Neleri dotfile dosyalarınıza koymalısınız? Araçlarınızın konfigürasyonları ile ilgili ayrıntılara ilgili araçların çevrimiçi dokümanlarından veya [man](https://www.man7.org/linux/man-pages/man1/man.1.html) komutu ile görüntüleyebileceğiniz [elkitabı (man pages)]((https://en.wikipedia.org/wiki/Man_page) ) sayfalarından inceleyebilirsiniz. Alternatif olarak internette arama yaparak bulacağınız blog yazılarında yazarların bu araçlar için kullandıkları konfigürasyonlar hakkında bilgi alabilirsiniz. Kullandığınız araçların konfigürasyonları ile ilgili en iyi yöntemlerden bir diğeri de başkalarının dotfile dosyalarını incelemektir: Github'da [şu aramayı](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) yaparak dotfile konfigürasyon dosyaları içeren depoları bulabilirsiniz. Bu depolardan en popüler olanına [şu linkten](https://github.com/mathiasbynens/dotfiles) göz atabilirsiniz (bu konfigürasyonları kopyala/yapıştır ile körü körüne incelemeden kullanmamanızı öneriyoruz).
+Konu ile ilgili güzel kaynaklardan biri olan [şu linkteki](https://dotfiles.github.io/) sayfayı da inceleyebilirsiniz.
+
+Bu dersi veren hocaların dotfile konfigürasyon dosyalarına açık olarak şu Github linklerinden erişebilirsiniz: [Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
 
-## Portability
+## Taşınabilirlik
 
-A common pain with dotfiles is that the configurations might not work when working with several machines, e.g. if they have different operating systems or shells. Sometimes you also want some configuration to be applied only in a given machine.
+dotfile konfigürasyon dosyaları ile ilgili sorunlardan en önemlisi bu konfigürasyonların farklı bilgisayarlara taşınması halinde çalışmamasıdır. Örneğin, bilgisayarların farklı işletim sistemleri olabilir veya farklı komut satırı programları kullanılıyor olabilir. Bazı durumlarda bir konfigürasyonun sadece belirli bir ortamda geçerli olmasını da isteyebilirsiniz.
 
-There are some tricks for making this easier.
-If the configuration file supports it, use the equivalent of if-statements to
-apply machine specific customizations. For example, your shell could have something
-like:
+Bu durumları daha kolay yönetmek için birkaç numara kullanabilirsiniz. Konfigürasyon dosyanızın desteklemesi durumunda koşullu dallanma (if statement) cümlesine benzer yapıları kullanabilirsiniz. Örneğin, komut satırı konfigürasyon dosyanızda şöyle bir kullanım söz konusu olabilir:
 
 ```bash
-if [[ "$(uname)" == "Linux" ]]; then {do_something}; fi
+if [[ "$(uname)" == "Linux" ]]; then {bir_islem_yap}; fi
 
-# Check before using shell-specific features
-if [[ "$SHELL" == "zsh" ]]; then {do_something}; fi
+# Komut satırı programına özel işlem yapmak için
+if [[ "$SHELL" == "zsh" ]]; then {baska_bir_islem_yap}; fi
 
-# You can also make it machine-specific
-if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
+# Konfigürasyonu bilgisayara özel tanımlamak için
+if [[ "$(hostname)" == "sunucu_adi" ]]; then {bir_islem_yap}; fi
 ```
 
-If the configuration file supports it, make use of includes. For example,
-a `~/.gitconfig` can have a setting:
+Programınızın konfigürasyon dosyası destekliyorsa `include` benzeri yapıları kullanabilirsiniz. Örneğin `~/.gitconfig` dosyasında aşağıdakine benzer bir ayar yapabilirsiniz:
 
 ```
 [include]
     path = ~/.gitconfig_local
 ```
 
-And then on each machine, `~/.gitconfig_local` can contain machine-specific
-settings. You could even track these in a separate repository for
-machine-specific settings.
+Yukarıdaki tanım yapıldıktan sonra her bir bilgisayarda `~/.gitconfig_local` isimli konfigürasyon dosyası oluşturulup o bilgisayara özel konfigürasyon değerleri bu dosyada tanımlanabilir. Bu tür bilgisayara özel konfigürasyonları genel konfigürasyondan farklı bir kaynak kodu versiyon kontrolü deposunda kayıt altına alıp takip edebilirsiniz.
 
-This idea is also useful if you want different programs to share some configurations. For instance, if you want both `bash` and `zsh` to share the same set of aliases you can write them under `.aliases` and have the following block in both:
+Bu yaklaşım, farklı programların ortak bir konfigürasyonu kullanma ihtiyacı olduğu durumlarda da uygulanabilir. Örneğin, `bash` ve `zsh` komut satırlarınızda aynı komut kısaltmalarını kullanmak istiyorsanız bu kısaltmaları `.aliases` konfigürasyon dosyasında tanımlayıp aşağıdaki şekilde komut satırınızı konfigüre edebilirsiniz:
 
 ```bash
-# Test if ~/.aliases exists and source it
+# ~/.aliases dosyası var mı kontrol et, varsa dosya içeriğini source komutu ile yükle
 if [ -f ~/.aliases ]; then
     source ~/.aliases
 fi
 ```
 
-# Remote Machines
+> **Çevirmenin Notu:** include benzeri yapılar birden fazla konfigürasyon dosyasının birleştirilmesini ve varsa tanımlı hiyerarşik üstünlük kurallarına göre değerlerden hangisinin geçerli kılınacağını tanımlamak için kullanılır
 
-It has become more and more common for programmers to use remote servers in their everyday work. If you need to use remote servers in order to deploy backend software or you need a server with higher computational capabilities, you will end up using a Secure Shell (SSH). As with most tools covered, SSH is highly configurable so it is worth learning about it.
 
-To `ssh` into a server you execute a command as follows
+
+# Uzaktaki Bilgisayarlara Erişim
+
+Yazılımcıların günlük iş akışlarında uzaktaki bilgisayarlara erişme ihtiyacı gün geçtikçe alışılmış bir hal aldı. Uzaktaki bir sunucuya backend yazılımının yeni bir versiyonunu yüklemek için veya daha yüksek işlem gücüne sahip bir sunucuda kodunuzu çalıştırmak için Secure Shell (SSH) kullanmanız gerekecektir. Dersimizde ele aldığımız tüm araçlar gibi SSH da esnek ve konfigüre edilebilen bir araçtır. Bu nedenle, SSH ile ilgili biraz ayrıntı öğrenmenin zararı olmayacaktır.
+
+Uzaktaki bir sunucuda `ssh` ile erişmek için aşağıdaki komutu kullanabiliriz:
 
 ```bash
 ssh foo@bar.mit.edu
 ```
 
-Here we are trying to ssh as user `foo` in server `bar.mit.edu`.
-The server can be specified with a URL (like `bar.mit.edu`) or an IP (something like `foobar@192.168.1.42`). Later we will see that if we modify ssh config file you can access just using something like `ssh bar`.
+Yukarıdaki komutta `foo` kullanıcısı ile `bar.mit.edu` isimli sunucuya bağlanmaya çalışıyoruz. Komutta belirtilen sunucuyu bir URL (`bar.mit.edu`) veya IP (`foobar@192.168.1.42`) adresi kullanarak tanımlayabiliriz. İlerleyen kısımlarda ssh konfigürasyon dosyasını düzenleyerek ilgili sunucuya `ssh bar` benzeri bir komut ile bağlanabileceğimizi göreceğiz.
 
-## Executing commands
+## Komut çalıştırma
 
-An often overlooked feature of `ssh` is the ability to run commands directly.
-`ssh foobar@server ls` will execute `ls` in the home folder of foobar.
-It works with pipes, so `ssh foobar@server ls | grep PATTERN` will grep locally the remote output of `ls` and `ls | ssh foobar@server grep PATTERN` will grep remotely the local output of `ls`.
+`ssh`'ın genelde göz ardı edilen özelliklerinden biri de doğrudan komut çalıştırma yeteneğidir. `ssh foobar@server ls` komutu `ls` komutunu doğrudan foobar sunucunun kök (home) dizininde çalıştırır. Bu özellik UNIX benzeri sistemlerde geniş bir kullanımı olan ve programlar arasında çıktı aktarımını sağlayan pipe yapısı ile de kullanılabilir. Örneğin, `ssh foobar@server ls | grep PATTERN` komutu uzak bilgisayarda çalışan `ls` komutunun çıktısında kendi bilgisayarınızda `grep` ile `PATTERN` örüntüsünü arayacak. `ls | ssh foobar@server grep PATTERN` komutu ise kendi bilgisayarınızda çalıştırılan `ls` komutunun çıktısını uzak sunucuya göndererek uzak sunucu üzerinden `grep` ile aynı aramayı yapacaktır.
 
+## SSH Anahtarları
 
-## SSH Keys
+Anahtar tabanlı doğrulama yöntemi ile açık-anahtar (public-key) şifreleme kullanılarak sunucu bilgisayarın istemci bilgisayarın özel anahtarını (private key) ifşa etmeden bu özel anahtarın gerçek sahibi olduğunu doğrulaması sağlanır. Bu sayede `ssh` ile uzak sunucuya erişmek için her seferinde şifrenizi girmenize gerek kalmaz. Bu yöntemi kullandığınızda size özel anahtarınız (genelde `~/.ssh/id_rsa` ve son sürümlerde `~/.ssh/id_ed25519` isimli dosyada kayıt altına alınır) şifreniz yerine geçer.
 
-Key-based authentication exploits public-key cryptography to prove to the server that the client owns the secret private key without revealing the key. This way you do not need to reenter your password every time. Nevertheless, the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so.
+### Anahtar üretme
 
-### Key generation
+Kendinize özel bir anahtar çifti (public-private key) üretmek için [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html) komutunu kullanabilirsiniz.
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
-You should choose a passphrase, to avoid someone who gets hold of your private key to access authorized servers. Use [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) or [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) so you do not have to type your passphrase every time.
+Anahtar çifitini üretirken, özel anahtarınızı ele geçiren birisinin bu anahtarı kullanarak uzak sunuculara erişmesini önlemek için passphrase adı verilen bir şifre tanımlamalısınız. Anahtar çiftini ürettikten sonra şifrenizi her seferinde girmemek için [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) veya [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) programlarından birini kullanabilirsiniz. 
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+Kodunuzu Github'a göndermek için SSH anahtarlarını kullanıyorsanız [şu linkte](https://help.github.com/articles/connecting-to-github-with-ssh/)'ki adımları takip ederek bir anahtar çifti üretmiş olmalısınız. Şifrenizin olup olmadığını ve geçerliliğini kontrol etmek için `ssh-keygen -y -f /path/to/key` komutunu kullanabilirsiniz.
 
-### Key based authentication
+### Anahtar tabanlı doğrulama
 
-`ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+`ssh`, hangi istemcilerin erişimine izin vereceğini belirlemek için `.ssh/authorized_keys` dosyasının içeriğini kullanır. Açık anahtarınızı uzak bilgisayada tanımlamak için aşağıdaki komutu kullanabilirsiniz:
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
-A simpler solution can be achieved with `ssh-copy-id` where available:
+Açık anahtarınızı kopyalama işlemini `ssh-copy-id` programını kullanarak aşağıdaki komut ile de yapabilirsiniz:
 
 ```bash
 ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote
 ```
 
-## Copying files over SSH
+## SSH ile dosya kopyalama
 
-There are many ways to copy files over ssh:
+SSH ile dosya kopyalamanın birçok yolu vardır:
 
-- `ssh+tee`, the simplest is to use `ssh` command execution and STDIN input by doing `cat localfile | ssh remote_server tee serverfile`. Recall that [`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) writes the output from STDIN into a file.
-- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) when copying large amounts of files/directories, the secure copy `scp` command is more convenient since it can easily recurse over paths. The syntax is `scp path/to/local_file remote_host:path/to/remote_file`
-- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+- `ssh+tee`, en basit yöntem `ssh` komutunu ve STDIN ile girdi alarak şu komutu kullanmaktır `cat localfile | ssh remote_server tee serverfile`. [`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) komutu STDIN çıktısını bir dosyaya yazmak için kullanılır.
+- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) büyük dosya ve klasörleri kopyalarken güvenli kopyalama için `scp` komutunu kullanabilirsiniz. `scp` komutu dizinleri öz yinelemeli (recursive) olarak kopyalamamızı sağladığı daha kullanışlı bir komuttur. Bu komutun söz dizimi `scp path/to/local_file remote_host:path/to/remote_file` şeklindedir
+- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) `scp`'nin sağladığı kullanım kolaylığını daha da ileriye taşıyarak kendi bilgisayarınızdaki ve uzak sunucudaki dosyaların aynı içeriğe sahip olup olmadığını tespit ederek aynı içeriğe sahip dosyaların tekrar tekrar kopyalanmamasını sağlar. `rsync` aynı zamanda sembolik linkleri, dosya ve dizin yetkilerini daha iyi denetlememizi sağlar,  `--partial` flag'i ile de kesintiye uğrayan kopyalama işlemlerinizin sonradan kaldıkları yerden devam etmesini sağlayan ekstra özelliklere sahiptir. `rsync` komutunun söz dizimi `scp`'nin söz dizimine benzemektedir.
 
-## Port Forwarding
+## Port Yönlendirme
 
-In many scenarios you will run into software that listens to specific ports in the machine. When this happens in your local machine you can type `localhost:PORT` or `127.0.0.1:PORT`, but what do you do with a remote server that does not have its ports directly available through the network/internet?.
+Çoğu program bilgisayardaki belirli portları dinler. Herhangi bir program kendi bilgisayarınızdaki bir portu dinliyorsa `localhost:PORT` veya `127.0.0.1:PORT` yazarak programa ilgili port üzerinden veri gönderebilir veya alabilirsiniz. Ancak, uzak bir sunucudaki bir porta erişmek isterseniz ve bu uzak sunucunun ilgili portu ağ üzerinden erişebilir değilse ne yapacaksınız?
 
-This is called _port forwarding_ and it
-comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the pictures for more details, credit of the pictures from [this StackOverflow post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
+Yukarıda belirttiğimiz port işlemlerine _port yönlendirme_ denir ve iki şekilde yapılır: Yerel Port Yönlendirme ve Uzaktaki Portu Yönlendirme (ayrıntılar için aşağıdaki resimleri inceleyebilirsiniz, bu resimler [şu StackOverflow post'undan alıntıdır](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
 
-**Local Port Forwarding**
-![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png  "Local Port Forwarding")
+**Yerel Port Yönlendirme**
+![Yerel Port Yönlendirme](https://i.stack.imgur.com/a28N8.png  "Yerel Port Yönlendirme")
 
-**Remote Port Forwarding**
-![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png  "Remote Port Forwarding")
+**Uzaktaki Portu Yönlendirme**
+![Uzaktaki Portu Yönlendirme](https://i.stack.imgur.com/4iK3b.png  "Uzaktaki Portu Yönlendirme")
 
-The most common scenario is local port forwarding, where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example, if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus, to forward that to the local port `9999`, we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `locahost:9999` in our local machine.
+En alışılmış senaryolardan birisi yerel port yönlendirmedir. Bu senaryoda uzaktaki bir sunucuda çalışan bir program bu sunucudaki bir portu dinler, siz de kendi bilgisayarınızdaki bir portu uzak sunucudaki bu porta yönlendirirsiniz. Örneğin, uzak sunucuda `8888` portunu dinleyen `jupyter notebook` programını çalıştırıp `8888` portunu kendi bilgisayarınızdaki (yerel) `9999` portuna `ssh -L 9999:localhost:8888 foobar@remote_server` komutu ile yönlendirip kendi bilgisayarınızda `locahost:9999` yazarak uzak sunucudaki programa erişebilirsiniz.
 
+## SSH Konfigürasyonu
 
-## SSH Configuration
-
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like
+Bu bölümde `ssh` komutu ile kullanabileceğimiz birçok argümanı ele aldık. `ssh` komutunu her seferinde bu argümanları tekrar tekrar yazarak kullanmak yerine aşağıdakine benzer komut kısaltmaları oluşturabilirsiniz
 ```bash
 alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
 ```
 
-However, there is a better alternative using `~/.ssh/config`.
+Ancak, komut kısaltmaları kullanmak yerine daha iyi bir alternatif olarak `~/.ssh/config` konfigürasyon dosyasını kullanabilirsiniz.
 
 ```bash
 Host vm
@@ -396,114 +371,106 @@ Host vm
     IdentityFile ~/.ssh/id_ed25519
     LocalForward 9999 localhost:8888
 
-# Configs can also take wildcards
+# Konfigürasyonlarda wildcard da kullanabilirsiniz
 Host *.mit.edu
     User foobaz
 ```
 
-An additional advantage of using the `~/.ssh/config` file over aliases  is that other programs like `scp`, `rsync`, `mosh`, &c are able to read it as well and convert the settings into the corresponding flags.
+Kısaltmalar yerine `~/.ssh/config` kullanmanın diğer bir avantajı da  `scp`, `rsync` ve `mosh` gibi programların bu konfigürasyonu okuyarak kendilerine özel flag'lere dönüştürebilmeleridir.
 
+`~/.ssh/config` konfigürasyon dosyasının genel anlamda diğer dotfile dosyalarınız ile aynı olduğunu söyleyebiliriz. Bu dosyayı da diğer dotfile dosyalarınız ile birlikte yönetebilirsiniz. Ancak, `~/.ssh/config` dosyasını açık olarak erişime açarsanız bu dosya içinde yer alan sunucu isimlerini, kullanıcı adlarını ve port bilgilerini tanımadığınız insanlar ile paylaşmış olursunuz. Bu hassas bilgilerin paylaşılması sunucularımızı hedef alan saldırılara neden olabilir, bu nedenle SSH konfigürasyonunuzu paylaşırken iki defa düşünün.
 
-Note that the `~/.ssh/config` file can be considered a dotfile, and in general it is fine for it to be included with the rest of your dotfiles. However, if you make it public, think about the information that you are potentially providing strangers on the internet: addresses of your servers, users, open ports, &c. This may facilitate some types of attacks so be thoughtful about sharing your SSH configuration.
+Sunuculardaki ssh konfigürasyonu genelde `/etc/ssh/sshd_config` dosyasında yer alır. Bu konfigürasyon dosyası içinde şifre ile erişimi engelleme, ssh portlarını değiştirme ve  X11 yönlendirme gibi değişiklikleri yapabilirsiniz. Sunucu üzerindeki konfigürasyonu kullanıcı bazında da özelleştirebilirsiniz.
 
-Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings on a per user basis.
+## Diğer Konular
 
-## Miscellaneous
+Uzak sunuculara erişim ile ilgili karşılaşılan genel sorunlardan bir tanesi de sunucunun uyku moduna geçmesi ve ağ değişikliği gibi nedenler ile oluşan bağlantı kopmalarıdır. Özellikle gecikme süresi uzun olan SSH bağlantıları kafanızı karıştırabilir. [Mosh](https://mosh.org/), mobil komut satırı, ağ değişikliklerini ve kısa süreli kesintileri yönetip akıllı yerel echo imkanı sunarak ssh'ı bir adım öteye taşır.
 
-A common pain when connecting to a remote server are disconnections due to shutting down/sleeping your computer or changing a network. Moreover if one has a connection with significant lag using ssh can become quite frustrating. [Mosh](https://mosh.org/), the mobile shell, improves upon ssh, allowing roaming connections, intermittent connectivity and providing intelligent local echo.
+Bazen uzak sunucudaki bir dizini kendi bilgisayarınıza mount etmek isteyebilirsiniz. Bunun için [sshfs](https://github.com/libfuse/sshfs) aracını kullanarak uzak dizine kendi bilgisayarınızdaki bir dizin gibi erişebilirsiniz.
 
-Sometimes it is convenient to mount a remote folder. [sshfs](https://github.com/libfuse/sshfs) can mount a folder on a remote server
-locally, and then you can use a local editor.
+# Komut Satırları & Çatılar (Framework)
 
+Komut satırı aracı ve scripting bölümünde `bash` komut satırını ele aldık, çünkü `bash` en yaygın kullanılan, kullanımı en kolay olan ve çoğu işletim sisteminde varsayılan komut satırı olarak hazır kurulu gelmektedir. Ancak, `bash` tek komut satırı seçeneği değildir.
 
-# Shells & Frameworks
+Örneğin, `zsh` komut satırı `bash`'in bir üst kümesidir ve aşağıda birkaç örneğini verdiğimiz birçok kullanışlı özelliğe sahiptir:
 
-During shell tool and scripting we covered the `bash` shell because it is by far the most ubiquitous shell and most systems have it as the default option. Nevertheless, it is not the only option.
+- Daha akıllı globbing, `**`
+- Inline globbing/wildcard genişletme
+- Yazım kontrolü ve düzeltme
+- Daha iyi komut tamamlama ve seçim
+- Dizin yolu genişletme (örneğin `cd /u/lo/b` ifadesi `/usr/local/bin` şeklinde otomatik olarak genişletilir)
 
-For example, the `zsh` shell is a superset of `bash` and provides many convenient features out of the box such as:
+**Çatılar** (Frameworks) da komut satırınızın daha kullanışlı hale getirebilir. [prezto](https://github.com/sorin-ionescu/prezto) ve [oh-my-zsh](https://ohmyz.sh/) popüler çatılardan ikisidir, [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) veya [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) gibi daha özel ihtiyaçlara yönelik çatılar da vardır. [fish](https://fishshell.com/) gibi komut satırları ise kullanıcı dostu birçok özellik içerir. Kullanıcı dostu bu özelliklerden bazıları şunlardır:
 
-- Smarter globbing, `**`
-- Inline globbing/wildcard expansion
-- Spelling correction
-- Better tab completion/selection
-- Path expansion (`cd /u/lo/b` will expand as `/usr/local/bin`)
+- Sağdan sola yazılan diller için destek
+- Komut dizimi renklendirme
+- Komut tarihçesinde kısmi arama
+- Elkitabı (man page) tabanlı flag tamamlama
+- Daha akıllı otomatik komut tamamlama
+- Temalar
 
-**Frameworks** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller ones that focus on specific features such as [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) or [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shells like [fish](https://fishshell.com/) include many of these user-friendly features by default. Some of these features include:
+Bu çatıları kullanırken akılda tutulması gereken konulardan biri bu çatıların komut satırınızı yavaşlatabileceğidir. Özellikle bu çatıların kodu performans için optimize edilmediyse veya gereğinden fazla kod içeriyorsa yavaşlık söz konusu olabilir. Böyle bir durum ile karşılaşırsanız bu çatıların çalışma anında inceleyebilir ve soruna neden olan özelliklerini kapatabilirsiniz veya iş akışınıza sağladıkları katkıya göre yavaşlığı kabullenerek kullanmaya devam edebilirsiniz.
 
-- Right prompt
-- Command syntax highlighting
-- History substring search
-- manpage based flag completions
-- Smarter autocompletion
-- Prompt themes
+# Terminal Emülatörleri
 
-One thing to note when using these frameworks is that they may slow down your shell, especially if the code they run is not properly optimized or it is too much code. You can always profile it and disable the features that you do not use often or value over speed.
+Komut satırınızı konfigüre ederek özelleştirmenin yanı sıra tercih edeceğiniz **terminal emülatörü** ve özellikleri için de biraz zaman harcamanız yerinde olacaktır. Kullanabileceğiniz birçok terminal emülatörü var (farklı emülatörlerini karşılaştırmasını [şu linkten](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)inceleyebilirsiniz).
 
-# Terminal Emulators
+Terminal başında yüzlerce belki de binlerce saat geçireceğiniz için kullanacağınız terminalin ayarlarını incelemeniz iyi olacaktır. Aşağıda değiştirmek veya düzenlemek isteyeceğiniz bazı özellikleri sıralamaya çalıştık:  
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
+- Yazı tipi seçimi
+- Renk şeması
+- Kısayol tuşları
+- Sekme/bölme desteği
+- Kaydırma konfigürasyonu
+- Performans ([Alacritty](https://github.com/jwilm/alacritty) veya [kitty](https://sw.kovidgoyal.net/kitty/) gibi yeni nesil bazı terminaller GPU hızlandırma desteğine sahiptir).
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+# Alıştırmalar
 
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/jwilm/alacritty) or [kitty](https://sw.kovidgoyal.net/kitty/) offer GPU acceleration).
+## Görev kontrolü
 
-# Exercises
+1. Bu bölümde, `ps aux | grep` komutu ile görevlerimizin pid değerlerini bulmayı ve görevleri sonlandırmayı öğrendik. Ancak, görevleri sonlandırmanın daha iyi yöntemleri var. `sleep 10000` komutu ile terminalinizde bir görev başlatın, bu görevi `Ctrl-Z` ile arka plana atıp `bg` ile çalışmaya devam etmesini sağlayın. Sonra da [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) komutunu kullanarak bu görevin pid'ini bulun ve [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) komutu ile pid'i kullanmadan bu görevi sonlandırın. (İpucu: `-af` flag'lerini kullanın).
 
-## Job control
+1. Yeni bir process başlatmak için başka bir processin sonlanmasını gerektiren bir senaryomuz olsun. Bu işlemi nasıl gerçekleştirirsiniz? Bu alıştırmada bitmesini bekleyeceğimiz process `sleep 60 &` komutu ile başlattığımız processdir.
+Bu işlemi gerçekleştirmenin yollarından bir tanesi [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) komutunu kullanmaktır. sleep komutunu çalıştırıp `ls` komutunun arka plandaki sleep komutunun tamamlanmasını beklemesini sağlayın.
 
-1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+    Yukarıdaki strateji komutları farklı bash oturumlarında başlattığımızda doğru bir strateji olmayacaktır çünkü, `wait` komutu sadece alt processler için çalışır. Ders notlarında ele almadığımız komutlardan birisi de `kill` komutunun çıkış durumu değerinin başarı durumunda sıfır başarısızlık durumda ise sıfırdan farklı bir değer olduğudur. `kill -0` komutu process'e sinyal göndermez ancak process çalışmıyorsa sıfırdan farklı bir değer döndürür. `pidwait` isimli bir bash fonksiyonu oluşturun. Bu fonksiyon parametre olarak bir pid değeri alsın ve pid değeri ile tanımlanan process tamamlanana kadar beklesin. Bu fonksiyon çalışırken ve komutun tamamlanmasını beklerken gereksiz yere CPU kullanmamak için `sleep` komutunu kullanın.
 
-1. Say you don't want to start a process until another completes, how you would go about it? In this exercise our limiting process will always be `sleep 60 &`.
-One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+## Terminal çoklayıcı
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist.
-    Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+1. [Şu linkteki](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) `tmux` rehberini kullanarak ve [şu adımları](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/) adımları takip ederek basit özelleştirmeleri yapınız.
 
-## Terminal multiplexer
+## Komut Kısaltmaları
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. `dc` isimli bir komut kısaltması tanımlayarak `cd` komutunun çalıştırılmasını sağlayın.
 
-## Aliases
-
-1. Create an alias `dc` that resolves to `cd` for when you type it wrongly.
-
-1.  Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10`  to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1.  `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` komutunu çalıştırarak en çok kullandığınız 10 komutu listelerin ve bu 10 komut için daha kullanışlı komut kısaltmaları oluşturun. Not: yukarıdaki komut Bash için verilmiştir, eğer ZSH kullanıyorsanız, `history` yerine `history 1` kullanın.
 
 
 ## Dotfiles
 
-Let's get you up to speed with dotfiles.
-1. Create a folder for your dotfiles and set up version
-   control.
-1. Add a configuration for at least one program, e.g. your shell, with some
-   customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized
-   utility](https://dotfiles.github.io/utilities/).
-1. Test your installation script on a fresh virtual machine.
-1. Migrate all of your current tool configurations to your dotfiles repository.
-1. Publish your dotfiles on GitHub.
+1. dotfile dosyalarınız için bir dizin oluşturun ve bu dosyalar için versiyon kontrolü ayarlarını yapın.
+1. Tanımladığınız klasöre kullandığınız programlardan birisi için içinde size özel özelleştirmelerin olduğu bir konfigürasyon dosyası ekleyin (başlangı olarak `$PS1` değişkenini düzenleyerek komut satırı promptunuzu özelleştirebilirsiniz).
+1. dotfile konfigürasyonlarınızı otomatik olarak yeni bir bilgisayarda kullanmak için bir script geliştirin. Oluşturacağınız script her bir dosya için `ln -s` komutunu kullanacak kadar basit olabilir, veya bu işleme özel [yardımcı bir program](https://dotfiles.github.io/utilities/) kullanabilirsiniz.
+1. dotfile kurulum scriptinizi temiz bir sanal bilgisayarda test edin.
+1. Kullandığını tüm araçların dotfile konfigürasyonlarını dotfile deponuza taşıyın.
+1. dotfile konfigürasyonlarınızı GitHub'da yayınlayın.
 
-## Remote Machines
+## Uzak Bilgisayarlar
 
-Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+Bu alıştırma için sanal bir Linux makinası oluşturun. Sanal makinalar ile ilgili bilginiz yoksa [şu linkteki](https://hibbard.eu/install-ubuntu-virtual-box/) adımları takip ederek bir tane oluşturun.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
-1. Edit `.ssh/config` to have an entry as follows
+1. `~/.ssh/` dosyasını açın ve içinde bir anahtar çifti olup olmadığını kontrol edin. Anahtar çifit yoksa `ssh-keygen -o -a 100 -t ed25519` komutu ile bir tane anahtar çifit oluşturun. Anahtar çifti oluştururken bir şifre belirlemenizi ve `ssh-agent`'ı kullanmanızı öneriyoruz. `ssh-agent` kullanımı ile ilgili daha fazla bilgiye [şu linkten](https://www.ssh.com/ssh/agent) erişebilirsiniz.
+1. `.ssh/config` dosyasına aşağıdaki konfigürasyonu ekleyin
 
 ```bash
 Host vm
-    User username_goes_here
-    HostName ip_goes_here
+    User kullanıcı_adı
+    HostName ip_adresi
     IdentityFile ~/.ssh/id_ed25519
     LocalForward 9999 localhost:8888
 ```
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
-1. Edit your SSH server config by doing  `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out what a command to achieve background port forwarding.
+1. `ssh-copy-id vm` komutunu kullanarak ssh anahtarınızı sanal sunucuya kopyalayın.
+1. Sanal makinanızda `python -m http.server 8888` komutunu kullanarak bir web sunucusu başlatın. Sanal makinanızdaki web sunucusuna kendi makinanızdan `http://localhost:9999` adresini kullanarak erişin.
+1. Sanal makinanızdaki SSH konfigürasyonunuzu `sudo vim /etc/ssh/sshd_config` komutunu kullanarak açın ve `PasswordAuthentication` değerini değiştirerek şifre ile erişimi engelleyin. `PermitRootLogin` değerini değiştirerek root erişimini engelleyin.`ssh` servisini `sudo service sshd restart` komutu ile yeniden başlatın. Sanal makinanıza SSH ile tekrar erişmeyi deneyin.
+1. (Meydan okuma) Sanal makinanıza [`mosh`](https://mosh.org/)'u kurun ve sunucuya bağlanın. Bağlandıktan sonra sanal sunucunun ağ kartını devreden çıkarın. mosh bu durumu tölere edebildi mi?
+1. (Meydan okuma) `-N` ve `-f` flaglerinin `ssh`'da ne işe yaradığını öğrenip  arka planda port yönlendirme yapmak için bir komut yazın.
