@@ -2,7 +2,7 @@
 layout: lecture
 title: "Komut Satırı Ortamı"
 date: 2019-01-21
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: e8BO_dYxk5c
