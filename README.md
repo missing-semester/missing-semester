@@ -15,7 +15,7 @@ Bu projenin çevrilmesine katkı sağlamak istiyorsanız lütfen aşağıdaki ad
 - Eğer çevirmek istediğiniz bölüm henüz bir issue halinde belirtilmemişse bir issue başlatıp bu şekilde devam edebilirsiniz.
 - Çevirilecek 11 ana bölüm mevcut. Hep beraber bu eğitimi Türkçeye çevirebiliriz. PR'larınızı bekliyoruz 💪
 
-- **Ayrıca çeviriye başlamadan önce [çeviri rehberimize](https://github.com/missing-semester-tr/missing-semester-tr.github.io/issues/30) göz atmayı unutmayın.** 
+- **Ayrıca çeviriye başlamadan önce [çeviri rehberimize](https://github.com/missing-semester-tr/missing-semester-tr.github.io/wiki/%C3%87eviri-Standartlar%C4%B1) göz atmayı unutmayın.** 
 
 ## Proje Durumu
 
