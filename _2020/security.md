@@ -15,7 +15,7 @@ fonksiyonları ve SSH'da simetrik/asimetrik şifreleme sistemleri gibi daha önc
 bu sınıfta bahsettiğimiz araçların güvenlik ve şifreleme konseptlerine odaklanacağız.
 
 Bu kurs bilgisayar sistem güvenliği ([6.858](https://css.csail.mit.edu/6.858/)) ya da
-kriptografi ([6.857](https://courses.csail.mit.edu/6.857/) and 6.875) dersinin yerini 
+kriptografi ([6.857](https://courses.csail.mit.edu/6.857/) ve 6.875) dersinin yerini 
 tutacak kadar detaylı değildir. Güvenlik konusunda resmi bir eğitim almadan güvenlik ile
 alakalı bir çalışma yapmayın. Uzman olana kadar, sakın [kendi şifreleme 
 algoritmanızı](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html) oluşturup
@@ -23,16 +23,16 @@ kullanmayın.
 
 Aynı durum sistem  güvenliği için de geçerlidir.
 
-Bu ders temel kriptografi konseptleri hakkında resmi olmayan (ama pratik olduğunu düşündüğümüz) bir işleyişe sahip. Bu ders güvenli sistemler ya da güvenlik protokolleri _tasarlamak_ için yeterli değil, ancak size kullandığınız programları ve protokolleri anlayacak kadar genel bilgi vereceğini umut ediyoruz.
+Bu ders temel kriptografi konseptleri hakkında resmi olmayan (ama pratik olduğunu düşündüğümüz) bir işleyişe sahip. Güvenli sistemler ya da güvenlik protokolleri _tasarlamak_ için yeterli bir eğitim değil, ancak size kullandığınız programları ve protokolleri anlayacak kadar genel bilgi vereceğini umut ediyoruz.
 
 # Entropi
 
-[Entropi](https://en.wikipedia.org/wiki/Entropy_(information_theory)) rastgeleliğin ölçüsüdür. Parolaların gücünün belirlenmesi gibi alanlarda oldukça kullanışlıdır.
+[Entropi](https://en.wikipedia.org/wiki/Entropy_(information_theory)) düzensizliğin ölçüsüdür. Parolaların gücünün belirlenmesi gibi alanlarda oldukça kullanışlıdır.
 
 ![XKCD 936: Password Strength](https://imgs.xkcd.com/comics/password_strength.png)
 
-Yukarıdaki [XKCD karikatüründeki](https://xkcd.com/936/) bahsedildiği gibi,
-"correcthorsebatterystaple" gibi bir şifre "Tr0ub4dor&3" gibi bir şifreden daha güvenlidir.
+Yukarıdaki [XKCD karikatüründe](https://xkcd.com/936/) bahsedildiği gibi,
+"correcthorsebatterystaple" gibi bir parola "Tr0ub4dor&3" gibi bir paroladan daha güvenlidir.
 Ama böyle bir şey nasıl ölçülebilir?
 
 Entropi _bit_ cinsinden ölçülür, bir olasılıklar kümesi için entropi hesaplanırken şu
@@ -159,7 +159,7 @@ Günümüzde yaygın olarak kullanılan bir simetrik şifreleme sistemi de
 
 # Asimetrik şifreleme
 
-"Asimetrik" terimi burada iki farklı role sahip iki anahtar kullanıldığına referans eder.
+"Asimetrik" terimi burada iki farklı role sahip iki anahtar kullanıldığını işaret eder.
 Private anahtarın adından da anlaşılabileceği gibi gizli tutulması gerekir. Public
 anahtar herkese açık olarak paylaşılabilir. Simetrik şifrelemenin aksine güvenliği etkilemez.
 Asimetrik şifreleme sitemleri şifrelemek/çözmek ve imzalamak/doğrulamak için aşağıdaki fonksiyonları
@@ -176,9 +176,9 @@ doğrula(mesaj: array<byte>, imza: array<byte>, public anahtar) -> bool  (imzan�
 ```
 
 Şifreleme/çözme fonksiyonları simetrik kripto sistemler ile benzer analoglara sahiptir.
-Mesaj _public_ anahtar kullanarak şifrelenebilir. Şifrelenmiş metinden _private_ anahtar olmadan
-düz metine ulaşılması zordur. Şifre çözme fonksiyonu kesin doğruluğa sahiptir, 
-yani `çöz(şifrele(m, public anahtar), private anahtar) = m`.
+Mesaj _public_ anahtar (herkese açık anahtar) kullanarak şifrelenebilir. Şifrelenmiş
+metinden _private_ anahtar (kişiye özel, saklı anahtar) olmadan düz metine ulaşılması
+zordur. Şifre çözme fonksiyonu kesin doğruluğa sahiptir, yani `çöz(şifrele(m, public anahtar), private anahtar) = m`.
 
 Simetrik ve asimetrik şifreleme fiziksel kilitlerle karşılaştırılabilir.
 Simetrik kripto sistemler kapı kilidi gibidir: Anahtara sahip biri
@@ -194,6 +194,11 @@ oluşturulan bir imzadan `verify(mesaj, imza, public anahtar)` işleminden _true
 etmek çok zordur. Ve tabii ki doğrulama fonksiyonu kesin doğruluğa sahiptir. `doğrula(mesaj,
 imzala(mesaj, private anahtar), public anahtar) = true`
 
+```
+Çevirmen bilgi notu:
+Private Key: Hususi anahtar
+Public Key: Umumi anahtar olarak yaygın olmayan bir şekilde Türkçe'de kullanılabiliyor.
+```
 ## Uygulamalar
 
 - [PGP e-posta şifrelenmesi](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
