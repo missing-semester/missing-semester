@@ -31,7 +31,7 @@ Bu ders temel kriptografi konseptleri hakkında resmi olmayan (ama pratik olduğ
 
 ![XKCD 936: Password Strength](https://imgs.xkcd.com/comics/password_strength.png)
 
-Yukarıdaki [XKCD karikatüründeki](https://xkcd.com/936/) bahsedildiği gibi,
+Yukarıdaki [XKCD karikatüründe](https://xkcd.com/936/) bahsedildiği gibi,
 "correcthorsebatterystaple" gibi bir parola "Tr0ub4dor&3" gibi bir paroladan daha güvenlidir.
 Ama böyle bir şey nasıl ölçülebilir?
 
