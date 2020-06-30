@@ -70,7 +70,7 @@ Some other things you may want to look into are:
 
 ## Webservices
 
-Not all the data that you use lives on your hard disk. If you use **webservices**, then it might be the case that some data you care about, such as Google Docs presentations or Spotify playlists, is stored online. An easy example to forget is email accounts with web access such as Gmail. However, there are tools such as [gmvault](https://github.com/gaubert/gmvault) available to download the email files to your computer. Figuring out a backup solution in scenario is somewhat trickier. There are many services that allow you to download your data, either directly or via an API.
+Not all the data that you use lives on your hard disk. If you use **webservices**, then it might be the case that some data you care about, such as Google Docs presentations or Spotify playlists, is stored online. Another easy example that is easy to forget is email accounts with web access, such as Gmail. Figuring out a backup solution in these cases is somewhat trickier. However, there are many services that allow you to download your data, either directly or via an API. Tools such as [gmvault](https://github.com/gaubert/gmvault) for Gmail are available to download the email files to your computer.
 
 
 ## Webpages
