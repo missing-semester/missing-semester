@@ -2,6 +2,7 @@
 _site/
 .jekyll-metadata
 .vscode/*
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
