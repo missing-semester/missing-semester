@@ -1,47 +1,43 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "Hata Ayıklama ve Ayrıntılı İnceleme"
 date: 2019-01-23
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: l812pUnKxME
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do.
-Bridging that gap can sometimes be a quite difficult feat.
-In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+Yazılım geliştirmenin altın kurallarından birisi yazdığınız programın sizin beklentinize göre değil programa yapacağı işi nasıl tarif ettiğinize göre çalışacağıdır. Bu dersimizde, hata barındıran ve beklediğimizden fazla kaynak tüketen programlarda hata ayıklama ve ayrıntılı inceleme için kullanacağımız faydalı yöntemleri inceleyeceğiz.
 
-# Debugging
+# Hata ayıklama (Debugging)
 
-## Printf debugging and Logging
+## Printf ile hata ayıklama ve loglama
 
-"The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+"En etkili hata ayıklama aracı dikkatli düşünce ve akıllıca kullanılmış print cümlecikleridir." — Brian Kernighan, _Unix for Beginners_.
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+Bir programda hata ayıklama için kullanılan ilk yöntem hatanın tespit edildiği kod bloklarının etrafına yerleştirilen print cümlecikleridir. Hata ile ilgili yeterince bilgi sahibi olana kadar print cümleciklerini ekleme işlemi yinelenir.
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is better than regular print statements for several reasons:
+İkinci yöntem ise print cümlecikleri yerine programınızda loglama yaklaşımını kullanmaktır. Loglama, birkaç sebeple print cümleciklerinden daha iyi bir yöntemdir:
 
-- You can log to files, sockets or even remote servers instead of standard output.
-- Logging supports severity levels (such as INFO, DEBUG, WARN, ERROR, &c), that allow you to filter the output accordingly.
-- For new issues, there's a fair chance that your logs will contain enough information to detect what is going wrong.
+- print cümleciklerinde olduğu gibi sadece standard output'a değil dosyalara, soketlere ve hatta uzak sunuculara logları yazabilirsiniz.
+- Loglama farklı önem derecelerinin (INFO, DEBUG, WARN, ERROR vb.) kullanılmasını destekler.Bu önem dereceleri sayesinde log mesajlarını filtreleyerek daha kolay inceleyebilirsiniz.
+- İlk defa ortaya çıkan hatalar için log çıktısının hatayı daha kolay anlamanıza yetecek miktarda bilgi barındırması olasıdır.
 
-[Here](/static/files/logger.py) is an example code that logs messages:
+Mesajları loglayan örnek bir program kodunu [şu Python dosyasından](/static/files/logger.py) inceleyebilirsiniz:
 
 ```bash
 $ python logger.py
-# Raw output as with just prints
+# Sadece print cümlecikleri kullanarak işlenmemiş çıktı
 $ python logger.py log
-# Log formatted output
+# Formatlı log çıktısı
 $ python logger.py log ERROR
-# Print only ERROR levels and above
+# Sadece önem seviyesi ERROR veya üstü olan mesajları göster
 $ python logger.py color
-# Color formatted output
+# Renkli ve formatlı log mesajları göster
 ```
 
-One of my favorite tips for making logs more readable is to color code them.
-By now you probably have realized that your terminal uses colors to make things more readable. But how does it do it?
-Programs like `ls` or `grep` are using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code), which are special sequences of characters to indicate your shell to change the color of the output. For example, executing `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` prints the message `This is red` in red on your terminal. The following script shows how to print many RGB colors into your terminal.
+Log mesajlarını daha okunabilir hale getirmek için favori yöntemlerinden birisi logları renkler kullanarak kodlamaktır. Şu ana kadar terminalinizin bazı şeyleri daha okunaklı hale getirmek için renkleri kullandığının farkına varmışsınızdır. Pekiyi, terminal bunu nasıl yapar? `ls` veya `grep` gibi programlar[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) adı verilen özel karakter dizilimlerini kullanır. Bu karakter dizilimleri komut satırınıza çıktıları nasıl renklendirmesi gerektiğini söyler. Örneğin, `echo -e "\e[38;2;255;0;0mBu satır kırmızı renktedir\e[0m"` komutunu çalıştırdığınızda terminalinizde kırmızı renkli olarak `Bu satır kırmızı renktedir` mesajını yazacaktır. Aşağıdaki örnek script çoğu RGB kodlu rengin nasıl yazdırılabileceğini gösterir.
 
 ```bash
 #!/usr/bin/env bash
@@ -53,63 +49,49 @@ for R in $(seq 0 20 255); do
     done
 done
 ```
+> **Çevirenin Notu:** RGB, Red(Kırmızı)-Green(Yeşil)-Blue(Mavi) renk bileşenlerinden her birinin 8 bit ve 0-255 arasında bir değer ile ifade edildiği ve 17 miliyona yakın rengin temsil edilebildiği bir renklendirme şemasıdır.
 
-## Third party logs
+## 3. parti program logları
 
-As you start building larger software systems you will most probably run into dependencies that run as separate programs.
-Web servers, databases or message brokers are common examples of this kind of dependencies.
-When interacting with these systems it is often necessary to read their logs, since client side error messages might not suffice.
+Daha kapsamlı programlar geliştirmeye başladıkça bu programların farklı programlara bağımlılıkları oluşmaya başlayacaktır. Web sunucuları, veritabanları veya mesajlaşma programları bu tür bağımlılıklar için tipik örneklerdir. Bu tür programlar ile etkileşim halinde zaman zaman bu programların loglarını da incelemeniz gerekecektir, sadece kendi programınızın logları bazı durumlarda yetersiz kalacaktır.
 
-Luckily, most programs write their own logs somewhere in your system.
-In UNIX systems, it is commonplace for programs to write their logs under `/var/log`.
-For instance, the [NGINX](https://www.nginx.com/) webserver places its logs under `/var/log/nginx`.
-More recently, systems have started using a **system log**, which is increasingly where all of your log messages go.
-Most (but not all) Linux systems use `systemd`, a system daemon that controls many things in your system such as which services are enabled and running.
-`systemd` places the logs under `/var/log/journal` in a specialized format and you can use the [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) command to display the messages.
-Similarly, on macOS there is still `/var/log/system.log` but an increasing number of tools use the system log, that can be displayed with [`log show`](https://www.manpagez.com/man/1/log/).
-On most UNIX systems you can also use the [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) command to access the kernel log.
+Çoğu program kendi loglarını sistemlerinizde bir konuma yazarlar. UNIX ve benzeri sistemlerde bu logları `/var/log` dizinine yazmak genel geçer bir yöntemdir. Örneğin, [NGINX](https://www.nginx.com/) web sunucusu loglarını `/var/log/nginx` dizinine yazar. Çoğu Linux sistem kurulu servisleri veya çalışan servisler gibi pek çok işlemi kontrol etmek için `systemd` adı verilen özel bir hayalet program (daemon) kullanır. `systemd` log çıktılarını `/var/log/journal` dizini içine özel bir formatta yazar. `systemd` loglarını incelemek için [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) komutunu kullanabilirsiniz. Benzer şekilde macOS'da da `/var/log/system.log` dosyası yer alır ancak gün geçtikçe daha fazla sayıda program loglarını bu konuma değil sistemin kendi loguna yazar. macOS'da system.log içeriğini [`log show`](https://www.manpagez.com/man/1/log/) komutu ile görüntüleyebilirsiniz. Çoğu UNIX sistemde [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) komutu ile işletim sisteminin kernel loglarını görüntüleyebilirsiniz.
 
-For logging under the system logs you can use the [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html) shell program.
-Here's an example of using `logger` and how to check that the entry made it to the system logs.
-Moreover, most programming languages have bindings logging to the system log.
+Sistemin kendi loguna yazmak için [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html)  adı verilen komut satırı programını kullanabilirsiniz. Aşağıdaki örnekte `logger` kullanılarak sistem loguna yazma ve sistem logundan görüntüleme işlemlerinin nasıl yapılabileceğini görebilirsiniz. Çoğu programlama dili bindingler aracılığı ile sistem loguna erişim ve kullanım imkanı sunar.
 
 ```bash
-logger "Hello Logs"
-# On macOS
-log show --last 1m | grep Hello
-# On Linux
-journalctl --since "1m ago" | grep Hello
+logger "Merhaba sistem logu"
+# macOS üzerinde logu görüntülemek için
+log show --last 1m | grep Merhaba
+# Linux üzerinde logu görüntülemek için 
+journalctl --since "1m ago" | grep Merhaba
 ```
 
-As we saw in the data wrangling lecture, logs can be quite verbose and they require some level of processing and filtering to get the information you want.
-If you find yourself heavily filtering through `journalctl` and `log show` you can consider using their flags, which can perform a first pass of filtering of their output.
-There are also some tools like  [`lnav`](http://lnav.org/), that provide an improved presentation and navigation for log files.
+Veri işleme dersimizde de gördüğünüz üzere log mesajları büyük miktarda ve zengin içeriğe sahip oldukları için log mesajlarından faydalı bilgileri ayıklamak için bu mesajları işlemek ve filtrelemek gerekecektir. Eğer yoğun olarak `journalctl` ve `log show` ile log mesajlarını inceliyorsanız bu komutların flaglerini kullanarak ilk aşama filtreleme işlemlerini rahatlıkla yapabilirsiniz. Bununla birlikte gelişmiş log gösterim ve log dosyalarına konumlama özellikleri sunan [`lnav`](http://lnav.org/) gibi araçları da kullanabilirsiniz. 
 
-## Debuggers
+## Hata ayıklayıcılar (Debuggers)
 
-When printf debugging is not enough you should use a debugger.
-Debuggers are programs that let you interact with the execution of a program, allowing the following:
+printf cümlecikleri ile yapacağınız hata ayıklama işlemleri ihtiyacınızı karşılamıyorsa hata ayıklayıcı (debugger) adı verilen özel programları kullanmalısınız. Hata ayıklayıcılar programınız ile çalışma anında etkileşime geçmenizi sağlarlar. Bu sayede:
 
-- Halt execution of the program when it reaches a certain line.
-- Step through the program one instruction at a time.
-- Inspect values of variables after the program crashed.
-- Conditionally halt the execution when a given condition is met.
-- And many more advanced features
+- Programınızın çalışmasını belirttiğiniz herhangi bir satırda duraklatabilirsiniz
+- Programınızı her seferinde bir komut olacak şekilde duraklatarak çalıştırabilirsiniz
+- Programınız hata ile sonlandığında tüm program değişkenlerinin içeriğini inceleyebilirsiniz
+- Belirli bir koşul oluştuğunda programınızı sonlandırabilirsiniz
+- Daha bir çok gelişmiş özellik sayesinde hata ayıklama işlemlerini daha rahat yapabilirsiniz
 
-Many programming languages come with some form of debugger.
-In Python this is the Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html).
+Çoğu programlama dili ve ortamının kendi hata ayıklayıcısı vardır. Python için bu hata ayıklayıcı [`pdb`](https://docs.python.org/3/library/pdb.html) komutu ile kullanabileceğiniz Python Debugger'dır.
 
-Here is a brief description of some of the commands `pdb` supports:
+Aşağıda `pdb`'nin desteklediği bazı komutlar yer almaktadır:
 
-- **l**(ist) - Displays 11 lines around the current line or continue the previous listing.
-- **s**(tep) - Execute the current line, stop at the first possible occasion.
-- **n**(ext) - Continue execution until the next line in the current function is reached or it returns.
-- **b**(reak) - Set a breakpoint (depending on the argument provided).
-- **p**(rint) - Evaluate the expression in the current context and print its value. There's also **pp** to display using [`pprint`](https://docs.python.org/3/library/pprint.html) instead.
-- **r**(eturn) - Continue execution until the current function returns.
-- **q**(uit) - Quit the debugger.
+- **l**(ist) - Aktif kod satırı etrafındaki 11 kod satırını gösterir veya önceki listeleme işlemini devam ettirir.
+- **s**(tep) - Aktif kod satırını çalıştırıp, mümkün olan ilk anda da çalışmayı duraklatır.
+- **n**(ext) - Aktif fonksiyonu sonraki satıra kadar veya fonksiyonun sonlandığı satıra kadar çalıştırır.
+- **b**(reak) - breakpoint adı verilen duraklama noktası tanımlar (verilen argümana bağlı olarak).
+- **p**(rint) - İfadeyi aktif bağlamda çalıştırır ve değerini yazdırır. Buna ilave olarak [`pprint`](https://docs.python.org/3/library/pprint.html) kullanan **pp** alternatifi da vardır.
+- **r**(eturn) - Programın çalışmasını aktif fonksiyon sonuna kadar devam ettirir.
+- **q**(uit) - Hata ayıklayıcıyı durdurur.
 
-Let's go through an example of using `pdb` to fix the following buggy python code. (See the lecture video).
+Gelin şimdi `pdb` kullanarak aşağıdaki hatalı Python kodunu düzeltelim. (Ders videosuna bakınız).
 
 ```python
 def bubble_sort(arr):
@@ -124,49 +106,43 @@ def bubble_sort(arr):
 print(bubble_sort([4, 2, 1, 8, 7, 6]))
 ```
 
+Python yorumlanan bir dil olduğu için komut satırından `pdb`'yi kullanarak komutları ve kod parçalarını çalıştırabiliriz. `pdb`'ye alternatif olarak [`IPython`](https://ipython.org) REPL ortamını kullanan [`ipdb`](https://pypi.org/project/ipdb/)'yi de kullanabilirsiniz. `ipdb` cümle tamamlama, kod renklendirme, daha iyi yığın izleme ve daha iyi gözlemleme gibi imkanları `pdb` ile benzer bir ara yüz sağlayarak kullanabilmemizi sağlar. 
 
-Note that since Python is an interpreted language we can use the `pdb` shell to execute commands and to execute instructions.
-[`ipdb`](https://pypi.org/project/ipdb/) is an improved `pdb` that uses the [`IPython`](https://ipython.org) REPL enabling tab completion, syntax highlighting, better tracebacks, and better introspection while retaining the same interface as the `pdb` module.
+Daha alt seviyede programlama işlemleri için [`gdb`](https://www.gnu.org/software/gdb/) ( gdb kullanımını kolaylaştıran [`pwndbg`](https://github.com/pwndbg/pwndbg) eklentisini de kullanabilirsiniz) ve [`lldb`](https://lldb.llvm.org/) gibi araçları kullanabilirsiniz. Bu araçlar C benzeri dillerdeki hata ayıklama işlemleri için optimize edilmişlerdir ve aşağı yukarı yukarıda ele aldığımız iş akışını kullanarak program değişkenlerini görüntülemenizi sağlarlar.
 
-For more low level programming you will probably want to look into [`gdb`](https://www.gnu.org/software/gdb/) (and its quality of life modification [`pwndbg`](https://github.com/pwndbg/pwndbg)) and [`lldb`](https://lldb.llvm.org/).
-They are optimized for C-like language debugging but will let you probe pretty much any process and get its current machine state: registers, stack, program counter, &c.
+> **Çevirmenin Notu:** REPL, Read-Evaluate-Print-Loop adı verilen iş akışının kısaltmasıdır. Çoğunlukla yorumlanan dillerde (Python, JavaScript vb.) etkileşimli geliştirme ortamında girdiğiniz kodun yorumlayıcı tarafından okunması (read), sonrasında değerlendirilmesi (evaluate) ve sonuçlarının da genelde terminalde gösterilmesini (print) ifade eden döngüyü (loop) ifade eder.
+
+## Özelleşmiş Araçlar
+
+Kendi geliştirmediğiniz ve derlenmiş bir programda hata ayıklama yapmanız gerektiğinde bu işlem için de özelleşmiş araçlar vardır. Programlar sadece işletim sistemi kernelinin yapabileceği işlemleri yapabilmek için [Sistem çağrıları (System Calls)](https://en.wikipedia.org/wiki/System_call) adı verilen komutları kullanırlar. Bu sistem çağırılarını Linux üzerinde [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html), macOS ve BSD üzerinde ise[`dtrace`](http://dtrace.org/blogs/about/) gibi araçlar ile yakalayıp inceleyebilirsiniz. `dtrace`, kendi dili olan `D` dilini kullandığı için kullanımı biraz zor olabilir. `dtrace`'i kullanan ancak `strace`'e benzer ara yüz sağlayan [`dtruss`](https://www.manpagez.com/man/1/dtruss/) macOS ve BSD üzerinde size daha rahat bir kullanım sağlayacaktır (daha fazla ayrıntı için [şu linkteki](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html) içeriği inceleyebilirsiniz). 
 
 
-## Specialized Tools
+Aşağıdaki örnekte `ls` komutunun kullandığı [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) sistem çağrısının izini sürmek için `strace` ve `dtruss` araçlarının kullanımını görebilirsiniz. `strace` hakkında daha ayrıntılı bilgi sahibi olmak için [şu linkteki](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) içeriği okumanızı tavsiye ediyorum.
 
-Even if what you are trying to debug is a black box binary there are tools that can help you with that.
-Whenever programs need to perform actions that only the kernel can, they use [System Calls](https://en.wikipedia.org/wiki/System_call).
-There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](http://dtrace.org/blogs/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
-
-Below are some examples of using `strace` or `dtruss` to show [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall traces for an execution of `ls`. For a deeper dive into `strace`, [this](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) is a good read.
 
 ```bash
-# On Linux
+# Linux
 sudo strace -e lstat ls -l > /dev/null
 4
-# On macOS
+# macOS
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
 
-Under some circumstances, you may need to look at the network packets to figure out the issue in your program.
-Tools like [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) are network packet analyzers that let you read the contents of network packets and filter them based on different criteria.
+Programınızdaki bazı sorunları tespit etmek için programın ağ üzerinden alıp verdiği paketleri incelemeniz gerekebilir. Bu durumda [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) ve [Wireshark](https://www.wireshark.org/) gibi paket analizi araçlarını kullanarak ağ paketi içerikleri inceleyebilir ve çeşitili kriterlere göre filtreleyebilirsiniz.
 
-For web development, the Chrome/Firefox developer tools are quite handy. They feature a large number of tools, including:
-- Source code - Inspect the HTML/CSS/JS source code of any website.
-- Live HTML, CSS, JS modification - Change the website content, styles and behavior to test (you can see for yourself that website screenshots are not valid proofs).
-- Javascript shell - Execute commands in the JS REPL.
-- Network - Analyze the requests timeline.
-- Storage - Look into the Cookies and local application storage.
+Web geliştiricileri için Chrome ve Firefox tarayıcılarının geliştirici araçları oldukça kullanışlıdır. Bu araçlardan bazıları şunlardır: 
+- Kaynak kodu görüntüleme - herhangi bir web sitesinin HTML/CSS/JS kodlarını incelemek için kullanılabilir.
+- Canlı HTML, CSS, JS düzenleme - test için web sitesinin kodunu ve stilini canlı olarak değiştirmek için kullanılabilir.
+- Javascript komut satırı - Javascript komutlarını çalıştırmak için kullanılabilir.
+- Ağ - web sitesinin yaptığı ağ isteklerinin zamanlamasını analiz etmek için kullanılabilir.
+- Depolama - web sitesinin çerezlerini ve depoladığı diğer verileri incelemek için kullanılabilir
 
-## Static Analysis
 
-For some issues you do not need to run any code.
-For example, just by carefully looking at a piece of code you could realize that your loop variable is shadowing an already existing variable or function name; or that a program reads a variable before defining it.
-Here is where [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tools come into play.
-Static analysis programs take source code as input and analyze it using coding rules to reason about its correctness.
+## Statik Kod Analizi
 
-In the following Python snippet there are several mistakes.
-First, our loop variable `foo` shadows the previous definition of the function `foo`. We also wrote `baz` instead of `bar` in the last line, so the program will crash after completing the `sleep` call (which will take one minute).
+Bazı hataları incelemek için herhangi bir kod çalıştırmanıza gerek yoktur. Örneğin, sadece yazılan kodu okuyarak bir döngünün sayaç değişkeninin dış bağlamdaki aynı isimli bir değişkeni gölgelediğini (döngünün dışındaki bağlamda yer alan değişkenin değerini bozma durumu) anlayabilirsiniz. Benzer şekilde sadece koda bakarak henüz tanımlanmamış bir değişkenin kullanılmaya çalışıldığını görebilirsiniz. Bu tür durumlarda [statik kod analizi](https://en.wikipedia.org/wiki/Static_program_analysis) araçlarını kullanabilirsiniz. Statik kod analizi araçları kaynak kodunuzu girdi olarak alıp tanımlı kuralları kodunuza uygulayarak kodun doğruluğunu çıkarsamaya çalışırlar.
+
+Aşağıdaki Python kod parçasında birkaç hata var. İlk olarak `foo` isimli döngü sayaç değişkeni daha yukarıda tanımlanmış olan `foo` fonksiyonunu maskelemektedir. Ayrıca son satırda değişken olarak `bar` yerine `baz` isimli değişken kullanılmaya çalışılmış. Örnek kod parçası `sleep` çağrısı tamamlandıktan sonra (program çalıştırıldıktan aşağı yukarı 1 dakika sonra) hatalı bir şekilde sonlanır.
 
 ```python
 import time
@@ -182,10 +158,9 @@ time.sleep(60)
 print(baz)
 ```
 
-Static analysis tools can identify this kind of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](http://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
-Again, note that all these issues were detected without having to run the code.
+Statik kod analizi araçları yukarıdakine benzer kod hatalarını tespit edebilirler. Yukarıdaki örnek kod parçasını [`pyflakes`](https://pypi.org/project/pyflakes)'e verdiğimizde her iki hatanın da tespit edileceğini görürsünüz. Aynı kod parçasını [`mypy`](http://mypy-lang.org/) isimli tip kontrolü analizi yapan araca girdi olarak verdiğimizde `bar` değişkenin ilk anda tipinin `int` olduğunu ancak sonradan `float` tipine dönüştürüldüğü tespit edecektir. Tekrar etmek gerekirse, bu sorunları kod çalıştırmadan statik kod analizi araçları kullanarak tespit ettik.
 
-In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
+Komut satırı araçları dersimizde benzer statik analizi yapmamızı sağlayan [`shellcheck`](https://www.shellcheck.net/) aracını ele almıştık.
 
 ```bash
 $ pyflakes foobar.py
@@ -199,54 +174,49 @@ foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
 
-Most editors and IDEs support displaying the output of these tools within the editor itself, highlighting the locations of warnings and errors.
-This is often called **code linting** and it can also be used to display other types of issues such as stylistic violations or insecure constructs.
+Çoğu entegre yazılım geliştirme (IDE) ortamı bu araçların çıktılarını gösterme ve ilgili kod satırlarına konumlanma desteği sunar. Bu yönteme genelde **code linting** denir ve kod yazım stili ve güvenlik gibi denetimler için de kullanılan bir yöntemdir.
 
-In vim, the plugins [`ale`](https://vimawesome.com/plugin/ale) or [`syntastic`](https://vimawesome.com/plugin/syntastic) will let you do that.
-For Python, [`pylint`](https://github.com/PyCQA/pylint) and [`pep8`](https://pypi.org/project/pep8/) are examples of stylistic linters and [`bandit`](https://pypi.org/project/bandit/) is a tool designed to find common security issues.
-For other languages people have compiled comprehensive lists of useful static analysis tools, such as [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (you may want to take a look at the _Writing_ section) and for linters there is [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
+Vim kullanıyorsanız [`ale`](https://vimawesome.com/plugin/ale) veya [`syntastic`](https://vimawesome.com/plugin/syntastic) eklentileri ile benzer denetimlerin yapılmasını sağlayabilirsiniz. Python için [`pylint`](https://github.com/PyCQA/pylint) ve [`pep8`](https://pypi.org/project/pep8/) araçlarını kod yazımı stili denetimi için, [`bandit`](https://pypi.org/project/bandit/)'i ise yaygın güvenlik problemleri denetimi için kullanabilirsiniz. Diğer programlama dilleri için kullanabileceğiniz statik kod analizi araçlarının listesine [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) sayfasından, linter araçları listesine de [Awesome Linters](https://github.com/caramelomartins/awesome-linters) sayfasından göz atabilirsiniz.
 
-A complementary tool to stylistic linting are code formatters such as [`black`](https://github.com/psf/black) for Python, `gofmt` for Go, `rustfmt` for Rust or [`prettier`](https://prettier.io/) for JavaScript, HTML and CSS.
-These tools autoformat your code so that it's consistent with common stylistic patterns for the given programming language.
-Although you might be unwilling to give stylistic control about your code, standardizing code format will help other people read your code and will make you better at reading other people's (stylistically standardized) code.
+Kod stili denetlemesi yapan araçları bütünleyici araçlar olarak kod formatlama araçları da kullanılır. Python için [`black`](https://github.com/psf/black), Go için `gofmt`, Rust için `rustfmt` ve JavaScript, HTML ve CSS için [`prettier`](https://prettier.io/) bu araçlardan bazılarıdır. Bu araçlar kodunuzu ilgili programlama dili için tanımlı genel geçer yazım stili kurallarını kullanarak otomatik olarak formatlarlar. Kod stiliniz ile ilgili denetimleri bu araçların kontrolüne bırakmak istemiyor olabilirsiniz. Ancak, diğer yazılımcıların sizin kodunuzu daha rahata okuması, aynı zamanda da sizin diğerlerinin kodunu daha rahat okuyabilmeniz için kod stili standartlarının kullanımı önemlidir. 
 
-# Profiling
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process.
-Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs.
-Since [premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+# Ayrıntılı İnceleme (Profiling)
 
-## Timing
+Kodunuz beklediğiniz gibi çalışıyor olsa bile, eğer kodunuz gereğinden fazla CPU veya bellek kullanıyorsa programınız yeterince iyi kodlanmamış demektir. Algoritma derslerinde genelde big _O_ notasyonu öğretilir, ancak bu derslerde kötü performansa neden olan kod parçalarını nasıl tespit edebileceğiniz öğretilmez. Yazılımcılar arasında ["vakitsiz optimizasyon tüm kötülüklerin anasıdır" (premature optimization is the root of all evil)](http://wiki.c2.com/?PrematureOptimization) şeklinde bir söylem vardır. Bu söylem performans optimizasyonun doğru anda yapılmasının değerini ifade eder, bu nedele programlarınızın çalışma anındaki performans karakteristiklerini ayrıntılı inceleme için faydalanabileceğini araçların (profiling ve monitoring araçları) kullanımı hakkında fikriniz olmalı. Bu araçlar sayesinde programlarınızın hangi kısımlarının en çok zaman ve kaynak harcadığını tespit ederek doğru anda nokta atışı optimizasyon çalışmaları ile program davranışını ideale yaklaştırabilirsiniz.
 
-Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
-Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
+> **Çevirmenin Notu:** [_Big O_](https://en.wikipedia.org/wiki/Big_O_notation#:~:text=Big%20O%20is%20a%20member,as%20the%20input%20size%20grows.) notasyonu ( O(x) şeklinde gösterilir) algoritmaların çalışma anında harcadığı zaman veya diğer kaynakları kullanma ölçüsünü ifade eden bir algoritma performansı ölçme yöntemidir. _Big O_ notasyonu Bachmann–Landau notasyonu veya asymptotic notation adı da verilen bir dizi notasyondan sadece bir tanesidir. Bu notasyonun arka planında ciddi matematiksel önermeler ve tesptiler yer alır. Kendi oluşturduğunuz algoritmalar için veya hazır verilen algoritmalar için **O(1)**, **O(n)**, **O(n^2)**, **O(logN)**, **O(NlogN)** ve **O(n!)** gibi performans ölçülerini ve algoritmaların hangi koşullarda ilgili ölçülere uygun performans sergilediğini incelemenizi öneriyorum.  
+
+## Zamanlama
+
+İki kod satırı arasında programınızın programınızın harcadığı zamanı, hata ayıklama işleminde olduğu gibi, sadece print cümlecikleri ve zamanlayıcıları kullanarak tespit edebilirsiniz. Aşağıdaki Python kod örneğinde [`time`](https://docs.python.org/3/library/time.html) modülü ile bu işlemin nasıl yapılabileceğini görebilirsiniz.
 
 ```python
 import time, random
 n = random.randint(1, 10) * 100
 
-# Get current time
+# Şu anki zamanı bir değişkene ata
 start = time.time()
 
-# Do some work
-print("Sleeping for {} ms".format(n))
+# Herhangi bir işlem yap
+print("{} ms boyunca bekleyeceğim".format(n))
 time.sleep(n/1000)
 
-# Compute time between start and now
+# start ile şu anki zaman arasındaki farkı hesapla
 print(time.time() - start)
 
-# Output
-# Sleeping for 500 ms
+# Çıktı
+# 500 ms boyunca bekleyeceğim
 # 0.5713930130004883
 ```
 
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. It is common for tools to make a distinction between _Real_, _User_ and _Sys_ time. In general, _User_ + _Sys_ tells you how much time your process actually spent in the CPU (more detailed explanation [here](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
+Ancak, duvar saati ile yapılan yukarıdakine benzer bir zamanlama ölçümü sizi yanıltabilir. Çünkü, bilgisayarınız sadece sizin programınızı değil diğer programları da aynı anda çalıştırmaktadır veya bir olayın olmasını bekliyor olabilir. Bu nedenle, zamanlama ölçmek için kullanılan araçlar _Gerçek_ (Real), _Kullanıcı_ (User) ve _Sistem_ (Sys)zamanları şeklinde üç kırılıma sahiptirler. Genel anlamda, _Kullanıcı_ + _Sistem_ zamanlarının toplamı programınızın gerçekte kullandığı CPU zamanını verirler. Daha fazla bilgi için [şu linki](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1) inceleyebilirsiniz.
 
-- _Real_ - Wall clock elapsed time from start to finish of the program, including the time taken by other processes and time taken while blocked (e.g. waiting for I/O or network)
-- _User_ - Amount of time spent in the CPU running user code
-- _Sys_ - Amount of time spent in the CPU running kernel code
+- _Gerçek_ Zaman - Programınızın başlaması ile bitmesi arasında geçen zamandır. Ölçülen bu zamana diğer process'ler için harcanan zaman veya bir olayı beklerken (I/O veya ağ) geçen zaman da dahildir.
+- _Kullanıcı_ Zamanı - Yazdığınız kodun harcadığı CPU zamanını verir.
+- _Sistem_ Zamanı - İşletim sistemi kernel kodu çalıştırmak için harcanan CPU zamanını verir.
 
-For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
+Örneğin, [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html) modülü kullanarak ağ üzerinden HTTP ile veri alan bir kod parçasının zamanlamasını incelediğimizde yavaş bir ağ bağlantısına sahipesiniz aşağıdaki gibi bir durum ile karşılaşırsınız. Bu durumda HTTP üzerinden yapılan talebin 2 saniyede tamamlandığını ancak programın sadece 15 milisaniye seviyesinde CPU _Kullanıcı_ zamanı ve 12 milisaniye seviyesinde CPU _Sistem_ zamanı harcadığını görürüz.
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null`
@@ -255,20 +225,18 @@ user    0m0.015s
 sys     0m0.012s
 ```
 
-## Profilers
+> **Çevirmenin Notu:** `/dev/null` Unix benzeri işletim sistemlerinde özel bir dosya tanımlayıcısıdır. Bu dosyaya yapılan tüm yazma işlemleri yazılan tüm veriyi göz ardı ederek yazma işlemini için başarı kodu döndürür. Daha fazla ayrıntı için [şu linke](https://en.wikipedia.org/wiki/Null_device) göz atabilirsiniz. 
 
-### CPU
+## Ayrıntılı İnceleme Araçları (Profilers)
 
-Most of the time when people refer to _profilers_ they actually mean _CPU profilers_,  which are the most common.
-There are two main types of CPU profilers: _tracing_ and _sampling_ profilers.
-Tracing profilers keep a record of every function call your program makes whereas sampling profilers probe your program periodically (commonly every millisecond) and record the program's stack.
-They use these records to present aggregate statistics of what your program spent the most time doing.
-[Here](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) is a good intro article if you want more detail on this topic.
+### Merkezi İşlem Birimi (CPU)
 
-Most programming languages have some sort of command line profiler that you can use to analyze your code.
-They often integrate with full fledged IDEs but for this lecture we are going to focus on the command line tools themselves.
+Ayrıntılı inceleme araçlarından bahsedilirken genelde _CPU_ kullanımı ile ilgili inceleme yapmamızı sağlayan araçlar kastedilir. _CPU_ kullanımını incelememizi sağlayan araçlar en sık rastladığımız ayrıntılı inceleme araçlarıdır. İki tür _CPU_ inceleme aracı vardır: _takip_ (tracing) ve _örneklem_ (sampling) inceleme araçları. _Takip_ tipindeki araçlar kodunuzun içindeki tüm fonksiyon çağırılarını izlenmesini ve takip edilmesini sağlarken _örneklem_ tipindeki araçlar belirli aralıklarla (genelde her milisaniyede bir defa) programınıza göz atarak programınızın yığınını (stack) kayıt altına alırlar. _Örneklem_ tipindeki araçlar topladıkları örneklemler üzerinde bir takım istatistikler yöntemler uygulayarak programınızın en çok hangi işlemlerde zaman harcadığını size raporlarlar. Bu konu hakkında daha ayrıntılı bilgi sahibi olmak isterseniz [şu linkten](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) erişebileceğiniz giriş seviyesindeki kaynaktan faydalanabilirsiniz.
 
-In Python we can use the `cProfile` module to profile time per function call. Here is a simple example that implements a rudimentary grep in Python:
+Çoğu programlama dili komut satırından kullanabileceğiniz _CPU_ inceleme araçları ile birlikte gelir. Bu araçlar çoğu zaman entegre geliştirme ortamları (IDE) ile de çalışır, ancak bir bu dersimizde komut satırı araçlarını kullanacağız. 
+
+Python için fonksiyon çağırıları için harcanan zamanı `cProfile` modülünü kullanarak ayrıntılı bir şekilde inceleyebiliriz. Aşağıda, bir dosya içinde grep benzeri bir yöntem ile arama yapan örnek bir Python kodu yer almaktadır.
+
 
 ```python
 #!/usr/bin/env python
@@ -292,9 +260,9 @@ if __name__ == '__main__':
             grep(pattern, file)
 ```
 
-We can profile this code using the following command. Analyzing the output we can see that IO is taking most of the time and that compiling the regex takes a fair amount of time as well. Since the regex only needs to be compiled once, we can factor it out of the for.
+Yukarıdaki örnek programı aşağıda verilen komut ile ayrıntılı olarak inceleyebiliriz. İnceleme sonucuna baktığımızda en çok CPU zamanı harcayan işlemlerin I/O işlemleri ve regex işlemlerinin olduğunu görüyoruz. regex ifadelerini bir defa derleyip kod akışında derlenmiş ifadeyi kullanmak mümkün olduğu için `re.compile()` satırını döngü bloğundan çıkararak kodun zaman performansı açısından daha verimli hale getirebiliriz.
 
-```
+```bash
 $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 
 [omitted program output]
@@ -313,19 +281,20 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 [omitted lines]
 ```
 
+Python ile hazır gelen `cProfile` modülünün ve diğer bir çok CPU incelemesi için kullanılan araçların temel sorunu zaman ölçümünü fonksiyon çağrısı bazında yapmalarıdır. Bu yöntem, özellikle 3. parti kütüphaneler kullanıyorsanız çok hızlı bir yöntemdir. Çünkü, bu yöntem ile bu kütüphanelerin içindeki fonksiyonlar da zaman ölçümüne dahil edilir. 
 
-A caveat of Python's `cProfile` profiler (and many profilers for that matter) is that they display time per function call. That can become unintuitive really fast, specially if you are using third party libraries in your code since internal function calls are also accounted for.
-A more intuitive way of displaying profiling information is to include the time taken per line of code, which is what _line profilers_ do.
+Ayrıntılı inceleme verisini göstermek için satır bazında harcanan zamanın gösterilmesi daha uygun ve anlaşılır bir yöntemdir. Bu yöntemi kullanan inceleme araçların _satır bazlı_ incelem araçları denir. 
 
-For instance, the following piece of Python code performs a request to the class website and parses the response to get all URLs in the page:
+Örneğin, aşağıdaki Python kod parçası ders sitemizin içeriğini indirip, bu içerik içindeki tüm linkleri ayıklar.
+
 
 ```python
 #!/usr/bin/env python
 import requests
 from bs4 import BeautifulSoup
 
-# This is a decorator that tells line_profiler
-# that we want to analyze this function
+# @profile ibaresi satır bazlı inceleme aracına get_urls() fonksiyonunu
+# incelemek istediğimizi ifade eden bir direktiftir
 @profile
 def get_urls():
     response = requests.get('https://missing.csail.mit.edu')
@@ -338,7 +307,8 @@ if __name__ == '__main__':
     get_urls()
 ```
 
-If we used Python's `cProfile` profiler we'd get over 2500 lines of output, and even with sorting it'd be hard to understand where the time is being spent. A quick run with [`line_profiler`](https://github.com/rkern/line_profiler) shows the time taken per line:
+
+Eğer, Python ile hazır gelen `cProfile`'ı kullansaydık inceleme çıktısı olarak 2500 satırlık bir sonuç ile karşılaşacaktık. 2500 satırlık bu sonucu satır satır sıralayıp incelemek bir zahmetli olacaktır. Bunun yerine aynı kod örneğini [`line_profiler`](https://github.com/rkern/line_profiler) aracını kullanarak çalıştırdığımızda fonksiyon içindeki her bir satır için aşağıdakine benzer bir çıktı elde ederiz.
 
 ```bash
 $ kernprof -l -v a.py
@@ -360,13 +330,11 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 11        24         33.0      1.4      0.0          urls.append(url['href'])
 ```
 
-### Memory
+### Bellek (Memory)
 
-In languages like C or C++ memory leaks can cause your program to never release memory that it doesn't need anymore.
-To help in the process of memory debugging you can use tools like [Valgrind](https://valgrind.org/) that will help you identify memory leaks.
+C ve C++ gibi dillerde programlarınızda bellek sızıntısı (memory leak) oluşabilir ve bu durumda programınız işletim sisteminden aldığı belleği ihtiyacı olmadığı halde çalıştığı süre boyunca kendinde tutabilir. Bu tip durumları ayrıntılı bir şekilde incelemek için [Valgrind](https://valgrind.org/) benzeri bellek sızıntısı tespitinde size yardımcı olabilecek araçları kullanabilirsiniz.
 
-In garbage collected languages like Python it is still useful to use a memory profiler because as long as you have pointers to objects in memory they won't be garbage collected.
-Here's an example program and its associated output when running it with [memory-profiler](https://pypi.org/project/memory-profiler/) (note the decorator like in `line-profiler`).
+Python gibi ihtiyaç duyduğu belleği doğrudan işletim sisteminden değil de sanal makina benzeri bir yapı sunan kendi özgü çalışma ortamı olan diller için de bellek sızıntıları nadir de olsa karşılaşılan durumlardır. Bu tür dillere `garbage collected` diller denir ve bu dillerde yazdığımız kodun kullandığı bellek tüm bellek referansları geçersiz hale gelince `garbage collector` tarafından otomatik olarak geri alınır. Bu tür dillerde de nesnelere referans vermek için kullanılan işaretçiler nedeniyle bellek sızıntısının meydana gelebilir. Aşağıda, [memory-profiler](https://pypi.org/project/memory-profiler/) (`@profile` direktifini bu araçla da kullandığımıza dikkat edin) kullanarak bellek incelemesi yapılan bir Python programının çıktısı yer almaktadır.
 
 ```python
 @profile
@@ -392,60 +360,58 @@ Line #    Mem usage  Increment   Line Contents
      8     13.61 MB    0.00 MB       return a
 ```
 
-### Event Profiling
+### Olay Ayrıntı İncelemesi (Event Profling)
 
-As it was the case for `strace` for debugging, you might want to ignore the specifics of the code that you are running and treat it like a black box when profiling.
-The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abstracts CPU differences away and does not report time or memory, but instead it reports system events related to your programs.
-For example, `perf` can easily report poor cache locality, high amounts of page faults or livelocks. Here is an overview of the command:
+Hata ayıklama için kullandığımız `strace` de olduğu gibi ayrıntılı inceleme yapmak istediğiniz kodu bir kara kutu olarak görmek isteyebilirsiniz. Bu durumda [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) komutunu kullanabilirsiniz. `perf` komutu CPU mimarileri arasındaki farklar soyutlama ile ortadan kaldırıp zaman ve bellek kullanımı ölçmek yerine sistem olaylarını ve ilişkili aktiviteleri bize raporlar. Örneğin, `perf` komutu düşük cache yerelliği (cache locality) sorunlarını veya yüksek miktarda sayfa hatalarını (page fault) ve ortak kaynak kullanımını senkronize etmek için kullanılan kilit sorunlarını (livelock) kolayca raporlayabilir.
 
-- `perf list` - List the events that can be traced with perf
-- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related a process or command
-- `perf record COMMAND ARG1 ARG2` - Records the run of a command and saves the statistical data into a file called `perf.data`
-- `perf report` - Formats and prints the data collected in `perf.data`
+Aşağıda `perf` komutunun kullanımı ile ilgili özet verilmiştir:
 
+- `perf list` - perf ile takip edilip incelenebilecek olayları listeler.
+- `perf stat COMMAND ARG1 ARG2` - Bir komut veya process ile ilişkili olayların sayısını raporlar 
+- `perf record COMMAND ARG1 ARG2` - Bir komutun çalışması sırasındaki olayları kayıt altında alıp komut ile ilgili istatistikleri `perf.data` dosyasına kaydeder.
+- `perf report` - `perf.data` dosyasında yer alan verileri formatlayıp raporlar
 
-### Visualization
+>**Çevirmenin Notu:** Cache locality, ilişkili verilerin bir birine yakın bellek alanlarında olduğu varsayımı ile belirli bellek bölgelerinin ön belleğe alınması ve belirli kod parçalarının bellekten okuma hızında performans iyileştirmesi sağlayan bir yöntemdir. 
 
-Profiler output for real world programs will contain large amounts of information because of the inherent complexity of software projects.
-Humans are visual creatures and are quite terrible at reading large amounts of numbers and making sense of them.
-Thus there are many tools for displaying profiler's output in an easier to parse way.
+>**Çevirmenin Notu:** Page fault, bellekte yer alan ancak bellek donanımı tarafından henüz adreslenmemiş bellek alanlarına erişilmek istendiğinde oluşan donanım seviyesindeki bir hatadır. Bu hata bellekten okuma performansını olumsuz etkiler.
 
-One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](http://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
+>**Çevirmenin Notu:** Live lock, ortak bir kaynağı kullanmaya çalışan eş zamanlı işlemlerin dönüşümlü olarak çok kısa sürelerde kilit oluşturup sonra da bu kilidi serbest bırakmaları ve hiç birinin ilgili işlemi tamamlayacak kadar süre elde ederek ilgili ortak kaynağa erişememsi nedeni ile ortaya çıkan bir kaynak kullanım sorunudur. Bu sorun uygulamaların iş yapıyor gibi görünüp işlemlerini bitirememelerine neden olur. 
+
+### Görselleştirme
+
+Gerçek dünyada olay inceleme araçları programların çok karmaşık olması nedeni ile büyük miktarda bilgi üretecektir. İnsanlar görsel canlılardır ve büyük miktardaki veriyi ve sayıyı yorumlamakta, anlamakta ve bir sonuç çıkarmakta güçlük çekerler. Bu nedenle olay inceleme araçlarının çıktılarını daha kolay anlaşılabilir hale getiren bir çok yardımcı araç vardır.
+
+_Örneklem_ (sampling) tipindeki ayrıntı inceleme araçlarının çıktılarını incelemek için kullanılan görselleştirme yöntemlerinden bir tanesi [Flame Graph](http://www.brendangregg.com/flamegraphs.html) adı verilen yöntemdir. Bu yöntemde fonksiyon çağırıları Y ekseninde yer alır ve her bir fonksiyon için harcanan süre de X ekseninde gösterilir. Bu grafikler aynı zamanda etkileşimlidir ve programınızın herhangi bir parçası ile ilgili kısmı yakınlaştırmanızı ve yığın bilgisini (stack trace) görmenizi sağlar (aşağıdaki görselde herhangi bir yere tıklamayı deneyin).
 
 [![FlameGraph](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-Call graphs or control flow graphs display the relationships between subroutines within a program by including functions as nodes and functions calls between them as directed edges. When coupled with profiling information such as the number of calls and time taken, call graphs can be quite useful for interpreting the flow of a program.
-In Python you can use the [`pycallgraph`](http://pycallgraph.slowchop.com/en/master/) library to generate them.
+
+Çağırı grafları veya akış kontrol grafları programınızdaki fonksiyonlar arasındaki ilişkileri görselleştirir. Bu graflarda fonksiyonlar düğüm, fonksiyon çağırıları da kenar olarak görselleştirilir. Python için [`pycallgraph`](http://pycallgraph.slowchop.com/en/master/) kullanarak bu grafları üretebilirsiniz.
 
 ![Call Graph](https://upload.wikimedia.org/wikipedia/commons/2/2f/A_Call_Graph_generated_by_pycallgraph.png)
 
 
-## Resource Monitoring
+>**Çevirmenin Notu:** Graf ve grafik birbiri yerine kullanılan ancak aralarında ufak da olsa fark olan kavramlardır. Graf matematiksel bir fonksiyonun görsel olarak ifade edilmiş halidir, grafik ise günlük kullanımda birden çok büyüklük arasındaki ilişkilerin görsel halini tarif eden bir terimdir.
 
-Sometimes, the first step towards analyzing the performance of your program is to understand what its actual resource consumption is.
-Programs often run slowly when they are resource constrained, e.g. without enough memory or on a slow network connection.
-There are a myriad of command line tools for probing and displaying different system resources like CPU usage, memory usage, network, disk usage and so on.
+## Kaynak Kullanımı İzleme (Resource Monitoring)
 
-- **General Monitoring** - Probably the most popular is [`htop`](https://hisham.hm/htop/index.php), which is an improved version of [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
-`htop` presents various statistics for the currently running processes on the system. `htop` has a myriad of options and keybinds, some useful ones  are: `<F6>` to sort processes, `t` to show tree hierarchy and `h` to toggle threads. 
-See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dstat`](http://dag.wiee.rs/home-made/dstat/) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
-- **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information and is handy to check if a process is doing heavy I/O disk operations
-- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](http://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
-A more interactive version of `du` is [`ncdu`](https://dev.yorhel.nl/ncdu) which lets you navigate folders and delete files and folders as you navigate.
-- **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays the total amount of free and used memory in the system. Memory is also displayed in tools like `htop`.
-- **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html)  lists file information about files opened by processes. It can be quite useful for checking which process has opened a specific file.
-- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](http://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
-- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](http://www.ex-parrot.com/pdw/iftop/) are good interactive CLI tools for monitoring network usage.
+Programınızın performansı hakkında fikir sahibi olmak için ilk adım olarak programınızın kaynak kullanımını analiz etmeniz gerekir. Programlar genelde kısıtlı kaynak durumunda yavaş çalışırlar, örneğin yavaş ağ bağlantısı veya yeterli miktarda bellek olmadığı durumlarda. CPU kullanımıi bellek kullanımı, ağ performansı, disk kullanımı gibi sistem kaynaklarının kullanımını ölçmek bir çok araç vardır. 
 
-If you want to test these tools you can also artificially impose loads on the machine using the [`stress`](https://linux.die.net/man/1/stress) command.
+- **Genel İzleme** - Büyük ihtimalle bu işlem için en popüler araçlardan birisi [`htop`](https://hisham.hm/htop/index.php)'dır. `htop`, [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html) aracının daha gelişmiş halidir. `htop` bilgisayarımızda çalışan processler ile ilgili çeşitli istatistikleri raporlayabilir. `htop` bir çok seçenek ve tuş kombinasyonuna sahiptir. Örneğin, `<F6>` tuşu ile processleri sıralayabilirsiniz, `t` seçeneği ile processleri ağaç hiyerarşisinde görüntüleyebilirsiniz, `h` seçeneği ile threadlerin gösterilmesini veya gizlenmesini sağlayabilirsiniz. Benzer özelliklere ve güzel bir kullanıc ara yüzüne sahip [`glances`](https://nicolargo.github.io/glances/) aracına da inceleyebilirsiniz. Tüm processler için özet ölçümleri görmek için [`dstat`](http://dag.wiee.rs/home-made/dstat/) aracını kullanabilirsiniz. `dstat` I/O, ağ, CPU kullanımı ve diğer birçok sistem bileşeni için gerçek zamanlı istatistikleri ve ölçümleri hesaplayabilir.
+- **I/O İşlemleri** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) aracı gerçek zamanlı I/O kullanım bilgilerini gösteren ve yüksek I/O yapan processleri kontrol etmenizi sağlayan bir araçtır.
+- **Disk Kullanımı** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) disk alanı (partition) bazındaki kullanım verilerini, [`du`](http://man7.org/linux/man-pages/man1/du.1.html) ise konumlanılan dizinde yer alan dosyaların disk kullanımını gösteren araçlardır. Bu araçların kabul ettiği `-h` seçeneği ile gösterimin daha okunaklı raporlanması sağlanabilir. `du`'nun daha interaktif versiyonu olan [`ncdu`](https://dev.yorhel.nl/ncdu) dizinlere konumlanma, dosya ve dizinleri silme gibi işlemleri destekler. 
+- **Bellek Kullanımı** -  [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) aracı bilgisayarınızdaki toplam, kullanılmayan ve kullanılan bellek miktarı bilgisini gösteren bir araçtır. Bellek bilgisi `htop` gibi araçlar tarafından da gösterilir.
+- **Kullanımdaki Dosyalar** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) aracı processler tarafından kullanılan dosyalara ilişkin bilgileri gösteren bir araçtır. Bu araç bir processing belirli bir dosyayı kullanıp kullanmadığını araştırmak için ideal bir araçtır. 
+- **Ağ Bağlantıları ve Konfigürasyonu** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) aracı gelen ve giden ağ paket istatistiklerini ve ağ bağdaştırıcısı istatistiklerini incelemenizi sağlayan bir araçtır. `ss` aracı genel olarak bir portu hangi process'in kullandığını görmek için kullanılır. Yönlendirme, ağ cihazları ve bağdaştırıcılarına ilişkin bilgileri görmek için [`ip`](http://man7.org/linux/man-pages/man8/ip.8.html) komutunu kullanabilirsiniz. Unix benzeri sistemlerde kurulu gelen `netstat` ve `ifconfig` gibi araçlar kullanımdan kaldırılmak üzere belirlenmiş araçlardır. Bunların yerine yukarıda bahsettiğimiz araç ve komutları kullanabilirsiniz.
+- **Ağ Kullanımı** - [`nethogs`](https://github.com/raboof/nethogs) ve [`iftop`](http://www.ex-parrot.com/pdw/iftop/) gibi etkileşimli araçlar ağ kullanımını incelemek için kullanılabilir. 
+
+Yukarıda bahsettiğimiz araçları ve komutları test etmek için [`stress`](https://linux.die.net/man/1/stress) komutu ile bilgisayarınızda yapay yük oluşturabilirsiniz.
 
 
-### Specialized tools
+### Özelleşmiş Araçlar
 
-Sometimes, black box benchmarking is all you need to determine what software to use.
-Tools like [`hyperfine`](https://github.com/sharkdp/hyperfine) let you quickly benchmark command line programs.
-For instance, in the shell tools and scripting lecture we recommended `fd` over `find`. We can use `hyperfine` to compare them in tasks we run often.
-E.g. in the example below `fd` was 20x faster than `find` in my machine.
+Bazı durumlarda ayrıntıları ile ilgilenmeden iki aracın performansını karşılaştırmak isteyebilirsiniz. [`hyperfine`](https://github.com/sharkdp/hyperfine) gibi araçlar birbirinin alternatifi olan komut satırı araçlarının performanslarını karşılaştırmanızı sağlar. Örneğin, komut satırı ve scripting dersinde `find` komutu yerine `fd` komutunu kullanmanızı önermiştik. `hyperfine` ile bu iki komutu karşılaştırabiliriz. Aşağıdaki örneğimizde karşılaştırma sonucunda `fd` komutunun `find` komutundan 20 kat daha hızlı olduğunu görebilirsiniz.
+
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -462,18 +428,17 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
-More info for [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Profiling_with_the_Built-in_Profiler) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
+Hata ayıklama araçlarında olduğu gibi ayrıntılı inceleme araçları noktasında da web tarayıcıları olağanüstü yardımcı araçlara sahiptirler. Bu araçları kullanarak web sayfalarının yüklenme sürelerini, yükleme sırasında hangi işlemlerde zaman harcandığını (yükleme, görselleştirme, scripting vb.) inceleyebilirsiniz. Tarayıcı ayrıntılı inceleme araçlarının ayrıntıları için şu linklere [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Profiling_with_the_Built-in_Profiler), [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) göz atabilirsiniz: .
 
-# Exercises
 
-## Debugging
-1. Use `journalctl` on Linux or `log show` on macOS to get the super user accesses and commands in the last day.
-If there aren't any you can execute some harmless commands such as `sudo ls` and check again.
+# Alıştırmalar
 
-1. Do [this](https://github.com/spiside/pdb-tutorial) hands on `pdb` tutorial to familiarize yourself with the commands. For a more in depth tutorial read [this](https://realpython.com/python-debugging-pdb).
+## Hata Ayıklama
+1. Linux'da `journalctl` veya macOS'da `log show` komutlarını kullanarak superuser kullanıcısının son bir günde kullandığı komutları listeleyin. Eğer son bir gün içinde çalıştırılmış herhangi bir komut yoksa `sudo ls` gibi zararsız birkaç komut çalıştırarak işlemi tekrar deneyin.
 
-1. Install [`shellcheck`](https://www.shellcheck.net/) and try checking the following script. What is wrong with the code? Fix it. Install a linter plugin in your editor so you can get your warnings automatically.
+1. [Şu linkteki](https://github.com/spiside/pdb-tutorial) uygulamalı `pdb` dersini adım adım yaparak `pdb` komutlarını tanıyın. Daha ayrıntılı bilgi edinmek için [şu sayfaya](https://realpython.com/python-debugging-pdb) göz atabilirsiniz.
+
+1. [`shellcheck`](https://www.shellcheck.net/) aracını kurarak aşağıdaki scripti denetleyiniz. Aşağıdaki koda nasıl bir sorun var? Bu sorunu düzeltin. Kod editörünüze linter eklentisini kurarak yazım ile ilgili uyarıları otomatik olarak almaya başlayın.
 
    ```bash
    #!/bin/sh
@@ -485,12 +450,13 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
    done
    ```
 
-1. (Advanced) Read about [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) and get a simple example working using [`rr`](https://rr-project.org/) or [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
-## Profiling
+1. (İleri Seviye) Tersine hata ayıklama (reversible debugging) konusu ile ilgili [şu linkteki](https://undo.io/resources/reverse-debugging-whitepaper/) yazıyı okuyun ve [`rr`](https://rr-project.org/) veya [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html) kullanarak bir örnek çalıştırın.
 
-1. [Here](/static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/rkern/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
+## Ayrıntılı İnceleme
 
-1. Here's some (arguably convoluted) Python code for computing Fibonacci numbers using a function for each number.
+1. [Şu Python dosyasında](/static/files/sorts.py) farklı birkaç sıralama algoritması yer alıyor. [`cProfile`](https://docs.python.org/3/library/profile.html) ve [`line_profiler`](https://github.com/rkern/line_profiler) kullanarak insertion sort ve quicksort algoritmalarının çalışma zamanlarını karşılaştırın. Bu algoritmaların darboğazları nelerdir? Algoritmaların bellek kullanımını görmek için `memory_profiler`'ı kullanın. Insertion sort algoritması diğerlerine göre neden daha iyi bir performansa sahip? Quicksort sıralama algoritmasının ilave bellek kullanmayan inplace versiyonunu inceleyin. Meydan okuma: `perf` aracını kullanarak her bir algoritmanın döngü sayısını, ön bellek kullanımını inceleyin.
+
+1. Aşağıda, her bir argüman için Fibonacci sayısını hesaplayan örnek Python fonksiyon kodu verilmiştir.
 
    ```python
    #!/usr/bin/env python
@@ -510,13 +476,13 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
        print(eval("fib9()"))
    ```
 
-   Put the code into a file and make it executable. Install [`pycallgraph`](http://pycallgraph.slowchop.com/en/master/). Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
+   Yukarıdaki kodu bir dosyaya taşıyarak çalıştırılabilir hale getirin.[`pycallgraph`](http://pycallgraph.slowchop.com/en/master/) aracını kurun. Kodu `pycallgraph graphviz -- ./fib.py` komutu ile çalıştırın ve `pycallgraph.png` dosyasının açarak içeriğini kontrol edin. `fib0` fonksiyonu kaç defa çağırılmış? Fonksiyonel programlama yöntemlerinden biri `memoization` yöntemini kullanarak kodumuzun performansını iyileştirebiliriz. Yorum satırı olarak yukarıda yer alan kodu kullanılır hale getirerek kodu `pycallgraph`ile yeniden çalıştırın. `fibN` fonksiyonunu bu düzenlemeler sonrasında kaç defa çağırıyoruz?
 
-1. A common issue is that a port you want to listen on is already taken by another process. Let's learn how to discover that process pid. First execute `python -m http.server 4444` to start a minimal web server listening on port `4444`. On a separate terminal run `lsof | grep LISTEN` to print all listening processes and ports. Find that process pid and terminate it by running `kill <PID>`.
+1. Genel sorunlardan bir tanesi kullanmak istediğiniz bir portun başka bir process tarafında o anda kullanılıyor olmasıdır. Gelin isteğimiz portu kullanan process'in pid değerini öğrenelim. Önce `python -m http.server 4444` komutu ile 4444 portunu dinleyen minimal bir web suncusu çalıştırın. Farklı bir terminal penceresinde `lsof | grep LISTEN` komutunu çalıştırıp portları dinleyen tüm processleri listeleyin. 4444 portunu kullanan process'in pid'ini bulup bu process'i `kill <PID>` komutu ile sonlandırın.
 
-1. Limiting processes resources can be another handy tool in your toolbox.
-Try running `stress -c 3` and visualize the CPU consumption with `htop`. Now, execute `taskset --cpu-list 0,2 stress -c 3` and visualize it. Is `stress` taking three CPUs? Why not? Read [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html).
-Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Try limiting the memory consumption of `stress -m`.
+1. Process'lerin kullanacağı kaynakları sınırlamak araç çantanızda bulunması gereken faydalı araçlardan biridir.
+`stress -c 3` komutunu çalıştırın ve `htop` komutu ile CPU kullanımını görselleştirin. Şimdi de `taskset --cpu-list 0,2 stress -c 3` komutunu çalıştırarak yine `htop` ile görselleştirin. `stress` komutu 3 CPU mu kullanıyor? `stress` neden 3 CPU kullanmıyor? Ayrıntılar için [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html) sayfasını inceleyin.
+Meydan Okuma: taskset ile tanımladığını kaynak kullanımı sınırlandırmasını [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html) kullanarak oluşturmayı deneyin. Bu sefer `stress -m` komutunun bellek kullanımını sınırlandırmayı deneyin.
 
-1. (Advanced) The command `curl ipinfo.io` performs a HTTP request an fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
+1. (İleri Seviye) `curl ipinfo.io` komutu HTTP isteği yaparak açık IP adresiniz ile ilgili bilgileri alır. [Wireshark](https://www.wireshark.org/) uygulamasını açın `curl`'un gönderip aldığı paketleri izlemeyi deneyin. (İpucu: Wireshark'da sadece HTTP paketlerini izlemek için `http` filtersini kullanın).
 
