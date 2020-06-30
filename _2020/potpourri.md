@@ -352,7 +352,7 @@ configurations (operating system, services, packages, etc.) in code, and then
 instantiate VMs with a simple `vagrant up`. [Docker](https://www.docker.com/)
 is conceptually similar but it uses containers instead.
 
-You can rent virtual machines on the cloud, and it's a nice way to get instant
+You can also rent virtual machines on the cloud, and it's a nice way to get instant
 access to:
 
 - A cheap always-on machine that has a public IP address, used to host services
