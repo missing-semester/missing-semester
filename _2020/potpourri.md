@@ -2,69 +2,69 @@
 layout: lecture
 title: "Potpourri"
 date: 2019-01-29
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: JZDt-PRq0uo
 ---
 
-## Table of Contents
+## İçindekiler
 
-- [Keyboard remapping](#keyboard-remapping)
-- [Daemons](#daemons)
+- [Tuş Kombinasyonlarını Ayarlama](#keyboard-remapping)
+- [Arka Planda Çalışan Servisler (Daemons)](#daemons)
 - [FUSE](#fuse)
-- [Backups](#backups)
-- [APIs](#apis)
-- [Common command-line flags/patterns](#common-command-line-flagspatterns)
-- [Window managers](#window-managers)
-- [VPNs](#vpns)
+- [Yedekleme](#backups)
+- [Uygulama Programlama Ara Yüzleri (API)](#apis)
+- [Komut Satırı İpuçları](#common-command-line-flagspatterns)
+- [Pencere Yöneticileri](#window-managers)
+- [Sanal Özel Ağalar (VPN)](#vpns)
 - [Markdown](#markdown)
-- [Hammerspoon(desktop-automation-on-macOS)](#hammerspoon-desktop-automation-on-macos)
-- [Booting + Live USBs](#booting--live-usbs)
-- [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
-- [Notebook programming](#notebook-programming)
+- [Hammerspoon(macOS masaüstü otomasyonu)](#hammerspoon-desktop-automation-on-macos)
+- [Başlatma ve Canlı USB'ler](#booting--live-usbs)
+- [Docker, Vagrant, Sanal Makinalar, Bulut, OpenStack](#docker-vagrant-vms-cloud-openstack)
+- [Not Defterleri Programlama Ortamları](#notebook-programming)
 - [GitHub](#github)
 
-## Keyboard remapping
+## Tuş Kombinasyonlarını Ayarlama
 
-As a programmer, your keyboard is your main input method. As with pretty much anything in your computer, it is configurable (and worth configuring).
+Programcı olarak bilgisayar ile ana iletişim yönteminizi klavyenizdir. Bilgisayarınızdaki diğer bileşenlerin hemen hepsi gibi klavyenizi de konfigüre edebilirsiniz (emin olun bu çabaya değecektir).
 
-The most basic change is to remap keys.
-This usually involves some software that is listening and, whenever a certain key is pressed, it intercepts that event and replaces it with another event corresponding to a different key. Some examples:
-- Remap Caps Lock to Ctrl or Escape. We (the instructors) highly encourage this setting since Caps Lock has a very convenient location but is rarely used.
-- Remapping PrtSc to Play/Pause music. Most OSes have a play/pause key.
-- Swapping Ctrl and the Meta (Windows or Command) key.
+Klavyeniz için yapabileceğiniz en basit konfigürasyon tuş kombinasyonlarınızı yeniden ayarlamaktır. Bu ayarlama genelde tuşlara basıldığında oluşan olayı yakalayan, bu olayı tanıyan ve ardından yaptığınız konfigürasyona göre başka bir olayı tetikleyen programlar kullanılarak yapılır. Klavye tuşlarını ayarlamaya birkaç örnek olarak şunları verebiliriz:
 
-You can also map keys to arbitrary commands of your choosing. This is useful for common tasks that you perform. Here, some software listens for a specific key combination and executes some script whenever that event is detected.
-- Open a new terminal or browser window.
-- Inserting some specific text, e.g. your long email address or your MIT ID number.
-- Sleeping the computer or the displays.
+- Caps Lock tuşunu Ctrl veya Escape ile eşleştirmek. Dersin hocaları olark bu konfigürasyonu yapmanızı öneriyoruz. Çünkü, Caps Lock tuşu klavyedeki konumu itibariyle oldukça kullanışlı bir pozisyonda yer alıyor ancak program yazarken nadiren kullanılıyor.
+- PrtSc tuşunu müzik çalar programını başlatıp durdurmak için ayarlamak. Çoğu işletim sisteminde müzik çalar programlar tarafından kullanılabilecek fiziksel tuşlar da yer alır.
+- Ctrl ve Meta (Windows veya Command (macOS) tuşu) tuşlarının yerlerini değiştirmek.
 
-There are even more complex modifications you can configure:
-- Remapping sequences of keys, e.g. pressing shift five times toggles Caps Lock.
-- Remapping on tap vs on hold, e.g. Caps Lock key is remapped to Esc if you quickly tap it, but is remapped to Ctrl if you hold it and use it as a modifier.
-- Having remaps being keyboard or software specific.
+3.parti programlar kullanarak kendi belirleyeceğiniz tuş kombinasyonları ile genel geçer bazı işlemlerin yapılmasını sağlayabilirsiniz. Bu tür bir ayarlamada ilgili program sürekli bir şekilde tuş kombinasyonlarınızı takip eder ve konfigüre ettiğiniz tuş kombinasyonunu yakaladığında, genelde bir script tanımlayarak, ayarladığınız işlemi tetiklemektedir. Bu şekilde yapabileceğiniz işlemlere birkaç örnek olarak şunlar verilebilir:
 
-Some software resources to get started on the topic:
-- macOS - [karabiner-elements](https://pqrs.org/osx/karabiner/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
-- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
-- Windows - Builtin in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
-- QMK - If your keyboard supports custom firmware you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps works for any machine you use the keyboard with.
+- Yeni bir terminal veya tarayıcı penceresi açmak
+- Uzun bir e-posta adresi veya öğrenci numarası gibi uzun bir metni yapıştırmak
+- Bilgisayarı veya monitörlerinizi uyku moduna almak
+- Oturumunuzu kapatmak veya sonlandırmak
 
-## Daemons
+Bu yöntemi kullanarak örneğin aşağıdaki daha karmaşık senaryoları da gerçekleştirebilirsiniz:
+- Beş defa arka arkaya Shift tuşuna basıldığında Caps Lock'u aktif hale getirmek.
+- Dokunma veya uzun süreli basma gibi durumlarda farklı işlemler yapmak. Örneğin Caps Lock tuşuna dokunulduğunda Esc tuşu ile eşleştirmek, uzun süre basıldığında ise Ctrl tuşu ile eşleştirmek gibi.
+- Eşleştirme konfigürasyonunu kullandığınız programa veya klavyeye özel hale getirmek.
 
-You are probably already familiar with the notion of daemons, even if the word seems new.
-Most computers have a series of processes that are always running in the background rather than waiting for a user to launch them and interact with them.
-These processes are called daemons and the programs that run as daemons often end with a `d` to indicate so.
-For example `sshd`, the SSH daemon, is the program responsible for listening to incoming SSH requests and checking that the remote user has the necessary credentials to log in.
+Bu işlemleri yapmak için kullanabileceğiniz bazı araçların bilgilerine aşağıdaki linklerden erişebilirsiniz:
+- macOS - [karabiner-elements](https://pqrs.org/osx/karabiner/), [skhd](https://github.com/koekeishiya/skhd) veya [BetterTouchTool](https://folivora.ai/)
+- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) veya [Autokey](https://github.com/autokey/autokey)
+- Windows - Windows'un kendi kontrol paneli, [AutoHotkey](https://www.autohotkey.com/) veya [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
+- QMK - Klavyeniz özelleştirilmiş firmware kullanımını destekliyorsa [QMK](https://docs.qmk.fm/) kullanarak klavyenizi donanım seviyesinde konfigüre edebilirsiniz.
 
-In Linux, `systemd` (the system daemon) is the most common solution for running and setting up daemon processes.
-You can run `systemctl status` to list the current running daemons. Most of them might sound unfamiliar but are responsible for core parts of the system such as managing the network, solving DNS queries or displaying the graphical interface for the system.
-Systemd can be interacted with the `systemctl` command in order to `enable`, `disable`, `start`, `stop`, `restart` or check the `status` of services (those are the `systemctl` commands).
+## Arka Planda Çalışan Servisler (Daemons)
 
-More interestingly, `systemd` has a fairly accessible interface for configuring and enabling new daemons (or services).
-Below is an example of a daemon for running a simple Python app.
-We won't go in the details but as you can see most of the fields are pretty self explanatory.
+Büyük ihtimalle arka planda çalışan program konseptine aşinasınızdır, ancak `daemon` terimi size yabancı gelebilir. Çoğu bilgisayarda kullanıcının başlatmadığı ve kullanıcı ile etkileşimde bulunmayan ancak arka planda çalışan programlar vardır. Bu programlar bilgisayar çalışmaya başlar başlamaz otomatik olarak çalışırlar ve arka planda bazı işlemler yaparlar. Çoğu UNIX benzeri işletim sisteminde bu programların isimleri `d` ile biter. Örneğin `sshd`, SSH servisidir ve SSH isteklerini dinleyip SSH ile bilgisayara bağlanmaya çalışan kullanıcının gerekli yetkilere sahip olup olmadığını kontrol eder.
+
+Linux'daki `systemd` servisi (system daemon) arka planda çalışan kullanıcı servislerini yönetmek için kullanılan en yaygın çözümdür. `systemctl status` komutunu çalıştırarak tanımlı servislerin listesini görüntüleyebilirsiniz. Listede göreceğiniz servislerin bir çoğu size yabancı gelebilir, ancak bu servisler ağ yönetimi, DNS sorgularını çözümleme veya kullanıcı ara yüzünü yönetmek gibi önemli işlemlerin arka planda gerçekleşmesini sağlarlar. `systemd` servisi ile `systemctl` komutunu kullanarak etkileşime geçebilirsiniz. `systemctl` komutu ile servisleri aktif hale getirebilir (`enable`), pasif hale getirebilir (`disable`), başlatabilir (`start`), sonlandırabilir (`stop`), yeniden başlatabilirsiniz (`restart`) veya servislerin durumunu (`status`)kontrol edebilirsiniz.
+
+Daha da ilginci, `systemd` servisleri yönetmek için oldukça kullanışlı bir ara yüz sunar. Aşağıda, basit bir Pyhthon programını servis olarak arka planda çalıştırmak için oluşturulan bir servis tanımı yer almaktadır. Servis tanımındaki alanların ayrıntılarına girmeyeceği, ancak bu alanların çoğunun adının yeterince açıklayıcı olduğunu söyleyebiliriz.
+
+
+>**Çevirmenin Notu:** Ders notlarında computers (bilgisayar) şeklinde bir kullanım olmasına rağmen aslında kastedilen işletim sistemleridir.
+
+>**Çevirmenin Notu:** Dersin bu bölümünde UNIX benzeri işletim sistemlerinde arka plan servisleri ile ilgili bilgiler verilmiş. Ancak, benzer servis tanımlamalarını Windows ve diğer işletim sistemlerinde de yapmak mümkündür.
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -83,330 +83,219 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-Also, if you just want to run some program with a given frequency there is no need to build a custom daemon, you can use [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html), a daemon your system already runs to perform scheduled tasks.
+Ayrıca, arka planda belirli frekanslarda çalışmasını istediğiniz servisleri tanımlamak için [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html) aracını kullanabilirsiniz. `cron` aracı UNIX benzeri işletim sistemlerinde kurulu olarak gelir ve yaptığınız konfigürasyona göre ilgili programları zamanı geldiğinde çalıştırı.
+
+>**Çevirmenin Notu:** Windows işletim sisteminde `cron` benzeri imkanlar sunan `Windows Task Scheduler` servisini kullanabilirsiniz.
 
 ## FUSE
 
-Modern software systems are usually composed of smaller building blocks that are composed together.
-Your operating system supports using different filesystem backends because there is a common language of what operations a filesystem supports.
-For instance, when you run `touch` to create a file, `touch` performs a system call to the kernel to create the file and the kernel performs the appropriate filesystem call to create the given file.
-A caveat is that UNIX filesystems are traditionally implemented as kernel modules and only the kernel is allowed to perform filesystem calls.
+Modern sistemler genelde daha küçük alt sistemlerden meydana gelir. İşletim sisteminiz rahatlıkla farklı dosya sistemlerini (file system) destekleyebilir, çünkü dosya sistemlerinin yapabilecekleri işlemleri ifade eden ortak bir dil vardır. Örneğin, `touch` komutunu çalıştırdığınızda işletim sistemi bir işletim sistemi çağrısı yapar ve işletim sisteminin kernel'i kullanılan dosya sistemine özel komut ile yeni bir dosya oluşturulmasını sağlar. UNIX benzeri işletim sistemlerinde dosya sistemi geleneksel olarak bir `kernel module` olarak geliştirilir ve bu modüle sadece işletim sisteminin kerneli erişebilir.
 
-[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) allows filesystems to be implemented by a user program. FUSE lets users run user space code for filesystem calls and then bridges the necessary calls to the kernel interfaces.
-In practice, this means that users can implement arbitrary functionality for filesystem calls.
-
-For example, FUSE can be used so whenever you perform an operation in a virtual filesystem, that operation is forwarded through SSH to a remote machine, performed there, and the output is returned back to you.
-This way, local programs can see the file as if it was in your computer while in reality it's in a remote server.
-This is effectively what `sshfs` does.
-
-Some interesting examples of FUSE filesystems are:
-- [sshfs](https://github.com/libfuse/sshfs) - Open locally remote files/folder through an SSH connection.
-- [rclone](https://rclone.org/commands/rclone_mount/) - Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally.
-- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Encrypted overlay system. Files are stored encrypted but once the FS is mounted they appear as plaintext in the mountpoint.
-- [kbfs](https://keybase.io/docs/kbfs) - Distributed filesystem with end-to-end encryption. You can have private, shared and public folders.
-- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount your deduplicated, compressed and encrypted backups for ease of browsing.
-
-## Backups
-
-Any data that you haven’t backed up is data that could be gone at any moment, forever.
-It's easy to copy data around, it's hard to reliable backup data.
-Here are some good backup basics and the pitfalls of some approaches.
-
-First, a copy of the data in the same disk is not a backup, because the disk is the single point of failure for all the data. Similarly, an external drive in your home is also a weak backup solution since it could be lost in a fire/robbery/&c. Instead, having an off-site backup is a recommended practice.
-
-Synchronization solutions are not backups. For instance, Dropbox/GDrive are convenient solutions, but when data is erased or corrupted they propagate the change. For the same reason, disk mirroring solutions like RAID are not backups. They don't help if data gets deleted, corrupted or encrypted by ransomware.
-
-Some core features of good backups solutions are versioning, deduplication and security.
-Versioning backups ensure that you can access your history of changes and efficiently recover files.
-Efficient backup solutions use data deduplication to only store incremental changes and reduce the storage overhead.
-Regarding security, you should ask yourself what someone would need to know/have in order to read your data and, more importantly, to delete all your data and associated backups.
-Lastly, blindly trusting backups is a terrible idea and you should verify regularly that you can use them to recover data.
-
-Backups go beyond local files in your computer.
-Given the significant growth of web applications, large amounts of your data are only stored in the cloud.
-For instance, your webmail, social media photos, music playlists in streaming services or online docs are gone if you lose access to the corresponding accounts.
-Having an offline copy of this information is the way to go, and you can find online tools that people have built to fetch the data and save it.
-
-For a more detailed explanation, see 2019's lecture notes on [Backups](/2019/backups).
+>**Çevirmenin Notu:** kernel (çekirdek) kavramı tüm işletim sistemlerinde öyle veya böyle yer alan bir kavramdır. kernel, işletim sisteminin donanıma en yakın mantıkasal katmanını temsil eder ve alt seviye işletim sistemi işlemleri bu katmanda çalışan programcıklar tarafından yerine getirilir. Bu programcıklar `kernel mode` denilen özel bir modda çalışır ve güvenlik erişim seviyeleri itibariyle oldukça sıkı denetim altındadırlar.  Bizim yazdığımız programlar ise `user mode` adı verilen bir modda çalışır (`user space` adı verilen bir çerçevede çalışan programlar) ve doğrudan kernel ile etkileşimde bulunmalarına işletim sistemi tarafından izin verilmez.
 
 
-## APIs
+[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) ile UNIX benzeri işletim sistemlerinde dosya sistemlerini `user space` adı verilen bir çerçevede çalışan programlar olarak geliştirebiliriz. `FUSE` teknolojisi sayesinde geliştirdiğimiz dosya sistemi programı dosya sistemi çağırılarını yakalar ve bunları işletim sistemi kernel'inde ilgili ara yüzlere köprüler. Bu teknoloji ile pratikte dosya sistemi çağırıları yakalanarak çok farklı işlemler yapılabilir.
 
-We've talked a lot in this class about using your computer more
-efficiently to accomplish _local_ tasks, but you will find that many of
-these lessons also extend to the wider internet. Most services online
-will have "APIs" that let you programmatically access their data. For
-example, the US government has an API that lets you get weather
-forecasts, which you could use to easily get a weather forecast in your
-shell.
+Örneğin, FUSE ile sanal bir dosya sistemi kurgulayarak dosya sistemi çağırılarının SSH ile uzak sunuculara yönlendirilerek dosya işlemlerinin uzak sunucu üzerinden gerçekleştirilmesini sağlayabilirsiniz. Bu sayede kendi bilgisayarınızdaki programlar uzak sunucudaki dosyalar üzerinde sanki yerel dosyalarmış gibi işlem yapabilirler. Bu yöntem `sshfs` aracının uyguladığı yöntemdir.
 
-Most of these APIs have a similar format. They are structured URLs,
-often rooted at `api.service.com`, where the path and query parameters
-indicate what data you want to read or what action you want to perform.
-For the US weather data for example, to get the forecast for a
-particular location, you issue GET request (with `curl` for example) to
-https://api.weather.gov/points/42.3604,-71.094. The response itself
-contains a bunch of other URLs that let you get specific forecasts for
-that region. Usually, the responses are formatted as JSON, which you can
-then pipe through a tool like [`jq`](https://stedolan.github.io/jq/) to
-massage into what you care about.
+FUSE dosya sistemleri için bazı ilginç örnekler şunlardır:
+- [sshfs](https://github.com/libfuse/sshfs) - SSH üzerinden uzak sunucudaki dosyalara yerel dosyalarmış gibi erişim sağlar.
+- [rclone](https://rclone.org/commands/rclone_mount/) - Dropbox, Google Drive, Amazon S3, Google Cloud Storage gibi depolama servislerini yerel disk olarak tanımlanıp kullanılmasını sağlar.
+- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Şifreleme çözümü sunar. Dosyalar şifrelenmiş olarak kayıt altına alınır, ancak dosya sistemi etkin hale getirildiğinde dosyalara açık bir şekilde erişimi mümkün kılar.
+- [kbfs](https://keybase.io/docs/kbfs) - Uçtan uca şifreleme desteği olan dağıtık dosya sistemidir. Bu dosya sistemini kullanarak özel, paylaşılmış veya açık klasörler oluşturabilirsiniz.
+- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Şifrelenmiş ve sıkıştırılmış yedekleme dosyalarınızı kolayca disk olarak tanımlamanızı ve kullanmanızı sağlar.
 
-Some APIs require authentication, and this usually takes the form of
-some sort of secret _token_ that you need to include with the request.
-You should read the documentation for the API to see what the particular
-service you are looking for uses, but "[OAuth](https://www.oauth.com/)"
-is a protocol you will often see used. At its heart, OAuth is a way to
-give you tokens that can "act as you" on a given service, and can only
-be used for particular purposes. Keep in mind that these tokens are
-_secret_, and anyone who gains access to your token can do whatever the
-token allows under _your_ account!
+## Yedekleme
 
-[IFTTT](https://ifttt.com/) is a website and service centered around the
-idea of APIs — it provides integrations with tons of services, and lets
-you chain events from them in nearly arbitrary ways. Give it a look!
+Verilerinizi yedeklemediğiniz durumda bu verileri herhangi bir anda sonsuza dek kaybedebilirsiniz. Dosyaları sağa sola kopyalamak kolay bir işlemdir, ancak güvenilir yedekler oluşturmak oldukça zordur. Aşağıda bazı basit yedekleme yöntemlerine ve bu yöntemlerden bazılarında karşılaşılan sorunlara değindik.
 
-## Common command-line flags/patterns
+Öncelikle, aynı disk üzerine alınan bir yedek gerçek anlamda yedek değildir. Çünkü, diskiniz verileriniz için tek sorun noktasıdır (single point of failure). Benzer şekilde, evde sakladığınız harici diskiniz de yedekleme için iyi bir seçenek değildir, çünkü harici diskiniz çalınabilir veya doğal afet ve yangın gibi olaylarda hasar görebilir. Bu yöntemler yerine, kendi bilgisayarınız veya eviniz dışındaki bir yerde yedeklerin tutulması daha güvenli bir yöntemdir.
 
-Command-line tools vary a lot, and you will often want to check out
-their `man` pages before using them. They often share some common
-features though that can be good to be aware of:
+Veri senkronizasyon çözümleri yedekleme çözümü değildir. Örneğin, Dropbox ve Google Drive gibi çözümler kullanımı kolay çözümlerdir. Ancak, bu servislerdeki verileri sildiğinizde veya veriler bozulduğunda bu değişiklikler veri kaynaklarına da otomatik yansıyacaktır. Benzer şekilde RAID gibi veri tutarlılığı ve sürekliliği sağlayan çözümler de uygun çözümler değildir, çünkü bu yöntemler de silme veya bozulma gibi durumlara engel olamaz.
 
- - Most tools support some kind of `--help` flag to display brief usage
-   instructions for the tool.
- - Many tools that can cause irrevocable change support the notion of a
-   "dry run" in which they only print what they _would have done_, but
-   do not actually perform the change. Similarly, they often have an
-   "interactive" flag that will prompt you for each destructive action.
- - You can usually use `--version` or `-V` to have the program print its
-   own version (handy for reporting bugs!).
- - Almost all tools have a `--verbose` or `-v` flag to produce more
-   verbose output. You can usually include the flag multiple times
-   (`-vvv`) to get _more_ verbose output, which can be handy for
-   debugging. Similarly, many tools have a `--quiet` flag for making it
-   only print something on error.
- - In many tools, `-` in place of a file name means "standard input" or
-   "standard output", depending on the argument.
- - Possibly destructive tools are generally not recursive by default,
-   but support a "recursive" flag (often `-r`) to make them recurse.
- - Sometimes, you want to pass something that _looks_ like a flag as a
-   normal argument. For example, imagine you wanted to remove a file
-   called `-r`. Or you want to run one program "through" another, like
-   `ssh machine foo`, and you want to pass a flag to the "inner" program
-   (`foo`). The special argument `--` makes a program _stop_ processing
-   flags and options (things starting with `-`) in what follows, letting
-   you pass things that look like flags without them being interpreted
-   as such: `rm -- -r` or `ssh machine --for-ssh -- foo --for-foo`.
+>**Çevirmenin Notu:** RAID, Redundant Array Of Inexpensive Disks kısaltmasıdır ve bir depolama sanallaştırma yöntemidir. Bu yöntemde birden fazla disk bir özel donanımlar ile birbiri ile dizi olarak ilişkilendirilir. RAID seviyesine göre bir diskteki veri blokları dizi içindeki bir veya daha fazla dike de kopyalanır. RAID'e dahil disklerden herhangi birinde arıza olması durumunda bozulan diskteki veri dizideki diğer disklerdeki kopyasından geri dönüştürülür. Ancak, RAID yöntemi veri kaybında kesin bir çözüm sunmaz. RAID seviyesine göre bir anda en çok kaç diskteki arızanın tölere edileceği hesaplanır. Bulut tabanlı veri merkezlerinde RAID ve benzeri teknolojiler kullanılarak donanım arızaları durumunda veri kaybı önlenir.
 
-## Window managers
-
-Most of you are used to using a "drag and drop" window manager, like
-what comes with Windows, macOS, and Ubuntu by default. There are windows
-that just sort of hang there on screen, and you can drag them around,
-resize them, and have them overlap one another. But these are only one
-_type_ of window manager, often referred to as a "floating" window
-manager. There are many others, especially on Linux. A particularly
-common alternative is a "tiling" window manager. In a tiling window
-manager, windows never overlap, and are instead arranged as tiles on
-your screen, sort of like panes in tmux. With a tiling window manager,
-the screen is always filled by whatever windows are open, arranged
-according to some _layout_. If you have just one window, it takes up the
-full screen. If you then open another, the original window shrinks to
-make room for it (often something like 2/3 and 1/3). If you open a
-third, the other windows will again shrink to accommodate the new
-window. Just like with tmux panes, you can navigate around these tiled
-windows with your keyboard, and you can resize them and move them
-around, all without touching the mouse. They are worth looking into!
+İyi yedekleme yöntemleri versiyonlama, veri tekilleştirme ve güvenlik gibi özelliklere sahip olmalıdır. Versiyonlama yedeklerinizin tarihçesi kolay bir şekilde yönetmenizi ve zamanda istediğiniz ana geri dönmenizi sağlar. Veri tekilleştirme, yedekleme sırasında sadece iki yedekleme anı arasındaki değişiklikleri yedeklenmesini sağlayan bir yöntemdir. Yedeklerinizi kimin okuyabileceği, kimin yedeklerinizde yer alan dosyaları silebileceği veya yedeklerin kendisini yönetebileceğini denetlemek gerekli bir güvenlik özelliğidir. Son olarak, gözü kör bir şekilde yedeklerinize güvenmemelisiniz. Bu nedenle, zaman zaman yedeklerinizi açarak içeriklerinin sağlıklı ve erişilebilir durumda olduğunu da kontrol etmelisiniz.
 
 
-## VPNs
+Yedekleme ihtiyacı sadece kendi bilgisayarınızdaki dosyalar ile sınırlı değildir. Web uygulamalarının gelişimine baktığımızda sizinle ilgili önemli miktarda veri bulut servislerinde kayıt altında tutulmaktadır. Örneğin, e-postalarınız, fotoğraflarınız ve çalma listeleriniz gibi veriler bir hesap ile erişebildiğiniz servislerde kayıt altında tutulmaktadır. Bu servislere erişmek için kullandığınız hesaba erişiminizi kaybettiğinizde bu servislerde yer alan verilerinize de erişimi kaybetmiş olursunuz. Bu tür durumlar ile karşılaşmamak için çevrimiçi servislerde yer alan verilerinizi de çevrimdışı olarak yedeklemeniz gerekmektedir. İnternet'de arama yaparak insanların geliştirdiği bir çok çevrimdışı yedekleme çözümünü bulabilirsiniz. Bu konuda daha fazla ayrıntı için 2019 yılı ders notlarındaki [Backups](/2019/backups) kısmına göz atabilirsiniz.
 
-VPNs are all the rage these days, but it's not clear that's for [any
-good reason](https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
-should be aware of what a VPN does and does not get you. A VPN, in the
-best case, is _really_ just a way for you to change your internet
-service provider as far as the internet is concerned. All your traffic
-will look like it's coming from the VPN provider instead of your "real"
-location, and the network you are connected to will only see encrypted
-traffic.
 
-While that may seem attractive, keep in mind that when you use a VPN,
-all you are really doing is shifting your trust from you current ISP to
-the VPN hosting company. Whatever your ISP _could_ see, the VPN provider
-now sees _instead_. If you trust them _more_ than your ISP, that is a
-win, but otherwise, it is not clear that you have gained much. If you
-are sitting on some dodgy unencrypted public Wi-Fi at an airport, then
-maybe you don't trust the connection much, but at home, the trade-off is
-not quite as clear.
+## Uygulama Programlama Ara Yüzleri (API)
 
-You should also know that these days, much of your traffic, at least of
-a sensitive nature, is _already_ encrypted through HTTPS or TLS more
-generally. In that case, it usually matters little whether you are on
-a "bad" network or not -- the network operator will only learn what
-servers you talk to, but not anything about the data that is exchanged.
+Dersimizde kendi bilgisayarınızdaki işlevleri daha etkin bir şekilde
+yerine getirmek için neler yapabileceğinizden bahsettik. Ancak, derste
+ele aldığımız çoğu konu çevrimiçi bağlamda da işe yarayacaktır. Çoğu çevrimiçi
+servis Uygulama Programlama Ara Yüzleri (Application Programmin Interface) üzerinden
+çevrimiçi veri ve hizmetlere erişim imkanı sunar. Örneğin, ABD hükümeti hava durumunu
+sorgulayabileceğiniz bir API sunar. Bu API ile komut satırınızda hızlıca bulunduğunuz
+konumun hava durumunu gösterebilirsiniz.
 
-Notice that I said "in the best case" above. It is not unheard of for
-VPN providers to accidentally misconfigure their software such that the
-encryption is either weak or entirely disabled. Some VPN providers are
-malicious (or at the very least opportunist), and will log all your
-traffic, and possibly sell information about it to third parties.
-Choosing a bad VPN provider is often worse than not using one in the
-first place.
 
-In a pinch, MIT [runs a VPN](https://ist.mit.edu/vpn) for its students,
-so that may be worth taking a look at. Also, if you're going to roll
-your own, give [WireGuard](https://www.wireguard.com/) a look.
+Bu API'lerin çoğu benzer formattadır. Bu API'lere, genelde `api.service.com`
+şeklinde, yapısal bir kök URL kullanarak erişebilirsiniz. Kök adresin sonunda
+kullanmak istediğiniz servisin adını (path) ve sorgulama kriterlerinizi (query string)
+ekleyerek işlem yapabilirsiniz. Örneğin, ABD hükümetinin hava durumu API'sinden sorgulama
+yapmak için `https://api.weather.gov/points/39.063357,26.879370` URL değeri ile GET sorgusu
+yapabilirsiniz (sorgulama yapmak için `curl` aracını kullanabilirsiniz). API'den gelen
+cevap verisinde o çevredeki diğer konumların hava durumunu sorgulamanızı sağlayabilecek
+linkler yer alacaktır. API'ler genelde JSON adı verilen bir formatta veri döndürür.
+JSON veriyi incelemek için [`jq`](https://stedolan.github.io/jq/) benzeri araçları kullanabilirsiniz.
+
+>**Çevirmenin Notu:** URL, Uniform Resource Locator teriminin kısaltmasıdır.
+Çevrimiçi veya yerel kaynakların adreslenmesi ve kolay erişimi için kullanılan
+bir formattır.
+
+>**Çevirmenin Notu:** JSON, JavaScript Object Notation teriminin kısaltmasıdır. JSON
+bir veri transfer formatıdır ve standart bir şemaya ihtiyaç duymadan JavaScript nesnelerinin
+metin olarak transfer edilmesini sağlar. JSON formatı aynı zamanda insanların gözle rahatlıkla
+okuyup anlamlandırabilecekleri bir yapıdadır.
+
+Bazı API'lere erişim için doğrulama gerekir. Bu durumda genelde _token_ adı verilen ön tanımlı bir
+değeri isteklerinize iliştirmeniz ve API'nin bu _token_'ı doğrulayarak sizi tanıması gerekir.
+Doğrulama gereksinimleri her API için farklı olabilir, bu nedenle kullanacağınız API'nin dokümanlarını
+dikkatlice okumalısınız. Bu dokümanlarda genelde doğrulama için "[OAuth](https://www.oauth.com/)" isimli bir
+protokolden bahsedildiğini göreceksiniz. OAuth, temelde API erişimi sırasında sizi temsil eden bir _token_ değerinin
+üretilmesini ve bu _token_'ın sizi temsilen programlarınız tarafından kullanılmasını sağlar. Bu _token_'ların sizi temsil
+eden kritik büyüklükler olduğunu unutmamalısınız. Bu nedele, _tokan_'larınızı ele geçiren herhangi birisi sizin yerinize
+ilgili API'lerden işlem yapabilir ve size özel verilere erişebilir.
+
+
+[IFTTT](https://ifttt.com/) API'ler etrafında kurgulanmış bir servistir. IEFTT kullanarak çevrimiçi bir çok API'yi ardı ardına
+bir birini çağıracak şekilde organize ederek işlemler yapabilirsiniz. IEFTT servisine göz atmanızı öneririz.
+
+>**Çevirmenin Notu:** IEFTT kullanarak, örneğin Gmail hesabınızdaki maillerde eklenti olarak gelen resim ve fotoğrafları otomatik olarak Dropbox veya farklı bir servise gönderme işlemini kod yazmadan kolayca yapabilirsiniz. Farklı bir örnek olarak, yine Gmail hesabınıza gelen mailleri izleyerek belirli kişilerden mail gelmesi durumunda Philips HUE lambalarınızın renklerini bilgilendirme amaçlı değiştirebilirsiniz.
+
+
+
+## Komut Satırı İpuçları
+
+Komut satırı araçları birbirinden farklı kullanım seçeneklerine sahiptir. Bu nedenle
+herhangi bir komut satırı aracını kullanmadan önce aracın `man` el kitabı sayfalarını
+incelemelisiniz. Bu araçlar birbirinden farklı seçenklere sahip olsa da bilmeniz gereken
+ortak bazı özelliklere de sahiptir:
+
+ - Çoğu araç `--help` flag'ini destekler. Araç bu flag ile çağırıldığında
+ kullanıma ilişkin açıklayıcı bilgileri gösterir.
+ - Geri döndürmesi mümkün olmayan değişiklikler yapan araçların çoğu `dry run`
+ adı verilen bir çalışma modunu destekler. `dry run`  moduna bu araçlar sadece
+ yapacakları işlemi gerçekten yapsalar hangi işlemleri yapacaklarını gösterirler.
+ Benzer şekilde bu araçların etkileşimli modu da vardır. Bu modda çalıştırdığınızda
+ araçlar gerçekleştirecekleri kritik işlemler için onay alma veya ihtiyaç duydukları
+ parametre değerlerini girmenizi bekleme gibi işlemleri yaparlar.
+ - Aracın versiyonunu görmek için `--version` veya `-V` flag'lerini kullanabilirsiniz. Özellikle hata
+ bildirimi yapacaksanız bu bilgi aracı geliştirenlere yardımcı olacaktır.
+ - Komut satırı araçlarının çoğu `--verbose` veya `-v` flag'ini destekler. Bu flag'in kullanıldığı
+ durumda araç normalde olduğundan daha fazla bilgiyi gösterir. Daha da fazla bilgi görüntülenmesi için
+ `-vvv` şeklinde kullanım da destekleniyor olabilir. Bu bilgiler hata ayıklama gibi durumlarda
+ size yardımcı olacaktır. Benzer şekilde çoğu araç `--quiet` flag'ini destekler ve bu durumda sadece
+ hata mesajlarını gösterirler.
+ - Çoğu araç dosya adı parametresi olarak `-` karakterini destekler. Gerçek dosya adı yerine `-` kullanıldığında
+ yapılan işleme göre "standard input"'dan okuma veya "standard output"'a yazmayı destekler.
+ - Veri silme veya geri dönülmez bir şekilde veriyi değiştirme işlemi yapan araçların çoğu varsayılan
+ olarak öz yinelemeli (recursive) çalışmazlar. Öz yinelemeli çalışma için bu araçların `-r` flag'ini
+ destekleyip desteklemediğini kontrol edebilirsiniz.
+ - Bazen normal bir parametrenin değerini bir flag gibi ilgili araca geçmek isteyebilirsiniz.
+ Örneğin `-r` isimli bir dosyayı kullanmak istediğinizi düşünelim, veya SSH kullanarak bir programı
+ uzak bir sunucuda `ssh machine foo` komutu ile çalıştırmak istediğinizi düşünelim. `--` özel argümanı
+ bu araçların flag'leri işleme almasını engeller ve `-` ile başlayan değerler normal parametre olarak
+ işlenir. Örneğin, `rm -- -r` komutu -r isimli dosyayı siler veya `ssh machine --for-ssh -- foo --for-foo` komutu
+ `for-ssh` ve `for-foo` değerlerini parametre değeri olarak yorumlar.
+
+
+## Pencere Yöneticileri
+
+Çoğunuz Windows, macOS ve Ubuntu'dan sürükle/bırak tarzındaki pencere yöneticilerine aşinasınızdır. Bu tür pencere yöneticileri ekranda birbirinden ayrı olarak konumlandırılabilen, boyutu değiştirilebilen, sürüklenebilen ve bir birinin üstüne konumlandırılabilen pencereleri yönetirler. Ancak, bunlar pencere yöneticileri arasındaki türlerden sadece bir tanesidir ve bu tür pencere yöneticilerine `floating` pencere yöneticileri denir. Bu türün dışında, özellikle Linux için, çok farklı türde pencere yöneticileri de vardır. `floating` pencere yöneticilerine en yaygın alternatiflerden birisi de `tiling` pencere yöneticileridir. `tiling` pencere yöneticileri kullanıldığına pencereler hiç bir zaman bir biri ile çakışmaz ve pencereler ekranınızda alt alta veya yan yana kendilerine ait alanları kullanacak şekilde (tmux'daki bölmeler gibi) organize edilirler. `tiling` pencere yöneticileri kullanıldığında ekranda açık olan tüm uygulamalar aynı anda belirli bir dizilime göre yan yana ve/veya alt alta gösterilirler. Tek bir aktif pencereniz varsa bu pencere tüm ekranı kaplar. İkinci bir pencere açtığınızda ise ilk pencerenin boyutları yeni pencereye ekranda alan sağlamak için otomatik olarak küçülür (genelde 2/3 veya 1/3 oranında boyutları küçülür). Üçüncü bir pencere açarsanız ilk iki pencere bu pencereye alan sağlamak için otomatik olarak küçülür. `tmux` bölmelerinde olduğu gibi pencereler arasında da kısayol tuşlarını kullanarak gezinebilir, pencerelerin boyutlarını isteğinize göre değiştirebilirsiniz. `tiling` pencere yöneticileri göz atmaya değer bir araçlardır.
+
+
+## Özel Sanal Ağlar (VPN)
+
+Özel sanal ağlar (VPN) bu günlerde oldukça fazla rağbet görüyor ve kullanılıyorlar. Bu durumun her zaman [iyi amaçlar](https://gist.github.com/joepie91/5a9909939e6ce7d09e29) için olup olmadığı ise henüz net değil. VPN'in size sağladığı imkanları ve ortaya çıkaracağı riskleri bilmeniz faydalı olacaktır. En pozitif hali ile VPN, internet hizmet sağlayıcınızı (ISP) değiştirme yöntemidir. Bu durumda bilgisayarınızdan internete çıkan tüm trafik gerçek konumunuz yerine VPN sağlayıcısı üzerinden şifreli bir şekilde çıkacak ve internetin geri kalanı sizin konumunuzun VPN sağlayıcısının konumu ile aynı olduğunu düşünecektir.
+
+Bu durum çekici görünmesine rağmen gerçekte yaptığınız şey aslında güven anlamında gerçek internet hizmet sağlayıcınıza değil VPN sağlayıcınıza güvendiğiniz anlamına gelir. Normalde internet sağlayıcınızın izleyebileceği internet trafiğiniz artık VPN sağlayıcınız tarafından izlenir hale gelir. VPN sağlayıcınıza internet hizmet sağlayıcınızdan daha fazla güveniyorsanız bu güven sizin lehinizedir aksi durumda bu ilişkiden elde edeceğiniz fayda kuşkuludur. Havaalanında uçağınızı beklerken açık Wi-Fi ağına güvenmeyip VPN hizmetini kullanmayı tercih etmeniz şüphesiz anlamlıdır. Ancak, kendi evinizde kendi Wi-Fi ağınızı kullanıyorsanız VPN sağlayıcısı tercih etmenizin eksi ve artıları o kadar net olmayabilir.  
+
+Son dönemde internet trafiğinizin neredeyse tamamı (en azından hassas içerikli trafiğiniz) HTTPS veya TLS gibi teknolojiler ile zaten şifreleniyor. Bu durumda, sakıncalı bir ağada olup olmadığınızın pek de önemi yoktur çünkü internet hizmet sağlayıcınız sadece iletişimde bulunduğunuz sunucular hakkında bilgi edinebilir, bu sunucular ile alış/verişini yaptığınız veriye dair herhangi bir bilgiye sahip olamaz.
+
+VPN sağlayıcılarının yazılımlarını yanlış konfigüre ederek zayıf şifreleme yöntemleri kullanmaları veya hiç şifreleme kullanmamaları duyulmamış bir durum değildir. Bazı VPN sağlayıcıları kötü niyetli bir şekilde (veya fırsatçılık yaparak) onların üzerinden gönderdiğiniz tüm trafiği kayıt altına alarak 3. parti şirketlere bu bilgileri satarlar. Kötü bir VPN sağlayıcısının hizmetini kullanmak hiç bir VPN hizmeti kullanmamaktan daha kötüdür.
+
+MIT, kendi öğrencileri için [VPN hizmeti](https://ist.mit.edu/vpn) sunar. Eğer kendi VPN hizmetinizi kullanmak isterseniz [WireGuard](https://www.wireguard.com/)'a göz atabilirsiniz.
 
 ## Markdown
 
-There is a high chance that you will write some text over the course of
-your career. And often, you will want to mark up that text in simple
-ways. You want some text to be bold or italic, or you want to add
-headers, links, and code fragments. Instead of pulling out a heavy tool
-like Word or LaTeX, you may want to consider using the lightweight
-markup language [Markdown](https://commonmark.org/help/).
+Kariyeriniz boyunca büyük ihtimalle farklı amaçlar için doküman üretmeniz gerekecektir. Genelde de bu dokümanları basit yöntemler ile formatlamak isteyeceksiniz. Dokümanlarınızda bazı metinlerin koyu veya eğik olarak biçimlendirilmesi, linklerin eklenmesi veya formatlı kod parçaları oluşturulması gerekecek. Tüm bu işlemler için Word veya LaTeX gibi ağır siklet programlar kullanmak yerine daha hafif bir biçimlendirme dili olarak [Markdown](https://commonmark.org/help/) kullanmayı düşünebilirsiniz.
 
-You have probably seen Markdown already, or at least some variant of it.
-Subsets of it are used and supported almost everywhere, even if it's not
-under the name Markdown. At its core, Markdown is an attempt to codify
-the way that people already often mark up text when they are writing
-plain text documents. Emphasis (*italics*) is added by surrounding a
-word with `*`. Strong emphasis (**bold**) is added using `**`. Lines
-starting with `#` are headings (and the number of `#`s is the subheading
-level). Any line starting with `-` is a bullet list item, and any line
-starting with a number + `.` is a numbered list item. Backtick is used
-to show words in `code font`, and a code block can be entered by
-indenting a line with four spaces or surrounding it with
-triple-backticks:
+Büyük ihtimalle şu ana kadar Markdown'un kendisini veya , adı Markdown olmasa bile, bir çeşidini görmüşsünüzdür. Markdown'un kendisi veya alt kümeleri neredeyse tüm araçlar tarafından destekleniyor. Temelinde Markdown, insanların saf metin oluştururken kullandıkları formatlama yöntemlerini kodlamak için oluşturulmuş bir formattır. Bir kelimeye vurgu yapmak (*eğik*) için bu kelimenin önüne ve ardına `*` karakteri eklenir. Koyu font (**koyu**) ile bir kelimeyi vurgulamak için kelimenin önüne ve arkasına `**` karakterleri eklenir.`#` ile başlayan satırlar başlıklardır ve `#` sayısı arttırılarak alt başlıklar oluşturulur. `-` ile başlayan bir satır numarasız listede bir madde, sayı ve `.` ile başlayan satırlar da numaralı listede bir maddedir. Ters tek tırnak ile çevrelenmiş kelimeler kaynak kodu biçiminde formatlanır, kod satırları da dört adet boşluk karakteri veya üç ters tırnak kullanılarak oluşturulur:
 
     ```
-    code goes here
+    kaynak kodu satırları ters üç tırnak ile başlayıp 
+    biten bloğun arasına yazılır
     ```
 
-To add a link, place the _text_ for the link in square brackets,
-and the URL immediately following that in parentheses: `[name](url)`.
-Markdown is easy to get started with, and you can use it nearly
-everywhere. In fact, the lecture notes for this lecture, and all the
-others, are written in Markdown, and you can see the raw Markdown
-[here](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
+Link eklemek için linkin metninin köşeli parantez çifti ile çevreleyip hemen ardından da linkin kendisi normal parantez çifti ile çevreleyebiliriz: `[name](url)`. Markdown hızlıca kullanmaya başlayıp her yerde kullanabileceğiniz bir formatlama dilidir. Aslında, bu dersin ve diğer derslerin notları da Markdown kullanılarak yazılmıştır. Ders notlarını saf Markdown hallerini [şu linkten](https://raw.githubusercontent.com/missing-semester-tr/missing-semester-tr.github.io/master/_2020/potpourri.md) inveleyebilirsiniz.
+
+
+## Hammerspoon (masaüstü macOS otomasyonu)
+
+[Hammerspoon](https://www.hammerspoon.org/) macOS için kullanılabilen bir masaüstü otomasyon programıdır. Hammerspoon, Lua scriptleri ile işletim sisteminin bileşenlerine erişmenizi ve bu sayede  klavye, fare, pencereler, monitörler, dosya sistemi ve diğer bir çok sistem elemanı ile etkileşimde bulunmanıza imkan sağlar.
+
+Hammerspoon ile aşağıdakine benzer işlemleri yapabilirsiniz:
+
+- Pencereleri belirli pozisyona taşımak için tuş eşleştirmeleri oluşturabilirsiniz.
+- Menü çubuğuna bir buton ekleyerek bu butona basıldığında pencereleri belirli bir düzene göre dizilmesini sağlayabilirsiniz.
+- Labaratuvara vardığınızı Wi-Fi ağını tespit ederek hoparlörlerinizi otomatik olarak kapatabilrsiniz.
+- Yanlışlıkla arkadaşınızı şarj kablosunu alırsanız ekranda uyarı gösterilmesini sağlayabilirsiniz.
+
+
+Hammerspoon, menü butonları, basılan tuşlar veya işletim sistemi olayları ile ilişkilendirilmiş Lua kodunuzun çalıştırılmasını sağlayan bir araçtır. Hammerspoon işletim sistemi ile etkileşime geçmenizi sağlayan çok kapsamlı bir kütüphane sunar ve Hammerspoon ile yapabileceklerinizin sınırı neredeyse yoktur. Çoğu insan kendi Hammerspoon konfigürasyonlarını açık olarak yayınlamaktadır. Bu nedenle, arama yaparak ihtiyacınız olan işlemin konfigürasyonunu kolayca bulabilirsiniz. Tabii ki Hammerspoon ile yerine getirmek istediğiniz işlevi her zaman kendi başınızda sıfırdan yapmayı da tercih edebilirsiniz.
+
+
+### Kaynaklar
+
+- [Hammerspoon'a Giriş](https://www.hammerspoon.org/go/)
+- [Basit Konfigürasyonlar](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
+- [Anish'in Hammerspoon Konfigürasyonu](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
+
+## Başlatma ve Canlı USB'ler
+
+Bilgisayarınızı başlattığınızda işletim sistemi yüklenmeden önce [BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface) adı verilen özel bir program sisteminizi hazır hale getirir. Bu aşamada, özel bir tuş kombinasyonu kullanarak, bu programın konfigürasyonunu değiştirebilirsiniz. Örneğin, başlama anında ekranda "BIOS konfigürasyonu için F9'a bazın. Başlatma menüsü için F12'ye basın" ("Press F9 to configure BIOS. Press F12 to enter boot menu.") şeklinde veya buna benzer bir bilgilendirme mesajı olabilir. BIOS menüsünden bilgisayarınızın donanımı ile ilgili pek çok konfigürasyon seçeneğini değiştirebilirsiniz. Hatta, başlatma menüsüne erişerek bilgisayarınızı alternatif kaynaklardan başlatılacak şekilde konfigüre edebilirsiniz.
+
+[Canlı USB'ler (Live USB)](https://en.wikipedia.org/wiki/Live_USB) içinde işletim sistemi yer alan flaş belleklerdir. Bu USB'leri bir işletim sistemini (örneğin, herhangi bir Linux dağıtımı) indirip USB flaş belleğe kaydederek (geleneksel olarak bu işleme `burn` denir) kendiniz oluşturabilirsiniz. Bu işlem alışılagelmiş `.iso` imaj dosyalarını kopyalamaktan biraz daha karmaşıktır. Bu işlemi kolaylaştıran [UNetbootin](https://unetbootin.github.io/) gibi araçlar kullanabilirsiniz.
+
+Canlı USB'ler çok farklı durumda oldukça kullanışlıdırlar. Örneğin, normal işletim sisteminiz çöktüğünde işletim sisteminizi tamir etmek veya bu mümkün değilse diskinizdeki verileri kurtarmak için canlı USB'leri kullanabilirsiniz.
+
+
+## Docker, Vagrant, Sanal Makinalar, Bulut, OpenStack
+
+[Sanal makinalar](https://en.wikipedia.org/wiki/Virtual_machine) ve onlara benzer contanerlar gibi teknolojiler işletim sistemi dahil tam teşekküllü bir bilgisayarı emüle etmek için kullanılabilirler. Bu araçlar izole test, geliştirme ve inceleme ortamları (örneğin, zararlı yazılımları incelemesi) oluşturmak için oldukça kullanışlıdırlar.
+
+[Vagrant](https://www.vagrantup.com/), bilgisayar konfigürasyonlarını (işletim sistemi, hizmetler, paketler vb.) kod ile tanımlamanızı ve `vagrant up` komutu ile bu konfigürasyonlardan sanal makinalar ayağa kaldırmanızı sağlayan bir araçtır. [Docker](https://www.docker.com/), konsept olarak Vagrant'a benzer ancak containerları kullanır. 
+
+Bulutta sanal makinalar kiralayıp hızlı bir şekilde bu sunuculara erişim sağalayabilirsiniz. Örneğin:
+
+- Sürekli çalışan ve açık IP adresine sahip ucuz bir sunucu ihtiyacını karşılamak için
+- Yüksek kapasitede CPU, disk, bellek veya GPU sahip bir sunucu kullanmak için
+- Normalde sahip olabileceğinizden fazla sayıda sunucu ihtiyacını varsa (faturalama genelde saniye bazında yapılır, bu nedenle kısa süreli yüksek kaynak ihtiyacınız için 1000 tane sunucuyu birkaç dakikalığına kiralayabilirsiniz)
 
 
 
-## Hammerspoon (desktop automation on macOS)
+Bu hizmetleri [Amazon AWS](https://aws.amazon.com/), [Google
+Cloud](https://cloud.google.com/), ve
+[DigitalOcean](https://www.digitalocean.com/) gibi popüler bulut hizmet sağlayıcılarından kiralama benzeri yöntemler ile kullanabilirsiniz.
 
-[Hammerspoon](https://www.hammerspoon.org/) is a desktop automation framework
-for macOS. It lets you write Lua scripts that hook into operating system
-functionality, allowing you to interact with the keyboard/mouse, windows,
-displays, filesystem, and much more.
+Eğer MIT CSAIL üyesi iseniz, araştırma projeleriniz için [CSAIL OpenStack](https://tig.csail.mit.edu/shared-computing/open-stack/) üzerinden ücretsiz olarak sanal makinalar kiralayabilirsiniz.
 
-Some examples of things you can do with Hammerspoon:
+## Not Defteri Programlama Ortamları
 
-- Bind hotkeys to move windows to specific locations
-- Create a menu bar button that automatically lays out windows in a specific layout
-- Mute your speaker when you arrive in lab (by detecting the WiFi network)
-- Show you a warning if you've accidentally taken your friend's power supply
+Etkileşimli ve araştırma amaçlı programlama işlemleri için [not defteri benzeri programlama ortamları](https://en.wikipedia.org/wiki/Notebook_interface) oldukça kullanışlıdırlar. Günümüzde en popüler not defteri programlama ortamlarından birisi, Python ve birkaç diğer dil için, [Jupyter](https://jupyter.org/)'dir. Matematiksel işlemler için ise [Wolfram Mathematica](https://www.wolfram.com/mathematica/) en popüler ortamdır.
 
-At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu
-buttons, key presses, or events, and Hammerspoon provides an extensive library
-for interacting with the system, so there's basically no limit to what you can
-do with it. Many people have made their Hammerspoon configurations public, so
-you can generally find what you need by searching the internet, but you can
-always write your own code from scratch.
-
-### Resources
-
-- [Getting Started with Hammerspoon](https://www.hammerspoon.org/go/)
-- [Sample configurations](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
-- [Anish's Hammerspoon config](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
-
-## Booting + Live USBs
-
-When your machine boots up, before the operating system is loaded, the
-[BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface)
-initializes the system. During this process, you can press a specific key
-combination to configure this layer of software. For example, your computer may
-say something like "Press F9 to configure BIOS. Press F12 to enter boot menu."
-during the boot process. You can configure all sorts of hardware-related
-settings in the BIOS menu. You can also enter the boot menu to boot from an
-alternate device instead of your hard drive.
-
-[Live USBs](https://en.wikipedia.org/wiki/Live_USB) are USB flash drives
-containing an operating system. You can create one of these by downloading an
-operating system (e.g. a Linux distribution) and burning it to the flash drive.
-This process is a little bit more complicated than simply copying a `.iso` file
-to the disk. There are tools like [UNetbootin](https://unetbootin.github.io/)
-to help you create live USBs.
-
-Live USBs are useful for all sorts of purposes. Among other things, if you
-break your existing operating system installation so that it no longer boots,
-you can use a live USB to recover data or fix the operating system.
-
-## Docker, Vagrant, VMs, Cloud, OpenStack
-
-[Virtual machines](https://en.wikipedia.org/wiki/Virtual_machine) and similar
-tools like containers let you emulate a whole computer system, including the
-operating system. This can be useful for creating an isolated environment for
-testing, development, or exploration (e.g. running potentially malicious code).
-
-[Vagrant](https://www.vagrantup.com/) is a tool that lets you describe machine
-configurations (operating system, services, packages, etc.) in code, and then
-instantiate VMs with a simple `vagrant up`. [Docker](https://www.docker.com/)
-is conceptually similar but it uses containers instead.
-
-You can rent virtual machines on the cloud, and it's a nice way to get instant
-access to:
-
-- A cheap always-on machine that has a public IP address, used to host services
-- A machine with a lot of CPU, disk, RAM, and/or GPU
-- Many more machines than you physically have access to (billing is often by
-the second, so if you want a lot of computing for a short amount of time, it's
-feasible to rent 1000 computers for a couple of minutes)
-
-Popular services include [Amazon AWS](https://aws.amazon.com/), [Google
-Cloud](https://cloud.google.com/), and
-[DigitalOcean](https://www.digitalocean.com/).
-
-If you're a member of MIT CSAIL, you can get free VMs for research purposes
-through the [CSAIL OpenStack
-instance](https://tig.csail.mit.edu/shared-computing/open-stack/).
-
-## Notebook programming
-
-[Notebook programming
-environments](https://en.wikipedia.org/wiki/Notebook_interface) can be really
-handy for doing certain types of interactive or exploratory development.
-Perhaps the most popular notebook programming environment today is
-[Jupyter](https://jupyter.org/), for Python (and several other languages).
-[Wolfram Mathematica](https://www.wolfram.com/mathematica/) is another notebook
-programming environment that's great for doing math-oriented programming.
 
 ## GitHub
 
-[GitHub](https://github.com/) is one of the most popular platforms for
-open-source software development. Many of the tools we've talked about in this
-class, from [vim](https://github.com/vim/vim) to
-[Hammerspoon](https://github.com/Hammerspoon/hammerspoon), are hosted on
-GitHub. It's easy to get started contributing to open-source to help improve
-the tools that you use every day.
+[GitHub](https://github.com/), açık kaynak programlar için en popüler platformdur. Derste bahsettiğimiz [vim](https://github.com/vim/vim), 
+[Hammerspoon](https://github.com/Hammerspoon/hammerspoon) ve bir çok diğer araç Github üzerinde geliştirilip yönetilmektedir. Açık kaynak projelere katkı sağlamak ve gündelik işlerinizde kullandığınız araçların gelişimine katkı sağlamak oldukça kolaydır.
 
-There are two primary ways in which people contribute to projects on GitHub:
+Github üzerinde iki şekilde açık kaynak projelere katkı sağlayabilirsiniz:
 
-- Creating an
-[issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue).
-This can be used to report bugs or request a new feature. Neither of these
-involves reading or writing code, so it can be pretty lightweight to do.
-High-quality bug reports can be extremely valuable to developers. Commenting on
-existing discussions can be helpful too.
-- Contribute code through a [pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-This is generally more involved than creating an issue. You can
-[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
-a repository on GitHub, clone your fork, create a new branch, make some changes
-(e.g. fix a bug or implement a feature), push the branch, and then [create a
-pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-After this, there will generally be some back-and-forth with the project
-maintainers, who will give you feedback on your patch. Finally, if all goes
-well, your patch will be merged into the upstream repository. Often times,
-larger projects will have a contributing guide, tag beginner-friendly issues,
-and some even have mentorship programs to help first-time contributors become
-familiar with the project.
+- [Issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue) oluşturarak. Bu sayede kullandığınız araçlardaki bir sorunu geliştiricilere bildirebilir veya yeni bir özelliğin eklenmesi talebinde bulunabilirsiniz. Bu işlemlerden hiç birisinin kod yazabilmek veya okuyabilmek ile ilgisi yoktur, bu nedenle bu işlemleri yapmak oldukça basittir. Yüksek kaliteli hata raporları geliştiriciler için çok kıymetlidir, araçlar ile ilgili tartışmalara da fikirlerinizle katkı sağlayabilirsiniz. 
+- [Pull
+request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) oluşturarak projelere kod katkısı yapabilirsiniz. Bu işlem issue oluşturmaktan daha zahmetlidir. Github'da herhangi bir projenin deposunu kopyalayıp ([fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)), kodu bilgisayarınıza indirip (clone), yeni bir dal oluşturarak ve değişiklikler yaparak bu değişikliklerin ana projenin kod deposuna birleştirilmesini (pull request oluşturarak ([pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) oluşturarak) sağlayabilirsiniz. Pull request oluşturduktan sonra genelde katkı sağladığınız açık kaynak proje'nin yöneticileri birkaç tur yaptığınız değişiklik ile ilgili iletişimde bulunacaksınız. Çoğu zaman, açık kaynak projelerde "Katkı Sağlama Kuralları", giriş seviyesi için uygun olarak etiketlenmiş issue'lar, hatta bazı projelerde ilk defa katkı yapacaklar için mentorluk programları gibi imkanlar da sunulur.
