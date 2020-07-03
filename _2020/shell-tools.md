@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Shell Tools and Scripting"
+title: "Shell Araçları ve Scripting"
 date: 2019-01-14
 ready: false
 video:
@@ -8,25 +8,23 @@ video:
   id: kgII-YWo3Zw
 ---
 
-In this lecture, we will present some of the basics of using bash as a scripting language along with a number of shell tools that cover several of the most common tasks that you will be constantly performing in the command line.
+Bu derste, komut satırında sıklıkla kullanacağınız en yaygın komutları içeren bazı shell araçları ile birlikle bash'i bir scripting dili olarak kullanmanın temellerini işleyeceğiz.
 
 # Shell Scripting
 
-So far we have seen how to execute commands in the shell and pipe them together.
-However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops.
+Şu ana kadar shell'de komutları nasıl çalıştırdığımızı ve bu komutları nasıl birbirine bağladığımızı (pipe) gördük. Fakat, birçok senaryoda komutları bir seri şeklinde çalıştırmak ve koşullu ifadeler ya da döngüler gibi akış kontrolü deyimleri kullanmak isteyeceksiniz.
 
-Shell scripts are the next step in complexity.
-Most shells have their own scripting language with variables, control flow and its own syntax.
-What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
-Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
-For this section we will focus on bash scripting since it is the most common.
+Bir adım daha karmaşık hale gidersek, sırada Shell scriptleri var.
+Birçok shell kendi değişkenleri, akış kontrolü ve kendi dil yapısına sahip bir scripting diline sahiptir.
+Shell scriptlemeyi diğer scriptleme dillerinden farklı kılan şey özellikle shell ile alakalı görevler için optimize edilmiş olmasıdır. Bu yüzden, komut boru hattı oluşturma, sonuçları dosyaya kaydetme ve standart girdiden okuma gibi işlemler shell scriptingde en temel yapı taşlarıdır. Bu da genel geçer scriptleme dillerine karşı büyük bir avantaj ve kolaylık sağlar.
+Bu derste, en yaygın shell scriptleme dili olan bash'e odaklanacağız.
 
-To assign variables in bash, use the syntax `foo=bar` and access the value of the variable with `$foo`.
-Note that `foo = bar` will not work since it is interpreted as calling the `foo` program with arguments `=` and `bar`.
-In general, in shell scripts the space character will perform argument splitting. This behavior can be confusing to use at first, so always check for that.
+Bash'te bir değişkene atama yapmak için `foo=bar` komutunu kullanıyor ve değişkenin değerine `$foo` komutu ile ulaşıyoruz.
+Dikkat etmek gereken bir nokta, `foo = bar` komutunun çalışmayacağıdır. Çünkü boşluk bırakıldığında shell bu komutu `=` ve `bar` argümanlarına sahip `foo` programını çalıştırmak şeklinde yorumlayacaktır.
+Genellikle, shell scriptlerinde boşluk karakteri argümanları ayırma görevini üstlenir. Bu durum başlangıçta biraz kafa karıştırıcı gelebilir, bu yüzden her zaman dikkat edin. 
 
-Strings in bash can be defined with `'` and `"` delimiters, but they are not equivalent.
-Strings delimited with `'` are literal strings and will not substitute variable values whereas `"` delimited strings will.
+Bash'te stringler `'` ve `"` karakterleri ile tanımlanabilir, fakat bu iki yöntem birbirine eşlenik sonuçlar doğurmaz.
+`'` karakteri ile tanımlanan stringler `gerçel stringlerdir` ve değişken değerlerinin yerine geçmezler. Fakat `"` ile tanımlanan stringler değişken değerlerini gösterirler. Aşağıdaki örnek bu durumu açıklamaktadır:
 
 ```bash
 foo=bar
@@ -36,8 +34,8 @@ echo '$foo'
 # prints $foo
 ```
 
-As with most programming languages, bash supports control flow techniques including `if`, `case`, `while` and `for`.
-Similarly, `bash` has functions that take arguments and can operate with them. Here is an example of a function that creates a directory and `cd`s into it.
+Birçok programlama dili gibi bash scripteme dili de akış kontrolü deyimlerini desteklemektedir. Bunların arasında `if`, `case`, `while` ve `for` gibi yapılar bulunmaktadır.
+Benzer şekilde, `bash` argüman alan ve bunlarla işlemler yapabilen fonksiyonlara destek sağlamaktadır. Aşağıda yeni bir dizin oluşturup, onun içine `cd`leyen bir fonksiyon örneği bulunmaktadır:
 
 
 ```bash
@@ -47,110 +45,110 @@ mcd () {
 }
 ```
 
-Here `$1` is the first argument to the script/function.
-Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
-- `$0` - Name of the script
-- `$1` to `$9` - Arguments to the script. `$1` is the first argument and so on.
-- `$@` - All the arguments
-- `$#` - Number of arguments
-- `$?` - Return code of the previous command
-- `$$` - Process identification number (PID) for the current script
-- `!!` - Entire last command, including arguments. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing `sudo !!`
-- `$_` - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing `Esc` followed by `.`
+`$1` script/fonksiyona verilen ilk argümanın yerine geçmektedir.
+Diğer scriptleme dillerinin aksine, bash argümanlara, hata kodlarına ve gerekli bazı diğer değişkenlere işaret etmek için birçok özel değişken kullanır. Aşağıda bunlardan bazıları bulunmaktadır. Daha kapsamlı bir liste [bu linkte](https://www.tldp.org/LDP/abs/html/special-chars.html) bulunabilir.
+- `$0` - Script'in adı
+- `$1`'den `$9`'a kadar - Scripte verilen argümanlar (`$1` birinci argüman olmak üzere).
+- `$@` - Tüm argümanlar
+- `$#` - Argüman sayısı
+- `$?` - Bir önceki komutun döndürdüğü kod
+- `$$` - İşlem Kimlik Numarası (Process Identification Number-PID)
+- `!!` - Argümanları da dahil bir önceki komut. Sık kullanıldığı bir yer eğer bir komut sadece gerekli izinleri alamadığı için başarısız oluyorsa, ardından `sudo !!` şeklinde çağırmaktır.
+- `$_` - En son komutun en son argümanı. Eğer interaktif bir shell kullanıyorsanız, `Esc` ardından `.` kullanarak da bunu elde edebilirsiniz.
 
-Commands will often return output using `STDOUT`, errors through `STDERR`, and a Return Code to report errors in a more script-friendly manner.
-The return code or exit status is the way scripts/commands have to communicate how execution went.
-A value of 0 usually means everything went OK; anything different from 0 means an error occurred.
+Komutlar genellikle `STDOUT`'u çıktılar için, `STDERR`'i hatalar için kullanır ve bir Dönüş Kodu kullanarak da hataları scriptleme için daha kolay hale getirecek şekilde belirtir.
+Dönüş Kodu ya da çıkış statüsü script/komutların işlemlerin nasıl sonuçlandığını kullanıcıya iletme yoludur.
+0 değeri genellikle her şeyin iyi gittiği; 0'dan başka değerler de bir hatanın oluştuğu anlamına gelirler.
 
-Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator), both of which are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators. Commands can also be separated within the same line using a semicolon `;`.
-The `true` program will always have a 0 return code and the `false` command will always have a 1 return code.
-Let's see some examples
+Çıkış kodları ileriki komutları koşullu ifadelerle çalıştırabilmemizi sağlar. Bunun için ikisi de [kısa-devre operatörü](https://en.wikipedia.org/wiki/Short-circuit_evaluation) olan `&&` (ve operatörü) ve `||` (veya operatörü) kullanılabilir. Ayrıca farklı komutlar `;` kullanarak aynı satırda da yazılabilir.
+`true` (doğru) bir program her zaman 0 dönüş koduna sahiptir ve `false`(yanlış) bir komut ise her zaman 1 dönüş kodunu döndürür.
+Şimdi bazı örneklere bakalım.
 
 ```bash
-false || echo "Oops, fail"
-# Oops, fail
+false || echo "Aaa, çalışmadı"
+# Aaa, çalışmadı
 
-true || echo "Will not be printed"
+true || echo "Çıktı yok"
 #
 
-true && echo "Things went well"
-# Things went well
+true && echo "Her şey süper"
+# Her şey süper
 
-false && echo "Will not be printed"
+false && echo "Çıktı yok"
 #
 
-true ; echo "This will always run"
-# This will always run
+true ; echo "Bu her zaman çalışacak"
+# Bu her zaman çalışacak
 
-false ; echo "This will always run"
-# This will always run
+false ; echo "Bu her zaman çalışacak"
+# Bu her zaman çalışacak
 ```
 
-Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
-Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
-For example, if you do `for file in $(ls)`, the shell will first call `ls` and then iterate over those values.
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name. This is useful when commands expect values to be passed by file instead of by STDIN. For example, `diff <(ls foo) <(ls bar)` will show differences between files in dirs  `foo` and `bar`.
+Genelde sıklıkla yapılmak istenen bir başka işlem ise komutların çıktılarını bir değişken şeklinde kullanmaktır. _komut değişimi_ bu iş için kullanılabilecek bir yöntemdir.
+`$( CMD )` nerede kullanılırsa kullanılsın, `CMD` komutunu çalıştıracak, komutun çıktısını alacak ve kullanıldığı yere bu çıktıyı yazacaktır.
+Örneğin, eğer `for file in $(ls)` komutunu çalıştırırsanız, shell ilk önce `ls` komutunu çağırıp sonra gelen değerler üzerinde bir döngü oluşturacaktır.
+Daha az bilinen benzer bir özellik ise _işlem değişimidir_, `<( CMD )` komutu `CMD` komutunu çalıştıracak, çıktıyı geçici bir dosyaya yerleştirecek ve `<()` kısmı yerine dosyanın ismini yazacaktır. Bu method özellikle STDIN yerine dosyaları argüman olarak bekleyen komutları kullanmak için oldukça faydalıdır. Örneğin, `diff <(ls foo) <(ls bar)` komutu `foo` ve `bar` dizinlerindeki dosyalar arasındaki farkları göstermektedir.
 
 
-Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found.
+Çok fazla şeyin üstünden geçtik. Bu özelliklerin bazılarını görebileceğimiz bir örnek görelim şimdi de. Bu örnekte verdiğimiz argümanlar üzerinden yineleyip, `foobar` stringini `grep`leyip , eğer bulunmazsa dosyaya bir yorum olarak ekleyeceğiz.
 
 ```bash
 #!/bin/bash
 
-echo "Starting program at $(date)" # Date will be substituted
+echo "$(date) tarihinde program başlatılıyor" # Tarih yerine yazılacaktır
 
-echo "Running program $0 with $# arguments with pid $$"
+echo "$$ pid kodlu $0 programı $# argümanlarıyla çalıştırılıyor"
 
 for file in $@; do
     grep foobar $file > /dev/null 2> /dev/null
-    # When pattern is not found, grep has exit status 1
-    # We redirect STDOUT and STDERR to a null register since we do not care about them
+    # Eğer verilen kalıp bulunmazsa , grep 1 çıkış koduna sahip
+    # STDOUT ve STDERR ile işimiz olmadığı için onları null bir registera yönlendiriyoruz
     if [[ $? -ne 0 ]]; then
-        echo "File $file does not have any foobar, adding one"
+        echo "$file dosyasında foobar yok, ekleniyor"
         echo "# foobar" >> "$file"
     fi
 done
 ```
 
-In the comparison we tested whether `$?` was not equal to 0.
-Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+If içindeki karşılaştırmada `$?` değerinin 0 olmadığını kontrol ettik.
+Bash bunun gibi birçok karşılaştırma sunuyor - [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html) linkinde detaylı bir liste bulabilirsiniz.
+Bash'te karşılaştırma yaparken, tekli köşeli parantezler `[ ]` yerine ikili köşeli parantezler `[[ ]]` kullanmayı tercih etmeniz daha iyi olabilir. `sh` şeklinde bir script oluşturulmayacağına rağmen bu şekilde hata yapma ihtimaliniz azalmaktadır. [Burada](http://mywiki.wooledge.org/BashFAQ/031) daha detaylı bir açıklama bulabilirsiniz.
 
-When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
-- Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
+Scriptleri çalıştırırken, genellikle benzer argümanlar sağlamak isteyeceksiniz. Bash bunu birkaç farklı şekilde kolaylaştırıyor. Bunlardan biri de dosya ismi genişlemesi kullanmak. Bu tekniklere shell _globbing_ adı verilmektedir.
+- Wildcards - Wildcardlar birden çok seçim yapmada oldukça faydalıdır. Nerede wildcard kullanmak isterseniz, `?` ve `*` karakterlerini sırasıyla bir ve herhangi bir sayıdaki karakterle eşleştirmek için kullanabilirsiniz. Örneğin, `foo`, `foo1`, `foo2`, `foo10` ve `bar` dosyaları verildiğinde, `rm foo?` komutu `foo1` ve `foo2` dosyalarını silerken `rm foo*` `bar` hariç tüm dosyaları silecektir.
+- Köşeli parantezler `{}` - Ne zaman bir komutta ortak altdizgiler bulunursa, otomatik olarak genişlemeyi sağlamak için `{}` kullanılabilir. Özellikle dosyaları taşırken ve dönüştürürken bu özellik oldukça kullanışlı olmaktadır.
 
 ```bash
 convert image.{png,jpg}
-# Will expand to
+# Alttaki hale genişleyecektir
 convert image.png image.jpg
 
 cp /path/to/project/{foo,bar,baz}.sh /newpath
-# Will expand to
+# Alttaki hale genişleyecektir
 cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newpath
 
-# Globbing techniques can also be combined
+# Globbing teknikleri beraber de kullanabilir
 mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
+# Tüm *.py ve *.sh dosyalarını taşıyacaktır
 
 
 mkdir foo bar
-# This creates files foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
+# Bu komut foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h şeklinde dosyalar oluşturacaktır
 touch {foo,bar}/{a..h}
 touch foo/x bar/y
-# Show differences between files in foo and bar
+# foo ve bar dizinlerindeki dosyalar arasındaki farklar
 diff <(ls foo) <(ls bar)
-# Outputs
+# Çıktılar
 # < x
 # ---
 # > y
 ```
 
-<!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
+<!-- Son olarak, borular(pipes) `|` scriptlemenin temel özelliklerinden birisidir. Borular bir programın çıktısını öbür programa girdi olarak verebilmeyi sağlar. Boruları veri işleme dersinde daha detaylı işleyeceğiz. -->
 
-Writing `bash` scripts can be tricky and unintuitive. There are tools like [shellcheck](https://github.com/koalaman/shellcheck) that will help you find errors in your sh/bash scripts.
+`bash` scriptleri yazmak ustalık ve dikkat isteyebilir. [Shellcheck](https://github.com/koalaman/shellcheck) gibi araçlar sh/bash scriptlerinizdeki hataları bulmanıza yardımcı olabilirler
 
-Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order:
+Terminalden çalıştırılabilmek için scriptleriniz bash dilinde yazılmak zorunda değildir. Örneğin, aşağıda argümanlarını ters çevrilmiş şekilde yazdırılan basit bir Python scripti görülmektedir:
 
 ```python
 #!/usr/local/bin/python
@@ -159,152 +157,152 @@ for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
 
-The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
-It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
-For this example the shebang line would look like `#!/usr/bin/env python`.
+Kernel bu scripti bir shell komutu yerine bir Python interpreteru kullanarak çalıştıracağını bilmektedir çünkü scriptin en başındaki satırda bir [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) bulunmaktadır.
+Shebang satırlarını scriptlerin taşınabilirliğini artıran, komut sistemde nerede ise orayı bulabilen [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) komutu kullanarak yazmak iyi bir uygulamadır. Lokasyonu bulmak için, `env` komutu ilk derste tanıtılan `PATH` ortam değişkenini kullanır.
+Bu örnekte shebang satırı `#!/usr/bin/env python` şeklinde gözükecektir.
 
-Some differences between shell functions and scripts that you should keep in mind are:
-- Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
-- Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
+Shell fonksiyonları ve scriptleri arasında aklınızda tutmanız gereken bazı farklılıklar şu şekildedir:
+- Fonksiyonlar shell ile aynı dilde yazılmak zorunda iken, scriptler herhangi bir dilde yazılabilir. Bu yüzden scriptlere shebang eklemek önemlidir.
+- Fonksiyonlar tanımlandıkları zaman yüklenirler. Scripler ise her çalıştırıldıklarında tekrar yüklenirler. Bu yüzden fonksiyonlar biraz daha hızlı yüklenirler, fakat değiştirdiğiniz her zaman, tanımlamalarını tekrar yüklemek zorunda kalırsınız.
+- Fonksiyonlar var olan shell ortamında çalışırken, scriptler kendi işlemleri üzerinde farklı bir ortamda çalışırlar. Bu yüzden, fonksiyonlar ortam değişkenlerini düzenleyebilir, örneğin bulunduğunuz dizini değiştirmek, fakat scriptler düzenleyemezler. Scriptler [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html) komutu kullanarak dışarı verilen ortam değişkenlerini değer geçirme ile erişirler.
+- Tüm programlama dilleri gibi, fonksiyonlar modülarite, kod tekrar kullanımı, ve shell kodunun anlaşılırlığı için oldukça önemli yapılardır . Çoğu zaman, shell scriptleri kendi fonksiyon tanımlarını kullanırlar.
 
-# Shell Tools
+# Shell Araçları
 
-## Finding how to use commands
+## Komutların nasıl kullanılacağının bulunması
 
-At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
-More generally, given a command, how do you go about finding out what it does and its different options?
-You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
+Bu noktada, ((((((aliasing))))))))) bölümünde kullanılan `ls -l`, `mv -i` ve `mkdir -p` gibi işaretleri(flag) nasıl bulabileceğimizi merak ediyor olabilirsiniz.
+Genel olarak herhangi bir komut için komutun ne yaptığını ve farklı seçeneklerinin neler olduğunu nasıl öğreniriz?
+Elbette googlelamaya başlayabilirsiniz, fakat UNIX StackOverflow'dan önceden beri var olduğu için, shell içinden bu bilgilere ulaşmanın yolları var.
 
-As we saw in the shell lecture, the first-order approach is to call said command with the `-h` or `--help` flags. A more detailed approach is to use the `man` command.
-Short for manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
-For example, `man rm` will output the behavior of the `rm` command along with the flags that it takes, including the `-i` flag we showed earlier.
-In fact, what I have been linking so far for every command is the online version of the Linux manpages for the commands.
-Even non-native commands that you install will have manpage entries if the developer wrote them and included them as part of the installation process.
-For interactive tools such as the ones based on ncurses, help for the commands can often be accessed within the program using the `:help` command or typing `?`.
+Shell dersinde gördüğümüz üzere, ilk akla gelen yöntem bahsedilen komutu `-h` veya `--help` işaretlerini kullanarak çağırmak olabilir. Daha detaylı bir yöntem `man` komutunu kullanmak olabilir.
+Manual için bir kısaltma olan, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) belirttiğimiz komut için bir manual sayfası (manpage olarak da adlandırılır) sağlar.
+Örneğin, `man rm`, `rm` komutunun nasıl çalıştığını, ne yaptığını ve daha önce gösterdiğimiz `-i` işareti gibi alabileceği işaretleri çıktı olarak verir.
+Aslında, şu ana kadar verdiğim linkler komutlarınLinux manual sayfalarının çevrimiçi haliydi.
+Native olmayan, kullanıcı tarafından yüklenen komutların bile eğer geliştirici yazıp yükleme sürecine dahil ettiyse bir manpagei olabilir.
+ncurses vb. tabanlı interaktif araçlar içinse, komutlar için yardıma programın içinde `:help` komutu üzerinden veya `?` yazarak ulaşılabilir.
 
-Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
-[TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages.
+Bazen manpageler komutların fazlaca detaylı tanımlamalarını içerebilir, böylelikle yaygın kullanımlar için hangi işaretleri/sözdimini kullanacağını kavramak zorlaşabilir.
+[TLDR sayfaları](https://tldr.sh/) bu soruna tamamlayıcı  zekice çözümlerdir. Bir komutun kullanım senaryolarından örnekler vererek hangi durumda hangi seçeneğin kullanılması gerektiğinin kolayca anlaşılmasını sağlar.
+Mesela, [`tar`](https://tldr.ostera.io/tar) ve [`ffmpeg`](https://tldr.ostera.io/ffmpeg) komutları için kendimi çok daha sıklıkla manpageleri yerine tldr sayfalarını kontrol ederken buluyorum.
 
 
-## Finding files
+## Dosyaları bulmak
 
-One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+Her programlamacının karşılaştığı en sık tekrarlayan işlerden biri dosyaları ve dizinleri bulmaktır.
+Tüm UNIX-like sistemler dosyaları bulmak için harika bir araç olan [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html) paketiyle birlikte gelir. `find` bir kritere göre dosyaları özyinelemeli şekilde arar. Bazı örnekler:
 
 ```bash
-# Find all directories named src
+# Tüm src isimli dizinleri bul
 find . -name src -type d
-# Find all python files that have a folder named test in their path
+# Konumunun içinde test geçen tüm python dosyalarını bul
 find . -path '**/test/**/*.py' -type f
-# Find all files modified in the last day
+# Son gün içinde değiştirilen tüm dosyaları bul
 find . -mtime -1
-# Find all zip files with size in range 500k to 10M
+# 500k'dan 10M'a kadar olan tüm zip dosyalarını bul
 find . -size +500k -size -10M -name '*.tar.gz'
 ```
-Beyond listing files, find can also perform actions over files that match your query.
-This property can be incredibly helpful to simplify what could be fairly monotonous tasks.
+Dosyaları listelemenin yanında, find ayrıca sorgunuzla bulduğunuz dosyalar üzerinde komutlar çalıştırabilir.
+Bu özellik oldukça monoton işlerin basitleştirilmesi için inanılmaz şekilde faydalıdır.
 ```bash
-# Delete all files with .tmp extension
+# .tmp uzantılı tüm dosyaları sil
 find . -name '*.tmp' -exec rm {} \;
-# Find all PNG files and convert them to JPG
+# Tüm PNG dosyalarını bul ve JPG'e çevir
 find . -name '*.png' -exec convert {} {.}.jpg \;
 ```
 
-Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
-For instance, to simply find files that match some pattern `PATTERN` you have to execute `find -name '*PATTERN*'` (or `-iname` if you want the pattern matching to be case insensitive).
-You could start building aliases for those scenarios, but part of the shell philosophy is that it is good to explore alternatives.
-Remember, one of the best properties of the shell is that you are just calling programs, so you can find (or even write yourself) replacements for some.
-For instance, [`fd`](https://github.com/sharkdp/fd) is a simple, fast, and user-friendly alternative to `find`.
-It offers some nice defaults like colorized output, default regex matching, and Unicode support. It also has, in my opinion, a more intuitive syntax.
-For example, the syntax to find a pattern `PATTERN` is `fd PATTERN`.
+`find` oldukça sık kullanılmasına rağmen, sözdizimini hatırlamak bazen hatırlaması zor olabilir.
+Örneğin, bir kalıpla eşleşen dosyaları bulmaya çalışırken `KALIP`, `find -name '*KALIP*'` (veya eğer kalıbın büyük/küçük harf ayrımı yapmamasını istiyorsanız `-iname`) komutunu çalıştırmalısınız.
+Bu senaryolar için mahlaslar(alias) oluşturabilirsiniz, fakat shell felsefesinin bir kısmı da farklı alternatifleri değerlendirmenin iyi olduğudur.
+Unutmayın, shellin en iyi özelliklerinden biri sadece programlar çağırıyor olmanızdır, böylece bazıları için farklı alternatifler bulabilir, hatta kendiniz alternatifler yazabilirsiniz.
+Örneğin, [`fd`](https://github.com/sharkdp/fd) `find`a basit, hızlı ve kullanıcı dostu bir alternatiftir.
+Renklendirilmiş çıktılar, regex eşleştirme ve Unicode desteği gibi güzel özellikleri varsayılan olarak sunar. Bana göre, ayrıca, daha içgüdüsel bir sözdizimine sahiptir.
+Örneğin, bir `KALIP`ı bulmaya çalışıyorken sözdizimi `fd KALIP`tır.
 
-Most would agree that `find` and `fd` are good, but some of you might be wondering about the efficiency of looking for files every time versus compiling some sort of index or database for quickly searching.
-That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) is for.
-`locate` uses a database that is updated using [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
-In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
-Therefore one trade-off between the two is speed vs freshness.
-Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
-A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+Birçok kişi `find` ve `fd`nin iyi olduğunda hemfikirdir, ama bazılarınız her seferinde dosyalar için arama yapmanın daha hızlı arama yapmak için bir tür index veya veritabanı oluşturmaya göre verimliliğini sorguluyor olabilir.
+[`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) komutu tam olarak bunun içindir.
+`locate`, [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html) ile güncellenen bir veritabanı kullanır.
+Birçok sistemde, `updatedb`, [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html) kullanılarak günlük olarak güncellenir.
+Yani, ikisi arasında hız ve güncellikten birinden vazgeçilir.
+Buna ek olarak, `find` ve benzeri araçlar ayrıca dosya boyutu, düzenleme tarihi, dosya izinleri gibi özellikler üstünden de dosyaları bulabilirken, `locate` sadece dosya ismini kullanır.
+Daha detaylı bir karşılaştırma [burada](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other) bulunabilir.
 
-## Finding code
+## Kodu Bulmak
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
-A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
-To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
-`grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
+Dosyaları isimleriyle aramak faydalı, fakat en az bunun kadar sık dosyaları *içeriklerine* göre de bulmak isteyeceksiniz. 
+Yaygın bir senaryo, bir kalıbı içeren tüm dosyaları ve bu dosyalar içinde bahsedilen kalıbın nerede geçtiğini bulmak istemektir.
+Bunu başarabilmek için, çoğu UNIX-like sistemde verilen metinde kalıp eşleştirmesi yapmayı sağlayan jenerik [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html) komutu bulunmaktır.
+Oldukça değerli bir shell aracı olan `grep` komutunu (((veri işleme))) dersinde oldukça detaylı işleyeceğiz.
 
-For now, know that `grep` has many flags that make it a very versatile tool.
-Some I frequently use are `-C` for getting **C**ontext around the matching line and `-v` for in**v**erting the match, i.e. print all lines that do **not** match the pattern. For example, `grep -C 5` will print 5 lines before and after the match.
-When it comes to quickly searching through many files, you want to use `-R` since it will **R**ecursively go into directories and look for files for the matching string.
+Şu anlık, `grep` komutunun birçok işaretçisiyle(flag) birlikte çok yönlü bir araç olduğunu bilmeniz yeterlidir.
+Benim sıklıkla kullandıklarım arasında, `-C` işaretçisi eşleşen satırın etrafındaki **C**ontexti yazdırmak için kullanılır, `-v` ise eşleşmenin tümleyenini(in**v**erting) almak için kullanılır, kalıpla **eşleşmeyen** tüm satırları yazdırma şeklinde. Örneğin, `grep -C 5` eşleşmenin olduğu satırın 5 üst ve 5 altındaki satırları gösterir.
+Birçok dosya arasında hızlıca arama yapmak istediğimizde de, `-R` işaretçisi özyinelemeli şekilde (**R**ecursively) dizinlerin içine girip eşleşen stringler için dosyaları aramayı sağlar.
 
-But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
-Many `grep` alternatives have been developed, including [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
-All of them are fantastic and pretty much provide the same functionality.
-For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
+Fakat `grep -R` birçok şekilde geliştirlebilir,`.git` klasörlerini yok saymak, çoklu CPU desteği vb. gibi.
+Birçok `grep` alternatifi geliştirilmiştir; bunların arasında [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) ve [rg](https://github.com/BurntSushi/ripgrep) bulunmaktadır.
+Bunların hepsi şahanedir ve az çok aynı işlevi görmektedir.
+Şu an hızı ve içgüdüsel olması sebebyile ripgrep (`rg`) kullanmaktayım. Bazı örnekler:
 ```bash
-# Find all python files where I used the requests library
+# requests kütüphanesini kullandığım bütün python dosyalarını bul
 rg -t py 'import requests'
-# Find all files (including hidden files) without a shebang line
+# Shebang satırı içermeyen tüm dosyaları bul (gizli dosyalar dahil)
 rg -u --files-without-match "^#!"
-# Find all matches of foo and print the following 5 lines
+# Tüm 'foo'ları bul ve sonraki 5 satırı yazdır.
 rg foo -A 5
-# Print statistics of matches (# of matched lines and files )
+# Eşleşmenin istatistilerini yazdır (eşleşen dosyalar ve satırların sayısı)
 rg --stats PATTERN
 ```
 
-Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+Dikkat edilmesi gereken nokta `find`/`fd`'de olduğu gibi, bu problemlerin bu araçlardan herhangi birini kullarak çözülebileceğinin farkında olmaktır. Kullandığınız spesifik aracın çok da bir önemi yoktur.
 
-## Finding shell commands
+## Shell komutlarını bulmak
 
-So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
-The first thing to know is that the typing up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
+Şu ana kadar nasıl dosyaları ve kodları bulabileceğimizi gördük. Fakat shell'de daha fazla zaman harcadıkça, bir noktada kullandığınız spesifik komutları bulmak isteyebilirsiniz.
+Bilinmezi gereken ilk nokta üst ok tuşunun en son çalıştırdığınız komutu size vereceğidir, ve bu tuşa daha fazla bastıkça yavaşça shell geçmişinizde ilerleyebilirsiniz.
 
-The `history` command will let you access your shell history programmatically.
-It will print your shell history to the standard output.
-If we want to search there we can pipe that output to `grep` and search for patterns.
-`history | grep find` will print commands that contain the substring "find".
+`history` komutu ise shell geçmişine programlanabilir şekilde erişmenizi sağlar.
+Bu komut shell geçmişinizi standard çıktıya yazdıracaktır.
+Eğer geçmiş içinde arama yapmak istersek, `history` komutunun çıktısını `grep`e bağlayıp(pipe) kalıplar ile arama yapabiliriz.
+`history | grep find` komutu geçmişte kullanılan "find" altdizgesini içeren komutları çıktı olarak verir.
 
-In most shells, you can make use of `Ctrl+R` to perform backwards search through your history.
-After pressing `Ctrl+R`, you can type a substring you want to match for commands in your history.
-As you keep pressing it, you will cycle through the matches in your history.
-This can also be enabled with the UP/DOWN arrows in [zsh](https://github.com/zsh-users/zsh-history-substring-search).
-A nice addition on top of `Ctrl+R` comes with using [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
-`fzf` is a general-purpose fuzzy finder that can be used with many commands.
-Here is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
+Birçok shellde, `Ctrl+R` kullanarak geçmişiniz içinde geriye doğru arama yapabilirsiniz.
+`Ctrl+R`a bastıktan sonra, geçmişinizde aramak istediğiniz diziyi yazabilirsiniz.
+Daha da fazla bastıkça girdiğiniz diziyi içeren eşleşmeler içinde ilerleyebilirsiniz.
+[zsh](https://github.com/zsh-users/zsh-history-substring-search)de YUKARI/AŞAĞI tuşlarını kullanarak da bu fonksiyon aktifleştirilebilir.
+`Ctrl+R` üzerine güzel bir ekleme [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) kısayolları kullaranak sağlanabilir.
+`fzf` genel amaçlı, birçok komut ile kullanılabilen bir bulanık arayıcıdır (fuzzy finder).
+Burada bulanık şekilde geçmişinizde eşleştirme yapıp sonuçları kullanışlı ve görsel olarak hoş bir şekilde sunar.
 
-Another cool history-related trick I really enjoy is **history-based autosuggestions**.
-First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
-It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
+Kullanmayı gerçekten çok sevdiğim komut geçmişi ile alakalı bir diğer özellik de **geçmiş-tabanlı otomatik öneriler**.
+İlk olarak [fish](https://fishshell.com/) shell ile sunulan bu özellik dinamik olarak şu anki komutunuzu aynı şekilde başlayan en son yazdığınız komuta otomatik olarak tamamlar.
+[zsh](https://github.com/zsh-users/zsh-autosuggestions)'de aktif edilebilir bir özellik olarak bulunmaktadır ve shell kullanım kalitenizi gerçekten arttırabilecek bir hile olabilir.
 
-Lastly, a thing to have in mind is that if you start a command with a leading space it won't be added to your shell history.
-This comes in handy when you are typing commands with passwords or other bits of sensitive information.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`.
+Son olarak da, akılda bulunması gereken bir özellik eğer bir komuta boşluk karakteri ile başlanırsa, onun shell geçmişine eklenmeyeceğidir.
+Bu özellik özellikle şifreler veya hassas bilgiler içeren komutlar kullanırken kullanışlı olmaktadır.
+Eğer baştaki boşluğu koymayı unuttuysanız, her zaman `.bash_history` ya da `.zhistory` dosyalarını manuel olarak düzenleyerek bir girdiyi silebilirsiniz.
 
-## Directory Navigation
+## Dizinler Arasında Hareket Etme
 
-So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
-There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
+Şu ana kadar, zaten işlem yapmak istediğiniz dizinde olduğunuzu varsaydık. Peki, dizinler arasında nasıl kolaylıkla hareket edebiliriz?
+Bunu yapmanın birçok kolay yolu var. Mesela shell mahlasları(aliases) oluşturmak veya [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html) komutuyla symlinkler oluşturmak gibi. Fakat aslında geliştiriciler bu probleme oldukça zekice ve sofistike çözümler geliştirdiler şu ana kadar.
 
-As with the theme of this course, you often want to optimize for the common case.
-Finding frequent and/or recent files and directories can be done through tools like [`fasd`](https://github.com/clvv/fasd) and [`autojump`](https://github.com/wting/autojump).
-Fasd ranks files and directories by [_frecency_](https://developer.mozilla.org/en/The_Places_frecency_algorithm), that is, by both _frequency_ and _recency_.
-By default, `fasd` adds a `z` command that you can use to quickly `cd` using a substring of a _frecent_ directory. For example, if you often go to `/home/user/files/cool_project` you can simply use `z cool` to jump there. Using autojump, this same change of directory could be accomplished using `j cool`.
+Bu kursun genel temasında olduğu şekilde, çoğunlukla en yaygın durumları optimize etmek istersiniz.
+En sık ve/veya en son erişilen dosya ve dizinlere erişmek [`fasd`](https://github.com/clvv/fasd) ve [`autojump`](https://github.com/wting/autojump) gibi araçlarla yapılabilir.
+Fasd dosyaları ve dizinleri [_frecency_](https://developer.mozilla.org/en/The_Places_frecency_algorithm) ölçütüne göre sıralar. Frecency, sıklık(frequency) ve yenilik(recency) kelimelerinin birleşmesiyle oluşmuştur.
+Varsayılan olarak, `fasd`, `z` komutu kullanarak _frecent_ bir dizinin isminden bir parça kullanarak dizine `cd`lemenizi sağlar. Örneğin, eğer `/home/user/files/cool_project` dizinini sıklıkla kullanıyorsanız, `z cool` yazarak kolayca buraya zıplayabilirsiniz. Autojump kullanırkense, aynı dizin değişimi `j cool` yazarak yapılabilir.
 
-More complex tools exist to quickly get an overview of a directory structure [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger)
+Dizin yapılarına hızlıca kuşbakışı bakabilmek için birçok kompleks araç bulunmaktadır. Bunlardan bazıları: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) veya [`nnn`](https://github.com/jarun/nnn) veya [`ranger`](https://github.com/ranger/ranger) gibi tam ölçekli dosya yöneticileri
 
-# Exercises
+# Örnekler
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
+1. [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) sayfasını okuyun ve aşağıdaki şekilde dosyaları listeleyen bir `ls` komutu yazın.
 
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+    - Tüm dosyaları içerir, gizli dosyalar dahil
+    - Dosya büyüklükleri, kullanıcı dostu şekilde yazdırılmalıdır (örneğin 454279954 yerine 454M)
+    - Dosyalar yeniden eskiye doğru sıralanmalıdır
+    - Çıktı renklendirilmelidir
 
-    A sample output would look like this
+    Örnek çıktı aşağıdaki şekilde görünebilir:
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -318,9 +316,10 @@ More complex tools exist to quickly get an overview of a directory structure [`t
 ls -lath --color=auto
 {% endcomment %}
 
-1. Write bash functions  `marco` and `polo` that do the following.
-Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`.
-For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. Aşağıdaki işlemleri yapan `marco` ve `polo` komutlarını yazın.
+`marco`yu çalıştırdığınız her zaman, şu an içinde olduğunuz dizin bir şekilde kaydedilir, sonra `polo` komutunu çalıştırdığınızda, nerede olursanız olun, `polo`, `marco` komutunu çalıştırdığınız dizine geri `cd`ler.
+
+Debug işlemini kolaylaştırmak için kodunuzu ayrı bir `marco.sh` dosyasına yazıp `source marco.sh` komutunu çalıştırarak tanımlamaları shellinize (tekrar) yükleyebilirsiniz.
 
 {% comment %}
 marco() {
@@ -332,9 +331,9 @@ polo() {
 }
 {% endcomment %}
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run.
-Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end.
-Bonus points if you can also report how many runs it took for the script to fail.
+1. Nadiren başarısız olan bir komutunuz var diyelim. Debuglayabilmeniz için çıktısını yakalamanız lazım ama başarısız olan bir sonuç almak için tek tek çalıştırmak zaman kaybettirici oluyor.
+Aşağıdaki scripti başarısız olana kadar çalıştırıp standard çıktıyı yakalayan ve hataları bir dosyaya yönlendirip en sonunda her şeyi çıktı olarak veren bir bash scripti yazın.
+Bonus Puan: Kaçıncı çalıştırma sonucunda scriptin hata verdiğini gösterin. 
 
     ```bash
     #!/usr/bin/env bash
@@ -342,12 +341,12 @@ Bonus points if you can also report how many runs it took for the script to fail
     n=$(( RANDOM % 100 ))
 
     if [[ n -eq 42 ]]; then
-       echo "Something went wrong"
-       >&2 echo "The error was using magic numbers"
+       echo "Bir yerlerde hata var"
+       >&2 echo "Hatta sihirli sayıları kullanmaktan kaynaklanıyor"
        exit 1
     fi
 
-    echo "Everything went according to plan"
+    echo "Her şey plana göre gitti"
     ```
 
 {% comment %}
@@ -360,20 +359,20 @@ do
   ./random.sh &> out.txt
 done
 
-echo "found error after $count runs"
+echo "$count çalıştırmadan sonra hata bulundu"
 cat out.txt
 {% endcomment %}
 
-1. As we covered in the lecture `find`'s `-exec` can be very powerful for performing operations over the files we are searching for.
-However, what if we want to do something with **all** the files, like creating a zip file?
-As you have seen so far commands will take input from both arguments and STDIN.
-When piping commands, we are connecting STDOUT to STDIN, but some commands like `tar` take inputs from arguments.
-To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
-For example `ls | xargs rm` will delete the files in the current directory.
+1. Derste gördüğümüz üzere `find` komutunun `-exec` işaretçisi aradığımız dosyalar üzerinde işlem yapmak için oldukça güçlü bir araç.
+Peki, bulduğumuz **tüm** dosyalar üzerinde bir işlem yapmak istesek, mesela hepsinden bir zip dosyası oluşturmak gibi? 
+Şu ana kadar gördüğünüz üzere komutlar hem argümanlarından hem de STDIN'den girdi alabiliyorlar.
+Komutları birbirine bağlarken (piping), STDOUT'u STDIN'e bağlıyoruz, fakat `tar` gibi bazı komutlar argümanlardan girdi alıyorlar.
+Arada bir köprü olmak için [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) komutu STDIN'i argümanları olarak kullanarak komutu çalıştırır.
+Örneğin `ls | xargs rm` şu anki dizindeki dosyaları siler.
 
-    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`)
+    Göreviniz öz yinelemeli şekilde bir klasördeki tüm HTML dosyalarını bulup onlarla bir zip dosyası oluşturmak. Unutmayın, komutunuz dosyalarınızın isminde boşluk olsa da çalışmalıdır. (ipucu: `xargs`'ın `-d` işaretçisine bakın)
     {% comment %}
     find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
     {% endcomment %}
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (İleri Seviye) Özyinelemeli şekilde bir klasördeki en son düzenlenen dosyayı bulan bir komut veya script yazın. Daha genel olarak, tüm dosyaları en yeniden eskiye doğru sıralayabilir misiniz?
