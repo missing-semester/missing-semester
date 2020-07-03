@@ -312,7 +312,7 @@ you may encounter in the wild:
     command fails. This should prevent any commit from having an
     unbuildable version of the paper.
  4. Set up a simple auto-published page using [GitHub
-    Pages](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
+    Pages](https://pages.github.com/).
     Add a [GitHub Action](https://github.com/features/actions) to the
     repository to run `shellcheck` on any shell files in that
     repository (here is [one way to do
