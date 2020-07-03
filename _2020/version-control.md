@@ -428,7 +428,7 @@ index 94bab17..f0013b2 100644
     - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
 - `git log`: shows a flattened log of history
 - `git log --all --graph --decorate`: visualizes history as a DAG
-- `git diff <filename>`: show changes you made relative to the staging area for the next commit
+- `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
 - `git checkout <revision>`: updates HEAD and current branch
 
