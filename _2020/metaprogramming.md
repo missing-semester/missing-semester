@@ -281,7 +281,7 @@ you may encounter in the wild:
    system to check that different feature or components work _together_.
  - Regression test: a test that implements a particular pattern that
    _previously_ caused a bug to ensure that the bug does not resurface.
- - Mocking: the replace a function, module, or type with a fake
+ - Mocking: to replace a function, module, or type with a fake
    implementation to avoid testing unrelated functionality. For example,
    you might "mock the network" or "mock the disk".
 
