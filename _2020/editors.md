@@ -58,7 +58,7 @@ Vim’in bütün fonksiyonlarını 50 dakika içerisinde öğretmek mümkün de�
 -   Vim’in felsefesi,
 -   Temel işlevlerin anlatılması,
 -   Bir kaç ileri düzey işlevin gösterilmesi,
--   Vim de ustalaşmak için size kaynakların verilmesi
+-   Vim de ustalaşmak için gerekli kaynakların size verilmesi
 
 # Vim’in Felsefesi
 
@@ -74,7 +74,7 @@ Sonuç olarak Vim, düşündüğünüz kadar hızlı olan bir editördür.
 # Modal Düzenleme
 
 Vim’in tasarımı, uzun metin akışları yazmak yerine, çok sayıda programcının 
-zamanını okumak, gezinmek ve küçük düzenlemeler yapmak için harcandığı fikrine dayanır. 
+zamanını; okumak, gezinmek ve küçük düzenlemeler yapmak için harcandığı fikrine dayanır. 
 Bu nedenle Vim'in birden fazla çalışma modu vardır.
 -   **Normal**: dosyanın içerisinde gezinmek ve değişiklikler yapmak için,    
 -   **Insert**: metin eklemek için,    
@@ -88,7 +88,7 @@ ama Normal modda iken 'x' harfi imlecin altındaki karakteri siler ve
 Visual modda ise seçili olanı siler.
 
 Varsayılan ayarlarda Vim, o anki çalışma modunu sol altta gösterir. 
-Başlangıç/varsayılan mod Normal moddur. Genellikle zamanının çoğunu 
+Başlangıç modu/varsayılan mod Normal moddur. Genellikle zamanının çoğunu 
 Normal mod ve Insert mod arasında geçireceksin. Herhangi bir moddan 
 Normal moda geri dönmek için `<ESC>` tuşuna basarak modları değiştirebilirsiniz. 
 Normal moddan `i` ile Insert moduna, `R` ile Replace moduna, `v` ile Visual moduna, 
@@ -96,7 +96,7 @@ Normal moddan `i` ile Insert moduna, `R` ile Replace moduna, `v` ile Visual modu
 moduna girebilirsin.
 
 Vim'i kullanırken `<ESC>` tuşunu çok fazla kullanırız. `<ESC>` tuşunu Caps Lock 
-tuşuna atamayı düşünebilirsin. ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
+tuşuna atamayı düşünebilirsiniz. ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
 
 # Temel Öğeler
 
@@ -105,7 +105,8 @@ tuşuna atamayı düşünebilirsin. ([macOS instructions](https://vim.fandom.com
 Normal modda iken Insert moduna girmek için `i` tuşuna basın. Şimdi Vim, 
 Normal moda geri dönmek için `<ESC>` tuşuna basana kadar diğer metin editörleri 
 gibi çalışır. Bu bilgi ve yukarıda açıklanan temel bilgilerle birlikte, 
-Vim’i kullanarak dosyaları düzenlemeye başlamak için ihtiyacınız olan tek şeydir.
+Vim’i kullanarak dosyaları düzenlemeye başlamak için ihtiyacınız olan tek şeydir
+(eğer bütün zamanınızı Insert Modundan düzenleme için harcıyorsanız çok da verimli değil).
 
 ## Bufferlar, sekmeler ve pencereler
 
