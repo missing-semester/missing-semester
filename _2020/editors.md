@@ -2,7 +2,7 @@
 layout: lecture
 title: "Editörler (Vim)"
 date: 2019-01-15
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: a6Q8Na575qc
@@ -347,5 +347,78 @@ internette araştırın çünkü muhtemelen bulacaksınız.
 - Aynı buffer için birden fazla görünüm olabilir.
 
 ## Makrolar
+
+-  `{karakter}` register'ına bir makro kaydı başlatmak için `q{karakter}`
+- kaydı durdurmak için `q`
+- `@{karakter}` makroyu tekrar çalıştırır 
+- Makro hata ile karşılaştığında çalışmayı durdurur
+- `{sayı}@{karakter}`  {sayı} kez makroyu çalıştırır
+- Makrolar recursive olabilir
+	- öncelikle `q{karakter}q` ile makroyu temizle
+	- daha sonra makroyu recursive olarak çağırmak için `@{karakter}` ile 
+    makroyu kaydedin (kayıt tamamlanana kadar bir işlem yapılmayacak)
+- Örnek: xml'den json'a  dönüştürme ([file](/2020/files/example-data.xml)) 
+	- “name” / “email” anahtarlarına sahip nesne dizisi
+	- Bir Python programı kullanmak?
+	- sed / regexes kullanmak
+		-   `g/people/d`
+        - `%s/<person>/{/g`
+        - `%s/<name>\(.*\)<\/name>/"name": "\1",/g`
+        - ...
+     - Vim komutları / makroları
+        - `Gdd`, `ggdd` ilk ve son satırları siler
+        - Tek bir elementi formatlamak için makro (register `e`)
+            -  `<name>` ile satıra git
+            - `qe^r"f>s": "<ESC>f<C"<ESC>q`
+        - Bir kişiyi formatlamak için makro
+            - `<person>` ile satıra git
+            - `qpS{<ESC>j@eA,<ESC>j@ejS},<ESC>q`
+        - Bir kişiyi formatlamak ve sonraki kişiye gitmek için makro
+            - `<person>` ile satıra git
+            - `qq@pjq`
+        - Dosyanın sonuna kadar makroyu çalıştırır
+            - `999@q`
+        - Manuel olarak son `,` kaldırır ve `[`  `]` ayraçlarını ekler
+
+# Kaynaklar
+
+- `vimtutor` Vim kurulu şekilde gelen bir tutorial - Eğer Vim 
+kuruluysa `vimtutor` 'u shell'inizden çalıştırabilirsiniz
+- [Vim Adventures](https://vim-adventures.com/) Vim öğrenmek için oyun
+- [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
+- [Vim Advent Calendar](https://vimways.org/2019/) Çeşitli Vim taktikleri
+- [Vim Golf](http://www.vimgolf.com/) programlama dilinin Vim'in arayüzü 
+olduğu bir [code golf'dur](https://en.wikipedia.org/wiki/Code_golf)
+- [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
+- [Vim Screencasts](http://vimcasts.org/)
+- [Practical Vim](https://pragprog.com/book/dnvim2/practical-vim-second-edition) (kitap)
+
+# Egzersizler
+
+1. `vimtutor`'u tamamla. Not: en iyi [80x24](https://en.wikipedia.org/wiki/VT100)  
+terminalde gözükür. (24 satıra 80 sütun)
+1. Bizim [basic vimrc'mizi](/2020/files/vimrc) indir 
+ve `~/.vimrc` uzantısına kaydet. İyi dokümente edilmiş dosyayı okuyun (Vim kullanarak!) 
+ve Vim'in yeni ayarlar ile nasıl farklı göründüğünü, farklı davrandığını gözlemleyin.
+1. Bir plugin kurma ve yapılandırma:
+   [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim).
+   1. `mkdir -p ~/.vim/pack/vendor/start` komutu ile plugin dizini oluşturun 
+   1. Plugin indirin: `cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim`
+   1. Plugin için [dokümantasyonu](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md) okuyun. 
+   Bir proje dizininde dosya bulmak, Vim’i açmak ve Vim komut satırını kullanarak 
+   CtrlP’yi başlatmak (`:CtrlP`) için CtrlP’yi kullanmayı deneyin.
+    1. [konfigürasyon'u](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options) 
+    `~/.vimrc`'nize ekleyerek CtrlP'yi özelleştirin. 
+    CtrlP'yi açmak için Ctrl-P ye basın.
+1. Vim'de pratik yapmak için derste gösterdiğimiz [Demo'yu](#demo) kendi 
+bilgisayarınızda tekrar yapın.
+1. Önümüzdeki bir ay _bütün_ metin düzenleme işleri için Vim'i kullanın. 
+Bir şey verimsiz göründüğünde veya "daha iyi bir yol olmalı" diye düşündüğünüzde 
+Google'da aratmayı deneyin, muhtemelen vardır. 
+Eğer takıldığınız yer olursa ofis saatleri içerisinde yanımıza uğrayın yada bize mail gönderin.
+1. Vim bindinglerini kullanmak için diğer araçlarını konfigüre et (yukarıdaki talimatlara bakın).
+1. `~/.vimrc`'nizi daha da özelleştirin ve daha fazla plugin yükleyin.
+1. (İleri düzey) Vim makrolarını kullanarak XML'den JSON'a dönüştürün ([örnek dosya](/2020/files/example-data.xml)). 
+Kendi başına yapmayı dene, eğer takılırsan yukarıdaki [makrolar](#makrolar) bölümüne bakabilirsin.
 
 
