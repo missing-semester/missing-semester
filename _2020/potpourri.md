@@ -19,7 +19,7 @@ video:
 - [Window managers](#window-managers)
 - [VPNs](#vpns)
 - [Markdown](#markdown)
-- [Hammerspoon(desktop-automation-on-macOS)](#hammerspoon-desktop-automation-on-macos)
+- [Hammerspoon (desktop automation on macOS)](#hammerspoon-desktop-automation-on-macos)
 - [Booting + Live USBs](#booting--live-usbs)
 - [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
 - [Notebook programming](#notebook-programming)
