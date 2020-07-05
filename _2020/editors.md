@@ -245,6 +245,31 @@ Aşağıdaki sorunları çözerek uygulamayı düzelteceğiz
 -   5’in katları için “fizz” yazdırıyor    
 -   Kullanıcıdan girdi almak yerine 10’u hard coded olarak kullanıyor
 
+{% comment %}
+- main is never called
+  - `G` end of file
+  - `o` open new line below
+  - type in "if __name__ ..." thing
+- starts at 0 instead of 1
+  - search for `/range`
+  - `ww` to move forward 2 words
+  - `i` to insert text, "1, "
+  - `ea` to insert after limit, "+1"
+- newline for "fizzbuzz"
+  - `jj$i` to insert text at end of line
+  - add ", end=''"
+  - `jj.` to repeat for second print
+  - `jjo` to open line below if
+  - add "else: print()"
+- fizz fizz
+  - `ci'` to change fizz
+- command-line argument
+  - `ggO` to open above
+  - "import sys"
+  - `/10`
+  - `ci(` to "int(sys.argv[1])"
+{% endcomment %}
+
 Çözümü için ders videosuna bakın. Yukarıdaki değişikliklerin Vim kullanılarak 
 nasıl yapıldığını ve başka bir program kullanarak aynı düzenlemeleri nasıl 
 yapabileceğinizi karşılaştırın. Vim'de ne kadar az tuşa basmanız gerektiğine 
