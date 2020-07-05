@@ -109,7 +109,7 @@ Some interesting examples of FUSE filesystems are:
 ## Backups
 
 Any data that you haven’t backed up is data that could be gone at any moment, forever.
-It's easy to copy data around, it's hard to reliable backup data.
+It's easy to copy data around, it's hard to reliably backup data.
 Here are some good backup basics and the pitfalls of some approaches.
 
 First, a copy of the data in the same disk is not a backup, because the disk is the single point of failure for all the data. Similarly, an external drive in your home is also a weak backup solution since it could be lost in a fire/robbery/&c. Instead, having an off-site backup is a recommended practice.
