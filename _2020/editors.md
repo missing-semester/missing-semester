@@ -1,231 +1,227 @@
 ---
 layout: lecture
-title: "Editors (Vim)"
+title: "Editörler (Vim)"
 date: 2019-01-15
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: a6Q8Na575qc
 ---
 
-Writing English words and writing code are very different activities. When
-programming, you spend more time switching files, reading, navigating, and
-editing code compared to writing a long stream. It makes sense that there are
-different types of programs for writing English words versus code (e.g.
-Microsoft Word versus Visual Studio Code).
+İngilizce uzun yazılar yazmak ve kod yazmak çok farklı aktiviteler. 
+Programlama yaparken dosyaları değiştirdiğin, okuduğun, yönlendirdiğin 
+ve kod düzenlemeleri yaptığın için uzun bir yazı yazmaya kıyasla daha fazla 
+zaman harcarsın. Bu yüzden yazı yazmak ve kod yazmak için farklı programların 
+(ör. Microsoft Word - Visual Studio Code) olması mantıklı.
 
-As programmers, we spend most of our time editing code, so it's worth investing
-time mastering an editor that fits your needs. Here's how you learn a new
-editor:
+Programlayıcılar olarak zamanımızın büyük bir kısmını kod düzenleyerek geçiririz 
+bu yüzden ihtiyaçlarınızı karşılayan bir editöre hakim olmak için harcadığınız zaman 
+buna değecektir. İşte yeni bir editörü öğrenmek için yapmanız gerekenler:
 
-- Start with a tutorial (i.e. this lecture, plus resources that we point out)
-- Stick with using the editor for all your text editing needs (even if it slows
-you down initially)
-- Look things up as you go: if it seems like there should be a better way to do
-something, there probably is
+- Bir öğretici/tutorial ile başla (bu ders, artı olarak değindiğimiz kaynaklar)
+- Bütün metin düzenleme ihtiyaçların için editörü kullanmaya çalış (başta seni 
+yavaşlatsa bile)
+- Öğrenmeye devam ettikçe işlerin yoluna girmeye başladığını göreceksin.
+Öğrenmeyi bırakma
 
-If you follow the above method, fully committing to using the new program for
-all text editing purposes, the timeline for learning a sophisticated text
-editor looks like this. In an hour or two, you'll learn basic editor functions
-such as opening and editing files, save/quit, and navigating buffers. Once
-you're 20 hours in, you should be as fast as you were with your old editor.
-After that, the benefits start: you will have enough knowledge and muscle
-memory that using the new editor saves you time. Modern text editors are fancy
-and powerful tools, so the learning never stops: you'll get even faster as you
-learn more.
+Eğer yukarıdaki metodları takip eder, bütün metin düzenleme amaçların için 
+kendini yeni editörü kullanmaya adarsan, zaman çizgisi bunun gibi olacaktır. 
+İlk bir yada iki saat içerisinde dosya açma, düzenleme, kaydetme ve çıkma gibi
+temel editör fonksiyonlarını öğreneceksin. 20 saatlik bir kullanımdan sonra 
+kullandığın eski editörde olduğun kadar hızlı olacaksın. 
+Daha sonra faydalarını görmeye başlayacak, editör ile ilgili yeterli bilgiye 
+sahip olacaksın ve kas hafızası ile kullandığın editör sana zaman kazandıracak. 
+Modern metin editörleri havalı ve güçlüdür bu yüzden öğrenme asla sona ermez 
+hatta daha fazla öğrendikçe hızında artacaktır.
 
-# Which editor to learn?
+# Hangi editörü öğrenmeliyiz?
 
-Programmers have [strong opinions](https://en.wikipedia.org/wiki/Editor_war)
-about their text editors.
+Programlayıcıların editör seçmek için çok fazla [seçeneği](https://en.wikipedia.org/wiki/Editor_war) vardır.
 
-Which editors are popular today? See this [Stack Overflow
-survey](https://insights.stackoverflow.com/survey/2019/#development-environments-and-tools)
-(there may be some bias because Stack Overflow users may not be representative
-of programmers as a whole). [Visual Studio
-Code](https://code.visualstudio.com/) is the most popular editor.
-[Vim](https://www.vim.org/) is the most popular command-line-based editor.
+Günümüzde hangi editörler daha popüler? Bunun için 
+[StackOverflow](https://insights.stackoverflow.com/survey/2019/#development-environments-and-tools) 
+anketini kontrol edebilirsiniz. [Visual Studio Code]
+(https://code.visualstudio.com/) en popüler editördür. [Vim]
+(https://www.vim.org/) ise komut satırı tabanlı en popüler editördür.
 
 ## Vim
 
-All the instructors of this class use Vim as their editor. Vim has a rich
-history; it originated from the Vi editor (1976), and it's still being
-developed today. Vim has some really neat ideas behind it, and for this reason,
-lots of tools support a Vim emulation mode (for example, 1.4 million people
-have installed [Vim emulation for VS code](https://github.com/VSCodeVim/Vim)).
-Vim is probably worth learning even if you finally end up switching to some
-other text editor.
+Bu sınıftaki bütün eğitmenler editör olarak Vim kullanıyor. 
+Vim zengin bir geçmişe sahiptir; Vi (1976) editöründen gelmekte ve bugün 
+hala geliştirilmesi devam etmektedir. Vim’in arkasında gerçekten temiz 
+fikirler var ve bu yüzden bir çok araç Vim emülasyon modunu desteklemektedir 
+(ör. 1,4 milyon insan [Visual Studio Code için Vim emülasyonu]
+(https://github.com/VSCodeVim/Vim) kurmuştur. 
+Sonunda başka bir metin editörüne geçecek olsanız bile Vim muhtemelen öğrenmeye değecektir.
 
-It's not possible to teach all of Vim's functionality in 50 minutes, so we're
-going to focus on explaining the philosophy of Vim, teaching you the basics,
-showing you some of the more advanced functionality, and giving you the
-resources to master the tool.
+Vim’in bütün fonksiyonlarını 50 dakika içerisinde öğretmek mümkün değil bu yüzden odaklanıp anlatacağımız konular şunlardır;
+-   Vim’in felsefesi,
+-   Temel işlevlerin anlatılması,
+-   Bir kaç ileri düzey işlevin gösterilmesi,
+-   Vim de ustalaşmak için gerekli kaynakların size verilmesi
 
-# Philosophy of Vim
+# Vim’in Felsefesi
 
-When programming, you spend most of your time reading/editing, not writing. For
-this reason, Vim is a _modal_ editor: it has different modes for inserting text
-vs manipulating text. Vim is programmable (with Vimscript and also other
-languages like Python), and Vim's interface itself is a programming language:
-keystrokes (with mnemonic names) are commands, and these commands are
-composable. Vim avoids the use of the mouse, because it's too slow; Vim even
-avoids using the arrow keys because it requires too much movement.
+Programlama yaparken zamanınızın çoğunu yazmaya değil okumaya / düzenlemeye 
+harcarsınız. Bu yüzden Vim farklı modlara sahip bir editördür: metin eklemek 
+veya metin işlemek için farklı modlara sahiptir. Vim programlanabilir 
+(Vimscript ve Python gibi diğer diller ile) ve Vim’in arayüzünün kendisi 
+bir programlama dilidir. Vim, fare kullanımından kaçınır, çünkü çok yavaştır; 
+Vim, çok fazla hareket gerektirdiği için ok tuşlarını kullanmaktan bile kaçınır.
 
-The end result is an editor that can match the speed at which you think.
+Sonuç olarak Vim, düşündüğünüz kadar hızlı olan bir editördür.
 
-# Modal editing
+# Modal Düzenleme
 
-Vim's design is based on the idea that a lot of programmer time is spent
-reading, navigating, and making small edits, as opposed to writing long streams
-of text. For this reason, Vim has multiple operating modes.
+Vim’in tasarımı, uzun metin akışları yazmak yerine, çok sayıda programcının 
+zamanını; okumak, gezinmek ve küçük düzenlemeler yapmak için harcandığı fikrine dayanır. 
+Bu nedenle Vim'in birden fazla çalışma modu vardır.
+-   **Normal**: dosyanın içerisinde gezinmek ve değişiklikler yapmak için,    
+-   **Insert**: metin eklemek için,    
+-   **Replace**: metni değiştirmek için,    
+-   **Visual (Plain, Line or Block)**: metin bloklarını seçmek için,
+-   **Command-line:** bir komut çalıştırmak için
 
-- **Normal**: for moving around a file and making edits
-- **Insert**: for inserting text
-- **Replace**: for replacing text
-- **Visual** (plain, line, or block): for selecting blocks of text
-- **Command-line**: for running a command
+Klayve tuşlarının farklı çalışma modlarında farklı anlamları vardır. 
+Örnek olarak, Insert modunda iken `x` harfine basarsak o harfi ekleyecektir 
+ama Normal modda iken 'x' harfi imlecin altındaki karakteri siler ve 
+Visual modda ise seçili olanı siler.
 
-Keystrokes have different meanings in different operating modes. For example,
-the letter `x` in Insert mode will just insert a literal character 'x', but in
-Normal mode, it will delete the character under the cursor, and in Visual mode,
-it will delete the selection.
+Varsayılan ayarlarda Vim, o anki çalışma modunu sol altta gösterir. 
+Başlangıç modu/varsayılan mod Normal moddur. Genellikle zamanının çoğunu 
+Normal mod ve Insert mod arasında geçireceksin. Herhangi bir moddan 
+Normal moda geri dönmek için `<ESC>` tuşuna basarak modları değiştirebilirsiniz. 
+Normal moddan `i` ile Insert moduna, `R` ile Replace moduna, `v` ile Visual moduna, 
+`V` ile Visual Line moduna, `<C-v>` ile Visual Block moduna, `:` ile Command-line 
+moduna girebilirsin.
 
-In its default configuration, Vim shows the current mode in the bottom left.
-The initial/default mode is Normal mode. You'll generally spend most of your
-time between Normal mode and Insert mode.
+Vim'i kullanırken `<ESC>` tuşunu çok fazla kullanırız. `<ESC>` tuşunu Caps Lock 
+tuşuna atamayı düşünebilirsiniz. ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
 
-You change modes by pressing `<ESC>` (the escape key) to switch from any mode
-back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode
-with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode
-with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with
-`:`.
+# Temel Öğeler
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to
-Escape ([macOS
-instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
+## Metin Ekleme
 
-# Basics
+Normal modda iken Insert moduna girmek için `i` tuşuna basın. Şimdi Vim, 
+Normal moda geri dönmek için `<ESC>` tuşuna basana kadar diğer metin editörleri 
+gibi çalışır. Bu bilgi ve yukarıda açıklanan temel bilgilerle birlikte, 
+Vim’i kullanarak dosyaları düzenlemeye başlamak için ihtiyacınız olan tek şeydir
+(eğer bütün zamanınızı Insert Modundan düzenleme için harcıyorsanız çok da verimli değil).
 
-## Inserting text
+## Bufferlar, sekmeler ve pencereler
 
-From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any
-other text editor, until you press `<ESC>` to return to Normal mode. This,
-along with the basics explained above, are all you need to start editing files
-using Vim (though not particularly efficiently, if you're spending all your
-time editing from Insert mode).
+Vim, “buffer” adı verilen bir dizi açık dosya tutar. Bir Vim oturumunda, 
+her biri birkaç pencere (bölünmüş bölmeler) olan bir dizi sekme bulunur. 
+Her pencere tek bir buffer gösterir. Web tarayıcıları gibi bildiğiniz 
+diğer programların aksine, buffferlar ve pencereler arasında bire bir 
+haberleşme yoktur; pencereler sadece görünümdür. Belirli bir buffer, 
+birden fazla pencerede hatta aynı sekmede bile açılabilir. 
+Bu özellik oldukça kullanışlı olabilir örneğin bir dosyanın 
+iki farklı parçasını aynı anda görüntüleyebilirsiniz.
 
-## Buffers, tabs, and windows
-
-Vim maintains a set of open files, called "buffers". A Vim session has a number
-of tabs, each of which has a number of windows (split panes). Each window shows
-a single buffer. Unlike other programs you are familiar with, like web
-browsers, there is not a 1-to-1 correspondence between buffers and windows;
-windows are merely views. A given buffer may be open in _multiple_ windows,
-even within the same tab. This can be quite handy, for example, to view two
-different parts of a file at the same time.
-
-By default, Vim opens with a single tab, which contains a single window.
+Varsayılan olarak Vim, tek bir pencere içeren tek bir sekmeyle açılır.
 
 ## Command-line
 
-Command mode can be entered by typing `:` in Normal mode. Your cursor will jump
-to the command line at the bottom of the screen upon pressing `:`. This mode
-has many functionalities, including opening, saving, and closing files, and
-[quitting Vim](https://twitter.com/iamdevloper/status/435555976687923200).
+Command moduna Normal modda iken `:` yazarak giriş yapabiliriz. `:` Tuşuna 
+bastığınızda bilgisayarınızın imleci ekranın altındaki komut satırına atlayacaktır. 
+Bu mod, dosyaları açma, kaydetme, kapatma ve [Vim'den çıkış]
+(https://twitter.com/iamdevloper/status/435555976687923200) yapma gibi 
+birçok işleve sahiptir.
 
-- `:q` quit (close window)
-- `:w` save ("write")
-- `:wq` save and quit
-- `:e {name of file}` open file for editing
-- `:ls` show open buffers
-- `:help {topic}` open help
-    - `:help :w` opens help for the `:w` command
-    - `:help w` opens help for the `w` movement
+-   `:q` çıkış (pencereyi kapatır) 
+-   `:w` kayıt (“yaz”)    
+-   `:wq` kaydet ve çık    
+-   `:e {dosyanın adı}` düzenlemek için dosyayı açar    
+-   `:ls` açık bufferları gösterir    
+-   `:help {konu}` yardımı açar
+	-   `:help :w` `:w` komutu için yardımı açar
+	- `:help w`  `w` tuşu için yardımı açar
+	
+# Vim'in arayüzü bir programlama dilidir
 
-# Vim's interface is a programming language
+Vim’deki en önemli fikir Vim’in arayüzünün kendisinin bir programlama dili olmasıdır. 
+Klavyedeki bazı tuşlar (anımsatıcı adlarla) komutlardır ve bu komutlar 
+oluşturulabilir. Bu, özellikle komutlar kas hafızasına geçtiğinde dosya 
+içerisinde daha verimli gezinmeler ve düzenlemeler yapılmasını sağlar.
 
-The most important idea in Vim is that Vim's interface itself is a programming
-language. Keystrokes (with mnemonic names) are commands, and these commands
-_compose_. This enables efficient movement and edits, especially once the
-commands become muscle memory.
+## Gezinme
 
-## Movement
+Bufferda gezinmek için hareket komutlarını kullanarak zamanınızı çoğunu 
+Normal modda geçirmelisiniz. Vim'deki hareketlere “nouns” da denir, 
+çünkü metin parçalarına atıfta bulunurlar.
 
-You should spend most of your time in Normal mode, using movement commands to
-navigate the buffer. Movements in Vim are also called "nouns", because they
-refer to chunks of text.
+-   Temel hareket: `hjkl` (sol, aşağı, yukarı, sağ)    
+-   Kelimeler: `w` (sonraki kelime), `b` (kelimenin başlangıcı), `e` (kelimenin sonu)    
+-   Satırlar: `0` (satırın başı), `^` (boşluk harici ilk karakter), `$` (satırın sonu)    
+-   Ekran: `H` (ekranın en üstü), `M` (ekranın ortası), `L` (ekranın en altı)    
+-   Kaydırma: `Ctrl-u` (yukarı), `Ctrl-d` (aşağı)    
+-   Dosya: `gg` (dosyanın başı), `G` (dosyanın sonu)
+-   Satır sayıları: `:{sayı}<CR>` yada `{sayı}G` (satır sayısı)
+-   Misc: `%`
+-   Bul: `f{karakter}`, `t{karakter}`, `F{karakter}`, `T{karakter}`
+    -  üzerinde olduğun satırda bul/ileriye doğru bul/geriye doğru bul {karakter}
+    - `,` / `;` eşleşenleri yönlendirmek için
+-   Kelime arama: `/{regex}` n ile ileriye doğru arama, N ile geriye doğru arama
 
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- Scroll: `Ctrl-u` (up), `Ctrl-d` (down)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-- Misc: `%` (corresponding item)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-    - `,` / `;` for navigating matches
-- Search: `/{regex}`, `n` / `N` for navigating matches
+## Seçim
 
-## Selection
+Visual Modları:
 
-Visual modes:
+-   Visual
+-   Visual Line    
+-   Visual Block
+    
+Seçim yapmak için yön tuşlarını kullanabilirsiniz.
 
-- Visual
-- Visual Line
-- Visual Block
+## Düzenlemeler
 
-Can use movement keys to make selection.
+Fare ile yaptığınız her şeyi artık hareket komutlarıyla oluşturulan 
+düzenleme komutlarını kullanarak klavyeden yapabilirsiniz. İşte Vim’in 
+arayüzünün bir programlama dili gibi görünmeye başladığı yer burası. 
+Vim’in düzenleme komutlarına “verbs” de denir, çünkü fiiller isimler üzerine etki eder.
 
-## Edits
+- `i` Insert moduna giriş yapar
+    - ama değiştirme/silme yapmak için backspace'den farklı bir tuş 
+    kullanmak isteyebilirsin
+- `o` / `O` aşağı/yukarı satır ekler
+- `d{motion}` {motion} siler
+    - ör. `dw` kelime siler, `d$` satırın sonuna kadar siler, `d0` satırın 
+    başına kadar siler
+- `c{motion}` {motion} değiştirir
+    - ör. `cw` kelime değiştirir
+    - `d{motion}`dan sonra gelen `i` gibi
+- `x` karakter siler (`dl` ile aynı)
+- `s` hatalı karakter yerine geçen karakter (`xi` ile aynı)
+- Visual mod + manipülasyon
+    - seçili metini silmek için `d` değiştirmek için `c`
+- yapılan işlemi geri almak için `u`, yeniden yapmak için `<C-r>`
+- `y` kopyalamak için / "yank" (aynı zamanda `d` gibi bazı diğer komutlarda kopyalar)
+- `p` yapıştırmak için
+- Daha fazlasını öğrenmek için: ör. `~` karakteri büyültür yada küçültür
 
-Everything that you used to do with the mouse, you now do with the keyboard
-using editing commands that compose with movement commands. Here's where Vim's
-interface starts to look like a programming language. Vim's editing commands
-are also called "verbs", because verbs act on nouns.
+## Sayılar
 
-- `i` enter Insert mode
-    - but for manipulating/deleting text, want to use something more than
-    backspace
-- `o` / `O` insert line below / above
-- `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete
-    to beginning of line
-- `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equal do `dl`)
-- `s` substitute character (equal to `xi`)
-- Visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- `y` to copy / "yank" (some other commands like `d` also copy)
-- `p` to paste
-- Lots more to learn: e.g. `~` flips the case of a character
+Noun’ları ve Verb’leri, belirli bir eylemi birkaç kez gerçekleştirecek 
+bir sayı ile birleştirebilirsiniz.
 
-## Counts
+-   `3w` = 3 kelime ileri    
+-   `5j` = 5 satır aşağı    
+-   `7dw` = 7 kelime sil
 
-You can combine nouns and verbs with a count, which will perform a given action
-a number of times.
+## Değiştiriciler
 
-- `3w` move 3 words forward
-- `5j` move 5 lines down
-- `7dw` delete 7 words
+Bir noun’un anlamını değiştirmek için değiştiricileri kullanabilirsiniz. 
+Örnek olarak, i “inside(içinde)” anlamına gelirken a “around(etraf)” anlamına 
+gelmektedir.
 
-## Modifiers
-
-You can use modifiers to change the meaning of a noun. Some modifiers are `i`,
-which means "inner" or "inside", and `a`, which means "around".
-
-- `ci(` change the contents inside the current pair of parentheses
-- `ci[` change the contents inside the current pair of square brackets
-- `da'` delete a single-quoted string, including the surrounding single quotes
+-   `ci(` mevcut parantez çiftinin içeriğini değiştirme    
+-   `ci[` mevcut köşeli parantez çiftinin içeriğini değiştirme    
+-   `da’` çevresindeki tek tırnak dahil tek tırnaklı bir stringi silme
 
 # Demo
 
-Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz)
-implementation:
+Çalışmayan bir [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) uygulaması:
 
 ```python
 def fizz_buzz(limit):
@@ -241,13 +237,13 @@ def main():
     fizz_buzz(10)
 ```
 
-We will fix the following issues:
+Aşağıdaki sorunları çözerek uygulamayı düzelteceğiz
 
-- Main is never called
-- Starts at 0 instead of 1
-- Prints "fizz" and "buzz" on separate lines for multiples of 15
-- Prints "fizz" for multiples of 5
-- Uses a hard-coded argument of 10 instead of taking a command-line argument
+-   Main çağırılmamış    
+-   1 yerine 0 dan başlıyor    
+-   15'in katları için ayrı satırlara “fizz” ve “buzz” yazdırıyor    
+-   5’in katları için “fizz” yazdırıyor    
+-   Kullanıcıdan girdi almak yerine 10’u hard coded olarak kullanıyor
 
 {% comment %}
 - main is never called
@@ -274,187 +270,181 @@ We will fix the following issues:
   - `ci(` to "int(sys.argv[1])"
 {% endcomment %}
 
-See the lecture video for the demonstration. Compare how the above changes are
-made using Vim to how you might make the same edits using another program.
-Notice how very few keystrokes are required in Vim, allowing you to edit at the
-speed you think.
+Çözümü için ders videosuna bakın. Yukarıdaki değişikliklerin Vim kullanılarak 
+nasıl yapıldığını ve başka bir program kullanarak aynı düzenlemeleri nasıl 
+yapabileceğinizi karşılaştırın. Vim'de ne kadar az tuşa basmanız gerektiğine 
+dikkat edin bu, düzenleme hızınızı arttırır.
 
-# Customizing Vim
+# Vim'i Özelleştirme
 
-Vim is customized through a plain-text configuration file in `~/.vimrc`
-(containing Vimscript commands). There are probably lots of basic settings that
-you want to turn on.
+Vim, `~ / .vimrc` uzantısındaki düz metin yapılandırma dosyası aracılığıyla 
+özelleştirilir (Vimscript komutları içeren). Muhtemelen açmak istediğiniz 
+birçok temel ayar olacaktır.
 
-We are providing a well-documented basic config that you can use as a starting
-point. We recommend using this because it fixes some of Vim's quirky default
-behavior. **Download our config [here](/2020/files/vimrc) and save it to
-`~/.vimrc`.**
+Başlangıç olarak kullanabileceğiniz, ihtiyaçlarınızı karşılayacak 
+bir temel yapılandırma dosyası sunuyoruz. Bunu kullanmanızı öneririz, 
+çünkü Vim'in bazı ilginç varsayılan ayarlarını düzeltir. 
+**Yapılandırma dosyamızı [buradan](https://missing-semester-tr.github.io/2020/files/vimrc) indirip `~ / .vimrc` uzantısına kaydedin.**
+  
+Vim özelleştirilebilir ve özelleştirme seçeneklerini keşfetmek için 
+zaman ayırmaya değer. İlham almak için insanların GitHub'daki dotfile 
+dosyalarına bakabilirsiniz, örnek olarak, eğitmenlerinizin Vim yapılandırmaları 
+([Anish](https://github.com/anishathalye/dotfiles/blob/master/vimrc), [Jon](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim) ([neovim](https://neovim.io/) kullanır), [Jose](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim)). 
+Bu konuda çok sayıda iyi blog yazıları var. İnsanların tüm yapılandırmasını 
+kopyalayıp yapıştırmamaya çalışın, bunun yerine okuyun, anlayın ve ihtiyacınız 
+olanı alın.
 
-Vim is heavily customizable, and it's worth spending time exploring
-customization options. You can look at people's dotfiles on GitHub for
-inspiration, for example, your instructors' Vim configs
-([Anish](https://github.com/anishathalye/dotfiles/blob/master/vimrc),
-[Jon](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim) (uses [neovim](https://neovim.io/)),
-[Jose](https://github.com/JJGO/dotfiles/blob/master/vim/.vimrc)). There are
-lots of good blog posts on this topic too. Try not to copy-and-paste people's
-full configuration, but read it, understand it, and take what you need.
+# Vim'in Ekstraları
 
-# Extending Vim
+Vim’e ekstra özellikler eklemek için bir çok plugin mevcuttur. 
+İnternette karşılaşacağınız eski tavsiyelerin aksine, Vim için bir eklenti 
+yöneticisi kullanmanıza gerek yoktur (Vim 8.0'dan beri). Bunun yerine yerleşik 
+paket yöneticisi sistemini kullanabilirsiniz. 
+Sadece `~/.vim/pack/vendor/start/` dizinini oluşturun ve pluginleri 
+buraya koyun (örnek, `git clone`).
 
-There are tons of plugins for extending Vim. Contrary to outdated advice that
-you might find on the internet, you do _not_ need to use a plugin manager for
-Vim (since Vim 8.0). Instead, you can use the built-in package management
-system. Simply create the directory `~/.vim/pack/vendor/start/`, and put
-plugins in there (e.g. via `git clone`).
+Sevdiğimiz bazı pluginler:
+- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): bozuk dosya bulur
+- [ack.vim](https://github.com/mileszs/ack.vim): kod arama
+- [nerdtree](https://github.com/scrooloose/nerdtree): dosya gezgini
+- [vim-easymotion](https://github.com/easymotion/vim-easymotion): ekstra hareketler
 
-Here are some of our favorite plugins:
+Burada çok uzun bir plugin listesi vermekten kaçınmaya çalışıyoruz. 
+Kullandığımız diğer pluginleri görmek için eğitmenlerin dotfile'larına 
+([Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/JJGO/dotfiles)) göz atabilirsiniz. Daha fazla Vim pluginleri için [Vim Awesome'a](https://vimawesome.com/) göz atın. 
+Bu konuda da çok sayıda blog yazısı var: “en iyi Vim pluginleri” şeklinde aratarak 
+bulabilirsiniz.
 
-- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): fuzzy file finder
-- [ack.vim](https://github.com/mileszs/ack.vim): code search
-- [nerdtree](https://github.com/scrooloose/nerdtree): file explorer
-- [vim-easymotion](https://github.com/easymotion/vim-easymotion): magic motions
+# Diğer Programlarda Vim-modu
 
-We're trying to avoid giving an overwhelmingly long list of plugins here. You
-can check out the instructors' dotfiles
-([Anish](https://github.com/anishathalye/dotfiles),
-[Jon](https://github.com/jonhoo/configs),
-[Jose](https://github.com/JJGO/dotfiles)) to see what other plugins we use.
-Check out [Vim Awesome](https://vimawesome.com/) for more awesome Vim plugins.
-There are also tons of blog posts on this topic: just search for "best Vim
-plugins".
-
-# Vim-mode in other programs
-
-Many tools support Vim emulation. The quality varies from good to great;
-depending on the tool, it may not support the fancier Vim features, but most
-cover the basics pretty well.
+Birçok araç Vim emülasyonunu destekliyor. Araca bağlı olarak kalitesi iyiden 
+harikaya değişir. Havalı Vim özelliklerini desteklemeyebilir ama çoğu temel 
+özellik gayet iyi bir şekilde çalışır.
 
 ## Shell
 
-If you're a Bash user, use `set -o vi`. If you use Zsh, `bindkey -v`. For Fish,
-`fish_vi_key_bindings`. Additionally, no matter what shell you use, you can
-`export EDITOR=vim`. This is the environment variable used to decide which
-editor is launched when a program wants to start an editor. For example, `git`
-will use this editor for commit messages.
+Bir Bash kullanıcısıysanız, `set -o vi` kullanın. 
+Zsh kullanıyorsanız, `bindkey -v`. Fish için,`fish_vi_key_bindings`. 
+Ayrıca, hangi shelli kullanırsanız kullanın, `export EDITOR=vim` komutu ile 
+dışa aktarabilirsiniz. Bu, bir program editörü başlatmak istediğinde 
+hangi editörü başlatılacağına karar vermek için kullanılan ortam değişkenidir. 
+Örneğin `git`, commit mesajları için bu editörü kullanacaktır.
 
 ## Readline
 
-Many programs use the [GNU
-Readline](https://tiswww.case.edu/php/chet/readline/rltop.html) library for
-their command-line interface. Readline supports (basic) Vim emulation too,
-which can be enabled by adding the following line to the `~/.inputrc` file:
+Birçok program, komut satırı arabirimleri için 
+[GNUReadline](https://tiswww.case.edu/php/chet/readline/rltop.html) 
+kütüphanesini kullanır. Readline (temel) Vim emülasyonu da destekler `~/.inputrc` dosyasına 
+aşağıdaki satırı ekleyerek etkinleştirebilirsin.
 
 ```
 set editing-mode vi
 ```
 
-With this setting, for example, the Python REPL will support Vim bindings.
+Örneğin bu ayar ile Python REPL, Vim bindinglerini destekleyecektir.
 
-## Others
+## Diğerleri
 
-There are even vim keybinding extensions for web
-[browsers](http://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers) - some
-popular ones are
-[Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)
-for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for
-Firefox. You can even get Vim bindings in [Jupyter
-notebooks](https://github.com/lambdalisue/jupyter-vim-binding).
+[Web tarayıcıları](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers) 
+için vim keybinding uzantıları bile vardır - bunlardan bazı popüler 
+olanlar Google Chrome için [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en) 
+ve Firefox için [Tridactyl'dir](https://github.com/tridactyl/tridactyl). 
+Vim bindinglerini [Jupyter notebookdan](https://github.com/lambdalisue/jupyter-vim-binding) bile alabilirsiniz.
 
-# Advanced Vim
+# Gelişmiş Vim
 
-Here are a few examples to show you the power of the editor. We can't teach you
-all of these kinds of things, but you'll learn them as you go. A good
-heuristic: whenever you're using your editor and you think "there must be a
-better way of doing this", there probably is: look it up online.
+İşte size editörün gücünü gösteren birkaç örnek. Size bu tür şeylerin 
+hepsini öğretemeyiz, ama siz ilerlemeye devam ettikce öğreneceksiniz. 
+Ne zaman “bunu yapmanın daha iyi bir yolu olmalı” diye düşünürseniz 
+internette araştırın çünkü muhtemelen bulacaksınız.
 
-## Search and replace
+## Bul ve Değiştir
 
-`:s` (substitute) command ([documentation](http://vim.wikia.com/wiki/Search_and_replace)).
+`:s` (substitute) komutu ([dokümantasyon](http://vim.wikia.com/wiki/Search_and_replace)).
 
 - `%s/foo/bar/g`
-    - replace foo with bar globally in file
+    - global olarak dosyadaki “foo”ları “bar” ile değiştirir
 - `%s/\[.*\](\(.*\))/\1/g`
-    - replace named Markdown links with plain URLs
+    - isimlendirilmiş MarkDown linklerini düz URL’ler ile değiştirir
 
-## Multiple windows
+## Çoklu Pencere
 
-- `:sp` / `:vsp` to split windows
-- Can have multiple views of the same buffer.
+- `:sp` / `:vsp` -   pencereleri bölmek için
+- Aynı buffer için birden fazla görünüm olabilir.
 
-## Macros
+## Makrolar
 
-- `q{character}` to start recording a macro in register `{character}`
-- `q` to stop recording
-- `@{character}` replays the macro
-- Macro execution stops on error
-- `{number}@{character}` executes a macro {number} times
-- Macros can be recursive
-    - first clear the macro with `q{character}q`
-    - record the macro, with `@{character}` to invoke the macro recursively
-    (will be a no-op until recording is complete)
-- Example: convert xml to json ([file](/2020/files/example-data.xml))
-    - Array of objects with keys "name" / "email"
-    - Use a Python program?
-    - Use sed / regexes
-        - `g/people/d`
+-  `{karakter}` register'ına bir makro kaydı başlatmak için `q{karakter}`
+- kaydı durdurmak için `q`
+- `@{karakter}` makroyu tekrar çalıştırır 
+- Makro hata ile karşılaştığında çalışmayı durdurur
+- `{sayı}@{karakter}`  {sayı} kez makroyu çalıştırır
+- Makrolar recursive olabilir
+	- öncelikle `q{karakter}q` ile makroyu temizle
+	- daha sonra makroyu recursive olarak çağırmak için `@{karakter}` ile 
+    makroyu kaydedin (kayıt tamamlanana kadar bir işlem yapılmayacak)
+- Örnek: xml'den json'a  dönüştürme ([file](/2020/files/example-data.xml)) 
+	- “name” / “email” anahtarlarına sahip nesne dizisi
+	- Bir Python programı kullanmak?
+	- sed / regexes kullanmak
+		-   `g/people/d`
         - `%s/<person>/{/g`
         - `%s/<name>\(.*\)<\/name>/"name": "\1",/g`
         - ...
-    - Vim commands / macros
-        - `Gdd`, `ggdd` delete first and last lines
-        - Macro to format a single element (register `e`)
-            - Go to line with `<name>`
+     - Vim komutları / makroları
+        - `Gdd`, `ggdd` ilk ve son satırları siler
+        - Tek bir elementi formatlamak için makro (register `e`)
+            -  `<name>` ile satıra git
             - `qe^r"f>s": "<ESC>f<C"<ESC>q`
-        - Macro to format a person
-            - Go to line with `<person>`
+        - Bir kişiyi formatlamak için makro
+            - `<person>` ile satıra git
             - `qpS{<ESC>j@eA,<ESC>j@ejS},<ESC>q`
-        - Macro to format a person and go to the next person
-            - Go to line with `<person>`
+        - Bir kişiyi formatlamak ve sonraki kişiye gitmek için makro
+            - `<person>` ile satıra git
             - `qq@pjq`
-        - Execute macro until end of file
+        - Dosyanın sonuna kadar makroyu çalıştırır
             - `999@q`
-        - Manually remove last `,` and add `[` and `]` delimiters
+        - Manuel olarak son `,` kaldırır ve `[`  `]` ayraçlarını ekler
 
-# Resources
+# Kaynaklar
 
-- `vimtutor` is a tutorial that comes installed with Vim - if Vim is installed, you should be able to run `vimtutor` from your shell
-- [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
+- `vimtutor` Vim kurulu şekilde gelen bir tutorial - Eğer Vim 
+kuruluysa `vimtutor` 'u shell'inizden çalıştırabilirsiniz
+- [Vim Adventures](https://vim-adventures.com/) Vim öğrenmek için oyun
 - [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [Vim Golf](http://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Advent Calendar](https://vimways.org/2019/) Çeşitli Vim taktikleri
+- [Vim Golf](http://www.vimgolf.com/) programlama dilinin Vim'in arayüzü 
+olduğu bir [code golf'dur](https://en.wikipedia.org/wiki/Code_golf)
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/book/dnvim2/practical-vim-second-edition) (book)
+- [Practical Vim](https://pragprog.com/book/dnvim2/practical-vim-second-edition) (kitap)
 
-# Exercises
+# Egzersizler
 
-1. Complete `vimtutor`. Note: it looks best in a
-   [80x24](https://en.wikipedia.org/wiki/VT100) (80 columns by 24 lines)
-   terminal window.
-1. Download our [basic vimrc](/2020/files/vimrc) and save it to `~/.vimrc`. Read
-   through the well-commented file (using Vim!), and observe how Vim looks and
-   behaves slightly differently with the new config.
-1. Install and configure a plugin:
+1. `vimtutor`'u tamamla. Not: en iyi [80x24](https://en.wikipedia.org/wiki/VT100)  
+terminalde gözükür. (24 satıra 80 sütun)
+1. Bizim [basic vimrc'mizi](/2020/files/vimrc) indir 
+ve `~/.vimrc` uzantısına kaydet. İyi dokümente edilmiş dosyayı okuyun (Vim kullanarak!) 
+ve Vim'in yeni ayarlar ile nasıl farklı göründüğünü, farklı davrandığını gözlemleyin.
+1. Bir plugin kurma ve yapılandırma:
    [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim).
-   1. Create the plugins directory with `mkdir -p ~/.vim/pack/vendor/start`
-   1. Download the plugin: `cd ~/.vim/pack/vendor/start; git clone
-      https://github.com/ctrlpvim/ctrlp.vim`
-   1. Read the
-      [documentation](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md)
-      for the plugin. Try using CtrlP to locate a file by navigating to a
-      project directory, opening Vim, and using the Vim command-line to start
-      `:CtrlP`.
-    1. Customize CtrlP by adding
-       [configuration](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options)
-       to your `~/.vimrc` to open CtrlP by pressing Ctrl-P.
-1. To practice using Vim, re-do the [Demo](#demo) from lecture on your own
-   machine.
-1. Use Vim for _all_ your text editing for the next month. Whenever something
-   seems inefficient, or when you think "there must be a better way", try
-   Googling it, there probably is. If you get stuck, come to office hours or
-   send us an email.
-1. Configure your other tools to use Vim bindings (see instructions above).
-1. Further customize your `~/.vimrc` and install more plugins.
-1. (Advanced) Convert XML to JSON ([example file](/2020/files/example-data.xml))
-   using Vim macros. Try to do this on your own, but you can look at the
-   [macros](#macros) section above if you get stuck.
+   1. `mkdir -p ~/.vim/pack/vendor/start` komutu ile plugin dizini oluşturun 
+   1. Plugin indirin: `cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim`
+   1. Plugin için [dokümantasyonu](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md) okuyun. 
+   Bir proje dizininde dosya bulmak, Vim’i açmak ve Vim komut satırını kullanarak 
+   CtrlP’yi başlatmak (`:CtrlP`) için CtrlP’yi kullanmayı deneyin.
+    1. [konfigürasyon'u](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options) 
+    `~/.vimrc`'nize ekleyerek CtrlP'yi özelleştirin. 
+    CtrlP'yi açmak için Ctrl-P ye basın.
+1. Vim'de pratik yapmak için derste gösterdiğimiz [Demo'yu](#demo) kendi 
+bilgisayarınızda tekrar yapın.
+1. Önümüzdeki bir ay _bütün_ metin düzenleme işleri için Vim'i kullanın. 
+Bir şey verimsiz göründüğünde veya "daha iyi bir yol olmalı" diye düşündüğünüzde 
+Google'da aratmayı deneyin, muhtemelen vardır. 
+Eğer takıldığınız yer olursa ofis saatleri içerisinde yanımıza uğrayın yada bize mail gönderin.
+1. Vim bindinglerini kullanmak için diğer araçlarını konfigüre et (yukarıdaki talimatlara bakın).
+1. `~/.vimrc`'nizi daha da özelleştirin ve daha fazla plugin yükleyin.
+1. (İleri düzey) Vim makrolarını kullanarak XML'den JSON'a dönüştürün ([örnek dosya](/2020/files/example-data.xml)). 
+Kendi başına yapmayı dene, eğer takılırsan yukarıdaki [makrolar](#makrolar) bölümüne bakabilirsin.
+
+
