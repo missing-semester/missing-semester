@@ -2,7 +2,7 @@
 layout: lecture
 title: "Shell Araçları ve Scripting"
 date: 2019-01-14
-ready: false
+ready: true
 video:
   aspect: 56.25
   id: kgII-YWo3Zw
@@ -171,26 +171,26 @@ Shell fonksiyonları ve scriptleri arasında aklınızda tutmanız gereken bazı
 
 ## Komutların nasıl kullanılacağının bulunması
 
-Bu noktada, ((((((aliasing))))))))) bölümünde kullanılan `ls -l`, `mv -i` ve `mkdir -p` gibi işaretleri(flag) nasıl bulabileceğimizi merak ediyor olabilirsiniz.
+Bu noktada, mahlaslama bölümünde kullanılan `ls -l`, `mv -i` ve `mkdir -p` gibi işaretleri(flag) nasıl bulabileceğimizi merak ediyor olabilirsiniz.
 Genel olarak herhangi bir komut için komutun ne yaptığını ve farklı seçeneklerinin neler olduğunu nasıl öğreniriz?
 Elbette googlelamaya başlayabilirsiniz, fakat UNIX StackOverflow'dan önceden beri var olduğu için, shell içinden bu bilgilere ulaşmanın yolları var.
 
 Shell dersinde gördüğümüz üzere, ilk akla gelen yöntem bahsedilen komutu `-h` veya `--help` işaretlerini kullanarak çağırmak olabilir. Daha detaylı bir yöntem `man` komutunu kullanmak olabilir.
 Manual için bir kısaltma olan, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) belirttiğimiz komut için bir manual sayfası (manpage olarak da adlandırılır) sağlar.
 Örneğin, `man rm`, `rm` komutunun nasıl çalıştığını, ne yaptığını ve daha önce gösterdiğimiz `-i` işareti gibi alabileceği işaretleri çıktı olarak verir.
-Aslında, şu ana kadar verdiğim linkler komutlarınLinux manual sayfalarının çevrimiçi haliydi.
-Native olmayan, kullanıcı tarafından yüklenen komutların bile eğer geliştirici yazıp yükleme sürecine dahil ettiyse bir manpagei olabilir.
-ncurses vb. tabanlı interaktif araçlar içinse, komutlar için yardıma programın içinde `:help` komutu üzerinden veya `?` yazarak ulaşılabilir.
+Aslında, şu ana kadar verdiğimiz linkler komutların Linux manual sayfalarının çevrimiçi haliydi.
+Native olmayan, kullanıcı tarafından yüklenen komutların bile eğer geliştirici yazıp yükleme sürecine dahil ettiyse bir manpage'i olabilir.
+ncurses vb. tabanlı interaktif araçlar içinse, komutların yardımına genellikle program içinde :help komutu veya `?` yazarak erişilebilir.
 
-Bazen manpageler komutların fazlaca detaylı tanımlamalarını içerebilir, böylelikle yaygın kullanımlar için hangi işaretleri/sözdimini kullanacağını kavramak zorlaşabilir.
+Bazen manpage'ler komutların fazlaca detaylı tanımlamalarını içerebilir, böylelikle yaygın kullanımlar için hangi işaretleri/sözdizimini kullanacağını kavramak zorlaşabilir.
 [TLDR sayfaları](https://tldr.sh/) bu soruna tamamlayıcı  zekice çözümlerdir. Bir komutun kullanım senaryolarından örnekler vererek hangi durumda hangi seçeneğin kullanılması gerektiğinin kolayca anlaşılmasını sağlar.
-Mesela, [`tar`](https://tldr.ostera.io/tar) ve [`ffmpeg`](https://tldr.ostera.io/ffmpeg) komutları için kendimi çok daha sıklıkla manpageleri yerine tldr sayfalarını kontrol ederken buluyorum.
+Mesela kendimi, [tar](https://tldr.ostera.io/tar) ve [ffmpeg](https://tldr.ostera.io/ffmpeg) programları için daha çok manpage'ler yerine tldr sayfalarını kontrol ederken buluyorum.
 
 
 ## Dosyaları bulmak
 
 Her programlamacının karşılaştığı en sık tekrarlayan işlerden biri dosyaları ve dizinleri bulmaktır.
-Tüm UNIX-like sistemler dosyaları bulmak için harika bir araç olan [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html) paketiyle birlikte gelir. `find` bir kritere göre dosyaları özyinelemeli şekilde arar. Bazı örnekler:
+Tüm UNIX ve benzeri sistemler dosyaları bulmak için harika bir araç olan [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html) paketiyle birlikte gelir. `find` bir kritere göre dosyaları özyinelemeli şekilde arar. Bazı örnekler:
 
 ```bash
 # Tüm src isimli dizinleri bul
@@ -231,8 +231,8 @@ Daha detaylı bir karşılaştırma [burada](https://unix.stackexchange.com/ques
 
 Dosyaları isimleriyle aramak faydalı, fakat en az bunun kadar sık dosyaları *içeriklerine* göre de bulmak isteyeceksiniz. 
 Yaygın bir senaryo, bir kalıbı içeren tüm dosyaları ve bu dosyalar içinde bahsedilen kalıbın nerede geçtiğini bulmak istemektir.
-Bunu başarabilmek için, çoğu UNIX-like sistemde verilen metinde kalıp eşleştirmesi yapmayı sağlayan jenerik [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html) komutu bulunmaktır.
-Oldukça değerli bir shell aracı olan `grep` komutunu (((veri işleme))) dersinde oldukça detaylı işleyeceğiz.
+Bunu başarabilmek için, çoğu UNIX ve benzeri sistemde verilen metinde kalıp eşleştirmesi yapmayı sağlayan jenerik [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html) komutu bulunmaktır.
+Oldukça değerli bir shell aracı olan `grep` komutunu veri işleme dersinde oldukça detaylı işleyeceğiz.
 
 Şu anlık, `grep` komutunun birçok işaretçisiyle(flag) birlikte çok yönlü bir araç olduğunu bilmeniz yeterlidir.
 Benim sıklıkla kullandıklarım arasında, `-C` işaretçisi eşleşen satırın etrafındaki **C**ontexti yazdırmak için kullanılır, `-v` ise eşleşmenin tümleyenini(in**v**erting) almak için kullanılır, kalıpla **eşleşmeyen** tüm satırları yazdırma şeklinde. Örneğin, `grep -C 5` eşleşmenin olduğu satırın 5 üst ve 5 altındaki satırları gösterir.
