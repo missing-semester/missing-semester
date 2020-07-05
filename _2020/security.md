@@ -312,7 +312,7 @@ security concepts, tips
 # Exercises
 
 1. **Entropy.**
-    1. Suppose a password is chosen as a concatenation of five lower-case
+    1. Suppose a password is chosen as a concatenation of four lower-case
        dictionary words, where each word is selected uniformly at random from a
        dictionary of size 100,000. An example of such a password is
        `correcthorsebatterystaple`. How many bits of entropy does this have?
