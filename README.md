@@ -24,7 +24,7 @@ Projenin anlık durumunu [buradan](https://github.com/missing-semester-tr/missin
 | # |   bölümler   |  çevirmen  |  çeviri durmu  |
 | :-: |   --------   |  :------  |  ----------:  |
 | 1 | [course-shell.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/course-shell.md)  | [`@baspinarenes`](https://github.com/baspinarenes) | [`Tamamlandı ✔`](https://missing-semester-tr.github.io/2020/course-shell/) |
-| 2 | [shell-tools.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/shell-tools.md)  | [`@eneserciyes`](https://github.com/eneserciyes) | Çeviri devam ediyor 🛠️ |
+| 2 | [shell-tools.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/shell-tools.md)  | [`@eneserciyes`](https://github.com/eneserciyes) | [`Tamamlandı ✔`](https://missing-semester-tr.github.io/2020/shell-tools/) |
 | 3 | [editors.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/editors.md)  |  [`@emrullahcirit`](https://github.com/emrullahcirit) | [`Tamamlandı ✔`](https://missing-semester-tr.github.io/2020/editors/) |
 | 4 | [data-wrangling.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/data-wrangling.md)  | [`@yasinosman`](https://github.com/yasinosman) | Çeviri devam ediyor 🛠️ |
 | 5 | [command-line.md](https://github.com/missing-semester-tr/missing-semester-tr.github.io/blob/master/_2020/command-line.md)  | [`@aliozgur`](https://github.com/aliozgur) | [`Tamamlandı ✔`](https://missing-semester-tr.github.io/2020/command-line/) |
