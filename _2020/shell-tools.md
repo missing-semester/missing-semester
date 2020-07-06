@@ -171,7 +171,7 @@ Shell fonksiyonları ve scriptleri arasında aklınızda tutmanız gereken bazı
 
 ## Komutların nasıl kullanılacağının bulunması
 
-Bu noktada, mahlaslama bölümünde kullanılan `ls -l`, `mv -i` ve `mkdir -p` gibi işaretleri(flag) nasıl bulabileceğimizi merak ediyor olabilirsiniz.
+Bu noktada, mahlaslama(aliasing) bölümünde kullanılan `ls -l`, `mv -i` ve `mkdir -p` gibi işaretleri(flag) nasıl bulabileceğimizi merak ediyor olabilirsiniz.
 Genel olarak herhangi bir komut için komutun ne yaptığını ve farklı seçeneklerinin neler olduğunu nasıl öğreniriz?
 Elbette googlelamaya başlayabilirsiniz, fakat UNIX StackOverflow'dan önceden beri var olduğu için, shell içinden bu bilgilere ulaşmanın yolları var.
 
