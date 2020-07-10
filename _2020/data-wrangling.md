@@ -258,7 +258,7 @@ ssh myserver journalctl
  | awk '{print $2}' | paste -sd,
 ```
 
-Let's start with `paste`: it lets you combine lines (`-s`) separated by a given
+Let's start with `paste`: it lets you combine lines (`-s`) by a given
 single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
 
 ## awk -- another editor
