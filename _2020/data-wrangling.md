@@ -85,6 +85,11 @@ written on the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
 regular expression you want to search for, and `SUBSTITUTION` is the
 text you want to substitute matching text with.
 
+(You may recognize this syntax from the "Search and replace" section of our Vim
+[lecture notes](/2020/editors/#advanced-vim)! Indeed, Vim uses a syntax for
+searching and replacing that is similar to `sed`'s substitution command.
+Learning one tool often helps you become more proficient with others.)
+
 ## Regular expressions
 
 Regular expressions are common and useful enough that it's worthwhile to
@@ -220,7 +225,7 @@ ssh myserver journalctl
 `sort` will, well, sort its input. `uniq -c` will collapse consecutive
 lines that are the same into a single line, prefixed with a count of the
 number of occurrences. We probably want to sort that too and only keep
-the most common logins:
+the most common usernames:
 
 ```bash
 ssh myserver journalctl
@@ -240,8 +245,8 @@ wouldn't matter, but we're here to learn!
 If we wanted the _least_ common ones, we could use `head` instead of
 `tail`. There's also `sort -r`, which sorts in reverse order.
 
-Okay, so that's pretty cool, but we'd sort of like to only give the
-usernames, and maybe not one per line?
+Okay, so that's pretty cool, but what if we'd like these extract only the usernames
+as a comma-separated list instead of one per line, perhaps for a config file?
 
 ```bash
 ssh myserver journalctl
@@ -254,7 +259,7 @@ ssh myserver journalctl
 ```
 
 Let's start with `paste`: it lets you combine lines (`-s`) by a given
-single-character delimiter (`-d`). But what's this `awk` business?
+single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
 
 ## awk -- another editor
 
@@ -304,7 +309,9 @@ leave that as an exercise to the reader.
 
 ## Analyzing data
 
-You can do math! For example, add the numbers on each line together:
+You can do math directly in your shell using `bc`, a calculator that can read 
+from STDIN! For example, add the numbers on each line together by concatenating
+them together, delimited by `+`:
 
 ```bash
  | paste -sd+ | bc -l
@@ -318,7 +325,7 @@ echo "2*($(data | paste -sd+))" | bc -l
 
 You can get stats in a variety of ways.
 [`st`](https://github.com/nferraz/st) is pretty neat, but if you already
-have R:
+have [R](https://www.r-project.org/):
 
 ```bash
 ssh myserver journalctl
@@ -332,7 +339,7 @@ ssh myserver journalctl
 R is another (weird) programming language that's great at data analysis
 and [plotting](https://ggplot2.tidyverse.org/). We won't go into too
 much detail, but suffice to say that `summary` prints summary statistics
-about a matrix, and we computed a matrix from the input stream of
+for a vector, and we created a vector containing the input stream of
 numbers, so R gives us the statistics we wanted!
 
 If you just want some simple plotting, `gnuplot` is your friend:
@@ -351,7 +358,12 @@ ssh myserver journalctl
 
 Sometimes you want to do data wrangling to find things to install or
 remove based on some longer list. The data wrangling we've talked about
-so far + `xargs` can be a powerful combo:
+so far + `xargs` can be a powerful combo.
+
+For example, as seen in lecture, I can use the following command to uninstall
+old nightly builds of Rust from my system by extracting the old build names
+using data wrangling tools and then passing them via `xargs` to the
+uninstaller:
 
 ```bash
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
