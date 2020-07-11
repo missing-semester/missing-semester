@@ -133,7 +133,7 @@ Although this can be achieved by opening new terminal windows, using a terminal 
 
 Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions.
 Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-This can make your workflow much better when working with remote machines since it voids the need to use `nohup` and similar tricks.
+This can make your workflow much better when working with remote machines since it avoids the need to use `nohup` and similar tricks.
 
 The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
 
