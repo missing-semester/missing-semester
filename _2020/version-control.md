@@ -514,6 +514,7 @@ proficiently, now that you understand the data model. The later chapters have
 some interesting, advanced material.
 - [Oh Shit, Git!?!](https://ohshitgit.com/) is a short guide on how to recover
 from some common Git mistakes.
+- [Git Best Practices](https://acompiler.com/git-best-practices/) is all about Git Best Practices and well known AFTER technique.
 - [Git for Computer
 Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
 short explanation of Git's data model, with less pseudocode and more fancy
