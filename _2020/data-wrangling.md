@@ -116,6 +116,9 @@ you can pass `-E`.
 So, looking back at `/.*Disconnected from /`, we see that it matches
 any text that starts with any number of characters, followed by the
 literal string "Disconnected from &rdquo;. Which is what we wanted. But
+{% comment %}
+note: the spelling of "trixy" below is intentional; see https://github.com/missing-semester/missing-semester/pull/84
+{% endcomment %}
 beware, regular expressions are trixy. What if someone tried to log in
 with the username "Disconnected from"? We'd have:
 
