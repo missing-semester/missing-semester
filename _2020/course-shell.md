@@ -41,27 +41,27 @@ Vì thời gian có hạn, chúng tôi sẽ không thể bao quát hết toàn b
 
 ## Shell là gì?
 
-Computers these days have a variety of interfaces for giving them
-commands; fancyful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Ngày nay, máy tính có vô vàn các giao diện khác nhau để người dùng tương tác
+với chúng: từ những giao diện đồ họa, đến giao diện âm thanh hay thậm chí là 
+giao diện thực tế ảo AR/VR ở kháp nơi. Những giao diện này đáp ứng đủ đến 80% 
+các use-cases (trường hợp sử dụng) mà chúng được thiết kế để sữ dụng, tuy nhiên chúng lại vô cùng hạn chế 
+về khả năng thật sự mà chúng cho phép ta thao tác với. Một ví dụ điển hình là
+bạn không thể bấm nút để thực hiện một thao tác nào đó nếu thao tác ấy không được lập
+trình thành nút bấm cho gia diện. Hay là việc ra lệnh bằng giọng nói cho một câu lệnh lạ hoặc mà
+máy tính chưa được lập trình để hiểu được. Vì vậy để tận dụng được hoàn toàn sức mạnh
+mà máy tính cho phép trong các tác vụ của chúng ta, chúng ta cần đi theo hướng truyền thống và 
+vô cùng cơ bản: giao diện câu lệnh bằng chữ - Shell.
 
-Nearly all platforms you can get your hand on has a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Hầu như mọi nền tảng tính toán mà ta có thể đặt tay lên được đều có ít nhất một loại shell mà 
+ta có thể chọn để sử dụng. Và dù mỗi loại shell đều có các thiết kế về chức năng khác nhau, 
+nhưng chung quy lại: chúng đều cho phép ta chạy các chương trình, nhập dữ liệu và truy xuất dữ liệu đầu ra
+theo một quy chuẩn rõ ràng.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+Trong bài học này, chúng ta sẽ tập trung vào Shell có tên là Bourne Again SHell, hay "bash".
+Đây là một loại shell vô cùng thông dụng và cú pháp câu lệnh của nó rất cơ bản, được sử dụng 
+trong nhiều loại shell khác. Để mở một _cửa sổ_ shell (nơi mà bạn có thể ra lệnh), bạn cần trước nhất
+một _phần mềm/thiết bị đầu cuối (terminal)_. Phần mềm này thường được cài đặt sẵn trong hệ điều hành của 
+bạn, hoặc bạn có thể dễ dàng cài đặt nó một các dễ dàng.
 
 ## Using the shell
 
