@@ -37,9 +37,9 @@ giờ thăm khảo để giúp đỡ các ban nếu cần thiết. Ngoài ra, c�
 
 Vì thời gian có hạn, chúng tôi sẽ không thể bao quát hết toàn bộ chi tiết của các công cụ như một khóa học chuyên sâu. Thay vào đó, chúng tôi sẽ đính kèm thêm các nội dung tham khảo khác mà bạn có thể tìm đọc. Tuy nhiên nếu có câu hỏi hõặc thắc mắc nào thêm, xin đừng ngại ngần liên lạc cho chúng tôi nhé!
 
-# Chủ đề 1: Shell
+# Chủ đề 1: Shell (Vỏ)
 
-## Shell là gì?
+## Shell (vỏ) là gì?
 
 Ngày nay, máy tính có vô vàn các giao diện khác nhau để người dùng tương tác
 với chúng: từ những giao diện đồ họa, đến giao diện âm thanh hay thậm chí là 
@@ -59,25 +59,24 @@ theo một quy chuẩn rõ ràng.
 
 Trong bài học này, chúng ta sẽ tập trung vào Shell có tên là Bourne Again SHell, hay "bash".
 Đây là một loại shell vô cùng thông dụng và cú pháp câu lệnh của nó rất cơ bản, được sử dụng 
-trong nhiều loại shell khác. Để mở một _cửa sổ_ shell (nơi mà bạn có thể ra lệnh), bạn cần trước nhất
+trong nhiều loại shell khác. Để mở một _dòng nhắc shell (prompt)_ - nơi mà bạn có thể ra lệnh, bạn cần trước nhất
 một _phần mềm/thiết bị đầu cuối (terminal)_. Phần mềm này thường được cài đặt sẵn trong hệ điều hành của 
 bạn, hoặc bạn có thể dễ dàng cài đặt nó một các dễ dàng.
 
-## Using the shell
+_Ghi chú (của người dịch): Shell là vỏ, còn kernel là lõi. Kernel thường dùng để chỉ phần lõi của hệ điều hành
+(Unix, Linux, Windows, etc). Phần lõi có các chức năng như quản lý tài nguyên, sắp xếp lịch trình của các 
+task, v.v. Để 'nói chuyện' với phần lõi này, chúng ta có thể dùng shell và vô vàn các cách khác, tuy nhiên shell rất
+nhanh gọn và thao tác đơn giản. Vì kernel là lõi và thường được giấu đi khỏi người dùng, trình giao diện shell mà người dùng có thể sử dụng sẻ được gọi là vỏ (shell)._
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+## Cách dùng Shell (vỏ)
+
+Khi bạn mở một terminal, bạn sẽ thấy được một dòng nhắc _prompt_ như sau:
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Đây là giao diện câu chữ chính của trình shell (vỏ). Nó cho bạn biết ta đang ở trên máy `missing` và thư mục mà ta đang ở hiện tại là `~` (ngắn gọn cho "home" hay trang chủ của tài khỏan người dùng hiện tại). Dấu hiệu `$` lại cho ta biết người dùng hiện tại (ta), không phải là người dùng gốc (root). Trên dòng nhắc prompt này, bạn có thể nhập một _câu lệnh (command)_, thứ mà sau đó sẽ được thông dịch bởi shell. Một câu lệnh vô cùng đơn giản là:
 
 ```console
 missing:~$ date
@@ -85,35 +84,26 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Ở đây, ta đã chạy trình `date`, thứ mà (không có gì bất ngờ) sẽ in ra ngày giờ hiện tại. Trình shell sau đó sẽ lại hỏi ta một câu lệnh khác để chạy. Chúng ta cũng có thể chạy câu lệnh với các _đối số (arguments):_
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Trong trường hợp này ta ra lệnh cho trình shell thực hiện trình `echo` với đối số là `hello`. 
+Trình `echo` in ra cửa sổ terminal đối số của nó. Trình shell phân tích từ loại (parsing) của câu
+lệnh bằng cách phân câu lệnh ra theo khoảng trắng, và sau đó chạy câu lệnh được nhắc đến trong từ
+đầu tiên, nhập các từ tiếp theo thành một đối số của trình/câu lệnh này. Nếu bạn muốn nhập một đối số
+có khoảng trống (ví dụ như thư mục có tên là "My Photos"), ta có hai cách. Một là bao đối số đó với dấu `'` 
+hoặc `"` (`"My Photos"`), hoặc hai là nhập ký tự đặc biệt với dấu `\` (`My\ Photos`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
-
+Nhưng làm cách nào mà shell có thể tìm được chỗ mà trình `date` và `echo` để chạy?
+À thì, Shell là một mội trường lập trình, giống như ngôn ngữ Python hay là Ruby,
+và vì thế mà nó có biến số, điều kiện, vòng lặp và hàm. Khi bạn chạy câu lệnh trong shell,
+bạn thật ra đang viết một dòng mã mà trình shell thông dịch. Nếu shell được ra lệnh để chạy 
+một câu lệnh không có trong từ khóa lập trình, nó sẽ tham vấn một _biến số môi trường (environment variable)_
+tên là `$PATH`, nơi mà các thư mục mà trình shell có thể tìm kiếm các trình được ra lệnh để chạy câu lệnh được đính kèm.
 
 ```console
 missing:~$ echo $PATH
@@ -124,13 +114,9 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Khi ta chạy câu lệnh `echo`, shell biết rằng nó cần chạy trình `echo`, và sau đó nó sẽ tìm tệp có cùng tên
+trong dãy các thư mục của `$PATH`, được phân lập bằng dấu `:` trình này. Khi vị trí của trình này được 
+xác định, shell sẽ chạy nó (với điều kiện là tệp `echo` phải _thực hiện được(executable)_). Chúng ta có thể biết được tệp nào sẽ được chạy khi ra câu lệnh với trình `which`. Chúng ta cũng có thể bỏ qua việc tìm kiếm trong `$PATH` bằng cách nhập câu lệnh bằng đường dẫn đến trình mà ta cần chạy.
 
 ## Navigating in the shell
 
