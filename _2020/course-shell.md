@@ -118,18 +118,15 @@ Khi ta chạy câu lệnh `echo`, shell biết rằng nó cần chạy trình `e
 trong dãy các thư mục của `$PATH`, được phân lập bằng dấu `:` trình này. Khi vị trí của trình này được 
 xác định, shell sẽ chạy nó (với điều kiện là tệp `echo` phải _thực hiện được(executable)_). Chúng ta có thể biết được tệp nào sẽ được chạy khi ra câu lệnh với trình `which`. Chúng ta cũng có thể bỏ qua việc tìm kiếm trong `$PATH` bằng cách nhập câu lệnh bằng đường dẫn đến trình mà ta cần chạy.
 
-## Navigating in the shell
+## Định hướng và di chuyển trong Shell (vỏ)
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Một đường dẫn trong shell là một dãy các thư mục được giới hạn bởi dấu `/` trên hệ điều hành Linux và
+macOS và dấu `\` trên Windows. Trên Linux và macOS, đường dẫn `/` là "gốc"(root) của hệ thống tệp (file
+system), một loại cây thư mục mà mọi tệp và thư mục khác trực thuộc. Trên Windows thì mỗi ổ đĩa hay phần
+đĩa (disk partition) như ổ `C:\` sẽ có một gốc cây thư mục riêng. Khóa học này sẽ giả dụ rằng bạn đang dùng
+cây thư mục Linux. Một đường dẫn bắt đầu với dấu `/` được gọi là đường dẫn _tuyệt đối(absolute)_. 
+Các đường dẫn khác được gọi là _tương đối(relative)_. Đường dẫn tương đối sẽ dựa trên thư mục hiện tại của bạn làm
+gốc, nơi mà bạn có thể dùng `pwd` để kiểm tra và thay đổi, di chuyển với `cd`. Trong một đường dẫn, dấu `.` có nghĩa là thư mục hiện tại còn `..` là thư mục bố mẹ:
 
 ```console
 missing:~$ pwd
@@ -150,15 +147,15 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Lưu ý rằng câu nhắc của shell sẽ luôn cho ta biết về thư mục hiện tại mà chúng ta đang ở.
+Bạn cũng có thể tùy chỉnh câu nhắc để nó in ra mọi loại thông tin hữu dụng. Chúng ta sẽ
+tìm hiểu về việc này trong các bài sau.
 
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
+Thông thường, khi ta chạy một chương trình hay câu lệnh, nó sẽ được thực hiện trong thư
+mục mà chúng ta đang ở, trừ khi ta chỉ ra đường dẫn cụ thể. Ví dụ, câu lệnh thường hay tìm
+tệp trong thư mục hiện tại và tạo tệp mới nếu cần thiết.
 
-To see what lives in a given directory, we use the `ls` command:
+Để xem trong thư mục hiện tại có gì, ta dùng `ls`:
 
 ```console
 missing:~$ ls
@@ -175,12 +172,11 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-(`/?` on Windows) will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+Trừ khi một đường dẫn thư mục cụ thể được gán vào đối số thứ nhất của câu lệnh, `ls` luôn in ra 
+nội dung (tệp và thư mục con) của thư mục hiện tại. Đa số các câu lệnh cũng cho phép dùng cờ (flag) và
+tùy chỉnh (option - cờ với giá trị ) bắt đầu bằng dấu `-` để thay đổi chức năng. Thông thường, dùng cờ tùy chỉnh 
+`-h` hay `--help` (`/?` trên Windows) sẽ chạy chương trình bằng cách in ra thông tin hướng dẫn sử dụng chương trình ấy, 
+cũng như những loại cờ tùy chỉnh mà nó hỗ trợ. Ví dụ câu lệnh `ls --help` cho ta biết:
 
 ```
   -l                         use a long listing format
@@ -191,29 +187,22 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+Tùy chỉnh này cho ta biết rất nhiều thông tin về tệp và thư mục con. Đầu tiên, chữ `d` ở đầu dòng
+cho ta biết rằng `missing` là một thư mục. Sau đó là các nhóm 3 chữ (`rwx`). Các nhóm này cho ta biết, 
+theo thứ tự của nhóm, phân quyền (permissions) của chủ (owner) tập tin (`missing`) , nhóm chủ (owning group) (`users`), và tất
+cả người dùng còn lại trên tập tin này. Dấu `-` thể hiện rằng người dùng hoặc nhóm người dùng đó không có phân quyền nhất định
+đó. Trong ví dụ trên, chỉ có người chủ tập tin có quyền thay đổi (`w`) tập tin `missing` (tức là tạo và xóa tệp trong nó).
+Để di chuyển vào trong thư mục, người dùng cần có quyền "tìm kiếm" (thể hiện bằng quyền "thực hiện":`x`) của thư mục đó (và kéo 
+theo là cả thư mục bố mẹ hiện tại). Để liệt kê nội dung của thư mục ấy, người dùng cần có quyền xem, đọc (`r`) trên thư mục đó.
+Chú ý rằng các tệp trong tập tin `\bin` đều có phân quyền `x` trong nhóm phân quyền cuối cùng, tức "bất cứ người dùng nào", vì nó
+cho phép ai cũng có thể chạy được các trình nằm trong tập tin đó.
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+Một vài trình hữu dụng khác mà ta cần biết lúc này là `mv` (di chuyển hoặc đổi tên một tệp), `cp` (sao chép một tệp), và `mkdir`
+(tạo thư mục).
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+Để biết _thêm_ thông tin về các đối số, dữ liệu nhập, xuất hay cách dùng câu lệnh nói chúng, ta dùng lệnh `man`. Câu lệnh này
+sẽ dùng tên một câu lệnh hay trình khác làm đối số và in ra trang hướng dẫn sử dụng cần có. Lưu ý để thoát ra khỏi trang này,
+ta bấm `q`.
 
 ```console
 missing:~$ man ls
