@@ -208,17 +208,11 @@ ta bấm `q`.
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Kết nối các chương trình
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Trong shell, các chương trình thường có hai "dòng" (streams): dòng nhập (input stream) và dòng xuất(output stream). Khi chương trinh muốn nhập dữ liệu, nó sẽ đọc hoặc nhập từ dòng nhập, còn khi nó in hay xuất dữ liệu, nó sẽ in hay xuất ra dòng xuất. Thông thường chương trình cửa sổ đầu cuối (terminal) sẽ là nơi chương trình nhập và xuất dữ liệu. Điều đó có nghỉa, mặc định dữ liệu được nhận vào từ bàn phím và xuất ra trên màn hình của máy tính Tuy nhiên, ta có thể thay đổi dòng nhập, xuất của các chương trình và tiếp nối chúng với nhau!
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+Đơn giản nhất để tiếp nối, thay đổi các dòng này đó là `< file` và `> file`. Chúng cho phép ta có thể thay đổi dòng nhập và xuất từ một tệp nào đó:
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -231,10 +225,7 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+Bạn cũng có thể dùng `>>` để viết thêm vào dòng cuối cùng của tệp. Kiểu thay đổi dòng nhập xuất này thực sự hữu dụng khi ta dựng các _đường ống_(pipes) dữ liệu. Dấu `|` được dùng để nối các chương trình với nhau sao cho dữ liệu xuất ra từ chương trình này lại là dữ liệu nhập của chương trình khác:
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -243,21 +234,11 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+Chúng ta sẽ tìm hiểu thêm về các đường ống dữ liệu này trong bài giảng về sắp xếp dữ liệu (data wrangling).
 
-## A versatile and powerful tool
+## Một công cụ mạnh mẽ và đa dụng.
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
+Trên các hệ thống tiệm Unix, có một loại tài khoản người dùng đặc biệt: người dùng "root". Bạn có thể đã thấy nó trong các ví dụ phía trên. Người dùng root là tài khoản có phân quyền cao nhất, và có thể tạo, xem, thay đổi và xóa bất cứ tệp nào trên hệ thống. Tuy nhiên, khi đăng nhập vào máy tính, chắc chắn ta sẽ không đăng nhập với quyền của root, vì thật đơn giản với phân quyền như vậy để gây ra các lội lầm ngớ ngẩn trên hệ thống của mình. Thay vào đó, ta phải dùng câu lệnh `sudo`. Như tên gọi tiếng Anh của nó, nó cho phép ta thực hiện một tác vụ nào đó (do), với phân quyền của tài khoản "su" (ngắn gọn cho "super user hay là root"). Đa phần khi ta gặp lỗi phân quyền bị từ chối (permission denied errors), đó là vì ta cần chạy chương trình đó với phân quyền của root. Tuy nhiên hãy chắc chắn rằng bạn muốn thực hiện lệnh đó với phân quyền cao như vậy (vì nó có thể ảnh hưởng đến hệ thống của bạn)!
 
 One thing you need to be root in order to do is writing to the `sysfs` file
 system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
