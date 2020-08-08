@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "Tìm lỗi và phân tích hiệu suất"
 date: 2019-01-23
 ready: true
 video:

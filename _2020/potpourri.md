@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Potpourri"
+title: "Chủ đề hỗn hợp"
 date: 2019-01-29
 ready: true
 video:

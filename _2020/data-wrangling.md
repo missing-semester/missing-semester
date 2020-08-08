@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Data Wrangling"
+title: "Sắp xếp dữ liệu"
 date: 2019-01-16
 ready: true
 video:
@@ -13,7 +13,7 @@ different format? Of course you have! That, in very general terms, is
 what this lecture is all about. Specifically, massaging data, whether in
 text or binary format, until you end up with exactly what you wanted.
 
-We've already seen some basic data wrangling in past lectures. Pretty
+We've already seen some basic data wrangling in past lectures. PrettyXếp
 much any time you use the `|` operator, you are performing some kind of
 data wrangling. Consider a command like `journalctl | grep -i intel`. It
 finds all system log entries that mention Intel (case insensitive). You

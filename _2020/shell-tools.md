@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Shell Tools and Scripting"
+title: "Các công cụ của shell và viết ngôn ngữ kịch bản"
 date: 2019-01-14
 ready: true
 video:

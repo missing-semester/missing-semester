@@ -97,7 +97,7 @@ Trong ví dụ dưới đây, chúng ta sẽ dùng `tmux` để giữ sessions a
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Finding files (Tìm kiếm tệp và thư mục)
 
 Làm sao để tìm tệp tinh một cách nhanh chóng. Không còn phải nhấn chuột vào đủ loại tệp 
 trong thư mục của project của bạn đến khi tìm được mảnh code bạn cần nữa.
@@ -108,7 +108,7 @@ Trong ví dụ dưới đây, chúng ta sẽ tìm tệp với `fd` và các mả
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Data wrangling (Sắp xếp dữ liệu)
 
 Làm sao để nhanh chóng và dễ dàng thay đổi, xem, parse, vẽ và tính toán với các dữ liệu và tệp từ command-line? 
 Không cần phải copy và paste từ các tệp log. Không cần phải tự tay tính toán thống kê từ dữ liệu. Không cần phải vẽ bằng Excel nữa.

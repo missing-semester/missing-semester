@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Môi trường của giao diện dòng lệnh"
 date: 2019-01-21
 ready: true
 video:
