@@ -209,7 +209,7 @@ Unless a directory is given as its first argument, `ls` will print the
 contents of the current directory. Most commands accept flags and
 options (flags with values) that start with `-` to modify their
 behavior. Usually, running a program with the `-h` or `--help` flag
-(`/?` on Windows) will print some help text that tells you what flags
+will print some help text that tells you what flags
 and options are available. For example, `ls --help` tells us:
 
 ```
@@ -358,6 +358,15 @@ there.
 
 # Exercises
 
+ 1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
+    are on Linux or macOS, you don't have to do anything special. If you are on
+    Windows, you need to make sure you are not running cmd.exe or PowerShell;
+    you can use [Windows Subsystem for
+    Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
+    machine to use Unix-style command-line tools. To make sure you're running
+    an appropriate shell, you can try the command `echo $SHELL`. If it says
+    something like `/bin/bash` or `/usr/bin/zsh`, that means you're running the
+    right program.
  1. Create a new directory called `missing` under `/tmp`.
  1. Look up the `touch` program. The `man` program is your friend.
  1. Use `touch` to create a new file called `semester` in `missing`.
