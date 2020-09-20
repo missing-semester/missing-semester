@@ -358,6 +358,14 @@ there.
 
 # Exercises
 
+All classes in this course are accompanied by a series of exercises. Some give
+you a specific task to do, while others are open-ended, like "try using X and Y
+programs". We highly encourage you to try them out.
+
+We have not written solutions for the exercises. If you are stuck on anything
+in particular, feel free to send us an email describing what you've tried so
+far, and we will try to help you out.
+
  1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
     are on Linux or macOS, you don't have to do anything special. If you are on
     Windows, you need to make sure you are not running cmd.exe or PowerShell;
