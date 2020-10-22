@@ -432,7 +432,7 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
    it _was_ shared among all the boots).
 6. Find an online data set like [this
    one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [this
-   one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1).
+   one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
    or maybe one [from
    here](https://www.springboard.com/blog/free-public-data-sets-data-science-project/).
    Fetch it using `curl` and extract out just two columns of numerical
