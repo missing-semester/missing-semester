@@ -439,5 +439,4 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
    data. If you're fetching HTML data,
    [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON
    data, try [`jq`](https://stedolan.github.io/jq/). Find the min and
-   max of one column in a single command, and the sum of the difference
-   between the two columns in another.
+   max of one column in a single command, and the difference of the sum of each column in another.
