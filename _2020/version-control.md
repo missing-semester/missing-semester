@@ -109,11 +109,13 @@ these branches may be merged to create a new snapshot that incorporates both of
 the features, producing a new history that looks like this, with the newly
 created merge commit shown in bold:
 
-<pre>
+<pre class="highlight">
+<code>
 o <-- o <-- o <-- o <---- <strong>o</strong>
             ^            /
              \          v
               --- o <-- o
+</code>
 </pre>
 
 Commits in Git are immutable. This doesn't mean that mistakes can't be
