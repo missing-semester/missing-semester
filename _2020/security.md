@@ -247,9 +247,16 @@ get compromised), and only need to remember a single high-entropy password.
 [Two-factor
 authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication)
 (2FA) requires you to use a passphrase ("something you know") along with a 2FA
-authenticator (like a [YubiKey](https://www.yubico.com/), "something you have")
+authenticator ("something you have," like a [YubiKey](https://www.yubico.com/)
+or an app on your phone like [FreeOTP](https://freeotp.github.io/) or
+[Google Authenticator](https://en.wikipedia.org/wiki/Google_Authenticator))
 in order to protect against stolen passwords and
-[phishing](https://en.wikipedia.org/wiki/Phishing) attacks.
+[phishing](https://en.wikipedia.org/wiki/Phishing) attacks. The 2FA authenticator
+generates a [one time password](https://en.wikipedia.org/wiki/One-time_password),
+typically a short number, using the [HOTP](https://en.wikipedia.org/wiki/HMAC-based_One-time_Password_algorithm)
+algorithm. With 2FA, a malicious actor who gets your password for a service won't be able
+to get into your account because they'd also need the 2FA device and the one time
+password it generates.
 
 ## Full disk encryption
 
