@@ -7,91 +7,53 @@ video:
   aspect: 56.25
   id: 2sjqTHE0zok
 ---
+Hệ thống quản lý phiên bản (Version Control Systems - VCS) là các công cụ để theo dõi những thay đổi trong mã nguồn (hay các thư mục và tập tin). Đúng như tên gọi của chúng, các công cụ này giúp ta lưu giữ lịch sử thay đổi và thậm chí là tạo điều kiện cho việc hợp tác với người khác. Các VCS theo dõi sự thay đổi của các tập và thư mục con bằng cách lưu giữ toàn bộ trạng thái của chúng qua các "snapshot" (cơ sở dữ liệu "ảnh chụp"). Những snapshot này được lưu trong một tập trên cùng hay tập gốc của dự án ta muốn quản lý phiên bản. Ngoài ra các VCS cũng chứa đựng các metadata (thông tin phụ) như tác giả của "snapshot", tin nhắn và giải thích bởi tác giả cho "snapshot" đó, v.v.
 
-Version control systems (VCSs) are tools used to track changes to source code
-(or other collections of files and folders). As the name implies, these tools
-help maintain a history of changes; furthermore, they facilitate collaboration.
-VCSs track changes to a folder and its contents in a series of snapshots, where
-each snapshot encapsulates the entire state of files/folders within a top-level
-directory. VCSs also maintain metadata like who created each snapshot, messages
-associated with each snapshot, and so on.
+Vì sao ta cần các trình quản lý phiên bản? Thập chí ngay khi bạn lập trình cho một dư án cá nhân, VCS có thể cho phép ta xem lại sự thay đổi, mốc thời gian của chúng, lí do cho các thay đổi đó và các tiến trình trên các branch (cành) khác nhau của cây lịch sử . Khi làm việc nhóm, đây lại là một công cụ vô cùng hiệu quả để theo dõi thay đổi từ các đồng sự và giải quyết các conflicts (mâu thuẫn) từ thay đổi mã nguồn của ta và họ.
 
-Why is version control useful? Even when you're working by yourself, it can let
-you look at old snapshots of a project, keep a log of why certain changes were
-made, work on parallel branches of development, and much more. When working
-with others, it's an invaluable tool for seeing what other people have changed,
-as well as resolving conflicts in concurrent development.
+Các VCS hiện đại cũng có thể trả lời các câu hỏi sau một cách dễ dàng và đa phần tự động:
 
-Modern VCSs also let you easily (and often automatically) answer questions
-like:
+- Ai viết module (mô đun) này
+- Dòng mã nguồn này của tập tin này được thay đổi khi nào? Bời ai? Và tại sao nó lại bị thay đổi?
+- Trong vòng 1000 thay đổi trở lại đây, khi nào và tại sao một unit test (bài kiểm thử đơn vị) lại không đạt (dù trước đó nó hoạt động).
 
-- Who wrote this module?
-- When was this particular line of this particular file edited? By whom? Why
-  was it edited?
-- Over the last 1000 revisions, when/why did a particular unit test stop
-working?
-
-While other VCSs exist, **Git** is the de facto standard for version control.
-This [XKCD comic](https://xkcd.com/1597/) captures Git's reputation:
+Mặc dù có nhiều trình VCS, nhưng **Git** là công cụ thông dụng nhất cho việc quản lý phiên bản. Hình ảnh truyện tranh sau từ [XKCD comic](https://xkcd.com/1597/) phần nào cho ta thấy danh tiếng của Git:
 
 ![xkcd 1597](https://imgs.xkcd.com/comics/git.png)
 
-Because Git's interface is a leaky abstraction, learning Git top-down (starting
-with its interface / command-line interface) can lead to a lot of confusion.
-It's possible to memorize a handful of commands and think of them as magic
-incantations, and follow the approach in the comic above whenever anything goes
-wrong.
+(dịch: A - Đây là Git, nó theo dõi việc hợp tác trong các dự án có mã nguồn bằng mộc biểu đồ cây xinh xắn. B - Ngon, thế dùng nó thế nào? A - Tôi không biết. Cứ nhớ các câu lệnh shell này và gõ chúng để cập nhật giữa mã của chúng ta. Nếu có lỗi thì lưu giữ thay đổi của bạn ở chỗ khác, rồi xóa nguyên dự án đó đi và tải về một bản lưu giữ mới toanh...)
 
-While Git admittedly has an ugly interface, its underlying design and ideas are
-beautiful. While an ugly interface has to be _memorized_, a beautiful design
-can be _understood_. For this reason, we give a bottom-up explanation of Git,
-starting with its data model and later covering the command-line interface.
-Once the data model is understood, the commands can be better understood, in
-terms of how they manipulate the underlying data model.
+Vì giao diện của Git là một dạng leaky abstraction (trừu tượng có rò rĩ), tìm hiểu về cách sử dụng Git theo phương pháp top-down (từ cao xuống thấp, bắt đầu từ giao điện câu lệnh của nó) có thể gây ra vô vàn sự mất phương hướng (đặc biệt cho người mới học). Bạn hoàn toàn có thể học thuộc một loạt các câu lệnh, coi chúng như thần chú và làm theo bức hình trên nếu có gì đó sai.
 
-# Git's data model
+Mặc dù Git có một giao diện thật sự là tệ hại, triết lý thiệt kế  và hoạt động của nó vô cùng ấn tượng. Trong khi một giao diện tệ hại này cần phải được _học thuộc lòng_, một thiết kế  ấn tượng có thể  được _hiểu tận_. Vì lí do này, chúng ta sẽ học Git theo cách bottom-up (từ dưới lên trên), bắt đầu từ data model (mô hình dữ liệu) rồi sau đó mới đến các câu lệnh. Khi ta đã hiểu mô hình dữ liệu của nó, ta hoàn toàn có thể giải thích cách các câu lênh Git hoạt động (bằng việc thay đổi mô hình dữ liệu trên).
 
-There are many ad-hoc approaches you could take to version control. Git has a
-well thought-out model that enables all the nice features of version control,
-like maintaining history, supporting branches, and enabling collaboration.
+# Mô hình dữ liệu của Git
 
-## Snapshots
+Có vô vàn cách để thiết kế một VCS. Tuy nhiên Git có một mô hình dữ liệu được thiết kế kỹ càng để tạo nên các tính năng tuyệt vời của một VCS như lưu giữ lịch sử, hỗ trợ các branch và cho phép hợp tác giữa người dùng.
 
-Git models the history of a collection of files and folders within some
-top-level directory as a series of snapshots. In Git terminology, a file is
-called a "blob", and it's just a bunch of bytes. A directory is called a
-"tree", and it maps names to blobs or trees (so directories can contain other
-directories). A snapshot is the top-level tree that is being tracked. For
-example, we might have a tree as follows:
+## Snapshots ("Ảnh chụp")
+
+Git mô phỏng lịch sử của các tập tin và thư mục  nó theo dõi dưới dạng chuỗi các snapshot trong một thư mục top-level (thư mục gốc của dự án). Theo ngôn ngữ của Git, một tập tin được gọi là "blob", và nó chỉ là một đống bytes dự liệu. Thư mục thì lại gọi là "tree" (cây), và nó lưu giữ tên đến các tree hay blob khác (thư mục có thể chứa thư mục con). Một snapshot là cây gốc trên cùng mà ta đang theo dõi. Ví dụ như ta có một cây thư mục như sau:
 
 ```
 <root> (tree)
 |
 +- foo (tree)
 |  |
-|  + bar.txt (blob, contents = "hello world")
+|  + bar.txt (blob, nội dung = "hello world")
 |
-+- baz.txt (blob, contents = "git is wonderful")
++- baz.txt (blob, nội dung = "git is wonderful")
 ```
 
-The top-level tree contains two elements, a tree "foo" (that itself contains
-one element, a blob "bar.txt"), and a blob "baz.txt".
+Cây thư mục gốc gồm hai thành phần, một tree (cây con) tên "foo" (và nó chứa một thành phần là blob "bar.txt"), và blob "baz.txt".
 
-## Modeling history: relating snapshots
+## Mô phỏng lịch sử: cách kết nối các snapshot
 
-How should a version control system relate snapshots? One simple model would be
-to have a linear history. A history would be a list of snapshots in time-order.
-For many reasons, Git doesn't use a simple model like this.
+Các VCS nên kết nối các snapshot như thế nào để có nghĩa? Một mô hình đơn giản đó là linear history (lịch sử tuyến tính). Mô hình lịch sử này cấu thành từ các snapshot theo thứ tự thời gian mà chúng được tạo. Tuy nhiên, vì vô vàn lí do, Git không dùng một mô hình đơn giản như vậy.
 
-In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
-sound like a fancy math word, but don't be intimidated. All this means is that
-each snapshot in Git refers to a set of "parents", the snapshots that preceded
-it. It's a set of parents rather than a single parent (as would be the case in
-a linear history) because a snapshot might descend from multiple parents, for
-example due to combining (merging) two parallel branches of development.
+Trong Git, lịch sử  được mô phỏng bằng một Directed Acyclic Graph (Đồ thị định hướng không tuần hoàn - DAG). Đấy là một từ phức tạp và đầy toán học, nhưng đừng sợ. Điều này có nghĩa là mỗi snapshot trong Git thì được kết nối, chỉ hướng về một set (tập) các "bố mẹ", những snapshot đi trước nó trong chuỗi thời gian. Gọi là một tập các bố mẹ thay cho một bố hoặc mẹ (như mô hình linear history nói trên) vì một snapshot có thể  có nhiều tổ tiên khác nhau, như trong việc merging (hợp nhất) nhiều branch phát triển song song chẳng hạn.
 
-Git calls these snapshots "commit"s. Visualizing a commit history might look
-something like this:
+Các snapshot này được gọi là commit (cam kết). Việc hình dung một history có thể cho ta một thứ như sau:
 
 ```
 o <-- o <-- o <-- o
@@ -100,14 +62,7 @@ o <-- o <-- o <-- o
               --- o <-- o
 ```
 
-In the ASCII art above, the `o`s correspond to individual commits (snapshots).
-The arrows point to the parent of each commit (it's a "comes before" relation,
-not "comes after"). After the third commit, the history branches into two
-separate branches. This might correspond to, for example, two separate features
-being developed in parallel, independently from each other. In the future,
-these branches may be merged to create a new snapshot that incorporates both of
-the features, producing a new history that looks like this, with the newly
-created merge commit shown in bold:
+Trong bức hình ASCII ở trên, kí tự `o` tượng trưng cho commit (hay snapshot). Các mũi tên chỉ đến bố mẹ của mỗi commit (đó là mối quan hệ "có trước nó", không phải là "có sau nó"). Đến cái commit thứ 3 thì biểu đồ lịch sử được chia làm hai cành riêng. Điều này có thể tương ứng với hai chức năng đang được phát triển song song, độc lập với nhau. Trong tương lai, các branch này có thể được hợp nhất tạo nên một snapshot có cả hai chức năng này. Điều này tạo ra một đồ thị lịch sử như sau:
 
 <pre>
 o <-- o <-- o <-- o <---- <strong>o</strong>
@@ -116,23 +71,20 @@ o <-- o <-- o <-- o <---- <strong>o</strong>
               --- o <-- o
 </pre>
 
-Commits in Git are immutable. This doesn't mean that mistakes can't be
-corrected, however; it's just that "edits" to the commit history are actually
-creating entirely new commits, and references (see below) are updated to point
-to the new ones.
+Commit trong Git là bất biến, nghĩa là các lỗi trong commit không thể nào sữa được. Rất may những lỗi này chỉ có nghĩa là các thay đổi đến dòng lịch sử (nội dung của blob hay cấu trúc của tree được theo dõi chẳng hạn) sẽ tạo ra các commit hoàn toàn mới và các references (xem ở phần dưới đây) được cập nhật để chỉ đến các commit vừa tạo (để sửa lỗi sai trong thư mục hay tập tin chẳng hạn).
 
-## Data model, as pseudocode
+## Mô hình dữ liệu viết theo pseudocode (mã giả)
 
-It may be instructive to see Git's data model written down in pseudocode:
+Mã giả cho mô hình dữ liệu của git có thể có hình thái như sau:
 
 ```
-// a file is a bunch of bytes
+// Một blob hay tập tin là một đống byte
 type blob = array<byte>
 
-// a directory contains named files and directories
+// Một tree hay thư mục chứa các tập tin và thư mục con
 type tree = map<string, tree | blob>
 
-// a commit has parents, metadata, and the top-level tree
+// Một commit có bố mẹ, các thông tin phụ và cây thư mục gốc nó theo dõi 
 type commit = struct {
     parent: array<commit>
     author: string
@@ -141,18 +93,18 @@ type commit = struct {
 }
 ```
 
-It's a clean, simple model of history.
+Đây là một mô hình đơn giản và sạch cho lưu giữ lịch sử thay đổi.
 
-## Objects and content-addressing
+## Vật thể  và content-addressing (truy cập địa chỉ từ nội dung)
 
-An "object" is a blob, tree, or commit:
+Một "vật thể" là một blob, tree hay là commit:
 
 ```
 type object = blob | tree | commit
 ```
 
-In Git data store, all objects are content-addressed by their [SHA-1
-hash](https://en.wikipedia.org/wiki/SHA-1).
+Trong kho lưu trữ dữ liệu của Git, các vật thể đều có thể được xác định và truy cập từ nội dụng của chúng (đúng hơn là kết quả của hàm băm [SHA-1
+hash](https://en.wikipedia.org/wiki/SHA-1) trên nội dung của chúng )
 
 ```
 objects = map<string, object>
@@ -165,38 +117,25 @@ def load(id):
     return objects[id]
 ```
 
-Blobs, trees, and commits are unified in this way: they are all objects. When
-they reference other objects, they don't actually _contain_ them in their
-on-disk representation, but have a reference to them by their hash.
+Các blob, tree và commit giống nhau theo hướng này: chúng là các vật thể. Khi chúng chỉ đến hay tham khảo các vật thể khác, chúng không trực tiếp _lưu trữ_ hay _chứa đựng_ chúng trên đĩa cứng, mà chỉ đến bằng kết quả của hàm băm trên nội dung của các vật thể này.
 
-For example, the tree for the example directory structure [above](#snapshots)
-(visualized using `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`),
-looks like this:
+Ví dụ như, tree gốc của thư mục [trong phần trên](#snapshots) (được hình dung bằng câu lệnh `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`) sẽ có dạng nội dung như sau:
 
 ```
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
-
-The tree itself contains pointers to its contents, `baz.txt` (a blob) and `foo`
-(a tree). If we look at the contents addressed by the hash corresponding to
-baz.txt with `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`, we get
-the following:
+Tree gốc này có nội dung là các con trỏ đến nội dung của nó (như trên), rồi `baz.txt` (một blob) và `foo` (một tree). Nếu ta dùng kết quả hàm băm tương ứng với con trỏ tới baz.txt bằng câu lệnh `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`, nội dung có được (văn bản trong baz.txt) là như sau:
 
 ```
 git is wonderful
 ```
 
-## References
+## References - Các con trỏ tham khảo
 
-Now, all snapshots can be identified by their SHA-1 hash. That's inconvenient,
-because humans aren't good at remembering strings of 40 hexadecimal characters.
+Các snapshot đều có thể được xác định bằng kết quả hàm băm SHA-1 lên nội dung của chúng. Thật là bất tiện vì loài người không hề giỏi ghi nhớ các chuỗi 40 kí tự thập lục phân.
 
-Git's solution to this problem is human-readable names for SHA-1 hashes, called
-"references". References are pointers to commits. Unlike objects, which are
-immutable, references are mutable (can be updated to point to a new commit).
-For example, the `master` reference usually points to the latest commit in the
-main branch of development.
+Cách giải quyết của Git cho vấn nạn này các tên dễ đọc cho các kết quả của hàm băm trên, gọi là "reference". Reference là con trỏ đến commit. Khác với các objects (vật thể), bị bất biến, các reference là các biến số (được thay đổi để chỉ đến một commit khác trong chuỗi lịch sử). Ví dụ như `master` là một reference thường chỉ đến commit mới nhất của branch chính của dự án ta đang phát triển.
 
 ```
 references = map<string, string>
@@ -213,30 +152,17 @@ def load_reference(name_or_id):
     else:
         return load(name_or_id)
 ```
+Với cơ sở dữ liệu này, Git có thể dùng những cái tên dễ nhớ hơn như "master" để chỉ đến các snapshot (hay commit) nhất định trong lịch sử, thay vì chuỗi thập nhị phân nói trên.
 
-With this, Git can use human-readable names like "master" to refer to a
-particular snapshot in the history, instead of a long hexadecimal string.
+Mội chi tiết thú vị là chúng ta thường cần một khái niệm cho việc "ta đang ở đâu trong hiện tại" của chuỗi lịch sử. Việc này rất cần thiết để ta biết khi ta tạo một snapshot hay commit mới, vị trí tương đối của chúng dựa trên bố mẹ nào. Trong Git, khái niệm "ta đang ở đâu hiện tại" là một reference đặc biệt gọi là "HEAD".
 
-One detail is that we often want a notion of "where we currently are" in the
-history, so that when we take a new snapshot, we know what it is relative to
-(how we set the `parents` field of the commit). In Git, that "where we
-currently are" is a special reference called "HEAD".
+## Repository
 
-## Repositories
+Cuối cùng ta có thể định nghĩa (tương đối) _repository_ (kho chứa): đó là các dữ liệu của các `objects` và `references`.
 
-Finally, we can define what (roughly) is a Git _repository_: it is the data
-`objects` and `references`.
+Trên đĩa cứng, tất cả những gì Git lưu trữ là các object và reference: đó là những thứ quan trọng trong mô hình dữ liệu của Git. Tất cả câu lệnh bắt đầu bằng `git` tương ứng với việc thay đổi đồ thị DAG bằng các thêm object hay thêm và cập nhật các reference
 
-On disk, all Git stores are objects and references: that's all there is to Git's
-data model. All `git` commands map to some manipulation of the commit DAG by
-adding objects and adding/updating references.
-
-Whenever you're typing in any command, think about what manipulation the
-command is making to the underlying graph data structure. Conversely, if you're
-trying to make a particular kind of change to the commit DAG, e.g. "discard
-uncommitted changes and make the 'master' ref point to commit `5d83f9e`", there's
-probably a command to do it (e.g. in this case, `git checkout master; git reset
---hard 5d83f9e`).
+Mỗi khi nhập một câu lệnh, hãy thử nghĩ về những thay đổi mà câu lệnh đang làm lên mô hình dữ liệu bên dưới. Ngược lại, nếu bạn đang nghĩ đến việc thay đổi đồ thị DAG, ví dụ như "bỏ đi những thay đổi chưa được commit (cam kết) và đưa con trỏ "master" đến commit `5d83f9e`, thì chắc chắn rằng có một câu lệnh tương ứng với hành đông đó (trong trường hợp này là `git checkout master; git reset --hard 5d83f9e`)
 
 # Staging area
 
