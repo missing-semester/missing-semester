@@ -32,7 +32,7 @@ Nếu bạn muốn đóng góp cho việc dịch khóa học này sang tiếng V
 | 7 | [data-wrangling.md](https://missing-semester-vn.github.io/2020/data-wrangling/)||||
 | 8 | [command-line.md](https://missing-semester-vn.github.io/2020/command-line/)||||
 | 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đang Dịch|
-| 10| [debugging-profiling.md](https://missing-semester-vn.github.io/2020/debugging-profiling/)||||
+| 10| [debugging-profiling.md](https://missing-semester-vn.github.io/2020/debugging-profiling/)|||@Đang Dịch|
 | 11| [metaprogramming.md](https://missing-semester-vn.github.io/2020/metaprogramming/)||||
 | 12| [security.md](https://missing-semester-vn.github.io/2020/security/)||||
 | 13| [potpourri.md](https://missing-semester-vn.github.io/2020/potpourri/)||||
