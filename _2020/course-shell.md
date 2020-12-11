@@ -240,20 +240,16 @@ Chúng ta sẽ tìm hiểu thêm về các đường ống dữ liệu này tron
 
 Trên các hệ thống tiệm Unix, có một loại tài khoản người dùng đặc biệt: người dùng "root". Bạn có thể đã thấy nó trong các ví dụ phía trên. Người dùng root là tài khoản có phân quyền cao nhất, và có thể tạo, xem, thay đổi và xóa bất cứ tệp nào trên hệ thống. Tuy nhiên, khi đăng nhập vào máy tính, chắc chắn ta sẽ không đăng nhập với quyền của root, vì thật đơn giản với phân quyền như vậy để gây ra các lội lầm ngớ ngẩn trên hệ thống của mình. Thay vào đó, ta phải dùng câu lệnh `sudo`. Như tên gọi tiếng Anh của nó, nó cho phép ta thực hiện một tác vụ nào đó (do), với phân quyền của tài khoản "su" (ngắn gọn cho "super user hay là root"). Đa phần khi ta gặp lỗi phân quyền bị từ chối (permission denied errors), đó là vì ta cần chạy chương trình đó với phân quyền của root. Tuy nhiên hãy chắc chắn rằng bạn muốn thực hiện lệnh đó với phân quyền cao như vậy (vì nó có thể ảnh hưởng đến hệ thống của bạn)!
 
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+Một trường hợp mà bạn cần phải là người dùng root để làm đó là viết vào filesystem (hệ thống tập tin và thư mục) `sysfs` được gắn vào dưới tập tin `/sys`. `sysfs` làm lộ ra một số các tham số của kernel (lõi hệ điều hành) dưới dạng các tập tin, và vì thế, bạn có thể dễ dàng điều chỉnh cấu hình của kernel trực tiếp mà không cần các công cụ chuyên dụng. **Sysfs không tồn tại trên Windows hay macOS.**
 
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
+Lấy ví dụ, độ sáng của màn hình laptop của bạn có thể được thay đổi bằng cách viết vào tập tin có tên `brightness` với đường dẫn sau
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
+Bằng việc viết một giá trị vào tập tin ấy, ta có thể thay đổi độ sáng của màn hình. Bản năng của bạn sẽ dẫn lối cho những dòng lệnh sau:
+
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -263,71 +259,37 @@ $ sudo echo 3 > brightness
 An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
-
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+Lỗi ở trên có thể đến một cách bất ngờ cho bạn. Đằng nào thì ta cũng chạy với `sudo` mà nhỉ ? Tuy nhiên các thao tác như `|`, `>`, và `<` đều được thực hiện bởi trình shell, và không bởi các chương trình riêng biệt. Câu lệnh `echo` không "biết" về thao tác `|`. Nó chỉ đọc thông tin từ input (đầu vào) của mình và viết vào output (đầu ra) của chính nó. Trong trường hợp trên, _shell_ (chỉ được xác thực là tài khoản người dùng bình thường) thử mở tập tin brightness để viết vào, trước khi nhập thông tin từ output của `sudo echo`. Tuy nhiên, shell đã bị chặn việc thực hiện này vì nó không có phân quyền của root. Với kiến thức này, ta có thể điều chỉnh như sau:
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+Vì trình `tee` là thứ mở tập tin dưới cây thư mục `/sys` để viết, và `nó` đang chạy với phân quyền root, mọi thứ đều trơn tru. Bạn có thể điều chỉnh mọi thể loại tùy chỉnh với các tập dưới `/sys` như các loại đèn LEDs (đường dẫn có thể khác của mình):
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Bước tiếp theo
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+Tại thời điểm này, bạn đã biết cách định hướng và di chuyển trong shell để có thể thực hiện các tác vụ đơn giản. Bạn đã có thể tìm kiếm các tập tin và dùng các chức năng cơ bản của nhiều chương trình trong shell. Trong bài tiếp theo, ta sẽ tìm hiểu về cách tự động hóa và thực hiện các tác vụ phức tạp hơn với trình shell và vô vàn các trình câu lệnh khác.
 
-# Exercises
+# Bài tập
 
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
+ 1. Tạo một thư mục tên là `missing` dưới cây thư mục `/tmp`.
+ 1. Tìm hiểu về trình `touch`. Bạn có thể sử dụng `man` để đọc hướng dẫn về trình này.
+ 1. Dùng trình `touch` để tạo một tập tin mới tên là `semester` trong thư mục `missing`.
+ 1. Viết những dòng sau vào thư mục trên, từng dòng một (bằng một câu lệnh và định hướng xuất nhập):
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu
     ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
-    [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+
+    Dòng đầu tiên có thể hơi khó để thực hiện. Bạn nên biết `#` bắt đầu một câu comment trong Bash, còn `!` có nghĩa đặc biệt ngay cả trong một chuỗi (được bao quanh bởi `"`). Tuy nhiên thì chuỗi (được bao quanh bởi `'`) lại được xử lý theo kiểu khác bởi Bash, và điều này có thể thực hiện điều ta muốn. Xem thêm hướng dẫn của Bash về [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) để biết thêm.
+ 1. Thử chạy tập tin trên bằng cách gõ đường dẫn đến nó (`./semester`) vào shell  và gõ enter. Để biết vì sao nó không chạy thì xem kết quả khi thực hiện `ls` (hint: xem các bit về phân quyền của file này)
+ 1. Bây giờ thử chạy chương trình trên bằng trình thông dịch `sh` và cho tên của nó `semester` làm đối số đầu tiên như sau `sh semester`. Tại sao nó lại chạy được còn như câu hỏi trên thì không?
+ 1. Tìm hiểu về trình `chmod` ( bằng `man chmod`).
+ 1. Dùng `chmod` để có thể chạy `.semester` thay vì dùng trình thông dịch `sh`. Làm cách nào mà tập tin của bạn biết rằng nó cần phải được chạy bằng thông dịch qua `sh`? Xem thêm về dòng [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) (#!)
+ 1. Dùng thao tác `|` và `>` để viết last modified date (ngày tháng thay đổi cuối cùng) trong kết quả xuất ra từ trình `semester` vào tập tin `last-modified.txt` trong thư mục home của bạn. 
+ 1. Viết một câu lệnh để xem lượng pin của laptop của bạn hoặc nhiệt độ CPU của máy bàn của bạn từ `/sys`. Lưu ý: Nếu bạn dùng macOS, bạn có thể bỏ qua vì macOS không có `/sys`

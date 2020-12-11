@@ -26,12 +26,12 @@ Nếu bạn muốn đóng góp cho việc dịch khóa học này sang tiếng V
 | 1 | [about.md](https://missing-semester-vn.github.io/about/) | [@AnhTuDo1998](https://github.com/AnhTuDo1998)|| @Đã Dịch      |
 | 2 | [index.md](https://missing-semester-vn.github.io/)|[@AnhTuDo1998](https://github.com/AnhTuDo1998) || @Đã Dịch      |
 | 3 | [license.md](https://missing-semester-vn.github.io/license/)| [@AnhTuDo1998](https://github.com/AnhTuDo1998) || @Đã Dịch      |
-| 4 | [course-shell.md](https://missing-semester-vn.github.io/2020/course-shell/)|[@AnhTuDo1998](https://github.com/AnhTuDo1998)||@Đang dịch|
+| 4 | [course-shell.md](https://missing-semester-vn.github.io/2020/course-shell/)|[@AnhTuDo1998](https://github.com/AnhTuDo1998)||@Đã Dịch|
 | 5 | [shell-tools.md](https://missing-semester-vn.github.io/2020/shell-tools/)||||
 | 6 | [editors.md](https://missing-semester-vn.github.io/2020/editors/)||||
 | 7 | [data-wrangling.md](https://missing-semester-vn.github.io/2020/data-wrangling/)||||
 | 8 | [command-line.md](https://missing-semester-vn.github.io/2020/command-line/)||||
-| 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)||||
+| 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đang Dịch|
 | 10| [debugging-profiling.md](https://missing-semester-vn.github.io/2020/debugging-profiling/)||||
 | 11| [metaprogramming.md](https://missing-semester-vn.github.io/2020/metaprogramming/)||||
 | 12| [security.md](https://missing-semester-vn.github.io/2020/security/)||||
