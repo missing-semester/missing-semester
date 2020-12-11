@@ -164,25 +164,15 @@ Trên đĩa cứng, tất cả những gì Git lưu trữ là các object và re
 
 Mỗi khi nhập một câu lệnh, hãy thử nghĩ về những thay đổi mà câu lệnh đang làm lên mô hình dữ liệu bên dưới. Ngược lại, nếu bạn đang nghĩ đến việc thay đổi đồ thị DAG, ví dụ như "bỏ đi những thay đổi chưa được commit (cam kết) và đưa con trỏ "master" đến commit `5d83f9e`, thì chắc chắn rằng có một câu lệnh tương ứng với hành đông đó (trong trường hợp này là `git checkout master; git reset --hard 5d83f9e`)
 
-# Staging area
+# Staging area - khu vực trung gian
 
-This is another concept that's orthogonal to the data model, but it's a part of
-the interface to create commits.
+Đây lại là một khái niệm riêng biệt với mô hình dữ liệu nêu trên, nhưng nó lại là một phần của giao diện để ta tạo các commit.
 
-One way you might imagine implementing snapshotting as described above is to have
-a "create snapshot" command that creates a new snapshot based on the _current
-state_ of the working directory. Some version control tools work like this, but
-not Git. We want clean snapshots, and it might not always be ideal to make a
-snapshot from the current state. For example, imagine a scenario where you've
-implemented two separate features, and you want to create two separate commits,
-where the first introduces the first feature, and the next introduces the
-second feature. Or imagine a scenario where you have debugging print statements
-added all over your code, along with a bugfix; you want to commit the bugfix
-while discarding all the print statements.
+Hình dung thế này, để tạo nên một phương thức để "chụp lại" các snapshot như ở phần trên, ta có thể tạo một câu lệnh tên là "create snapshot". Nó sẽ tạo nên snapshot từ trạng thái hiện tại của working directory (thư mục làm việc của ta) mà các VCS đang theo dõi. Nhiều VCS thì chỉ đơn giản như vậy, nhưng với Git thì không. Ta cần các snapshot "sạch" và không phải lúc nào bưng nguyên trạng thái hiện tại của working directory vào lịch sử cũng cần thiết cả. 
 
-Git accommodates such scenarios by allowing you to specify which modifications
-should be included in the next snapshot through a mechanism called the "staging
-area".
+Giả dụ như bạn đang viết hai chức năng riêng biệt và cần tạo hai commit riêng biệt, cái thứ nhất giới thiệu chức năng một và cái thứ hai thì giới thiệu chức năng thứ hai. Hay trường hợp khác khi bạn có vô vàn câu print (in) để phát hiện lỗi và logic để sửa lỗi; bạn chắc chắn chỉ muốn commit phần sửa lỗi và bỏ qua phần print.
+
+Git có thể cho phép ta thực hiện các trường hợp trên bằng cách cho phép ta nêu ra phần thay đổi nào nên được đưa vào snapshot tiếp theo qua một khu vực trung gian (cách biệt giữa tất cả các thay đổi (unstaged) và các thay đổi đã được lưu trữ vào lịch sử (commit))
 
 # Git command-line interface
 
