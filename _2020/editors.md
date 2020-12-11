@@ -424,7 +424,7 @@ better way of doing this", there probably is: look it up online.
 - [Vim Golf](http://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/book/dnvim2/practical-vim-second-edition) (book)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
 
 # Exercises
 

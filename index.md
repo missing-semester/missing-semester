@@ -72,8 +72,11 @@ diễn đàn, trang tin dưới đây.
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
+- [Portuguese](https://missing-semester-pt.github.io/)
+- [Serbian](https://netboxify.com/missing-semester/)
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
+- [Vietnamese](https://missing-semester-vn.github.io/)
 
 Lưu Ý: Những bản dịch này được đóng góp bởi cộng đồng mã nguồn mở.
 

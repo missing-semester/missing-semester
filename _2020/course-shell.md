@@ -277,10 +277,18 @@ Tại thời điểm này, bạn đã biết cách định hướng và di chuy�
 
 # Bài tập
 
+Tất cả các bài giảng trong khóa học này đều đi kèm với một chuỗi các bài tập. Một vài bài tập cho bạn một tác vụ cụ thể cần thực hiện trong khi một số khác mang tính mở hơn, như "thử dùng trình X và Y". Chúng tôi khuyến khích bạn thử mọi thứ.
+
+Chúng tôi không cung cấp đáp án cho các bài tập này. Nếu bạn gặp khó khăn, đừng ngại ngần viết email đến chung tôi để được trợ giúp.
+
+1. Với khóa học này, bạn cần một shell thuộc Unix như Bash hay Zsh. Nếu   bạn dùng hệ điều hành Linux hay MacOS, bạn không cần làm gì đặc biệt cả. Nhưng nếu bạn đang dùng Windows, tốt nhất là đừng dùng trình cmd.exe hay PowerShell. Bạn có thể sử dụng [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) hay một máy ảo chạy Linux để sử dụng một trình giao diện câu lệnh theo phong cách Unix. Đề kiểm tra xem loại shell bạn đang chạy có tương ứng hay không, hãy nhập câu lệnh `echo $SHELL`. Nếu kết quả là `/bin/bash` hay `/usr/bin/zsh/`, thì bạn có thể an tâm rồi.
+
  1. Tạo một thư mục tên là `missing` dưới cây thư mục `/tmp`.
  1. Tìm hiểu về trình `touch`. Bạn có thể sử dụng `man` để đọc hướng dẫn về trình này.
  1. Dùng trình `touch` để tạo một tập tin mới tên là `semester` trong thư mục `missing`.
  1. Viết những dòng sau vào thư mục trên, từng dòng một (bằng một câu lệnh và định hướng xuất nhập):
+
+
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu

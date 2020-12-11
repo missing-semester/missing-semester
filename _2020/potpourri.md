@@ -362,7 +362,7 @@ the second, so if you want a lot of computing for a short amount of time, it's
 feasible to rent 1000 computers for a couple of minutes)
 
 Popular services include [Amazon AWS](https://aws.amazon.com/), [Google
-Cloud](https://cloud.google.com/), and
+Cloud](https://cloud.google.com/),[ Microsoft Azure](https://azure.microsoft.com/),
 [DigitalOcean](https://www.digitalocean.com/).
 
 If you're a member of MIT CSAIL, you can get free VMs for research purposes
