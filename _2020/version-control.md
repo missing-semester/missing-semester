@@ -64,11 +64,13 @@ o <-- o <-- o <-- o
 
 Trong bức hình ASCII ở trên, kí tự `o` tượng trưng cho commit (hay snapshot). Các mũi tên chỉ đến bố mẹ của mỗi commit (đó là mối quan hệ "có trước nó", không phải là "có sau nó"). Đến cái commit thứ 3 thì biểu đồ lịch sử được chia làm hai cành riêng. Điều này có thể tương ứng với hai chức năng đang được phát triển song song, độc lập với nhau. Trong tương lai, các branch này có thể được hợp nhất tạo nên một snapshot có cả hai chức năng này. Điều này tạo ra một đồ thị lịch sử như sau:
 
-<pre>
+<pre class="highlight">
+<code>
 o <-- o <-- o <-- o <---- <strong>o</strong>
             ^            /
              \          v
               --- o <-- o
+</code>
 </pre>
 
 Commit trong Git là bất biến, nghĩa là các lỗi trong commit không thể nào sữa được. Rất may những lỗi này chỉ có nghĩa là các thay đổi đến dòng lịch sử (nội dung của blob hay cấu trúc của tree được theo dõi chẳng hạn) sẽ tạo ra các commit hoàn toàn mới và các references (xem ở phần dưới đây) được cập nhật để chỉ đến các commit vừa tạo (để sửa lỗi sai trong thư mục hay tập tin chẳng hạn).
