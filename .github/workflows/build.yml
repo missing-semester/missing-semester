@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+  schedule:
+    - cron: '0 8 * * 6'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - run: |
+          bundle install
+          gem install html-proofer
+      - run: bundle exec jekyll build
+      - uses: nick-invision/retry@v2
+        with:
+          max_attempts: 3
+          timeout_minutes: 10
+          retry_on: error
+          command: >-
+            htmlproofer ./_site
+            --check-html
+            --check-favicon
+            --check-external-hash
+            --check-opengraph
+            --empty-alt-ignore
+            --url-ignore $(paste -sd ',' < .ci/url_ignore)
