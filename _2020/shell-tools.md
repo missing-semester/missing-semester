@@ -279,8 +279,8 @@ Another cool history-related trick I really enjoy is **history-based autosuggest
 First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
 It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
 
-Lastly, a thing to have in mind is that if you start a command with a leading space it won't be added to your shell history.
-This comes in handy when you are typing commands with passwords or other bits of sensitive information.
+You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
+To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
 If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`.
 
 ## Directory Navigation
