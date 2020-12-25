@@ -421,7 +421,7 @@ index 94bab17..f0013b2 100644
 
 {% endcomment %}
 
-- `git help <command>`: get help for a git command
+- `git help <command>`: get help for a git command. 
 - `git init`: creates a new git repo, with data stored in the `.git` directory
 - `git status`: tells you what's going on
 - `git add <filename>`: adds files to staging area
@@ -433,6 +433,7 @@ index 94bab17..f0013b2 100644
 - `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
 - `git checkout <revision>`: updates HEAD and current branch
+- `git ls-remote` : list references in a remote repository.  
 
 ## Branching and merging
 
