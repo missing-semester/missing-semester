@@ -433,7 +433,7 @@ index 94bab17..f0013b2 100644
 - `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
 - `git checkout <revision>`: updates HEAD and current branch
-- `git ls-remote` : list references in a remote repository.  
+ 
 
 ## Branching and merging
 
@@ -467,6 +467,7 @@ command is used for merging.
 - `git fetch`: retrieve objects/references from a remote
 - `git pull`: same as `git fetch; git merge`
 - `git clone`: download repository from remote
+- `git ls-remote` : list references in a remote repository.
 
 ## Undo
 
