@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Version Control (Git)"
-date: 2019-01-22
+date: 2020-01-22
 ready: true
 video:
   aspect: 56.25

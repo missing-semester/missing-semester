@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
-date: 2019-01-28
+date: 2020-01-28
 ready: true
 video:
   aspect: 56.25
