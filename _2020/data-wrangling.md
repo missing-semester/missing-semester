@@ -340,7 +340,7 @@ ssh myserver journalctl
 ```
 
 R is another (weird) programming language that's great at data analysis
-and [plotting](https://ggplot2.tidyverse.org/). We won't go into too
+and [plotting](https://ggplot2.tidyverse.org/). The argument `--slave` makes R run as quietly as possible, while `-e` tells R to execute the expression and exit. We won't go into too
 much detail, but suffice to say that `summary` prints summary statistics
 for a vector, and we created a vector containing the input stream of
 numbers, so R gives us the statistics we wanted!
