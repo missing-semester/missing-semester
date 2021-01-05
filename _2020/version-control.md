@@ -507,6 +507,7 @@ requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-r
 - **Other Git providers**: GitHub is not special: there are many Git repository
 hosts, like [GitLab](https://about.gitlab.com/) and
 [BitBucket](https://bitbucket.org/).
+- **Other version control solutions**: besides Git, [Mercurial](https://www.mercurial-scm.org/) is another version control management tool. [Here](https://hginit.github.io/) is an interesting tutorial on how to use it, and [this blog](https://importantshock.wordpress.com/2008/08/07/git-vs-mercurial/) explains the difference between Mercurial and Git.
 
 # Resources
 
