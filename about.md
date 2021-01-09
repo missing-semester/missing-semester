@@ -1,141 +1,118 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Зачем вам этот курс?"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+Во время получения традиционного образования в компьютерных науках вы скорее всего будете посещать несколько курсов по продвинутым
+темам: от операционных систем и языков программирования до машинного обучения. Но во многих учебных заведениях не преподают ключевой
+навык – грамотность в компьютерной экосистеме. Ее студенты должны освоить самостоятельно.
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+На протяжении многих лет авторы курса помогали вести несколько курсов в Массачусетском технологическом институте (MIT). Снова и снова
+они видели, что многим студентам не хватало знаний о доступных им инструментах. Компьютеры созданы для автоматизации ручной работы, но
+студенты все еще часто выполняют повторяющиеся задачи вручную или не могут в полной мере воспользоваться мощными средствами, такими как
+контроль версий и текстовые редакторы. В лучшем случае это приводит к неэффективности и трате времени впустую, в худшем – к потере
+данных или невозможности выполнения определенных задач.
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+Эти темы не преподаются в рамках университетской программы: студентам никогда не показывают, как пользоваться программными
+инструментами, или по крайней мере, не показывают, как пользоваться ими эффективно. Поэтому студенты тратят время и силы на выполнение
+простых задач. В стандартной учебной программе отсутствуют важные темы о компьютерной экосистеме, которые могут значительно облегчить
+жизнь учащимся.
 
-# The missing semester of your CS education
+# Пропущенный семестр вашего CS-образования 
 
-To help remedy this, we are running a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The class is being run during MIT's "Independent
-Activities Period" in January 2020 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to MIT
-students, we will provide all lecture materials along with video recordings of
-lectures to the public.
+Чтобы восполнить пробел, авторы создали курс, охватывающий все темы, критически важные для того, чтобы быть успешным ученым и
+программистом. Практический курс предлагает введение в программные инструменты и методы, которые вы можете сразу применить в самых
+разных рабочих ситуациях. 
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+Курс проходил в течение «периода самостоятельной активности» в MIT в январе 2020 года. Этот семестр длится всего месяц и состоит из
+более коротких уроков, которые проводят сами студенты. Хотя занятия доступны только студентам MIT, авторы открыли свободный доступ ко
+всем материалам, включая видеозаписи. 
 
-## Command shell
+Чему вы научитесь на курсе?
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+## Командная строка
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+Как автоматизировать простые и повторяющиеся задачи с помощью псевдонимов (alias, своего рода сокращателя команд), скриптов и систем
+сборки? Больше никакого копирования из текстового документа. Больше никакого «запустить эти 15 команд друг за другом». Больше не будет
+«вы забыли запустить эту штуку» или «вы забыли передать этот аргумент». 
+
+Например, быстрый поиск в истории может значительно сэкономить время. В приведенном примере показаны несколько приемов навигации по
+истории оболочки для команды `convert`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Контроль версий
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Как _правильно_ использовать контроль версий и избежать тем самым катастрофы, как сотрудничать с другими разработчиками, как быстро
+находить и изолировать ошибки в коде? Никаких больше `rm -rf; git clone`. Никаких конфликтов слияния (ну, или по крайней мере, меньше
+таких конфликтов). Никаких больше огромных блоков закомментированного кода. Теперь не нужно беспокоиться, как найти изменение,
+сломавшее код. Больше не будет «о нет, мы удалили рабочий код?!». Вы научитесь вносить свой вклад в проекты других людей с помощью
+пул-реквестов! 
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+В приведенном ниже примере для определения коммита, который сломал модульное тестирование (unit test), используется `git bisect`, а исправления вносятся с помощью `git revert`.
+
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Редактирование текста
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Как рационально редактировать файлы из командной строки и локально, и удаленно? Как пользоваться преимуществами расширенных функций
+редактора? Больше не нужно копировать файлы туда-обратно. Больше никакого повторяющегося редактирования файлов.
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Ниже показана одна из лучших функций макросов в Vim. С помощью макроса мы быстро конвертируем таблицу html в формат csv.
+
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Удаленная машина
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+Как не сойти с ума, работая с удаленными машинами с использованием ключей SSH и терминального мультиплексора? Теперь не нужно держать
+открытыми много терминалов, чтобы всего лишь одновременно запустить две команды. Больше не нужно вводить пароль при каждом подключении.
+Больше не нужно терять все только из-за того, что у вас отвалился Интернет или пришлось перезагрузить ноутбук.
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
+В примере ниже используем `tmux` для поддержания активности сеансов на удаленных серверах и `mosh` для поддержки сетевого роуминга и
+разъединения.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Поиск файлов
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+Как быстро найти файлы? Больше не придется перебирать все файлы в проекте, пока не найдете тот, который содержит необходимый код.
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
+В приведенном примере мы быстро ищем файлы с помощью `fd` и фрагменты кода с помощью `rg`. Мы также быстро `cd` и `vim` последние/часто
+используемые файлы или папки с помощью `fasd`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Работа с данными
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Как быстро и легко настраивать, просматривать, пересылать, отображать данные и файлы прямиком из командной строки?
 
-## Virtual machines
+## Виртуальная машина
 
-How to use virtual machines to try out new operating systems, isolate
-unrelated projects, and keep your main machine clean and tidy. No
-more accidentally corrupting your computer while doing a security
-lab. No more millions of randomly installed packages with differing
-versions.
+Как использовать виртуальную машину, чтобы попробовать новые операционные системы, изолировать несвязанные проекты, поддерживать
+чистоту и порядок на основной машине? Больше не будет случайного повреждения вашего компьютера при выполнении задач. Больше никаких
+миллионов случайно установленных пакетов с разными версиями.
 
-## Security
+## Безопасность
 
-How to be on the Internet without immediately revealing all of your
-secrets to the world. No more coming up with passwords that match the
-insane criteria yourself. No more unsecured, open WiFi networks. No
-more unencrypted messaging.
+Как пользоваться интернетом, не открывая миру сразу все свои секреты? Больше не нужно придумывать пароли, которые должны соответствуют
+безумным стандартам. Больше никаких незащищенных открытых сетей Wi-Fi. Больше никаких незашифрованных сообщений.
 
-# Conclusion
+# Заключение
 
-This, and more, will be covered across the 12 class lectures, each including an
-exercise for you to get more familiar with the tools on your own. If you can't
-wait for January, you can also take a look at the lectures from [Hacker
-Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
-year. It is the precursor to this class, and covers many of the same topics.
+Об этом и многом другом вы узнаете из лекций, каждая из которых будет включать упражнение для самостоятельного ознакомления с темой.
+Вы также можете взглянуть на похожие лекции от [Hacker Tools](https://hacker-tools.github.io/lectures/). 
 
-We hope to see you in January, whether virtually or in person!
+--
 
 Happy hacking,<br>
 Anish, Jose, and Jon

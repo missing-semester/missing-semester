@@ -1,10 +1,15 @@
-# The Missing Semester of Your CS Education [![Build Status](https://github.com/missing-semester/missing-semester/workflows/CI/badge.svg)](https://github.com/missing-semester/missing-semester/actions?query=workflow%3ACI)
+# The Missing Semester of Your CS Education
 
+Основной сайт курса [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/).
 
-Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
+Перевод на русский: [Пропущенный семестр курса по компьютерным наукам](https://missing-semester-ru.github.io/).
 
-Contributions are most welcome! If you have edits or new content to add, please
-open an issue or submit a pull request.
+Перевод не авторизован. Вы можете принять участие в переводе лекций.
+
+## Переведенные лекции
+
+- Обзор курса + знакомство с оболочкой
+- Скрипты
 
 ## Development
 

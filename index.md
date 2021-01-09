@@ -1,42 +1,24 @@
 ---
 layout: page
-title: The Missing Semester of Your CS Education
+title: Пропущенный семестр курса по компьютерным наукам (Computer Science)
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there’s one critical subject that’s rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We’ll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
-
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
-
-Read about the [motivation behind this class](/about/).
-
-{% comment %}
-# Registration
-
-Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
-{% endcomment %}
-
-# Schedule
-
-{% comment %}
-**Lecture**: 35-225, 2pm--3pm<br>
-**Office hours**: 32-G9 lounge, 3pm--4pm (every day, right after lecture)
-{% endcomment %}
+Другие курсы затрагивают продвинутые темы в рамках компьютерных наук (CS): от операционных систем до машинного обучения. Но есть один
+важный вопрос, который редко освещается – изучение необходимых утилит. Его обычно оставляют студентам для
+самостоятельного изучения. Но на этом курсе вы научитесь работать с командной строкой, использовать мощный текстовый редактор,
+необычные функции систем контроля версий и многое другое!
+Студенты тратят сотни часов на работу с утилитами в процессе обучения (и тысячи часов в течение всей карьеры), поэтому
+имеет смысл сделать курс максимально плавным и комфортным. Его освоение позволит не только тратить меньше времени на настройку в
+соответствии с вашими потребностями и задачами, но также даст возможность решать проблемы, которые до этого казались невероятно
+сложными.
+[О причинах создания, целях и назначении этого курса](/about/).
 
 <ul>
 {% assign lectures = site['2020'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
-        <strong>{{ lecture.date | date: '%-m/%d/%y' }}</strong>:
+        <strong>{{ lecture.date | date: '%-m/%d' }}</strong>:
         {% if lecture.ready %}
             <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% else %}
@@ -47,18 +29,16 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on
-YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+Плейлист с лекциями доступен 
+[на YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
 
-# About the class
+# О курсе
 
-**Staff**: This class is co-taught by [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/).
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Преподаватели**: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) и [Jose](http://josejg.com/).
 
-# Beyond MIT
+# Кроме MIT
 
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+В надежде, что эти материалы будут полезны не только студентам MIT, авторы поделились курсом на следующих площадках:
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -67,7 +47,7 @@ benefit from these resources. You can find posts and discussion on
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Translations
+# Переводы курса 
 
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
@@ -78,25 +58,21 @@ benefit from these resources. You can find posts and discussion on
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
 
-Note: these are external links to community translations. We have not vetted
-them.
+*Примечание: это неавторизованные переводы.
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+Можете предлагать переводы других материалов курса на русский, а также исправления и корректировки существующих переводов, [гитхаб](https://github.com/missing-semester-ru/missing-semester-ru.github.io/pulls). Спасибо за помощь!
 
-## Acknowledgements
+## Благодарности
 
-We thank Elaine Mello, Jim Cain, and [MIT Open
-Learning](https://openlearning.mit.edu/) for making it possible for us to
-record lecture videos; Anthony Zolnik and [MIT
-AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and
-[MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+Авторы выражают благодарность Elaine Mello, Jim Cain и 
+[MIT Open Learning](https://openlearning.mit.edu/) за предоставленную возможность записывать видео с лекциями; 
+Anthony Zolnik и [MIT AeroAstro](https://aeroastro.mit.edu/) за аудио- и видео оборудование; 
+и Brandi Adams и [MIT EECS](https://www.eecs.mit.edu/).
 
 ---
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester">Source code</a>.</p>
-<p>Licensed under CC BY-NC-SA.</p>
-<p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
+<p><a href="https://github.com/missing-semester-ru/missing-semester-ru.github.io">Курс на русском</a>.</p>
+<p>Лицензия CC BY-NC-SA.</p>
+<p>Ознакомиться <a href="/license/">по ссылке</a>.</p>
 </div>

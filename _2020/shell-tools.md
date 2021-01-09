@@ -1,32 +1,25 @@
 ---
 layout: lecture
-title: "Shell Tools and Scripting"
+title: "Оболочка и скрипты"
 date: 2020-01-14
-ready: true
+ready: false
 video:
   aspect: 56.25
   id: kgII-YWo3Zw
 ---
 
-In this lecture, we will present some of the basics of using bash as a scripting language along with a number of shell tools that cover several of the most common tasks that you will be constantly performing in the command line.
+В этой лекции мы покажем некоторые основные варианты использования bash в качестве языка скриптов, а также инструменты оболочки,
+которые решают несколько наиболее распространенных задач.
 
-# Shell Scripting
+# Скрипты
 
-So far we have seen how to execute commands in the shell and pipe them together.
-However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops.
-
-Shell scripts are the next step in complexity.
-Most shells have their own scripting language with variables, control flow and its own syntax.
-What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
-Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
-For this section we will focus on bash scripting since it is the most common.
-
-To assign variables in bash, use the syntax `foo=bar` and access the value of the variable with `$foo`.
-Note that `foo = bar` will not work since it is interpreted as calling the `foo` program with arguments `=` and `bar`.
-In general, in shell scripts the space character will perform argument splitting. This behavior can be confusing to use at first, so always check for that.
-
-Strings in bash can be defined with `'` and `"` delimiters, but they are not equivalent.
-Strings delimited with `'` are literal strings and will not substitute variable values whereas `"` delimited strings will.
+До этого мы видели, как выполнять команды в оболочке и объединять их в конвейер (это серия команд, соединенных операторами конвейера).
+Но есть много задач, в которых нужно выполнить серию команд и управлять серией выражений, таких как условные операторы или циклы. 
+Скрипты оболочки – следующий по сложности шаг. У большинства оболочек есть свой язык сценариев с переменными и собственным синтаксисом.
+Что отличает сценарии оболочки от других сценарных языков? Они оптимизированы для выполнения задач, связанных с оболочкой. Таким образом, создание конвейеров, сохранение результатов в файлы и чтение из стандартного ввода – это примитивы в сценариях оболочки, которые упрощают работу в сравнении со скриптовыми языками общего назначения. В этом разделе мы сосредоточимся на bash-скриптах, как на наиболее распространенных.
+Строки в `bash` можно определять с помощью кавычек – одинарных `'` или двойных `"`, но они не равнозначны. Строки с `'` читаются буквально и не заменяют значение переменной, в то время как `"` – заменяют.
+Для присвоения переменной в bash используется синтаксис `foo=bar`, для получения доступа к значению переменной - `$foo`. А `foo = bar`
+интерпретируется как вызов программы `foo` с аргументами `=` и `bar`. Обратите внимание, что в скриптах пробел служит разделителем между аргументами. 
 
 ```bash
 foo=bar
@@ -36,9 +29,7 @@ echo '$foo'
 # prints $foo
 ```
 
-As with most programming languages, bash supports control flow techniques including `if`, `case`, `while` and `for`.
-Similarly, `bash` has functions that take arguments and can operate with them. Here is an example of a function that creates a directory and `cd`s into it.
-
+Как и большинство языков программирования, bash поддерживает порядок вычислений, включая `if`, `case`, `while` и `for`. Точно так же в bash есть функции, которые получают аргументы и позволяют выполнять операции. Вот пример функции, которая создает папку (`mkdir`) и заходит (`cd`) в нее
 
 ```bash
 mcd () {
@@ -47,38 +38,28 @@ mcd () {
 }
 ```
 
-Here `$1` is the first argument to the script/function.
-Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
-- `$0` - Name of the script
-- `$1` to `$9` - Arguments to the script. `$1` is the first argument and so on.
-- `$@` - All the arguments
-- `$#` - Number of arguments
-- `$?` - Return code of the previous command
-- `$$` - Process identification number (PID) for the current script
-- `!!` - Entire last command, including arguments. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing `sudo !!`
-- `$_` - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing `Esc` followed by `.`
+`$1` — обозначение аргумента в функции/скрипте. В отличие от других сценарных языков, bash использует специальные переменные для ссылки на аргументы и для кодов ошибок. Ниже перечислены несколько из обозначений. Полный список можно найти [здесь](https://www.tldp.org/LDP/abs/html/special-chars.html).
+- `$0` - имя скрипта
+- `$1` до `$9` - аргументы скрипта
+- `$@` - все аргументы, переданные скрипту (параметры выводятся отдельными строками)
+- `$#` - количество аргументов
+- `$?` - код возврата предыдущей команды
+- `$$` - pid текущего shell (самого процесса-сценария)
+- `!!` - полное повторение предыдущей команды. Распространенное применение – когда команда не была выполнена из-за отсутствия прав, то можно повторить ее, просто вызвав `sudo !!`
+- `$_` - последний аргумент предыдущей команды
 
-Commands will often return output using `STDOUT`, errors through `STDERR`, and a Return Code to report errors in a more script-friendly manner.
-The return code or exit status is the way scripts/commands have to communicate how execution went.
-A value of 0 usually means everything went OK; anything different from 0 means an error occurred.
-
-Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator), both of which are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators. Commands can also be separated within the same line using a semicolon `;`.
-The `true` program will always have a 0 return code and the `false` command will always have a 1 return code.
-Let's see some examples
+Команды часто возвращают выходные данные с `STDOUT`, ошибки с `STDERR` и кодом возврата – это более удобный для скриптов способ. Код возврата – это способ, которым сценарий/команды должны сообщать о завершении процесса. Значение 0 обычно означает, что все прошло хорошо; любое значение, кроме 0, означает ошибку.
+Код возврата может использоваться для условного выполнения команды с помощью `&&` (оператор И) и `||` (оператор ИЛИ), где оба являются [операторами оценки короткого замыкания](https://en.wikipedia.org/wiki/Short-circuit_evaluation). Команды также могут быть разделены в одной строке точкой с запятой `;`. `True` программа всегда будет иметь код возврата `0`, а команда `False` всегда будет иметь код возврата `1`. Посмотрим на несколько примеров.
 
 ```bash
 false || echo "Oops, fail"
 # Oops, fail
-
 true || echo "Will not be printed"
 #
-
 true && echo "Things went well"
 # Things went well
-
 false && echo "Will not be printed"
 #
-
 true ; echo "This will always run"
 # This will always run
 
@@ -86,13 +67,9 @@ false ; echo "This will always run"
 # This will always run
 ```
 
-Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
-Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
-For example, if you do `for file in $(ls)`, the shell will first call `ls` and then iterate over those values.
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name. This is useful when commands expect values to be passed by file instead of by STDIN. For example, `diff <(ls foo) <(ls bar)` will show differences between files in dirs  `foo` and `bar`.
-
-
-Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found.
+Другой распространенный шаблон – подстановка результата выполнения команды в виде переменной. Делается это через `$`. Если ввести в командную строку `$(cmd)`, то консоль подставит результат `cmd` как данные переменной. Например, `for file in $(ls)` — итерация по всем сущностям текущей папки.
+Похожая, но менее известная команда — _подстановка процесса_ (process substitution). Например, результат выполнения `diff <(ls foo) <(ls bar)` покажет разницу между файлами в директориях `foo` и `bar`.
+Давайте разберем на конкретном примере. Допустим, с помощью команды `grep` (это построковый поиск по регулярному выражению) попытаемся найти строку `foobar` в файле.
 
 ```bash
 #!/bin/bash
@@ -112,13 +89,12 @@ for file in "$@"; do
 done
 ```
 
-In the comparison we tested whether `$?` was not equal to 0.
-Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
-
-When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
-- Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
+Выше мы также проверили, действительно ли `$?` не равен 0.
+Bash проводит много сравнений подобного рода - вы можете найти подробный список на странице руководства [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
+Выполняя сравнение в bash, попробуйте использовать двойные квадратные скобки `[[ ]]` вместо обычных `[ ]`. Это уменьшит вероятность ошибок. Подробное объяснение можно найти [здесь](http://mywiki.wooledge.org/BashFAQ/031).
+В скриптах часто встречается ситуация, когда нужно выполнить операцию над несколькими объектами файловой системы. В bash можно выполнить подстановку имен файлов - _«globbing»_ (по историческим причинам; в русском также известно как «универсализация файловых имен»).
+- Шаблоны (wildcards) -  для сопостовления и последующего удаления, поиска или архивирования большого количества файлов можно пользоваться `?` (для одного символа) и `*` (все символы). Например, даны файлы `foo`, `foo1`, `foo2`, `foo10` и `bar`, комманда `rm foo?` удалит `foo1` и `foo2`, тогда как команда `rm foo*` удалит все, кроме `bar`.
+- Фигурные скобки `{}` - удобно использовать в случае, когда к файлу применяется серия команд. Например, при перемещении или конвертации. 
 
 ```bash
 convert image.{png,jpg}
@@ -132,7 +108,6 @@ cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newp
 # Globbing techniques can also be combined
 mv *{.py,.sh} folder
 # Will move all *.py and *.sh files
-
 
 mkdir foo bar
 # This creates files foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
@@ -148,9 +123,8 @@ diff <(ls foo) <(ls bar)
 
 <!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
 
-Writing `bash` scripts can be tricky and unintuitive. There are tools like [shellcheck](https://github.com/koalaman/shellcheck) that will help you find errors in your sh/bash scripts.
-
-Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order:
+Инструмент [shellcheck](https://github.com/koalaman/shellcheck) помогает отследить и исправить ошибки в скриптах. 
+Обратите внимание, что сценарии не обязательно должны быть написаны на bash для вызова из терминала. Например, это простой скрипт Python, который печатает аргументы в обратном порядке:
 
 ```python
 #!/usr/local/bin/python
@@ -158,41 +132,31 @@ import sys
 for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
-
-The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
-It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
-For this example the shebang line would look like `#!/usr/bin/env python`.
-
-Some differences between shell functions and scripts that you should keep in mind are:
-- Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
-- Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
-
-# Shell Tools
-
-## Finding how to use commands
-
-At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
-More generally, given a command, how do you go about finding out what it does and its different options?
-You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
-
-As we saw in the shell lecture, the first-order approach is to call said command with the `-h` or `--help` flags. A more detailed approach is to use the `man` command.
-Short for manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
-For example, `man rm` will output the behavior of the `rm` command along with the flags that it takes, including the `-i` flag we showed earlier.
-In fact, what I have been linking so far for every command is the online version of the Linux manpages for the commands.
-Even non-native commands that you install will have manpage entries if the developer wrote them and included them as part of the installation process.
-For interactive tools such as the ones based on ncurses, help for the commands can often be accessed within the program using the `:help` command or typing `?`.
-
-Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
-[TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages.
+Ядро понимает, что нужно выполнить этот скрипт с помощью интерпретатора Python, а не с помощью оболочки, потому что мы включили [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) в самый верх скрипта. Хорошей практикой является написание shebang с помощью команды [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html). В нашем примере shebang выглядит так: `#!/usr/bin/env python`.
+Разница между функциями и скриптами: 
+- Функции задаются на языке оболочки, тогда как скрипты могут быть написаны на разных языках программирования. Для этого используется shebang.
+- Скрипты загружаются каждый раз при выполнении, а не единожды, как функции. 
+- Функции выполняются в текущей среде оболочки, а скрипты - в специальном процессе. Кроме того, функции могут изменять переменные, например текущий каталог. 
+- Функции хороши для достижения модульности, повторного использования кода и его чистоты. Обычно сценарии оболочки включают собственное определение функции. 
 
 
-## Finding files
+# Инструменты оболочки
 
-One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+## Как использовать команды
+
+На этом этапе вы, вероятно, задаетесь вопросом, как найти флаги команд, например, `ls -l`, `mv -i` и `mkdir -p`. И в общем, как узнавать, какая команда отвечает за конкретное действие? Всегда можно воспользоваться гуглом, но поскольку UNIX старше StackOverflow, в нем уже есть встроенные способы получения этой информации.
+Как мы помним из лекции про оболочку, у нас есть `-h` или `--help`. Более детальная информация находится по команде `man` (это сокращение от мануала, manual или [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html)).
+Например, `man rm` выведет полную информацию о команде `rm`, включая ее флаги (ранее мы уже сталкивались с флагом `-i`). В `man` внесены абсолютно все команды, даже созданные сторонними разработчиками.
+
+В других программах, например, написанных с использованием ncurses (это библиотека, предназначенная для управления вводом-выводом на терминал), информацию о командах можно найти в `:help` или флаге `?`.
+
+Иногда страницы руководства могут содержать слишком подробное описание команд. Проект [TLDR](https://tldr.sh/) - сайт альтернативных справочных страниц. Авторы проекта позиционируют его как «коллекцию упрощённых и создаваемых сообществом man-страниц».
+Так, авторы этого курса чаще всего пользуются страницами о [`tar`](https://tldr.ostera.io/tar) и [`ffmpeg`](https://tldr.ostera.io/ffmpeg).
+
+
+## Поиск файлов
+
+Одна из часто повторяемых задач - поиск файлов и/или директорий. Для этого во всех UNIX-подобных системах есть утилита [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html). Пример:
 
 ```bash
 # Find all directories named src
@@ -204,8 +168,8 @@ find . -mtime -1
 # Find all zip files with size in range 500k to 10M
 find . -size +500k -size -10M -name '*.tar.gz'
 ```
-Beyond listing files, find can also perform actions over files that match your query.
-This property can be incredibly helpful to simplify what could be fairly monotonous tasks.
+Помимо простого поиска, `find` также может изменять найденные файлы:
+
 ```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
@@ -213,37 +177,25 @@ find . -name '*.tmp' -exec rm {} \;
 find . -name '*.png' -exec convert {} {}.jpg \;
 ```
 
-Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
-For instance, to simply find files that match some pattern `PATTERN` you have to execute `find -name '*PATTERN*'` (or `-iname` if you want the pattern matching to be case insensitive).
-You could start building aliases for those scenarios, but part of the shell philosophy is that it is good to explore alternatives.
-Remember, one of the best properties of the shell is that you are just calling programs, so you can find (or even write yourself) replacements for some.
-For instance, [`fd`](https://github.com/sharkdp/fd) is a simple, fast, and user-friendly alternative to `find`.
-It offers some nice defaults like colorized output, default regex matching, and Unicode support. It also has, in my opinion, a more intuitive syntax.
-For example, the syntax to find a pattern `PATTERN` is `fd PATTERN`.
+Ниже примеры синтаксиса для разных задач. 
+Чтобы просто найти файлы, которые удовлетворяют заданным критериям (назовем их `PATTERN`), необходимо выполнить `find -name '*PATTERN*'` (или `-iname` если сопоставление должно быть нечувствительным к регистру). 
+Можете создавать псевдонимы для таких скриптов, но важно рассмотреть и альтернативные варианты решения. 
+Помните, что одна из главных особенностей оболочки - это то, что вы вызываете программы, а значит, можно найти (или даже написать самостоятельно) замену некоторым из них. Например, [`fd`](https://github.com/sharkdp/fd) - это простая, быстрая и удобная альтернатива `find`. Она предлагает цветной вывод, сопоставление регулярных выражений по умолчанию и поддержку Unicode. Плюс легче запомнить синтаксис - для примера выше: `fd PATTERN`.
 
-Most would agree that `find` and `fd` are good, but some of you might be wondering about the efficiency of looking for files every time versus compiling some sort of index or database for quickly searching.
-That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) is for.
-`locate` uses a database that is updated using [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
-In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
-Therefore one trade-off between the two is speed vs freshness.
-Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
-A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+Но насколько вообще эффективно использовать `find` и `fd` для поиска по всей иерархии директорий? Не лучше ли применить команду  [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html), которая ведет поиск по собственной базе данных. `locate` использует базу данных, которая обновляется с помощью [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html). В большинстве систем `updatedb` обновляется по [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
 
-## Finding code
+Но `find` ищет файлы не только по названию, а также по другим атрибутам (размер, время изменения, разрешения) поиска и аналогичные инструменты также могут находить файлы с помощью атрибутов, таких как размер файла, время изменения, права доступа к файлу, в то время как locate ищет только по имени файла только имя файла. Больше информации [здесь](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
-A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
-To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
-`grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
+## Поиск кода
 
-For now, know that `grep` has many flags that make it a very versatile tool.
-Some I frequently use are `-C` for getting **C**ontext around the matching line and `-v` for in**v**erting the match, i.e. print all lines that do **not** match the pattern. For example, `grep -C 5` will print 5 lines before and after the match.
-When it comes to quickly searching through many files, you want to use `-R` since it will **R**ecursively go into directories and look for files for the matching string.
+Поиск файла по имени полезен, но часто вам нужно будет искать файлы по их *содержимому*. 
+Обычный сценарий - поиск всех файлов, содержащих определенные строки/значения. Для таких случаев в UNIX-подобных системах есть [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html). Более подробно `grep` мы рассмотрим в лекции по управлению данными.  
 
-But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
-Many `grep` alternatives have been developed, including [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
-All of them are fantastic and pretty much provide the same functionality.
-For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
+У `grep` есть много флагов, что делает его по-настоящему универсальным.
+`-C` используется для получения числа строк контекста, `-v` для вывода строк, которые не сопадают с тем, что ищем. `-R` используется для быстрого поиска.
+У `grep` есть альтернавы, такие как [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) и [rg](https://github.com/BurntSushi/ripgrep). Они имеют схожий функционал.
+
+Рассмотрим другой аналог ripgrep (`rg`). Он быстрее ищет по коду, так как по умолчанию не проходит .git директории и бинарные файлы.
 ```bash
 # Find all python files where I used the requests library
 rg -t py 'import requests'
@@ -255,47 +207,36 @@ rg foo -A 5
 rg --stats PATTERN
 ```
 
-Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+## Поиск команд
 
-## Finding shell commands
+Выше мы рассматривали способы поиска файлов, директорий и кода. При долгой работе в оболочке обязательно возникнет необходимость в поиске ранее ипользованной команды. 
+Во-первых, нажатие стрелки вверх вернет последнюю вызванную команду. Если продолжить нажимать ее, она медленно пройдет через историю работы.
 
-So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
-The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
+Команда `history` позволит получить доступ к истории. Все действия будут выведены на экран. Для последующего поиска по истории воспользуйтесь `grep`. Так, `history | grep find` выведет подстроки, содержащие "find".
 
-The `history` command will let you access your shell history programmatically.
-It will print your shell history to the standard output.
-If we want to search there we can pipe that output to `grep` and search for patterns.
-`history | grep find` will print commands that contain the substring "find".
+В большинстве оболочек вы можете использовать `Ctrl+R` для поиска по истории оболочки. После выполнения этой команды можно ввести подстроку, которую необходимо найти.
 
-In most shells, you can make use of `Ctrl+R` to perform backwards search through your history.
-After pressing `Ctrl+R`, you can type a substring you want to match for commands in your history.
-As you keep pressing it, you will cycle through the matches in your history.
-This can also be enabled with the UP/DOWN arrows in [zsh](https://github.com/zsh-users/zsh-history-substring-search).
-A nice addition on top of `Ctrl+R` comes with using [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
-`fzf` is a general-purpose fuzzy finder that can be used with many commands.
-Here it is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
+По такому же принципу стрелки вверх-вниз работают в командной оболочке [zsh](https://github.com/zsh-users/zsh-history-substring-search).
+Хороший поиск предлагает утилита [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
+`fzf` предоставляет возможность нечеткого поиска с использованием множества команд. Результат поиска выводится в визуально приятном стиле.
 
-Another cool history-related trick I really enjoy is **history-based autosuggestions**.
-First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
-It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
+Еще один удобный прием - автодополнение (**history-based autosuggestions**). Впервые появился в оболочке [fish](https://fishshell.com/). При вводе команды плагин читает историю и дозаполняет последнюю команду из истории, начинающуюся с тех же символов. Функция доступна и в [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
 
-You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
-To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`.
+И последнее, о чем стоит помнить: если в начале команды стоит пробел, она не будет добавлена в историю. Это удобно при вводе пароля и другой конфиденциальной информации. 
+Если вы ошиблись и не добавили начальный пробел, вы всегда можете вручную удалить запись, отредактировав `.bash_history` или `.zhistory`.
 
-## Directory Navigation
+## Навигация по директории
 
-So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
-There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
+До сих пор мы рассматривали примеры, когда вы выполняете команды в нужном месте каталога. Но что насчет быстрой навигации по директориям? 
+Есть много простых способов переходить между каталогами, например, написать псевдоним оболочки или создать символические ссылки с помощью [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), но есть варианты легче и быстрее. Нужно научиться оптимизировать повторяющиеся задачи. 
 
-As with the theme of this course, you often want to optimize for the common case.
-Finding frequent and/or recent files and directories can be done through tools like [`fasd`](https://github.com/clvv/fasd) and [`autojump`](https://github.com/wting/autojump).
-Fasd ranks files and directories by [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), that is, by both _frequency_ and _recency_.
-By default, `fasd` adds a `z` command that you can use to quickly `cd` using a substring of a _frecent_ directory. For example, if you often go to `/home/user/files/cool_project` you can simply use `z cool` to jump there. Using autojump, this same change of directory could be accomplished using `j cool`.
+Найти часто используемые или недавно открытые файлы и директории можно с помощью утилит [`fasd`](https://github.com/clvv/fasd) и [`autojump`](https://github.com/wting/autojump).
+`fasd` ранжирует файлы и каталоги по особому весовому коэффициенту [_frecency_](https://developer.mozilla.org/en/The_Places_frecency_algorithm) (от _frequency_ и _recency_).
+По умолчанию, `fasd` добавляет команду `z` для перехода между директориями (тогда как обычно для этого используется `cd`). Например, если часто посещаемая директория `/home/user/files/cool_project`, вы можете перейти в нее, выполнив `z cool`. А используя перепрыгивание (autojump), перейти в эту же директорию можно, выполнив `j cool`.
 
-More complex tools exist to quickly get an overview of a directory structure: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger).
+Для просмотра структуры каталогов существуют более сложные утилиты: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot); файловые менеджеры [`nnn`](https://github.com/jarun/nnn) или [`ranger`](https://github.com/ranger/ranger).
 
-# Exercises
+# Упражнения
 
 1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
 
@@ -371,11 +312,9 @@ When piping commands, we are connecting STDOUT to STDIN, but some commands like 
 To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
 For example `ls | xargs rm` will delete the files in the current directory.
 
-    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`).
+    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`)
     {% comment %}
     find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
     {% endcomment %}
-
-    If you're on macOS, note that the default BSD `find` is different from the one included in [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). You can use `-print0` on `find` and the `-0` flag on `xargs`. As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by [using brew](https://formulae.brew.sh/formula/coreutils).
 
 1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
