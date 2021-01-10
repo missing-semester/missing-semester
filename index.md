@@ -73,6 +73,7 @@ benefit from these resources. You can find posts and discussion on
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
+- [Russian](https://missing-semester-rus.github.io/)
 - [Serbian](https://netboxify.com/missing-semester/)
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
