@@ -176,18 +176,15 @@ Giả dụ như bạn đang viết hai chức năng riêng biệt và cần tạ
 
 Git có thể cho phép ta thực hiện các trường hợp trên bằng cách cho phép ta nêu ra phần thay đổi nào nên được đưa vào snapshot tiếp theo qua một khu vực trung gian (cách biệt giữa tất cả các thay đổi (unstaged) và các thay đổi đã được lưu trữ vào lịch sử (commit))
 
-# Git command-line interface
+# Giao diện dòng lệnh của Git
 
-To avoid duplicating information, we're not going to explain the commands below
-in detail. See the highly recommended [Pro Git](https://git-scm.com/book/en/v2)
-for more information, or watch the lecture video.
+Để tránh việc lặp thông tin, chúng tôi sẽ không giải thích các câu lệnh ở dưới một cách chi tiết. Hãy đọc [Pro Git](https://git-scm.com/book/en/v2) hay xem video bài giảng nếu cần thiết.
 
-## Basics
+## Cơ bản
 
 {% comment %}
 
-The `git init` command initializes a new Git repository, with repository
-metadata being stored in the `.git` directory:
+Câu lệnh `git init` tạo một Git repository mới, với các thông tin phụ được lưu trong thư mục `.git`:
 
 ```console
 $ mkdir myproject
@@ -202,8 +199,8 @@ No commits yet
 nothing to commit (create/copy files and use "git add" to track)
 ```
 
-How do we interpret this output? "No commits yet" basically means our version
-history is empty. Let's fix that.
+Ta nên hiểu kết quả đầu ra trên như thế nào? "No commits yet" (Chưa có commit nào cả) có nghĩa là version history (lịch sử phiên bản) của 
+ta đang bị trống. Hãy xem ta có thể thay đổi điều này bằng cách nào.
 
 ```console
 $ echo "hello, git" > hello.txt
@@ -223,21 +220,11 @@ $ git commit -m 'Initial commit'
  1 file changed, 1 insertion(+)
  create mode 100644 hello.txt
 ```
+Với phần câu lệnh trên, ta đã dùng `git add` để thêm một file vào staging area và sau đó dùng `git commit` để chấp thuận thay đổi đó với một tin nhắn "Initial commit". Nếu ta không thêm lựu chọn `-m` thì Git sẽ mở một trình biên tập mã nguồn để ta có thể gõ vào một commit message (tin nhắn chấp thuận).
 
-With this, we've `git add`ed a file to the staging area, and then `git
-commit`ed that change, adding a simple commit message "Initial commit". If we
-didn't specify a `-m` option, Git would open our text editor to allow us type a
-commit message.
+Khi ta đã có một version history không bị trống, chúng ta có thể trực quan hóa cái history này. Việc trực quan quá history dưới dạng DAG rất hữu dụng trong việc tìm hiểu hiện trạng của repository của chúng ta và giúp ta liên hệ đến data model của Git.
 
-Now that we have a non-empty version history, we can visualize the history.
-Visualizing the history as a DAG can be especially helpful in understanding the
-current status of the repo and connecting it with your understanding of the Git
-data model.
-
-The `git log` command visualizes history. By default, it shows a flattened
-version, which hides the graph structure. If you use a command like `git log
---all --graph --decorate`, it will show you the full version history of the
-repository, visualized in graph form.
+Câu lệnh `git log` sẽ làm trực quan history, và mặc định là một phiên bản đã bị làm phẳng, giấu đi cấu trúc của đồ thị. Nếu bạn dùng câu lệnh như `git log --all --graph --decorate`, phiên bản đầy đủ của version history theo dạng đồ thị sẽ được hiển thị.
 
 ```console
 $ git log --all --graph --decorate
@@ -248,9 +235,7 @@ $ git log --all --graph --decorate
       Initial commit
 ```
 
-This doesn't look all that graph-like, because it only contains a single node.
-Let's make some more changes, author a new commit, and visualize the history
-once more.
+Tuy nhiên kết quả trên chả giống đồ thị chút nào. Điều này là do đồ thị của ta chỉ có một node (nút). Do đó, hãy tạo thêm một số thay đổi, xác nhận thêm commit và hiển thị history một lần nữa.
 
 ```console
 $ echo "another line" >> hello.txt
@@ -276,7 +261,7 @@ $ git commit -m 'Add a line'
  1 file changed, 1 insertion(+)
 ```
 
-Now, if we visualize the history again, we'll see some of the graph structure:
+Bây giờ, khi ta hiển thị history một lần nữa, ta sẽ thấy cấu trúc đồ thị sau:
 
 ```
 * commit 35f60a825be0106036dd2fbc7657598eb7b04c67 (HEAD -> master)
@@ -292,10 +277,9 @@ Now, if we visualize the history again, we'll see some of the graph structure:
       Initial commit
 ```
 
-Also, note that it shows the current HEAD, along with the current branch
-(master).
+Hãy chú ý đến con trỏ HEAD cùng với branh - nhánh hiện tại (master).
 
-We can look at old versions using the `git checkout` command.
+Ta có thể xem lại các phiên bản cũ của mã nguồn bằng `git checkout`.
 
 ```console
 $ git checkout 4515d17  # previous commit hash; yours will be different
@@ -321,8 +305,7 @@ hello, git
 another line
 ```
 
-Git can show you how files have evolved (differences, or diffs) using the `git
-diff` command:
+Git còn có thể cho ta biết các tập tin đã thay đổi thế nào (sự khác biệt) bằng `git diff`:
 
 ```console
 $ git diff 4515d17 hello.txt
@@ -337,20 +320,20 @@ index 94bab17..f0013b2 100644
 
 {% endcomment %}
 
-- `git help <command>`: get help for a git command
-- `git init`: creates a new git repo, with data stored in the `.git` directory
-- `git status`: tells you what's going on
-- `git add <filename>`: adds files to staging area
-- `git commit`: creates a new commit
-    - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
-    - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
-- `git log`: shows a flattened log of history
-- `git log --all --graph --decorate`: visualizes history as a DAG
-- `git diff <filename>`: show changes you made relative to the staging area
-- `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD and current branch
+- `git help <command>`: cho ta gợi ý cách dùng một câu lệnh <command> trong git
+- `git init`: tạo một git repo với các thông tin chứa trong thư mục `.git` 
+- `git status`: cho ta biết hiện trạng, những gì đang xảy ra trong repo
+- `git add <filename>`: thêm tập <filename> vào stagin area
+- `git commit`: thêm một commit mới
+    - Cách nên viết [tin nhắn commit](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
+    - Vô vàn lí do để viết [tin nhắn commit tốt](https://chris.beams.io/posts/git-commit/)!
+- `git log`: Hiển thị lịch sử làm phẳng
+- `git log --all --graph --decorate`: hiển thị lịch sử dưới dạng DAG
+- `git diff <filename>`: hiển thị thay đổi của tập tin so với trong staging area
+- `git diff <revision> <filename>`: hiển thị thay đổi của tập tin giữa các snapshot của history
+- `git checkout <revision>`: cập nhật con trỏ HEAD và branch hiện tại
 
-## Branching and merging
+## Chia nhánh (branching) và hợp nhánh (merging)
 
 {% comment %}
 
