@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Hỏi và Đáp"
-date: 2019-01-30
+date: 2020-01-30
 ready: true
 video:
   aspect: 56.25

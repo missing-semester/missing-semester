@@ -36,7 +36,7 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
-        <strong>{{ lecture.date | date: '%-m/%d' }}</strong>:
+        <strong>{{ lecture.date | date: '%-m/%d/%y' }}</strong>:
         {% if lecture.ready %}
             <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% else %}
@@ -73,6 +73,7 @@ diễn đàn, trang tin dưới đây.
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
+- [Russian](https://missing-semester-rus.github.io/)
 - [Serbian](https://netboxify.com/missing-semester/)
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)

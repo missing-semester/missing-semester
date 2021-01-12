@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Chủ đề hỗn hợp"
-date: 2019-01-29
+date: 2020-01-29
 ready: true
 video:
   aspect: 56.25
