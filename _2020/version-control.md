@@ -9,7 +9,7 @@ video:
 ---
 Hệ thống quản lý phiên bản (Version Control Systems - VCS) là các công cụ để theo dõi những thay đổi trong mã nguồn (hay các thư mục và tập tin). Đúng như tên gọi của chúng, các công cụ này giúp ta lưu giữ lịch sử thay đổi và thậm chí là tạo điều kiện cho việc hợp tác với người khác. Các VCS theo dõi sự thay đổi của các tập và thư mục con bằng cách lưu giữ toàn bộ trạng thái của chúng qua các "snapshot" (cơ sở dữ liệu "ảnh chụp"). Những snapshot này được lưu trong một tập trên cùng hay tập gốc của dự án ta muốn quản lý phiên bản. Ngoài ra các VCS cũng chứa đựng các metadata (thông tin phụ) như tác giả của "snapshot", tin nhắn và giải thích bởi tác giả cho "snapshot" đó, v.v.
 
-Vì sao ta cần các trình quản lý phiên bản? Thập chí ngay khi bạn lập trình cho một dư án cá nhân, VCS có thể cho phép ta xem lại sự thay đổi, mốc thời gian của chúng, lí do cho các thay đổi đó và các tiến trình trên các branch (cành) khác nhau của cây lịch sử . Khi làm việc nhóm, đây lại là một công cụ vô cùng hiệu quả để theo dõi thay đổi từ các đồng sự và giải quyết các conflicts (mâu thuẫn) từ thay đổi mã nguồn của ta và họ.
+Vì sao ta cần các trình quản lý phiên bản? Thập chí ngay khi bạn lập trình cho một dư án cá nhân, VCS có thể cho phép ta xem lại sự thay đổi, mốc thời gian của chúng, lí do cho các thay đổi đó và các tiến trình trên các branch (nhánh) khác nhau của cây lịch sử . Khi làm việc nhóm, đây lại là một công cụ vô cùng hiệu quả để theo dõi thay đổi từ các đồng sự và giải quyết các conflicts (mâu thuẫn) từ thay đổi mã nguồn của ta và họ.
 
 Các VCS hiện đại cũng có thể trả lời các câu hỏi sau một cách dễ dàng và đa phần tự động:
 
@@ -62,7 +62,7 @@ o <-- o <-- o <-- o
               --- o <-- o
 ```
 
-Trong bức hình ASCII ở trên, kí tự `o` tượng trưng cho commit (hay snapshot). Các mũi tên chỉ đến bố mẹ của mỗi commit (đó là mối quan hệ "có trước nó", không phải là "có sau nó"). Đến cái commit thứ 3 thì biểu đồ lịch sử được chia làm hai cành riêng. Điều này có thể tương ứng với hai chức năng đang được phát triển song song, độc lập với nhau. Trong tương lai, các branch này có thể được hợp nhất tạo nên một snapshot có cả hai chức năng này. Điều này tạo ra một đồ thị lịch sử như sau:
+Trong bức hình ASCII ở trên, kí tự `o` tượng trưng cho commit (hay snapshot). Các mũi tên chỉ đến bố mẹ của mỗi commit (đó là mối quan hệ "có trước nó", không phải là "có sau nó"). Đến cái commit thứ 3 thì biểu đồ lịch sử được chia làm hai nhánh riêng. Điều này có thể tương ứng với hai chức năng đang được phát triển song song, độc lập với nhau. Trong tương lai, các branch này có thể được hợp nhất tạo nên một snapshot có cả hai chức năng này. Điều này tạo ra một đồ thị lịch sử như sau:
 
 <pre class="highlight">
 <code>
@@ -337,107 +337,82 @@ index 94bab17..f0013b2 100644
 
 {% comment %}
 
-Branching allows you to "fork" version history. It can be helpful for working
-on independent features or bug fixes in parallel. The `git branch` command can
-be used to create new branches; `git checkout -b <branch name>` creates and
-branch and checks it out.
+Việc chia nhánh cho phép bạn "fork - sao chép" lịch sử sang nhánh khác. Nó rất hữu dụng khi ta đang phát triển một tính năng riêng biệt hay đang sửa lỗi một cách song song với nhánh chính. Câu lệnh `git branch` dùng để tạo cành mới; câu lệnh `git checkout -b <branch name>` tạo một nhánh mới và di chuyển con trỏ hiện tại của lịch sử qua nhánh ấy.
 
-Merging is the opposite of branching: it allows you to combine forked version
-histories, e.g. merging a feature branch back into master. The `git merge`
-command is used for merging.
+Hợp nhánh là quá trình ngược lại với chia nhánh: nó cho phép ta hợp nhất các bản fork của lịch sử, ví dụ như hợp nhất tính năng phát triển ở trên lại nhánh master. Câu lệnh `git merge` dùng để hợp nhánh.
 
 {% endcomment %}
 
-- `git branch`: shows branches
-- `git branch <name>`: creates a branch
-- `git checkout -b <name>`: creates a branch and switches to it
-    - same as `git branch <name>; git checkout <name>`
-- `git merge <revision>`: merges into current branch
-- `git mergetool`: use a fancy tool to help resolve merge conflicts
-- `git rebase`: rebase set of patches onto a new base
+- `git branch`: liệt kê cách nhánh trong repository của ta
+- `git branch <name>`: tạo nhánh tên là name
+- `git checkout -b <name>`: tạo nhánh mới tên là name và di chuyển trỏ HEAD sang nhánh đó
+    - Tương tự như nhập hai câu lệnh sau `git branch <name>; git checkout <name>`
+- `git merge <revision>`: hợp nhất một nhánh hay commit revision vào lại nhánh hiện tại (con trỏ HEAD)
+- `git mergetool`: Dùng một trình nào đó để giải quyết conflict - mâu thuẫn khi hợp nhánh
+- `git rebase`: Rebase - di chuyển một nhánh nào đó vào một gốc khác (giống như chiết cành trong nông nghiệp)
 
-## Remotes
+## Remotes - Dịch vụ luư trữ mã nguồn từ xa
 
-- `git remote`: list remotes
-- `git remote add <name> <url>`: add a remote
-- `git push <remote> <local branch>:<remote branch>`: send objects to remote, and update remote reference
-- `git branch --set-upstream-to=<remote>/<remote branch>`: set up correspondence between local and remote branch
-- `git fetch`: retrieve objects/references from a remote
-- `git pull`: same as `git fetch; git merge`
-- `git clone`: download repository from remote
+- `git remote`: liệt kê nơi lưu trữ mã nguồn của ta từ xa (github, gitlab, etc)
+- `git remote add <name> <url>`: Thêm một nơi lưu trữ mã nguồn từ xa
+- `git push <remote> <local branch>:<remote branch>`: Cập nhật mã nguồn từ git lên remote và cập nhật con trỏ hiện tại trên remote
+- `git branch --set-upstream-to=<remote>/<remote branch>`: Liên kết một nhánh hiện tại của git repository của ta và một nhánh trên remote
+- `git fetch`: Cập nhật dữ liệu (history và objects) từ remote
+- `git pull`: cập nhật và hợp nhất những thay đổi từ remote vào repository của ta `git fetch; git merge`
+- `git clone`: download repository từ remote vào một thư mục mới.
 
-## Undo
+## Undo - Quay lại, Hủy hành động
 
-- `git commit --amend`: edit a commit's contents/message
-- `git reset HEAD <file>`: unstage a file
-- `git checkout -- <file>`: discard changes
+- `git commit --amend`: Thêm hoặc đổi nội dung và tin nhắn của commit gần nhất.
+- `git reset HEAD <file>`: loại thay đổi của file ra khỏi staging area
+- `git checkout -- <file>`: loại thay đổi của ta lên file hoàn toàn, file sẽ có nội dung giống như commit gần nhất, trước khi ta thêm vào những thay đổi đã bị loại đi.
 
-# Advanced Git
+# Nâng cao
 
-- `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
-- `git clone --depth=1`: shallow clone, without entire version history
-- `git add -p`: interactive staging
-- `git rebase -i`: interactive rebasing
-- `git blame`: show who last edited which line
-- `git stash`: temporarily remove modifications to working directory
-- `git bisect`: binary search history (e.g. for regressions)
-- `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
+- `git config`: Git có thể tùy chỉnh [vô cùng dễ dàng](https://git-scm.com/docs/git-config)
+- `git clone --depth=1`: chỉ download một phần nào đó của repo trên remote thay vì toàn bộ lịch sử phiên bản
+- `git add -p`: thêm thay đổi vào staging are một cách tương tác (lựa phần nào trong một file để thêm vào và chừa phần nào cho lần commit sau).
+- `git rebase -i`: rebase một cách tương tác
+- `git blame`: Xem ai đã thay đổi dòng nào
+- `git stash`: Tạm thời đưa các thay đổi của working directory vào một cấu trúc stack (có thể phục hồi lại sau)
+- `git bisect`: binary search - tìm kiếm nhị phân trong history (ví dụ cho việc regression - hồi quy)
+- `.gitignore`: [Đề ra](https://git-scm.com/docs/gitignore) những file nào mà ta không muốn lưu giữ vào history.
 
-# Miscellaneous
+# Khác
 
-- **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
-out there for Git. We personally don't use them and use the command-line
-interface instead.
-- **Shell integration**: it's super handy to have a Git status as part of your
-shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
-[bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
-frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: similarly to the above, handy integrations with many
-features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
-one for Vim.
-- **Workflows**: we taught you the data model, plus some basic commands; we
-didn't tell you what practices to follow when working on big projects (and
-there are [many](https://nvie.com/posts/a-successful-git-branching-model/)
-[different](https://www.endoflineblog.com/gitflow-considered-harmful)
-[approaches](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
-- **GitHub**: Git is not GitHub. GitHub has a specific way of contributing code
-to other projects, called [pull
+- **Giao diện đồ họa người dùng**: Có rất nhiều trình [giao diện đồ họa](https://git-scm.com/downloads/guis)
+cho Git. Tuy nhiên cá nhân chúng tôi không dùng chúng mà chỉ sử dụng giao diên câu lệnh
+- **Tích hợp vào Sheel**: rất hữu dụng khi hiện trạng của git có thể được hiển thị trên shell prompt của bạn ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
+[bash](https://github.com/magicmonty/bash-git-prompt)). Thuờng thì chúng được tích hợp sẵn vào các framework như [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
+- **Tích hợp với trình biên tập**: Như trên, có rất cách tích hợp git vào các text editor. [fugitive.vim](https://github.com/tpope/vim-fugitive) là một ví dụ cơ bản cho trình Vim.
+- **Workflows**: Chúng tôi đã dạy bạn về data model và một số câu lệnh cơ bản của git, nhưng hướng dẫn bạn các luồng làm việc và điều cần làm khi tham gia các dự án lớn (và có rất [nhiều](https://nvie.com/posts/a-successful-git-branching-model/)
+[cách làm việc](https://www.endoflineblog.com/gitflow-considered-harmful)
+[khác nhau](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
+- **GitHub**: Git không phải là Github. Github có cách đặc biệt để ta đóng góp vào các dữ án mã nguồn khác, đó là [pull
 requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-- **Other Git providers**: GitHub is not special: there are many Git repository
-hosts, like [GitLab](https://about.gitlab.com/) and
+- **Nhà cung cấp lưu trữ Git khác**: GitHub không phải là duy nhất: có rất nhiều dịch vụ lưu trữ git repository khác như [GitLab](https://about.gitlab.com/) and
 [BitBucket](https://bitbucket.org/).
 
-# Resources
+# Các tài liệu khác
 
-- [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
-Going through Chapters 1--5 should teach you most of what you need to use Git
-proficiently, now that you understand the data model. The later chapters have
-some interesting, advanced material.
-- [Oh Shit, Git!?!](https://ohshitgit.com/) is a short guide on how to recover
-from some common Git mistakes.
+- [Pro Git](https://git-scm.com/book/en/v2) là **tài liệu bạn cần phải đọc**. Chương 1--5 là đủ để dùng Git một cách thông thạo khi bạn đã hiểu về data model của nó. Những chương sau có các chủ đề thú vị và nâng cao.
+
+- [Oh Shit, Git!?!](https://ohshitgit.com/) là huớng dẫn xử lý các tình huống ất ơ thường gặp khi dùng Git.
 - [Git for Computer
-Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
-short explanation of Git's data model, with less pseudocode and more fancy
-diagrams than these lecture notes.
+Scientists](https://eagain.net/articles/git-for-computer-scientists/) là một phần giải thích ngắn gọn về data model của git, ít mã giả và các hình vẽ hơn trong bài giảng này.
 - [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
 is a detailed explanation of Git's implementation details beyond just the data
 model, for the curious.
-- [How to explain git in simple
-words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
-- [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
-game that teaches you Git.
+- [Giải thích Git bằng ngôn ngữ dễ hiểu](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
+- [Learn Git Branching](https://learngitbranching.js.org/) là một web-game dạy bạn về Git
 
-# Exercises
+# Bài tập
 
-1. If you don't have any past experience with Git, either try reading the first
-   couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
-   tutorial like [Learn Git Branching](https://learngitbranching.js.org/). As
-   you're working through it, relate Git commands to the data model.
-1. Clone the [repository for the
-class website](https://github.com/missing-semester/missing-semester).
-    1. Explore the version history by visualizing it as a graph.
-    1. Who was the last person to modify `README.md`? (Hint: use `git log` with
-       an argument)
+1. Nếu bạn không có kinh nghiệm dùng Git, hãy thử đọc vài chương đầu của  
+[Pro Git](https://git-scm.com/book/en/v2) hoặc học theo một bài hướng dẫn như  [Learn Git Branching](https://learngitbranching.js.org/). Khi bạn làm chúng, hãy thử liên hệ các câu lệnh Git với data model của nó.
+1. Clone [repository cho trang web khóa học này](https://github.com/missing-semester/missing-semester).
+    1. Tìm hiểu về version history của nó bằng cách hiển thị theo dạng biểu đồ.
+    1. Ai là người cuối cùng thay đổi file `README.md`? (Gợi ý: dùng `git log` với một đối số)
     1. What was the commit message associated with the last modification to the
        `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
        show`)
