@@ -1,22 +1,26 @@
 ---
 layout: page
-title: The Missing Semester of Your CS Education
+title: The Missing Semester of Your CS Education (日本語版)
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there’s one critical subject that’s rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We’ll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
+大学の講義ではオペレーティングシステムから機械学習まで、
+コンピュータサイエンスの様々な発展的トピックを学びます。
+しかし、重要であるにも関わらず講義で教わることはめったになく、
+したがって自分で学ばなければならないことがあります。
+それは「コンピュータを操作するツールを習熟すること」です。
+本講義では、コマンドライン操作をマスターすること、パワフルなテキストエディタを使いこなすこと、
+バージョンコントロールの様々な機能に触れること、などなどを教えます！
 
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
+学生は大学生活を過ごすうえでそういったツールを使うことに何百時間も費やします
+（その後のキャリア全体を考えれば何千時間も使うと言えるでしょう）。
+よって、ツールを使う経験を可能な限り流暢で淀みない状態にしておくということは、
+非常に有意義であると言えます。
+ツールの使い方をマスターすることにより、あなたは望みたい結果を得るために
+どのようにツールを用いればいいか即座にわかるようになります。
+それだけでなく、以前は解くことができないほど複雑に見えた問題も、
+ツールをマスターすることで解くことが出来るようになるでしょう。
 
-Read about the [motivation behind this class](/about/).
+[この講義を始めたモチベーション](/about/)も参考にしてください。
 
 {% comment %}
 # Registration
@@ -24,7 +28,7 @@ Read about the [motivation behind this class](/about/).
 Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
 {% endcomment %}
 
-# Schedule
+# スケジュール
 
 {% comment %}
 **Lecture**: 35-225, 2pm--3pm<br>
@@ -47,18 +51,21 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on
-YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+[YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)にて録画した講義ビデオを視聴できます。
 
-# About the class
 
-**Staff**: This class is co-taught by [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/).
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+# この講義について
 
-# Beyond MIT
+**スタッフ**: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), [Jose](http://josejg.com/) が講義を行います。
+**質問**: 以下にメールしてください [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+（翻注：翻訳に関する内容については[こちら](https://github.com/missing-semester-jp/missing-semester-jp.github.io)にて報告してください）
+
+
+
+# MITを超えて
+
+MIT以外の人々にとってもこの講義が役立つことを願い、私たちはこの講義内容をMIT外の人々とも共有してきました。ブログポストや議論の情報は以下になります。
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -67,7 +74,7 @@ benefit from these resources. You can find posts and discussion on
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Translations
+# 翻訳
 
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
@@ -79,25 +86,24 @@ benefit from these resources. You can find posts and discussion on
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
 
-Note: these are external links to community translations. We have not vetted
-them.
+注意：これらは外部の有志の方々による翻訳です。内容について吟味したわけではありません。
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+この講義を翻訳しましたか？[pull request]((https://github.com/missing-semester/missing-semester/pulls))にて報告してください。上記のリストに加えます！
 
-## Acknowledgements
 
-We thank Elaine Mello, Jim Cain, and [MIT Open
-Learning](https://openlearning.mit.edu/) for making it possible for us to
-record lecture videos; Anthony Zolnik and [MIT
-AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and
-[MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+## 謝辞
+
+Elaine Mello, Jim Cain, [MIT Open
+Learning](https://openlearning.mit.edu/) に対し講義ビデオ録画を可能としていただいたことを、
+Anthony Zolnik と [MIT
+AeroAstro](https://aeroastro.mit.edu/) にはA/V機器を設定頂いたことを、Brandi Adams と
+[MIT EECS](https://www.eecs.mit.edu/) には本講義を支援していただたことを、それぞれ感謝申し上げます。
+
 
 ---
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester">Source code</a>.</p>
+<p><a href="https://github.com/missing-semester/missing-semester">Source code (original)</a>, <a href="https://github.com/missing-semester-jp/missing-semester-jp.github.io">Source code (jp)</a>.</p>
 <p>Licensed under CC BY-NC-SA.</p>
 <p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
 </div>
