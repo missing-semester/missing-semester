@@ -40,7 +40,7 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
-        <strong>{{ lecture.date | date: '%-m/%d/%y' }}</strong>:
+        <strong>{{ lecture.date | date: '%y/%-m/%d' }}</strong>:
         {% if lecture.ready %}
             <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% else %}
@@ -59,7 +59,7 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 **スタッフ**: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), [Jose](http://josejg.com/) が講義を行います。
 **質問**: 以下にメールしてください [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-（翻注：翻訳に関する内容については[こちら](https://github.com/missing-semester-jp/missing-semester-jp.github.io)にて報告してください）
+（訳注：翻訳に関する内容については[こちら](https://github.com/missing-semester-jp/missing-semester-jp.github.io)にて報告してください）
 
 
 
@@ -88,7 +88,7 @@ MIT以外の人々にとってもこの講義が役立つことを願い、私�
 
 注意：これらは外部の有志の方々による翻訳です。内容について吟味したわけではありません。
 
-この講義を翻訳しましたか？[pull request]((https://github.com/missing-semester/missing-semester/pulls))にて報告してください。上記のリストに加えます！
+この講義を翻訳しましたか？[pull request](https://github.com/missing-semester/missing-semester/pulls)にて報告してください。上記のリストに加えます！
 
 
 ## 謝辞
