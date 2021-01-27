@@ -9,8 +9,8 @@
 issues/PRによる貢献は歓迎です。実際に各セクションの翻訳を行いたい場合は次の手順に従ってください。
 
 ## How to translate
-- [issues](https://github.com/missing-semester-jp/missing-semester-jp.github.io/issues)にて、翻訳対象のファイルごとにissueが立っています。closeされているものはもう翻訳が終わっています。対象のissueにて自分自身をassignしてください（更新が被ることを防ぐため）。このとき、[@matsui528](https://github.com/matsui528), [@makotoshimazu](https://github.com/makotoshimazu), [@take1108](https://github.com/take1108) の三人にもメンションをしてください。ちなみにissueで既に誰かがassignされていた場合は既にその人が翻訳中です。
-- ブランチを作り、翻訳を行い、PRを作ってください。PR中では上記issueをメンションしてください。レビュアには上記三人を指定してください。
+- [issues](https://github.com/missing-semester-jp/missing-semester-jp.github.io/issues)にて、翻訳対象のファイルごとにissueが立っています。closeされているものはもう翻訳が終わっています。対象のissueにて自分自身をassignしてください（更新が被ることを防ぐため）。このとき、[@matsui528](https://github.com/matsui528)にもメンションをしてください。ちなみにissueで既に誰かがassignされていた場合は既にその人が翻訳中です。
+- ブランチを作り、翻訳を行い、PRを作ってください。PR中では上記issueをメンションしてください。レビュアには[@matsui528](https://github.com/matsui528)を指定してください。
 - masterにマージされたあと、issueから自分をunassignしてください。
 
 
@@ -23,15 +23,15 @@ issues/PRによる貢献は歓迎です。実際に各セクションの翻訳�
 bundle exec jekyll serve -w
 ```
 
-あるいは`docker`を使う場合は、以下のコマンドで環境を汚さずにビルドができます
+あるいは`docker`を使う場合は、以下のコマンドでビルドができます
 ```bash
 docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 -it jekyll/jekyll jekyll serve -w
 ```
 
 ## Translator
-- [@matsui528](https://github.com/matsui528)
-- [@makotoshimazu](https://github.com/makotoshimazu)
-- [@take1108](https://github.com/take1108)
+- [@matsui528](https://github.com/matsui528) (organizer)
+- [@makotoshimazu](https://github.com/makotoshimazu) (organizer)
+- [@take1108](https://github.com/take1108) (organizer)
 
 
 ## License
