@@ -10,7 +10,7 @@ issues/PRによる貢献は歓迎です。実際に各セクションの翻訳�
 
 ## How to translate
 - [issues](https://github.com/missing-semester-jp/missing-semester-jp.github.io/issues)にて、翻訳対象のファイルごとにissueが立っています。closeされているものはもう翻訳が終わっています。対象のissueにて自分自身をassignしてください（更新が被ることを防ぐため）。このとき、[@matsui528](https://github.com/matsui528), [@makotoshimazu](https://github.com/makotoshimazu), [@take1108](https://github.com/take1108) の三人にもメンションをしてください。ちなみにissueで既に誰かがassignされていた場合は既にその人が翻訳中です。
-- ブランチを作り、翻訳を行い、PRを作ってください。レビュアには上記三人を指定してください。
+- ブランチを作り、翻訳を行い、PRを作ってください。PR中では上記issueをメンションしてください。レビュアには上記三人を指定してください。
 - masterにマージされたあと、issueから自分をunassignしてください。
 
 
