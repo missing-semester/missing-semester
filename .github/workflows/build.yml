@@ -29,6 +29,7 @@ jobs:
           check_img_http: false
           max_concurrency: 10
           connect_timeout: 120
+          timeout: 300
           tokens: |
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
           url_ignore: |
