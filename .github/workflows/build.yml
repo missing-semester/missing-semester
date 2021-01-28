@@ -27,6 +27,7 @@ jobs:
           directory: ./_site
           enforce_https: false
           check_img_http: false
+          max_concurrency: 10
           tokens: |
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
           url_ignore: |
