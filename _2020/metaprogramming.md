@@ -96,7 +96,7 @@ make: *** No rule to make target 'plot-data.png', needed by 'paper.pdf'.  Stop.
 ```
 
 Hmm, interesting, there _is_ a rule to make `plot-data.png`, but it is a
-pattern rule. Since the source files do not exist (`foo.dat`), `make`
+pattern rule. Since the source files do not exist (`data.dat`), `make`
 simply states that it cannot make that file. Let's try creating all the
 files:
 
