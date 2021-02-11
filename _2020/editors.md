@@ -172,9 +172,9 @@ refer to chunks of text.
 
 Visual modes:
 
-- Visual
-- Visual Line
-- Visual Block
+- Visual: `v`
+- Visual Line: `V`
+- Visual Block: `Ctrl-v`
 
 Can use movement keys to make selection.
 
