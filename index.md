@@ -3,7 +3,7 @@ layout: page
 title: Kì Học Bị Thiếu Của Giáo Trình Khoa Học Máy Tính
 ---
 
-Giảng đường truyền thống dạy mọi người về các vấn đề chuyên nghành Khoa Học 
+Giảng đường truyền thống dạy mọi người về các vấn đề chuyên ngành Khoa Học 
 Máy Tính cao cấp từ hệ điều hành đến học máy. Tuy nhiên có một chủ đề tối quan 
 trọng nhưng lại hay bị bỏ rơi để sinh viên tự mày mò, đó là khả năng sử dụng 
 công cụ của họ. Chúng tôi sẽ dạy bạn cách làm chủ command-line, sử dụng một trình
