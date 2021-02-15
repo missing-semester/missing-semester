@@ -21,6 +21,8 @@ All the content in this course, including the website source code, lecture notes
 ## Đóng Góp 
 
 Nếu bạn muốn đóng góp cho việc dịch khóa học này sang tiếng Việt, hoặc biên tập và sửa chữa chính tả, hãy điền tên vào mục dưới.
+Nếu trích dẫn trong các bài đăng xin ghi nguồn cho phần tiếng Việt hoặc tiếng Anh đầy đủ.
+Thêm chi tiết xin email: anhtu.do1998@gmail.com
 
 | # | Phần                      | Dịch                                           | Biên Tập | Trạng Thái |
 |---|---------------------------|------------------------------------------------|----------|------------|
