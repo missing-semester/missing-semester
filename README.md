@@ -34,7 +34,7 @@ Thêm chi tiết xin email: anhtu.do1998@gmail.com
 | 6 | [editors.md](https://missing-semester-vn.github.io/2020/editors/)||||
 | 7 | [data-wrangling.md](https://missing-semester-vn.github.io/2020/data-wrangling/)||||
 | 8 | [command-line.md](https://missing-semester-vn.github.io/2020/command-line/)||||
-| 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đang Dịch|
+| 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đã Dịch|
 | 10| [debugging-profiling.md](https://missing-semester-vn.github.io/2020/debugging-profiling/)|||@Đang Dịch|
 | 11| [metaprogramming.md](https://missing-semester-vn.github.io/2020/metaprogramming/)||||
 | 12| [security.md](https://missing-semester-vn.github.io/2020/security/)||||

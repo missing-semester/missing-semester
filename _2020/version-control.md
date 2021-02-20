@@ -400,9 +400,7 @@ requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-r
 - [Oh Shit, Git!?!](https://ohshitgit.com/) là huớng dẫn xử lý các tình huống ất ơ thường gặp khi dùng Git.
 - [Git for Computer
 Scientists](https://eagain.net/articles/git-for-computer-scientists/) là một phần giải thích ngắn gọn về data model của git, ít mã giả và các hình vẽ hơn trong bài giảng này.
-- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
-is a detailed explanation of Git's implementation details beyond just the data
-model, for the curious.
+- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/) là một bài giải thích chuyên sâu về cách Git được xây dựng, hơn cả việc dừng lại ở mô hình dữ liệu.
 - [Giải thích Git bằng ngôn ngữ dễ hiểu](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
 - [Learn Git Branching](https://learngitbranching.js.org/) là một web-game dạy bạn về Git
 
@@ -413,26 +411,15 @@ model, for the curious.
 1. Clone [repository cho trang web khóa học này](https://github.com/missing-semester/missing-semester).
     1. Tìm hiểu về version history của nó bằng cách hiển thị theo dạng biểu đồ.
     1. Ai là người cuối cùng thay đổi file `README.md`? (Gợi ý: dùng `git log` với một đối số)
-    1. What was the commit message associated with the last modification to the
-       `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
-       show`)
-1. One common mistake when learning Git is to commit large files that should
-   not be managed by Git or adding sensitive information. Try adding a file to
-   a repository, making some commits and then deleting that file from history
-   (you may want to look at
-   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
-1. Clone some repository from GitHub, and modify one of its existing files.
-   What happens when you do `git stash`? What do you see when running `git log
-   --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
-   In what scenario might this be useful?
-1. Like many command line tools, Git provides a configuration file (or dotfile)
-   called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
-   run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`.
-1. You can define global ignore patterns in `~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. Do this, and
-   set up your global gitignore file to ignore OS-specific or editor-specific
-   temporary files, like `.DS_Store`.
-1. Fork the [repository for the class
-   website](https://github.com/missing-semester/missing-semester), find a typo
-   or some other improvement you can make, and submit a pull request on GitHub.
+    1. Lời nhắn liên quan đến lần thay đổi cuối cùng trong dòng `collections:` của file `_config.yml` là gì? (Gợi ý: dùng `git blame` và `git show`)
+
+1. Một trong những sai lầm khi sử dụng Git là khi commit một số lượng lớn file không nên được quản lý bởi Git, hay các thông tin nhạy cảm (passwords, mã Auth API, etc). Thử add một file vào repo, rồi tạo một vài commit rồi sau đó xóa chúng đi trong lịch sử. (Bạn có thể tham khảo thêm ở [đây](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
+
+
+1. Thử clone một vài repo từ trang Github, rồi thay đổi một ít files trong đó. Điều gì sẽ xảy ra khi ta dùng `git stash`? Bạn quan sát được gì khi chạy câu lệnh `git log --all --oneline`? Chạy `git stash pop` để xóa đi những tác vụ bạn vừa làm khi chạy `git stash`. Khi nào thì câu lệnh `git stash` sẽ có ít cho ta? 
+
+1. Như các trình câu lệnh khác, Git có một file tùy chỉnh ( hay dotfile ) tên là `~/.gitconfig`. Hãy tạo một alias (biệt hiệu) `git graph` trong file trên để thực hiện câu lệnh `git log --all --graph --decorate --oneline` một cách ngắn gọn.
+
+1. Bạn có thể tùy chỉnh các file hoặc thư mục mà git bỏ qua (ignore) trong dotfile `~/.gitignore_global` sau khi chạy `git config --global core.excludesfile ~/.gitignore_global`. Hãy làm vậy và tạo một file ignore trên toàn hệ thống để bỏ qua việc theo dõi các file phụ liên quan đến hệ điều hành hay các file tạm của trình biên tập mã nguồn, như `.DS_Store`. 
+
+1. Fork repo của khóa học này từ [website](https://github.com/missing-semester/missing-semester), rồi tìm lỗi chính tả hay một điểm gì đó bạn có thể làm tốt hơn, rồi tạo một pull request trên Github.
