@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "コマンドライン環境"
 date: 2020-01-21
 ready: true
 video:
@@ -8,24 +8,24 @@ video:
   id: e8BO_dYxk5c
 ---
 
-In this lecture we will go through several ways in which you can improve your workflow when using the shell. We have been working with the shell for a while now, but we have mainly focused on executing different commands. We will now see how to run several processes at the same time while keeping track of them, how to stop or pause a specific process and how to make a process run in the background.
+この講義では、シェルを使ったワークフローを改善できる方法をいくつか見ていきます。ここまでしばらくシェルを使ってきましたが、主に様々なコマンドの実行に注目してきました。ここからは、複数のプロセスを監視しつつ同時に走らせる方法、特定のプロセスを一時停止または中断する方法、プロセスをバックグラウンドで走らせる方法を見ていきます。
 
-We will also learn about different ways to improve your shell and other tools, by defining aliases and configuring them using dotfiles. Both of these can help you save time, e.g. by using the same configurations in all your machines without having to type long commands. We will look at how to work with remote machines using SSH.
+さらに、シェルやその他のツールを、エイリアスを定義したりドットファイルで設定したりして、改善していく様々な方法を見ていきます。この双方が時間の節約になるでしょう。例えば、長いコマンドを打つことなく、自分のマシン全てで同じ設定を使えるようになります。SSHを使ってリモートマシンで作業する方法も見ていきます。
 
 
-# Job Control
+# ジョブコントロール
 
-In some cases you will need to interrupt a job while it is executing, for instance if a command is taking too long to complete (such as a `find` with a very large directory structure to search through).
-Most of the time, you can do `Ctrl-C` and the command will stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+ジョブの実行中に中断する必要が出てくるケースがあります。例えば、コマンドが完了までに時間がかかりすぎる場合などです（`find`でとても巨大なディレクトリ構造を検索する場合など）。
+ほとんどの場合、`Ctrl-C`でコマンドは停止します。
+ですがこれは、実際にどのように機能しているのでしょうか、そしてプロセスの停止に失敗することがあるのはなぜでしょうか？
 
-## Killing a process
+## プロセスの停止（kill）
 
-Your shell is using a UNIX communication mechanism called a _signal_ to communicate information to the process. When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+シェルは、 _シグナル_ と呼ばれるUNIXのコミュニケーションメカニズムを使用し、処理する情報を通信しています。プロセスがシグナルを受け取ると、そのシグナルが伝える情報に基づき、実行を停止し、シグナルに対処し、実行フローを潜在的に変更します。そのため、シグナルは _ソフトウェア中断_ です。
 
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
+私たちのケースでは、`Ctrl-C`とタイプすると、シェルが`SIGINT`シグナルをプロセスに伝達します。
 
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+以下はPythonプログラムの最小例です。これは`SIGINT`をキャプチャし、無視し、停止しません。このプログラムを停止するには、代わりに`Ctrl-\`とタイプして、`SIGQUIT`を使用する必要があります。
 
 ```python
 #!/usr/bin/env python
@@ -42,7 +42,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+このプログラムに`SIGINT`を2回送信し、続いて`SIGQUIT`を送信すると、以下が発生します。`^`は`Ctrl`がターミナルにタイプされたときに表示される文字です。
 
 ```
 $ python sigint.py
@@ -53,8 +53,8 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+`SIGINT`と`SIGQUIT`は両方とも通常はターミナルに関連したリクエストに関連づけられます。一方で、プロセスが完璧に終了するように命令するより一般的シグナルが`SIGTERM`です。
+このシグナルを送るには[`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html)コマンドを使用します。シンタックスは`kill -TERM <PID>`です。
 
 ## Pausing and backgrounding processes
 
