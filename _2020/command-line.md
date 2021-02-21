@@ -21,9 +21,9 @@ video:
 
 ## プロセスの停止（kill）
 
-シェルは、 _シグナル_ と呼ばれるUNIXのコミュニケーションメカニズムを使用し、処理する情報を通信しています。プロセスがシグナルを受け取ると、そのシグナルが伝える情報に基づき、実行を停止し、シグナルに対処し、実行フローを潜在的に変更します。そのため、シグナルは _ソフトウェア中断_ です。
+シェルは、 _シグナル_ と呼ばれるUNIXのコミュニケーションメカニズムを使用し、処理する情報を通信しています。プロセスがシグナルを受け取ると、そのシグナルが伝える情報に基づき、実行を停止し、シグナルに対処し、実行フローを潜在的に変更します。そのため、シグナルは _ソフトウェア的中断_ です。
 
-私たちのケースでは、`Ctrl-C`とタイプすると、シェルが`SIGINT`シグナルをプロセスに伝達します。
+このケースでは、`Ctrl-C`とタイプすると、シェルが`SIGINT`シグナルをプロセスに伝達します。
 
 以下はPythonプログラムの最小例です。これは`SIGINT`をキャプチャし、無視し、停止しません。このプログラムを停止するには、代わりに`Ctrl-\`とタイプして、`SIGQUIT`を使用する必要があります。
 
@@ -54,26 +54,25 @@ I got a SIGINT, but I am not stopping
 ```
 
 `SIGINT`と`SIGQUIT`は両方とも通常はターミナルに関連したリクエストに関連づけられます。一方で、プロセスが完璧に終了するように命令するより一般的シグナルが`SIGTERM`です。
-このシグナルを送るには[`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html)コマンドを使用します。シンタックスは`kill -TERM <PID>`です。
+このシグナルを送るには [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) コマンドを使用します。シンタックスは`kill -TERM <PID>`です。
 
-## Pausing and backgrounding processes
+## 一時停止とバックグラウンドプロセス
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+シグナルがプロセスを停止する他にも様々なことができます。例えば、`SIGSTOP`はプロセスを一時停止します。ターミナルで`Ctrl-Z`と入力すると、シェルに`SIGTSTP`シグナルを送るよう指示します。これはTerminal Stopの省略です（つまり`SIGSTOP`のターミナル版ということです）。
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+一時停止したジョブは[`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) または [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html) を使用して、それぞれフォアグラウンドやバックグラウンドで継続できます。
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+[`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) コマンドは、現在のターミナルセッションに関連付けられた未完了のジョブをリスト表示します。
+これらのジョブはプロセスIDを使用して参照できます（プロセスIDは [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) で調べられます）。
+さらに直感的に、プロセスはパーセント記号に続くジョブ番号でも参照できます（`jobs`で表示されます）。最新のバックグラウンドジョブは、特別な`$!`で参照できます。
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case).
+もう一つ知っておくべきことは、コマンドに接尾辞`&`をつけると、そのコマンドをバックグラウンドで実行し、プロンプトを表示することです。これは変わらずシェルのSTDOUTを使用するので、鬱陶しく感じるかもしれません（その場合はシェルのリダイレクトを使いましょう）。
 
-To background an already running program you can do `Ctrl-Z` followed by `bg`.
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
+既に実行中のプログラムをバックグラウンドに移動するには、`Ctrl-Z`の後に`bg`を入力しましょう。バックグラウンドプロセスはターミナルの子プロセスのままで、ターミナルを閉じると消滅することをお忘れなく（これはまた別のシグナル、`SIGHUP`を送信します）。
+これが起きるのを防ぐためには、プログラムを[`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) （`SIGHUP`を無視するラッパー）と一緒に実行するか、またはプロセスが既に開始している場合は`disown`を使いましょう。
+他の方法として、次のセクションで紹介するターミナルマルチプレクサも使用できます。
 
-Below is a sample session to showcase some of these concepts.
+以下は、これらのコンセプトのいくつかを示すためのセッション例です。
 
 ```
 $ sleep 1000
@@ -120,94 +119,96 @@ $ jobs
 
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+特別なシグナルは`SIGKILL`で、これはプロセスでキャプチャできず、どんな時でもプロセスを即時終了します。しかし、孤児プロセスを残してしまうなどの悪影響もあります。
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -t`.
+これらや他のシグナルは [こちら](https://en.wikipedia.org/wiki/Signal_(IPC)) 、または [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) もしくは`kill -t`と入力することで詳細を表示できます。
 
 
-# Terminal Multiplexers
+# ターミナルマルチプレクサ
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+コマンドラインインターフェイスの使用中、複数のプロセスを走らせたいと思うことがしばしばあるでしょう。
+例えば、エディタをプログラムと並べて走らせたい場合などです。
+これは新しいターミナルウィンドウを開くことで達成できますが、ターミナルマルチプレクサを使用する方が、より多用途のソリューションとなります。
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-This can make your workflow much better when working with remote machines since it avoids the need to use `nohup` and similar tricks.
+[`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) のようなターミナルマルチプレクサは、ペインやタブを使用してターミナルウィンドウを多重表示できるので、複数のシェルセッションとインタラクトできます。
+さらにターミナルマルチプレクサは、現在のターミナルセッションをデタッチでき、後に再度アタッチすることができます。
+これで`nohup`や似たようなトリックを使う必要がなくなるので、リモートマシンで作業している時にワークフローを大幅に改善できます。
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+近年最も人気のあるターミナルマルチプレクサは [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) です。`tmux`は高度な設定が可能で、関連付けられたキーバインディングで複数のタブやペインを作成でき、素早く移動ができます。
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+`tmux`ではキーバインディングの事前知識が必要です。キーは全て`<C-b> x`のような形式で、これは (1)`Ctrl+b`を押し (2)`Ctrl+b`を離し、そして (3)`x`を押すという意味です。
+`tmux`には次のようなオブジェクトの階層構造があります。
+- **セッション** - セッションは単一または複数のウィンドウを持つ独立したワークスペースのこと
+    +`tmux` 新しいセッションを開始
+    +`tmux new -s 名前` その名前がついたセッションを開始
+    +`tmux ls` 現在のセッションをリスト表示
+    +`tmux` 内で`<C-b> d` と入力すると現在のセッションをデタッチ
+    +`tmux a` で最後のセッションをアタッチ。`-t` でどのセッションが特定できます。
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **ウィンドウ** - エディタやブラウザのタブに相当。同一のセッション内で視覚的に分離したパーツのこと
+    +`<C-b> c` 新しいウィンドウを作成。閉じるには`<C-d>` でシェルを終了する
+    +`<C-b> N` _N_ 番目のウィンドウに移動。ウィンドウは番号付けされていることに注意
+    +`<C-b> p` 前のウィンドウに移動
+    +`<C-b> n` 次のウィンドウに移動
+    +`<C-b> ,` 現在のウィンドウの名前を変更
+    +`<C-b> w` 現在のウィンドウをリスト表示
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **ペイン** - ペインは、vimのスプリッターのように、同一の視覚的ディスプレイの中に複数のセルを表示できる
+    +`<C-b> "` 現在のペインを水平に分割
+    +`<C-b> %` 現在のペインを垂直に分割
+    +`<C-b> <方向>` 指定した _方向_ のペインに移動。ここでの方向は矢印キーを意味する。
+    +`<C-b> z` 現在のペインのズームを切り替え
+    +`<C-b> [` スクロールバックを開始。`<space>` を押して選択を開始し、`<enter>` でその選択範囲をコピーできる。
+    +`<C-b> <space>` ペインを順番に移動。
 
-For further reading,
-[here](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) is a quick tutorial on `tmux` and [this](http://linuxcommand.org/lc3_adv_termmux.php) has a more detailed explanation that covers the original `screen` command. You might also want to familiarize yourself with [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), since it comes installed in most UNIX systems.
 
-# Aliases
+さらに学びたい場合は、
+[こちら](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) に`tmux`のクイックチュートリアルが、 [ここ](http://linuxcommand.org/lc3_adv_termmux.php) に元となる`screen`コマンドを含めたより詳細な説明があります。 [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html) はほとんどのUNIXシステムにインストールされているので、慣れておいた方が良いでしょう。
 
-It can become tiresome typing long commands that involve many flags or verbose options.
-For this reason, most shells support _aliasing_.
-A shell alias is a short form for another command that your shell will replace automatically for you.
-For instance, an alias in bash has the following structure:
+# エイリアス
+
+たくさんのフラッグや詳細オプションを含めた長いコマンドを打つのは面倒くさくなることがあります。
+そのためほとんどのシェルでは _エイリアス_ をサポートしています。
+シェルエイリアスとは他のコマンドの短縮形で、シェルが自動的に置換してくれます。
+例として、 bash のエイリアスは次のような構造です。
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+等号`=`の左右にスペースがないことに注意してください。[`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) はシェルコマンドで、単一の引数を取ります。
 
-Aliases have many convenient features:
+エイリアスにはたくさんの便利な機能があります。
 
 ```bash
-# Make shorthands for common flags
+# 一般的なフラッグの省略形
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# 一般的なコマンドのタイピング数を大幅に減らす
 alias gs="git status"
 alias gc="git commit"
 alias v="vim"
 
-# Save you from mistyping
+# ミスタイプを防ぐ
 alias sl=ls
 
-# Overwrite existing commands for better defaults
-alias mv="mv -i"           # -i prompts before overwrite
-alias mkdir="mkdir -p"     # -p make parent dirs as needed
-alias df="df -h"           # -h prints human readable format
+# 既存のコマンドをより良いデフォルトに上書き
+alias mv="mv -i"           # -i 上書き前に警告
+alias mkdir="mkdir -p"     # -p 必要に応じて親ディレクトリを作る
+alias df="df -h"           # -h 人間が読める形式で表示
 
-# Alias can be composed
+# エイリアスは組み合わせ可能
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# エイリアスを無視するには \ を前につける
 \ls
-# Or disable an alias altogether with unalias
+# またはunaliasでエイリアスを無効化
 unalias la
 
-# To get an alias definition just call it with alias
+# エイリアスの定義を表示するにはaliasで呼び出し
 alias ll
-# Will print ll='ls -lh'
+# これはll='ls -lh'を表示する
 ```
 
 Note that aliases do not persist shell sessions by default.
