@@ -236,7 +236,7 @@ Note that aliases do not persist shell sessions by default.
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-ドットファイルはどうやって整理すれば良いのでしょうか？ これらはそれぞれのフォルダ内で、バージョン管理下にあり、スクリプトを使って**symlink**で位置づけされるべきです。これには次の利点があります。
+ドットファイルはどうやって整理すれば良いのでしょうか？ これらはそれぞれのフォルダ内で、バージョン管理下にあり、スクリプトを使って**シンボリックリンク**で位置づけされるべきです。これには次の利点があります。
 
 - **インストールが簡単**: 新しいマシンにログインした時、カスタマイズの適用がすぐに可能。
 - **移植性**: ツールがどこでも同じように動く。
@@ -360,7 +360,7 @@ SSHを通してファイルをコピーする方法はたくさんあります�
 
 - `ssh+tee` 一番簡単な方法は、 `cat localfile | ssh remote_server tee serverfile` で、 `ssh` コマンドの実行とSTDIN入力を使用することです。[`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) はSTDINの出力をファイルに書き込むことを思い出しましょう。
 - [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) 大量のファイルやディレクトリをコピーする場合、簡単にパスを再帰処理するので、セキュアコピー（secure copy） `scp` コマンドがより便利です。 シンタックスは `scp path/to/local_file remote_host:path/to/remote_file` です。
-- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) は `scp` を改善したもので、ローカルとリモートで同一のファイルを検出し、それらを再度コピーすることを防ぎます。また、symlink、パーミッションに関してさらに詳細な管理をでき、前回中断されたコピーを再開する `--partial` フラッグのような追加機能もあります。 `rsync` は `scp` に似たシンタックスです。
+- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) は `scp` を改善したもので、ローカルとリモートで同一のファイルを検出し、それらを再度コピーすることを防ぎます。また、シンボリックリンク、パーミッションに関してさらに詳細な管理をでき、前回中断されたコピーを再開する `--partial` フラッグのような追加機能もあります。 `rsync` は `scp` に似たシンタックスです。
 
 ## ポートフォワーディング
 
