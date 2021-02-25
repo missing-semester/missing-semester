@@ -15,17 +15,17 @@ video:
 
 # ジョブコントロール
 
-ジョブの実行中に中断する必要が出てくるケースがあります。例えば、コマンドが完了までに時間がかかりすぎる場合などです（`find`でとても巨大なディレクトリ構造を検索する場合など）。
-ほとんどの場合、`Ctrl-C`でコマンドは停止します。
+ジョブの実行中に中断する必要が出てくるケースがあります。例えば、コマンドが完了までに時間がかかりすぎる場合などです（ `find` でとても巨大なディレクトリ構造を検索する場合など）。
+ほとんどの場合、 `Ctrl-C` でコマンドは停止します。
 ですがこれは、実際にどのように機能しているのでしょうか、そしてプロセスの停止に失敗することがあるのはなぜでしょうか？
 
 ## プロセスの停止（kill）
 
 シェルは、 _シグナル_ と呼ばれるUNIXのコミュニケーションメカニズムを使用し、処理する情報を通信しています。プロセスがシグナルを受け取ると、そのシグナルが伝える情報に基づき、実行を停止し、シグナルに対処し、実行フローを潜在的に変更します。そのため、シグナルは _ソフトウェア的中断_ です。
 
-このケースでは、`Ctrl-C`とタイプすると、シェルが`SIGINT`シグナルをプロセスに伝達します。
+このケースでは、 `Ctrl-C` とタイプすると、シェルが `SIGINT` シグナルをプロセスに伝達します。
 
-以下はPythonプログラムの最小例です。これは`SIGINT`をキャプチャし、無視し、停止しません。このプログラムを停止するには、代わりに`Ctrl-\`とタイプして、`SIGQUIT`を使用する必要があります。
+以下はPythonプログラムの最小例です。これは `SIGINT` をキャプチャし、無視し、停止しません。このプログラムを停止するには、代わりに `Ctrl-\` とタイプして、 `SIGQUIT` を使用する必要があります。
 
 ```python
 #!/usr/bin/env python
@@ -42,7 +42,7 @@ while True:
     i += 1
 ```
 
-このプログラムに`SIGINT`を2回送信し、続いて`SIGQUIT`を送信すると、以下が発生します。`^`は`Ctrl`がターミナルにタイプされたときに表示される文字です。
+このプログラムに `SIGINT` を2回送信し、続いて `SIGQUIT` を送信すると、以下が表示されます。 `^ ` は `Ctrl` がターミナルにタイプされたときに表示される文字です。
 
 ```
 $ python sigint.py
@@ -53,23 +53,23 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-`SIGINT`と`SIGQUIT`は両方とも通常はターミナルに関連したリクエストに関連づけられます。一方で、プロセスが完璧に終了するように命令するより一般的シグナルが`SIGTERM`です。
-このシグナルを送るには [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) コマンドを使用します。シンタックスは`kill -TERM <PID>`です。
+`SIGINT` と `SIGQUIT` は両方とも通常はターミナルに関連したリクエストに関連づけられます。一方で、プロセスが完璧に終了するように命令する、より一般的なシグナルが `SIGTERM` です。
+このシグナルを送るには [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) コマンドを使用します。シンタックスは `kill -TERM <PID>` です。
 
 ## 一時停止とバックグラウンドプロセス
 
-シグナルがプロセスを停止する他にも様々なことができます。例えば、`SIGSTOP`はプロセスを一時停止します。ターミナルで`Ctrl-Z`と入力すると、シェルに`SIGTSTP`シグナルを送るよう指示します。これはTerminal Stopの省略です（つまり`SIGSTOP`のターミナル版ということです）。
+シグナルは、プロセスを停止する他にも様々なことができます。例えば、 `SIGSTOP` はプロセスを一時停止します。ターミナルで `Ctrl-Z` と入力すると、シェルに `SIGTSTP` シグナルを送るよう指示します。これはTerminal Stopの省略です（つまり `SIGSTOP` のターミナル版ということです）。
 
 一時停止したジョブは[`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) または [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html) を使用して、それぞれフォアグラウンドやバックグラウンドで継続できます。
 
 [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) コマンドは、現在のターミナルセッションに関連付けられた未完了のジョブをリスト表示します。
 これらのジョブはプロセスIDを使用して参照できます（プロセスIDは [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) で調べられます）。
-さらに直感的に、プロセスはパーセント記号に続くジョブ番号でも参照できます（`jobs`で表示されます）。最新のバックグラウンドジョブは、特別な`$!`で参照できます。
+さらに直感的に、プロセスはパーセント記号に続くジョブ番号でも参照できます（`jobs` で表示されます）。最新のバックグラウンドジョブは、特別な `$!` で参照できます。
 
-もう一つ知っておくべきことは、コマンドに接尾辞`&`をつけると、そのコマンドをバックグラウンドで実行し、プロンプトを表示することです。これは変わらずシェルのSTDOUTを使用するので、鬱陶しく感じるかもしれません（その場合はシェルのリダイレクトを使いましょう）。
+もう一つ知っておくべきことは、コマンドに接尾辞 `&` をつけると、そのコマンドをバックグラウンドで実行し、プロンプトを表示することです。これは同じシェルのSTDOUTを使用するので、鬱陶しく感じるかもしれません（その場合はシェルのリダイレクトを使いましょう）。
 
-既に実行中のプログラムをバックグラウンドに移動するには、`Ctrl-Z`の後に`bg`を入力しましょう。バックグラウンドプロセスはターミナルの子プロセスのままで、ターミナルを閉じると消滅することをお忘れなく（これはまた別のシグナル、`SIGHUP`を送信します）。
-これが起きるのを防ぐためには、プログラムを[`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) （`SIGHUP`を無視するラッパー）と一緒に実行するか、またはプロセスが既に開始している場合は`disown`を使いましょう。
+既に実行中のプログラムをバックグラウンドに移動するには、 `Ctrl-Z` の後に `bg` を入力します。バックグラウンドプロセスはターミナルの子プロセスのままで、ターミナルを閉じると消滅することをお忘れなく（これはまた別のシグナル、 `SIGHUP` を送信します）。
+これが起きるのを防ぐには、プログラムを[`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) （`SIGHUP` を無視するラッパー）と一緒に実行するか、またはプロセスが既に開始している場合は `disown` を使いましょう。
 他の方法として、次のセクションで紹介するターミナルマルチプレクサも使用できます。
 
 以下は、これらのコンセプトのいくつかを示すためのセッション例です。
@@ -119,9 +119,9 @@ $ jobs
 
 ```
 
-特別なシグナルは`SIGKILL`で、これはプロセスでキャプチャできず、どんな時でもプロセスを即時終了します。しかし、孤児プロセスを残してしまうなどの悪影響もあります。
+`SIGKILL` という特別なシグナルがあり、これはプロセスでキャプチャできず、どんな時でもプロセスを即時終了します。しかし、孤児プロセスを残してしまうなどの悪影響もあります。
 
-これらや他のシグナルは [こちら](https://en.wikipedia.org/wiki/Signal_(IPC)) 、または [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) もしくは`kill -t`と入力することで詳細を表示できます。
+これらや他のシグナルは [こちら](https://en.wikipedia.org/wiki/Signal_(IPC)) 、または [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) もしくは `kill -t` と入力することで詳細を表示できます。
 
 
 # ターミナルマルチプレクサ
@@ -132,51 +132,51 @@ $ jobs
 
 [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) のようなターミナルマルチプレクサは、ペインやタブを使用してターミナルウィンドウを多重表示できるので、複数のシェルセッションとインタラクトできます。
 さらにターミナルマルチプレクサは、現在のターミナルセッションをデタッチでき、後に再度アタッチすることができます。
-これで`nohup`や似たようなトリックを使う必要がなくなるので、リモートマシンで作業している時にワークフローを大幅に改善できます。
+これで `nohup` や似たようなトリックを使う必要がなくなるので、リモートマシンで作業している時にワークフローを大幅に改善できます。
 
-近年最も人気のあるターミナルマルチプレクサは [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) です。`tmux`は高度な設定が可能で、関連付けられたキーバインディングで複数のタブやペインを作成でき、素早く移動ができます。
+近年最も人気のあるターミナルマルチプレクサは [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) です。 `tmux` は高度な設定が可能で、関連付けられたキーバインディングで複数のタブやペインを作成でき、素早く移動ができます。
 
-`tmux`ではキーバインディングの事前知識が必要です。キーは全て`<C-b> x`のような形式で、これは (1)`Ctrl+b`を押し (2)`Ctrl+b`を離し、そして (3)`x`を押すという意味です。
-`tmux`には次のようなオブジェクトの階層構造があります。
+`tmux` ではキーバインディングの事前知識が必要です。キーは全て `<C-b> x` のような形式で、これは (1) `Ctrl+b` を押し (2) `Ctrl+b` を離し、そして (3) `x` を押すという意味です。
+`tmux` には次のようなオブジェクトの階層構造があります。
 - **セッション** - セッションは単一または複数のウィンドウを持つ独立したワークスペースのこと
     + `tmux` 新しいセッションを開始
     + `tmux new -s 名前` その名前がついたセッションを開始
     + `tmux ls` 現在のセッションをリスト表示
-    + `tmux` 内で`<C-b> d` と入力すると現在のセッションをデタッチ
-    + `tmux a` で最後のセッションをアタッチ。`-t` でどのセッションが特定できます。
+    + `tmux` 内で `<C-b> d` と入力すると現在のセッションをデタッチ
+    + `tmux a` で最後のセッションをアタッチ。 `-t` でどのセッションが特定できます。
 
 - **ウィンドウ** - エディタやブラウザのタブに相当。同一のセッション内で視覚的に分離したパーツのこと
-    + `<C-b> c` 新しいウィンドウを作成。閉じるには`<C-d>` でシェルを終了する
+    + `<C-b> c` 新しいウィンドウを作成。閉じるには `<C-d>` でシェルを終了する
     + `<C-b> N` _N_ 番目のウィンドウに移動。ウィンドウは番号付けされていることに注意
     + `<C-b> p` 前のウィンドウに移動
     + `<C-b> n` 次のウィンドウに移動
     + `<C-b> ,` 現在のウィンドウの名前を変更
     + `<C-b> w` 現在のウィンドウをリスト表示
 
-- **ペイン** - ペインは、vimのスプリッターのように、同一の視覚的ディスプレイの中に複数のセルを表示できる
+- **ペイン** - vimのスプリッターのように、同一の視覚的ディスプレイの中に複数のセルを表示できる
     + `<C-b> "` 現在のペインを水平に分割
     + `<C-b> %` 現在のペインを垂直に分割
     + `<C-b> <方向>` 指定した _方向_ のペインに移動。ここでの方向は矢印キーを意味する。
     + `<C-b> z` 現在のペインのズームを切り替え
-    + `<C-b> [` スクロールバックを開始。`<space>` を押して選択を開始し、`<enter>` でその選択範囲をコピーできる。
+    + `<C-b> [` スクロールバックを開始。 `<space>` を押して選択を開始し、 `<enter>` でその選択範囲をコピーできる。
     + `<C-b> <space>` ペインを順番に移動。
 
 
 さらに学びたい場合は、
-[こちら](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) に`tmux`のクイックチュートリアルが、 [ここ](http://linuxcommand.org/lc3_adv_termmux.php) に元となる`screen`コマンドを含めたより詳細な説明があります。 [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html) はほとんどのUNIXシステムにインストールされているので、慣れておいた方が良いでしょう。
+[こちら](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) に `tmux` のクイックチュートリアルが、 [ここ](http://linuxcommand.org/lc3_adv_termmux.php) に元となる `screen` コマンドを含めたより詳細な説明があります。 [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html) はほとんどのUNIXシステムにインストールされているので、慣れておいた方が良いでしょう。
 
 # エイリアス
 
 たくさんのフラッグや詳細オプションを含めた長いコマンドを打つのは面倒くさくなることがあります。
-そのためほとんどのシェルでは _エイリアス_ をサポートしています。
-シェルエイリアスとは他のコマンドの短縮形で、シェルが自動的に置換してくれます。
-例として、 bash のエイリアスは次のような構造です。
+そのため、ほとんどのシェルでは _エイリアス_ をサポートしています。
+シェルエイリアスとは他のコマンドの短縮形で、シェルが自動的に置換してくれるものです。
+例として、 bash のエイリアスは次のような構造をしています。
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-等号`=`の左右にスペースがないことに注意してください。[`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) はシェルコマンドで、単一の引数を取ります。
+等号 `=` の左右にスペースがないことに注意してください。[`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) はシェルコマンドで、単一の引数を取ります。
 
 エイリアスにはたくさんの便利な機能があります。
 
@@ -212,70 +212,61 @@ alias ll
 ```
 
 Note that aliases do not persist shell sessions by default.
-To make an alias persistent you need to include it in shell startup files, like `.bashrc` or `.zshrc`, which we are going to introduce in the next section.
+エイリアスは既定ではシェルセッションに存続しないことに注意しましょう。
+エイリアスを存続させるには、これを `.bashrc` や `.zshrc` などのシェルのスタートアップファイルに書く必要があります。これらは次のセクションで紹介します。
 
 
-# Dotfiles
+# ドットファイル
 
-Many programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+多くのプログラムは、 _ドットファイル_ （例えば `~/.vimrc` など、ファイル名が `.` で始まるからです。これらはデフォルトではディレクトリ内の列挙 `ls` では表示されません）として知られる平文ファイルで設定されています。
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell, whether you are starting a login and/or interactive the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+シェルはこのようなファイルで設定されるプログラムの一例です。起動時シェルは、設定をロードするために沢山のファイルを読み込みます。
+シェルによっては、ログイン and/or 対話型どちらの開始時でも、プロセス全体が非常に複雑になることがあります。
+[これ](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) はこの話題に関する素晴らしいリソースです。
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable.
-In fact, many programs will ask you to include a line like `export PATH="$PATH:/path/to/program/bin"` in your shell configuration file so their binaries can be found.
+`bash` に関しては、ほとんどのシステムで `.bashrc` または `.bash_profile` の編集が効果的です。
+ここにはスタートアップ時に走らせたいコマンドを書き込めます。例えば説明したばかりのエイリアスや、 `PATH` 環境変数の編集などです。
+実際多くのファイルは、バイナリを見つけられるように、シェル設定ファイルに `export PATH="$PATH:/path/to/program/bin"` のような行を書くように要求してきます。
 
-Some other examples of tools that can be configured through dotfiles are:
+ドットファイルで設定できるツールの他の例としては以下があります。
 
-- `bash` - `~/.bashrc`, `~/.bash_profile`
+- `bash` - `~/.bashrc` 、 `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` と `~/.vim` フォルダ
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+ドットファイルはどうやって整理すれば良いのでしょうか？ これらはそれぞれのフォルダ内で、バージョン管理下にあり、スクリプトを使って**symlink**で位置づけされるべきです。これには次の利点があります。
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **インストールが簡単**: 新しいマシンにログインした時、カスタマイズの適用がすぐに可能。
+- **移植性**: ツールがどこでも同じように動く。
+- **同期**: not ファイルをどこでもアップデートでき、全てを同期できる。
+- **変更履歴**: ドットファイルは、プログラミングキャリアを通してメンテナンスし続けることになるだろう。長期プロジェクトにはバージョン管理があると便利。
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on Github --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+ドットファイルには何を書くべきでしょうか？
+ツールのセッティングに関しては、オンラインのドキュメントや
+[manページ](https://en.wikipedia.org/wiki/Man_page)を読めば学べます。
+特定のプログラムに関して、著者がお気に入りのカスタマイズを紹介しているブログポストをインターネットで検索することも、大きな助けとなるでしょう。
+カスタマイズに関して学ぶ更なる方法は、他の人のドットファイルを閲覧することです。 GitHub には大量の
+[ドットファイルリポジトリ](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
+があります --- 一番人気なのは
+[これ]](https://github.com/mathiasbynens/dotfiles) です（設定をむやみにコピーするのはお勧めしません）。
+[これ](https://dotfiles.github.io/) も、このトピックに関する素晴らしいリソースです。
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+講義の講師は全員、ドットファイルを GitHub で公開しています。
+[Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
 
-## Portability
+## 移植性
 
-A common pain with dotfiles is that the configurations might not work when working with several machines, e.g. if they have different operating systems or shells. Sometimes you also want some configuration to be applied only in a given machine.
+ドットファイルでよくある面倒事といえば、複数のマシンで作業している時、例えば異なる OS やシェルの場合、設定が動かないことがあることです。
+ある設定を特定のマシンにだけ適用したい場合もあるでしょう。
 
-There are some tricks for making this easier.
-If the configuration file supports it, use the equivalent of if-statements to
-apply machine specific customizations. For example, your shell could have something
-like:
+この解決法となる小技があります。
+もし設定ファイルがサポートしているなら、if文で同値を使って、マシンに応じた設定を適用できます。
+例えばシェルには次のようなものが適用できます。
 
 ```bash
 if [[ "$(uname)" == "Linux" ]]; then {do_something}; fi
@@ -287,19 +278,19 @@ if [[ "$SHELL" == "zsh" ]]; then {do_something}; fi
 if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
 ```
 
-If the configuration file supports it, make use of includes. For example,
-a `~/.gitconfig` can have a setting:
+もし設定ファイルがサポートしているなら、includeを有効活用しましょう。例えば、
+`~/.gitconfig` には次のような設定ができます。
 
 ```
 [include]
     path = ~/.gitconfig_local
 ```
 
-And then on each machine, `~/.gitconfig_local` can contain machine-specific
-settings. You could even track these in a separate repository for
-machine-specific settings.
+そして各マシンでは、 `~/.gitconfig_local` にマシンに応じた設定を書き込みます。
+これらは個別マシン用の設定のリポジトリでバージョン管理もできます。
 
-This idea is also useful if you want different programs to share some configurations. For instance, if you want both `bash` and `zsh` to share the same set of aliases you can write them under `.aliases` and have the following block in both:
+このアイディアは、異なるプログラムで同じ設定を共有したい場合にも便利です。
+例えば、 `bash` と `zsh` で同じエイリアスのセットを共有したい場合、 `.aliases` にそれを記述し、両方のファイルに次のブロックを記述します。
 
 ```bash
 # Test if ~/.aliases exists and source it
@@ -308,86 +299,104 @@ if [ -f ~/.aliases ]; then
 fi
 ```
 
-# Remote Machines
+# リモートマシン
 
-It has become more and more common for programmers to use remote servers in their everyday work. If you need to use remote servers in order to deploy backend software or you need a server with higher computational capabilities, you will end up using a Secure Shell (SSH). As with most tools covered, SSH is highly configurable so it is worth learning about it.
+プログラマーが日常の業務でリモートサーバを使うことは、ますます一般的になってきました。
+バックエンドソフトウェアのデプロイにリモートサーバを使う必要がある場合、またはより高い計算能力を持つサーバが必要な場合、セキュアシェル（Secure Sell、SSH）を使うことになるでしょう。
+取り上げてきたほとんどのツールと同じように SSH も高度な設定が可能なので、学ぶ価値があります。
 
-To `ssh` into a server you execute a command as follows
+サーバに `ssh` するには次のコマンドを実行します。
 
 ```bash
 ssh foo@bar.mit.edu
 ```
 
-Here we are trying to ssh as user `foo` in server `bar.mit.edu`.
-The server can be specified with a URL (like `bar.mit.edu`) or an IP (something like `foobar@192.168.1.42`). Later we will see that if we modify ssh config file you can access just using something like `ssh bar`.
+ここではサーバ `bar.mit.edu` にユーザー `foo` として SSH しようとしています。
+サーバは URL（例： `bar.mit.edu` ）または IP （例： `foobar@192.168.1.42` ）で指定できます。
+SSH の設定ファイルを編集すれば、 `ssh bar` のようなコマンドを使うだけでアクセスできるようになります。これは後で紹介します。
 
-## Executing commands
+## コマンドの実行
 
-An often overlooked feature of `ssh` is the ability to run commands directly.
-`ssh foobar@server ls` will execute `ls` in the home folder of foobar.
-It works with pipes, so `ssh foobar@server ls | grep PATTERN` will grep locally the remote output of `ls` and `ls | ssh foobar@server grep PATTERN` will grep remotely the local output of `ls`.
+見逃されがちな `ssh` の機能は、直接コマンドを実行できることです。
+`ssh foobar@server ls` は `ls` を foobar のホームフォルダで実行します。
+パイプも使用できるので、 `ssh foobar@server ls | grep PATTERN` は `ls` のリモート出力をローカルでgrepできますし、
+`ls | ssh foobar@server grep PATTERN` は `ls` のローカルの出力をリモートでgrepします。
 
 
-## SSH Keys
+## SSH鍵
 
-Key-based authentication exploits public-key cryptography to prove to the server that the client owns the secret private key without revealing the key. This way you do not need to reenter your password every time. Nevertheless, the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so.
+鍵認証は、公開鍵の暗号化を使い、クライアントが非公開の秘密鍵を持っていることを、鍵を明かすことなくサーバに証明します。
+この方法では、毎回パスワードを再入力する必要はありません。
+しかし秘密鍵（しばしば `~/.ssh/id_rsa` 、最近では `~/.ssh/id_ed25519` ）は実効的にパスワードと同等なので、取り扱いには注意しましょう。
 
-### Key generation
+### 鍵生成
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+鍵ペアを生成するには [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html) を実行します。
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
-You should choose a passphrase, to avoid someone who gets hold of your private key to access authorized servers. Use [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) or [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) so you do not have to type your passphrase every time.
+誰かが秘密鍵を入手し、権限のあるサーバにアクセスするのを防ぐために、パスフレーズを選ぶ必要があります。
+[`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) または[`gpg-agent`](https://linux.die.net/man/1/gpg-agent) を使うと、毎回パスフレーズを入力する必要がなくなります。
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+SSH鍵を使ってGitHubにpushする設定を行ったことがあるならば、既に [ここ](https://help.github.com/articles/connecting-to-github-with-ssh/) で紹介されているステップを行い、有効な鍵ペアを持っていることでしょう。パスフレーズがあることを確認し、パスフレーズを有効化するには、 `ssh-keygen -y -f /path/to/key` を実行します。
 
-### Key based authentication
+### 鍵認証
 
-`ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+`ssh` は、どのクライアントをログインさせるか決定するために、 `.ssh/authorized_keys` を閲覧します。公開鍵をコピーするには以下を使用します。
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
-A simpler solution can be achieved with `ssh-copy-id` where available:
+より簡単な方法は、使用できる場合 `ssh-copy-id` を使うことです。
 
 ```bash
 ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote
 ```
 
-## Copying files over SSH
+## SSHでファイルをコピーする
 
-There are many ways to copy files over ssh:
+SSHを通してファイルをコピーする方法はたくさんあります。
 
-- `ssh+tee`, the simplest is to use `ssh` command execution and STDIN input by doing `cat localfile | ssh remote_server tee serverfile`. Recall that [`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) writes the output from STDIN into a file.
-- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) when copying large amounts of files/directories, the secure copy `scp` command is more convenient since it can easily recurse over paths. The syntax is `scp path/to/local_file remote_host:path/to/remote_file`
-- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+- `ssh+tee` 一番簡単な方法は、 `cat localfile | ssh remote_server tee serverfile` で、 `ssh` コマンドの実行とSTDIN入力を使用することです。[`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) はSTDINの出力をファイルに書き込むことを思い出しましょう。
+- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) 大量のファイルやディレクトリをコピーする場合、簡単にパスを再帰処理するので、セキュアコピー（secure copy） `scp` コマンドがより便利です。 シンタックスは `scp path/to/local_file remote_host:path/to/remote_file` です。
+- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) は `scp` を改善したもので、ローカルとリモートで同一のファイルを検出し、それらを再度コピーすることを防ぎます。また、symlink、パーミッションに関してさらに詳細な管理をでき、前回中断されたコピーを再開する `--partial` フラッグのような追加機能もあります。 `rsync` は `scp` に似たシンタックスです。
 
-## Port Forwarding
+## ポートフォワーディング
 
-In many scenarios you will run into software that listens to specific ports in the machine. When this happens in your local machine you can type `localhost:PORT` or `127.0.0.1:PORT`, but what do you do with a remote server that does not have its ports directly available through the network/internet?.
+マシン上で特定のポートだけlistenするソフトウェアに遭遇することがあるでしょう。
+この場合ローカルマシンで `localhost:PORT` または `127.0.0.1:PORT` とタイプしますが、
+ネットワーク・インターネットで直接使用できるポートがないリモートサーバではどうすれば良いでしょうか？
 
-This is called _port forwarding_ and it
-comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the pictures for more details, credit of the pictures from [this StackOverflow post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
+これは _ポートフォワーディング_ と呼ばれ、2種類があります。
+ローカルポートフォワーディングとリモートポートフォワーディングです
+（詳細は画像を参考のこと。画像のクレジットは
+[このStackOverflowのポスト](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot) 
+に帰属します）。
 
-**Local Port Forwarding**
-![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png  "Local Port Forwarding")
+**ローカルポートフォワーディング**
+![ローカルポートフォワーディング](https://i.stack.imgur.com/a28N8.png  "ローカルポートフォワーディング")
 
-**Remote Port Forwarding**
-![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png  "Remote Port Forwarding")
+**リモートポートフォワーディング**
+![リモートポートフォワーディング](https://i.stack.imgur.com/4iK3b.png  "リモートポートフォワーディング")
 
-The most common scenario is local port forwarding, where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example, if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus, to forward that to the local port `9999`, we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `locahost:9999` in our local machine.
+最も一般的なシナリオはローカルポートフォワーディングです。リモートマシンのサービスが特定のポートをlistenし、
+ローカルマシンのポートをリンクしてリモートポートにフォワードしたい場合です。
+例えば、ポート `8888` をlistenするリモートサーバで `jupyter notebook` を実行したとします。
+その場合、それをローカルポートの `9999` にフォワードするには、
+`ssh -L 9999:localhost:8888 foobar@remote_server` を実行し、
+ローカルマシンで `locahost:9999` に移動します。
 
 
-## SSH Configuration
+## SSH設定
 
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like
+パスできるたくさんの引数について紹介してきました。
+魅力的な代替案は、次のようなシェルエイリアスを作ることです。
 ```bash
 alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
 ```
 
-However, there is a better alternative using `~/.ssh/config`.
+ですが、`~/.ssh/config` を使ったより良い代替案があります。
 
 ```bash
 Host vm
@@ -397,104 +406,150 @@ Host vm
     IdentityFile ~/.ssh/id_ed25519
     LocalForward 9999 localhost:8888
 
-# Configs can also take wildcards
+# 設定はワイルドカードも使用可能
 Host *.mit.edu
     User foobaz
 ```
 
-An additional advantage of using the `~/.ssh/config` file over aliases  is that other programs like `scp`, `rsync`, `mosh`, &c are able to read it as well and convert the settings into the corresponding flags.
+エイリアスよりも`~/.ssh/config` を使う上での追加のメリットは、`scp` 、`rsync` 、`mosh` などもファイルを読み込めることと、設定を関連したフラグに変換できることです。
 
 
-Note that the `~/.ssh/config` file can be considered a dotfile, and in general it is fine for it to be included with the rest of your dotfiles. However, if you make it public, think about the information that you are potentially providing strangers on the internet: addresses of your servers, users, open ports, &c. This may facilitate some types of attacks so be thoughtful about sharing your SSH configuration.
+`~/.ssh/config` ファイルはドットファイルとして考慮され、一般的には他のドットファイルと一緒にしても構わないことに注意してください。
+ですが、パブリックにする場合は、インターネットで見知らぬ他人に潜在的に提供している情報に気をつけましょう。サーバのアドレス、ユーザー、オープンなポートなどです。
+これはある種の攻撃を引き起こすことがあるので、SSH設定をシェアするときは気をつけましょう。
 
-Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings on a per user basis.
+サーバサイドの設定は通常は `/etc/ssh/sshd_config` ここに記載されます。
+ここではパスワード認証の無効化や、SSHポートの変更、X11フォワーディングの有効化などの変更を行えます。
+ユーザーごとに設定を特定できます。
 
-## Miscellaneous
+## その他
 
-A common pain when connecting to a remote server are disconnections due to shutting down/sleeping your computer or changing a network. Moreover if one has a connection with significant lag using ssh can become quite frustrating. [Mosh](https://mosh.org/), the mobile shell, improves upon ssh, allowing roaming connections, intermittent connectivity and providing intelligent local echo.
+リモートサーバに接続時のよくある面倒事は、コンピューターのシャットダウンやスリープ、
+またはネットワーク変更による切断です。
+また、かなりのラグがある接続で SSH をするのもイライラの元になります。
+モバイルシェルの [Mosh](https://mosh.org/) は、SSHを改善し、ローミングによる接続、
+不安定な接続を許容し、インテリジェントなローカルエコーを提供します。
 
-Sometimes it is convenient to mount a remote folder. [sshfs](https://github.com/libfuse/sshfs) can mount a folder on a remote server
-locally, and then you can use a local editor.
-
-
-# Shells & Frameworks
-
-During shell tool and scripting we covered the `bash` shell because it is by far the most ubiquitous shell and most systems have it as the default option. Nevertheless, it is not the only option.
-
-For example, the `zsh` shell is a superset of `bash` and provides many convenient features out of the box such as:
-
-- Smarter globbing, `**`
-- Inline globbing/wildcard expansion
-- Spelling correction
-- Better tab completion/selection
-- Path expansion (`cd /u/lo/b` will expand as `/usr/local/bin`)
-
-**Frameworks** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller ones that focus on specific features such as [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) or [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shells like [fish](https://fishshell.com/) include many of these user-friendly features by default. Some of these features include:
-
-- Right prompt
-- Command syntax highlighting
-- History substring search
-- manpage based flag completions
-- Smarter autocompletion
-- Prompt themes
-
-One thing to note when using these frameworks is that they may slow down your shell, especially if the code they run is not properly optimized or it is too much code. You can always profile it and disable the features that you do not use often or value over speed.
-
-# Terminal Emulators
-
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
-
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
-
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/jwilm/alacritty) or [kitty](https://sw.kovidgoyal.net/kitty/) offer GPU acceleration).
-
-# Exercises
-
-## Job control
-
-1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
-
-1. Say you don't want to start a process until another completes, how you would go about it? In this exercise our limiting process will always be `sleep 60 &`.
-One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
-
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist.
-    Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
-
-## Terminal multiplexer
-
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
-
-## Aliases
-
-1. Create an alias `dc` that resolves to `cd` for when you type it wrongly.
-
-1.  Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10`  to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+リモートフォルダをマウントするのが便利な時もあります。
+[sshfs](https://github.com/libfuse/sshfs) はリモートサーバにあるフォルダをローカルにマウントでき、ローカルのエディタで使用できます。
 
 
-## Dotfiles
+# シェルとフレームワーク
 
-Let's get you up to speed with dotfiles.
-1. Create a folder for your dotfiles and set up version
-   control.
-1. Add a configuration for at least one program, e.g. your shell, with some
-   customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized
-   utility](https://dotfiles.github.io/utilities/).
-1. Test your installation script on a fresh virtual machine.
-1. Migrate all of your current tool configurations to your dotfiles repository.
-1. Publish your dotfiles on GitHub.
+シェルツールとスクリプティングの講義では、 `bash` シェルを紹介しました。
+これは今のところ最もユビキタスなシェルで、ほとんどのシステムがデフォルトのオプションとして備えているからです。
+しかし、これが唯一のオプションというわけではありません。
 
-## Remote Machines
+例えば `zsh` シェルは `bash` セルの上位セットで、
+以下のような、すぐに使えるたくさんの便利機能があります。
 
-Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+- よりスマートなglob、 `**`
+- インラインglob/ワイルドカード拡張
+- スペル訂正
+- より良いTab補完/選択
+- パス拡張（ `cd /u/lo/b` は `/usr/local/bin` に拡張されます)
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
-1. Edit `.ssh/config` to have an entry as follows
+**フレームワーク** でもシェルの改善が可能です。
+人気の一般的なフレームワークとして、
+[prezto](https://github.com/sorin-ionescu/prezto) 、
+[oh-my-zsh](https://ohmyz.sh/) など、
+特定の機能に焦点を当てたより小規模なものとして
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) や [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) などがあります。
+[fish](https://fishshell.com/) のようなシェルには、このようなユーザーフレンドリーな機能がたくさんのデフォルトで入っています。以下に例を挙げます。
+
+- 右側にプロンプト表示
+- コマンドシンタックスハイライト
+- サブストリング履歴検索
+- manpage ベースのフラッグ補完
+- よりスマートな自動補完
+- プロンプトのテーマ
+
+このようなフレームワークの使用時に注意するべきことは、
+特に最適化されていないコードや、最適化されすぎたコードを走らせる場合、
+シェルの速度が低下するかもしれないことです。
+頻繁に使わない機能や、スピードを犠牲にする機能の見直しと無効化はいつでもできます。
+
+# ターミナルエミュレータ
+
+シェルのカスタマイズと同時に、
+**ターミナルエミュレータ** の選択とその設定の見直しにも時間を割く価値があります。
+ターミナルエミュレータは非常にたくさんあります（[比較表](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)）。
+
+ターミナルには何十万時間も費やすことになるでしょうから、
+設定を見直すのは効果があるでしょう。
+ターミナルで変更したくなるポイントとしては以下があります。
+
+- フォントの選択
+- カラースキーム
+- キーボードショートカット
+- タブ/ペインのサポート
+- スクロールバッグ設定
+- パフォーマンス（[Alacritty](https://github.com/jwilm/alacritty) や [kitty](https://sw.kovidgoyal.net/kitty/) のような新しいターミナルでは、GPUアクセラレーションが使用可能です）。
+
+# 練習問題
+
+## ジョブコントロール
+
+1. 今回扱った中で、 `ps aux | grep` コマンドを使用してジョブの PID を取得し、停止できますが、より良い方法があります。
+ターミナルで `sleep 10000` を開始し、 `Ctrl-Z` でバックグラウンドに移動した後、
+`bg` で実行を続けましょう。
+そうして [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) を使ってPIDを探し、
+[`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) で PID 自体を入力せずに停止しましょう。
+（ヒント： `-af` フラッグを使いましょう）。
+
+1. 他のプロセスが完了するまで新しいプロセスを開始したくない場合、どうしますか？
+   この練習問題では、制限となるプロセスは `sleep 60 &` を使用します。
+   これを達成する方法の一つは、
+   [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html)
+   を使用することです。
+   sleep コマンドを実行し、バックグラウンドプロセスの終了するまで `ls` を待機させてみましょう。
+
+   ですが、他の bash セッションで開始した場合、この戦略は失敗します。
+   `wait` は子プロセスにのみ作用するからです。
+   この講義ノートで取り扱わなかった機能の1つに、
+   `kill` コマンドの終了ステータスは成功の場合0で、
+   失敗の場合はノンゼロであることがあります。
+   `kill -0` は、シグナルは送りませんが、
+   もしプロセスが存在しない場合はノンゼロの終了ステータスを返します。
+   PIDを引数に取り、そのプロセスが完了するまで待機する、 `pidwait` というbash関数を書きましょう。
+   CPUを無駄遣いしないために、 `sleep` を使いましょう。
+
+## ターミナルマルチプレクサ
+
+1. `tmux` [チュートリアル](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
+   に従い、
+   [このステップ](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/)
+   に従って基本のカスタマイズを行う方法を学びましょう。
+
+## エイリアス
+
+1. `cd` を間違えて `dc` と間違えて入力した時に解決してくれるエイリアスを作りましょう。
+
+1.  `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` を使い、最も頻繁に使うコマンド10個を確認し、短いエイリアスを書くことを考えてみましょう。注意：これはbashで機能します。もしZSHを使用している場合、 `history` 
+   の代わりに `history 1` を使いましょう。
+
+
+## ドットファイル
+
+ドットファイルでスピードアップしましょう。
+1. ドットファイルのフォルダを作り、バージョン管理しましょう。
+2. 例えばシェルなど、最低1つのプログラムに向けた、カスタマイズを加えた設定をしましょう
+   （手始めに、 `$PS1` を設定してシェルプロンプトをカスタマイズするようなシンプルなものが望ましい）。
+3. 新しいマシンで、ドットファイルを素早く（そしてマニュアル入力なしに）インストールするメソッドを設定しましょう。各ファイルの `ln -s` を呼び出すようなシェルスクリプトのようなシンプルなもの、または [特化ユーティリティ](https://dotfiles.github.io/utilities/) を使いましょう。
+4. インストールしたスクリプトをまっさらなバーチャルマシンで試しましょう。
+5. 現在のツール設定をドットファイルのレポジトリに全て統合しましょう。
+6. ドットファイルを GitHub で公開しましょう。
+
+## リモートマシン
+
+この練習用に、 Linux のバーチャルマシン（VM）をインストールしましょう（または既存のものを使いましょう）。
+もしバーチャルマシンに馴染みが無いならば、インストールは [これ](https://hibbard.eu/install-ubuntu-virtual-box/) を参考にしましょう。
+
+1. `~/.ssh/` に行き、SSH鍵のペアがそこにあるか確認しましょう。
+   もしなかった場合、 `ssh-keygen -o -a 100 -t ed25519` で生成しましょう。
+   パスワードと `ssh-agent` の使用を推奨します。
+   詳細は [こちら](https://www.ssh.com/ssh/agent) 。
+2. `.ssh/config` を編集して、次の内容を記載しましょう。
 
 ```bash
 Host vm
@@ -503,8 +558,15 @@ Host vm
     IdentityFile ~/.ssh/id_ed25519
     LocalForward 9999 localhost:8888
 ```
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
-1. Edit your SSH server config by doing  `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out what a command to achieve background port forwarding.
+1. `ssh-copy-id vm` を使用して、 ssh 鍵をサーバにコピーしましょう。
+1. Start a webserver in your VM by executing `python -m http.server 8888` を実行して、VMで Web サーバを開始しましょう。
+   自分のマシンで `http://localhost:9999` に移動し、VMのウェブサーバにアクセスしましょう。
+2. `sudo vim /etc/ssh/sshd_config` を実行してSSHサーバ設定を編集し、
+   `PasswordAuthentication` の値を編集してパスワード認証を無効にしましょう。
+   `PermitRootLogin` の値を編集して、rootのログインを無効にしましょう。
+   `sudo service sshd restart` で `ssh` サービスを再起動しましょう。
+   ssh でのログインを再度やってみましょう。
+3. （チャレンジ） VMに [`mosh`](https://mosh.org/) をインストールして接続を確立しましょう。その後サーバ/VMのネットワークアダプタから切断しましょう。
+   mosh はその状態から適切に回復できますか？
+4. （チャレンジ） `ssh` の `-N` と `-f` フラッグを調べ、
+   バックグラウンドのポートフォワーディングを実行するコマンドは何か考えてみましょう。
