@@ -359,6 +359,7 @@ popular ones are
 for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for
 Firefox. You can even get Vim bindings in [Jupyter
 notebooks](https://github.com/lambdalisue/jupyter-vim-binding).
+Here is a [long list](https://reversed.top/2016-08-13/big-list-of-vim-like-software) of software with vim-like keybindings.
 
 # Advanced Vim
 
