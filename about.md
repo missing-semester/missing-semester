@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Why teaching this class"
 ---
 
 During a traditional Computer Science education, chances are you will take
@@ -38,7 +38,7 @@ lectures to the public.
 If this sounds like it might be for you, here are some concrete
 examples of what the class will teach:
 
-## Command shell
+## Command Shell
 
 How to automate common and repetitive tasks with aliases, scripts,
 and build systems. No more copy-pasting commands from a text
@@ -52,7 +52,7 @@ For example, searching through your history quickly can be a huge time saver. In
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Version Control
 
 How to use version control _properly_, and take advantage of it to
 save you from disaster, collaborate with others, and quickly find and
@@ -68,7 +68,7 @@ In the example below we use `git bisect` to find which commit broke a unit test 
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Text Editing
 
 How to efficiently edit files from the command-line, both locally and
 remotely, and take advantage of advanced editor features. No more
@@ -79,7 +79,7 @@ Vim macros are one of its best features, in the example below we quickly convert
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Remote Machines
 
 How to stay sane when working with remote machines using SSH keys and
 terminal multiplexing. No more keeping many terminals open just to
@@ -93,7 +93,7 @@ In the example below we use `tmux` to keep sessions alive in remote servers and 
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Finding Files
 
 How to quickly find files that you are looking for. No
 more clicking through files in your project until you find the one
@@ -105,14 +105,14 @@ In the example below we quickly look for files with `fd` and for code snippets w
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Data Wrangling
 
 How to quickly and easily modify, view, parse, plot, and compute over
 data and files directly from the command-line. No more copy pasting
 from log files. No more manually computing statistics over data. No
 more spreadsheet plotting.
 
-## Virtual machines
+## Virtual Machines
 
 How to use virtual machines to try out new operating systems, isolate
 unrelated projects, and keep your main machine clean and tidy. No
@@ -138,4 +138,4 @@ year. It is the precursor to this class, and covers many of the same topics.
 We hope to see you in January, whether virtually or in person!
 
 Happy hacking,<br>
-Anish, Jose, and Jon
+Anish, Jose and Jon
