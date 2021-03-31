@@ -258,7 +258,7 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
  | sort | uniq -c
  | sort -nk1,1 | tail -n10
- | awk '{print $2}' | paste -sd,
+ | awk '{print $2}' | paste -sd, -
 ```
 
 Let's start with `paste`: it lets you combine lines (`-s`) by a given
@@ -317,13 +317,13 @@ from STDIN! For example, add the numbers on each line together by concatenating
 them together, delimited by `+`:
 
 ```bash
- | paste -sd+ | bc -l
+ | paste -sd+ - | bc -l
 ```
 
 Or produce more elaborate expressions:
 
 ```bash
-echo "2*($(data | paste -sd+))" | bc -l
+echo "2*($(data | paste -sd+ -))" | bc -l
 ```
 
 You can get stats in a variety of ways.
