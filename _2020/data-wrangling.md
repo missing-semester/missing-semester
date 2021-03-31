@@ -258,7 +258,7 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
  | sort | uniq -c
  | sort -nk1,1 | tail -n10
- | awk '{print $2}' | paste -sd,
+ | awk '{print $2}' | paste -sd, -
 ```
 
 Let's start with `paste`: it lets you combine lines (`-s`) by a given
