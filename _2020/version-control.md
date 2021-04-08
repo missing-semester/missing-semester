@@ -524,6 +524,9 @@ model, for the curious.
 words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
 - [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
 game that teaches you Git.
+- [Video: Advanced Git: Graphs, Hashes, and Compression, Oh My!](https://www.youtube.com/watch?v=ig5E8CcdM9g) teaches git concepts that in depth.
+
+
 
 # Exercises
 
