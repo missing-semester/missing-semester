@@ -309,7 +309,7 @@ $ git commit -m 'Initial commit'
 ```
 
 With this, we've `git add`ed a file to the staging area, and then `git
-commit`ed that change, adding a simple commit message "Initial commit". If we
+commit`ted that change, adding a simple commit message "Initial commit". If we
 didn't specify a `-m` option, Git would open our text editor to allow us type a
 commit message.
 
