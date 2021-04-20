@@ -52,7 +52,7 @@ terms of how they manipulate the underlying data model.
 # Git's data model
 
 There are many ad-hoc approaches you could take to version control. Git has a
-well thought-out model that enables all the nice features of version control,
+well-thought-out model that enables all the nice features of version control,
 like maintaining history, supporting branches, and enabling collaboration.
 
 ## Snapshots
@@ -88,7 +88,7 @@ sound like a fancy math word, but don't be intimidated. All this means is that
 each snapshot in Git refers to a set of "parents", the snapshots that preceded
 it. It's a set of parents rather than a single parent (as would be the case in
 a linear history) because a snapshot might descend from multiple parents, for
-example due to combining (merging) two parallel branches of development.
+example, due to combining (merging) two parallel branches of development.
 
 Git calls these snapshots "commit"s. Visualizing a commit history might look
 something like this:
