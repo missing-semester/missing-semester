@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="og:url" content="http://localhost:4000/2020/course-shell/">
+  <meta property="og:site_name" content="the missing semester of your cs education">
+
+  
+
+  
+  <meta name="twitter:title" content="Course overview + the shell">
+  <meta property="og:title" content="Course overview + the shell">
+
+  
+
+  <title>
+    
+      Course overview + the shell &middot; the missing semester of your cs education
+    
+  </title>
+
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/syntax.css">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53167467-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-53167467-11');
+  </script>
+
+</head>
+
+
+  <body>
+
+    <div id="nav-bg">
+  <nav id="top-nav">
+    <a href="/" id="logo">./missing-semester</a>
+    <input type="checkbox" id="menu-icon">
+    <label class="menu-label" for="menu-icon"></label>
+    <div class="trigger">
+      <div class="trigger-child">
+        <span class="nav-link"><a href="/2020/">lectures</a></span>
+        <span class="nav-link"><a href="/about/">about</a></span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+    <div id="content">
+    <h1 class="title">Course overview + the shell</h1>
+
+
+  <div class="youtube-wrapper" style="padding-bottom: 56.25%;">
+    <iframe src="https://www.youtube.com/embed/Z56Jmr9Z34Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+
+<h1 id="motivation">Motivation</h1>
+
+<p>As computer scientists, we know that computers are great at aiding in
+repetitive tasks. However, far too often, we forget that this applies
+just as much to our <em>use</em> of the computer as it does to the computations
+we want our programs to perform. We have a vast range of tools
+available at our fingertips that enable us to be more productive and
+solve more complex problems when working on any computer-related
+problem. Yet many of us utilize only a small fraction of those tools; we
+only know enough magical incantations by rote to get by, and blindly
+copy-paste commands from the internet when we get stuck.</p>
+
+<p>This class is an attempt to address this.</p>
+
+<p>We want to teach you how to make the most of the tools you know, show
+you new tools to add to your toolbox, and hopefully instill in you some
+excitement for exploring (and perhaps building) more tools on your own.
+This is what we believe to be the missing semester from most Computer
+Science curricula.</p>
+
+<h1 id="class-structure">Class structure</h1>
+
+<p>The class consists of 11 1-hour lectures, each one centering on a
+<a href="/2020/">particular topic</a>. The lectures are largely independent,
+though as the semester goes on we will presume that you are familiar
+with the content from the earlier lectures. We have lecture notes
+online, but there will be a lot of content covered in class (e.g. in the
+form of demos) that may not be in the notes. We will be recording
+lectures and posting the recordings online.</p>
+
+<p>We are trying to cover a lot of ground over the course of just 11 1-hour
+lectures, so the lectures are fairly dense. To allow you some time to
+get familiar with the content at your own pace, each lecture includes a
+set of exercises that guide you through the lecture’s key points. After
+each lecture, we are hosting office hours where we will be present to
+help answer any questions you might have. If you are attending the class
+online, you can send us questions at
+<a href="mailto:missing-semester@mit.edu">missing-semester@mit.edu</a>.</p>
+
+<p>Due to the limited time we have, we won’t be able to cover all the tools
+in the same level of detail a full-scale class might. Where possible, we
+will try to point you towards resources for digging further into a tool
+or topic, but if something particularly strikes your fancy, don’t
+hesitate to reach out to us and ask for pointers!</p>
+
+<h1 id="topic-1-the-shell">Topic 1: The Shell</h1>
+
+<h2 id="what-is-the-shell">What is the shell?</h2>
+
+<p>Computers these days have a variety of interfaces for giving them
+commands; fancyful graphical user interfaces, voice interfaces, and
+even AR/VR are everywhere. These are great for 80% of use-cases, but
+they are often fundamentally restricted in what they allow you to do —
+you cannot press a button that isn’t there or give a voice command that
+hasn’t been programmed. To take full advantage of the tools your
+computer provides, we have to go old-school and drop down to a textual
+interface: The Shell.</p>
+
+<p>Nearly all platforms you can get your hand on has a shell in one form or
+another, and many of them have several shells for you to choose from.
+While they may vary in the details, at their core they are all roughly
+the same: they allow you to run programs, give them input, and inspect
+their output in a semi-structured way.</p>
+
+<p>In this lecture, we will focus on the Bourne Again SHell, or “bash” for
+short. This is one of the most widely used shells, and its syntax is
+similar to what you will see in many other shells. To open a shell
+<em>prompt</em> (where you can type commands), you first need a <em>terminal</em>.
+Your device probably shipped with one installed, or you can install one
+fairly easily.</p>
+
+<h2 id="using-the-shell">Using the shell</h2>
+
+<p>When you launch your terminal, you will see a <em>prompt</em> that often looks
+a little like this:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>This is the main textual interface to the shell. It tells you that you
+are on the machine <code class="language-plaintext highlighter-rouge">missing</code> and that your “current working directory”,
+or where you currently are, is <code class="language-plaintext highlighter-rouge">~</code> (short for “home”). The <code class="language-plaintext highlighter-rouge">$</code> tells you
+that you are not the root user (more on that later). At this prompt you
+can type a <em>command</em>, which will then be interpreted by the shell. The
+most basic command is to execute a program:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">date</span>
+<span class="go">Fri 10 Jan 2020 11:49:31 AM EST
+</span><span class="gp">missing:~$</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>Here, we executed the <code class="language-plaintext highlighter-rouge">date</code> program, which (perhaps unsurprisingly)
+prints the current date and time. The shell then asks us for another
+command to execute. We can also execute a command with <em>arguments</em>:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">echo </span>hello
+<span class="go">hello
+</span></code></pre></div></div>
+
+<p>In this case, we told the shell to execute the program <code class="language-plaintext highlighter-rouge">echo</code> with the
+argument <code class="language-plaintext highlighter-rouge">hello</code>. The <code class="language-plaintext highlighter-rouge">echo</code> program simply prints out its arguments.
+The shell parses the command by splitting it by whitespace, and then
+runs the program indicated by the first word, supplying each subsequent
+word as an argument that the program can access. If you want to provide
+an argument that contains spaces or other special characters (e.g., a
+directory named “My Photos”), you can either quote the argument with <code class="language-plaintext highlighter-rouge">'</code>
+or <code class="language-plaintext highlighter-rouge">"</code> (<code class="language-plaintext highlighter-rouge">"My Photos"</code>), or escape just the relevant characters with <code class="language-plaintext highlighter-rouge">\</code>
+(<code class="language-plaintext highlighter-rouge">My\ Photos</code>).</p>
+
+<p>But how does the shell know how to find the <code class="language-plaintext highlighter-rouge">date</code> or <code class="language-plaintext highlighter-rouge">echo</code> programs?
+Well, the shell is a programming environment, just like Python or Ruby,
+and so it has variables, conditionals, loops, and functions (next
+lecture!). When you run commands in your shell, you are really writing a
+small bit of code that your shell interprets. If the shell is asked to
+execute a command that doesn’t match one of its programming keywords, it
+consults an <em>environment variable</em> called <code class="language-plaintext highlighter-rouge">$PATH</code> that lists which
+directories the shell should search for programs when it is given a
+command:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+<span class="go">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</span><span class="gp">missing:~$</span><span class="w"> </span>which <span class="nb">echo</span>
+<span class="go">/bin/echo
+</span><span class="gp">missing:~$</span><span class="w"> </span>/bin/echo <span class="nv">$PATH</span>
+<span class="go">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</span></code></pre></div></div>
+
+<p>When we run the <code class="language-plaintext highlighter-rouge">echo</code> command, the shell sees that it should execute
+the program <code class="language-plaintext highlighter-rouge">echo</code>, and then searches through the <code class="language-plaintext highlighter-rouge">:</code>-separated list of
+directories in <code class="language-plaintext highlighter-rouge">$PATH</code> for a file by that name. When it finds it, it
+runs it (assuming the file is <em>executable</em>; more on that later). We can
+find out which file is executed for a given program name using the
+<code class="language-plaintext highlighter-rouge">which</code> program. We can also bypass <code class="language-plaintext highlighter-rouge">$PATH</code> entirely by giving the
+<em>path</em> to the file we want to execute.</p>
+
+<h2 id="navigating-in-the-shell">Navigating in the shell</h2>
+
+<p>A path on the shell is a delimited list of directories; separated by <code class="language-plaintext highlighter-rouge">/</code>
+on Linux and macOS and <code class="language-plaintext highlighter-rouge">\</code> on Windows. On Linux and macOS, the path <code class="language-plaintext highlighter-rouge">/</code>
+is the “root” of the file system, under which all directories and files
+lie, whereas on Windows there is one root for each disk partition (e.g.,
+<code class="language-plaintext highlighter-rouge">C:\</code>). We will generally assume that you are using a Linux filesystem
+in this class. A path that starts with <code class="language-plaintext highlighter-rouge">/</code> is called an <em>absolute</em> path.
+Any other path is a <em>relative</em> path. Relative paths are relative to the
+current working directory, which we can see with the <code class="language-plaintext highlighter-rouge">pwd</code> command and
+change with the <code class="language-plaintext highlighter-rouge">cd</code> command. In a path, <code class="language-plaintext highlighter-rouge">.</code> refers to the current
+directory, and <code class="language-plaintext highlighter-rouge">..</code> to its parent directory:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/missing
+</span><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cd</span> /home
+<span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home
+</span><span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">cd</span> ..
+<span class="gp">missing:/$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/
+</span><span class="gp">missing:/$</span><span class="w"> </span><span class="nb">cd</span> ./home
+<span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home
+</span><span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">cd </span>missing
+<span class="gp">missing:~$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/missing
+</span><span class="gp">missing:~$</span><span class="w"> </span>../../bin/echo hello
+<span class="go">hello
+</span></code></pre></div></div>
+
+<p>Notice that our shell prompt kept us informed about what our current
+working directory was. You can configure your prompt to show you all
+sorts of useful information, which we will cover in a later lecture.</p>
+
+<p>In general, when we run a program, it will operate in the current
+directory unless we tell it otherwise. For example, it will usually
+search for files there, and create new files there if it needs to.</p>
+
+<p>To see what lives in a given directory, we use the <code class="language-plaintext highlighter-rouge">ls</code> command:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cd</span> ..
+<span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">missing
+</span><span class="gp">missing:/home$</span><span class="w"> </span><span class="nb">cd</span> ..
+<span class="gp">missing:/$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">bin
+boot
+dev
+etc
+home
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<p>Unless a directory is given as its first argument, <code class="language-plaintext highlighter-rouge">ls</code> will print the
+contents of the current directory. Most commands accept flags and
+options (flags with values) that start with <code class="language-plaintext highlighter-rouge">-</code> to modify their
+behavior. Usually, running a program with the <code class="language-plaintext highlighter-rouge">-h</code> or <code class="language-plaintext highlighter-rouge">--help</code> flag
+will print some help text that tells you what flags
+and options are available. For example, <code class="language-plaintext highlighter-rouge">ls --help</code> tells us:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  -l                         use a long listing format
+</code></pre></div></div>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-l</span> /home
+<span class="go">drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
+</span></code></pre></div></div>
+
+<p>This gives us a bunch more information about each file or directory
+present. First, the <code class="language-plaintext highlighter-rouge">d</code> at the beginning of the line tells us that
+<code class="language-plaintext highlighter-rouge">missing</code> is a directory. Then follow three groups of three characters
+(<code class="language-plaintext highlighter-rouge">rwx</code>). These indicate what permissions the owner of the file
+(<code class="language-plaintext highlighter-rouge">missing</code>), the owning group (<code class="language-plaintext highlighter-rouge">users</code>), and everyone else respectively
+have on the relevant item. A <code class="language-plaintext highlighter-rouge">-</code> indicates that the given principal does
+not have the given permission. Above, only the owner is allowed to
+modify (<code class="language-plaintext highlighter-rouge">w</code>) the <code class="language-plaintext highlighter-rouge">missing</code> directory (i.e., add/remove files in it). To
+enter a directory, a user must have “search” (represented by “execute”:
+<code class="language-plaintext highlighter-rouge">x</code>) permissions on that directory (and its parents). To list its
+contents, a user must have read (<code class="language-plaintext highlighter-rouge">r</code>) permissions on that directory. For
+files, the permissions are as you would expect. Notice that nearly all
+the files in <code class="language-plaintext highlighter-rouge">/bin</code> have the <code class="language-plaintext highlighter-rouge">x</code> permission set for the last group,
+“everyone else”, so that anyone can execute those programs.</p>
+
+<p>Some other handy programs to know about at this point are <code class="language-plaintext highlighter-rouge">mv</code> (to
+rename/move a file), <code class="language-plaintext highlighter-rouge">cp</code> (to copy a file), and <code class="language-plaintext highlighter-rouge">mkdir</code> (to make a new
+directory).</p>
+
+<p>If you ever want <em>more</em> information about a program’s arguments, inputs,
+outputs, or how it works in general, give the <code class="language-plaintext highlighter-rouge">man</code> program a try. It
+takes as an argument the name of a program, and shows you its <em>manual
+page</em>. Press <code class="language-plaintext highlighter-rouge">q</code> to exit.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre
+class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">man</span> ls
+</code></pre></div></div>
+
+<h2 id="connecting-programs">Connecting programs</h2>
+
+<p>In the shell, programs have two primary “streams” associated with them:
+their input stream and their output stream. When the program tries to
+read input, it reads from the input stream, and when it prints
+something, it prints to its output stream. Normally, a program’s input
+and output are both your terminal. That is, your keyboard as input and
+your screen as output. However, we can also rewire those streams!</p>
+
+<p>The simplest form of redirection is <code class="language-plaintext highlighter-rouge">&lt; file</code> and <code class="language-plaintext highlighter-rouge">&gt; file</code>. These let you
+rewire the input and output streams of a program to a file respectively:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">echo </span>hello <span class="o">&gt;</span> hello.txt
+<span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cat </span>hello.txt
+<span class="go">hello
+</span><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cat</span> &lt; hello.txt
+<span class="go">hello
+</span><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cat</span> &lt; hello.txt <span class="o">&gt;</span> hello2.txt
+<span class="gp">missing:~$</span><span class="w"> </span><span class="nb">cat </span>hello2.txt
+<span class="go">hello
+</span></code></pre></div></div>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> to append to a file. Where this kind of
+input/output redirection really shines is in the use of <em>pipes</em>. The <code class="language-plaintext highlighter-rouge">|</code>
+operator lets you “chain” programs such that the output of one is the
+input of another:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">missing:~$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-l</span> / | <span class="nb">tail</span> <span class="nt">-n1</span>
+<span class="go">drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
+</span><span class="gp">missing:~$</span><span class="w"> </span>curl <span class="nt">--head</span> <span class="nt">--silent</span> google.com | <span class="nb">grep</span> <span class="nt">--ignore-case</span> content-length | <span class="nb">cut</span> <span class="nt">--delimiter</span><span class="o">=</span><span class="s1">' '</span> <span class="nt">-f2</span>
+<span class="go">219
+</span></code></pre></div></div>
+
+<p>We will go into a lot more detail about how to take advantage of pipes
+in the lecture on data wrangling.</p>
+
+<h2 id="a-versatile-and-powerful-tool">A versatile and powerful tool</h2>
+
+<p>On most Unix-like systems, one user is special: the “root” user. You may
+have seen it in the file listings above. The root user is above (almost)
+all access restrictions, and can create, read, update, and delete any
+file in the system. You will not usually log into your system as the
+root user though, since it’s too easy to accidentally break something.
+Instead, you will be using the <code class="language-plaintext highlighter-rouge">sudo</code> command. As its name implies, it
+lets you “do” something “as su” (short for “super user”, or “root”).
+When you get permission denied errors, it is usually because you need to
+do something as root. Though make sure you first double-check that you
+really wanted to do it that way!</p>
+
+<p>One thing you need to be root in order to do is writing to the <code class="language-plaintext highlighter-rouge">sysfs</code> file
+system mounted under <code class="language-plaintext highlighter-rouge">/sys</code>. <code class="language-plaintext highlighter-rouge">sysfs</code> exposes a number of kernel parameters as
+files, so that you can easily reconfigure the kernel on the fly without
+specialized tools. <strong>Note that sysfs does not exist on Windows or macOS.</strong></p>
+
+<p>For example, the brightness of your laptop’s screen is exposed through a file
+called <code class="language-plaintext highlighter-rouge">brightness</code> under</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sys/class/backlight
+</code></pre></div></div>
+
+<p>By writing a value into that file, we can change the screen brightness.
+Your first instinct might be to do something like:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>find <span class="nt">-L</span> /sys/class/backlight <span class="nt">-maxdepth</span> 2 <span class="nt">-name</span> <span class="s1">'*brightness*'</span>
+<span class="go">/sys/class/backlight/thinkpad_screen/brightness
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /sys/class/backlight/thinkpad_screen
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo echo </span>3 <span class="o">&gt;</span> brightness
+<span class="go">An error occurred while redirecting file 'brightness'
+open: Permission denied
+</span></code></pre></div></div>
+
+<p>This error may come as a surprise. After all, we ran the command with
+<code class="language-plaintext highlighter-rouge">sudo</code>! This is an important thing to know about the shell. Operations
+like <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, and <code class="language-plaintext highlighter-rouge">&lt;</code> are done <em>by the shell</em>, not by the individual
+program. <code class="language-plaintext highlighter-rouge">echo</code> and friends do not “know” about <code class="language-plaintext highlighter-rouge">|</code>. They just read from
+their input and write to their output, whatever it may be. In the case
+above, the <em>shell</em> (which is authenticated just as your user) tries to
+open the brightness file for writing, before setting that as <code class="language-plaintext highlighter-rouge">sudo
+echo</code>’s output, but is prevented from doing so since the shell does not
+run as root. Using this knowledge, we can work around this:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>3 | <span class="nb">sudo tee </span>brightness
+</code></pre></div></div>
+
+<p>Since the <code class="language-plaintext highlighter-rouge">tee</code> program is the one to open the <code class="language-plaintext highlighter-rouge">/sys</code> file for writing,
+and <em>it</em> is running as <code class="language-plaintext highlighter-rouge">root</code>, the permissions all work out. You can
+control all sorts of fun and useful things through <code class="language-plaintext highlighter-rouge">/sys</code>, such as the
+state of various system LEDs (your path might be different):</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>1 | <span class="nb">sudo tee</span> /sys/class/leds/input6::scrolllock/brightness
+</code></pre></div></div>
+
+<h1 id="next-steps">Next steps</h1>
+
+<p>At this point you know your way around a shell enough to accomplish
+basic tasks. You should be able to navigate around to find files of
+interest and use the basic functionality of most programs. In the next
+lecture, we will talk about how to perform and automate more complex
+tasks using the shell and the many handy command-line programs out
+there.</p>
+
+<h1 id="exercises">Exercises</h1>
+
+<p>All classes in this course are accompanied by a series of exercises. Some give
+you a specific task to do, while others are open-ended, like “try using X and Y
+programs”. We highly encourage you to try them out.</p>
+
+<p>We have not written solutions for the exercises. If you are stuck on anything
+in particular, feel free to send us an email describing what you’ve tried so
+far, and we will try to help you out.</p>
+
+<ol>
+  <li>For this course, you need to be using a Unix shell like Bash or ZSH. If you
+are on Linux or macOS, you don’t have to do anything special. If you are on
+Windows, you need to make sure you are not running cmd.exe or PowerShell;
+you can use <a href="https://docs.microsoft.com/en-us/windows/wsl/">Windows Subsystem for
+Linux</a> or a Linux virtual
+machine to use Unix-style command-line tools. To make sure you’re running
+an appropriate shell, you can try the command <code class="language-plaintext highlighter-rouge">echo $SHELL</code>. If it says
+something like <code class="language-plaintext highlighter-rouge">/bin/bash</code> or <code class="language-plaintext highlighter-rouge">/usr/bin/zsh</code>, that means you’re running the
+right program.</li>
+  <li>Create a new directory called <code class="language-plaintext highlighter-rouge">missing</code> under <code class="language-plaintext highlighter-rouge">/tmp</code>.</li>
+  <li>Look up the <code class="language-plaintext highlighter-rouge">touch</code> program. The <code class="language-plaintext highlighter-rouge">man</code> program is your friend.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">touch</code> to create a new file called <code class="language-plaintext highlighter-rouge">semester</code> in <code class="language-plaintext highlighter-rouge">missing</code>.</li>
+  <li>Write the following into that file, one line at a time:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
+curl --head --silent https://missing.csail.mit.edu
+</code></pre></div>    </div>
+    <p>The first line might be tricky to get working. It’s helpful to know that
+<code class="language-plaintext highlighter-rouge">#</code> starts a comment in Bash, and <code class="language-plaintext highlighter-rouge">!</code> has a special meaning even within
+double-quoted (<code class="language-plaintext highlighter-rouge">"</code>) strings. Bash treats single-quoted strings (<code class="language-plaintext highlighter-rouge">'</code>)
+differently: they will do the trick in this case. See the Bash
+<a href="https://www.gnu.org/software/bash/manual/html_node/Quoting.html">quoting</a>
+manual page for more information.</p>
+  </li>
+  <li>Try to execute the file, i.e. type the path to the script (<code class="language-plaintext highlighter-rouge">./semester</code>)
+into your shell and press enter. Understand why it doesn’t work by
+consulting the output of <code class="language-plaintext highlighter-rouge">ls</code> (hint: look at the permission bits of the
+file).</li>
+  <li>Run the command by explicitly starting the <code class="language-plaintext highlighter-rouge">sh</code> interpreter, and giving it
+the file <code class="language-plaintext highlighter-rouge">semester</code> as the first argument, i.e. <code class="language-plaintext highlighter-rouge">sh semester</code>. Why does
+this work, while <code class="language-plaintext highlighter-rouge">./semester</code> didn’t?</li>
+  <li>Look up the <code class="language-plaintext highlighter-rouge">chmod</code> program (e.g. use <code class="language-plaintext highlighter-rouge">man chmod</code>).</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">chmod</code> to make it possible to run the command <code class="language-plaintext highlighter-rouge">./semester</code> rather than
+having to type <code class="language-plaintext highlighter-rouge">sh semester</code>. How does your shell know that the file is
+supposed to be interpreted using <code class="language-plaintext highlighter-rouge">sh</code>? See this page on the
+<a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> line for more
+information.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">|</code> and <code class="language-plaintext highlighter-rouge">&gt;</code> to write the “last modified” date output by
+<code class="language-plaintext highlighter-rouge">semester</code> into a file called <code class="language-plaintext highlighter-rouge">last-modified.txt</code> in your home
+directory.</li>
+  <li>Write a command that reads out your laptop battery’s power level or your
+desktop machine’s CPU temperature from <code class="language-plaintext highlighter-rouge">/sys</code>. Note: if you’re a macOS
+user, your OS doesn’t have sysfs, so you can skip this exercise.</li>
+</ol>
+
+
+<hr>
+
+<div class="small center">
+<p><a href="https://github.com/missing-semester/missing-semester/blob/master/_2020/course-shell.md">Edit this page</a>.</p>
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a>.</p>
+</div>
+
+    </div>
+
+  </body>
+
+</html>
