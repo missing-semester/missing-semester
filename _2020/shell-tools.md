@@ -48,7 +48,7 @@ mcd () {
 ```
 
 Here `$1` is the first argument to the script/function.
-Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
+Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://tldp.org/LDP/abs/html/special-chars.html).
 - `$0` - Name of the script
 - `$1` to `$9` - Arguments to the script. `$1` is the first argument and so on.
 - `$@` - All the arguments
