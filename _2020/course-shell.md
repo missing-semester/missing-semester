@@ -58,7 +58,7 @@ hesitate to reach out to us and ask for pointers!
 ## What is the shell?
 
 Computers these days have a variety of interfaces for giving them
-commands; fancyful graphical user interfaces, voice interfaces, and
+commands; fanciful graphical user interfaces, voice interfaces, and
 even AR/VR are everywhere. These are great for 80% of use-cases, but
 they are often fundamentally restricted in what they allow you to do —
 you cannot press a button that isn't there or give a voice command that
