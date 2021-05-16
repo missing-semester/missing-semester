@@ -93,8 +93,8 @@ then, "nothing to commit".
        it *only* means that no changes will be included in a commit
      - to remove only some staged changes:
        `git reset FILE` or `git reset -p`
-   - check staged changes with `git diff --staged`
-   - see remaining changes with `git diff`
+   - check staged changes with `git diff --staged` or `git diff HEAD`
+   - see remaining (unstaged) changes with `git diff`
    - when you're happy with the stage, make a commit with `git commit`
      - if you just want to commit *all* changes: `git commit -a`
      - `git help add` has a bunch more helpful info
@@ -130,7 +130,7 @@ okay, we have a commit, now what?
 
 ## What's in a name?
 
-clearly, names are important in git. and they're the key to
+Clearly, names are important in git. and they're the key to
 understanding *a lot* of what goes on in git. so far, we've talked about
 commit hashes, master, and `HEAD`. but there's more!
 
@@ -138,11 +138,13 @@ commit hashes, master, and `HEAD`. but there's more!
    - creates a new name, `b`, which points to the commit at `HEAD`
    - you're still "on" master though, so if you make a new commit,
      master will point to that new commit, `b` will not.
-   - switch to a branch with `git checkout b`
+   - switch to a branch with `git switch b`
      - any commits you make will now update the `b` name
-     - switch back to master with `git checkout master`
+     - switch back to master with `git switch master`
        - all your changes in `b` are hidden away
      - a very handy way to be able to easily test out changes
+   - to create a branch and switch to it by a single command,
+       use `git switch -c b`
  - tags are other names that never change, and that have their own
    message. often used to mark releases + changelogs.
  - `NAME^` means "the commit before `NAME`
