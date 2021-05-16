@@ -34,5 +34,6 @@ jobs:
             http://dtrace.org/blogs/about/
             https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
             https://www.vmware.com/
+            https://fossbytes.com/enable-full-disk-encryption-windows-10/
           url_ignore_re: |
             ^http://www.brendangregg.com/
