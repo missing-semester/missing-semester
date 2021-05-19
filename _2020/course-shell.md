@@ -272,6 +272,11 @@ missing:~$ cat hello2.txt
 hello
 ```
 
+Remember in the above example that `cat` is a program that prints its
+file arguments to its output stream. When `cat` is not given any
+arguments, it prints contents from its input stream onto its output
+stream (like in the third example above).
+
 You can also use `>>` to append to a file. Where this kind of
 input/output redirection really shines is in the use of _pipes_. The `|`
 operator lets you "chain" programs such that the output of one is the
