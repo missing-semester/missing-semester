@@ -251,7 +251,7 @@ However, wall clock time can be misleading since your computer might be running 
 For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
 
 ```bash
-$ time curl https://missing.csail.mit.edu &> /dev/null`
+$ time curl https://missing.csail.mit.edu &> /dev/null
 real    0m2.561s
 user    0m0.015s
 sys     0m0.012s
