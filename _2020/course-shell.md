@@ -272,10 +272,11 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Remember in the above example that `cat` is a program that prints its
-file arguments to its output stream. When `cat` is not given any
-arguments, it prints contents from its input stream onto its output
-stream (like in the third example above).
+Demonstrated in the example above, `cat` is a program that con`cat`enates
+files. When given file names as arguments, it prints the contents of each of
+the files in sequence to its output stream. But when `cat` is not given any
+arguments, it prints contents from its input stream to its output stream (like
+in the third example above).
 
 You can also use `>>` to append to a file. Where this kind of
 input/output redirection really shines is in the use of _pipes_. The `|`
