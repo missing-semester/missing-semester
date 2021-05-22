@@ -59,7 +59,7 @@ save you from disaster, collaborate with others, and quickly find and
 isolate problematic changes. No more `rm -rf; git clone`. No more
 merge conflicts (well, fewer of them at least). No more huge blocks
 of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
+your code. No more "oh no, did we delete the working code?! 😬". We'll
 even teach you how to contribute to other people's projects with pull
 requests!
 
