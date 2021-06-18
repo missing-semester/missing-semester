@@ -158,7 +158,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
     + `<C-b> %` Split the current pane vertically
     + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
     + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
+    + `<C-b> [` Start scrollback. You can then press `<C-space>` to start a selection and `<C-w>` to copy that selection. Then press `<C-b> ]` to paste it.
     + `<C-b> <space>` Cycle through pane arrangements.
 
 For further reading,
