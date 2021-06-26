@@ -119,6 +119,7 @@ Some of our favorites, mostly related to security and usability:
 - Full Page Screen Capture - [Built into Firefox](https://screenshots.firefox.com/) and [Chrome extension](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl?hl=en). Lets you take a screenshot of a full website, often much better than printing for reference purposes.
 - [Multi Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/) - lets you separate cookies into "containers", allowing you to browse the web with different identities and/or ensuring that websites are unable to share information between them.
 - Password Manager Integration - Most password managers have browser extensions that make inputting your credentials into websites not only more convenient but also more secure. Compared to simply copy-pasting your user and password, these tools will first check that the website domain matches the one listed for the entry, preventing phishing attacks that impersonate popular websites to steal credentials. 
+- [Vimium](https://github.com/philc/vimium) - When programming intensively, frequently using browser to search on stack overflow etc. is common. Vimium allows us to use vim-like key binding so that you can use keyboard when searching and surfing on browser.
 
 ## What are other useful data wrangling tools?
 
