@@ -370,7 +370,8 @@ programs". We highly encourage you to try them out.
 
 We have not written solutions for the exercises. If you are stuck on anything
 in particular, feel free to send us an email describing what you've tried so
-far, and we will try to help you out.
+far, and we will try to help you out. Also if you want to learn Bash without
+diving in too deeply you can use [`handbook`](https://github.com/denysdovhan/bash-handbook).
 
  1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
     are on Linux or macOS, you don't have to do anything special. If you are on
