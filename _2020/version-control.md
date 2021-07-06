@@ -562,3 +562,5 @@ class website](https://github.com/missing-semester/missing-semester).
 1. Fork the [repository for the class
    website](https://github.com/missing-semester/missing-semester), find a typo
    or some other improvement you can make, and submit a pull request on GitHub.
+
+	Thank you for the course! There is a lot of invaluable knowledge that one can get from the Missing Semester course.
