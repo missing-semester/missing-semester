@@ -410,3 +410,5 @@ well, your patch will be merged into the upstream repository. Often times,
 larger projects will have a contributing guide, tag beginner-friendly issues,
 and some even have mentorship programs to help first-time contributors become
 familiar with the project.
+
+    Read Next >> [Q&A](qa.md) OR back to [First Licture](course-shell.md)
