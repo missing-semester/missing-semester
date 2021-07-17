@@ -136,7 +136,7 @@ type tree = map<string, tree | blob>
 
 // a commit has parents, metadata, and the top-level tree
 type commit = struct {
-    parent: array<commit>
+    parents: array<commit>
     author: string
     message: string
     snapshot: tree
