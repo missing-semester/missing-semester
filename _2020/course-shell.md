@@ -41,6 +41,7 @@ Vì thời gian có hạn, chúng tôi sẽ không thể bao quát hết toàn b
 
 ## Shell (vỏ) là gì?
 
+<<<<<<< HEAD
 Ngày nay, máy tính có vô vàn các giao diện khác nhau để người dùng tương tác
 với chúng: từ những giao diện đồ họa, đến giao diện âm thanh hay thậm chí là 
 giao diện thực tế ảo AR/VR ở kháp nơi. Những giao diện này đáp ứng đủ đến 80% 
@@ -51,6 +52,16 @@ trình thành nút bấm cho gia diện. Hay là việc ra lệnh bằng giọng
 máy tính chưa được lập trình để hiểu được. Vì vậy để tận dụng được hoàn toàn sức mạnh
 mà máy tính cho phép trong các tác vụ của chúng ta, chúng ta cần đi theo hướng truyền thống và 
 vô cùng cơ bản: giao diện câu lệnh bằng chữ - Shell.
+=======
+Computers these days have a variety of interfaces for giving them
+commands; fanciful graphical user interfaces, voice interfaces, and
+even AR/VR are everywhere. These are great for 80% of use-cases, but
+they are often fundamentally restricted in what they allow you to do —
+you cannot press a button that isn't there or give a voice command that
+hasn't been programmed. To take full advantage of the tools your
+computer provides, we have to go old-school and drop down to a textual
+interface: The Shell.
+>>>>>>> 7623daf79f8111f5d72aeeea85808bc2a51772f0
 
 Hầu như mọi nền tảng tính toán mà ta có thể đặt tay lên được đều có ít nhất một loại shell mà 
 ta có thể chọn để sử dụng. Và dù mỗi loại shell đều có các thiết kế về chức năng khác nhau, 
@@ -224,6 +235,8 @@ missing:~$ cat < hello.txt > hello2.txt
 missing:~$ cat hello2.txt
 hello
 ```
+
+Trong ví dụ trên, trình `cat` có tac dụng nôi (con`cat`enates) nội dung các tập tin. Khi tên tập tin là một đối số, trình này sẽ in nội dung của tập tin đó lên dòng xuất của mình. Nhưng khi trình `cat` được sử dụng trong trường hợp không có đối số, nó sẽ in tất cả nội dung từ dòng nhập của mình ra dòng xuất (ví dụ 3).
 
 Bạn cũng có thể dùng `>>` để viết thêm vào dòng cuối cùng của tệp. Kiểu thay đổi dòng nhập xuất này thực sự hữu dụng khi ta dựng các _đường ống_(pipes) dữ liệu. Dấu `|` được dùng để nối các chương trình với nhau sao cho dữ liệu xuất ra từ chương trình này lại là dữ liệu nhập của chương trình khác:
 
