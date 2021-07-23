@@ -31,7 +31,7 @@ Thêm chi tiết xin email: anhtu.do1998@gmail.com
 | 3 | [license.md](https://missing-semester-vn.github.io/license/)| [@AnhTuDo1998](https://github.com/AnhTuDo1998) || @Đã Dịch      |
 | 4 | [course-shell.md](https://missing-semester-vn.github.io/2020/course-shell/)|[@AnhTuDo1998](https://github.com/AnhTuDo1998)||@Đã Dịch|
 | 5 | [shell-tools.md](https://missing-semester-vn.github.io/2020/shell-tools/)||||
-| 6 | [editors.md](https://missing-semester-vn.github.io/2020/editors/)||||
+| 6 | [editors.md](https://missing-semester-vn.github.io/2020/editors/)| [@LuatHN](https://github.com/luathn) ||@Đang Dịch|
 | 7 | [data-wrangling.md](https://missing-semester-vn.github.io/2020/data-wrangling/)||||
 | 8 | [command-line.md](https://missing-semester-vn.github.io/2020/command-line/)||||
 | 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đã Dịch|
