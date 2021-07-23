@@ -71,6 +71,7 @@ diễn đàn, trang tin dưới đây.
 
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
+- [Japanese](https://missing-semester-jp.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
 - [Russian](https://missing-semester-rus.github.io/)

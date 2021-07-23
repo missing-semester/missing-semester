@@ -187,8 +187,6 @@ print(baz)
 Static analysis tools can identify this kind of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](http://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
 Again, note that all these issues were detected without having to run the code.
 
-In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
-
 ```bash
 $ pyflakes foobar.py
 foobar.py:6: redefinition of unused 'foo' from line 3
@@ -200,6 +198,8 @@ foobar.py:9: error: Incompatible types in assignment (expression has type "float
 foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
+
+In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
 
 Most editors and IDEs support displaying the output of these tools within the editor itself, highlighting the locations of warnings and errors.
 This is often called **code linting** and it can also be used to display other types of issues such as stylistic violations or insecure constructs.
@@ -251,7 +251,7 @@ However, wall clock time can be misleading since your computer might be running 
 For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
 
 ```bash
-$ time curl https://missing.csail.mit.edu &> /dev/null`
+$ time curl https://missing.csail.mit.edu &> /dev/null
 real    0m2.561s
 user    0m0.015s
 sys     0m0.012s
@@ -465,7 +465,7 @@ Summary
 ```
 
 As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
-More info for [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Profiling_with_the_Built-in_Profiler) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
+More info for [Firefox](https://profiler.firefox.com/docs/) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
 
 # Exercises
 

@@ -29,7 +29,13 @@ Mặc dù Git có một giao diện thật sự là tệ hại, triết lý thi�
 
 # Mô hình dữ liệu của Git
 
+<<<<<<< HEAD
 Có vô vàn cách để thiết kế một VCS. Tuy nhiên Git có một mô hình dữ liệu được thiết kế kỹ càng để tạo nên các tính năng tuyệt vời của một VCS như lưu giữ lịch sử, hỗ trợ các branch và cho phép hợp tác giữa người dùng.
+=======
+There are many ad-hoc approaches you could take to version control. Git has a
+well-thought-out model that enables all the nice features of version control,
+like maintaining history, supporting branches, and enabling collaboration.
+>>>>>>> 7623daf79f8111f5d72aeeea85808bc2a51772f0
 
 ## Snapshots ("Ảnh chụp")
 
@@ -51,7 +57,16 @@ Cây thư mục gốc gồm hai thành phần, một tree (cây con) tên "foo" 
 
 Các VCS nên kết nối các snapshot như thế nào để có nghĩa? Một mô hình đơn giản đó là linear history (lịch sử tuyến tính). Mô hình lịch sử này cấu thành từ các snapshot theo thứ tự thời gian mà chúng được tạo. Tuy nhiên, vì vô vàn lí do, Git không dùng một mô hình đơn giản như vậy.
 
+<<<<<<< HEAD
 Trong Git, lịch sử  được mô phỏng bằng một Directed Acyclic Graph (Đồ thị định hướng không tuần hoàn - DAG). Đấy là một từ phức tạp và đầy toán học, nhưng đừng sợ. Điều này có nghĩa là mỗi snapshot trong Git thì được kết nối, chỉ hướng về một set (tập) các "bố mẹ", những snapshot đi trước nó trong chuỗi thời gian. Gọi là một tập các bố mẹ thay cho một bố hoặc mẹ (như mô hình linear history nói trên) vì một snapshot có thể  có nhiều tổ tiên khác nhau, như trong việc merging (hợp nhất) nhiều branch phát triển song song chẳng hạn.
+=======
+In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
+sound like a fancy math word, but don't be intimidated. All this means is that
+each snapshot in Git refers to a set of "parents", the snapshots that preceded
+it. It's a set of parents rather than a single parent (as would be the case in
+a linear history) because a snapshot might descend from multiple parents, for
+example, due to combining (merging) two parallel branches of development.
+>>>>>>> 7623daf79f8111f5d72aeeea85808bc2a51772f0
 
 Các snapshot này được gọi là commit (cam kết). Việc hình dung một history có thể cho ta một thứ như sau:
 
@@ -88,7 +103,7 @@ type tree = map<string, tree | blob>
 
 // Một commit có bố mẹ, các thông tin phụ và cây thư mục gốc nó theo dõi 
 type commit = struct {
-    parent: array<commit>
+    parents: array<commit>
     author: string
     message: string
     snapshot: tree
