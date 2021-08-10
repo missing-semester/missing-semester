@@ -459,3 +459,5 @@ better way of doing this", there probably is: look it up online.
 1. (Advanced) Convert XML to JSON ([example file](/2020/files/example-data.xml))
    using Vim macros. Try to do this on your own, but you can look at the
    [macros](#macros) section above if you get stuck.
+
+    Read Next >> [Data Wrangling](data-wrangling.md)

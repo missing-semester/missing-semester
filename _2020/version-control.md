@@ -562,3 +562,5 @@ class website](https://github.com/missing-semester/missing-semester).
 1. Fork the [repository for the class
    website](https://github.com/missing-semester/missing-semester), find a typo
    or some other improvement you can make, and submit a pull request on GitHub.
+
+  Read Next >> [Debugging and Profiling](debugging-profiling.md)

@@ -522,3 +522,4 @@ Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pag
 
 1. (Advanced) The command `curl ipinfo.io` performs a HTTP request and fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
 
+    Read Next >> [Metaprogramming](metaprogramming.md)

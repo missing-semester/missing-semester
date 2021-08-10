@@ -414,3 +414,5 @@ far, and we will try to help you out.
  1. Write a command that reads out your laptop battery's power level or your
     desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
     user, your OS doesn't have sysfs, so you can skip this exercise.
+
+   Read Next >> [Shell Tools and Scripting](shell-tools.md)
