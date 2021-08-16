@@ -561,4 +561,5 @@ class website](https://github.com/missing-semester/missing-semester).
    temporary files, like `.DS_Store`.
 1. Fork the [repository for the class
    website](https://github.com/missing-semester/missing-semester), find a typo
-   or some other improvement you can make, and submit a pull request on GitHub.
+   or some other improvement you can make, and submit a pull request on GitHub
+   (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
