@@ -8,12 +8,29 @@ video:
   id: kgII-YWo3Zw
 ---
 
+Ở trong buổi học này, chúng tôi sẽ trình bày một điều cơ bản trong việc sử dụng bash như một ngôn ngữ kịch và giới thiệu một số công cụ của shell được sử dụng thường xuyên trên môi trường dòng trong các công việc hằng ngày của bạn.
+<!-- 
 In this lecture, we will present some of the basics of using bash as a scripting language along with a number of shell tools that cover several of the most common tasks that you will be constantly performing in the command line.
+ -->
 
-# Shell Scripting
+# Shell Scripting - Ngôn ngữ kịch bản Shell 
 
-So far we have seen how to execute commands in the shell and pipe them together.
-However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops.
+Chúng ta đã làm quen với việc thực hiện các lệnh bằng shell (vỏ) và pipe (liên kết) chúng lại với nhau thành một quy trình
+Tuy nhiên, trong một vài trường hợp, bạn sẽ cần phải thực thi hàng loạt câu lệnh và sử dụng các cấu trúc điều khiển như câu điền kiện hoặc vòng lặp
+
+<!-- So far we have seen how to execute commands in the shell and pipe them together.
+However, in many scenarios you will want to perform a series of commands and make use of control flow expressions like conditionals or loops. -->
+
+Ngôn ngữ shell là bước tiếp theo để có thể sử dụng những thứ phức tạp hơn
+Hầu hết các shell đều có một ngôn ngữ kịch bản riêng với những cú pháp riêng biệt để tương tác với biến, cấu trúc điều khiển.
+Điều đặc biệt khiến ngôn ngữ shell khác biệt khi so sánh chúng với các ngôn ngữ kịch bản khác chính là ngôn ngữ shell đã được tối ưu cho việc thực thi các tác vụ liên quan tới shell (ở môi trường dòng lệnh)
+Do đó, việc tạo quy trình cho lệnh, lưu kết quả vào file, đọc dữ liệu từ thiết bị nhập chuẩn là những thứ nguyên thuỷ trong khi viết shell, điều này khiến shell script dễ dàng để sử dụng hơn là những ngôn ngũ kịch bản tổng quát
+Ở trong phần này chúng ta sẽ sử dụng bash để lập trình shell
+
+_Ghi chú (người dịch):
+- pipeline: Đối với ngành khoa học máy tính, một pipeline là một sự liên kết các tác vụ được sắp xếp sao cho đầu ra của một tác vụ trong quy trình sẽ là đầu vào của tác vụ tiếp theo. Các bạn có thể hiểu pipeline là quy trình. pipe là cách kết nối các tác vụ để tạo nên một pipeline. Trong ngữ cảnh của shell, các tác vụ này có thể hiểu đơn giản là các command (lệnh)
+_
+
 
 Shell scripts are the next step in complexity.
 Most shells have their own scripting language with variables, control flow and its own syntax.
