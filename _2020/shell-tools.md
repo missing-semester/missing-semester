@@ -25,25 +25,31 @@ Ngôn ngữ shell là bước tiếp theo để có thể sử dụng những th
 Hầu hết các shell đều có một ngôn ngữ kịch bản riêng với những cú pháp riêng biệt để tương tác với biến, cấu trúc điều khiển.
 Điều đặc biệt khiến ngôn ngữ shell khác biệt khi so sánh chúng với các ngôn ngữ kịch bản khác chính là ngôn ngữ shell đã được tối ưu cho việc thực thi các tác vụ liên quan tới shell (ở môi trường dòng lệnh)
 Do đó, việc tạo quy trình cho lệnh, lưu kết quả vào file, đọc dữ liệu từ thiết bị nhập chuẩn là những thứ nguyên thuỷ trong khi viết shell, điều này khiến shell script dễ dàng để sử dụng hơn là những ngôn ngũ kịch bản tổng quát
-Ở trong phần này chúng ta sẽ sử dụng bash để lập trình shell
+Ở trong phần này chúng ta sẽ sử dụng bash để lập trình shell vì bash rất phổ biến
 
 _Ghi chú (người dịch):
 - pipeline: Đối với ngành khoa học máy tính, một pipeline là một sự liên kết các tác vụ được sắp xếp sao cho đầu ra của một tác vụ trong quy trình sẽ là đầu vào của tác vụ tiếp theo. Các bạn có thể hiểu pipeline là quy trình. pipe là cách kết nối các tác vụ để tạo nên một pipeline. Trong ngữ cảnh của shell, các tác vụ này có thể hiểu đơn giản là các command (lệnh)
 _
 
-
-Shell scripts are the next step in complexity.
+<!-- Shell scripts are the next step in complexity.
 Most shells have their own scripting language with variables, control flow and its own syntax.
 What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
 Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
-For this section we will focus on bash scripting since it is the most common.
+For this section we will focus on bash scripting since it is the most common. -->
 
-To assign variables in bash, use the syntax `foo=bar` and access the value of the variable with `$foo`.
+Để gán giá trị cho biến bằng bash, sử dụng cú pháp `foo=bar` và truy cập giá trị của biến bằng cú pháp `$foo`
+Lưu ý `foo = bar` sẽ không chạy bởi vì câu lệnh sẽ được biên dịch thành việc gọi chương trình `foo` với đối số là `=` và `bar`
+Tóm lại, dấu khoảng cách đóng vai trò phân cách các đối số trong các ngôn ngữ shell. Việc này có thể sẽ hơi khó hiểu và gây nhầm lẫn ở giai đoạn đầu, nên hãy luôn kiểm tra việc này.
+
+Chuỗi có thể được khai báo bằng dấu ngăn cách `'` và `"` trong bash, nhưng chúng không bằng nhau
+Chuỗi được khai báo bằng `'` là chuỗi theo nghĩa đen (giá trị cụ thể) và sẽ không được thay thế bằng các giá trị của biến, trong khi chuỗi được khai báo bằng `"` thì có. 
+
+<!-- To assign variables in bash, use the syntax `foo=bar` and access the value of the variable with `$foo`.
 Note that `foo = bar` will not work since it is interpreted as calling the `foo` program with arguments `=` and `bar`.
 In general, in shell scripts the space character will perform argument splitting. This behavior can be confusing to use at first, so always check for that.
 
 Strings in bash can be defined with `'` and `"` delimiters, but they are not equivalent.
-Strings delimited with `'` are literal strings and will not substitute variable values whereas `"` delimited strings will.
+Strings delimited with `'` are literal strings and will not substitute variable values whereas `"` delimited strings will. -->
 
 ```bash
 foo=bar
@@ -53,8 +59,11 @@ echo '$foo'
 # prints $foo
 ```
 
-As with most programming languages, bash supports control flow techniques including `if`, `case`, `while` and `for`.
-Similarly, `bash` has functions that take arguments and can operate with them. Here is an example of a function that creates a directory and `cd`s into it.
+Như hầu hết các ngôn ngữ lập trình khác, bash cũng hỗ trợ các cấu trúc điều khiển như `if`, `case`, `while` và `for`
+Và tất nhiên, `bash` hỗ trợ các hàm nhận vào các đối số và thực hiện các tác vụ. Đây là một ví dụ về hàm có chức năng là tạo một thư mục và `cd` vào no`
+
+<!-- As with most programming languages, bash supports control flow techniques including `if`, `case`, `while` and `for`.
+Similarly, `bash` has functions that take arguments and can operate with them. Here is an example of a function that creates a directory and `cd`s into it. -->
 
 
 ```bash
@@ -64,6 +73,29 @@ mcd () {
 }
 ```
 
+Ở đây `$1` mang ý nghĩa là đối số được truyền vào đầu tiên cho hàm
+Không như các ngôn ngữ khác, `bash` sử dụng một tập hợp các biến đặc biệt để chỉ đến các đối số, mã lỗi và các biến liên quan. Ở dưới là một danh sách của chúng. Các bạn có thể tìm một danh sách đầy đủ và chi tiết hơn ở [đây](https://www.tldp.org/LDP/abs/html/special-chars.html)
+
+- `$0` - Tên của shell hoặc tên của shell script
+- `$1` tới `$9` - Các đối số của lệnh `$1` is the first argument and so on.
+- `$@` - Tất cả đối số
+- `$#` - Số lượng đối số
+- `$?` - Mã kết quả của lệnh trước (thành công hay thất bại)
+- `$$` - PID (Process identification number ) của lệnh
+- `!!` - Chỉ đến lệnh phía trước, tính cả tham số. Một cách sử dụng cơ bản của nó là thực hiện lệnh nếu lệnh trước đó thất bại bởi vì thiếu quyền truy cập(permission denied). Bạn có thể tái thực hiện lệnh với quyền sudo bằng cách `sudo !!`
+- `$_` - Đối số cuối cùng của lệnh phía trước. nếu bạn đang sử dụng shell bằng chế độ tương tác trực tiếp, bạn có thể lấy giá trị này bằng việc gõ `Esc` và `.`
+
+Các lệnh thường sẽ trả về kết quả ở `STDOUT`, lỗi ở `STDERR`, và một mã kết quả phục vụ cho mục đích lập trình
+Mã kết quả hoặc mã kết thúc (return code or exit status) là cách để các đoạn mã/lệnh tương tác với nhau nhằm xác định việc thực thi như thế nào
+Giá trị của mã kết thúc là 0 biểu hiện mọi thứ vẫn bình thường; mọi thức khác 0 nghĩa là có lỗi xảy ra.
+
+Mã kết thúc có thể được sử dụng để xử lý điều kiện thực hiện các lệnh tiếp theo bằng việc sử dụng toán tử `&&` và `||` (toán tử `and` và `or` ), cả 2 điều là toán tử  [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation). Các lệnh có thể được ngăn cách với nhau trên cùng một dòng sử dụng dấu `;` (semicolon-chấm phẩy). Lệnh `true` sẽ luôn trả về mã kết thúc là 0 và lệnh `false` sẽ luôn trả về mã kết thúc là 1 
+Xem một vài ví dụ sau:
+
+
+_PID:
+short-circuiting_
+<!-- 
 Here `$1` is the first argument to the script/function.
 Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
 - `$0` - Name of the script
@@ -81,7 +113,7 @@ A value of 0 usually means everything went OK; anything different from 0 means a
 
 Exit codes can be used to conditionally execute commands using `&&` (and operator) and `||` (or operator), both of which are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators. Commands can also be separated within the same line using a semicolon `;`.
 The `true` program will always have a 0 return code and the `false` command will always have a 1 return code.
-Let's see some examples
+Let's see some examples -->
 
 ```bash
 false || echo "Oops, fail"
