@@ -94,7 +94,9 @@ Xem một vài ví dụ sau:
 
 
 _PID:
-short-circuiting_
+short-circuiting
+STDIN
+STDOUT_
 <!-- 
 Here `$1` is the first argument to the script/function.
 Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
@@ -135,13 +137,21 @@ false ; echo "This will always run"
 # This will always run
 ```
 
-Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
+Một ứng dụngng khác là lưu trữ giá trị đầu ra của một lệnh vào một biến. Việc này có thể thực hiện bằng việc sử dụng _command substitution_. 
+Bất cứ khi nào bạn sử dụng cú pháp `$( CMD )`, shell sẽ thực thi lệnh `CMD` và sau đó lấy kết quả được trả về và thay thế tại chỗ.
+Ví dụ, đối với lệnh sau `for file in $(ls)`, shell thưc thi lện `$(ls)` trước và sau đó mới thực hiện lặp qua từng giá trị.
+Một ứng dụng tương đương nhưng ít phổ biến hơn là _process substitution_, `<( CMD )` sẽ thực thi lệnh `CMD` và lưu trữ giá trị của kết quả vào một file tạm thời và thay thế bằng tên file tạm thời đó. Điều này rất hữu dụng khi những lệnh đọc dữ liệu từ file thay vì thiết bị nhập chuẩn STDIN. 
+Ví dụ `diff <(ls foo) <(ls bar)` sẽ chỉ ra những files khác nhau trong 2 thư mục `foo` và `bar`
+
+Bỏi vì có quá nhiều kiến thức, hãy xem các trường hợp cụ thể của các trường hợp trên. Đoạn mã sẽ lặp qua các đối số được cung cấp, thực thi lệnh `grep` để so sánh đối số với chuỗi `foobar`, và thêm chuỗi `foobar` này vào file như là 1 dòng comment nếu trong file không có từ bất kỳ chuỗi `foobar`.
+
+<!-- Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
 Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
 For example, if you do `for file in $(ls)`, the shell will first call `ls` and then iterate over those values.
 A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name. This is useful when commands expect values to be passed by file instead of by STDIN. For example, `diff <(ls foo) <(ls bar)` will show differences between files in dirs  `foo` and `bar`.
 
 
-Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found.
+Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found. -->
 
 ```bash
 #!/bin/bash
@@ -161,13 +171,26 @@ for file in "$@"; do
 done
 ```
 
+Câu lệnh điều kiện kiểm tra giá trị của biến `$?` khác 0.
+Bash đã cài đặt rất nhiều lệnh so sánh - chi tiết có thể tham khảo ở danh sách đầy đủ ở trang web manpage dành cho việc kiểm tra ở [đây](https://www.man7.org/linux/man-pages/man1/test.1.html)
+Khi thực hiện lệnh so sánh, cố gắng sử dụng 2 cặp dấu ngoặc vuông `[[ ]]` thay vì chỉ 1 `[ ]`.Điều này sẽ giảm tỉ lệ lỗi xuống mặc dù điều này không tương thcih1 với `sh`. Giải thích chi tiết có thể tìm ở [đây](http://mywiki.wooledge.org/BashFAQ/031)
+Khi mã nguồn được thực thi, việc truyền nhiều đối số tương tự nhau khá phổ biến. Bash cung cấp cách để làm cho mọi chuyện đơn giản hơn, khả năng expanding expressions (mở rộng biểu thức) bằng việc gom nhóm các filename expansion (định dạng mở rộng của file). Kỹ thuật này được gọi là _shell globbing_ 
+- Wildcards - Khi nào cần sử dụng các loại wildcard matching, `?` và `*` được sử dụng tìm kiểm 1 hoặc bất kỳ số lượng các ký tự, theo thư tự. Ví dụ, có các file sau `foo`, `foo1`, `foo2`, `foo10` và `bar`, lệnh `rm foo?` sẽ xoá  `foo1` and `foo2` trong khi đó `rm foo*` sẽ xoá tất cả ngoại trừ file `bar`.
+- Cặp dấu ngoặc nhọn `{}` - Khi có các chuỗi tương tự nhau làm tham số cho nhiều lệnh, bạn có thể sử dụng cặp dấu ngoặc nhọn để mở rộng tự động. Điều này rất phổ biến khi di chuyển, chuyển đổi các files
+
+- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
+
+_wildcard_
+
+<!-- 
 In the comparison we tested whether `$?` was not equal to 0.
 Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
 When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
 
 When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
 - Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
+- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files. -->
+
 
 ```bash
 convert image.{png,jpg}
@@ -195,11 +218,16 @@ diff <(ls foo) <(ls bar)
 # > y
 ```
 
-<!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
+Viết mã `bash` đôi khi khó khăn và không trực quan. Có một vài công cụ như [shellcheck](https://github.com/koalaman/shellcheck) giúp chúng ta tìm lỗi ở trong mã sh/bash của bạn.
 
+Lưu ý rằng mã không nhất thiết phải được viết ở bằng bash thì mới có thể chạy được ở giao diện dòng lệnh. Đây là một đoạn mã Python sẽ trả về kết quả là các tham số được truyền vào với thứ tự nghịch đảo 
+
+<!-- Câu này được comment trong bản gốc => không dịch-->
+<!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
+<!-- 
 Writing `bash` scripts can be tricky and unintuitive. There are tools like [shellcheck](https://github.com/koalaman/shellcheck) that will help you find errors in your sh/bash scripts.
 
-Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order:
+Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order: -->
 
 ```python
 #!/usr/local/bin/python
@@ -207,7 +235,17 @@ import sys
 for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
+Kernel biết cách làm thế nào để có thể thực thi một đoạn mã sử dụng trình biên dịch của python thay vì shell bởi vì chúng ta đã đính kèm dấu [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) ở đầu file script
+Đây là một ví dụ tốt để viết `shebang` bằng lệnh [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) để có thể giải quyết trường hợp nơi lưu trữ cách lệnh trong hệ thống, tằng cường khả năng di động của mã. Để xử lý vị trí, `env` sẽ sử dụng biến môi trường `PATH` đã được giới thiệu ở bài đầu tiên.
+Ví dụ, dòng `shebang` sẽ trông như thế này `#!/usr/bin/env python`.
 
+Một vài điều khác biệt giữa function (hàm) và script (mã) của shell cần ghi nhớ:
+- Hàm phải được viết bằng ngôn ngữ của shell, còn script thì có thể viết bằng bất cứ ngôn ngữ nào. Đây là lý do lại sao shebang lại quan trọng trong các script 
+- Hàm sẽ được tải khi định nghĩa của nó được đọc. Script thì được tải mỗi khi nó được thực thi. Điều này khiến cho việc tải function nhanh hơn một chút, tuy nhiên nếu có sự thay đổi trong hàm thì cần phải tải lại định nghĩa hàm
+- Hàm được thực thi trong tại môi trường shell đang chạy, còn script thì được được chạy ở một tiến trình (process) riêng. Cho nên, functions có thể thay đổi các biến môi trường của shell, ví dụ như là thư mục hiện hành, trong khi script thì không thể. Các script có thể truy cập tới các biến môi đã được export bằng việc sử dụng [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
+- Giống như các ngôn ngữ lập trình khác, hàm là phương pháp mạnh mẽ để đạt được khả năng mô-đun, tái sử dụng, minh bạch của mã shell. Thông thường thì các script sẽ có bao gồm các định nghĩa hàm 
+
+<!-- 
 The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
 It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
 For this example the shebang line would look like `#!/usr/bin/env python`.
@@ -216,12 +254,27 @@ Some differences between shell functions and scripts that you should keep in min
 - Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
 - Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
 - Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
+- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions. -->
 
-# Shell Tools
+# Công cụ của shell 
 
-## Finding how to use commands
+## Cách sử dụng lệnh
 
+Tại thời điểm này, bạn có thể đang tự hỏi rằng làm thế nào để tìm các tuỳ chọn (flags) dành cho các lệnh giống như `ls -l`, `mv -i` and `mkdir -p`.
+Tổng quát hơn, đối với một lệnh, làm sao ta có thể tìm ra các chức năng của chúng và cái tuỳ chọn tương ứng?
+Chúng ta có thể bắt đầu tìm google cho câu hỏi này, tuy nhiên UNIX thì có trước cả StackOverflow, và có 1 cách truyền thống để lấy các thông tin này.
+
+Như chúng ta đã biết ở trong bài đầu tiên, cách tiếp cận đầu tiên là gọi lệnh với với tuỳ chọn `-h` hoặc `--help`. Cách tiếp cận chi tiết hơn là sử dũng lệnh `man`
+Viết ngắn gọn của từ `manual`,  [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) cung cấp 1 trang hướng dẫn sử dụng (gọi là manpage) cho một lệnh bất kỳ. 
+Ví dụ `man rm` sẽ trả về tất cả các tác vụ của lệnh `rm` cùng với các tuỳ chọn mà lệnh cung cấp, cùng với tuỳ chọn `-i` đã được giới thiệu trước đó
+Thực tế, thứ mà tôi đã kết nối từ trước đây cho tất cả các lệnh là một phiên bản trực tuyến của Linux manpage cho nhiều lệnh. 
+Thậm chí những lệnh không có sẵn mà bạn cần phải cài đặt cũng có một trang manpage nếu lập trình viên có viết chùng và đóng gói chúng cùng quá trình cài đặt.
+Đối với những công cụ tương tác trực tiếp ví dụ như những thứ dựa trên `ncurses`, hướng dẫn sử dụng của các lệnh thường được truy cập ngay trong chương trình bằng việc viết `:help` hoặc `?`
+
+Đôi khi các trang manpages có thể cung cấp rất nhiều thông tin chi tiết mô tả về lệnh, khiến nó trở lên khó để xác định xem những tuỳ chọn/ cú pháp nào để sử dụng trong các trường hợp cơ bản.[TLDR pages](https://tldr.sh/) là một giải pháp đơn giản, tập trung vào việc đưa ra các ví dụ cụ thể và trường hợp của từng lệnh khiến cho bạn nhanh chóng nhận ra các tuỳ chọn nào cần thiết 
+Cụ thể hơn, tôi thường hay sử dụng trang `tldr` cho các lệnh [`tar`](https://tldr.ostera.io/tar) và [`ffmpeg`](https://tldr.ostera.io/ffmpeg) hơn là manpages
+
+<!-- 
 At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
 More generally, given a command, how do you go about finding out what it does and its different options?
 You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
@@ -235,13 +288,16 @@ For interactive tools such as the ones based on ncurses, help for the commands c
 
 Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
 [TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages.
+For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages. -->
 
 
 ## Finding files
 
-One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+Một trong các công việc thường xuyên lặp đi lặp lại đối với lập trình viên là tìm files hoặc thư mục
+Các hệ thông dựa trên UNIX thường có sẵn lệnh [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), một công cụ tuyệt vời của shell để tìm kiếm file. `find` sẽ tìm kiếm đệ quy các file khớp với một vài tiêu chuẩn nào đó  
+
+<!-- One of the most common repetitive tasks that every programmer faces is finding files or directories.
+All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples: -->
 
 ```bash
 # Find all directories named src
