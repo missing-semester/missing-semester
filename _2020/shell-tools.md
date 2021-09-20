@@ -97,6 +97,7 @@ _PID:
 short-circuiting
 STDIN
 STDOUT_
+
 <!-- 
 Here `$1` is the first argument to the script/function.
 Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found [here](https://www.tldp.org/LDP/abs/html/special-chars.html).
@@ -177,8 +178,6 @@ Khi thực hiện lệnh so sánh, cố gắng sử dụng 2 cặp dấu ngoặc
 Khi mã nguồn được thực thi, việc truyền nhiều đối số tương tự nhau khá phổ biến. Bash cung cấp cách để làm cho mọi chuyện đơn giản hơn, khả năng expanding expressions (mở rộng biểu thức) bằng việc gom nhóm các filename expansion (định dạng mở rộng của file). Kỹ thuật này được gọi là _shell globbing_ 
 - Wildcards - Khi nào cần sử dụng các loại wildcard matching, `?` và `*` được sử dụng tìm kiểm 1 hoặc bất kỳ số lượng các ký tự, theo thư tự. Ví dụ, có các file sau `foo`, `foo1`, `foo2`, `foo10` và `bar`, lệnh `rm foo?` sẽ xoá  `foo1` and `foo2` trong khi đó `rm foo*` sẽ xoá tất cả ngoại trừ file `bar`.
 - Cặp dấu ngoặc nhọn `{}` - Khi có các chuỗi tương tự nhau làm tham số cho nhiều lệnh, bạn có thể sử dụng cặp dấu ngoặc nhọn để mở rộng tự động. Điều này rất phổ biến khi di chuyển, chuyển đổi các files
-
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
 
 _wildcard_
 
@@ -294,7 +293,7 @@ For instance, I find myself referring back to the tldr pages for [`tar`](https:/
 ## Finding files
 
 Một trong các công việc thường xuyên lặp đi lặp lại đối với lập trình viên là tìm files hoặc thư mục
-Các hệ thông dựa trên UNIX thường có sẵn lệnh [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), một công cụ tuyệt vời của shell để tìm kiếm file. `find` sẽ tìm kiếm đệ quy các file khớp với một vài tiêu chuẩn nào đó  
+Các hệ thông dựa trên UNIX thường có sẵn lệnh [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), một công cụ tuyệt vời của shell để tìm kiếm file. `find` sẽ tìm kiếm đệ quy các file có tên khớp với một vài tiêu chuẩn nào đó  
 
 <!-- One of the most common repetitive tasks that every programmer faces is finding files or directories.
 All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples: -->
@@ -317,8 +316,25 @@ find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
 find . -name '*.png' -exec convert {} {}.jpg \;
 ```
+Mặc dù sự phổ biến của `find`, cú pháp của nó thực sự khó để ghi nhớ.
+Ví dụ, để thực thiện công việc đợn giản như là tìm kiếm các file có tên trùng với mẫu `PATTERN`, bạn phải viết câu lệnh như thế này `find -name '*PATTERN*'` (hoặc `-iname` nếu bạn muốn mẫu không phân biệt chữ hoa, chữ thường)
+Bạn có thể bắt đầu viết một vài bí danh (alias) cho những trường hợp trên, nhưng tư tưởng của shell khuyến khích tìm kiếm những thứ thay thế
+Luôn nhớ rằng, một trong những thuộc tính thú vị nhất của shell là bạn chỉ đang gọi những chương trình mà thôi, cho nên bạn có thể tìm (hoặc thậm chí là viết mới) những thứ thay thế cho cùng 1 công việc
+Điển hình, [`fd`](https://github.com/sharkdp/fd) là một chương trình đơn giản, nhanh và dễ sử dụng thay thế cho `find`.
+Chương trình này hỗ trợ một vài thứ mặc định xịn xò như tô màu kết quả, sử dụng biểu thức chính quy (regex - regular expression), và hỗ trợ unicode. Và tất nhiên, theo quan điểm cá nhân của tôi (tác giả), một cú pháp tốt hơn.
+Một trường hợp cụ thể, cú pháp để tìm một mẫu như `PATTERN` là `fd PATTERN`
 
-Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
+Hầu hết các ý kiến đều đồng ý rằng `find` và `fd` rất tốt, nhưng chắc một vài người sẽ tự hỏi rằng về độ hiệu quả của việc tìm kiếm so với việc đánh chỉ mục hoặc sử dụng cơ sở dữ liệu cho việc tìm kiếm nhanh.
+Và đây là điều mà [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) phát triển.
+`locate` sử dụng cơ sở dữ liệu được cập nhật sử dụng [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
+Trong hầu hết hệ thông, `updatedb` được cập nhật hàng ngày thông qua [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
+Bởi vì lý do này nên có một sử đánh đổi giữa tốc độ và độ trực tuyến (fresness)
+Một điều nữa là `find` và các công cụ tương tự thì có thể tìm kiếm file dựa trên nhiều thuộc tính khác như kích cỡ, ngày chỉnh sửa, quyền hạn, trong khi `locate` chỉ sử dụng tên file
+So sánh chi tiết có thể tìm ở [đây](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+
+_freshness_
+
+<!-- Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
 For instance, to simply find files that match some pattern `PATTERN` you have to execute `find -name '*PATTERN*'` (or `-iname` if you want the pattern matching to be case insensitive).
 You could start building aliases for those scenarios, but part of the shell philosophy is that it is good to explore alternatives.
 Remember, one of the best properties of the shell is that you are just calling programs, so you can find (or even write yourself) replacements for some.
@@ -332,11 +348,24 @@ That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html)
 In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
 Therefore one trade-off between the two is speed vs freshness.
 Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
-A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other). -->
 
 ## Finding code
+Tìm kiếm file bằng tên khá hữu ích, tuy nhiên thao tác tìm kiếm dựa trên nội dung file cũng cần thiết không kém.
+Một trường hợp phổ biến là tìm tất cả các file chứa nhiều hơn một mẫu, cùng với nơi mà kết quả xuất hiện (số dòng)
+Để làm việc này, hầu hết hệ thống lõi UNIX đều cung cấp [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), một công cụ giúp tìm kiếm các mẫu dựa trên văn bản đầu vào
+`grep` là một công cụ cực kỳ mạnh mà chúng ta sẽ tìm hiểu thêm, chi tiết về nó ở bài sau (data wrangling)
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
+Ở hiện tại, `grep` cung cấp rất nhiều tuỳ chọn (flags) khiến nó trở nên linh hoat
+Một vài tuỳ chọn tôi hay dùng là `-C` để lấy ngữ cảnh kết quả và `-v` để nghịch đảo kết quá, ví dụ, tìm những đoạn không khớp với mẫu. Ví dụ `grep -C 5` sẽ in ra 5 dòng trước và sau kết quả. Khi cần thực hiện việc tìm kiếm nhiều files, bạn có thể sử dụng `-R` bởi vì tuỳ chọn này sẽ đi vào từng file ở trong thư mục và tìm kiếm kết quả 
+
+Nhưng `grep -R` có thể được cải tiến bằng nhiều cách, ví dụ như bỏ qua `.git` folded, sử dụng CPU đa nhân để hỗ trợ, et cetera
+Có nhiều công cụ thay thế `grep` dã được phát triển, bao gồm [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) và [rg](https://github.com/BurntSushi/ripgrep).
+Tất cả những công cụ trên rất tuyệt vời và cung cấp cùng chức năng.
+Hiện tại tôi đang sử dụng ripgrep `rg`, bởi vì nó rất nhanh và dễ. 
+Ví dụ:
+
+<!-- Finding files by name is useful, but quite often you want to search based on file *content*. 
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
 To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
 `grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
@@ -348,7 +377,8 @@ When it comes to quickly searching through many files, you want to use `-R` sinc
 But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
 Many `grep` alternatives have been developed, including [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
 All of them are fantastic and pretty much provide the same functionality.
-For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
+For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples: -->
+
 ```bash
 # Find all python files where I used the requests library
 rg -t py 'import requests'
@@ -360,11 +390,38 @@ rg foo -A 5
 rg --stats PATTERN
 ```
 
-Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+Lưu ý rằng với `find`/`fd`, điều quan trọng là các vấn đề này có thể giải quyết rất là dễ dàng, còn việc sử dụng công cụ nào thì không quan trọng. 
+
+<!-- Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+ -->
 
 ## Finding shell commands
+Chúng ta tìm hiểu việc tìm kiếm các files và code, khi bắt đầu sử dụng shell nhiều hơn, bạn có thể muốn tìm các lệnh mà đã gõ ở vài thời điểm.
+Điều đầu tiên cần phải biết đó là mũi tên lên sẽ trả về bạn lệnh cuối cùng, và nếu bạn giữ nó thì nó sẽ từ từ duyệt qua lịch sử shell của bạn
 
-So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
+Lệnh `history` sẽ giúp bạn truy cập tới lịch sử của shell .
+Nó sẽ in ra thiết bị xuất chuẩn lịch sử của shell
+Nếu bạn muốn tìm kiếm lịch sử, ta có thể nối đầu ra với `grep` để thực hiện việc tìm kiếm
+`history | grep find` sẽ in ra các lệnh có chứa chuỗi "find" 
+
+Trong hầu hết các shell, bạn có thể sử dụng `Ctrl+R` để thực hiện việc tìm kiếm lịch sử
+Sau khi nhấn phím `Ctrl+R`, bạn có thể nhập một chuổi mà bạn muốn tìm kiếm ở trong lịch sử
+Và nếu bạn tiếp tục giữ phím, bạn sẽ đi vào vòng lặp các kết quả
+Điều này cũng có làm được bằng việc nhấn phím UP/DOWN (mũi tên lên/xuống) đối với [zsh](https://github.com/zsh-users/zsh-history-substring-search)
+
+Một điều thú vị là `Ctrl+R` là sử dụng [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r).
+`fzf` là một công cụ tìm kiếm tổng quát có thể được sử dụng với rất nhiều lệnh khác.
+Do đó, nó được sử dụng để tìm kiếm nhanh chóng dựa trên lịch sử của bạn và hiển thị kết quả một cách tiện lợi và dễ nhìn.
+
+Một thứ hay ho về lịch sử shell nữa mà tôi rất thích đó là  **gợi ý tự động dựa trên lịch sử** (**history-based autosuggestion**)
+Lần đàu được giới thiệu bởi [fish](https://fishshell.com/), tính năng này sẽ giúp bạn hoàn thành lệnh shell hiện tại dựa trên lịch sử các lệnh gần nhất có các điểm chung.
+Tính năng này có thể được kích hoạt ở [zsh](https://github.com/zsh-users/zsh-autosuggestions) và nó sẽ giúp cuộc đời bạn dễ dàng hơn khi làm việc với shell.
+
+Bạn cũng có thể tuỳ chỉnh các hành vi của lịch sử, ví dụ chặn các lệnh có các dấu khoảng trắng dư thừa. Điều này sẽ có ích khi nhập mật khẩu hoặc các thông tin nhạy cảm khác. Để kích hoạt chức năng này, thêm `HISTCONTROL=ignorespace` vào file `.bashrc` hoặc `setopt HIST_IGNORE_SPACE` vào file `.zshrc` 
+Nếu có sai sót không thêm khoảng cách thừa, bạn có thể xoá thủ công các chúng ở trong `.bash_history` hoặc `.zhistory`
+
+
+<!-- So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
 The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
 
 The `history` command will let you access your shell history programmatically.
@@ -386,9 +443,18 @@ It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and
 
 You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
 To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`.
+If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`. -->
 
 ## Directory Navigation
+Ở đoạn trước, chúng ta đã mạc định rằng chúng ta đang ở đúng nơi cần thực hiện các tác vụ đó. Tuy nhiên làm thể để nào để di chuyển nhanh chóng giữa các thư mục
+Có rất nhiều cách đơn giản cho bạn thử, ví dụ như viết một alias hoặc tạo symlink sử dụng [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), nhưng thực tế rằng là các lập trình viên tìm ra cách thông minh và đầy chất xám hơn tại thời điểm hiện tại.
+
+Với phương châm của khoá học này, bạn sẽ đối mặt với những tình huống phổ biến nhất.
+Tìm những file và/hoặc thư mục thường xuyên được sử dụng có thể được được xử lý bằng [`fasd`](https://github.com/clvv/fasd) và[`autojump`](https://github.com/wting/autojump).
+Fasd xếp hạng các files và thư mục dựa trên [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), nghĩa là , cả 2 _tần số_ và _gần đây_
+Mặc định, `fasd` thêm một lệnh `z` mà bạn có thể dủng để có thể nhanh chóng `cd` chỉ với một chuỗi của thự mục _frecent_. Ví dụ Nếu bạn thường xuyên di chuyển tới `/home/user/files/cool_project` thì bạn chỉ đơn giản là sử dụng `z cool` để di chuyển tới đó. Sử dụng `autojump` thì cú pháp tương tự sẽ là `j cool`
+
+Một vài công cụ giúp bạn nhanh chóng nắm bắt được cấu trúc thư mục : [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) thậm chí là một trình quản lý file toàn diện như [`nnn`](https://github.com/jarun/nnn) hoặc [`ranger`](https://github.com/ranger/ranger)
 
 So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
 There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
