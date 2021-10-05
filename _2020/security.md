@@ -302,8 +302,42 @@ extra topics, if there's time
 
 security concepts, tips
 - biometrics
-- HTTPS
+- SSL/TLS and HTTPS
 {% endcomment %}
+
+## SSL/TLS and HTTPS
+
+If the asymmetric key identification concepts of SSH make sense, then you're part 
+of the way to understanding SSL/TLS. Instead of every machine trusting every machine,
+SSL (and its direct successor TLS) is built on a hierarchical web of "certificates".
+Each certificate contains a public key, and is paired with a private key, just like
+in SSH. However, each certificate is also generally signed by ANOTHER certificate,
+(see signing above) and the signing certificate is often signed by a THIRD certificate,
+all the way down to a "root certificate authority" ("CA").  And it's those CA 
+certificates, maybe dozens or hundreds (far fewer than the millions of possible
+endpoints), that are preinstalled - and pre-trusted - on many SSL/TLS participants. 
+
+As you probably surmised, all the certificates signed by the root CA certificates 
+(and many the certificates signed by the certificates signed by the root CA certificates)
+are also trusted by each endpoint with the CA certificates installed.  But what prevents
+the wrong certificate from being used on the right server, or by the right client?  The
+answer is found in the other information baked into each signed certificate.  For example,
+a certificate installed on a web server (e.g, "www.somedomain.tld") would normally have 
+either the fully-qualified domain name (FQDN) of the web server, or a "wildcard" like
+"\*.somedomain.tld".  
+
+Clients connecting to the web server will be prepared to trust the certificate presented
+as long as it chains up to a preinstalled, trusted CA certificate.  However, the 
+certificate's information must also match the information about the server presenting it.
+So a signed certificate installed on a web server (e.g, "www.somedomain.tld") that presents
+the same hostname will be accepted, but one that presents "evilcert.evildomain.tld" will
+be rejected.     
+
+And what about "HTTPS"?  Well the basic protocol used to communicate web page and related
+information is "HTTP", so the same protocol transported over a secure SSL/TLS link is 
+called HTTPS.  And that's why we look for certs with the right names, and trust the locks
+in the corner of our browsers: there's a chain of certificates originally signed
+by trusted CA certificates supporting the secure Internet.  
 
 # Resources
 
