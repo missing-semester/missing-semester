@@ -188,6 +188,8 @@ Sometimes manpages can provide overly detailed descriptions of the commands, mak
 [TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
 For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages.
 
+Finally context-switching between your terminal and `man`, `--help`, and TLDR pages can be cumbersome. The tool, [Fig](https://fig.io) offers inline suggestions and descriptions for a CLI's subcommands, options, and arguments. It ranks suggestions by recency of use and like TLDR, includes suggestions for the most common workflows you do with a command.
+
 
 ## Finding files
 
