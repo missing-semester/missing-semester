@@ -326,7 +326,7 @@ security concepts, tips
        average, how long will it take to break each of the passwords?
 1. **Cryptographic hash functions.** Download a Debian image from a
    [mirror](https://www.debian.org/CD/http-ftp/) (e.g. [from this Argentinean
-   mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/).
+   mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)).
    Cross-check the hash (e.g. using the `sha256sum` command) with the hash
    retrieved from the official Debian site (e.g. [this
    file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS)
@@ -342,9 +342,7 @@ security concepts, tips
     1. Set up [SSH
        keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
        on a computer you have access to (not Athena, because Kerberos interacts
-       weirdly with SSH keys). Rather than using RSA keys as in the linked
-       tutorial, use more secure [ED25519
-       keys](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519). Make sure
+       weirdly with SSH keys). Make sure
        your private key is encrypted with a passphrase, so it is protected at
        rest.
     1. [Set up GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)

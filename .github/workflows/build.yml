@@ -1,4 +1,4 @@
-name: CI
+name: Build
 on:
   push:
   pull_request:
@@ -22,15 +22,3 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - run: bundle exec jekyll build
-      - uses: anishathalye/proof-html@v1
-        with:
-          directory: ./_site
-          enforce_https: false
-          check_img_http: false
-          tokens: |
-            {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
-          url_ignore: |
-            https://crates.io/
-            http://dtrace.org/blogs/about/
-          url_ignore_re: |
-            ^http://www.brendangregg.com/

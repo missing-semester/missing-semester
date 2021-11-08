@@ -315,7 +315,7 @@ if your push is rejected, what do you do?
    - `git pull --rebase` will start this process for you
    - whether you should merge or rebase is a hot topic! some good reads:
      - [this](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
-     - [this](https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/)
+     - [this](http://web.archive.org/web/20210106220723/https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/)
      - [this](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge)
 
 # Further reading

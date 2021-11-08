@@ -58,7 +58,7 @@ hesitate to reach out to us and ask for pointers!
 ## What is the shell?
 
 Computers these days have a variety of interfaces for giving them
-commands; fancyful graphical user interfaces, voice interfaces, and
+commands; fanciful graphical user interfaces, voice interfaces, and
 even AR/VR are everywhere. These are great for 80% of use-cases, but
 they are often fundamentally restricted in what they allow you to do —
 you cannot press a button that isn't there or give a voice command that
@@ -271,6 +271,12 @@ missing:~$ cat < hello.txt > hello2.txt
 missing:~$ cat hello2.txt
 hello
 ```
+
+Demonstrated in the example above, `cat` is a program that con`cat`enates
+files. When given file names as arguments, it prints the contents of each of
+the files in sequence to its output stream. But when `cat` is not given any
+arguments, it prints contents from its input stream to its output stream (like
+in the third example above).
 
 You can also use `>>` to append to a file. Where this kind of
 input/output redirection really shines is in the use of _pipes_. The `|`

@@ -15,8 +15,7 @@ for attackers. Find out what your threat model is, and then design your
 security mechanisms around that! If the threat model is the NSA or
 Mossad, you're _probably_ going to have a bad time.
 
-There are _many_ ways to make your techn
-ical persona more secure. We'll
+There are _many_ ways to make your technical persona more secure. We'll
 touch on a lot of high-level things here, but this is a process, and
 educating yourself is one of the best things you can do. So:
 
@@ -41,7 +40,7 @@ for more suggestions.
 
 Tech Solidarity has a pretty great list of [do's and don'ts for
 journalists](https://techsolidarity.org/resources/basic_security.htm)
-that has a lot of sane advice, and is decently up-to-date. @thegrugq
+that has a lot of sane advice, and is decently up-to-date. [@thegrugq](https://medium.com/@thegrugq)
 also has a good blog post on [travel security
 advice](https://medium.com/@thegrugq/stop-fabricating-travel-security-advice-35259bf0e869)
 that's worth reading. We'll repeat much of the advice from those sources
@@ -151,7 +150,7 @@ but keep in mind that you're trusting the VPN provider _a lot_. Do you
 really trust them more than your ISP? If you truly want a VPN, use a
 provider you're sure you trust, and you should probably pay for it. Or
 set up [WireGuard](https://www.wireguard.com/) for yourself -- it's
-[excellent](https://latacora.micro.blog/there-will-be/)!
+[excellent](https://web.archive.org/web/20210526211307/https://latacora.micro.blog/there-will-be/)!
 
 There are also secure configuration settings for a lot of internet-enabled
 applications at [cipherlist.eu](https://cipherlist.eu/). If you're particularly
