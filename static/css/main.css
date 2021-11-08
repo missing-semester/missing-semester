@@ -311,6 +311,10 @@ input[type=checkbox]:checked ~ .menu-label:after {
     text-align: initial;
   }
 
+  input[type=checkbox]:checked ~ .trigger {
+    display: inline;
+  }
+
   .nav-link {
     display: initial;
   }
