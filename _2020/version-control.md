@@ -191,7 +191,7 @@ git is wonderful
 
 ## References
 
-Now, all snapshots can be identified by their SHA-1 hash. That's inconvenient,
+Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
 because humans aren't good at remembering strings of 40 hexadecimal characters.
 
 Git's solution to this problem is human-readable names for SHA-1 hashes, called
