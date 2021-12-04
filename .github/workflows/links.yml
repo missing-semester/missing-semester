@@ -35,5 +35,6 @@ jobs:
             https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
             https://www.vmware.com/
             https://fossbytes.com/enable-full-disk-encryption-windows-10/
+            http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/
           url_ignore_re: |
             ^http://www.brendangregg.com/
