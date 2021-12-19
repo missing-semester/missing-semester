@@ -1,0 +1,40 @@
+name: Links
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 8 * * 6'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - run: bundle exec jekyll build
+      - uses: anishathalye/proof-html@v1
+        with:
+          directory: ./_site
+          enforce_https: false
+          check_img_http: false
+          tokens: |
+            {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
+          url_ignore: |
+            https://crates.io/
+            http://dtrace.org/blogs/about/
+            https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
+            https://www.vmware.com/
+            https://fossbytes.com/enable-full-disk-encryption-windows-10/
+            http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/
+          url_ignore_re: |
+            ^http://www.brendangregg.com/

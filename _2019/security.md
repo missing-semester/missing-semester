@@ -150,7 +150,7 @@ but keep in mind that you're trusting the VPN provider _a lot_. Do you
 really trust them more than your ISP? If you truly want a VPN, use a
 provider you're sure you trust, and you should probably pay for it. Or
 set up [WireGuard](https://www.wireguard.com/) for yourself -- it's
-[excellent](https://latacora.micro.blog/there-will-be/)!
+[excellent](https://web.archive.org/web/20210526211307/https://latacora.micro.blog/there-will-be/)!
 
 There are also secure configuration settings for a lot of internet-enabled
 applications at [cipherlist.eu](https://cipherlist.eu/). If you're particularly

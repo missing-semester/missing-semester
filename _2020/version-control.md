@@ -29,13 +29,10 @@ Mặc dù Git có một giao diện thật sự là tệ hại, triết lý thi�
 
 # Mô hình dữ liệu của Git
 
-<<<<<<< HEAD
 Có vô vàn cách để thiết kế một VCS. Tuy nhiên Git có một mô hình dữ liệu được thiết kế kỹ càng để tạo nên các tính năng tuyệt vời của một VCS như lưu giữ lịch sử, hỗ trợ các branch và cho phép hợp tác giữa người dùng.
-=======
 There are many ad-hoc approaches you could take to version control. Git has a
 well-thought-out model that enables all the nice features of version control,
 like maintaining history, supporting branches, and enabling collaboration.
->>>>>>> 7623daf79f8111f5d72aeeea85808bc2a51772f0
 
 ## Snapshots ("Ảnh chụp")
 
@@ -57,16 +54,13 @@ Cây thư mục gốc gồm hai thành phần, một tree (cây con) tên "foo" 
 
 Các VCS nên kết nối các snapshot như thế nào để có nghĩa? Một mô hình đơn giản đó là linear history (lịch sử tuyến tính). Mô hình lịch sử này cấu thành từ các snapshot theo thứ tự thời gian mà chúng được tạo. Tuy nhiên, vì vô vàn lí do, Git không dùng một mô hình đơn giản như vậy.
 
-<<<<<<< HEAD
 Trong Git, lịch sử  được mô phỏng bằng một Directed Acyclic Graph (Đồ thị định hướng không tuần hoàn - DAG). Đấy là một từ phức tạp và đầy toán học, nhưng đừng sợ. Điều này có nghĩa là mỗi snapshot trong Git thì được kết nối, chỉ hướng về một set (tập) các "bố mẹ", những snapshot đi trước nó trong chuỗi thời gian. Gọi là một tập các bố mẹ thay cho một bố hoặc mẹ (như mô hình linear history nói trên) vì một snapshot có thể  có nhiều tổ tiên khác nhau, như trong việc merging (hợp nhất) nhiều branch phát triển song song chẳng hạn.
-=======
 In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
 sound like a fancy math word, but don't be intimidated. All this means is that
 each snapshot in Git refers to a set of "parents", the snapshots that preceded
 it. It's a set of parents rather than a single parent (as would be the case in
 a linear history) because a snapshot might descend from multiple parents, for
 example, due to combining (merging) two parallel branches of development.
->>>>>>> 7623daf79f8111f5d72aeeea85808bc2a51772f0
 
 Các snapshot này được gọi là commit (cam kết). Việc hình dung một history có thể cho ta một thứ như sau:
 
@@ -151,6 +145,8 @@ git is wonderful
 ## References - Các con trỏ tham khảo
 
 Các snapshot đều có thể được xác định bằng kết quả hàm băm SHA-1 lên nội dung của chúng. Thật là bất tiện vì loài người không hề giỏi ghi nhớ các chuỗi 40 kí tự thập lục phân.
+Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
+because humans aren't good at remembering strings of 40 hexadecimal characters.
 
 Cách giải quyết của Git cho vấn nạn này các tên dễ đọc cho các kết quả của hàm băm trên, gọi là "reference". Reference là con trỏ đến commit. Khác với các objects (vật thể), bị bất biến, các reference là các biến số (được thay đổi để chỉ đến một commit khác trong chuỗi lịch sử). Ví dụ như `master` là một reference thường chỉ đến commit mới nhất của branch chính của dự án ta đang phát triển.
 
@@ -438,3 +434,49 @@ Scientists](https://eagain.net/articles/git-for-computer-scientists/) là một 
 1. Bạn có thể tùy chỉnh các file hoặc thư mục mà git bỏ qua (ignore) trong dotfile `~/.gitignore_global` sau khi chạy `git config --global core.excludesfile ~/.gitignore_global`. Hãy làm vậy và tạo một file ignore trên toàn hệ thống để bỏ qua việc theo dõi các file phụ liên quan đến hệ điều hành hay các file tạm của trình biên tập mã nguồn, như `.DS_Store`. 
 
 1. Fork repo của khóa học này từ [website](https://github.com/missing-semester/missing-semester), rồi tìm lỗi chính tả hay một điểm gì đó bạn có thể làm tốt hơn, rồi tạo một pull request trên Github.
+Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
+short explanation of Git's data model, with less pseudocode and more fancy
+diagrams than these lecture notes.
+- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
+is a detailed explanation of Git's implementation details beyond just the data
+model, for the curious.
+- [How to explain git in simple
+words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
+- [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
+game that teaches you Git.
+
+# Exercises
+
+1. If you don't have any past experience with Git, either try reading the first
+   couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
+   tutorial like [Learn Git Branching](https://learngitbranching.js.org/). As
+   you're working through it, relate Git commands to the data model.
+1. Clone the [repository for the
+class website](https://github.com/missing-semester/missing-semester).
+    1. Explore the version history by visualizing it as a graph.
+    1. Who was the last person to modify `README.md`? (Hint: use `git log` with
+       an argument).
+    1. What was the commit message associated with the last modification to the
+       `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
+       show`).
+1. One common mistake when learning Git is to commit large files that should
+   not be managed by Git or adding sensitive information. Try adding a file to
+   a repository, making some commits and then deleting that file from history
+   (you may want to look at
+   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
+1. Clone some repository from GitHub, and modify one of its existing files.
+   What happens when you do `git stash`? What do you see when running `git log
+   --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
+   In what scenario might this be useful?
+1. Like many command line tools, Git provides a configuration file (or dotfile)
+   called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
+   run `git graph`, you get the output of `git log --all --graph --decorate
+   --oneline`. Information about git aliases can be found [here](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias).
+1. You can define global ignore patterns in `~/.gitignore_global` after running
+   `git config --global core.excludesfile ~/.gitignore_global`. Do this, and
+   set up your global gitignore file to ignore OS-specific or editor-specific
+   temporary files, like `.DS_Store`.
+1. Fork the [repository for the class
+   website](https://github.com/missing-semester/missing-semester), find a typo
+   or some other improvement you can make, and submit a pull request on GitHub
+   (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).

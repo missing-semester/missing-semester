@@ -342,9 +342,7 @@ security concepts, tips
     1. Set up [SSH
        keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
        on a computer you have access to (not Athena, because Kerberos interacts
-       weirdly with SSH keys). Rather than using RSA keys as in the linked
-       tutorial, use more secure [ED25519
-       keys](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519). Make sure
+       weirdly with SSH keys). Make sure
        your private key is encrypted with a passphrase, so it is protected at
        rest.
     1. [Set up GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
