@@ -46,7 +46,7 @@ While Git admittedly has an ugly interface, its underlying design and ideas are
 beautiful. While an ugly interface has to be _memorized_, a beautiful design
 can be _understood_. For this reason, we give a bottom-up explanation of Git,
 starting with its data model and later covering the command-line interface.
-Once the data model is understood, the commands can be better understood, in
+Once the data model is understood, the commands can be better understood in
 terms of how they manipulate the underlying data model.
 
 # Git's data model
