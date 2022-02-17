@@ -287,7 +287,7 @@ you want to turn on.
 
 We are providing a well-documented basic config that you can use as a starting
 point. We recommend using this because it fixes some of Vim's quirky default
-behavior. **Download our config [here](/2020/files/vimrc) and save it to
+behavior. **Download our config [here](/_2020/files/vimrc) and save it to
 `~/.vimrc`.**
 
 Vim is heavily customizable, and it's worth spending time exploring
