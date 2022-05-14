@@ -241,7 +241,7 @@ Some I frequently use are `-C` for getting **C**ontext around the matching line 
 When it comes to quickly searching through many files, you want to use `-R` since it will **R**ecursively go into directories and look for files for the matching string.
 
 But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
-Many `grep` alternatives have been developed, including [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
+Many `grep` alternatives have been developed, including [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
 All of them are fantastic and pretty much provide the same functionality.
 For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
 ```bash
