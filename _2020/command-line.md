@@ -352,7 +352,7 @@ cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 A simpler solution can be achieved with `ssh-copy-id` where available:
 
 ```bash
-ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote
+ssh-copy-id -i .ssh/id_ed25519 foobar@remote
 ```
 
 ## Copying files over SSH
