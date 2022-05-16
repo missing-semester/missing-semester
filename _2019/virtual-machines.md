@@ -96,7 +96,7 @@ always.
 
 The performance boost comes from the fact that unlike VMs which run an entire copy of the operating system, containers share the linux kernel with the host. However note that if you are running linux containers on Windows/macOS a Linux VM will need to be active as a middle layer between the two.
 
-![Docker vs VM](https://i2.wp.com/blog.docker.com/wp-content/uploads/Blog.-Are-containers-..VM-Image-1.png?ssl=1)
+![Docker vs VM](https://www.docker.com/wp-content/uploads/Blog.-Are-containers-..VM-Image-1-1024x435.png)
 _Comparison between Docker containers and Virtual Machines. Credit: blog.docker.com_
 
 Containers are handy for when you want to run an automated task in a

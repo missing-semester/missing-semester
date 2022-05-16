@@ -38,3 +38,4 @@ jobs:
             http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/
           url_ignore_re: |
             ^http://www.brendangregg.com/
+            ^https:\/\/help\.github\.com\/

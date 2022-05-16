@@ -174,8 +174,7 @@ SSL/TLS is
 [critical](https://www.troyhunt.com/ssl-is-not-about-encryption/), and
 it's _not_ just about encryption, but also about being able to verify
 that you're talking to the right service in the first place! If you run
-your own web server, [test it](https://ssldecoder.eu/) and [test it
-again](https://www.ssllabs.com/ssltest/index.html). TLS configuration
+your own web server, [test it](https://www.ssllabs.com/ssltest/index.html). TLS configuration
 [can get hairy](https://wiki.mozilla.org/Security/Server_Side_TLS).
 HTTPS Everywhere will do its very best to never navigate you to HTTP
 sites when there's an alternative. That doesn't save you, but it helps.
