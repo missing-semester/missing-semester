@@ -197,8 +197,8 @@ because humans aren't good at remembering strings of 40 hexadecimal characters.
 Git's solution to this problem is human-readable names for SHA-1 hashes, called
 "references". References are pointers to commits. Unlike objects, which are
 immutable, references are mutable (can be updated to point to a new commit).
-For example, the `master` reference usually points to the latest commit in the
-main branch of development.
+For example, the `master` ([now renamed to `main`](https://github.com/github/renaming.git)) 
+reference usually points to the latest commit in the main branch of development.
 
 ```
 references = map<string, string>
