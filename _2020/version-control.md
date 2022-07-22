@@ -510,7 +510,7 @@ hosts, like [GitLab](https://about.gitlab.com/) and
 
 # Resources
 
-- [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
+- [Pro Git](https://git-scm.com/book/en/v2) (book) is **highly recommended reading**.
 Going through Chapters 1--5 should teach you most of what you need to use Git
 proficiently, now that you understand the data model. The later chapters have
 some interesting, advanced material.
