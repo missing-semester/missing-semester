@@ -7,54 +7,91 @@ video:
   aspect: 56.25
   id: tjwobAmnKTo
 ---
-Đáp
-Last year's [security and privacy lecture](/2019/security/) focused on how you
+Phần học [này](/2019/security/) vào năm ngoái đã giới thiệu cho các bạn cách sử dụng máy tính một cách 
+an toàn và bảo mật hơn. Năm nay, chúng tôi sẽ tập trung vào các khái niệm an toàn 
+thông tin (security) và mật mã học (cryptography). Chúng sẽ giúp ta hiểu rõ thêm về các công cụ được
+giới thiệu trước đây trong khóa học, ví dụ như việc dùng hàm băm (hash functions) trong
+Git hoặc trong hàm tạo khóa (Key Derivation Functions), hoặc áp dụng các hệ thống mã hóa đối xứng (symmetric) và
+bất đối xứng (asymmetric) trong trình SSH.
+
+<!-- Last year's [security and privacy lecture](/2019/security/) focused on how you
 can be more secure as a computer _user_. This year, we will focus on security
 and cryptography concepts that are relevant in understanding tools covered
 earlier in this class, such as the use of hash functions in Git or key
-derivation functions and symmetric/asymmetric cryptosystems in SSH.
+derivation functions and symmetric/asymmetric cryptosystems in SSH. -->
 
-This lecture is not a substitute for a more rigorous and complete course on
+Cần lưu ý rằng phần học này không thể thay thế cho một khóa học đầy đủ và toàn diện về
+an toàn máy tính ([6.858](https://css.csail.mit.edu/6.858/)) hay mã hóa học([6.857](https://courses.csail.mit.edu/6.857/) và 6.875). Đừng bao giờ đụng đến an toàn thông tinh nếu như bạn chưa hiểu về nó. 
+Đặc biệt cần lưu ý đến việc [tự tạo các hàm mã hóa](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html) nếu như bạn không phải là một chuyên gia! 
+
+<!-- This lecture is not a substitute for a more rigorous and complete course on
 computer systems security ([6.858](https://css.csail.mit.edu/6.858/)) or
 cryptography ([6.857](https://courses.csail.mit.edu/6.857/) and 6.875). Don't
 do security work without formal training in security. Unless you're an expert,
 don't [roll your own
 crypto](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html).
 The same principle applies to systems security.
+-->
 
-This lecture has a very informal (but we think practical) treatment of basic
+Phần học này sẽ cho bạn cái nhìn đơn giản hóa (nhưng theo tôi là thực dụng) về các khái niệm mật mã học. Phần học này là chắc chắn không đủ kiến thức để bạn có thể tư _thiết kế_ các hệ thống bảo mật và giao thức mật mã học.Tuy nhiên, chúng tôi hy vọng sẽ cho bạn kiến thức bao quát nhất về các chương trình và giao thức mà bạn đã và đang sử dụng.
+
+<!-- This lecture has a very informal (but we think practical) treatment of basic
 cryptography concepts. This lecture won't be enough to teach you how to
 _design_ secure systems or cryptographic protocols, but we hope it will be
 enough to give you a general understanding of the programs and protocols you
 already use.
+-->
 
-# Entropy
+# Entropy 
 
-[Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) is a
+[Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) là một đơn vị đo độ hỗn độn (randomness). Nó rất hữu dụng trong việc đo lường độ mạnh của mật khẩu của bạn.
+
+<!-- [Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) is a
 measure of randomness. This is useful, for example, when determining the
 strength of a password.
+-->
 
 ![XKCD 936: Password Strength](https://imgs.xkcd.com/comics/password_strength.png)
 
-As the above [XKCD comic](https://xkcd.com/936/) illustrates, a password like
+Như bạn thấy trong truyện tranh ở trên [XKCD comic](https://xkcd.com/936/), mật khẩu "correcthorsebatterystaple" an toàn hơn mật khẩu "Tr0ub4dor&3". Làm sao ta khẳng định được điều này?
+
+<!-- As the above [XKCD comic](https://xkcd.com/936/) illustrates, a password like
 "correcthorsebatterystaple" is more secure than one like "Tr0ub4dor&3". But how
 do you quantify something like this?
+-->
 
-Entropy is measured in _bits_, and when selecting uniformly at random from a
+Entropy được đo theo đơn vị _bits_, và khi được lựa một kết quả ngẫu nhiên trong phân phối đồng nhất (uniformly random), thì entropy sẽ bằng `log_2(# số kết quả có thể)`. Tung một đồng xu cho ta 1 bit entropy. Tung xúc xắc (6 mặt) cho ta khoản \~2.58 bits entropy
+
+<!-- Entropy is measured in _bits_, and when selecting uniformly at random from a
 set of possible outcomes, the entropy is equal to `log_2(# of possibilities)`.
 A fair coin flip gives 1 bit of entropy. A dice roll (of a 6-sided die) has
 \~2.58 bits of entropy.
+-->
 
-You should consider that the attacker knows the _model_ of the password, but
+Chúng ta có thể giả định rằng kẻ xấu biết về _mô hình_ (model - ý nói về ký tự hợp thành mật khẩu) của mật khấu, nhưng không hề biết gì về độ ngẫu nhiên dùng để chọn mật khẩu đó.
+
+<!-- You should consider that the attacker knows the _model_ of the password, but
 not the randomness (e.g. from [dice
 rolls](https://en.wikipedia.org/wiki/Diceware)) used to select a particular
-password.
+password. -->
 
-How many bits of entropy is enough? It depends on your threat model. For online
+Bao nhiêu bits entropy thì là đủ? Đó hoàn toàn tùy theo mô hình mối nguy (threat model) của bạn. Đối với việc tấn công mật khẩu online (Online guessing - việc đoán mật khẩu ngay tại giao diện đăng nhập), như truyện tranh XKCD đã chỉ ra, tầm 40 bits entropy là rất tốt. Còn để phòng ngừa việc bị tấn công offline (Offline guessing - khi hacker có được một chuỗi băm của password của bạn và tìm cách giải mã nó), một mật khẩu mạnh hơn (tầm 80 bits hay hơn) là cần thiết
+
+<!-- How many bits of entropy is enough? It depends on your threat model. For online
 guessing, as the XKCD comic points out, \~40 bits of entropy is pretty good. To
 be resistant to offline guessing, a stronger password would be necessary (e.g.
 80 bits, or more).
+-->
 
+# Hàm băm (Hash functions)
+Hàm băm ([cryptographic hash
+function](https://en.wikipedia.org/wiki/Cryptographic_hash_function)) là một hàm toán học để chuyển đổi một dữ liệu với kíck cỡ bất kỳ thành một kích cỡ được quy đinh. Hàm băm được mô tả khái quát như sau:
+
+```
+hash(value: array<byte>) -> vector<byte, N>  (với một N đã được định trước)
+```
+
+<!--
 # Hash functions
 
 A [cryptographic hash
@@ -65,11 +102,17 @@ specification of a hash function is as follows:
 ```
 hash(value: array<byte>) -> vector<byte, N>  (for some fixed N)
 ```
+-->
 
-An example of a hash function is [SHA1](https://en.wikipedia.org/wiki/SHA-1),
+Một ví dụ về hàm băm là [SHA1](https://en.wikipedia.org/wiki/SHA-1), được dùng trong Git.
+Nó có thể băm nhỏ thông tin thành một chuỗi 160 bit thông tin (40 kí tự thập lục phân). 
+Ta có thể thử băm SHA1 bằng câu lệnh `sha1sum`:
+
+<!-- An example of a hash function is [SHA1](https://en.wikipedia.org/wiki/SHA-1),
 which is used in Git. It maps arbitrary-sized inputs to 160-bit outputs (which
 can be represented as 40 hexadecimal characters). We can try out the SHA1 hash
 on an input using the `sha1sum` command:
+-->
 
 ```console
 $ printf 'hello' | sha1sum
@@ -80,11 +123,21 @@ $ printf 'Hello' | sha1sum
 f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0
 ```
 
+Một cách khái quát hơn, hàm băm là một hàm rất khó để đảo ngược (hard-to-invert), nhìn rất ngẫu nhiên (vì thêm một chữ vào chuỗi cần mã hóa sẽ tạo ra một chuỗi băm hoàn toàn khác) tuy nhiên lại tất định (deterministic). Đây là những mô tả về [mô hình hoàn hảo của hàm băm](https://en.wikipedia.org/wiki/Random_oracle). Hàm băm có những đặc tính:
+
+<!--
 At a high level, a hash function can be thought of as a hard-to-invert
 random-looking (but deterministic) function (and this is the [ideal model of a
 hash function](https://en.wikipedia.org/wiki/Random_oracle)). A hash function
 has the following properties:
+-->
 
+- Tính tất tính (Deterministic): nếu input giống nhau thì kết quả output của hàm băm phải giống nhau.
+- Tính không đảo ngược (Non-invertible): khó có thể tìm input `m` sao cho `hash(m) = h` với một kết 
+quả hàm băm `h` mà ta có.
+- Tính khó trùng (collision resistant): Cho input `m_1`, sẽ rất khó tìm `m_2` sao cho `hash(m_1) = hash(m_2)`.
+
+<!--
 - Deterministic: the same input always generates the same output.
 - Non-invertible: it is hard to find an input `m` such that `hash(m) = h` for
 some desired output `h`.
@@ -92,15 +145,21 @@ some desired output `h`.
 different input `m_2` such that `hash(m_1) = hash(m_2)`.
 - Collision resistant: it's hard to find two inputs `m_1` and `m_2` such that
 `hash(m_1) = hash(m_2)` (note that this is a strictly stronger property than
-target collision resistance).
+target collision resistance). -->
 
-Note: while it may work for certain purposes, SHA-1 is [no
+Lưu ý: mặc dù hữu dụng nhưng SHA-1 [không còn](https://shattered.io/) là một hàm băm tốt.
+Bạn cũng có thể tham khảo về vòng đời của các hàm băm ở [đây](https://valerieaurora.org/hash.html).
+Tuy vậy, việc lựa chọn một hàm băm tốt là hoàn toàn ngoài mục đích của phần học này. Nếu bạn
+muốn hiểu thêm điều này, bạn cần phải học mật mã học hay an toàn thông tinh một cách chính quy hơn.
+
+<!-- Note: while it may work for certain purposes, SHA-1 is [no
 longer](https://shattered.io/) considered a strong cryptographic hash function.
 You might find this table of [lifetimes of cryptographic hash
 functions](https://valerieaurora.org/hash.html) interesting. However, note that
 recommending specific hash functions is beyond the scope of this lecture. If you
 are doing work where this matters, you need formal training in
 security/cryptography.
+-->
 
 ## Applications
 
