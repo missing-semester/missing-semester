@@ -84,7 +84,7 @@ be resistant to offline guessing, a stronger password would be necessary (e.g.
 -->
 
 # Hàm băm (Hash functions)
-Hàm băm ([cryptographic hash
+Hàm băm mật mã học ([cryptographic hash
 function](https://en.wikipedia.org/wiki/Cryptographic_hash_function)) là một hàm toán học để chuyển đổi một dữ liệu với kíck cỡ bất kỳ thành một kích cỡ được quy đinh. Hàm băm được mô tả khái quát như sau:
 
 ```
@@ -161,8 +161,14 @@ are doing work where this matters, you need formal training in
 security/cryptography.
 -->
 
-## Applications
+## Ứng Dụng
+- Dùng trong Git để lưu trữ dữ liệu bằng địa chỉ (content-addressed storage). Ý tưởng về [hàm băm](https://en.wikipedia.org/wiki/Hash_function) là
+một khái niệm tương đối bao quát (vì có những hàm băm không phải là hàm băm mã hóa). Vậy tại sao Git lại cần một hàm băm mã hóa?
+- Dùng để rút gọn nội dung của một file. Phần mềm có thể được tải xuống từ những nguồn (nhiều khả năng là không an toàn) song song (mirrors). Ví dụ là các file ảnh Linux ISOs. Thật tốt nếu có thể kiểm chứng những file này và nguồn của chúng. Vì vậy, các trang chủ chính thức thường sẽ cung cấp các chuỗi băm (của nội dung file) cùng đường dẫn để tải chúng. Nhờ đó, ta có thể kiểm chứng sau khi đã tải các file này về.
+- Dùng làm [Hệ thống chấp thuận, ủy nhiệm](https://en.wikipedia.org/wiki/Commitment_scheme). Đây là khi bạn chắc chắn muốn ủy nhiệm một giá trị nào đó và chỉ cho người khác biết một khoảng thời gian sau đó. Ví dụ khi bạn lật đồng xu "trong tâm trí" mà không có đồng xu thật được nhìn thấy và kiểm chứng bởi bạn và một bên khác. Bạn có thể lấy một giá trị `r = random()`, và chia sẻ kết quả hàm băm `h=sha256(r)`. Người thứ hai có thể sẽ đoán kết quả của việc lật đồng xu là mặt sấp (tail) hay mặt ngửa (head) (giữa hai người, có thể quy ước nếu số r là chẵn thì là mặt ngửa và lẻ thì là mặt sấp). Sau khi họ đã chọn kết quả thì bạn có thể cho họ biết giá trị đồng xu sau khi lật (trong đầu bạn) `r`. Người chơi cùng bạn có thể chắc chắn rằng bạn không khai gian bằng cách dùng hàm băm `sha256(r)` đề kiểm chứng kết quả bạn vừa nói và kết quả lúc nãy sau khi tung đồng xu là giống nhau (nếu kết quả hàm băm này và giá trị băm ủy nhiệm lúc nạy là giống nhau).
 
+<!--
+## Applications
 - Git, for content-addressed storage. The idea of a [hash
 function](https://en.wikipedia.org/wiki/Hash_function) is a more general
 concept (there are non-cryptographic hash functions). Why does Git use a
@@ -180,7 +186,13 @@ random()`, and then share `h = sha256(r)`. Then, you could call heads or tails
 (we'll agree that even `r` means heads, and odd `r` means tails). After you
 call, I can reveal my value `r`, and you can confirm that I haven't cheated by
 checking `sha256(r)` matches the hash I shared earlier.
+-->
 
+# Hàm tạo khóa (Key derivation functions)
+Một khái niệm liên quan đến các hàm băm mật mã là các hàm tạo khóa (gọi tắt là KDF). Các hàm này được dùng 
+trong nhiều ứng dụng như tạo các kết quả với cùng kich cỡ để làm khóa (key) dùng trong các thuật toán mật mã khác.
+Thường thì các hàm KDF được thiết kể rất tốn thời gian và điều này giúp làm chậm hơn các cuộc tấn công offline, thử hết (brute-force).
+<!--
 # Key derivation functions
 
 A related concept to cryptographic hashes, [key derivation
@@ -188,7 +200,13 @@ functions](https://en.wikipedia.org/wiki/Key_derivation_function) (KDFs) are
 used for a number of applications, including producing fixed-length output for
 use as keys in other cryptographic algorithms. Usually, KDFs are deliberately
 slow, in order to slow down offline brute-force attacks.
+-->
 
+## Ứng Dụng
+- Tạo khóa từ mật mã để dùng trong các hàm mật mã khác (ví dụ như trong mật mã đối xứng, xem phía dưới).
+- Dùng trong lưu trữ thông tin đăng nhập. Lưu trữ mật khẩu chưa mã hóa là vô cùng nguy hiểm. Cách lưu trữ tốt hơn là 
+tạo một chuỗi số ngẫu nhiên (gọi là muối ([salt](https://en.wikipedia.org/wiki/Salt_(cryptography)))) như `salt = random()` cho mỗi người dùng riêng biệt. Sau đó ta sẽ lưu giữ kết quả của `KDF(password + salt)` vào cơ sở dữ liệu. Khi người dùng đăng nhập, ta sẽ tra thông tin salt trong cơ sở dữ liệu và kết hợp cùng mật khẩu mà người dùng nhập để tạo kết quả bằng hàm KDF. Nếu kết quả này giống dữ liệu được lưu trữ cho người dùng thì ta cho phép họ đăng nhập.
+<!--
 ## Applications
 
 - Producing keys from passphrases for use in other cryptographic algorithms
@@ -198,7 +216,29 @@ approach is to generate and store a random
 [salt](https://en.wikipedia.org/wiki/Salt_(cryptography)) `salt = random()` for
 each user, store `KDF(password + salt)`, and verify login attempts by
 re-computing the KDF given the entered password and the stored salt.
+-->
 
+# Mật mã học đối xứng
+Bảo mật nội dung của một tin nhắn chắc chắn là khái niệm đầu tiên mà bạn biết về mật mã học.
+Mật mã học bất đối xứng có thể làm điều này bằng các chức năng sau đây:
+
+```
+keygen() -> key  (đây là một hàm tạo số ngẫu nhiên)
+
+encrypt(plaintext: array<byte>, key) -> array<byte>  (the ciphertext)
+decrypt(ciphertext: array<byte>, key) -> array<byte>  (the plaintext)
+
+*encrypt, decrypt là hàm mã hóa và hàm giải mã
+**plaintext là nội dung chưa mã hóa
+***ciphertext là nội dung mã hóa
+```
+
+Hàm mã hóa có tính chất là nếu biết kết quả mã hóa, sẽ rất khó để đoán nội dung chưa mã hóa nếu không
+có khóa dùng trong mã hóa. Hàm giải mã thì chắc chắn phải có tính chất `decrypt(encrypt(m, k), k) = m`.
+
+Một ví dụ về mật mã đối xứng là [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+
+<!--
 # Symmetric cryptography
 
 Hiding message contents is probably the first concept you think about when you
@@ -218,13 +258,37 @@ has the obvious correctness property, that `decrypt(encrypt(m, k), k) = m`.
 
 An example of a symmetric cryptosystem in wide use today is
 [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+-->
 
+## Ứng Dụng
+
+- Mã hóa các file để lưu trữ trên dịch vụ đám mây không đáng tin cậy. Việc này có thể được kết hợp với 
+hàm tạo khóa KDF và như vậy bạn có thể bảo mật file bằng một mật khẩu của mình. Điều này được thực hiện bằng cách tạo khóa `key = KDF(mật khẩu)` rồi lưu giữ `encrypt(file, key)`.
+
+<!--
 ## Applications
 
 - Encrypting files for storage in an untrusted cloud service. This can be
 combined with KDFs, so you can encrypt a file with a passphrase. Generate `key
 = KDF(passphrase)`, and then store `encrypt(file, key)`.
+-->
 
+# Mật mã học bất đối xứng
+Thuật ngữ "bất đối xứng" nhắc đến việc phương pháp này cần hai chìa khóa với hai chứng năng khác nhau.
+Loại thứ nhất là chìa khóa bí mật (private key), cần được giữ bí mật. Loại còn lại là chìa khóa công cộng và có thể được chia sẻ một cách thoải mái và không hề ảnh hưởng đến bảo mật thông tin (khác với việc không được chia sẻ chìa khóa trong bảo mật đối xứng). Mật mã bất đối xứng gồm các hàm sau để mã hóa/ giải mã hay để kí/ xác nhận chữ kí:
+
+```
+keygen() -> (public key, private key)  (đây là một hàm tạo số ngẫu nhiên)
+
+encrypt(plaintext: array<byte>, public key) -> array<byte>  (the ciphertext)
+decrypt(ciphertext: array<byte>, private key) -> array<byte>  (the plaintext)
+
+sign(message: array<byte>, private key) -> array<byte>  (the signature)
+verify(message: array<byte>, signature: array<byte>, public key) -> bool  (true nếu chữ kí là là xác thực và ngược lại là false)
+
+*signature là chữ kí số
+```
+<!--
 # Asymmetric cryptography
 
 The term "asymmetric" refers to there being two keys, with two different roles.
@@ -242,27 +306,55 @@ decrypt(ciphertext: array<byte>, private key) -> array<byte>  (the plaintext)
 sign(message: array<byte>, private key) -> array<byte>  (the signature)
 verify(message: array<byte>, signature: array<byte>, public key) -> bool  (whether or not the signature is valid)
 ```
+-->
 
-The encrypt/decrypt functions have properties similar to their analogs from
+Hàm encrypt/decrypt có chức năng như trong mật mã học đối xứng. Tin nhắn có thể được mã hóa
+bằng chìa khóa _công cộng_. Kết quả mã hóa sau đó sẽ khó được sử sụng để đoán nội dung chưa được mã hóa nếu ta không có chìa khóa _bí mật_. Hàm giải mã có thuộc tính `decrypt(encrypt(m, public key), private key) = m`.
+
+<!-- The encrypt/decrypt functions have properties similar to their analogs from
 symmetric cryptosystems. A message can be encrypted using the _public_ key.
 Given the output (ciphertext), it's hard to determine the input (plaintext)
 without the _private_ key. The decrypt function has the obvious correctness
-property, that `decrypt(encrypt(m, public key), private key) = m`.
+property, that `decrypt(encrypt(m, public key), private key) = m`. -->
 
-Symmetric and asymmetric encryption can be compared to physical locks. A
+Mật mã học đối xứng và bất đối xứng có thể được hiểu như các loại khóa ngoài đời thực.
+Mật mã học đối xứng thì giống như khóa cửa: ai có khóa thì khóa/ mở khóa được.
+Còn bất đối xứng thì như loại khóa số: bạn có thể đưa ổ khóa số đã mở cho ai đó (chìa khóa
+công cộng), họ sẽ cho tin nhắn vào trong hộp và khóa lại bằng ổ này, sau đó chỉ có bạn - người biết mật mã 
+(chìa khóa bí mật) có thể mở được ổ khóa.
+
+<!-- Symmetric and asymmetric encryption can be compared to physical locks. A
 symmetric cryptosystem is like a door lock: anyone with the key can lock and
 unlock it. Asymmetric encryption is like a padlock with a key. You could give
 the unlocked lock to someone (the public key), they could put a message in a
 box and then put the lock on, and after that, only you could open the lock
 because you kept the key (the private key).
+-->
 
+Hàm kí và xác nhận chữ kí thì có tác dụng như chữ kí tay của chúng ta. Sẽ rất khó để nhái chữ kí.
+Không cần biết nội dung của tin nhắn, nếu không có chìa khóa _bí mật_, sẽ rất khó để tạo ra một chữ kí
+số để kết quả của hàm `verify(message, signature, public key)` là true. Và tất nhiên, hàm xác thực chữ kí
+có tính chất đúng đắn sau: `verify(message,
+sign(message, private key), public key) = true`.
+
+<!--
 The sign/verify functions have the same properties that you would hope physical
 signatures would have, in that it's hard to forge a signature. No matter the
 message, without the _private_ key, it's hard to produce a signature such that
 `verify(message, signature, public key)` returns true. And of course, the
 verify function has the obvious correctness property that `verify(message,
 sign(message, private key), public key) = true`.
+-->
 
+## Ứng dụng
+- [Bảo mật thư điện tử PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). Người dùng thư có
+thể thông báo chìa khóa công cộng trên mạng online (như trong một máy chủ PGP, hoặc trên trang web như [Keybase](https://keybase.io/)). Ai cũng có thể gửi thư mã hóa đến người dùng.
+- Bảo mật tin nhắn. Những ứng dụng như [Signal](https://signal.org/) and
+[Keybase](https://keybase.io/) dùng mật mã bất đối xứng để tạo các kênh liên lạc bí mật.
+- Kí phần mềm. Git có thể dùng chữ kí số GPG để kí các commits và tags. Với một chìa khóa công cộng
+được thông báo rộng rãi, ai cũng có thể kiểm chứng về độ xác thực về những phần mềm mà họ sẽ tải xuống.
+
+<!--
 ## Applications
 
 - [PGP email encryption](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
@@ -273,7 +365,16 @@ People can have their public keys posted online (e.g. in a PGP keyserver, or on
 communication channels.
 - Signing software. Git can have GPG-signed commits and tags. With a posted
 public key, anyone can verify the authenticity of downloaded software.
+-->
 
+## Truyền dẫn chìa khóa
+Bảo mật bất đối xứng thật sự tuyệt vời, nhưng đi cùng với nó là những thách thức 
+trong việc chia sẻ khóa công cộng hay việc định danh khóa công cộng với một đối tượng đời thực. 
+Có rất nhiều lời giải cho bài toán này. Ứng dụng nhắn tin Signal có một lời giải đơn giản: tin tưởng 
+trong lần dùng đầu và cho phép trao đổi chìa khóa công cộng ngoài luồng (bạn phải tự xác thực số điện thoại của
+đối tượng bạn nhắn tin ngoài đời). PGP thì có một phương pháp khác, gọi là "mạng lưới của sự tin cậy" ([web of trust](https://en.wikipedia.org/wiki/Web_of_trust)). Keybase thì lại có một lời giải khác cho việc chứng thực xã hội ([social
+proof](https://keybase.io/blog/chat-apps-softer-than-tofu)). Mỗi phương pháp có cái hay riêng; chúng tôi - những người tạo khóa học này thì thích cách của Keybase nhất.
+<!--
 ## Key distribution
 
 Asymmetric-key cryptography is wonderful, but it has a big challenge of
@@ -286,8 +387,11 @@ another solution of [social
 proof](https://keybase.io/blog/chat-apps-softer-than-tofu) (along with other
 neat ideas). Each model has its merits; we (the instructors) like Keybase's
 model.
+-->
 
 # Case studies
+
+## Phần mềm quản lý mật khẩu
 
 ## Password managers
 
