@@ -263,7 +263,8 @@ An example of a symmetric cryptosystem in wide use today is
 ## Ứng Dụng
 
 - Mã hóa các file để lưu trữ trên dịch vụ đám mây không đáng tin cậy. Việc này có thể được kết hợp với 
-hàm tạo khóa KDF và như vậy bạn có thể bảo mật file bằng một mật khẩu của mình. Điều này được thực hiện bằng cách tạo khóa `key = KDF(mật khẩu)` rồi lưu giữ `encrypt(file, key)`.
+hàm tạo khóa KDF và như vậy bạn có thể bảo mật file bằng một mật khẩu của mình. Điều này được thực hiện 
+bằng cách tạo khóa `key = KDF(mật khẩu)` rồi lưu giữ `encrypt(file, key)`.
 
 <!--
 ## Applications
@@ -275,7 +276,10 @@ combined with KDFs, so you can encrypt a file with a passphrase. Generate `key
 
 # Mật mã học bất đối xứng
 Thuật ngữ "bất đối xứng" nhắc đến việc phương pháp này cần hai chìa khóa với hai chứng năng khác nhau.
-Loại thứ nhất là chìa khóa bí mật (private key), cần được giữ bí mật. Loại còn lại là chìa khóa công cộng và có thể được chia sẻ một cách thoải mái và không hề ảnh hưởng đến bảo mật thông tin (khác với việc không được chia sẻ chìa khóa trong bảo mật đối xứng). Mật mã bất đối xứng gồm các hàm sau để mã hóa/ giải mã hay để kí/ xác nhận chữ kí:
+Loại thứ nhất là chìa khóa riêng (private key), cần được giữ bí mật. Loại còn lại là chìa khóa chung 
+và có thể được chia sẻ một cách thoải mái và không hề ảnh hưởng đến bảo mật thông tin (khác với việc không 
+được chia sẻ chìa khóa trong bảo mật đối xứng). Mật mã bất đối xứng gồm các hàm sau để mã hóa/ giải mã hay 
+để kí/ xác nhận chữ kí:
 
 ```
 keygen() -> (public key, private key)  (đây là một hàm tạo số ngẫu nhiên)
@@ -309,7 +313,8 @@ verify(message: array<byte>, signature: array<byte>, public key) -> bool  (wheth
 -->
 
 Hàm encrypt/decrypt có chức năng như trong mật mã học đối xứng. Tin nhắn có thể được mã hóa
-bằng chìa khóa _công cộng_. Kết quả mã hóa sau đó sẽ khó được sử sụng để đoán nội dung chưa được mã hóa nếu ta không có chìa khóa _bí mật_. Hàm giải mã có thuộc tính `decrypt(encrypt(m, public key), private key) = m`.
+bằng chìa khóa _chung_. Kết quả mã hóa sau đó sẽ khó được sử sụng để đoán nội dung chưa được mã hóa nếu ta không 
+có chìa khóa _riêng_. Hàm giải mã có thuộc tính `decrypt(encrypt(m, public key), private key) = m`.
 
 <!-- The encrypt/decrypt functions have properties similar to their analogs from
 symmetric cryptosystems. A message can be encrypted using the _public_ key.
@@ -320,8 +325,8 @@ property, that `decrypt(encrypt(m, public key), private key) = m`. -->
 Mật mã học đối xứng và bất đối xứng có thể được hiểu như các loại khóa ngoài đời thực.
 Mật mã học đối xứng thì giống như khóa cửa: ai có khóa thì khóa/ mở khóa được.
 Còn bất đối xứng thì như loại khóa số: bạn có thể đưa ổ khóa số đã mở cho ai đó (chìa khóa
-công cộng), họ sẽ cho tin nhắn vào trong hộp và khóa lại bằng ổ này, sau đó chỉ có bạn - người biết mật mã 
-(chìa khóa bí mật) có thể mở được ổ khóa.
+chung), họ sẽ cho tin nhắn vào trong hộp và khóa lại bằng ổ này, sau đó chỉ có bạn - người biết mật mã 
+(chìa khóa riêng) có thể mở được ổ khóa.
 
 <!-- Symmetric and asymmetric encryption can be compared to physical locks. A
 symmetric cryptosystem is like a door lock: anyone with the key can lock and
@@ -332,7 +337,7 @@ because you kept the key (the private key).
 -->
 
 Hàm kí và xác nhận chữ kí thì có tác dụng như chữ kí tay của chúng ta. Sẽ rất khó để nhái chữ kí.
-Không cần biết nội dung của tin nhắn, nếu không có chìa khóa _bí mật_, sẽ rất khó để tạo ra một chữ kí
+Không cần biết nội dung của tin nhắn, nếu không có chìa khóa _riêng_, sẽ rất khó để tạo ra một chữ kí
 số để kết quả của hàm `verify(message, signature, public key)` là true. Và tất nhiên, hàm xác thực chữ kí
 có tính chất đúng đắn sau: `verify(message,
 sign(message, private key), public key) = true`.
@@ -348,10 +353,11 @@ sign(message, private key), public key) = true`.
 
 ## Ứng dụng
 - [Bảo mật thư điện tử PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). Người dùng thư có
-thể thông báo chìa khóa công cộng trên mạng online (như trong một máy chủ PGP, hoặc trên trang web như [Keybase](https://keybase.io/)). Ai cũng có thể gửi thư mã hóa đến người dùng.
+thể thông báo chìa khóa chung trên mạng online (như trong một máy chủ PGP, hoặc trên trang web 
+như [Keybase](https://keybase.io/)). Ai cũng có thể gửi thư mã hóa đến người dùng.
 - Bảo mật tin nhắn. Những ứng dụng như [Signal](https://signal.org/) and
 [Keybase](https://keybase.io/) dùng mật mã bất đối xứng để tạo các kênh liên lạc bí mật.
-- Kí phần mềm. Git có thể dùng chữ kí số GPG để kí các commits và tags. Với một chìa khóa công cộng
+- Kí phần mềm. Git có thể dùng chữ kí số GPG để kí các commits và tags. Với một chìa khóa chung
 được thông báo rộng rãi, ai cũng có thể kiểm chứng về độ xác thực về những phần mềm mà họ sẽ tải xuống.
 
 <!--
@@ -369,11 +375,13 @@ public key, anyone can verify the authenticity of downloaded software.
 
 ## Truyền dẫn chìa khóa
 Bảo mật bất đối xứng thật sự tuyệt vời, nhưng đi cùng với nó là những thách thức 
-trong việc chia sẻ khóa công cộng hay việc định danh khóa công cộng với một đối tượng đời thực. 
+trong việc chia sẻ khóa chung hay việc định danh khóa chung với một đối tượng đời thực. 
 Có rất nhiều lời giải cho bài toán này. Ứng dụng nhắn tin Signal có một lời giải đơn giản: tin tưởng 
-trong lần dùng đầu và cho phép trao đổi chìa khóa công cộng ngoài luồng (bạn phải tự xác thực số điện thoại của
-đối tượng bạn nhắn tin ngoài đời). PGP thì có một phương pháp khác, gọi là "mạng lưới của sự tin cậy" ([web of trust](https://en.wikipedia.org/wiki/Web_of_trust)). Keybase thì lại có một lời giải khác cho việc chứng thực xã hội ([social
-proof](https://keybase.io/blog/chat-apps-softer-than-tofu)). Mỗi phương pháp có cái hay riêng; chúng tôi - những người tạo khóa học này thì thích cách của Keybase nhất.
+trong lần dùng đầu và cho phép trao đổi chìa khóa chung ngoài luồng (bạn phải tự xác thực số điện thoại của
+đối tượng bạn nhắn tin ngoài đời). PGP thì có một phương pháp khác, gọi là "mạng lưới của sự tin cậy" 
+([web of trust](https://en.wikipedia.org/wiki/Web_of_trust)). Keybase thì lại có một lời giải khác cho việc chứng thực xã hội ([social
+proof](https://keybase.io/blog/chat-apps-softer-than-tofu)). Mỗi phương pháp có cái hay riêng; 
+chúng tôi - những người tạo khóa học này thì thích cách của Keybase nhất.
 <!--
 ## Key distribution
 
@@ -392,7 +400,16 @@ model.
 # Case studies
 
 ## Phần mềm quản lý mật khẩu
+Đây là một công cụ hữu dụng mà mỗi người nên thử (vài ví dụ như [KeePassXC](https://keepassxc.org/), 
+[pass](https://www.passwordstore.org/),hay [1Password](https://1password.com)). Những phần mềm này 
+cho bạn sự tiện lợi để tạo các mật khẩu an toàn với entropy cao cho mỗi tài khoản đăng nhập. Chúng còn có thể lưu giữ 
+các mật khẩu của bạn cùng một chỗ với bảo mật bằng mật mã đối xứng cùng chìa khóa tạo ra từ các hàm KDF và
+mật khẩu mà bạn cung cấp.
 
+Dùng các chương trình này cũng hạn chế việc lập lại mật khẩu (giúp bạn an toàn hơn khi một trong những trang
+web có cùng mật khẩu bị tấn công). Điều tốt hơn nữa là bạn chỉ cần phải nhớ một mật khẩu an toàn duy nhất.
+
+<!--
 ## Password managers
 
 This is an essential tool that everyone should try to use (e.g.
@@ -405,7 +422,13 @@ produced from a passphrase using a KDF.
 Using a password manager lets you avoid password reuse (so you're less impacted
 when websites get compromised), use high-entropy passwords (so you're less likely to
 get compromised), and only need to remember a single high-entropy password.
+-->
 
+## Bảo mật hai lớp (2FA)
+Phương pháp [bảo mật 2 lớp](https://en.wikipedia.org/wiki/Multi-factor_authentication) yêu cầu
+bạn dùng một mật khẩu ("cái bạn biết") cùng với một trình xác thực 2FA (như [YubiKey](https://www.yubico.com/) - 
+"cái bạn sở hữu") để bảo vệ bạn khỏi việc bị ăn cắp mật khẩu và các cuộc tấn công giả mạo ([phishing]((https://en.wikipedia.org/wiki/Phishing)).
+<!--
 ## Two-factor authentication
 
 [Two-factor
@@ -414,6 +437,17 @@ authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication)
 authenticator (like a [YubiKey](https://www.yubico.com/), "something you have")
 in order to protect against stolen passwords and
 [phishing](https://en.wikipedia.org/wiki/Phishing) attacks.
+-->
+
+## Mã hóa ổ cứng
+Mã hóa toàn bộ ổ đĩa của máy tính của bạn là một cách bảo vệ thông tin của bạn dễ dàng
+trong trường hợp bị mất cắp. Bạn có thể dùng [cryptsetup +
+LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system)
+trên Linux, [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/) trên
+Windows, hoặc [FileVault](https://support.apple.com/en-us/HT204837) trên macOS. Những
+trình này sẽ mã hóa nguyên ổ đĩa bằng mật mã đối xứng với chìa khóa được bảo vệ bằng mật khẩu của
+bạn.
+<!--
 
 ## Full disk encryption
 
@@ -425,7 +459,15 @@ on Linux,
 Windows, or [FileVault](https://support.apple.com/en-us/HT204837) on macOS.
 This encrypts the entire disk with a symmetric cipher, with a key protected by
 a passphrase.
+-->
 
+## Tin nhắn bảo mật
+Dùng [Signal](https://signal.org/) hay [Keybase](https://keybase.io/). Đây là những chương trình được bảo 
+mật theo qui trình đầu cuối (end-to-end) bằng phương pháp mã hóa bất đối xứng. Tuy nhiên việc lấy chìa
+khóa chung từ đối tác của bạn là cái đáng nói ở đây. Nếu bạn muốn bảo mật tốt, bạn cần xác thực chìa khóa
+chung của đối tác ngoài luồng trao đổi ngoài đời thực (với Signal hay Keybase), hoặc phải tin tưởng bằng
+chứng minh xã hội (social proofs - với Keybase).
+<!--
 ## Private messaging
 
 Use [Signal](https://signal.org/) or [Keybase](https://keybase.io/). End-to-end
@@ -433,8 +475,21 @@ security is bootstrapped from asymmetric-key encryption. Obtaining your
 contacts' public keys is the critical step here. If you want good security, you
 need to authenticate public keys out-of-band (with Signal or Keybase), or trust
 social proofs (with Keybase).
+-->
 
 ## SSH
+
+Chúng tôi đã có bài học về SSH và chìa khóa trong SSH ở một bài học [trước](/2020/command-line/#remote-machines).
+Bây giờ hãy phân tích về mặt mật mã học của vấn đề này.
+
+Khi bạn chạy trình `ssh-keygen`, nó sẽ tạo một cặp khóa bất đối xứng, `public_key,
+private_key`. Chúng được tạo lập một cách hoàn toàn ngẫu nhiên, bằng entropy được
+cung cấp từ hệ điều hành (từ nhũng hoạt động phần cứng, v.v.). Chìa khóa chung
+thì được lưu giữ nguyên vẹn vì nó không cần phải bí mật. Còn chìa khóa riêng thì cần được bảo mật 
+trên ổ cứng của bạn. Vì vậy `ssh-keygen` sẽ đòi hỏi người dùng cung cấp một mật khẩu và
+dùng nó để tạo một chìa khóa mới dùng để mã hóa chìa khóa riêng bằng bảo mật đối xứng.
+
+<!--
 
 We've covered the use of SSH and SSH keys in an [earlier
 lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
@@ -448,7 +503,17 @@ rest, the private key should be encrypted on disk. The `ssh-keygen` program
 prompts the user for a passphrase, and this is fed through a key derivation
 function to produce a key, which is then used to encrypt the private key with a
 symmetric cipher.
+-->
 
+Trong thực tế, một khi máy chủ biết chìa khóa chung của máy người dùng (được lưu giữ trong `.ssh/authorized_keys`),
+máy người dùng kết nối có thể chứng minh danh tính bằng chữ kí bất đối xứng. Việc này được thực hiện qua quy trình
+[thách đố-chứng minh (challenge-respone) ](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication).
+Quy trình này được hiểu khái quát là khi máy chủ gửi một số ngẫu nhiên đến máy đầu cuối của người dùng. Máy này sẽ
+kí tin nhắn và gửi lại máy chủ, nơi kiểm chứng chữ kí với các chìa khóa chung mà nó lưu giữ sẽ được diễn ra. Nếu thành công,
+việc này sẽ chứng minh rằng máy đẩu cuối đang nắm giữ chìa khóa riêng thuộc cùng cặp với chìa khóa chung mà máy chủ đang
+lưu giữ trong file `.ssh/authorized_keys` của máy chủ. Kết quả là máy chủ SSH chấp thuận cho máy người dùng đăng nhập vào.
+
+<!--
 In use, once the server knows the client's public key (stored in the
 `.ssh/authorized_keys` file), a connecting client can prove its identity using
 asymmetric signatures. This is done through
@@ -459,6 +524,7 @@ which checks the signature against the public key on record. This effectively
 proves that the client is in possession of the private key corresponding to the
 public key that's in the server's `.ssh/authorized_keys` file, so the server
 can allow the client to log in.
+-->
 
 {% comment %}
 extra topics, if there's time
@@ -468,11 +534,38 @@ security concepts, tips
 - HTTPS
 {% endcomment %}
 
+# Một vài thông tin hữu dụng
+- [Bài học năm ngoái](/2019/security/): khi chúng tôi tập trung về vấn đề an toàn và bảo mật theo cách nhìn của người dùng máy tính nhiều hơn.
+- [Những câu trả lời đúng về mật mã học](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): những câu trả lời cho việc dùng thuật toán nào cho X,
+với vô vàn vấn đề X thông dụng.
+
+<!--
 # Resources
 
 - [Last year's notes](/2019/security/): from when this lecture was more focused on security and privacy as a computer user
 - [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): answers "what crypto should I use for X?" for many common X.
+-->
 
+# Bài tập
+
+1. **Entropy**
+   1. Cho mật khẩu được cấu thành từ 4 từ viết thường trong từ điển Anh Ngữ. Biết rằng mỗi từ được lựa
+   một cách ngẫu, đều nhau từ từ điển 100,000 từ. Ví dụ là "correcthorsebatterystaple`. Entropy của mật khẩu này là bao nhiêu bits?
+   1. Cho một cách chọn mật khẩu khác trên: tạo mật khẩu dài 8 kí tự (cả hoa cả thường). Ví dụ như `rg8Ql34g`. Mật khẩu này có entropy là bao nhiêu?
+   1. Trong hai mật khẩu trên, cái nào bảo mật hơn?
+   1. Nếu hacker có thể đoán được 10,000 mật khẩu mỗi giây, sẽ mất bao lâu để đoán được các mật khẩu trên?
+
+1. **Hàm băm mật mã**: Tải file hình của Debian từ một link [phụ](https://www.debian.org/CD/http-ftp/) (ví dụ từ [máy chủ Argentina](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)) Kiểm chứng kết quả hàm băm (từ câu lệnh `sha256sum`) với kết quả băm được đăng trên trang chủ chính thức của Debian (file [này](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) được lưu giữ trên `debian.org`, nếu bạn đã tải file trên đường link phụ của Argentina).
+
+1. **Mật mã đối xứng** Mã hóa một file bằng AES qua câu lệnh [OpenSSL](https://www.openssl.org/): `openssl aes-256-cbc -salt -in {input filename} -out {output filename}`. Hãy xem nội dung file mã hóa bằng `cat` hay `hexdump`. Sau đó giải mã file bằng `openssl aes-256-cbc -d -in {input filename} -out {output filename}` và kiểm tra xem nội dung trước khi mã hóa và sau giải mã là giống nhau (bằng câu lệnh `cmp`).
+
+1. **Mật mã bất đối xứng**
+   1. Hãy cài đặt [chìa khóa SSH](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) trên một máy tính mà bạn có thể đăng nhập được. Hãy chắc chắn rằng chìa khóa riêng của bạn được mã hóa bằng một mật khẩu.
+   1. [Cài đặt GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
+   1. Gửi Anish một thư điện tử bảo mật qua [chìa khóa chung](https://keybase.io/anish)
+   1. Kí một commit trong Git với `git commit -S` hay tạo một Git tag với chữ kí bằng `git tag -s`. Xác thực chữ kí này trên commit bằng `git show --show-signature` hoặc trên tag bằng `git tag -v`.
+
+<!--   
 # Exercises
 
 1. **Entropy.**
@@ -513,3 +606,4 @@ security concepts, tips
     1. Sign a Git commit with `git commit -S` or create a signed Git tag with
        `git tag -s`. Verify the signature on the commit with `git show
        --show-signature` or on the tag with `git tag -v`.
+-->
