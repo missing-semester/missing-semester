@@ -19,11 +19,15 @@ bundle exec jekyll serve -w
 
 All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
 
-## Đóng Góp 
+## Đóng Góp
+
+Xin tham khảo file [CONTRIBUTING.md](contributing.md) về cách đóng góp.
 
 Nếu bạn muốn đóng góp cho việc dịch khóa học này sang tiếng Việt, hoặc biên tập và sửa chữa chính tả, hãy điền tên vào mục dưới.
 Nếu trích dẫn trong các bài đăng xin ghi nguồn cho phần tiếng Việt hoặc tiếng Anh đầy đủ.
 Thêm chi tiết xin email: anhtu.do1998@gmail.com
+
+## Status
 
 | # | Phần                      | Dịch                                           | Biên Tập | Trạng Thái |
 |---|---------------------------|------------------------------------------------|----------|------------|
