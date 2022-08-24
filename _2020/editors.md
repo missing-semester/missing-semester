@@ -196,7 +196,7 @@ are also called "verbs", because verbs act on nouns.
     - e.g. `cw` is change word
     - like `d{motion}` followed by `i`
 - `x` delete character (equal do `dl`)
-- `s` substitute character (equal to `xi`)
+- `s` substitute character (equal to `cl`)
 - Visual mode + manipulation
     - select text, `d` to delete it or `c` to change it
 - `u` to undo, `<C-r>` to redo
