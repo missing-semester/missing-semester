@@ -427,7 +427,7 @@ get compromised), and only need to remember a single high-entropy password.
 ## Bảo mật hai lớp (2FA)
 Phương pháp [bảo mật 2 lớp](https://en.wikipedia.org/wiki/Multi-factor_authentication) yêu cầu
 bạn dùng một mật khẩu ("cái bạn biết") cùng với một trình xác thực 2FA (như [YubiKey](https://www.yubico.com/) - 
-"cái bạn sở hữu") để bảo vệ bạn khỏi việc bị ăn cắp mật khẩu và các cuộc tấn công giả mạo ([phishing]((https://en.wikipedia.org/wiki/Phishing)).
+"cái bạn sở hữu") để bảo vệ bạn khỏi việc bị ăn cắp mật khẩu và các cuộc tấn công giả mạo ([phishing](https://en.wikipedia.org/wiki/Phishing)).
 <!--
 ## Two-factor authentication
 

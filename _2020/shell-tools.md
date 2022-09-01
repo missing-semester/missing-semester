@@ -454,7 +454,7 @@ Có rất nhiều cách đơn giản cho bạn thử, ví dụ như viết một
 
 Với phương châm của khoá học này, bạn sẽ đối mặt với những tình huống phổ biến nhất.
 Tìm những file và/hoặc thư mục thường xuyên được sử dụng có thể được được xử lý bằng [`fasd`](https://github.com/clvv/fasd) và[`autojump`](https://github.com/wting/autojump).
-Fasd xếp hạng các files và thư mục dựa trên [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), nghĩa là , cả 2 _tần số_ và _gần đây_.
+Fasd xếp hạng các files và thư mục dựa trên [_frecency_](https://web.archive.org/web/20210421120120/https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), nghĩa là , cả 2 _tần số_ và _gần đây_.
 Mặc định, `fasd` thêm một lệnh `z` mà bạn có thể dủng để có thể nhanh chóng `cd` chỉ với một chuỗi của thự mục _frecent_. Ví dụ Nếu bạn thường xuyên di chuyển tới `/home/user/files/cool_project` thì bạn chỉ đơn giản là sử dụng `z cool` để di chuyển tới đó. Sử dụng `autojump` thì cú pháp tương tự sẽ là `j cool`.
 
 Một vài công cụ giúp bạn nhanh chóng nắm bắt được cấu trúc thư mục : [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) thậm chí là một trình quản lý file toàn diện như [`nnn`](https://github.com/jarun/nnn) hoặc [`ranger`](https://github.com/ranger/ranger).
