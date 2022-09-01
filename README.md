@@ -28,6 +28,7 @@ Nếu trích dẫn trong các bài đăng xin ghi nguồn cho phần tiếng Vi�
 Thêm chi tiết xin email: anhtu.do1998@gmail.com
 
 ## Status
+### Bản 2020
 
 | # | Phần                      | Dịch                                           | Biên Tập | Trạng Thái |
 |---|---------------------------|------------------------------------------------|----------|------------|
@@ -41,7 +42,11 @@ Thêm chi tiết xin email: anhtu.do1998@gmail.com
 | 8 | [command-line.md](https://missing-semester-vn.github.io/2020/command-line/)||||
 | 9 | [version-control.md](https://missing-semester-vn.github.io/2020/version-control/)|||@Đã Dịch|
 | 10| [debugging-profiling.md](https://missing-semester-vn.github.io/2020/debugging-profiling/)|||@Đang Dịch|
-| 11| [metaprogramming.md](https://missing-semester-vn.github.io/2020/metaprogramming/)||||
+| 11| [metaprogramming.md](https://missing-semester-vn.github.io/2020/metaprogramming/)|||@Đã dịch|
 | 12| [security.md](https://missing-semester-vn.github.io/2020/security/)||||
 | 13| [potpourri.md](https://missing-semester-vn.github.io/2020/potpourri/)||||
 | 14| [qa.md](https://missing-semester-vn.github.io/2020/qa/)||||
+
+### Bản 2019 (TODO)
+| # | Phần                      | Dịch                                           | Biên Tập | Trạng Thái |
+|---|---------------------------|------------------------------------------------|----------|------------|
