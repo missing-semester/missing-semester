@@ -54,7 +54,7 @@ Nowadays surfing the web can get quite annoying due to ads and invasive due to t
 
 - **[HTTPS everywhere](https://www.eff.org/https-everywhere)** is a wonderful extension that redirects to HTTPS version of a website automatically, if available.
 
-You can find about more addons of this kind [here](https://www.privacytools.io/#browser-addons)
+You can find about more addons of this kind [here](https://www.privacytools.io/privacy-browser-addons/)
 
 ## Style customization
 
