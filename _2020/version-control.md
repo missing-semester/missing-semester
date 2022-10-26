@@ -493,7 +493,7 @@ interface instead.
 shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
 [bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
 frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: similarly to the above, handy integrations with many
+- **Editor integration**: similar to the above, handy integrations with many
 features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
 one for Vim.
 - **Workflows**: we taught you the data model, plus some basic commands; we

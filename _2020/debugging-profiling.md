@@ -220,7 +220,7 @@ Since [premature optimization is the root of all evil](http://wiki.c2.com/?Prema
 
 ## Timing
 
-Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
+Similar to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
 Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
 
 ```python
