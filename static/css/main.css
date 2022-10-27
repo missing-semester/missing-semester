@@ -373,5 +373,7 @@ input[type=checkbox]:checked ~ .menu-label:after {
   #content hr:last-of-type { display: none; }
   #content pre { break-inside: avoid-page; page-break-inside: avoid; }
   #content div.small:last-of-type { display: none; }
-  a::after { content: "("attr(href)")"; font-family: monospace; margin: 0 .25em; }
+  a[href^="https://"]::after, a[href^="http://"]::after {
+    content: "("attr(href)")"; font-family: monospace; margin: 0 .25em;
+  }
 }
