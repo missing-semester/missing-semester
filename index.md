@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Le semestre manquant de votre éducation Informatique
+title: Le trimestre manquant de votre éducation Informatique
 ---
 
 Les cours vous apprenent toutes sortes de sujets avancés en informatique, des
@@ -48,13 +48,13 @@ Incrivez vous à la classe de 2020 IAP en remplissant [ce](https://forms.gle/TD1
 {% endfor %}
 </ul>
 
-Les enregistrements vidéos son disponibles [sur
+Les enregistrements vidéos sont disponibles [sur
 YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
 
 # À propos de ce cours
 
 **Staff**: Ce cours est enseigné par [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), et [Jose](http://josejg.com/).<br>
-**Questions**: Envoyer nous un courriel à [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Questions**: Envoyez nous un courriel à [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Au-delà de MIT
 

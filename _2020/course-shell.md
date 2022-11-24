@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Course overview + the shell"
+title: "Survol du cours + le shell"
 date: 2020-01-13
 ready: true
 video:
@@ -10,90 +10,91 @@ video:
 
 # Motivation
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+En tant qu'informaticiens, on sait que les ordinateur sont utiles à nous
+aider avec les tâches répétitives. Pourtant, on oublie parfois que cela 
+s'applique aussi à notre _utilisation_ de l'ordinateur ainsi qu'aux calculs 
+qu'on veut que nos programmes exécutent. Nous avons un arsenal
+d'outils à portée de main qui nous permettent d'être plus productif et de
+résoudre des problêmes plus complexes quand on travaille sur une tâche
+reliée aux ordinateurs. Mais encore, plusieurs d'entre nous utilisent
+seulement une fraction des ces outils; nous savons seulement quelques 
+incantations magiques par coeur pour se débrouiller et nous copions 
+aveuglément des commandes tirées d'internet quand on est pris.
 
-This class is an attempt to address this.
+L'objectif de cette classe est de rectifier ceci.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Nous voulons vous apprendre comment ressortir le plus des outils que vous
+connaissez, vous montrer de nouveau outils à ajouter à votre boîte et vous 
+inspirer à explorer (et peut-être construire) plus d'outils par vous 
+même. C'est ce que nous pensons être le trimestre manquand de votre curriculum
+informatique.
 
-# Class structure
+# Structure du cours
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+Le cours consiste de 11 présentations de 1 heure, chacune se concentrant
+sur un [sujet en particulier](/2020/). Les leçons sont principalement 
+indépendantes, mais plus tard dans le trimestre nous assumerons que vous
+êtes familiers avec le contenu des leçons précédentes. Nous avons des notes
+de cours en ligne, mais il y aura beaucoup de contenu vu en classe (comme 
+des présentations) qui ne sera pas nécessairement dans les notes. Nous allons
+enregistrer les leçons et nous les afficherons en ligne.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
+Nous essayons de couvrir beaucoup de matériel, donc les leçons seront 
+particulièrement denses. Pour vous laisser vous familiariser avec le 
+contenu à votre propre vitesse, chaque leçon aura un ensemble d'exercices
+pour vous guider à travers les points clés des leçons. Après chaque leçon,
+nous organisons des heures de bureau où nous serons présent pour aider à
+répondre aux questions que vous pourriez avoir. Si vous assistez au cours
+en ligne, vous pouvez envoyez des questions à
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+À cause des limitations temporelles du cours, nous ne pourrons pas couvrir 
+tous les outils de façon aussi détaillé qu'un cours complet le pourrait. 
+Nous essayerons de vous montrer des ressources pour en apprendre plus sur
+un outil ou un sujet, mais si quelque chose de particulier vous intéresse, 
+n'hésitez pas à nous demander de vous indiquer où chercher!
 
-# Topic 1: The Shell
+# Topic 1: La Shell
 
-## What is the shell?
+## Qu'est-ce que le shell?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Les ordinateurs de nos jours ont plusieurs interfaces pour recevoir des 
+commandes; les outils d'interfaces graphiques, les interfaces vocaux et
+même la RA/RV sont omniprésents. Ces interfaces sont utiles pour 80% des 
+cas, mais ils sont fondamentalement restreints dans leurs fonctionalités 
+\- on ne peut pas appuyer sur un bouton qui n'est pas là ou donner une 
+commande vocale qui n'a pas été programmée. Pour prendre avantage des 
+outils que votre ordinateur détient, il faut qu'on aille old-school et 
+qu'on revienne à un interface textuel: La Shell (Coquille).
 
-Nearly all platforms you can get your hand on has a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Presque toutes les plateformes que vous pouvez mettre la main dessus aura 
+un shell d'une forme ou d'une autre et plusieurs d'entre elles ont plusieurs 
+shell que vous pouvez choisir. Même si elles ont quelques détails différents, 
+elles sont tous similaires à leur coeur(?): elles vous laisse rouler des 
+programmes, leur saisir des données et inspecter leur résultats de façon 
+semi-structurée.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+Dans cette leçon, nous allons nous concentrer sur la Bourne Again SHell, ou 
+simplement "bash". C'est le shell le plus utilisée et sa syntaxe est similaire 
+à celle que vous voyeriez dans plusieurs autres shells. Pour ouvrir un 
+_invite_ du shell (où vous pouvez écrire des commandes), vous devez tout 
+d'abord avoir un _terminal_. Votre appareil est probablement expédié avec 
+un terminal installé. Sinon, vous pouvez en installer un assez facilement.
 
-## Using the shell
+## Utiliser le shell
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Quand vous démarrerez votre terminal, vous verrez une _invite_ qui ressemble à:
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Ceci est l'interface textuel du shell. Elle indique que vous êtes sur
+l'appareil `missing` et que votre "current working directory", où vous êtes
+présentement, est `~` (raccourci pour "home"). Le `$` indique que vous n'êtes 
+pas l'utilisateur racine (plus d'information ultérieurement). À cette invite
+vous pouvez entrer une _commande_, qui sera interpretée par le shell. La 
+commande la plus simple est l'exécution d'un programme:
 
 ```console
 missing:~$ date
@@ -101,34 +102,34 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Ici, nous avons exécuté le programme `date`, qui (sans surprise) imprime 
+la date et le temps. Le shell ensuite nous demande une autre commande a 
+exécuter. On peut aussi exécuter une commande avec des _arguments_: 
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Dans ce cas, nous avons demandé au shell d'exécuter le programme `echo` 
+avec l'argument `hello`. Le programme `echo` imprime simplement ses arguments. 
+Le shell analyse la commande en la séparant par les espaces, pour ensuite 
+rouler le programme indiqué par le premier mot, soumettant chaque autre mot 
+comme un argument que le programme peut accéder. Si vous voulez donner un 
+argument qui contient des espaces ou d'autres charactères spéciaux (comme 
+une fillière nommée "Mes Photos"), vous pouvez soit mettre des guillemets 
+( `'` ou '"': `"Mes Photos"`), ou échapper seulement les charactères 
+concernés avec une `\` (`"Mes\ Photos"`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+Mais comment le shell reconnait où trouver le programme `echo` ou le programme 
+`date`? Puisque le shell est un environnement de programmation, comme Python 
+ou Ruby, elle est capable d'utiliser des variables, des conditions, des boucles 
+et des fonctions (prochaine leçon!). Quand vous roulez des commandes dans votre 
+shell, vous êtes en fait en train d'écrire un peu de code que votre shell 
+interprète. Si vous demandez au shell d'exécuter une commande qui ne 
+correspond pas à un de ses mots clés de programmation, elle consulte une 
+_variable d'environnement_ nommée `$PATH` qui liste quelles fillières que 
+le shell devrait chercher pour des programmes quand on lui donne une commande.
 
 
 ```console
@@ -140,26 +141,27 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Quand on run la commande `echo`, le shell voit qu'elle devrait exécuter
+le programme `echo` et cherche à travers la liste de fillières séparée
+par un `:` dans `$PATH` pour un fichier qui a ce nom. Quand elle le trouve, 
+elle le roule (si le fichier est _exécutable_; on en reparlera plus tard). 
+Nous pouvons trouver quel fichier est exécuté pour un programme en utilisant 
+le programme `which`. On peut aussi contourner la variable `$PATH` entièrement 
+en donnant le _chemin_ vers le fichier qu'on veut exécuter.
 
-## Navigating in the shell
+## Naviguer le shell
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Un chemin sur le shell est une liste de fillières séparé par une `/` sur 
+Linux et macOS et `\` sur Windows. Sur Linux et macOS, le chemin `/` est 
+la "racine" du système de fichiers, sous laquelle tous les autres fillières 
+et fichiers reposent, tandis que sur Windows il y a une racine pour chaque 
+partition de disque (ex: `C:\`). Nous allons assumer généralement 
+que vous utilisez un système de fichiers Linux dans ce cours. Un chemin qui 
+commence avec `/` est un chemin _absolu_. Tout autre chemin est un chemin 
+_relatif_. Les chemins relatif sont relatif à la fillière qui est présentement 
+sélectionnée, qu'on peut voir avec la commande `pwd` et qu'on peut changer 
+avec la commande `cd`. Dans un chemin,  `.` fait référence à la fillière 
+sélectionnée et `..` à la fillière parente:
 
 ```console
 missing:~$ pwd
@@ -180,9 +182,15 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Remarquez que notre invite du shell nous garde informés sur le nom de
+notre fillière sélectionnée. Vous pouvez configurer votre invite pour 
+afficher toute sorte d'information utile, que nous couvrirons dans une 
+autre leçon.
+
+Généralement, quand on roule un programme, il va opérer dans la 
+fillière sélectionnée à moin qu'on lui dise autrement. Par exemple, 
+il cherchera ici et créera des nouveau fichiers si cela s'avère 
+nécessaire.
 
 In general, when we run a program, it will operate in the current
 directory unless we tell it otherwise. For example, it will usually
