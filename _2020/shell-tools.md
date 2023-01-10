@@ -248,7 +248,7 @@ For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. S
 # Find all python files where I used the requests library
 rg -t py 'import requests'
 # Find all files (including hidden files) without a shebang line
-rg -u --files-without-match "^#!"
+rg -u --files-without-match "^#\!"
 # Find all matches of foo and print the following 5 lines
 rg foo -A 5
 # Print statistics of matches (# of matched lines and files )
