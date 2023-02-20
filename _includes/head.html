@@ -34,7 +34,11 @@
 
   <title>
     {% if page.title %}
-      {{ page.title }} &middot; {{ site.title }}
+      {% if page.nositetitle %}
+        {{ page.title }}
+      {% else %}
+        {{ page.title }} &middot; {{ site.title }}
+      {% endif %}
     {% else %}
       {{ site.title }}
     {% endif %}
