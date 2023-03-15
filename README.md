@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/missing-semester/missing-semester/workflows/Build/badge.svg)](https://github.com/missing-semester/missing-semester/actions?query=workflow%3ABuild) [![Links Status](https://github.com/missing-semester/missing-semester/workflows/Links/badge.svg)](https://github.com/missing-semester/missing-semester/actions?query=workflow%3ALinks)
 
-Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
+Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class.
 
 Contributions are most welcome! If you have edits or new content to add, please
 open an issue or submit a pull request.
