@@ -93,6 +93,7 @@ Some more URLs:
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
+- [Arabic](https://missing-semester-ar.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
