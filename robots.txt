@@ -1,2 +1,4 @@
+I am a robot.txt file.
+
 User-agent: *
 Disallow:
