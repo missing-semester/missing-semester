@@ -1,4 +1,5 @@
 I am a robot.txt file.
+Here's nothing useful
 
 User-agent: *
 Disallow:
