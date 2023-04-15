@@ -157,7 +157,7 @@ As you can probably imagine, you can come up with _really_ complicated
 regular expressions. For example, here's an article on how you might
 match an [e-mail
 address](https://www.regular-expressions.info/email.html). It's [not
-easy](https://emailregex.com/). And there's [lots of
+easy](https://web.archive.org/web/20221223174323/http://emailregex.com/). And there's [lots of
 discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
 And people have [written
 tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
