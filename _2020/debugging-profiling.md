@@ -401,7 +401,7 @@ The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abst
 For example, `perf` can easily report poor cache locality, high amounts of page faults or livelocks. Here is an overview of the command:
 
 - `perf list` - List the events that can be traced with perf
-- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related a process or command
+- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related to a process or command
 - `perf record COMMAND ARG1 ARG2` - Records the run of a command and saves the statistical data into a file called `perf.data`
 - `perf report` - Formats and prints the data collected in `perf.data`
 
