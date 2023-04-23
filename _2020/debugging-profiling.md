@@ -145,7 +145,6 @@ Below are some examples of using `strace` or `dtruss` to show [`stat`](https://w
 ```bash
 # On Linux
 sudo strace -e lstat ls -l > /dev/null
-4
 # On macOS
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
