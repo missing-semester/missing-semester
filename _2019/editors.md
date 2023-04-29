@@ -155,7 +155,7 @@ powerful, composable commands).
 - `s` substitute character (equal to `xi`)
 - visual mode + manipulation
     - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r` to redo
+- `u` to undo, `<C-r>` to redo
 - Lots more to learn: e.g. `~` flips the case of a character
 
 ### Resources
