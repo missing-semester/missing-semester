@@ -392,7 +392,9 @@ better way of doing this", there probably is: look it up online.
 - Macros can be recursive
     - first clear the macro with `q{character}q`
     - record the macro, with `@{character}` to invoke the macro recursively
-    (will be a no-op until recording is complete)
+    (will be a no-op until recording is complete). Note however that although
+    it's legal for a macro to call another macro, calling itself runs
+    into infinite loop.
 - Example: convert xml to json ([file](/2020/files/example-data.xml))
     - Array of objects with keys "name" / "email"
     - Use a Python program?
