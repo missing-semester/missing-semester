@@ -377,7 +377,7 @@ rustup toolchain list | grep nightly | grep -vE "nightly-x86|01-17" | sed 's/-x8
    one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm) or [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1).
    Maybe another one [from
-   here](https://www.springboard.com/blog/free-public-data-sets-data-science-project/).
+   here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
    Fetch it using `curl` and extract out just two columns of numerical
    data. If you're fetching HTML data,
    [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON
