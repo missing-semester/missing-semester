@@ -27,6 +27,7 @@ jobs:
             https://www.vmware.com/
             https://fossbytes.com/enable-full-disk-encryption-windows-10/
             http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/
+            https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/
           ignore_url_re: |
             ^http://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
