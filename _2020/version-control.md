@@ -542,6 +542,11 @@ class website](https://github.com/missing-semester/missing-semester).
     1. What was the commit message associated with the last modification to the
        `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
        show`).
+1. At some point you will be forced to learn how to undo your local commit(s). What you will have to do is to "rewrite" git history, which can be quite a dangerous task. Firstly, create a file in your repository, add it to index (staging area) and commit it. Now try to undo your changes in the following ways (hint use git reset with flags
+[this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/))
+    1. Move HEAD and current branch references to point to the previous commit, while retaining the staged and working directory files 
+    1. Move HEAD and current branch reference to point to the previous commit and restoring the index (staging area) files to the state of the previous commit, while retaining modified files in the working directory
+    1. Completely undo the whole commit and remove all the changes 
 1. One common mistake when learning Git is to commit large files that should
    not be managed by Git or adding sensitive information. Try adding a file to
    a repository, making some commits and then deleting that file from history
