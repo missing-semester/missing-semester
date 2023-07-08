@@ -482,8 +482,7 @@ Let's get you up to speed with dotfiles.
    control.
 1. Add a configuration for at least one program, e.g. your shell, with some
    customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized
-   utility](https://dotfiles.github.io/utilities/).
+1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s Path/to/your/dotfiles ~/.dotfiles` for each dotfile in your folder. Or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
 1. Test your installation script on a fresh virtual machine.
 1. Migrate all of your current tool configurations to your dotfiles repository.
 1. Publish your dotfiles on GitHub.
@@ -492,8 +491,8 @@ Let's get you up to speed with dotfiles.
 
 Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
-1. Edit `.ssh/config` to have an entry as follows
+1. Go to `cd ~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
+1.Creat and edit config file using vim `vim .ssh/config` to have an entry as follows
 
     ```bash
     Host vm
