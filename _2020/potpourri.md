@@ -221,7 +221,7 @@ around, all without touching the mouse. They are worth looking into!
 ## VPNs
 
 VPNs are all the rage these days, but it's not clear that's for [any
-good reason](https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
+good reason](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
 should be aware of what a VPN does and does not get you. A VPN, in the
 best case, is _really_ just a way for you to change your internet
 service provider as far as the internet is concerned. All your traffic
