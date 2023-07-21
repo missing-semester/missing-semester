@@ -29,3 +29,5 @@ website. Jekyll will re-build the website as you make changes to files.
 ## License
 
 All the contents in this course, including the website source code, lecture notes, exercises, and lecture videos are licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
+
+Muhammad Faizan
