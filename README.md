@@ -19,6 +19,8 @@ If you'd prefer to develop the site in a Docker container (e.g., to avoid
 having to install Ruby and dependencies on your host machine), run:
 
 
+hello I'm writing here as a contributor
+
 ```bash
 docker-compose up --build
 ```
