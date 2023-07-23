@@ -139,5 +139,3 @@ We hope to see you in January, whether virtually or in person!
 
 Happy hacking,<br>
 Anish, Jose, and Jon
-
-(I just add this line as it was part of my task, and I am glad that I can make a pull request now!)
