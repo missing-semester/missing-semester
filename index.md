@@ -95,6 +95,7 @@ Some more URLs:
 - [Vietnamese](https://missing-semester-vn.github.io/)
 - [Arabic](https://missing-semester-ar.github.io/)
 - [Italian](https://missing-semester-it.github.io/)
+- [Persian](https://missing-semester-fa.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
