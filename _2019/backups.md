@@ -93,7 +93,7 @@ Some good backup programs and services we have used and can honestly recommend:
 
 1. Figure out how to backup your email accounts
 
-1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://youtube-dl.org/)) solutions based on available APIs.
+1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solutions based on available APIs.
 
 1. Think of a website you have visited repeatedly over the years and look it up in [archive.org](https://archive.org/web/), how many versions does it have?
 
