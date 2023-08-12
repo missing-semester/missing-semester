@@ -272,7 +272,7 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates
+Demonstrated in the example above, `cat` is a program that concatenates
 files. When given file names as arguments, it prints the contents of each of
 the files in sequence to its output stream. But when `cat` is not given any
 arguments, it prints contents from its input stream to its output stream (like
