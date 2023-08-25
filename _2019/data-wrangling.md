@@ -90,7 +90,7 @@ you can pass `-E`.
 So, looking back at `/.*Disconnected from /`, we see that it matches
 any text that starts with any number of characters, followed by the
 literal string "Disconnected from ". Which is what we wanted. But
-beware, regular expressions are trixy. What if someone tried to log in
+beware, regular expressions are tricky. What if someone tried to log in
 with the username "Disconnected from"? We'd have:
 
 ```
