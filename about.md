@@ -135,7 +135,7 @@ wait for January, you can also take a look at the lectures from [Hacker
 Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
 year. It is the precursor to this class, and covers many of the same topics.
 
-We hope to see you in January, whether virtually or in person!
+We hope to see you in January, whether virtually or in person(hopefully)!
 
 Happy hacking,<br>
 Anish, Jose, and Jon
