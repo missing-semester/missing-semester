@@ -66,7 +66,7 @@ hasn't been programmed. To take full advantage of the tools your
 computer provides, we have to go old-school and drop down to a textual
 interface: The Shell.
 
-Nearly all platforms you can get your hand on has a shell in one form or
+Nearly all platforms you can get your hands on have a shell in one form or
 another, and many of them have several shells for you to choose from.
 While they may vary in the details, at their core they are all roughly
 the same: they allow you to run programs, give them input, and inspect
