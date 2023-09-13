@@ -32,4 +32,4 @@ jobs:
             ^http://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
           swap_urls: |
-            {"^(https://github.com/.*)#.*$": "\\1"}
+            {"^(https://github\\.com/.*)#.*$": "\\1"}
