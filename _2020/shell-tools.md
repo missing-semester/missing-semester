@@ -17,7 +17,7 @@ However, in many scenarios you will want to perform a series of commands and mak
 
 Shell scripts are the next step in complexity.
 Most shells have their own scripting language with variables, control flow and its own syntax.
-What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
+What makes shell scripting different from other scripting programming languages is that it is optimized for performing shell-related tasks.
 Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
 For this section we will focus on bash scripting since it is the most common.
 
