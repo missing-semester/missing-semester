@@ -70,7 +70,7 @@ Run test code with CPU profiler: `go test -cpuprofile=cpu.out`
 
 Analyze profile: `go tool pprof -web cpu.out`
 
-Run test code with CPU profiler: `go test -memprofile=cpu.out`
+Run test code with Memory profiler: `go test -memprofile=mem.out`
 
 Analyze profile: `go tool pprof -web mem.out`
 
