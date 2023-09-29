@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Les outils de Shell et les scripts"
+title: "Les outils du Shell et les scripts"
 date: 2020-01-14
 ready: true
 video:
@@ -86,71 +86,72 @@ false ; echo "Cette opération sera toujours exécutée"
 # Cette opération sera toujours exécutée
 ```
 
-Another common pattern is wanting to get the output of a command as a variable. This can be done with _command substitution_.
-Whenever you place `$( CMD )` it will execute `CMD`, get the output of the command and substitute it in place.
-For example, if you do `for file in $(ls)`, the shell will first call `ls` and then iterate over those values.
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name. This is useful when commands expect values to be passed by file instead of by STDIN. For example, `diff <(ls foo) <(ls bar)` will show differences between files in dirs  `foo` and `bar`.
+Un autre cas courant consiste à vouloir obtenir la sortie d'une commande sous la forme d'une variable. Cela peut être fait avec la _substitution de commandes_.
+Lorsque vous placez `$( CMD )` il exécutera `CMD`, et récupèra la sortie de la commande et la remplacera.
+Par exemple, si vous faites  `for file in $(ls)`,  l'interpréteur de commandes appellera d'abord `ls` et itérera ensuite sur ces valeurs.
+Une fonction similaire moins connue est la  _substitution de commandes_, `<( CMD )` qui exécute `CMD` et place la sortie dans un fichier temporaire et remplace le `<()` par le nom de ce fichier. Ceci est utile lorsque les commandes s'attendent à ce que les valeurs soient transmises par un fichier plutôt que par STDIN. Par exemple, `diff <(ls foo) <(ls bar)` montrera les différences entre les fichiers des répertoires `foo` et `bar`.
 
-
-Since that was a huge information dump, let's see an example that showcases some of these features. It will iterate through the arguments we provide, `grep` for the string `foobar`, and append it to the file as a comment if it's not found.
+Puisque c'est beacoup d'informations d'un coup, voyons un exemple qui illustre certaines de ces fonctionnalités. la fonctionnalité va parcourir les arguments que nous fournissons. On va `grep` pour la chaîne de caractères `foobar`, et l'ajouter au fichier en tant que commentaire si elle n'est pas trouvée.
 
 ```bash
 #!/bin/bash
 
-echo "Starting program at $(date)" # Date will be substituted
+echo "Le programme commence à $(date)" # Date will be substituted
 
-echo "Running program $0 with $# arguments with pid $$"
+echo "Execution du programme $0 avec $# arguments et avec le pid $$"
 
 for file in "$@"; do
     grep foobar "$file" > /dev/null 2> /dev/null
-    # When pattern is not found, grep has exit status 1
-    # We redirect STDOUT and STDERR to a null register since we do not care about them
+    # Si le motif n'est pas trouvé, grep a le statut de sortie 1.
+    # Nous redirigeons STDOUT et STDERR vers un registre nul puisque nous ne nous en soucions pas.
     if [[ $? -ne 0 ]]; then
-        echo "File $file does not have any foobar, adding one"
+        echo "Fichier $file n'a pas de foobar, on en ajoute un"
         echo "# foobar" >> "$file"
     fi
 done
 ```
 
-In the comparison we tested whether `$?` was not equal to 0.
-Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+Dans la comparaison, nous avons testé si `$?` était différent de 0.
+Bash implémente de nombreuses comparaisons de ce type - vous pouvez trouver une liste détaillée de comparaison dans la page de manuel de [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
+Lorsque vous effectuez des comparaisons dans bash, essayez d'utiliser des doubles crochets `[[ ]]` au lieu de simples crochets `[ ]`. Les chances de faire des erreurs sont plus faibles, bien qu'elles ne soient pas portables à sh. Une explication plus détaillée peut être trouvée ici. [ici](http://mywiki.wooledge.org/BashFAQ/031).
 
-When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
-- Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
-- Curly braces `{}` - Whenever you have a common substring in a series of commands, you can use curly braces for bash to expand this automatically. This comes in very handy when moving or converting files.
+Lorsque vous lancez des scripts, vous souhaitez souvent fournir des arguments similaires. Bash dispose de moyens pour faciliter cette tâche, en développant les expressions par l'intermédiaire de l'expansion des noms de fichiers. Ces techniques sont souvent appelées shell _globbing_.
+
+- Jokers - Lorsque vous souhaitez effectuer une sorte de recherche avec des jokers, vous pouvez utiliser `?` et `*` pour faire correspondre un ou plusieurs caractères respectivement. Par exemple, avec les fichiers `foo`, `foo1`, `foo2`, `foo10` et `bar`, la commande `rm foo?` supprimera `foo1` et `foo2` alors que `rm foo*` supprimera tout sauf `bar`.
+
+- Accolades `{}` - Lorsque vous avez une sous-chaîne commune dans une série de commandes, vous pouvez utiliser les accolades pour que bash l'étende automatiquement. C'est très pratique pour déplacer ou convertir des fichiers.
 
 ```bash
 convert image.{png,jpg}
-# Will expand to
+# S'étendra à
 convert image.png image.jpg
 
 cp /path/to/project/{foo,bar,baz}.sh /newpath
-# Will expand to
+# S'étendra à
 cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newpath
 
-# Globbing techniques can also be combined
+# Les techniques de Globbing peuvent également être combinées
 mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
+# Déplacera tous les fichiers *.py et *.sh 
 
 
 mkdir foo bar
-# This creates files foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
+# Cela crée les fichiers foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
 touch {foo,bar}/{a..h}
 touch foo/x bar/y
-# Show differences between files in foo and bar
+# Montre les différences entre les fichiers de foo et de bar
 diff <(ls foo) <(ls bar)
-# Outputs
+# Sorties
 # < x
 # ---
 # > y
 ```
 
-<!-- Lastly, pipes `|` are a core feature of scripting. Pipes connect one program's output to the next program's input. We will cover them more in detail in the data wrangling lecture. -->
+<!--Enfin, les tuyaux `|` sont une caractéristique essentielle des scripts. Les pipes connectent la sortie d'un programme à l'entrée du programme suivant. Nous les aborderons plus en détail dans le cours sur le traitement des données. -->
 
-Writing `bash` scripts can be tricky and unintuitive. There are tools like [shellcheck](https://github.com/koalaman/shellcheck) that will help you find errors in your sh/bash scripts.
+L'écriture de scripts `bash` peut être compliquée et peu compréhensible. Il existe des outils comme [shellcheck](https://github.com/koalaman/shellcheck) qui vous aideront à trouver des erreurs dans vos scripts sh/bash.
 
-Note that scripts need not necessarily be written in bash to be called from the terminal. For instance, here's a simple Python script that outputs its arguments in reversed order:
+Notez que les scripts ne doivent pas nécessairement être écrits en bash pour être appelés depuis le terminal. Par exemple, voici un script Python simple qui affiche ses arguments dans l'ordre inverse :
 
 ```python
 #!/usr/local/bin/python
@@ -159,153 +160,149 @@ for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
 
-The kernel knows to execute this script with a python interpreter instead of a shell command because we included a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line at the top of the script.
-It is good practice to write shebang lines using the [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) command that will resolve to wherever the command lives in the system, increasing the portability of your scripts. To resolve the location, `env` will make use of the `PATH` environment variable we introduced in the first lecture.
-For this example the shebang line would look like `#!/usr/bin/env python`.
+Le noyau sait qu'il doit exécuter ce script avec un interpréteur python au lieu d'une commande shell parce que nous avons inclus une ligne [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) au début du script. C'est une bonne pratique d'écrire les lignes shebang en utilisant la commande [`env`](https://www.man7.org/linux/man-pages/man1/env.1.html) qui résoudra l'emplacement de la commande dans le système, augmentant ainsi la portabilité de vos scripts. Pour déterminer l'emplacement, `env` utilisera la variable d'environnement `PATH` que nous avons introduite dans le premier cours.
+Pour cet exemple, la ligne shebang ressemblerait à `#!/usr/bin/env python`.
 
-Some differences between shell functions and scripts that you should keep in mind are:
-- Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
-- Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
+Voici quelques différences entre les fonctions de l'interpréteur de commandes et les scripts que vous devez garder à l'esprit :
+- Les fonctions doivent être écrites dans le même langage que le shell, alors que les scripts peuvent être écrits dans n'importe quel langage. C'est pourquoi il est important d'inclure un shebang pour les scripts.
+- Les fonctions sont chargées une fois lorsque leur définition est lue. Les scripts sont chargés à chaque fois qu'ils sont exécutés. Les fonctions sont donc légèrement plus rapides à charger, mais chaque fois que vous les modifiez, vous devez recharger leur définition.
+- Les fonctions sont exécutées dans l'environnement actuel du shell alors que les scripts s'exécutent dans leur propre processus. Ainsi, les fonctions peuvent modifier les variables d'environnement, par exemple changer votre répertoire actuel, alors que les scripts ne le peuvent pas. Les scripts se verront passer par valeur les variables d'environnement qui ont été exportées en utilisant [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html).
+- Comme dans tout langage de programmation, les fonctions sont un moyen puissant d'assurer la modularité, la réutilisation du code et la clarté du code de l'interpréteur de commandes. Souvent, les scripts shell incluent leurs propres définitions de fonctions.
 
-# Shell Tools
+# Outils Shell
 
-## Finding how to use commands
+## Savoir utiliser les commandes
 
-At this point, you might be wondering how to find the flags for the commands in the aliasing section such as `ls -l`, `mv -i` and `mkdir -p`.
-More generally, given a command, how do you go about finding out what it does and its different options?
-You could always start googling, but since UNIX predates StackOverflow, there are built-in ways of getting this information.
+À ce stade, vous vous demandez peut-être comment trouver les drapeaux pour les commandes de la section des alias telles que `ls -l`, `mv -i` et `mkdir -p`.
+Plus généralement, à partir d'une commande, comment faire pour savoir ce qu'elle fait et quelles sont ses différentes options ?
+Vous pouvez toujours commencer à chercher sur Google, mais comme UNIX est antérieur à StackOverflow, il existe des moyens intégrés pour obtenir ces informations.
 
-As we saw in the shell lecture, the first-order approach is to call said command with the `-h` or `--help` flags. A more detailed approach is to use the `man` command.
-Short for manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) provides a manual page (called manpage) for a command you specify.
-For example, `man rm` will output the behavior of the `rm` command along with the flags that it takes, including the `-i` flag we showed earlier.
-In fact, what I have been linking so far for every command is the online version of the Linux manpages for the commands.
-Even non-native commands that you install will have manpage entries if the developer wrote them and included them as part of the installation process.
-For interactive tools such as the ones based on ncurses, help for the commands can often be accessed within the program using the `:help` command or typing `?`.
+Comme nous l'avons vu dans le cours sur l'interpréteur de commandes, l'approche de premier ordre est d'appeler cette commande avec les drapeaux `-h` ou `--help`. Une approche plus détaillée consiste à utiliser la commande `man`.
+Abréviation de manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) fournit une page de manuel (appelée manpage) pour une commande que vous spécifiez.
+Par exemple, `man rm` affichera le comportement de la commande `rm` ainsi que les drapeaux qu'elle utilise, y compris le drapeau `-i` que nous avons montré plus tôt.
+En fait, ce que j'ai lié jusqu'à présent pour chaque commande est la version en ligne des pages de manuel de Linux pour les commandes.
+Même les commandes non natives que vous installez auront des entrées de pages de manuel si le développeur les a écrites et incluses dans le processus d'installation.
+Pour les outils interactifs tels que ceux basés sur ncurses, l'aide pour les commandes est souvent accessible à l'intérieur du programme en utilisant la commande `:help` ou en tapant `?`.
 
-Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
-[TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.inbrowser.app/pages/common/tar) and [`ffmpeg`](https://tldr.inbrowser.app/pages/common/ffmpeg) way more often than the manpages.
+Parfois, les pages de manuel fournissent des descriptions trop détaillées des commandes, ce qui rend difficile le déchiffrage des drapeaux et de la syntaxe à utiliser pour les cas d'utilisation courants.
+Les [pages TLDR](https://tldr.sh/) sont une solution complémentaire intéressante qui se concentre sur des exemples d'utilisation d'une commande afin que vous puissiez rapidement comprendre quelles options utiliser.
+Par exemple, je me réfère plus souvent aux pages tldr pour [`tar`](https://tldr.inbrowser.app/pages/common/tar) et [`ffmpeg`](https://tldr.inbrowser.app/pages/common/ffmpeg) qu'aux pages de manuel.
 
 
-## Finding files
+## Trouver des fichiers
 
-One of the most common repetitive tasks that every programmer faces is finding files or directories.
-All UNIX-like systems come packaged with [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), a great shell tool to find files. `find` will recursively search for files matching some criteria. Some examples:
+L'une des tâches répétitives les plus courantes auxquelles tout programmeur est confronté est la recherche de fichiers ou de répertoires. Tous les systèmes de type UNIX sont munis de [`find`] (https://www.man7.org/linux/man-pages/man1/find.1.html), un excellent outil de l'interpréteur de commandes pour trouver des fichiers. `find` recherche de manière récursive les fichiers correspondant à certains critères. Quelques exemples :
 
 ```bash
-# Find all directories named src
+# Trouver tous les répertoires nommés src
 find . -name src -type d
-# Find all python files that have a folder named test in their path
+# Trouver tous les fichiers python qui ont un dossier nommé test dans leur chemin d'accès
 find . -path '*/test/*.py' -type f
-# Find all files modified in the last day
+# Trouver tous les fichiers modifiés au cours de la dernière journée
 find . -mtime -1
-# Find all zip files with size in range 500k to 10M
+# Trouver tous les fichiers zip dont la taille est comprise entre 500k et 10M
 find . -size +500k -size -10M -name '*.tar.gz'
 ```
-Beyond listing files, find can also perform actions over files that match your query.
-This property can be incredibly helpful to simplify what could be fairly monotonous tasks.
+Outre la liste des fichiers, find peut également effectuer des actions sur les fichiers qui répondent à votre demande.
+Cette propriété peut s'avérer extrêmement utile pour simplifier des tâches qui pourraient être relativement monotones.
 ```bash
-# Delete all files with .tmp extension
+# Supprimer tous les fichiers portant l'extension .tmpn
 find . -name '*.tmp' -exec rm {} \;
-# Find all PNG files and convert them to JPG
+# Trouver tous les fichiers PNG et les convertir en JPG
 find . -name '*.png' -exec convert {} {}.jpg \;
 ```
 
-Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
-For instance, to simply find files that match some pattern `PATTERN` you have to execute `find -name '*PATTERN*'` (or `-iname` if you want the pattern matching to be case insensitive).
-You could start building aliases for those scenarios, but part of the shell philosophy is that it is good to explore alternatives.
-Remember, one of the best properties of the shell is that you are just calling programs, so you can find (or even write yourself) replacements for some.
-For instance, [`fd`](https://github.com/sharkdp/fd) is a simple, fast, and user-friendly alternative to `find`.
-It offers some nice defaults like colorized output, default regex matching, and Unicode support. It also has, in my opinion, a more intuitive syntax.
-For example, the syntax to find a pattern `PATTERN` is `fd PATTERN`.
+Malgré l'omniprésence de `find`, sa syntaxe peut parfois être difficile à mémoriser.
+Par exemple, pour trouver simplement les fichiers qui correspondent à un motif `PATTERN`, vous devez exécuter `find -name '*PATTERN*'` (ou `-iname` si vous souhaitez que le motif soit insensible à la casse).
+Vous pourriez commencer à construire des alias pour ces scénarios, mais une partie de la philosophie du shell est qu'il est bon d'explorer des alternatives.
+Rappelez-vous que l'une des meilleures propriétés de l'interpréteur de commandes est que vous ne faites qu'appeler des programmes, vous pouvez donc trouver (ou même écrire vous-même) des remplacements pour certains d'entre eux.
+Par exemple, [`fd`](https://github.com/sharkdp/fd) est une alternative simple, rapide et facile à utiliser à `find`.
+Il offre des options par défaut intéressantes comme la sortie en couleur, la correspondance par défaut des expressions rationnelles, et le support de l'Unicode. Il a aussi, à mon avis, une syntaxe plus intuitive.
+Par exemple, la syntaxe pour trouver un motif `PATTERN` est `fd PATTERN`.
 
-Most would agree that `find` and `fd` are good, but some of you might be wondering about the efficiency of looking for files every time versus compiling some sort of index or database for quickly searching.
-That is what [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html) is for.
-`locate` uses a database that is updated using [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
-In most systems, `updatedb` is updated daily via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
-Therefore one trade-off between the two is speed vs freshness.
-Moreover `find` and similar tools can also find files using attributes such as file size, modification time, or file permissions, while `locate` just uses the file name.
-A more in-depth comparison can be found [here](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+La plupart des gens sont d'accord pour dire que `find` et `fd` sont bons, mais certains d'entre vous peuvent se demander s'il est plus efficace de chercher des fichiers à chaque fois que de compiler une sorte d'index ou de base de données pour une recherche rapide.
+C'est à cela que sert [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html).
+`locate` utilise une base de données qui est mise à jour en utilisant [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
+Dans la plupart des systèmes, `updatedb` est mis à jour quotidiennement via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
+Par conséquent, l'un des compromis entre les deux est la rapidité contre la nouveauté.
+De plus, `find` et les outils similaires peuvent également trouver des fichiers en utilisant des attributs tels que la taille du fichier, le temps de modification, ou les permissions du fichier, alors que `locate` n'utilise que le nom du fichier.
+Une comparaison plus approfondie peut être trouvée [ici](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
-## Finding code
+## Recherche de code
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
-A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
-To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
-`grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.
+La recherche de fichiers par leur nom est utile, mais il arrive souvent que vous souhaitiez effectuer une recherche basée sur le *contenu* du fichier. 
+Un scénario courant consiste à rechercher tous les fichiers qui contiennent un certain motif, ainsi que l'emplacement de ce motif dans ces fichiers.
+Pour ce faire, la plupart des systèmes de type UNIX fournissent [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), un outil générique pour faire correspondre des motifs à partir d'un texte d'entrée.
+`grep` est un outil shell incroyablement précieux que nous aborderons plus en détail lors de la leçon sur le traitement des données.
 
-For now, know that `grep` has many flags that make it a very versatile tool.
-Some I frequently use are `-C` for getting **C**ontext around the matching line and `-v` for in**v**erting the match, i.e. print all lines that do **not** match the pattern. For example, `grep -C 5` will print 5 lines before and after the match.
-When it comes to quickly searching through many files, you want to use `-R` since it will **R**ecursively go into directories and look for files for the matching string.
+Pour l'instant, sachez que `grep` possède de nombreux drapeaux qui en font un outil très polyvalent.
+Certains que j'utilise fréquemment sont `-C` pour obtenir le **C**ontexte autour de la ligne correspondante et `-v` pour in**v**ert la correspondance, c'est-à-dire afficher toutes les lignes qui ne **corresponde pas** au motif. Par exemple, `grep -C 5` affichera 5 lignes avant et après la correspondance.
+Quand il s'agit de rechercher rapidement dans de nombreux fichiers, vous voulez utiliser `-R` puisqu'il va **R**ecursivement dans les répertoires et chercher les fichiers pour la chaîne de caractères correspondante.
 
-But `grep -R` can be improved in many ways, such as ignoring `.git` folders, using multi CPU support, &c.
-Many `grep` alternatives have been developed, including [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) and [rg](https://github.com/BurntSushi/ripgrep).
-All of them are fantastic and pretty much provide the same functionality.
-For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. Some examples:
+Mais `grep -R` peut être amélioré de nombreuses façons, comme ignorer les dossiers `.git`, utiliser le support multi CPU, etc.
+De nombreuses alternatives à `grep` ont été développées, dont [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) et [rg](https://github.com/BurntSushi/ripgrep).
+Toutes sont fantastiques et fournissent à peu près les mêmes fonctionnalités.
+Pour l'instant, je m'en tiens à ripgrep (`rg`), en raison de sa rapidité et de son intuitivité. Quelques exemples :
 ```bash
-# Find all python files where I used the requests library
+# Trouver tous les fichiers python où j'ai utilisé la bibliothèque requests
 rg -t py 'import requests'
-# Find all files (including hidden files) without a shebang line
+# Trouver tous les fichiers (y compris les fichiers cachés) sans ligne shebang
 rg -u --files-without-match "^#\!"
-# Find all matches of foo and print the following 5 lines
+# Trouver toutes les correspondances de foo et imprimer les 5 lignes suivantes
 rg foo -A 5
-# Print statistics of matches (# of matched lines and files )
+# Imprimer les statistiques des correspondances (nombre de lignes et de fichiers correspondants)
 rg --stats PATTERN
 ```
 
-Note that as with `find`/`fd`, it is important that you know that these problems can be quickly solved using one of these tools, while the specific tools you use are not as important.
+Notez que, comme pour `find`/`fd`, il est important que vous sachiez que ces problèmes peuvent être rapidement résolus en utilisant l'un de ces outils, alors que les outils spécifiques que vous utilisez ne sont pas aussi importants.
+## Recherche de commandes shell
 
-## Finding shell commands
+Jusqu'à présent, nous avons vu comment trouver des fichiers et du code, mais lorsque vous passerez plus de temps dans l'interpréteur de commandes, vous voudrez peut-être retrouver des commandes spécifiques que vous avez tapées à un moment donné.
+La première chose à savoir est qu'en tapant la flèche vers le haut, vous retrouverez votre dernière commande, et si vous continuez à appuyer sur cette flèche, vous parcourrez lentement l'historique de l'interpréteur de commandes.
 
-So far we have seen how to find files and code, but as you start spending more time in the shell, you may want to find specific commands you typed at some point.
-The first thing to know is that typing the up arrow will give you back your last command, and if you keep pressing it you will slowly go through your shell history.
+La commande `history` vous permet d'accéder à l'historique de votre shell de manière programmatique.
+Elle affichera l'historique de votre shell sur la sortie standard.
+Si nous voulons y faire des recherches, nous pouvons diriger cette sortie vers `grep` et rechercher des motifs.
+`history | grep find` qui affichera les commandes qui contiennent la sous-chaîne "find".
 
-The `history` command will let you access your shell history programmatically.
-It will print your shell history to the standard output.
-If we want to search there we can pipe that output to `grep` and search for patterns.
-`history | grep find` will print commands that contain the substring "find".
+Dans la plupart des shells, vous pouvez utiliser `Ctrl+R` pour effectuer une recherche à rebours dans votre historique.
+Après avoir appuyé sur `Ctrl+R`, vous pouvez taper une chaîne de caractères que vous voulez faire correspondre aux commandes de votre historique.
+En continuant d'appuyer sur cette touche, vous ferez défiler les correspondances dans votre historique.
+Ceci peut également être activé avec les flèches UP/DOWN dans [zsh](https://github.com/zsh-users/zsh-history-substring-search).
+Un ajout intéressant à `Ctrl+R` est l'utilisation des liens [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r).
+`fzf` est un outil de recherche flou à usage général qui peut être utilisé avec de nombreuses commandes.
+Ici, il est utilisé pour faire des recherches floues dans votre historique et présenter les résultats d'une manière pratique et agréable à l'œil.
 
-In most shells, you can make use of `Ctrl+R` to perform backwards search through your history.
-After pressing `Ctrl+R`, you can type a substring you want to match for commands in your history.
-As you keep pressing it, you will cycle through the matches in your history.
-This can also be enabled with the UP/DOWN arrows in [zsh](https://github.com/zsh-users/zsh-history-substring-search).
-A nice addition on top of `Ctrl+R` comes with using [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) bindings.
-`fzf` is a general-purpose fuzzy finder that can be used with many commands.
-Here it is used to fuzzily match through your history and present results in a convenient and visually pleasing manner.
+Les **autosuggestions basées sur l'historique** sont une autre astuce liée à l'histoire que j'apprécie particulièrement.
+Introduite pour la première fois par [fish](https://fishshell.com/) shell, cette fonctionnalité autocomplète dynamiquement la commande courante de l'interpréteur de commandes avec la commande la plus récente que vous avez tapée et qui partage un préfixe commun avec elle.
+Elle peut être activée dans [zsh](https://github.com/zsh-users/zsh-autosuggestions) et constitue un excellent moyen d'améliorer la qualité de vie de votre interpréteur de commandes.
 
-Another cool history-related trick I really enjoy is **history-based autosuggestions**.
-First introduced by the [fish](https://fishshell.com/) shell, this feature dynamically autocompletes your current shell command with the most recent command that you typed that shares a common prefix with it.
-It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and it is a great quality of life trick for your shell.
+Vous pouvez modifier le comportement de l'historique de votre interpréteur de commandes, en empêchant par exemple les commandes comportant un espace en début de ligne d'être incluses. C'est très pratique lorsque vous tapez des commandes contenant des mots de passe ou d'autres informations sensibles.
+Pour ce faire, ajoutez `HISTCONTROL=ignorespace` à votre `.bashrc` ou `setopt HIST_IGNORE_SPACE` à votre `.zshrc`.
+Si vous faites l'erreur de ne pas ajouter l'espace, vous pouvez toujours supprimer manuellement l'entrée en éditant votre `.bash_history` ou `.zsh_history`.
 
-You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
-To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zsh_history`.
+## Navigation dans les répertoires
 
-## Directory Navigation
+Jusque là, nous avons supposé que vous étiez déjà à l'endroit où vous deviez être pour effectuer ces actions. Mais comment faire pour naviguer rapidement dans les répertoires ?
+Il existe de nombreuses méthodes simples pour y parvenir, telles que l'écriture d'alias dans l'interpréteur de commandes ou la création de liens symboliques avec [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), mais la vérité est que les développeurs ont déjà trouvé des solutions assez intelligentes et sophistiquées.
 
-So far, we have assumed that you are already where you need to be to perform these actions. But how do you go about quickly navigating directories?
-There are many simple ways that you could do this, such as writing shell aliases or creating symlinks with [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), but the truth is that developers have figured out quite clever and sophisticated solutions by now.
+Comme pour le thème de ce cours, il est souvent préférable d'optimiser pour les cas les plus courants.
+La recherche de fichiers et de répertoires fréquents et/ou récents peut être effectuée à l'aide d'outils tels que [`fasd`](https://github.com/clvv/fasd) et [`autojump`](https://github.com/wting/autojump).
+Fasd classe les fichiers et les répertoires par [_frecency_](https://web.archive.org/web/20210421120120/https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), c'est-à-dire à la fois par _frequency_ et _recency_.
+Par défaut, `fasd` ajoute une commande `z` que vous pouvez utiliser pour accélérer `cd` en utilisant une sous-chaîne d'un répertoire _frecent_. Par exemple, si vous allez souvent dans `/home/user/files/cool_project`, vous pouvez simplement utiliser `z cool` pour y aller. En utilisant autojump, ce même changement de répertoire pourrait être réalisé en utilisant `j cool`.
 
-As with the theme of this course, you often want to optimize for the common case.
-Finding frequent and/or recent files and directories can be done through tools like [`fasd`](https://github.com/clvv/fasd) and [`autojump`](https://github.com/wting/autojump).
-Fasd ranks files and directories by [_frecency_](https://web.archive.org/web/20210421120120/https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm), that is, by both _frequency_ and _recency_.
-By default, `fasd` adds a `z` command that you can use to quickly `cd` using a substring of a _frecent_ directory. For example, if you often go to `/home/user/files/cool_project` you can simply use `z cool` to jump there. Using autojump, this same change of directory could be accomplished using `j cool`.
-
-More complex tools exist to quickly get an overview of a directory structure: [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) or even full fledged file managers like [`nnn`](https://github.com/jarun/nnn) or [`ranger`](https://github.com/ranger/ranger).
+Des outils plus complexes existent pour obtenir rapidement une vue d'ensemble de la structure d'un répertoire : [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) ou même des gestionnaires de fichiers à part entière comme [`nnn`](https://github.com/jarun/nnn) ou [`ranger`](https://github.com/ranger/ranger).
 
 # Exercises
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
+1. Lisez [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) et écrivez une commande `ls` qui liste les fichiers de la manière suivante
 
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+    - Inclut tous les fichiers, y compris les fichiers cachés
+    - Les tailles sont indiquées dans un format lisible par l'homme (par exemple, 454M au lieu de 454279954).
+    - Les fichiers sont classés par ordre de récence
+    - La sortie est colorisée
 
-    A sample output would look like this
-
+    Voici un exemple de sortie
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
     drwxr-xr-x   5 user group  160 Jan 14 09:53 .
@@ -318,9 +315,9 @@ More complex tools exist to quickly get an overview of a directory structure: [`
 ls -lath --color=auto
 {% endcomment %}
 
-1. Write bash functions  `marco` and `polo` that do the following.
-Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`.
-For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. Ecrivez les fonctions bash `marco` et `polo` qui font ce qui suit.
+Quand vous exécutez `marco`, le répertoire de travail courant doit être sauvegardé d'une manière ou d'une autre, puis quand vous exécutez `polo`, quel que soit le répertoire dans lequel vous êtes, `polo` doit vous `cd` vers le répertoire où vous avez exécuté `marco`.
+Pour faciliter le débogage, vous pouvez écrire le code dans un fichier `marco.sh` et (re)charger les définitions dans votre shell en exécutant `source marco.sh`.
 
 {% comment %}
 marco() {
@@ -332,22 +329,19 @@ polo() {
 }
 {% endcomment %}
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run.
-Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end.
-Bonus points if you can also report how many runs it took for the script to fail.
-
+1. Supposons que vous ayez une commande qui échoue rarement. Pour la déboguer, vous devez capturer sa sortie, mais il peut être long d'obtenir une exécution d'échec. Ecrivez un script bash qui exécute le script suivant jusqu'à ce qu'il échoue et capture ses flux de sortie standard et d'erreur dans des fichiers et imprime tout à la fin. Des points bonus si vous pouvez aussi rapporter combien d'exécutions ont été nécessaires pour que le script échoue.
     ```bash
     #!/usr/bin/env bash
 
     n=$(( RANDOM % 100 ))
 
     if [[ n -eq 42 ]]; then
-       echo "Something went wrong"
-       >&2 echo "The error was using magic numbers"
+       echo "Quelque chose s'est mal passé"
+       >&2 echo "L'erreur est due à l'utilisation de nombres magiques"
        exit 1
     fi
 
-    echo "Everything went according to plan"
+    echo "Tout s'est déroulé comme prévu"
     ```
 
 {% comment %}
@@ -364,18 +358,18 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-1. As we covered in the lecture `find`'s `-exec` can be very powerful for performing operations over the files we are searching for.
-However, what if we want to do something with **all** the files, like creating a zip file?
-As you have seen so far commands will take input from both arguments and STDIN.
-When piping commands, we are connecting STDOUT to STDIN, but some commands like `tar` take inputs from arguments.
-To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
-For example `ls | xargs rm` will delete the files in the current directory.
+1. Comme nous l'avons vu dans le cours `find`'s `-exec` peut être très puissant pour effectuer des opérations sur les fichiers que nous recherchons.
+Cependant, que faire si nous voulons faire quelque chose avec **tous** les fichiers, comme créer un fichier zip ?
+Comme vous l'avez vu jusqu'à présent, les commandes prennent en entrée les arguments et STDIN.
+Lorsque nous 'piping' `|` des commandes, nous connectons STDOUT à STDIN, mais certaines commandes comme `tar` prennent des entrées à partir des arguments.
+Pour combler cette lacune, il existe la commande [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) qui exécute une commande en utilisant STDIN comme argument.
+Par exemple, `ls | xargs rm` effacera les fichiers du répertoire courant.
 
-    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`).
+    Votre tâche est d'écrire une commande qui trouve récursivement tous les fichiers HTML dans le dossier et en fait un fichier zip. Notez que votre commande devrait fonctionner même si les fichiers ont des espaces (indice : vérifiez le drapeau `-d` pour `xargs`).
     {% comment %}
     find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
     {% endcomment %}
 
-    If you're on macOS, note that the default BSD `find` is different from the one included in [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). You can use `-print0` on `find` and the `-0` flag on `xargs`. As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by [using brew](https://formulae.brew.sh/formula/coreutils).
+    Si vous êtes sous macOS, notez que le `find` de BSD par défaut est différent de celui inclus dans [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). Vous pouvez utiliser `-print0` sur `find` et le drapeau `-0` sur `xargs`. En tant qu'utilisateur de macOS, vous devez être conscient que les utilitaires de ligne de commande livrés avec macOS peuvent être différents de leurs équivalents GNU ; vous pouvez installer les versions GNU si vous le souhaitez en utilisant [brew](https://formulae.brew.sh/formula/coreutils).
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1 (Avancé) Écrire une commande ou un script pour trouver de manière récursive le fichier le plus récemment modifié dans un répertoire. Plus généralement, pouvez-vous lister tous les fichiers par récence ?
