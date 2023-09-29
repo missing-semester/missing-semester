@@ -1,99 +1,48 @@
 ---
-layout: lecture
-title: "Course overview + the shell"
-date: 2020-01-13
-ready: true
-video:
-  aspect: 56.25
-  id: Z56Jmr9Z34Q
+layout : lecture
+title : "Aperçu du cours + le shell"
+date : 2020-01-13
+ready : true
+video :
+  aspect : 56.25
+  id : Z56Jmr9Z34Q
 ---
 
 # Motivation
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+En tant qu'informaticiens, nous savons que les ordinateurs sont parfaits pour faciliter les tâches répétitives. Cependant, nous oublions trop souvent que cela s'applique aussi bien à notre utilisation de l'ordinateur qu'aux calculs que nous voulons que nos programmes effectuent. Nous disposons d'une vaste gamme d'outils qui nous permettent d'être plus productifs et de résoudre des problèmes plus complexes lorsque nous travaillons sur un problème informatique. Pourtant, beaucoup d'entre nous n'utilisent qu'une petite partie de ces outils ; nous ne connaissons que suffisamment d'incantations magiques par coeur pour nous débrouiller, et nous copions-collons aveuglément des commandes trouvés sur Internet lorsque nous sommes bloqués.
 
-This class is an attempt to address this.
+Ce cours est une tentative d'y remédier.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Nous voulons vous apprendre à tirer le meilleur parti des outils que vous connaissez, vous montrer de nouveaux outils à ajouter à votre boîte à outils et, nous l'espérons, vous donner envie d'explorer (et peut-être de construire) d'autres outils par vous-même. C'est ce que nous pensons être le semestre manquant dans la plupart des programmes d'enseignement de l'informatique.
 
-# Class structure
+# Structure du cours
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+Le cours se compose de 11 conférences d'une heure, chacune centrée sur un [sujet particulier](/2020/). Les conférences sont largement indépendantes, bien qu'au fur et à mesure que le semestre avance, nous supposerons que vous êtes familier avec le contenu des conférences précédentes. Nous avons des notes de cours en ligne, mais il y aura beaucoup de contenu couvert en classe (par exemple sous la forme de démonstrations live) qui ne figure pas dans les notes. Nous enregistrerons les cours et mettrons les enregistrements en ligne.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Nous essayons de couvrir un large éventail de sujets en seulement 11 cours d'une heure, c'est pourquoi les cours sont assez denses. Pour vous permettre de vous familiariser avec le contenu à votre propre rythme, chaque conférence comprend une série d'exercices qui vous guident à travers les points clés de la conférence. Après chaque cours, nous organisons des heures de bureau où nous serons présents pour répondre à vos questions. Si vous suivez le cours en ligne, vous pouvez nous envoyer vos questions à l'adresse [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+En raison du temps limité dont nous disposons, nous ne pourrons pas couvrir tous les outils avec le même niveau de détail qu'un cours complet. Dans la mesure du possible, nous essaierons de vous indiquer des ressources pour approfondir un outil ou un sujet, mais si quelque chose vous intéresse particulièrement, n'hésitez pas à nous contacter et à nous demander des conseils !
 
-# Topic 1: The Shell
+# Sujet 1: Le Shell
 
-## What is the shell?
+## Qu'est ce qu'un shell ?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+De nos jours, les ordinateurs disposent d'une grande variété d'interfaces pour leur donner des commandes ; les interfaces graphiques fantaisistes, les interfaces vocales et même l'AR/VR sont omniprésentes. Ces interfaces sont excellentes pour 80 % des cas d'utilisation, mais elles sont souvent fondamentalement limitées dans ce qu'elles vous permettent de faire - vous ne pouvez pas appuyer sur un bouton qui n'existe pas ou donner une commande vocale qui n'a pas été programmée. Pour tirer pleinement parti des outils fournis par l'ordinateur, il faut passer à l'ancienne et utiliser à une interface textuelle : Le Shell.
 
-Nearly all platforms you can get your hands on have a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Presque toutes les plateformes sur lesquelles vous pouvez mettre la main ont un shell sous une forme ou une autre, et beaucoup d'entre elles ont plusieurs shells parmi lesquels vous pouvez choisir. Bien qu'ils puissent varier dans les détails, à la base ils sont tous à peu près les mêmes : ils vous permettent d'exécuter des programmes, de leur donner des entrées, et d'inspecter leur sortie d'une manière semi-structurée.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+Dans ce cours, nous nous concentrerons sur le Bourne Again SHell, ou "bash" en abrégé. Il s'agit de l'un des shells les plus utilisés, et sa syntaxe est similaire à celle de nombreux autres shells. Pour ouvrir une _invite_ de l'interpréteur de commandes (où vous pouvez saisir des commandes), vous devez d'abord disposer d'un _terminal_. Votre appareil est probablement livré avec un terminal installé, ou vous pouvez en installer un assez facilement.
 
-## Using the shell
+## Utilisation du shell
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Lorsque vous lancez votre terminal, vous voyez apparaître une _invite_ qui ressemble souvent à ceci :
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Il s'agit de l'interface textuelle principale de l'interpréteur de commandes. Elle vous indique que vous êtes sur la machine `missing` et que votre "répertoire de travail courant", ou l'endroit où vous vous trouvez actuellement, est `~` (abréviation de "home"). Le `$` indique que vous n'êtes pas l'utilisateur root (nous y reviendrons). À cette invite, vous pouvez taper une _commande_, qui sera ensuite interprétée par l'interpréteur de commandes (shell). La commande la plus élémentaire consiste à exécuter un programme :
 
 ```console
 missing:~$ date
@@ -101,35 +50,16 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Ici, nous avons exécuté le programme `date`, qui (sans surprise) affiche la date et l'heure actuelle. L'interpréteur de commandes nous demande ensuite d'exécuter une autre commande. Nous pouvons également exécuter une commande avec des arguments :
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Dans ce cas, nous avons demandé à l'interpréteur de commandes d'exécuter le programme `echo` avec l'argument `hello`. Le programme `echo` imprime simplement ses arguments. L'interpréteur de commandes analyse la commande en la séparant par des espaces, puis exécute le programme indiqué par le premier mot, en fournissant chaque mot suivant comme un argument auquel le programme peut accéder. Si vous souhaitez fournir un argument contenant des espaces ou d'autres caractères spéciaux (par exemple, un dossier nommé "Mes photos"), vous pouvez soit mettre l'argument entre guillemets avec `'` ou `"` (`"Mes photos"`), soit éviter uniquement les caractères pertinents avec `\` (`Mes\ photos`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
-
+Mais comment l'interpréteur de commandes sait-il trouver les programmes `date` ou `echo` ? L'interpréteur de commandes est un environnement de programmation, tout comme Python ou Ruby, et il dispose donc de variables, de conditions, de boucles et de fonctions (prochain cours !). Lorsque vous exécutez des commandes dans votre shell, vous écrivez en fait un petit bout de code que votre shell interprète. Si l'interpréteur de commandes est invité à exécuter une commande qui ne correspond pas à l'un de ses mots-clés de programmation, il consulte une _variable d'environnement_ appelée `$PATH`, qui répertorie les répertoires dans lesquels l'interpréteur de commandes doit rechercher des programmes lorsqu'il reçoit une commande :
 
 ```console
 missing:~$ echo $PATH
@@ -140,26 +70,11 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Lorsque nous lançons la commande `echo`, le shell voit qu'il doit exécuter le programme `echo`, puis recherche un fichier portant ce nom dans la liste des répertoires séparés par `:` dans `$PATH`. Lorsqu'il le trouve, il l'exécute (en supposant que le fichier soit _exécutable_ ; nous y reviendrons plus tard). Le programme `which` permet de savoir quel fichier est exécuté pour un nom de programme donné. Il est également possible de contourner `$PATH` en indiquant le _chemin d'accès_ au fichier à exécuter.
 
-## Navigating in the shell
+## Naviguer dans l'interpréteur de commandes
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Un chemin d'accès dans l'interpréteur de commandes est une liste délimitée de répertoires (dossiers), séparés par `/` sous Linux et macOS et par `\` sous Windows. Sous Linux et macOS, le chemin `/` est la "racine" du système de fichiers, sous laquelle se trouvent tous les répertoires et fichiers, alors que sous Windows, il y a une racine pour chaque partition de disque (par exemple, `C:\`). Dans ce cours, nous supposerons que vous utilisez un système de fichiers Linux. Un chemin qui commence par `/` est appelé chemin _absolu_. Tout autre chemin est un chemin _relatif_. Les chemins relatifs sont relatifs au répertoire de travail actuel, que nous pouvons voir avec la commande `pwd` et changer avec la commande `cd`. Dans un chemin d'accès, `.` fait référence au répertoire actuel et `..` à son répertoire parent :
 
 ```console
 missing:~$ pwd
@@ -180,15 +95,11 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Remarquez que l'invite de notre shell nous a permis de savoir quel était notre répertoire de travail actuel. Vous pouvez configurer votre invite pour qu'elle vous montre toutes sortes d'informations utiles, que nous aborderons dans un cours ultérieur.
 
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
+En général, lorsque nous lançons un programme, il fonctionne dans le répertoire courant, sauf indication contraire de notre part. Par exemple, il recherchera généralement des fichiers dans ce répertoire et en créera de nouveaux si nécessaire.
 
-To see what lives in a given directory, we use the `ls` command:
+Pour voir ce qui se trouve dans un répertoire donné, nous utilisons la commande `ls` :
 
 ```console
 missing:~$ ls
@@ -205,15 +116,10 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+À moins qu'un répertoire ne soit donné comme premier argument, `ls` affiche le contenu du répertoire courant. La plupart des commandes acceptent des drapeaux (flags) et des options (drapeaux avec valeurs) commençant par `-` pour modifier leur comportement. En général, l'exécution d'un programme avec le drapeau `-h` ou `--help` entraîne l'affichage d'un texte d'aide indiquant les options et les drapeaux disponibles. Par exemple, `ls --help` nous indique :
 
 ```
-  -l                         use a long listing format
+  -l                         utilise un format d’affichage long
 ```
 
 ```console
@@ -221,45 +127,21 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+Cela nous donne un tas d'informations supplémentaires sur chaque fichier ou répertoire présent. Tout d'abord, le `d` au début de la ligne nous indique que `missing` est un dossier. Viennent ensuite trois groupes de trois caractères (`rwx`). Ceux-ci indiquent les autorisations dont disposent respectivement le propriétaire du fichier (`missing`), le groupe propriétaire (`users`) et tous les autres utilisateurs sur l'élément concerné. Un `-` indique que le principal concerné n'a pas la permission en question. Ci-dessus, seul le propriétaire est autorisé à modifier (`w`) le répertoire `missing` (c'est-à-dire à y ajouter/supprimer des fichiers). Pour entrer dans un répertoire, un utilisateur doit disposer des autorisations de "recherche" (représentées par "exécuter" : `x`) sur ce répertoire (et ses parents). Pour lister son contenu, un utilisateur doit avoir les droits de lecture (`r`) sur ce répertoire. Pour les fichiers, les autorisations sont telles que vous les auriez imaginées. Remarquez que presque tous les fichiers dans `/bin` ont la permission `x` définie pour le dernier groupe, "tous les autres utilisateurs", de sorte que n'importe qui puisse exécuter ces programmes.
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+D'autres programmes pratiques à connaître à ce stade sont `mv` (pour renommer/déplacer un fichier), `cp` (pour copier un fichier) et `mkdir` (pour créer un nouveau répertoire).
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+Si vous souhaitez obtenir _davantage_ d'informations sur les arguments, les entrées et les sorties d'un programme, ou sur son fonctionnement général, essayez le programme `man`. Il prend comme argument le nom d'un programme et affiche sa _page de manuel_. Appuyez sur `q` pour quitter.
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Lier des programmes
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Dans l'interpréteur de commandes, les programmes sont associés à deux "flux" principaux : leur flux d'entrée et leur flux de sortie. Lorsque le programme tente de lire une entrée, il lit à partir du flux d'entrée, et lorsqu'il imprime quelque chose, il l'imprime sur son flux de sortie. Normalement, l'entrée et la sortie d'un programme sont toutes deux situées dans votre terminal. C'est-à-dire votre clavier comme entrée et votre écran comme sortie. Cependant, nous pouvons également rediriger ces flux !
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+La forme la plus simple de redirection est `< fichier` et `> fichier`. Elles vous permettent de rediriger les flux d'entrée et de sortie d'un programme vers un fichier, respectivement :
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -272,16 +154,10 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates
-files. When given file names as arguments, it prints the contents of each of
-the files in sequence to its output stream. But when `cat` is not given any
-arguments, it prints contents from its input stream to its output stream (like
-in the third example above).
+Comme montré dans l'exemple ci-dessus, `cat` est un programme qui con`cat`ène des fichiers. Lorsqu'il reçoit des noms de fichiers comme arguments, il imprime le contenu de chacun des fichiers dans l'ordre sur son flux de sortie. Mais lorsque `cat` ne reçoit aucun argument, il imprime le contenu de son flux d'entrée dans son flux de sortie (comme dans le troisième exemple ci-dessus).
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+
+Vous pouvez également utiliser `>>` pour ajouter des données à un fichier. Ce type de redirection des entrées/sorties est particulièrement utile dans l'utilisation des _pipes_. L'opérateur `|` vous permet de "chaîner" des programmes de manière à ce que la sortie de l'un soit l'entrée d'un autre :
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -290,36 +166,22 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+Nous reviendrons plus en détail sur la manière de tirer parti des pipes dans le cours sur le traitement des données.
 
-## A versatile and powerful tool
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
+## Un outil polyvalent et puissant
 
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+Sur la plupart des systèmes de type Unix, un utilisateur est spécial : l'utilisateur "root". Vous l'avez peut-être vu dans résultat du listing de fichiers ci-dessus. L'utilisateur "root" est au-dessus de (presque) toutes les restrictions d'accès et peut créer, lire, mettre à jour et supprimer n'importe quel fichier du système. Cependant, vous ne vous connecterez généralement pas à votre système en tant qu'utilisateur root, car il est trop facile de casser accidentellement quelque chose. Vous utiliserez plutôt la commande `sudo`. Comme son nom l'indique, elle vous permet de "faire" (do) quelque chose "en tant que su" (abréviation de "super utilisateur" (super user) ou "root"). Lorsque vous obtenez des erreurs de refus de permission, c'est généralement parce que vous devez faire quelque chose en tant que super-utilisateur. Cependant, assurez-vous d'abord de vérifier que vous voulez vraiment le faire de cette façon !
 
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
+L'une des choses que vous devez faire en tant que root est d'écrire dans le système de fichiers `sysfs` monté sous `/sys`. `sysfs` expose un certain nombre de paramètres du noyau sous forme de fichiers, de sorte que vous pouvez facilement reconfigurer le noyau à la volée sans outils spécialisés. **Notez que sysfs n'existe pas sous Windows ou macOS.**
+
+Par exemple, la luminosité de l'écran de votre ordinateur portable est exposée par le biais d'un fichier appelé `brightness` dans
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
+En écrivant une valeur dans ce fichier, nous pouvons modifier la luminosité de l'écran. Votre premier réflexe pourrait être de faire quelque chose comme :
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -330,87 +192,45 @@ An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
 
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+Cette erreur peut surprendre. Après tout, nous avons exécuté la commande avec `sudo` ! C'est une chose importante à savoir sur l'interpréteur de commandes. Les opérations telles que `|`, `>` et `<` sont effectuées _par l'interpréteur de commandes_, et non par le programme individuel. `echo` et ses amis ne "savent" pas ce qu'est `|`. Ils se contentent de lire à partir de leur entrée et d'écrire sur leur sortie, quelle qu'elle soit. Dans le cas ci-dessus, _l'interpréteur de commandes_ (qui est authentifié comme votre utilisateur) essaie d'ouvrir le fichier brightness pour y écrire, avant d'en faire la sortie de `sudo echo`, mais il en est empêché car l'interpréteur de commandes ne s'exécute pas en tant que root. En utilisant cette connaissance, nous pouvons contourner ce problème :
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+Comme le programme `tee` est celui qui ouvre le fichier `/sys` à l'écriture et qu'_il_ est exécuté en tant que `root`, les permissions sont respectées. Vous pouvez contrôler toutes sortes de choses amusantes et utiles par le biais de `/sys`, comme l'état des différents voyants LEDs du système (votre chemin d'accès peut être différent) :
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Prochaines étapes
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+À ce stade, vous connaissez suffisamment l'interpréteur de commandes pour accomplir des tâches de base. Vous devriez être en mesure de naviguer pour trouver les fichiers qui vous intéressent et d'utiliser les fonctionnalités de base de la plupart des programmes. Dans le prochain cours, nous verrons comment effectuer et automatiser des tâches plus complexes à l'aide de l'interpréteur de commandes et des nombreux programmes de ligne de commande disponibles.
 
-# Exercises
+# Exercices
 
-All classes in this course are accompanied by a series of exercises. Some give
-you a specific task to do, while others are open-ended, like "try using X and Y
-programs". We highly encourage you to try them out.
+Tous les cours de ce programme sont accompagnés d'une série d'exercices. Certains vous donnent une tâche spécifique à effectuer, tandis que d'autres sont plus ouverts, comme "essayez d'utiliser les programmes X et Y". Nous vous encourageons vivement à les essayer.
 
-We have not written solutions for the exercises. If you are stuck on anything
-in particular, feel free to send us an email describing what you've tried so
-far, and we will try to help you out.
+Nous n'avons pas rédigé de solutions pour les exercices. Si vous êtes bloqué sur un point particulier, n'hésitez pas à nous envoyer un e-mail décrivant ce que vous avez essayé jusqu'à présent, et nous essaierons de vous aider.
 
- 1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
-    are on Linux or macOS, you don't have to do anything special. If you are on
-    Windows, you need to make sure you are not running cmd.exe or PowerShell;
-    you can use [Windows Subsystem for
-    Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-    machine to use Unix-style command-line tools. To make sure you're running
-    an appropriate shell, you can try the command `echo $SHELL`. If it says
-    something like `/bin/bash` or `/usr/bin/zsh`, that means you're running the
-    right program.
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
+1. Pour ce cours, vous devez utiliser un shell Unix comme Bash ou ZSH. Si vous êtes sous Linux ou macOS, vous n'avez rien de particulier à faire. Si vous êtes sous Windows, vous devez vous assurer que vous n'exécutez pas cmd.exe ou PowerShell ; vous pouvez utiliser [Windows Subsystem for
+    Linux](https://docs.microsoft.com/en-us/windows/wsl/) ou une machine virtuelle Linux pour utiliser des outils de ligne de commande de type Unix. Pour vous assurer que vous utilisez un shell approprié, vous pouvez essayer la commande `echo $SHELL`. Si elle indique quelque chose comme `/bin/bash` ou `/usr/bin/zsh`, cela signifie que vous exécutez le bon programme.
+
+1. Créez un nouveau répertoire appelé `missing` dans `/tmp`.
+1. Recherchez le programme `touch`. Le programme `man` est votre ami.
+1. Utilisez `touch` pour créer un nouveau fichier appelé `semester` dans `missing`.
+1. Ecrivez ce qui suit dans ce fichier, une ligne à la fois :
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu
     ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
-    [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+
+    La première ligne peut être difficile à faire fonctionner. Il est utile de savoir que `#` commence un commentaire en Bash, et que `!` a une signification particulière, même dans les chaînes de caractères entre guillemets doubles (`"`). Bash traite différemment les chaînes entre guillemets simples (`'`) : elles feront l'affaire dans ce cas. Voir la page de manuel de Bash sur les [guillemets](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) pour plus d'informations.
+
+1. Essayez d'exécuter le fichier, c'est-à-dire tapez le chemin du script (`./semestre`) dans votre shell et appuyez sur enter. Comprenez pourquoi cela ne fonctionne pas en consultant la sortie de `ls` (indice : regardez les bits de permission du fichier).
+1. Exécutez la commande en lançant explicitement l'interpréteur `sh` et en lui donnant le fichier `semester` comme premier argument, c'est-à-dire `sh semester`. Pourquoi cela fonctionne-t-il, alors que `./semestre` ne fonctionne pas ?
+1. Consultez le programme `chmod` (par exemple, utilisez `man chmod`).
+1. Utilisez `chmod` pour rendre possible l'exécution de la commande `./semestre` au lieu de devoir taper `sh semestre`. Comment votre shell sait-il que le fichier est censé être interprété à l'aide de `sh` ? Voir cette page sur la ligne [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) pour plus d'informations.
+1. Utilisez `|` et `>` pour écrire la date de "dernière modification" produite par `semestre` dans un fichier appelé `last-modified.txt` dans votre répertoire "home".
+1. Écrire une commande qui lit le niveau de puissance de la batterie de votre ordinateur portable ou la température du processeur de votre ordinateur à partir de `/sys`. Note : si vous utilisez macOS, votre système d'exploitation ne possède pas `sysfs`, vous pouvez donc passer cet exercice.
