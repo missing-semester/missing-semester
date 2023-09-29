@@ -1,79 +1,79 @@
 ---
-layout: lecture
-title: "Command-line Environment"
-date: 2020-01-21
-ready: true
-video:
-  aspect: 56.25
-  id: e8BO_dYxk5c
+layout : lecture
+title : "Environnement de la ligne de commande"
+date : 2020-01-21
+ready : true
+video :
+  aspect : 56.25
+  id : e8BO_dYxk5c
 ---
 
-In this lecture we will go through several ways in which you can improve your workflow when using the shell. We have been working with the shell for a while now, but we have mainly focused on executing different commands. We will now see how to run several processes at the same time while keeping track of them, how to stop or pause a specific process and how to make a process run in the background.
+Dans ce cours, nous verrons plusieurs façons d'améliorer votre efficacité lors de l'utilisation de l'interpréteur de commandes. Nous travaillons avec l'interpréteur de commandes depuis un certain temps, mais nous nous sommes surtout concentrés sur l'exécution de différentes commandes. Nous allons maintenant voir comment lancer plusieurs processus en même temps, comment arrêter ou mettre en pause un processus spécifique et comment faire en sorte qu'un processus s'exécute en arrière-plan.
 
-We will also learn about different ways to improve your shell and other tools, by defining aliases and configuring them using dotfiles. Both of these can help you save time, e.g. by using the same configurations in all your machines without having to type long commands. We will look at how to work with remote machines using SSH.
+Nous allons également découvrir différentes façons d'améliorer votre interpréteur de commandes et d'autres outils, en définissant des alias et en les configurant à l'aide de "dotfiles". Ces deux méthodes peuvent vous aider à gagner du temps, par exemple en utilisant les mêmes configurations sur toutes vos machines sans avoir à taper de longues commandes. Nous allons également voir comment travailler avec des machines distantes en utilisant SSH.
 
 
-# Job Control
+# Contrôle des tâches
 
-In some cases you will need to interrupt a job while it is executing, for instance if a command is taking too long to complete (such as a `find` with a very large directory structure to search through).
-Most of the time, you can do `Ctrl-C` and the command will stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+Dans certains cas, vous aurez besoin d'interrompre une commande en cours d'exécution, par exemple si une commande prend trop de temps à s'exécuter (comme un `find` avec une très grande structure de répertoires à parcourir).
+La plupart du temps, vous pouvez faire `Ctrl-C` et la commande s'arrêtera.
+Mais comment cela fonctionne-t-il réellement et pourquoi cela échoue-t-il parfois à arrêter le processus ?
 
-## Killing a process
+## Tuer un processus
 
-Your shell is using a UNIX communication mechanism called a _signal_ to communicate information to the process. When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Votre shell utilise un mécanisme de communication UNIX appelé _signal_ pour communiquer des informations au processus.  Lorsqu'un processus reçoit un signal, il arrête son exécution, traite le signal et modifie éventuellement le flux d'exécution sur base des informations fournies par le signal. C'est pourquoi les signaux sont des _interruptions logicielles_.
 
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
+Dans notre cas, en tapant `Ctrl-C`, l'interpréteur de commandes envoie un signal `SIGINT` au processus.
 
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+Voici un exemple minimal d'un programme Python qui capture le signal `SIGINT` et l'ignore, ne s'arrêtant plus. Pour arrêter ce programme, nous pouvons maintenant utiliser le signal `SIGQUIT` à la place, en tapant `Ctrl-\`.
 
 ```python
 #!/usr/bin/env python
 import signal, time
 
-def handler(signum, time):
-    print("\nI got a SIGINT, but I am not stopping")
+def handler(signum, time) :
+    print("J'ai reçu un SIGINT, mais je ne m'arrête pas")
 
 signal.signal(signal.SIGINT, handler)
 i = 0
-while True:
+while True :
     time.sleep(.1)
     print("\r{}".format(i), end="")
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+Voici ce qui se passe si nous envoyons deux fois `SIGINT` à ce programme, suivi de `SIGQUIT`. Notez que `^` est la façon dont `Ctrl` est affiché lorsqu'il est tapé dans le terminal.
 
 ```
 $ python sigint.py
 24^C
-I got a SIGINT, but I am not stopping
+J'ai reçu un SIGINT, mais je ne m'arrête pas
 26^C
-I got a SIGINT, but I am not stopping
-30^\[1]    39913 quit       python sigint.py
+J'ai reçu un SIGINT, mais je ne m'arrête pas
+30^\[1] 39913 quit python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+Alors que `SIGINT` et `SIGQUIT` sont habituellement associés à des requêtes liées au terminal, un signal plus générique pour demander à un processus de quitter gracieusement est le signal `SIGTERM`.
+Pour envoyer ce signal, nous pouvons utiliser la commande [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html), avec la syntaxe `kill -TERM <PID>`.
 
-## Pausing and backgrounding processes
+## Mise en pause et mise en arrière-plan des processus
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Les signaux peuvent faire d'autres choses que de terminer un processus. Par exemple, `SIGSTOP` met en pause un processus. Taper `Ctrl-Z` dans le terminal demandera à l'interpréteur de commandes d'envoyer un signal `SIGTSTP`, abréviation de "Terminal Stop" (c'est à dire la version du terminal de `SIGSTOP`).
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+Nous pouvons reprendre un processus en pause au premier plan ou en arrière-plan en utilisant [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) ou [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectivement.
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+La commande [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) liste les jobs non terminés associés à la session de terminal en cours.
+Vous pouvez vous référer à ces jobs en utilisant leur pid (vous pouvez utiliser [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) pour le trouver).
+Plus intuitivement, vous pouvez aussi vous référer à un processus en utilisant le symbole "%" suivi de son numéro de job (affiché par `jobs`). Pour faire référence au dernier job mis en arrière-plan, vous pouvez utiliser le paramètre spécial `$!`.
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case).
+Une autre chose à savoir est que le suffixe `&` dans une commande exécutera la commande en arrière-plan, vous rendant le prompt, bien qu'il utilisera toujours le STDOUT de l'interpréteur de commandes, ce qui peut être ennuyeux (utilisez les redirections de l'interpréteur de commandes dans ce cas).
 
-To background an already running program you can do `Ctrl-Z` followed by `bg`.
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
+Pour mettre en arrière-plan un programme déjà en cours d'exécution, vous pouvez faire `Ctrl-Z` suivi de `bg`.
+Notez que les processus en arrière-plan sont toujours des processus enfants de votre terminal et ils mourront si vous fermez le terminal (ce qui enverra un autre signal, `SIGHUP`).
+Pour éviter cela, vous pouvez lancer le programme avec [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (un wrapper pour ignorer `SIGHUP`), ou utiliser `disown` si le processus a déjà été lancé.
+Alternativement, vous pouvez utiliser un multiplexeur de terminal comme nous le verrons dans la section suivante.
 
-Below is a sample session to showcase some of these concepts.
+Voici un exemple de session pour illustrer certains de ces concepts.
 
 ```
 $ sleep 1000
@@ -120,273 +120,273 @@ $ jobs
 
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+Un signal spécial est `SIGKILL` puisqu'il ne peut pas être capturé par le processus et qu'il le terminera toujours immédiatement. Cependant, il peut avoir des effets secondaires néfastes tels que laisser des processus enfants orphelins.
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+Vous pouvez en apprendre plus sur ces signaux et d'autres [ici](https://en.wikipedia.org/wiki/Signal_(IPC)) ou en tapant [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) ou `kill -l`.
 
 
-# Terminal Multiplexers
+# Multiplexeurs de terminaux
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+Lorsque vous utilisez l'interface de ligne de commande, vous voudrez souvent exécuter plusieurs tâches en même temps.
+Par exemple, vous voudrez peut-être exécuter votre éditeur et votre programme côte à côte.
+Bien que cela puisse être réalisé en ouvrant de nouvelles fenêtres de terminal, l'utilisation d'un multiplexeur de terminal est une solution plus polyvalente.
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-This can make your workflow much better when working with remote machines since it avoids the need to use `nohup` and similar tricks.
+Les multiplexeurs de terminal comme [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) vous permettent de multiplexer les fenêtres de terminal en utilisant des panneaux et des onglets afin que vous puissiez interagir avec plusieurs sessions de terminaux.
+De plus, les multiplexeurs de terminaux vous permettent de détacher une session de terminal en cours et de la rattacher plus tard.
+Cela peut améliorer votre efficacité lorsque vous travaillez sur des machines distantes, puisque vous n'avez pas besoin d'utiliser `nohup` et d'autres astuces similaires.
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+Le multiplexeur de terminal le plus populaire de nos jours est [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` est hautement configurable et en utilisant les raccourcis clavier associés, vous pouvez créer de multiples onglets et panneaux et naviguer rapidement entre eux.
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+`tmux` s'attend à ce que vous connaissiez ses raccourcis clavier, et ils ont tous la forme `<C-b> x` où cela signifie : (1) appuyez sur `Ctrl+b`, (2) relâchez `Ctrl+b`, et enfin (3) appuyez sur `x`. `tmux` possède la hiérarchie d'objets suivante :
+- **Sessions** - une session est un espace de travail indépendant avec une ou plusieurs fenêtres
+    + `tmux` démarre une nouvelle session.
+    + `tmux new -s NOM` la démarre avec ce nom.
+    + `tmux ls` liste les sessions en cours.
+    + Dans `tmux`, taper `<C-b> d` détache la session en cours
+    + `tmux a` attache la dernière session. Vous pouvez utiliser le drapeau `-t` pour spécifier quelle session vous souhaitez attacher
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **Fenêtres** - Équivalentes aux onglets dans les éditeurs ou les navigateurs web, elles sont des parties visuellement séparées de la même session.
+    + `<C-b> c` Créer une nouvelle fenêtre. Pour la fermer, vous pouvez simplement terminer le shell en faisant `<C-d>`
+    + `<C-b> N` Aller à la _N_ ième fenêtre. Notez qu'elles sont numérotées
+    + `<C-b> p` Aller à la fenêtre précédente
+    + `<C-b> n` Passer à la fenêtre suivante
+    + `<C-b> ,` Renommer la fenêtre courante
+    + `<C-b> w` Lister les fenêtres actuelles
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Panneaux** - Comme les splits de vim, les panes vous permettent d'avoir plusieurs shells dans le même affichage visuel.
+    + `<C-b> "` Séparer le panneau courant horizontalement
+    + `<C-b> %` Séparer le panneau courant verticalement
+    + `<C-b> <direction>` Se déplacer vers le panneau dans la _direction_ spécifiée. La direction signifie ici les touches flèches du clavier.
+    + `<C-b> z` Activer le zoom pour le panneau actuel
+    + `<C-b> [` Démarrer le défilement arrière. Vous pouvez ensuite appuyer sur `<espace>` pour commencer une sélection et sur `<enter>` pour copier cette sélection.
+    + `<C-b> <space>` Faire défiler les dispositions des panneaux.
 
-For further reading,
-[here](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) is a quick tutorial on `tmux` and [this](http://linuxcommand.org/lc3_adv_termmux.php) has a more detailed explanation that covers the original `screen` command. You might also want to familiarize yourself with [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), since it comes installed in most UNIX systems.
+Pour plus d'informations, cliquez 
+[ici](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) pour un tutoriel rapide sur `tmux` et [ici](http://linuxcommand.org/lc3_adv_termmux.php) pour une explication plus détaillée qui couvre la commande originale `screen`. Vous voudez aussi peut-être vous familiariser avec [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), puisqu'il est installé dans la plupart des systèmes UNIX.
 
-# Aliases
+# Alias
 
-It can become tiresome typing long commands that involve many flags or verbose options.
-For this reason, most shells support _aliasing_.
-A shell alias is a short form for another command that your shell will replace automatically for you.
-For instance, an alias in bash has the following structure:
+Il peut devenir fastidieux de taper de longues commandes qui contiennent de nombreux drapeaux ou des options verbeuses.
+C'est pourquoi la plupart des interpréteurs de commandes supportent l'_aliasing_.
+Un alias d'interpréteur de commandes est une forme courte pour une autre commande que votre interpréteur de commandes remplacera automatiquement pour vous.
+Par exemple, un alias en bash possède la structure suivante :
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+Notez qu'il n'y a pas d'espace autour du signe égal `=`, car [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) est une commande shell qui prend un seul argument.
 
-Aliases have many convenient features:
+Les alias ont de nombreuses utilités très pratiques :
 
 ```bash
-# Make shorthands for common flags
+# Faire des raccourcis pour les drapeaux communs
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# Eviter de taper de longues commandes utilisées fréquemment
 alias gs="git status"
-alias gc="git commit"
+alias gc= "git commit"
 alias v="vim"
 
-# Save you from mistyping
+# Eviter les fautes de frappe
 alias sl=ls
 
-# Overwrite existing commands for better defaults
-alias mv="mv -i"           # -i prompts before overwrite
-alias mkdir="mkdir -p"     # -p make parent dirs as needed
-alias df="df -h"           # -h prints human readable format
+# Remplacer des commandes existantes avec de meilleures valeurs par défaut
+alias mv="mv -i" # -i demande une confirmation avant d'écraser un fichier/dossier
+alias mkdir="mkdir -p" # -p crée les répertoires parents s'ils manquent
+alias df="df -h" # -h améliore la lisibilité
 
-# Alias can be composed
+# Les alias peuvent être composés
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# Pour ignorer un alias, exécutez-le en le faisant précéder par \
 \ls
-# Or disable an alias altogether with unalias
+# Ou désactivez complètement un alias avec unalias
 unalias la
 
-# To get an alias definition just call it with alias
+# Pour obtenir une définition d'alias existant, il suffit de l'appeler avec alias
 alias ll
-# Will print ll='ls -lh'
+# Imprime ll='ls -lh'
 ```
 
-Note that aliases do not persist shell sessions by default.
-To make an alias persistent you need to include it in shell startup files, like `.bashrc` or `.zshrc`, which we are going to introduce in the next section.
+Notez que les alias ne se conservent pas entre plusieurs sessions de l'interpréteur de commandes par défaut.
+Pour rendre un alias persistant, vous devez l'inclure dans les fichiers de démarrage de l'interpréteur de commandes, comme `.bashrc` ou `.zshrc`, que nous allons présenter dans la section suivante.
 
 
 # Dotfiles
 
-Many programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+De nombreux programmes sont configurés à l'aide de fichiers texte connus sous le nom de _dotfiles_
+(parce que les noms des fichiers commencent par un `.`, par exemple `~/.vimrc`, de sorte qu'ils soient
+cachés dans le résultat de la commande `ls` par défaut).
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell, whether you are starting a login and/or interactive the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Les shells sont un exemple de programmes configurés avec de tels fichiers. Au démarrage, votre interpréteur de commandes lira de nombreux fichiers pour charger sa configuration.
+Selon l'interpréteur de commandes, que vous lanciez une session de connexion et/ou interactive, l'ensemble du processus peut s'avérer assez complexe.
+[Cliquez ici](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) pour une excellente ressource sur le sujet.
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable.
-In fact, many programs will ask you to include a line like `export PATH="$PATH:/path/to/program/bin"` in your shell configuration file so their binaries can be found.
+Pour `bash`, modifier votre fichier `.bashrc` ou `.bash_profile` fonctionnera dans la plupart des systèmes.
+Vous pouvez y inclure les commandes que vous voulez lancer au démarrage, comme l'alias que nous venons de décrire ou les modifications de votre variable d'environnement `PATH`.
+En fait, de nombreux programmes vous demanderont d'inclure une ligne comme `export PATH="$PATH:/path/to/program/bin"` dans votre fichier de configuration de l'interpréteur de commandes afin que leurs binaires puissent être trouvés.
 
-Some other examples of tools that can be configured through dotfiles are:
+D'autres exemples d'outils qui peuvent être configurés à l'aide des fichiers dotfiles sont :
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` et le dossier `~/.vim`.
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+Comment devez-vous organiser vos fichiers dotfiles ? Ils devraient être dans leur propre dossier,
+sous contrôle de version, et **symlinkés** à l'aide d'un script. Cela présente les
+les avantages suivants :
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **Installation facile** : si vous vous connectez à une nouvelle machine, la mise en place de vos configurations ne prendra 
+qu'une minute.
+- **Portabilité** : vos outils fonctionneront partout de la même manière.
+- **Synchronisation** : vous pouvez mettre à jour vos fichiers dotfiles n'importe où et les garder tous 
+synchronisés.
+- **Suivi des modifications** : vous allez probablement maintenir vos fichiers dotfiles
+pour toute votre carrière de programmeur, et l'historique des versions est utile
+pour les projets de longue durée.
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on Github --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+Que devriez-vous mettre dans vos dotfiles ?
+Vous pouvez vous renseigner sur les paramètres de votre outil en lisant sa documentation en ligne ou les
+[pages de manuel](https://en.wikipedia.org/wiki/Man_page). Une autre méthode consiste à chercher sur internet des articles 
+de blog sur des programmes spécifiques, où les auteurs vous parleront de leurs
+configurations préférées. Une autre façon d'en apprendre plus sur les personnalisations possibles
+est de consulter les fichiers dotfiles d'autres personnes : vous pouvez trouver pleins de
+[dépôts
+dotfiles](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
+sur Github --- voir le plus populaire
+[ici](https://github.com/mathiasbynens/dotfiles) (nous vous conseillons cependant de ne pas
+de copier aveuglément les configurations).
+[Cliquez ici](https://dotfiles.github.io/) pour une autre bonne ressource sur le sujet.
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+Tous les professeurs du cours ont leurs dotfiles accessibles publiquement sur GitHub : [Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
 
-## Portability
+## Portabilité
 
-A common pain with dotfiles is that the configurations might not work when working with several machines, e.g. if they have different operating systems or shells. Sometimes you also want some configuration to be applied only in a given machine.
+Un problème courant avec les dotfiles est que les configurations peuvent ne pas fonctionner lorsque l'on travaille avec plusieurs machines, par exemple si elles ont des systèmes d'exploitation ou des shells différents. Parfois, on voudrait également qu'une configuration ne soit appliquée que sur une seule machine.
 
-There are some tricks for making this easier.
-If the configuration file supports it, use the equivalent of if-statements to
-apply machine specific customizations. For example, your shell could have something
-like:
+Il existe quelques astuces pour faciliter cette tâche.
+Si le fichier de configuration le permet, utilisez l'équivalent des conditions "if" pour
+appliquer des personnalisations spécifiques à une machine. Par exemple, votre interpréteur de commandes pourrait avoir quelque chose
+comme :
 
 ```bash
-if [[ "$(uname)" == "Linux" ]]; then {do_something}; fi
+if [[ "$(uname)" == "Linux" ]] ; then {do_something} ; fi
 
-# Check before using shell-specific features
-if [[ "$SHELL" == "zsh" ]]; then {do_something}; fi
+# Vérification avant d'utiliser des fonctionnalités spécifiques à un certain interpréteur de commandes
+if [[ "$SHELL" == "zsh" ]] ; then {do_something} ; fi
 
-# You can also make it machine-specific
-if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
+# Vous pouvez aussi le rendre spécifique à la machine
+if [[ "$(hostname)" == "myServer" ]] ; then {do_something} ; fi
 ```
 
-If the configuration file supports it, make use of includes. For example,
-a `~/.gitconfig` can have a setting:
+Si le fichier de configuration le permet, utilisez les includes. Par exemple, un fichier `~/.gitconfig` 
+peut contenir un paramètre :
 
 ```
 [include]
     path = ~/.gitconfig_local
 ```
 
-And then on each machine, `~/.gitconfig_local` can contain machine-specific
-settings. You could even track these in a separate repository for
-machine-specific settings.
+Sur chaque machine, `~/.gitconfig_local` peut contenir des paramètres spécifiques à cette
+machine. Vous pouvez même gérer ces fichiers dans un dépôt GitHub séparé pour les
+paramètres spécifiques à chaque machine.
 
-This idea is also useful if you want different programs to share some configurations. For instance, if you want both `bash` and `zsh` to share the same set of aliases you can write them under `.aliases` and have the following block in both:
+Cette idée est également utile si vous voulez que différents programmes partagent certaines configurations. Par exemple, si vous voulez que `bash` et `zsh` partagent le même ensemble d'alias, vous pouvez les écrire dans `.aliases` et avoir le bloc suivant dans les deux fichiers de configuration:
 
 ```bash
-# Test if ~/.aliases exists and source it
-if [ -f ~/.aliases ]; then
+# Tester si ~/.aliases existe et le référencer
+if [ -f ~/.aliases ] ; then
     source ~/.aliases
 fi
 ```
 
-# Remote Machines
+# Machines distantes
 
-It has become more and more common for programmers to use remote servers in their everyday work. If you need to use remote servers in order to deploy backend software or you need a server with higher computational capabilities, you will end up using a Secure Shell (SSH). As with most tools covered, SSH is highly configurable so it is worth learning about it.
+Il est de plus en plus courant pour les programmeurs d'utiliser des serveurs distants dans leur travail quotidien. Si vous avez besoin d'utiliser des serveurs distants pour déployer des logiciels backend ou si vous avez besoin d'un serveur doté de capacités de calcul plus importantes, vous finirez par utiliser un Secure Shell (SSH). Comme la plupart des outils abordés, SSH est hautement configurable, il vaut donc la peine d'apprendre à le connaître.
 
-To `ssh` into a server you execute a command as follows
+Pour se connecter sur un serveur en `ssh`, vous devrez exécuter une commande comme suit
 
 ```bash
 ssh foo@bar.mit.edu
 ```
 
-Here we are trying to ssh as user `foo` in server `bar.mit.edu`.
-The server can be specified with a URL (like `bar.mit.edu`) or an IP (something like `foobar@192.168.1.42`). Later we will see that if we modify ssh config file you can access just using something like `ssh bar`.
+Ici, nous essayons de nous connecter en tant qu'utilisateur `foo` au serveur `bar.mit.edu`.
+Le serveur peut être spécifié par une URL (comme `bar.mit.edu`) ou une IP (quelque chose comme `foobar@192.168.1.42`). Plus tard, nous verrons que si nous modifions le fichier de configuration de ssh, vous pourrez accéder au serveur en utilisant une commande comme `ssh bar`.
 
-## Executing commands
+## Exécuter des commandes
 
-An often overlooked feature of `ssh` is the ability to run commands directly.
-`ssh foobar@server ls` will execute `ls` in the home folder of foobar.
-It works with pipes, so `ssh foobar@server ls | grep PATTERN` will grep locally the remote output of `ls` and `ls | ssh foobar@server grep PATTERN` will grep remotely the local output of `ls`.
+Une fonctionnalité souvent négligée de `ssh` est la possibilité d'exécuter des commandes directement.
+`ssh foobar@server ls` exécutera `ls` dans le dossier home de foobar.
+Cela fonctionne aussi avec les pipes, donc `ssh foobar@server ls | grep PATTERN` va "greper" localement la sortie distante de `ls` et `ls | ssh foobar@server grep PATTERN` va "greper" à distance la sortie locale de `ls`.
 
 
-## SSH Keys
+## Clés SSH
 
-Key-based authentication exploits public-key cryptography to prove to the server that the client owns the secret private key without revealing the key. This way you do not need to reenter your password every time. Nevertheless, the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so.
+L'authentification par clé utilise la cryptographie à clé publique pour prouver au serveur que le client possède la clé privée secrète sans révéler la clé. De cette façon, vous n'avez pas besoin de ressaisir votre mot de passe à chaque fois. Néanmoins, la clé privée (souvent `~/.ssh/id_rsa` et plus récemment `~/.ssh/id_ed25519`) est en fait votre mot de passe, alors traitez-la comme tel.
 
-### Key generation
+### Génération des clés
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+Pour générer une paire de clés, vous pouvez lancer [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
-You should choose a passphrase, to avoid someone who gets hold of your private key to access authorized servers. Use [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) or [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) so you do not have to type your passphrase every time.
+Vous devrez choisir une phrase secrète, afin d'éviter que quelqu'un qui s'empare de votre clé privée n'accède aux serveurs autorisés. Utilisez [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) ou [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) pour ne pas avoir à taper votre phrase secrète à chaque fois.
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+Si vous avez déjà configuré la connexion vers GitHub en utilisant des clés SSH, alors vous avez probablement fait les étapes décrites [ici](https://help.github.com/articles/connecting-to-github-with-ssh/) et vous avez déjà une paire de clés valide. Pour vérifier si vous avez une phrase secrète et la valider, vous pouvez lancer `ssh-keygen -y -f /path/to/key`.
 
-### Key based authentication
+### Authentification par clé
 
-`ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+`ssh` va regarder dans le fichier `.ssh/authorized_keys` pour déterminer quels clients il doit laisser entrer. Pour copier une clé publique dans ce fichier, vous pouvez utiliser :
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
-A simpler solution can be achieved with `ssh-copy-id` where available:
+Une solution plus simple est d'utiliser `ssh-copy-id` lorsqu'il est disponible :
 
 ```bash
 ssh-copy-id -i .ssh/id_ed25519 foobar@remote
 ```
 
-## Copying files over SSH
+## Copier des fichiers via SSH
 
-There are many ways to copy files over ssh:
+Il y a plusieurs façons de copier des fichiers via ssh :
 
-- `ssh+tee`, the simplest is to use `ssh` command execution and STDIN input by doing `cat localfile | ssh remote_server tee serverfile`. Recall that [`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) writes the output from STDIN into a file.
-- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) when copying large amounts of files/directories, the secure copy `scp` command is more convenient since it can easily recurse over paths. The syntax is `scp path/to/local_file remote_host:path/to/remote_file`
-- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+- `ssh+tee`, la plus simple est d'utiliser l'exécution de la commande `ssh` et l'entrée STDIN en faisant `cat localfile | ssh remote_server tee serverfile`. Rappelons que [`tee`](https://www.man7.org/linux/man-pages/man1/tee.1.html) écrit la sortie de STDIN dans un fichier.
+- [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) Lors de la copie d'un grand nombre de fichiers/dossiers, la commande de copie sécurisée `scp` est plus pratique car elle peut facilement parcourir la structure des fichiers/dossiers. La syntaxe est `scp path/to/local_file remote_host:path/to/remote_file`
+- [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) améliore `scp` en détectant les fichiers identiques en local et à distance, et en empêchant de les copier à nouveau. Il fournit également un contrôle plus fin sur les liens symboliques, les permissions et possède des fonctionnalités supplémentaires comme le drapeau `--partial` qui permet de reprendre une copie précédemment interrompue. `rsync` a une syntaxe similaire à `scp`.
 
-## Port Forwarding
+## Redirection de port
 
-In many scenarios you will run into software that listens to specific ports in the machine. When this happens in your local machine you can type `localhost:PORT` or `127.0.0.1:PORT`, but what do you do with a remote server that does not have its ports directly available through the network/internet?.
+Dans de nombreux scénarios, vous rencontrerez des logiciels qui écoutent des ports spécifiques de la machine. Lorsque cela se passe sur votre machine locale, vous pouvez taper `localhost:PORT` ou `127.0.0.1:PORT`, mais que faites-vous avec un serveur distant qui n'a pas ses ports directement disponibles à travers le réseau/internet ?
 
-This is called _port forwarding_ and it
-comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the pictures for more details, credit of the pictures from [this StackOverflow post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
+C'est ce que l'on appelle le _port forwarding_ et il
+se présente sous deux formes : Local Port Forwarding et Remote Port Forwarding (voir les images pour plus de détails, crédit des images de [ce post StackOverflow](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
 
 **Local Port Forwarding**
-![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png  "Local Port Forwarding")
+![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png "Local Port Forwarding")
 
-**Remote Port Forwarding**
-![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png  "Remote Port Forwarding")
+**Remote Port Forwarding** 
+![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png "Remote Port Forwarding")
 
-The most common scenario is local port forwarding, where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example, if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus, to forward that to the local port `9999`, we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `localhost:9999` in our local machine.
+Le scénario le plus courant est le "Local Port Forwarding", où un service sur machine distante écoute sur un port et vous voulez lier un port sur votre machine locale en redirection vers le port distant. Par exemple, nous exécutons `jupyter notebook` sur le serveur distant qui écoute sur le port `8888`. Ainsi, pour le transférer sur le port local `9999`, nous ferons `ssh -L 9999:localhost:8888 foobar@remote_server` et ensuite nous naviguerons vers `localhost:9999` sur notre machine locale.
 
 
-## SSH Configuration
+## Configuration SSH
 
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like
+Nous avons déjà vu de nombreux arguments que nous pouvons passer à la commande ssh. Une alternative tentante serait de créer des alias shell qui ressemblent à
 ```bash
 alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
 ```
 
-However, there is a better alternative using `~/.ssh/config`.
+Cependant, il existe une meilleure alternative en utilisant le fichier de configuration `~/.ssh/config`.
 
 ```bash
 Host vm
@@ -396,104 +396,102 @@ Host vm
     IdentityFile ~/.ssh/id_ed25519
     LocalForward 9999 localhost:8888
 
-# Configs can also take wildcards
+# Les configurations peuvent également contenir des wildcards
 Host *.mit.edu
     User foobaz
 ```
 
-An additional advantage of using the `~/.ssh/config` file over aliases  is that other programs like `scp`, `rsync`, `mosh`, &c are able to read it as well and convert the settings into the corresponding flags.
+Un avantage supplémentaire de l'utilisation du fichier `~/.ssh/config` par rapport aux alias est que d'autres programmes comme `scp`, `rsync`, `mosh`, etc. sont capables de le lire aussi et de convertir les réglages en drapeaux correspondants.
 
 
-Note that the `~/.ssh/config` file can be considered a dotfile, and in general it is fine for it to be included with the rest of your dotfiles. However, if you make it public, think about the information that you are potentially providing strangers on the internet: addresses of your servers, users, open ports, &c. This may facilitate some types of attacks so be thoughtful about sharing your SSH configuration.
+Notez que le fichier `~/.ssh/config` peut être considéré comme un fichier dotfile, et en général il est acceptable qu'il soit inclus avec le reste de vos fichiers dotfiles. Cependant, si vous le rendez public, pensez aux informations que vous fournissez potentiellement aux étrangers sur Internet : adresses de vos serveurs, utilisateurs, ports ouverts, etc. Cela pourrait faciliter certains types d'attaques, alors réfléchissez bien avant de partager votre configuration SSH.
 
-Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings on a per user basis.
+La configuration côté serveur est habituellement spécifiée dans `/etc/ssh/sshd_config`. Ici vous pouvez faire des changements comme désactiver l'authentification par mot de passe, changer les ports ssh, activer la redirection X11, etc. Vous pouvez aussi spécifier les paramètres de configuration pour chaque utilisateur.
 
-## Miscellaneous
+## Divers
 
-A common pain when connecting to a remote server are disconnections due to your computer shutting down, going to sleep, or changing networks. Moreover if one has a connection with significant lag using ssh can become quite frustrating. [Mosh](https://mosh.org/), the mobile shell, improves upon ssh, allowing roaming connections, intermittent connectivity and providing intelligent local echo.
+Les déconnexions dues à l'arrêt de l'ordinateur, à sa mise en veille ou à un changement de réseau sont des problèmes courant lorsque l'on se connecte à un serveur distant. De plus, si l'on dispose d'une connexion avec un décalage important, l'utilisation de ssh peut devenir très frustrante. [Mosh](https://mosh.org/), l'interpréteur de commandes mobile, améliore ssh en permettant des connexions itinérantes, une connectivité intermittente et en fournissant un écho local intelligent.
 
-Sometimes it is convenient to mount a remote folder. [sshfs](https://github.com/libfuse/sshfs) can mount a folder on a remote server
-locally, and then you can use a local editor.
+Il est parfois pratique de monter un dossier distant. [sshfs](https://github.com/libfuse/sshfs) permet de monter localement un dossier sur un serveur distant, 
+ce qui permet d'utiliser un éditeur local.
 
 
-# Shells & Frameworks
+# Shells et frameworks
 
-During shell tool and scripting we covered the `bash` shell because it is by far the most ubiquitous shell and most systems have it as the default option. Nevertheless, it is not the only option.
+Dans le cours "Les outils de Shell et les scripts", nous avons abordé l'interpréteur de commandes `bash` car c'est de loin l'interpréteur le plus répandu et la plupart des systèmes l'ont par défaut. Néanmoins, ce n'est pas la seule option.
 
-For example, the `zsh` shell is a superset of `bash` and provides many convenient features out of the box such as:
+Par exemple, l'interpréteur de commandes `zsh` est un surensemble de `bash` et fournit de nombreuses fonctionnalités pratiques telles que :
 
-- Smarter globbing, `**`
-- Inline globbing/wildcard expansion
-- Spelling correction
-- Better tab completion/selection
-- Path expansion (`cd /u/lo/b` will expand as `/usr/local/bin`)
+- Des filtres sur les fichiers plus intelligents, `**`
+- L'expansion des wildcards
+- Correction orthographique
+- Meilleure complétion/sélection de tabulations
+- Expansion de chemin (`cd /u/lo/b` sera étendu en `/usr/local/bin`)
 
-**Frameworks** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller ones that focus on specific features such as [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) or [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shells like [fish](https://fishshell.com/) include many of these user-friendly features by default. Some of these features include:
+Des **frameworks** peuvent également améliorer votre interpréteur de commandes. Quelques frameworks généraux populaires sont [prezto](https://github.com/sorin-ionescu/prezto) ou [oh-my-zsh](https://ohmyz.sh/), et d'autres plus petits qui se concentrent sur des fonctionnalités spécifiques comme [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ou [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Des shells comme [fish](https://fishshell.com/) incluent par défaut un grand nombre de ces fonctionnalités user-friendly. Voici quelques-unes de ces fonctionnalités :
 
-- Right prompt
-- Command syntax highlighting
-- History substring search
-- manpage based flag completions
-- Smarter autocompletion
-- Prompt themes
+- Invite de commande à droite
+- Coloration syntaxique des commandes
+- Recherche de sous-chaînes de caractères dans l'historique
+- Complétions des drapeaux basées sur la page de manuel
+- Autocomplétion plus intelligente
+- Thèmes d'invite de commande
 
-One thing to note when using these frameworks is that they may slow down your shell, especially if the code they run is not properly optimized or it is too much code. You can always profile it and disable the features that you do not use often or value over speed.
+Une chose à noter lorsque vous utilisez ces frameworks est qu'ils peuvent ralentir votre shell, en particulier si le code qu'ils exécutent n'est pas correctement optimisé ou s'il y a trop de code. Vous pouvez toujours profiler le temps d'exécution et désactiver les fonctionnalités que vous n'utilisez pas souvent ou que vous ne privilégiez pas par rapport à la vitesse.
 
-# Terminal Emulators
+# Emulateurs de terminal
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
+En plus de personnaliser votre shell, il vaut la peine de passer un peu de temps à choisir votre **émulateur de terminal** et à le paramétrer. Il existe de nombreux émulateurs de terminal (voici une [comparaison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+Comme vous risquez de passer des centaines, voire des milliers d'heures dans votre terminal, il vaut la peine de se pencher sur ses paramètres. Voici quelques-uns des aspects que vous souhaiterez peut-être modifier dans votre terminal :
 
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/jwilm/alacritty) or [kitty](https://sw.kovidgoyal.net/kitty/) offer GPU acceleration).
+- le choix de la police de caractères
+- Palette de couleurs
+- Raccourcis clavier
+- Prise en charge des onglets et des volets
+- Configuration du défilement
+- Performance (certains terminaux plus récents comme [Alacritty](https://github.com/jwilm/alacritty) ou [kitty](https://sw.kovidgoyal.net/kitty/) proposent l'accélération GPU).
 
-# Exercises
+# Exercices
 
-## Job control
+## Contrôle des tâches
 
-1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+1. D'après ce que nous avons vu, nous pouvons utiliser quelques commandes `ps aux | grep` pour obtenir les pids de nos jobs et ensuite les tuer, mais il y a de meilleures façons de le faire. Démarrez un job `sleep 10000` dans un terminal, mettez-le en tâche de fond avec `Ctrl-Z` et continuez son exécution avec `bg`. Maintenant, utilisez [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) pour trouver son pid et [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) pour le tuer sans jamais taper le pid lui-même. (Astuce : utilisez les drapeaux `-af`).
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`.
-One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. Supposons que vous ne souhaitez pas lancer un processus tant qu'un autre n'est pas terminé. Comment feriez-vous ? Dans cet exercice, notre processus limitant sera toujours `sleep 60 &`.
+Une façon d'y parvenir est d'utiliser la commande [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html). Essayez de lancer la commande sleep et de faire patienter `ls` jusqu'à ce que le processus en arrière-plan se termine.
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist.
-    Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+    Cependant, cette stratégie échouera si nous démarrons dans une session bash différente, puisque `wait` ne fonctionne que pour les processus enfants. Une caractéristique que nous n'avons pas abordée dans les notes est que le statut de sortie de la commande `kill` sera zéro en cas de succès et non nul dans le cas contraire. `kill -0` n'envoie pas de signal mais donnera un statut de sortie non nul si le processus n'existe pas.
+    Ecrivez une fonction bash appelée `pidwait` qui prend un pid et attend que le processus donné se termine. Vous devriez utiliser `sleep` pour éviter de gaspiller du temps CPU inutilement.
 
-## Terminal multiplexer
+## Multiplexeur de terminaux
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. Suivez ce [tutoriel](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) `tmux` et apprenez ensuite à faire quelques personnalisations de base en suivant [ces étapes](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 
-## Aliases
+## Alias
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrongly.
+1. Créez un alias `dc` qui se résout en `cd` pour les cas où vous le taperiez mal.
 
-1.  Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10`  to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1.  Lancez `history | awk '{$1="";print substr($0,2)}' | tri | uniq -c | sort -n | tail -n 10` pour obtenir vos 10 commandes les plus utilisées et envisagez d'écrire des alias plus courts pour celles-ci. Note : ceci fonctionne pour Bash ; si vous utilisez ZSH, utilisez `history 1` au lieu de `history`.
 
 
 ## Dotfiles
 
-Let's get you up to speed with dotfiles.
-1. Create a folder for your dotfiles and set up version
-   control.
-1. Add a configuration for at least one program, e.g. your shell, with some
-   customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized
-   utility](https://dotfiles.github.io/utilities/).
-1. Test your installation script on a fresh virtual machine.
-1. Migrate all of your current tool configurations to your dotfiles repository.
-1. Publish your dotfiles on GitHub.
+Familiarisons nous avec les dotfiles.
+1. Créez un dossier pour vos dotfiles et mettez en place un contrôle de
+   version.
+1. Ajoutez une configuration pour au moins un programme, par exemple votre shell, avec un peu de personnalisation (pour commencer, cela peut être quelque chose d'aussi simple que de personnaliser l'invite de votre shell en définissant `$PS1`).
+1. Mettez en place une méthode pour installer vos dotfiles rapidement (et sans effort manuel) sur une nouvelle machine. Cela peut être aussi simple qu'un script shell qui appelle `ln -s` pour chaque fichier, ou vous pouvez utiliser un [utilitaire spécialisé](https://dotfiles.github.io/utilities/).
+1. Testez votre script d'installation sur une nouvelle machine virtuelle.
+1. Migrez toutes vos configurations d'outils actuelles vers votre dépôt de vos dotfiles.
+1. Publiez vos dotfiles sur GitHub.
 
-## Remote Machines
+## Machines distantes
 
-Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+Installez une machine virtuelle Linux (ou utilisez une machine virtuelle existante) pour cet exercice. Si vous n'êtes pas familier avec les machines virtuelles, consultez [ce tutoriel](https://hibbard.eu/install-ubuntu-virtual-box/) pour en installer une.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
-1. Edit `.ssh/config` to have an entry as follows
+1. Allez dans `~/.ssh/` et vérifiez si vous avez une paire de clés SSH. Si ce n'est pas le cas, générez-les avec `ssh-keygen -o -a 100 -t ed25519`. Il est recommandé d'utiliser un mot de passe et `ssh-agent`, plus d'informations [ici](https://www.ssh.com/ssh/agent).
+1. Editez votre fichier `.ssh/config` pour avoir une entrée comme suit
 
     ```bash
     Host vm
@@ -502,8 +500,10 @@ Install a Linux virtual machine (or use an already existing one) for this exerci
         IdentityFile ~/.ssh/id_ed25519
         LocalForward 9999 localhost:8888
     ```
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
-1. Edit your SSH server config by doing  `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+
+
+1. Utilisez `ssh-copy-id vm` pour copier votre clé ssh sur le serveur.
+1. Démarrez un serveur web dans votre VM en exécutant `python -m http.server 8888`. Accédez au serveur web de la VM en naviguant sur `http://localhost:9999` sur votre machine.
+1. Editez la configuration de votre serveur SSH en faisant `sudo vim /etc/ssh/sshd_config` et désactivez l'authentification par mot de passe en éditant la valeur de `PasswordAuthentication`. Désactivez le login root en éditant la valeur de `PermitRootLogin`. Redémarrez le service `ssh` avec `sudo service sshd restart`. Essayez de vous connecter à nouveau.
+1. (Défi) Installez [`mosh`](https://mosh.org/) dans la VM et établissez une connexion. Ensuite, déconnectez l'adaptateur réseau du serveur/VM. Est-ce que mosh peut s'en remettre correctement ?
+1. (Défi) Regardez ce que font les drapeaux `-N` et `-f` dans la commande `ssh` et trouvez une commande pour réaliser une redirection de port en arrière-plan.
