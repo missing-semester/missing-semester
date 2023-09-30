@@ -1,0 +1,1 @@
+echo "Added a file to work as contributor"
