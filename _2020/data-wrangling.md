@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Data Wrangling"
+title: "Traitement des données"
 date: 2020-01-16
 ready: true
 video:
@@ -8,69 +8,38 @@ video:
   id: sz_dsktIjt4
 ---
 
-Have you ever wanted to take data in one format and turn it into a
-different format? Of course you have! That, in very general terms, is
-what this lecture is all about. Specifically, massaging data, whether in
-text or binary format, until you end up with exactly what you wanted.
+Avez-vous déjà voulu prendre des données dans un format et les transformer dans un autre format ? Bien sûr que oui ! C'est, en termes très généraux, ce dont il est question dans ce cours. Plus précisément, il s'agit de manipuler des données, qu'elles soient au format texte ou binaire, jusqu'à ce que vous obteniez exactement ce que vous vouliez.
 
-We've already seen some basic data wrangling in past lectures. Pretty
-much any time you use the `|` operator, you are performing some kind of
-data wrangling. Consider a command like `journalctl | grep -i intel`. It
-finds all system log entries that mention Intel (case insensitive). You
-may not think of it as wrangling data, but it is going from one format
-(your entire system log) to a format that is more useful to you (just
-the intel log entries). Most data wrangling is about knowing what tools
-you have at your disposal, and how to combine them.
+Nous avons déjà vu quelques manipulations de données de base dans les cours précédents. Pratiquement chaque fois que vous utilisez l'opérateur `|`, vous effectuez une sorte de manipulation de données. Prenons une commande comme `journalctl | grep -i intel`. Elle trouve toutes les entrées du journal système qui mentionnent Intel (sans tenir compte de la casse). Vous ne pensez peut-être pas qu'il s'agisse d'une manipulation de données, mais vous passez d'un format (l'ensemble de votre journal système) à un format qui vous est plus utile (uniquement les entrées du journal intel). La plupart des manipulations de données consistent à savoir quels outils sont à votre disposition et comment les combiner.
 
-Let's start from the beginning. To wrangle data, we need two things:
-data to wrangle, and something to do with it. Logs often make for a good
-use-case, because you often want to investigate things about them, and
-reading the whole thing isn't feasible. Let's figure out who's trying to
-log into my server by looking at my server's log:
+Commençons par le commencement. Pour manipuler des données, nous avons besoin de deux choses : des données à manipuler et quelque chose à faire avec. Les journaux (logs) constituent souvent une bonne base d'étude, parce que nous voulons souvent y tirer certaines informations, et qu'il n'est pas possible de les lire en entier. Essayons de savoir qui essaie de se connecter à mon serveur en regardant les logs de ce dernier :
 
 ```bash
 ssh myserver journalctl
 ```
 
-That's far too much stuff. Let's limit it to ssh stuff:
+Le résultat est beaucoup trop long. Essayons de limiter la sortie à des trucs ssh :
 
 ```bash
 ssh myserver journalctl | grep sshd
 ```
 
-Notice that we're using a pipe to stream a _remote_ file through `grep`
-on our local computer! `ssh` is magical, and we will talk more about it
-in the next lecture on the command-line environment. This is still way
-more stuff than we wanted though. And pretty hard to read. Let's do
-better:
+Remarquez que nous utilisons un pipe (`|`) pour passer un fichier _distant_ dans `grep` sur notre ordinateur en local ! `ssh` est magique, et nous en parlerons plus en détail dans le prochain cours sur l'environnement de ligne de commande. Le résultat comprend cependant encore beaucoup plus de choses que ce que nous voulions. Et plutôt difficile à lire. Faisons mieux :
 
 ```bash
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' | less
 ```
 
-Why the additional quoting? Well, our logs may be quite large, and it's
-wasteful to stream it all to our computer and then do the filtering.
-Instead, we can do the filtering on the remote server, and then massage
-the data locally. `less` gives us a "pager" that allows us to scroll up
-and down through the long output. To save some additional traffic while
-we debug our command-line, we can even stick the current filtered logs
-into a file so that we don't have to access the network while
-developing:
+Pourquoi ces guillemets supplémentaires ? Eh bien, nos logs peuvent être assez volumineux, et il est inutile de les envoyer en continu sur notre ordinateur, puis de les filtrer. Au lieu de cela, nous pouvons effectuer le filtrage directement sur le serveur distant, puis affiner les données localement. `less` nous donne un "pager" qui nous permet de faire défiler la longue sortie vers le haut et vers le bas. Pour économiser du trafic supplémentaire pendant que nous déboguons notre ligne de commande, nous pouvons même sauvegarder les logs filtrés actuels dans un fichier afin de ne pas avoir à accéder au réseau pendant le développement :
 
 ```console
 $ ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 $ less ssh.log
 ```
 
-There's still a lot of noise here. There are _a lot_ of ways to get rid
-of that, but let's look at one of the most powerful tools in your
-toolkit: `sed`.
+Il y a encore beaucoup de bruit dans les données restantes. Il existe de _nombreuses_ façons de s'en débarrasser, mais regardons l'un des outils les plus puissants de votre boîte à outils : `sed`.
 
-`sed` is a "stream editor" that builds on top of the old `ed` editor. In
-it, you basically give short commands for how to modify the file, rather
-than manipulate its contents directly (although you can do that too).
-There are tons of commands, but one of the most common ones is `s`:
-substitution. For example, we can write:
+`sed` est un "éditeur de stream" qui s'appuie sur le vieil éditeur `ed`. Dans cet éditeur, vous donnez de courtes commandes pour modifier le fichier, plutôt que de manipuler directement son contenu (bien que vous puissiez le faire aussi). Il existe des tonnes de commandes, mais l'une des plus courantes est `s` : la substitution. Par exemple, nous pouvons écrire :
 
 ```bash
 ssh myserver journalctl
@@ -79,124 +48,67 @@ ssh myserver journalctl
  | sed 's/.*Disconnected from //'
 ```
 
-What we just wrote was a simple _regular expression_; a powerful
-construct that lets you match text against patterns. The `s` command is
-written on the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
-regular expression you want to search for, and `SUBSTITUTION` is the
-text you want to substitute matching text with.
+Ce que nous venons d'écrire était une simple _expression régulière_ (regex) ; une construction puissante qui vous permet de faire correspondre du texte à des "motifs" (patterns). La commande `s` s'écrit sous la forme : `s/REGEX/SUBSTITUTION/`, où `REGEX` est l'expression régulière que vous souhaitez rechercher, et `SUBSTITUTION` est le texte que vous souhaitez substituer au texte correspondant.
 
-(You may recognize this syntax from the "Search and replace" section of our Vim
-[lecture notes](/2020/editors/#advanced-vim)! Indeed, Vim uses a syntax for
-searching and replacing that is similar to `sed`'s substitution command.
-Learning one tool often helps you become more proficient with others.)
+(Vous reconnaîtrez peut-être cette syntaxe de la section "Recherche et remplacement" de nos [notes de cours](/2020/editors/#advanced-vim) sur Vim ! En effet, Vim utilise une syntaxe de recherche et de remplacement similaire à la commande de substitution de `sed`. L'apprentissage d'un outil permet souvent d'en maîtriser d'autres).
 
-## Regular expressions
+## Expressions régulières
 
-Regular expressions are common and useful enough that it's worthwhile to
-take some time to understand how they work. Let's start by looking at
-the one we used above: `/.*Disconnected from /`. Regular expressions are
-usually (though not always) surrounded by `/`. Most ASCII characters
-just carry their normal meaning, but some characters have "special"
-matching behavior. Exactly which characters do what vary somewhat
-between different implementations of regular expressions, which is a
-source of great frustration. Very common patterns are:
+Les expressions régulières sont suffisamment courantes et utiles pour que l'on prenne le temps de comprendre leur fonctionnement. Commençons par examiner celle que nous avons utilisée ci-dessus : `/.*Disconnected from /`. Les expressions régulières sont généralement (mais pas toujours) entourées de `/`. La plupart des caractères ASCII ont leur signification normale, mais certains ont un comportement "spécial" en matière de correspondance. Le comportement exact des caractères varie quelque peu d'une implémentation à l'autre des expressions régulières, ce qui peut être une source de grande frustration. Les motifs les plus courants sont les suivants :
 
- - `.` means "any single character" except newline
- - `*` zero or more of the preceding match
- - `+` one or more of the preceding match
- - `[abc]` any one character of `a`, `b`, and `c`
- - `(RX1|RX2)` either something that matches `RX1` or `RX2`
- - `^` the start of the line
- - `$` the end of the line
+   - `.` signifie "n'importe quel caractère" à l'exception du caractère représentant une nouvelle ligne
+   - `*` zéro ou plus du caractère précédent
+   - `+` un ou plusieurs du caractère précédent
+   - `[abc]` n'importe quel caractère de `a`, `b` et `c`
+   - `(RX1|RX2)` soit quelque chose qui correspond à `RX1` ou `RX2`
+   - `^` le début de la ligne
+   - `$` la fin de la ligne
 
-`sed`'s regular expressions are somewhat weird, and will require you to
-put a `\` before most of these to give them their special meaning. Or
-you can pass `-E`.
+Les expressions régulières de `sed` sont quelque peu bizarres, et vous devrez mettre un `\` avant la plupart d'entre elles pour leur donner leur signification spéciale. Vous pouvez aussi passer `-E`.
 
-So, looking back at `/.*Disconnected from /`, we see that it matches
-any text that starts with any number of characters, followed by the
-literal string "Disconnected from &rdquo;. Which is what we wanted. But
-beware, regular expressions are tricky. What if someone tried to log in
-with the username "Disconnected from"? We'd have:
+Ainsi, en regardant `/.*Disconnected from /`, nous voyons qu'il correspond à tout texte commençant par n'importe quel nombre de caractères, suivi de la chaîne de caractères "Disconnected from ". C'est ce que nous voulions. Mais attention, les expressions régulières sont délicates. Que se passerait-il si quelqu'un essayait de se connecter avec le nom d'utilisateur "Disconnected from " ? Nous aurions :
 
 ```
 Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
 ```
 
-What would we end up with? Well, `*` and `+` are, by default, "greedy".
-They will match as much text as they can. So, in the above, we'd end up
-with just
+Qu'en résulterait-il ? Eh bien, `*` et `+` sont, par défaut, "gourmands". Ils vont rechercher autant de texte que possible. Ainsi, dans l'exemple ci-dessus, nous obtiendrions juste
 
 ```
 46.97.239.16 port 55920 [preauth]
 ```
 
-Which may not be what we wanted. In some regular expression
-implementations, you can just suffix `*` or `+` with a `?` to make them
-non-greedy, but sadly `sed` doesn't support that. We _could_ switch to
-perl's command-line mode though, which _does_ support that construct:
+Ce qui n'est peut-être pas ce que nous voulions. Dans certaines implémentations d'expressions régulières, vous pouvez simplement rallonger `*` ou `+` avec un `?` pour les rendre "non gourmandes", mais malheureusement `sed` ne possède pas cette option. Nous _pourrions_ cependant passer au mode ligne de commande de perl, qui supporte cette construction :
 
 ```bash
 perl -pe 's/.*?Disconnected from //'
 ```
 
-We'll stick to `sed` for the rest of this, because it's by far the more
-common tool for these kinds of jobs. `sed` can also do other handy
-things like print lines following a given match, do multiple
-substitutions per invocation, search for things, etc. But we won't cover
-that too much here. `sed` is basically an entire topic in and of itself,
-but there are often better tools.
+Nous nous en tiendrons à `sed` pour la suite, car c'est de loin l'outil le plus courant pour ce genre de tâches. `sed` peut également faire d'autres choses pratiques comme imprimer les lignes qui suivent une correspondance donnée, faire plusieurs substitutions par invocation, rechercher des choses, etc. `sed` est en fait un sujet à part entière, mais il existe souvent de meilleurs outils.
 
-Okay, so we also have a suffix we'd like to get rid of. How might we do
-that? It's a little tricky to match just the text that follows the
-username, especially if the username can have spaces and such! What we
-need to do is match the _whole_ line:
+Ok, nous avons aussi un suffixe dont nous aimerions nous débarrasser. Comment faire ? Il est un peu difficile de faire correspondre uniquement le texte qui suit le nom d'utilisateur, surtout si le nom d'utilisateur peut contenir des espaces et autres ! Ce qu'il faut, c'est faire correspondre _toute_ la ligne :
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user .* [^ ]+ port [0-9]+( \[preauth\])?$//'
 ```
 
-Let's look at what's going on with a [regex
-debugger](https://regex101.com/r/qqbZqh/2). Okay, so the start is still
-as before. Then, we're matching any of the "user" variants (there are
-two prefixes in the logs). Then we're matching on any string of
-characters where the username is. Then we're matching on any single word
-(`[^ ]+`; any non-empty sequence of non-space characters). Then the word
-"port" followed by a sequence of digits. Then possibly the suffix
-`[preauth]`, and then the end of the line.
+Regardons ce qui se passe avec un [débogueur de regex](https://regex101.com/r/qqbZqh/2). D'accord, le début est toujours le même. Ensuite, nous recherchons n'importe quelle variante de "user" (il y a deux préfixes dans les logs). Ensuite, nous recherchons n'importe quelle chaîne de caractères contenant le nom d'utilisateur. Ensuite, nous recherchons n'importe quel mot (`[^ ]+`; n'importe quelle séquence non vide de caractères non espace). Puis le mot "port" suivi d'une séquence de chiffres. Puis éventuellement le suffixe `[preauth]`, et enfin la fin de la ligne.
 
-Notice that with this technique, as username of "Disconnected from"
-won't confuse us any more. Can you see why?
+Remarquez qu'avec cette technique, le nom d'utilisateur "Disconnected from" ne nous embêtera plus. Comprenez-vous pourquoi ?
 
-There is one problem with this though, and that is that the entire log
-becomes empty. We want to _keep_ the username after all. For this, we
-can use "capture groups". Any text matched by a regex surrounded by
-parentheses is stored in a numbered capture group. These are available
-in the substitution (and in some engines, even in the pattern itself!)
-as `\1`, `\2`, `\3`, etc. So:
+Il y a cependant un problème, et c'est que le log entier devient vide. Après tout, nous voulons _garder_ le nom d'utilisateur. Pour cela, nous pouvons utiliser des "capture groups". Tout texte correspondant à une regex entourée de parenthèses est stocké dans un groupe de capture numéroté. Ceux-ci sont disponibles dans la substitution (et dans certains programmes, même dans le motif lui-même !) comme `\1`, `\2`, `\3`, etc. Ainsi :
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-As you can probably imagine, you can come up with _really_ complicated
-regular expressions. For example, here's an article on how you might
-match an [e-mail
-address](https://www.regular-expressions.info/email.html). It's [not
-easy](https://web.archive.org/web/20221223174323/http://emailregex.com/). And there's [lots of
-discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
-And people have [written
-tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
-And [test matrices](https://mathiasbynens.be/demo/url-regex). You can
-even write a regex for determining if a given number [is a prime
-number](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
+Comme vous pouvez l'imaginer, il est possible de créer des expressions régulières _très_ compliquées. Par exemple, voici un article sur la manière de faire correspondre une [addresse mail](https://www.regular-expressions.info/email.html). Ce n'est [pas facile](https://web.archive.org/web/20221223174323/http://emailregex.com/). Et il y a [beaucoup de discussions](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982). Et les gens ont [écrits des tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php). Et des [matrices de tests](https://mathiasbynens.be/demo/url-regex). Vous pouvez même écrire une regex pour déterminer si un nombre donné est [un nombre premier](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
 
-Regular expressions are notoriously hard to get right, but they are also
-very handy to have in your toolbox!
+Les expressions régulières sont très difficiles à maîtriser, mais elles sont aussi très pratiques à avoir dans sa boîte à outils !
 
-## Back to data wrangling
+## Retour à la manipulation des données
 
-Okay, so we now have
+Nous avons jusqu'à présent : 
 
 ```bash
 ssh myserver journalctl
@@ -205,14 +117,9 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-`sed` can do all sorts of other interesting things, like injecting text
-(with the `i` command), explicitly printing lines (with the `p`
-command), selecting lines by index, and lots of other things. Check `man
-sed`!
+`sed` peut faire toutes sortes d'autres choses intéressantes, comme injecter du texte (avec la commande `i`), imprimer explicitement des lignes (avec la commande `p`), sélectionner des lignes par index, et bien d'autres choses encore. Consultez sa page de manuel `man sed` !
 
-Anyway. What we have now gives us a list of all the usernames that have
-attempted to log in. But this is pretty unhelpful. Let's look for common
-ones:
+Ce que nous avons maintenant nous donne une liste de tous les noms d'utilisateurs qui ont tenté de se connecter. Mais cela n'est pas très utile. Cherchons les plus courants :
 
 ```bash
 ssh myserver journalctl
@@ -222,10 +129,7 @@ ssh myserver journalctl
  | sort | uniq -c
 ```
 
-`sort` will, well, sort its input. `uniq -c` will collapse consecutive
-lines that are the same into a single line, prefixed with a count of the
-number of occurrences. We probably want to sort that too and only keep
-the most common usernames:
+`sort` va, comme son nom l'indique, trier son entrée. `uniq -c` va regrouper les lignes consécutives qui sont les mêmes en une seule ligne, devancée par le compte du nombre d'occurrences. Nous voulons probablement asusi trier cette liste et ne garder que les noms d'utilisateur les plus courants :
 
 ```bash
 ssh myserver journalctl
@@ -236,17 +140,11 @@ ssh myserver journalctl
  | sort -nk1,1 | tail -n10
 ```
 
-`sort -n` will sort in numeric (instead of lexicographic) order. `-k1,1`
-means "sort by only the first whitespace-separated column". The `,n`
-part says "sort until the `n`th field, where the default is the end of
-the line. In this _particular_ example, sorting by the whole line
-wouldn't matter, but we're here to learn!
+`sort -n` permet de trier dans l'ordre numérique (au lieu de l'ordre lexicographique). `-k1,1` signifie "trier uniquement sur la première colonne séparée par des espaces". La partie `,n` indique "trier jusqu'au `n`ième champ, où la valeur par défaut est la fin de la ligne". Dans cet exemple _particulier_, le tri par ligne entière aurait donné le même résultat, mais nous sommes ici pour apprendre !
 
-If we wanted the _least_ common ones, we could use `head` instead of
-`tail`. There's also `sort -r`, which sorts in reverse order.
+Si nous voulions les _moins_ courants, nous pourrions utiliser `head` au lieu de `tail`. Il y a aussi `sort -r`, qui trie dans l'ordre inverse.
 
-Okay, so that's pretty cool, but what if we'd like these extract only the usernames
-as a comma-separated list instead of one per line, perhaps for a config file?
+Ok, c'est plutôt cool, mais qu'en est-il si nous voulons extraire uniquement les noms d'utilisateurs sous forme de liste séparée par des virgules au lieu d'un par ligne, par exemple pour un fichier de configuration ?
 
 ```bash
 ssh myserver journalctl
@@ -258,45 +156,26 @@ ssh myserver journalctl
  | awk '{print $2}' | paste -sd,
 ```
 
-If you're using macOS: note that the command as shown won't work with the BSD
-`paste` shipped with macOS. See [exercise 4 from the shell tools
-lecture](/2020/shell-tools/#exercises) for more on the difference between BSD
-and GNU coreutils and instructions for how to install GNU coreutils on macOS.
 
-Let's start with `paste`: it lets you combine lines (`-s`) by a given
-single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
+Si vous utilisez macOS : notez que la commande telle qu'elle est montrée ne fonctionnera pas avec le `paste` BSD inclus avec macOS. Voir [l'exercice 4 du cours sur les outils de l'interpréteur de commandes](/2020/shell-tools/#exercises) pour plus d'informations sur la différence entre BSD et GNU coreutils et les instructions pour installer GNU coreutils sur macOS.
 
-## awk -- another editor
+Commençons par `paste` : il vous permet de combiner des lignes (`-s`) à l'aide d'un délimiteur à un seul caractère (`-d` ; `,` dans ce cas). Mais qu'est-ce que c'est que cette histoire d'`awk` ?
 
-`awk` is a programming language that just happens to be really good at
-processing text streams. There is _a lot_ to say about `awk` if you were
-to learn it properly, but as with many other things here, we'll just go
-through the basics.
+## awk -- un autre éditeur
 
-First, what does `{print $2}` do? Well, `awk` programs take the form of
-an optional pattern plus a block saying what to do if the pattern
-matches a given line. The default pattern (which we used above) matches
-all lines. Inside the block, `$0` is set to the entire line's contents,
-and `$1` through `$n` are set to the `n`th _field_ of that line, when
-separated by the `awk` field separator (whitespace by default, change
-with `-F`). In this case, we're saying that, for every line, print the
-contents of the second field, which happens to be the username!
+`awk` est un langage de programmation qui s'avère être très efficace pour traiter les flux de texte. Il y aurait _beaucoup_ à dire sur `awk` si vous deviez l'apprendre correctement, mais comme pour beaucoup d'autres choses ici, nous nous contenterons de passer en revue les bases.
 
-Let's see if we can do something fancier. Let's compute the number of
-single-use usernames that start with `c` and end with `e`:
+Tout d'abord, que fait `{print $2}` ? Les programmes `awk` se présentent sous la forme d'un pattern optionnel et d'un bloc indiquant ce qu'il faut faire si le pattern correspond à une ligne donnée. Le pattern par défaut (que nous avons utilisé ci-dessus) correspond à toutes les lignes. À l'intérieur du bloc, `$0` est défini comme le contenu entier de la ligne, et `$1` à `$n` sont définis comme le `n`ième _champ_ de cette ligne, lorsqu'ils sont séparés par le séparateur de champ de `awk` (espace par défaut, modifiable avec `-F`). Dans ce cas, nous disons que, pour chaque ligne, nous imprimons le contenu du deuxième champ, qui se trouve être le nom d'utilisateur !
+
+Voyons si nous pouvons faire quelque chose de plus fantaisiste. Calculons le nombre de noms d'utilisateur à usage unique qui commencent par `c` et se terminent par `e` :
 
 ```bash
  | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
 ```
 
-There's a lot to unpack here. First, notice that we now have a pattern
-(the stuff that goes before `{...}`). The pattern says that the first
-field of the line should be equal to 1 (that's the count from `uniq
--c`), and that the second field should match the given regular
-expression. And the block just says to print the username. We then count
-the number of lines in the output with `wc -l`.
+Il y a beaucoup de choses à décortiquer ici. Tout d'abord, remarquez que nous avons maintenant un pattern (ce qui se trouve avant `{...}`). Le pattern dit que le premier champ de la ligne doit être égal à 1 (c'est le compte de `uniq -c`), et que le second champ doit correspondre à l'expression régulière donnée. Et le bloc dit simplement d'imprimer le nom d'utilisateur. Nous comptons ensuite le nombre de lignes dans la sortie avec `wc -l`.
 
-However, `awk` is a programming language, remember?
+Cependant, `awk` est un langage de programmation, vous vous souvenez ?
 
 ```awk
 BEGIN { rows = 0 }
@@ -304,33 +183,23 @@ $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
 END { print rows }
 ```
 
-`BEGIN` is a pattern that matches the start of the input (and `END`
-matches the end). Now, the per-line block just adds the count from the
-first field (although it'll always be 1 in this case), and then we print
-it out at the end. In fact, we _could_ get rid of `grep` and `sed`
-entirely, because `awk` [can do it
-all](https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
-leave that as an exercise to the reader.
+`BEGIN` est un pattern qui correspond au début de l'entrée (et `END` correspond à la fin). Maintenant, le bloc par ligne ne fait qu'ajouter le compte du premier champ (bien qu'il soit toujours égal à 1 dans ce cas), et nous l'imprimons à la fin. En fait, nous _pourrions_ nous débarrasser complètement de `grep` et de `sed`, car `awk` [peut tout faire](https://backreference.org/2010/02/10/idiomatic-awk/), mais nous laisserons cet exercice au lecteur.
 
-## Analyzing data
+## Analyse des données
 
-You can do math directly in your shell using `bc`, a calculator that can read 
-from STDIN! For example, add the numbers on each line together by concatenating
-them together, delimited by `+`:
+Vous pouvez faire des calculs directement dans votre shell en utilisant `bc`, une calculatrice qui peut lire à partir de STDIN ! Par exemple, additionner les nombres de chaque ligne en les concaténant, délimités par + :
 
 ```bash
  | paste -sd+ | bc -l
 ```
 
-Or produce more elaborate expressions:
+Vous pouvez également produire des expressions plus élaborées :
 
 ```bash
 echo "2*($(data | paste -sd+))" | bc -l
 ```
 
-You can get stats in a variety of ways.
-[`st`](https://github.com/nferraz/st) is pretty neat, but if you already
-have [R](https://www.r-project.org/):
+Vous pouvez obtenir des statistiques de différentes manières. [`st`](https://github.com/nferraz/st) est très intéressant, mais si vous avez déjà [R](https://www.r-project.org/):
 
 ```bash
 ssh myserver journalctl
@@ -341,13 +210,9 @@ ssh myserver journalctl
  | awk '{print $1}' | R --no-echo -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
 ```
 
-R is another (weird) programming language that's great at data analysis
-and [plotting](https://ggplot2.tidyverse.org/). We won't go into too
-much detail, but suffice to say that `summary` prints summary statistics
-for a vector, and we created a vector containing the input stream of
-numbers, so R gives us the statistics we wanted!
+R est un autre langage de programmation (étrange) qui permet d'analyser des données et de [tracer des graphiques](https://ggplot2.tidyverse.org/). Nous n'entrerons pas dans les détails, mais il suffit de dire que `summary` imprime un résumé statistique pour un vecteur, et nous avons créé un vecteur contenant le flux de chiffres en entrée, donc R nous donne les statistiques que nous voulions !
 
-If you just want some simple plotting, `gnuplot` is your friend:
+Si vous souhaitez simplement tracer des graphiques, `gnuplot` est votre ami :
 
 ```bash
 ssh myserver journalctl
@@ -359,28 +224,19 @@ ssh myserver journalctl
  | gnuplot -p -e 'set boxwidth 0.5; plot "-" using 1:xtic(2) with boxes'
 ```
 
-## Data wrangling to make arguments
+## Traiter des données pour créer des arguments
 
-Sometimes you want to do data wrangling to find things to install or
-remove based on some longer list. The data wrangling we've talked about
-so far + `xargs` can be a powerful combo.
+Parfois, vous voulez faire de la manipulation de données pour trouver des choses à installer ou à supprimer sur base d'une liste plus longue. La manipulation de données dont nous avons parlé jusqu'à présent + `xargs` peut être une combinaison puissante.
 
-For example, as seen in lecture, I can use the following command to uninstall
-old nightly builds of Rust from my system by extracting the old build names
-using data wrangling tools and then passing them via `xargs` to the
-uninstaller:
+Par exemple, comme nous l'avons vu dans le cours, je peux utiliser la commande suivante pour désinstaller les anciens builds "nightly" de Rust de mon système en extrayant les noms des anciens builds à l'aide d'outils d'extraction de données, puis en les transmettant via `xargs` au programme de désinstallation :
 
 ```bash
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
 ```
 
-## Wrangling binary data
+## Manipuler des données binaires
 
-So far, we have mostly talked about wrangling textual data, but pipes
-are just as useful for binary data. For example, we can use ffmpeg to
-capture an image from our camera, convert it to grayscale, compress it,
-send it to a remote machine over SSH, decompress it there, make a copy,
-and then display it.
+Jusqu'à présent, nous avons surtout parlé de la manipulation de données textuelles, mais les pipes sont tout aussi utiles pour les données binaires. Par exemple, nous pouvons utiliser `ffmpeg` pour capturer une image depuis notre caméra, la convertir en niveaux de gris, la compresser, l'envoyer à une machine distante via SSH, la décompresser sur place, en faire une copie, puis l'afficher.
 
 ```bash
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
@@ -389,57 +245,32 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
 ```
 
-# Exercises
+# Exercices
 
-1. Take this [short interactive regex tutorial](https://regexone.com/).
-2. Find the number of words (in `/usr/share/dict/words`) that contain at
-   least three `a`s and don't have a `'s` ending. What are the three
-   most common last two letters of those words? `sed`'s `y` command, or
-   the `tr` program, may help you with case insensitivity. How many
-   of those two-letter combinations are there? And for a challenge:
-   which combinations do not occur?
-3. To do in-place substitution it is quite tempting to do something like
-   `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. However this is a
-   bad idea, why? Is this particular to `sed`? Use `man sed` to find out
-   how to accomplish this.
-4. Find your average, median, and max system boot time over the last ten
-   boots. Use `journalctl` on Linux and `log show` on macOS, and look
-   for log timestamps near the beginning and end of each boot. On Linux,
-   they may look something like:
-   ```
+1. Suivez ce [court tutoriel interactif sur les expressions rationnelles](https://regexone.com/).
+
+2. Trouvez le nombre de mots (dans `/usr/share/dict/words`) qui contiennent au moins trois `a` et qui n'ont pas de `'s` à la fin. Quelles sont les trois dernières lettres les plus courantes de ces mots ? La commande `y` de `sed`, ou le programme `tr`, peuvent vous aider à respecter la casse. Combien y a-t-il de ces combinaisons de deux lettres ? Et pour le défi : quelles sont les combinaisons qui n'apparaissent pas ?
+
+3. Pour effectuer une substitution en place, il est tentant de faire quelque chose comme `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. Mais c'est une mauvaise idée, pourquoi ? S'agit-il d'une particularité de `sed` ? Utilisez `man sed` pour savoir comment procéder.
+
+4. Trouvez le temps de démarrage moyen, médian et maximal de votre système sur les dix derniers démarrages. Utilisez `journalctl` sous Linux et `log show` sous macOS, et recherchez les timestamps des journaux au début et à la fin de chaque démarrage. Sous Linux, ils peuvent ressembler à quelque chose comme :
+
+    ```
    Logs begin at ...
    ```
-   and
+   et
    ```
    systemd[577]: Startup finished in ...
    ```
-   On macOS, [look
-   for](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
+   Sur macOS, [cherchez](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
    ```
    === system boot:
    ```
-   and
+   et
    ```
    Previous shutdown cause: 5
    ```
-5. Look for boot messages that are _not_ shared between your past three
-   reboots (see `journalctl`'s `-b` flag). Break this task down into
-   multiple steps. First, find a way to get just the logs from the past
-   three boots. There may be an applicable flag on the tool you use to
-   extract the boot logs, or you can use `sed '0,/STRING/d'` to remove
-   all lines previous to one that matches `STRING`. Next, remove any
-   parts of the line that _always_ varies (like the timestamp). Then,
-   de-duplicate the input lines and keep a count of each one (`uniq` is
-   your friend). And finally, eliminate any line whose count is 3 (since
-   it _was_ shared among all the boots).
-6. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [this
-   one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
-   or maybe one [from
-   here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
-   Fetch it using `curl` and extract out just two columns of numerical
-   data. If you're fetching HTML data,
-   [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON
-   data, try [`jq`](https://stedolan.github.io/jq/). Find the min and
-   max of one column in a single command, and the difference of the sum
-   of each column in another.
+
+5. Recherchez les messages de démarrage qui ne sont _pas_ partagés entre vos trois derniers redémarrages (voir le drapeau `-b` de `journalctl`). Divisez cette tâche en plusieurs sous-étapes. Tout d'abord, trouvez un moyen d'obtenir uniquement les logs des trois derniers redémarrages. Il pourrait y avoir un drapeau applicable sur l'outil que vous utilisez pour extraire les journaux de démarrage, ou vous pouvez utiliser `sed '0,/STRING/d'` pour supprimer toutes les lignes précédant celle qui correspond à `STRING`. Ensuite, supprimez toutes les parties de la ligne qui varient _toujours_ (comme les timestamps).  Ensuite, dédupliquez les lignes d'entrée et comptez les occurences de chacune d'entre elles (`uniq` est votre ami). Enfin, éliminez toute ligne dont le nombre est égal à 3 (puisqu'elle _a été_ partagée entre toutes les démarrages).
+
+6. Trouvez un data set en ligne comme [celui-ci](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [celui-ci](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1), ou peut-être [celui-ci](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/). Récupérez-le à l'aide de `curl` et extrayez seulement deux colonnes de données numériques. Si vous récupérez des données HTML, [`pup`](https://github.com/EricChiang/pup) peut être utile. Pour des données JSON, essayez [`jq`](https://stedolan.github.io/jq/). Trouvez le min et le max d'une colonne en une seule commande, et la différence de la somme de chaque colonne avec une autre.
