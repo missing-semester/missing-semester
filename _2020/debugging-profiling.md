@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "Débogage et profilage"
 date: 2020-01-23
 ready: true
 video:
@@ -8,42 +8,39 @@ video:
   id: l812pUnKxME
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do.
-Bridging that gap can sometimes be a quite difficult feat.
-In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+Une règle d'or en programmation est que le code ne fait pas ce que vous attendez de lui, mais ce que vous lui dites de faire. Combler ce fossé peut parfois s'avérer difficile. Dans ce cours, nous allons aborder des techniques utiles pour corriger les bugs et améliorer du code inefficace : le débogage et le profilage.
 
-# Debugging
+# Débogage
 
-## Printf debugging and Logging
 
-"The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+## Déboguer avec Printf et les logs
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+"L'outil de débogage le plus efficace reste une réflexion approfondie, associée à des instructions 'print' judicieusement placées" - Brian Kernighan, _Unix for Beginners_.
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is better than regular print statements for several reasons:
+Une première approche pour déboguer un programme consiste à ajouter des instructions "print" autour de l'endroit où vous avez détecté le problème, et de continuer à itérer jusqu'à ce que vous ayez extrait suffisamment d'informations pour comprendre ce qui est à l'origine du problème.
 
-- You can log to files, sockets or even remote servers instead of standard output.
-- Logging supports severity levels (such as INFO, DEBUG, WARN, ERROR, &c), that allow you to filter the output accordingly.
-- For new issues, there's a fair chance that your logs will contain enough information to detect what is going wrong.
+Une deuxième approche consiste à utiliser des logs dans votre programme, au lieu d'instructions "print" ad hoc. Utiliser des logs est préférable aux instructions "print" classiques pour plusieurs raisons :
 
-[Here](/static/files/logger.py) is an example code that logs messages:
+- Vous pouvez les enregistrer dans des fichiers, des sockets ou même des serveurs distants au lieu de la sortie standard.
+- Les logs supportent des niveaux de gravité (tels que INFO, DEBUG, WARN, ERROR, etc), qui vous permettent de filtrer la sortie en conséquence.
+- Pour les nouveaux problèmes, il y a de fortes chances que vos logs contiennent suffisamment d'informations pour détecter ce qui ne va pas.
+
+[Voici](/static/files/logger.py) un exemple de code qui log des messages :
 
 ```bash
 $ python logger.py
-# Raw output as with just prints
+# Sortie brute comme avec uniquement des "print"
 $ python logger.py log
-# Log formatted output
+# Sortie formatée avec des logs
 $ python logger.py log ERROR
-# Print only ERROR levels and above
+# Ne print que les niveaus ERROR ou supérieurs
 $ python logger.py color
-# Color formatted output
+# Sortie formatée avec des couleurs
 ```
 
-One of my favorite tips for making logs more readable is to color code them.
-By now you probably have realized that your terminal uses colors to make things more readable. But how does it do it?
-Programs like `ls` or `grep` are using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code), which are special sequences of characters to indicate your shell to change the color of the output. For example, executing `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` prints the message `This is red` in red on your terminal, as long as it supports [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices). If your terminal doesn't support this (e.g. macOS's Terminal.app), you can use the more universally supported escape codes for 16 color choices, for example `echo -e "\e[31;1mThis is red\e[0m"`.
+L'une de mes astuces préférées pour rendre les logs plus lisibles est de leur attribuer un code couleur. Vous avez probablement déjà réalisé que votre terminal utilise des couleurs pour rendre les choses plus lisibles. Mais comment le fait-il ? Des programmes comme `ls` ou `grep` utilisent des [caractères ANSI (escape codes)](https://en.wikipedia.org/wiki/ANSI_escape_code), qui sont des séquences spéciales de caractères indiquant à l'interpréteur de commandes de changer la couleur de la sortie. Par exemple, l'exécution de `echo -e "\e[38;2;255;0;0mCeci est rouge\e[0m"` affiche le message `Ceci est rouge` en rouge dans votre terminal, à condition qu'il prenne en charge [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices). Si votre terminal ne le supporte pas (par exemple Terminal.app de macOS), vous pouvez utiliser les escape codes plus universellement supportés pour 16 choix de couleurs, par exemple `echo -e "\e[31;1mCeci est rouge\e[0m"`.
 
-The following script shows how to print many RGB colors into your terminal (again, as long as it supports true color).
+Le script suivant montre comment afficher plusieurs couleurs RGB dans votre terminal (à condition qu'il supporte true color).
 
 ```bash
 #!/usr/bin/env bash
@@ -56,62 +53,47 @@ for R in $(seq 0 20 255); do
 done
 ```
 
-## Third party logs
+# Logs d'applications tierces
 
-As you start building larger software systems you will most probably run into dependencies that run as separate programs.
-Web servers, databases or message brokers are common examples of this kind of dependencies.
-When interacting with these systems it is often necessary to read their logs, since client side error messages might not suffice.
+Au fur et à mesure que vous construisez des systèmes logiciels plus importants, vous rencontrerez très probablement des dépendances qui s'exécutent en tant que programmes distincts. Les serveurs web, les bases de données ou les messages brokers sont des exemples courants de ce type de dépendances. Lorsque vous interagissez avec ces systèmes, il est souvent nécessaire de lire leurs logs, car les messages d'erreur côté client peuvent ne pas suffire.
 
-Luckily, most programs write their own logs somewhere in your system.
-In UNIX systems, it is commonplace for programs to write their logs under `/var/log`.
-For instance, the [NGINX](https://www.nginx.com/) webserver places its logs under `/var/log/nginx`.
-More recently, systems have started using a **system log**, which is increasingly where all of your log messages go.
-Most (but not all) Linux systems use `systemd`, a system daemon that controls many things in your system such as which services are enabled and running.
-`systemd` places the logs under `/var/log/journal` in a specialized format and you can use the [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) command to display the messages.
-Similarly, on macOS there is still `/var/log/system.log` but an increasing number of tools use the system log, that can be displayed with [`log show`](https://www.manpagez.com/man/1/log/).
-On most UNIX systems you can also use the [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) command to access the kernel log.
+Heureusement, la plupart des programmes écrivent leurs propres logs quelque part dans votre système. Dans les systèmes UNIX, il est courant que les programmes écrivent leurs logs dans `/var/log`. Par exemple, le serveur web [NGINX](https://www.nginx.com/) écrit ses logs dans `/var/log/nginx`. Plus récemment, les systèmes ont commencé à utiliser les **logs système**, qui est de plus en plus souvent l'endroit où vont tous les messages de log. La plupart des systèmes Linux (mais pas tous) utilisent `systemd`, un daemon système qui contrôle de nombreux éléments de votre système, tels que quels services sont activés et en cours d'exécution. `systemd` écrit les logs dans `/var/log/journal` dans un format spécial et vous pouvez utiliser la commande [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) pour afficher les messages. De même, sur macOS, il y a toujours `/var/log/system.log`, mais un nombre croissant d'outils utilisent les logs système, qui peut être affiché avec [`log show`](https://www.manpagez.com/man/1/log/). Sur la plupart des systèmes UNIX, vous pouvez également utiliser la commande [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) pour accéder aux logs du noyau.
 
-For logging under the system logs you can use the [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html) shell program.
-Here's an example of using `logger` and how to check that the entry made it to the system logs.
-Moreover, most programming languages have bindings logging to the system log.
+Pour écrire des logs dans les logs système, vous pouvez utiliser le programme shell [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html). Voici un exemple d'utilisation de `logger` et de comment vérifier que le log a bien été écrit dans les logs système. De plus, la plupart des langages de programmation ont des "bindings" (sorte de lien qui permet à un language de programmation à communiquer avec un autre service) qui permettent d'écrire des données dans les logs système.
 
 ```bash
 logger "Hello Logs"
-# On macOS
+# Sur macOS
 log show --last 1m | grep Hello
-# On Linux
+# Sur Linux
 journalctl --since "1m ago" | grep Hello
 ```
 
-As we saw in the data wrangling lecture, logs can be quite verbose and they require some level of processing and filtering to get the information you want.
-If you find yourself heavily filtering through `journalctl` and `log show` you can consider using their flags, which can perform a first pass of filtering of their output.
-There are also some tools like  [`lnav`](http://lnav.org/), that provide an improved presentation and navigation for log files.
+Comme nous l'avons vu dans le cours sur le traitement des données, les logs peuvent être assez verbeux et nécessitent un certain niveau de traitement et de filtrage pour en tirer les informations souhaitées. Si vous vous retrouvez à filtrer lourdement `journalctl` et `log show`, vous pouvez envisager d'utiliser leurs flags, qui peuvent effectuer un premier passage de filtrage de leur sortie. Il existe également des outils comme [`lnav`](http://lnav.org/), qui améliorent la présentation et la navigation dans les fichiers de log.
 
-## Debuggers
+## Débogueurs
 
-When printf debugging is not enough you should use a debugger.
-Debuggers are programs that let you interact with the execution of a program, allowing the following:
+Lorsque le débogage avec printf ne suffit pas, vous devrez utiliser un débogueur. Les débogueurs sont des programmes qui vous permettent d'interagir avec l'exécution d'un programme. Ils permettent :
 
-- Halt execution of the program when it reaches a certain line.
-- Step through the program one instruction at a time.
-- Inspect values of variables after the program crashed.
-- Conditionally halt the execution when a given condition is met.
-- And many more advanced features
+- d'arrêter l'exécution du programme lorsqu'il atteint une certaine ligne
+- de faire avancer le programme une instruction à la fois
+- d'inspecter les valeurs des variables après que le programme se soit arrêté.
+- d'arrêter l'exécution sous condition qu'une certaine condition donnée soit remplie.
+- et bien d'autres fonctionnalités plus avancées
 
-Many programming languages come with some form of debugger.
-In Python this is the Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html).
+De nombreux langages de programmation sont dotés d'une forme ou d'une autre de débogueur. En Python, il s'agit du débogueur Python [`pdb`](https://docs.python.org/3/library/pdb.html).
 
-Here is a brief description of some of the commands `pdb` supports:
+Voici une brève description de certaines des commandes que `pdb` prend en charge :
 
-- **l**(ist) - Displays 11 lines around the current line or continue the previous listing.
-- **s**(tep) - Execute the current line, stop at the first possible occasion.
-- **n**(ext) - Continue execution until the next line in the current function is reached or it returns.
-- **b**(reak) - Set a breakpoint (depending on the argument provided).
-- **p**(rint) - Evaluate the expression in the current context and print its value. There's also **pp** to display using [`pprint`](https://docs.python.org/3/library/pprint.html) instead.
-- **r**(eturn) - Continue execution until the current function returns.
-- **q**(uit) - Quit the debugger.
+- **l**(ist) - Affiche 11 lignes autour de la ligne actuelle ou continue la liste précédente.
+- **s**(tep) - Exécute la ligne actuelle, s'arrête à la première occasion possible.
+- **n**(ext) -  Poursuit l'exécution jusqu'à ce que la ligne suivante de la fonction en cours d'exécution soit atteinte ou qu'on arrive à une instruction return.
+- **b**(reak) - Définit un point d'arrêt (breakpoint) (en fonction de l'argument fourni).
+- **p**(rint) - Évaluer l'expression dans le contexte actuel et afficher sa valeur. Il y a aussi **pp** pour l'afficher en utilisant [`pprint`](https://docs.python.org/3/library/pprint.html) à la place.
+- **r**(eturn) - Continue l'exécution jusqu'à ce que la fonction en cours retourne.
+- **q**(uit) -  Quitte le débogueur.
 
-Let's go through an example of using `pdb` to fix the following buggy python code. (See the lecture video).
+Voyons un exemple d'utilisation de `pdb` pour corriger le code python bogué suivant. (Voir la vidéo du cours).
 
 ```python
 def bubble_sort(arr):
@@ -126,48 +108,39 @@ def bubble_sort(arr):
 print(bubble_sort([4, 2, 1, 8, 7, 6]))
 ```
 
+Notez que puisque Python est un langage interprété, nous pouvons utiliser le shell `pdb` pour exécuter des commandes et des instructions. [`ipdb`](https://pypi.org/project/ipdb/) est un `pdb` amélioré qui utilise le REPL [`IPython`](https://ipython.org) permettant la complétion de tabulation, la coloration syntaxique, de meilleures tracebacks et une meilleure introspection tout en conservant la même interface que le module `pdb`.
 
-Note that since Python is an interpreted language we can use the `pdb` shell to execute commands and to execute instructions.
-[`ipdb`](https://pypi.org/project/ipdb/) is an improved `pdb` that uses the [`IPython`](https://ipython.org) REPL enabling tab completion, syntax highlighting, better tracebacks, and better introspection while retaining the same interface as the `pdb` module.
-
-For more low level programming you will probably want to look into [`gdb`](https://www.gnu.org/software/gdb/) (and its quality of life modification [`pwndbg`](https://github.com/pwndbg/pwndbg)) and [`lldb`](https://lldb.llvm.org/).
-They are optimized for C-like language debugging but will let you probe pretty much any process and get its current machine state: registers, stack, program counter, &c.
+Pour de la programmation de plus bas niveau, vous voudrez probablement vous tourner vers [`gdb`](https://www.gnu.org/software/gdb/) (et son amélioration plus intuitive [`pwndbg`](https://github.com/pwndbg/pwndbg)) et [`lldb`](https://lldb.llvm.org/). Ils sont optimisés pour le débogage en langage C mais vous permettront de sonder à peu près n'importe quel processus et d'obtenir son état actuel : registres, pile, compteur de programme, etc.
 
 
-## Specialized Tools
+## Outils spécialisés
 
-Even if what you are trying to debug is a black box binary there are tools that can help you with that.
-Whenever programs need to perform actions that only the kernel can, they use [System Calls](https://en.wikipedia.org/wiki/System_call).
-There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](http://dtrace.org/blogs/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
+Même si ce que vous essayez de déboguer est une boîte noire binaire, il existe des outils qui peuvent vous aider. Lorsque des programmes doivent effectuer des actions que seul le noyau peut réaliser, ils utilisent des [appels système](https://en.wikipedia.org/wiki/System_call). Il existe des commandes qui vous permettent de tracer les appels système effectués par votre programme. Sous Linux, il existe [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) et macOS et BSD possèdent [`dtrace`](http://dtrace.org/blogs/about/). `dtrace` peut être difficile à utiliser parce qu'il utilise son propre langage `D`, mais il existe un wrapper appelé [`dtruss`](https://www.manpagez.com/man/1/dtruss/) qui fournit une interface plus similaire à `strace` (plus de détails [ici](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
 
-Below are some examples of using `strace` or `dtruss` to show [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall traces for an execution of `ls`. For a deeper dive into `strace`, [this article](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) and [this zine](https://jvns.ca/strace-zine-unfolded.pdf) are good reads.
+Voici quelques exemples d'utilisation de `strace` ou de `dtruss` pour afficher les traces des appels de système à [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) pour une exécution de `ls`. Pour une plongée plus profonde dans `strace`, [cet article](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) et [ce fanzine](https://jvns.ca/strace-zine-unfolded.pdf) sont de bonnes lectures.
 
 ```bash
-# On Linux
+# Sur Linux
 sudo strace -e lstat ls -l > /dev/null
-# On macOS
+# Sur macOS
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
 
-Under some circumstances, you may need to look at the network packets to figure out the issue in your program.
-Tools like [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) are network packet analyzers that let you read the contents of network packets and filter them based on different criteria.
+Dans certaines circonstances, il peut être nécessaire d'examiner les paquets réseau pour trouver le problème dans votre programme. Des outils comme [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) et [Wireshark](https://www.wireshark.org/) sont des analyseurs de paquets réseau qui vous permettent de lire le contenu des paquets réseau et de les filtrer en fonction de différents critères.
 
-For web development, the Chrome/Firefox developer tools are quite handy. They feature a large number of tools, including:
-- Source code - Inspect the HTML/CSS/JS source code of any website.
-- Live HTML, CSS, JS modification - Change the website content, styles and behavior to test (you can see for yourself that website screenshots are not valid proofs).
-- Javascript shell - Execute commands in the JS REPL.
-- Network - Analyze the requests timeline.
-- Storage - Look into the Cookies and local application storage.
+Pour le développement web, les outils de développement Chrome/Firefox sont très pratiques. Ils proposent un grand nombre d'outils, notamment :
 
-## Static Analysis
+- Code source - Inspectez le code source HTML/CSS/JS de n'importe quel site web.
+- Modification HTML, CSS, JS en direct - Modifiez le contenu, les styles et le comportement du site web pour le tester (vous pouvez constater par vous-même que les captures d'écran de sites web ne sont pas des preuves valables).
+- Shell javascript - Exécutez des commandes dans le JS REPL.
+- Réseau - Analysez la chronologie des requêtes.
+- Stockage - Examinez les cookies et le stockage local de l'application.
 
-For some issues you do not need to run any code.
-For example, just by carefully looking at a piece of code you could realize that your loop variable is shadowing an already existing variable or function name; or that a program reads a variable before defining it.
-Here is where [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tools come into play.
-Static analysis programs take source code as input and analyze it using coding rules to reason about its correctness.
+## Analyse statique
 
-In the following Python snippet there are several mistakes.
-First, our loop variable `foo` shadows the previous definition of the function `foo`. We also wrote `baz` instead of `bar` in the last line, so the program will crash after completing the `sleep` call (which will take one minute).
+Pour certains problèmes, il n'est pas nécessaire d'exécuter du code. Par exemple, en examinant attentivement un morceau de code, vous pouvez vous rendre compte que votre variable de boucle cache une variable déjà existante ou un nom de fonction, ou qu'un programme lit une variable avant de la définir. C'est là que les outils [d'analyse statique](https://en.wikipedia.org/wiki/Static_program_analysis) entrent en jeu. Les programmes d'analyse statique prennent le code source en entrée et l'analysent à l'aide de règles prédéfinies pour en déterminer l'exactitude.
+
+L'extrait Python suivant contient plusieurs erreurs. Tout d'abord, notre variable de boucle `foo` cache la définition précédente de la fonction `foo`. Nous avons également écrit `baz` au lieu de `bar` dans la dernière ligne, de sorte que le programme crashera après avoir effectué l'appel à `sleep` (qui prendra une minute).
 
 ```python
 import time
@@ -183,8 +156,7 @@ time.sleep(60)
 print(baz)
 ```
 
-Static analysis tools can identify these kinds of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](http://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
-Again, note that all these issues were detected without having to run the code.
+Les outils d'analyse statique peuvent identifier ce type de problèmes. Lorsque nous exécutons [`pyflakes`](https://pypi.org/project/pyflakes) sur le code, nous obtenons les erreurs liées aux deux bugs. [`mypy`](http://mypy-lang.org/) est un autre outil qui peut détecter les problèmes de vérification de type. Ici, `mypy` nous avertira que `bar` est initialement un `int` et qu'il est ensuite casté en `float`. Encore une fois, notez que tous ces problèmes ont été détectés sans avoir à exécuter le code.
 
 ```bash
 $ pyflakes foobar.py
@@ -198,29 +170,22 @@ foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
 
-In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
+Dans le cours sur les outils du shell, nous avons abordé [`shellcheck`](https://www.shellcheck.net/), qui est un outil similaire pour les scripts shell.
 
-Most editors and IDEs support displaying the output of these tools within the editor itself, highlighting the locations of warnings and errors.
-This is often called **code linting** and it can also be used to display other types of issues such as stylistic violations or insecure constructs.
+La plupart des éditeurs et des IDE permettent d'afficher la sortie de ces outils dans l'éditeur lui-même, en mettant en évidence l'emplacement des avertissements et des erreurs. C'est ce que l'on appelle souvent le **code linting** et il peut également être utilisé pour afficher d'autres types de problèmes tels que les violations de style ou les constructions insécurisées.
 
-In vim, the plugins [`ale`](https://vimawesome.com/plugin/ale) or [`syntastic`](https://vimawesome.com/plugin/syntastic) will let you do that.
-For Python, [`pylint`](https://github.com/PyCQA/pylint) and [`pep8`](https://pypi.org/project/pep8/) are examples of stylistic linters and [`bandit`](https://pypi.org/project/bandit/) is a tool designed to find common security issues.
-For other languages people have compiled comprehensive lists of useful static analysis tools, such as [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (you may want to take a look at the _Writing_ section) and for linters there is [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
+Dans Vim, les plugins [`ale`](https://vimawesome.com/plugin/ale) ou [`syntastic`](https://vimawesome.com/plugin/syntastic) vous permettront de le faire. Pour Python, [`pylint`](https://github.com/PyCQA/pylint) et [`pep8`](https://pypi.org/project/pep8/) sont des exemples de linters stylistiques et [`bandit`](https://pypi.org/project/bandit/) est un outil conçu pour trouver les problèmes de sécurité courants. Pour d'autres langages, des personnes ont rassemblé des listes complètes d'outils d'analyse statique utiles, comme [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (vous pouvez jeter un coup d'oeil à la section _Writing_) et pour les linters, il existe [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
 
-A complementary tool to stylistic linting are code formatters such as [`black`](https://github.com/psf/black) for Python, `gofmt` for Go, `rustfmt` for Rust or [`prettier`](https://prettier.io/) for JavaScript, HTML and CSS.
-These tools autoformat your code so that it's consistent with common stylistic patterns for the given programming language.
-Although you might be unwilling to give stylistic control about your code, standardizing code format will help other people read your code and will make you better at reading other people's (stylistically standardized) code.
+Un outil complémentaire à l'analyse stylistique sont les formateurs de code, tel que [`black`](https://github.com/psf/black) pour Python, `gofmt` pour Go, `rustfmt` pour Rust ou [`prettier`](https://prettier.io/) pour JavaScript, HTML et CSS. Ces outils autoformatent votre code de manière à ce qu'il soit cohérent avec les modèles stylistiques courants pour le langage de programmation en question. Même si vous n'êtes pas disposé à donner le contrôle stylistique de votre code, la normalisation du format du code aidera les autres à lire votre code et vous permettra de mieux lire le code des autres (normalisé sur le plan stylistique).
 
-# Profiling
+# Profilage
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process.
-Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs.
-Since [premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+Même si votre code se comporte fonctionnellement comme vous l'attendez, ce n'est peut-être pas suffisant s'il utilise tout votre CPU ou votre mémoire lors de son exécution. Les cours d'algorithmique enseignent souvent la notation big _O_, mais pas la manière de trouver les points sensibles dans vos programmes. [L'optimisation prématurée étant la racine de tous les maux](http://wiki.c2.com/?PrematureOptimization), vous devriez vous familiariser avec les profileurs et les outils de monitoring. Ils vous aideront à comprendre quelles parties de votre programme prennent le plus de temps et/ou de ressources afin que vous puissiez vous concentrer sur l'optimisation de ces parties.
+
 
 ## Timing
 
-Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
-Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
+Comme dans le cas du débogage, dans de nombreux scénarios, il peut suffire d'imprimer le temps que votre code a mis entre deux points. Voici un exemple en Python utilisant le module [`time`](https://docs.python.org/3/library/time.html).
 
 ```python
 import time, random
@@ -241,13 +206,13 @@ print(time.time() - start)
 # 0.5713930130004883
 ```
 
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. It is common for tools to make a distinction between _Real_, _User_ and _Sys_ time. In general, _User_ + _Sys_ tells you how much time your process actually spent in the CPU (more detailed explanation [here](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
+Cependant, le temps calculé par le programme peut être trompeur car votre ordinateur peut exécuter d'autres processus en même temps ou attendre que des événements se produisent. Il est courant que les outils fassent une distinction entre le temps _réel_ (Real), le temps _utilisateur_ (User) et le temps _système_ (Sys). En général, _User_ + _Sys_ vous indique combien de temps votre processus a réellement passé dans le CPU (explication plus détaillée [ici](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
 
-- _Real_ - Wall clock elapsed time from start to finish of the program, including the time taken by other processes and time taken while blocked (e.g. waiting for I/O or network)
-- _User_ - Amount of time spent in the CPU running user code
-- _Sys_ - Amount of time spent in the CPU running kernel code
+- _Real_ - Temps écoulé du début à la fin du programme, y compris le temps pris par d'autres processus et le temps bloqué (par exemple, attente d'I/O ou de réseau).
+- _User_ - Temps passé par le CPU à exécuter du code utilisateur.
+- _Sys_ - Temps passé par le CPU à exécuter du code noyau.
 
-For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
+Par exemple, essayez d'exécuter une commande qui effectue une requête HTTP et rajouter [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html) devant. Si vous disposez d'une connexion lente, vous obtiendrez peut-être un résultat comme celui présenté ci-dessous. Ici, la requête a mis plus de 2 secondes à se terminer, mais le processus n'a pris que 15 ms de temps utilisateur sur le CPU et 12 ms de temps CPU sur le noyau.
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -256,20 +221,15 @@ user    0m0.015s
 sys     0m0.012s
 ```
 
-## Profilers
+## Profileurs
 
 ### CPU
 
-Most of the time when people refer to _profilers_ they actually mean _CPU profilers_,  which are the most common.
-There are two main types of CPU profilers: _tracing_ and _sampling_ profilers.
-Tracing profilers keep a record of every function call your program makes whereas sampling profilers probe your program periodically (commonly every millisecond) and record the program's stack.
-They use these records to present aggregate statistics of what your program spent the most time doing.
-[Here](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) is a good intro article if you want more detail on this topic.
+La plupart du temps, lorsque l'on parle de _profileurs_, il s'agit en fait de _profileurs de CPU_, qui sont les plus courants. Il existe deux types principaux de profileurs de CPU : les profileurs de _trace_ et les profileurs d'_échantillonnage_. Les profileurs de trace enregistrent chaque appel de fonction effectué par votre programme, tandis que les profileurs d'échantillonnage sondent votre programme périodiquement (généralement toutes les millisecondes) et enregistrent la pile (stack) du programme. Ils utilisent ces enregistrements pour présenter des statistiques globales sur ce que votre programme a passé le plus de temps à faire. [Voici](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) un bon article d'introduction si vous voulez plus de détails sur ce sujet.
 
-Most programming languages have some sort of command line profiler that you can use to analyze your code.
-They often integrate with full fledged IDEs but for this lecture we are going to focus on the command line tools themselves.
+La plupart des langages de programmation disposent d'une sorte de profileur en ligne de commande que vous pouvez utiliser pour analyser votre code. Ils s'intègrent souvent à des IDE complets, mais pour ce cours, nous allons nous concentrer sur les outils en ligne de commande.
 
-In Python we can use the `cProfile` module to profile time per function call. Here is a simple example that implements a rudimentary grep in Python:
+En Python, nous pouvons utiliser le module `cProfile` pour profiler le temps par appel de fonction. Voici un exemple simple qui implémente un grep rudimentaire en Python :
 
 ```python
 #!/usr/bin/env python
@@ -293,7 +253,7 @@ if __name__ == '__main__':
             grep(pattern, file)
 ```
 
-We can profile this code using the following command. Analyzing the output we can see that IO is taking most of the time and that compiling the regex takes a fair amount of time as well. Since the regex only needs to be compiled once, we can factor it out of the for.
+Nous pouvons profiler ce code en utilisant la commande suivante. En analysant la sortie, nous pouvons voir que l'IO prend la plupart du temps et que la compilation de la regex prend également beaucoup de temps. Puisque la regex ne doit être compilée qu'une seule fois, nous pouvons l'exclure du for.
 
 ```
 $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
@@ -314,11 +274,9 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 [omitted lines]
 ```
 
+Une mise en garde concernant le profileur `cProfile` de Python (et de nombreux profileurs d'ailleurs) est qu'ils affichent le temps par appel de fonction. Cela peut vite devenir non intuitif, surtout si vous utilisez des bibliothèques tierces dans votre code puisque les appels de fonctions internes sont également pris en compte. Une manière plus intuitive d'afficher les informations de profilage est d'inclure le temps pris par ligne de code, ce que font les _profileurs de ligne_ (line profilers).
 
-A caveat of Python's `cProfile` profiler (and many profilers for that matter) is that they display time per function call. That can become unintuitive really fast, especially if you are using third party libraries in your code since internal function calls are also accounted for.
-A more intuitive way of displaying profiling information is to include the time taken per line of code, which is what _line profilers_ do.
-
-For instance, the following piece of Python code performs a request to the class website and parses the response to get all URLs in the page:
+Par exemple, le morceau de code Python suivant effectue une requête vers le site web du cours et analyse la réponse pour obtenir toutes les URL de la page :
 
 ```python
 #!/usr/bin/env python
@@ -339,7 +297,7 @@ if __name__ == '__main__':
     get_urls()
 ```
 
-If we used Python's `cProfile` profiler we'd get over 2500 lines of output, and even with sorting it'd be hard to understand where the time is being spent. A quick run with [`line_profiler`](https://github.com/pyutils/line_profiler) shows the time taken per line:
+Si nous avions utilisé le profileur `cProfile` de Python, nous obtiendrions plus de 2500 lignes de sortie, et même en les triant, il serait difficile de comprendre où le programme a passé le plus de temps. Une exécution rapide avec [`line_profiler`](https://github.com/pyutils/line_profiler) montre le temps pris par ligne :
 
 ```bash
 $ kernprof -l -v a.py
@@ -361,13 +319,11 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 11        24         33.0      1.4      0.0          urls.append(url['href'])
 ```
 
-### Memory
+### Mémoire
 
-In languages like C or C++ memory leaks can cause your program to never release memory that it doesn't need anymore.
-To help in the process of memory debugging you can use tools like [Valgrind](https://valgrind.org/) that will help you identify memory leaks.
+Dans des langages comme le C ou le C++, les fuites de mémoire peuvent faire en sorte que votre programme ne libère jamais la mémoire dont il n'a plus besoin. Pour vous aider dans le processus de débogage de la mémoire, vous pouvez utiliser des outils comme [Valgrind](https://valgrind.org/) qui vous aideront à identifier les fuites de mémoire.
 
-In garbage collected languages like Python it is still useful to use a memory profiler because as long as you have pointers to objects in memory they won't be garbage collected.
-Here's an example program and its associated output when running it with [memory-profiler](https://pypi.org/project/memory-profiler/) (note the decorator like in `line-profiler`).
+Dans les langages avec garbage collector comme Python, il est également utile d'utiliser un profileur de mémoire car tant que vous avez des pointeurs sur des objets en mémoire, ils ne seront pas supprimés par le garbage collector. Voici un exemple de programme et sa sortie associée lorsqu'il est exécuté avec [memory-profiler](https://pypi.org/project/memory-profiler/) (notez le décorateur comme dans `line-profiler`).
 
 ```python
 @profile
@@ -393,60 +349,45 @@ Line #    Mem usage  Increment   Line Contents
      8     13.61 MB    0.00 MB       return a
 ```
 
-### Event Profiling
+### Profilage d'événements
 
-As it was the case for `strace` for debugging, you might want to ignore the specifics of the code that you are running and treat it like a black box when profiling.
-The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abstracts CPU differences away and does not report time or memory, but instead it reports system events related to your programs.
-For example, `perf` can easily report poor cache locality, high amounts of page faults or livelocks. Here is an overview of the command:
+Comme dans le cas de `strace` pour le débogage, vous pouriez vouloir ignorer les spécificités du code que vous exécutez et le traiter comme une boîte noire lors du profilage. La commande [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) fait abstraction des différences entre les CPU et ne rapporte pas le temps ou la mémoire, mais plutôt les événements système liés à vos programmes. Par exemple, `perf` peut facilement signaler une mauvaise utilisation de la localité du cache, un grand nombre de "page faults" ou des "livelocks". Voici un aperçu de la commande :
 
-- `perf list` - List the events that can be traced with perf
-- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related to a process or command
-- `perf record COMMAND ARG1 ARG2` - Records the run of a command and saves the statistical data into a file called `perf.data`
-- `perf report` - Formats and prints the data collected in `perf.data`
+- `perf list` - Liste les événements qui peuvent être suivis avec perf
+- `perf stat COMMAND ARG1 ARG2` - Obtient le compte des différents événements liés à un processus ou à une commande.
+- `perf record COMMAND ARG1 ARG2` - Enregistre l'exécution d'une commande et sauvegarde les données statistiques dans un fichier appelé `perf.data`
+- `perf report` - Formate et print les données collectées dans `perf.data`
 
+### Visualisation
 
-### Visualization
+La sortie du profileur pour des programmes de taille réele contiendra de grandes quantités d'informations en raison de la complexité inhérente aux projets logiciels. Les êtres humains sont des créatures visuelles et ne sont pas très doués pour lire de grandes quantités de chiffres et leur donner un sens. Il existe donc de nombreux outils permettant d'afficher les résultats d'un profileur de manière plus facile à analyser.
 
-Profiler output for real world programs will contain large amounts of information because of the inherent complexity of software projects.
-Humans are visual creatures and are quite terrible at reading large amounts of numbers and making sense of them.
-Thus there are many tools for displaying profiler's output in an easier to parse way.
-
-One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](http://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
+Une façon courante d'afficher les informations de profilage du CPU pour les profileurs d'échantillonnage est d'utiliser un [Flame Graph](http://www.brendangregg.com/flamegraphs.html), qui affichera une hiérarchie d'appels de fonctions sur l'axe Y et le temps pris proportionnellement sur l'axe X. Ces graphiques sont également interactifs, vous permettant de zoomer sur les données et d'afficher les résultats. Ils sont également interactifs, vous permettant de zoomer sur des parties spécifiques du programme et d'obtenir leurs stack traces (essayez de cliquer sur l'image ci-dessous).
 
 [![FlameGraph](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-Call graphs or control flow graphs display the relationships between subroutines within a program by including functions as nodes and functions calls between them as directed edges. When coupled with profiling information such as the number of calls and time taken, call graphs can be quite useful for interpreting the flow of a program.
-In Python you can use the [`pycallgraph`](https://pycallgraph.readthedocs.io/) library to generate them.
+Les graphes d'appels (call graphs) ou graphes de flux de contrôle (control flow graphs) affichent les relations entre les sous-programmes d'un programme en incluant les fonctions en tant que noeuds et les appels de fonctions entre eux en tant qu'arêtes dirigées. Associés à des informations de profilage telles que le nombre d'appels et le temps d'exécution, les graphes d'appels peuvent s'avérer très utiles pour interpréter le flux d'un programme. En Python, vous pouvez utiliser la librarie [`pycallgraph`](https://pycallgraph.readthedocs.io/) pour les générer.
 
 ![Call Graph](https://upload.wikimedia.org/wikipedia/commons/2/2f/A_Call_Graph_generated_by_pycallgraph.png)
 
+## Monitoring des ressources
 
-## Resource Monitoring
+Parfois, la première étape de l'analyse des performances de votre programme consiste à comprendre quelle est sa consommation réelle de ressources. Les programmes s'exécutent souvent lentement lorsqu'ils sont limités en ressources, par exemple s'ils n'ont pas assez de mémoire ou si leur connexion réseau est lente. Il existe une myriade d'outils en ligne de commande permettant de sonder et d'afficher les différentes ressources du système, telles que l'utilisation du processeur, de la mémoire, du réseau, du disque, etc.
 
-Sometimes, the first step towards analyzing the performance of your program is to understand what its actual resource consumption is.
-Programs often run slowly when they are resource constrained, e.g. without enough memory or on a slow network connection.
-There are a myriad of command line tools for probing and displaying different system resources like CPU usage, memory usage, network, disk usage and so on.
+- **Monitoring général** - Le plus populaire est probablement [`htop`](https://htop.dev/), qui est une version améliorée de [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html). `htop` présente diverses statistiques sur les processus en cours d'exécution sur le système. `htop` dispose d'une myriade d'options et de raccourcis clavier, dont certains sont utiles : `<F6>` pour trier les processus, `t` pour afficher l'arborescence et `h` pour alterner les threads. Voir aussi [`glances`](https://nicolargo.github.io/glances/) pour une implémentation similaire avec une superbe interface utilisateur. Pour obtenir des mesures globales sur l'ensemble des processus, [`dstat`](http://dag.wiee.rs/home-made/dstat/) est un autre outil astucieux qui calcule des mesures de ressources en temps réel pour de nombreux sous-systèmes différents tels que I/O, le réseau, l'utilisation du CPU, les changements de contexte, etc.
+- **Opérations I/O** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) affiche en temps réel des informations sur l'utilisation I/O et permet de vérifier si un processus effectue de nombreuses opérations I/O sur le disque.
+- **Utilisation du disque** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) affiche les métriques par partition et [`du`](http://man7.org/linux/man-pages/man1/du.1.html) (**d**isk **u**sage) affiche l'utilisation du disque par fichier pour le répertoire courant. Dans ces outils, le flag `-h` indique au programme d'écrire dans un format lisible par l'**h**omme. Une version plus interactive de `du` est [`ncdu`](https://dev.yorhel.nl/ncdu), qui vous permet de naviguer dans les dossiers et de supprimer des fichiers et des dossiers au fur et à mesure de votre navigation.
+- **Utilisation de la mémoire** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) affiche la quantité totale de mémoire libre et utilisée dans le système. La mémoire est également affichée dans des outils tels que `htop`.
+- **Fichiers ouverts** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) répertorie les informations sur les fichiers ouverts par les processus. Il peut être très utile pour vérifier quel processus a ouvert un fichier spécifique.
+- **Connexions et configuration réseau** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) vous permet de surveiller les statistiques des paquets réseau entrants et sortants, ainsi que les statistiques des interfaces. Un cas d'utilisation courant de `ss` est de savoir quel processus utilise un port donné sur une machine. Pour afficher le routage, les périphériques réseau et les interfaces, vous pouvez utiliser [`ip`](http://man7.org/linux/man-pages/man8/ip.8.html). Notez que `netstat` et `ifconfig` ont été abandonnés au profit des outils précédents.
+- **Utilisation du réseau** - [`nethogs`](https://github.com/raboof/nethogs) et [`iftop`](http://www.ex-parrot.com/pdw/iftop/) sont de bons outils interactifs pour monitorer l'utilisation du réseau.
 
-- **General Monitoring** - Probably the most popular is [`htop`](https://htop.dev/), which is an improved version of [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
-`htop` presents various statistics for the currently running processes on the system. `htop` has a myriad of options and keybinds, some useful ones  are: `<F6>` to sort processes, `t` to show tree hierarchy and `h` to toggle threads. 
-See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dstat`](http://dag.wiee.rs/home-made/dstat/) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
-- **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information and is handy to check if a process is doing heavy I/O disk operations
-- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](http://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
-A more interactive version of `du` is [`ncdu`](https://dev.yorhel.nl/ncdu) which lets you navigate folders and delete files and folders as you navigate.
-- **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays the total amount of free and used memory in the system. Memory is also displayed in tools like `htop`.
-- **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html)  lists file information about files opened by processes. It can be quite useful for checking which process has opened a specific file.
-- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](http://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
-- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](http://www.ex-parrot.com/pdw/iftop/) are good interactive CLI tools for monitoring network usage.
-
-If you want to test these tools you can also artificially impose loads on the machine using the [`stress`](https://linux.die.net/man/1/stress) command.
+Si vous souhaitez tester ces outils, vous pouvez également imposer des charges artificielles sur la machine à l'aide de la commande [`stress`](https://linux.die.net/man/1/stress).
 
 
-### Specialized tools
+### Outils spécialisés
 
-Sometimes, black box benchmarking is all you need to determine what software to use.
-Tools like [`hyperfine`](https://github.com/sharkdp/hyperfine) let you quickly benchmark command line programs.
-For instance, in the shell tools and scripting lecture we recommended `fd` over `find`. We can use `hyperfine` to compare them in tasks we run often.
-E.g. in the example below `fd` was 20x faster than `find` in my machine.
+Parfois, une analyse comparative "black box" suffit pour déterminer quel logiciel utiliser. Des outils comme [`hyperfine`](https://github.com/sharkdp/hyperfine) vous permettent d'évaluer rapidement les programmes en ligne de commande. Par exemple, dans le cours sur les outils de l'interpréteur de commandes et les scripts, nous avons recommandé `fd` plutôt que `find`. Nous pouvons utiliser `hyperfine` pour les comparer dans des tâches que nous exécutons souvent. Par exemple, dans l'exemple ci-dessous, `fd` était 20 fois plus rapide que `find` sur ma machine.
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -463,20 +404,19 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
-More info for [Firefox](https://profiler.firefox.com/docs/) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
+Comme c'était le cas pour le débogage, les navigateurs sont également dotés d'un ensemble d'outils fantastiques pour profiler le chargement des pages web, ce qui vous permet de déterminer où le plus de temps est passé (chargement, rendu, scripts, etc). Plus d'informations pour [Firefox](https://profiler.firefox.com/docs/) et [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
 
-# Exercises
+# Exercices
 
-## Debugging
-1. Use `journalctl` on Linux or `log show` on macOS to get the super user accesses and commands in the last day.
-If there aren't any you can execute some harmless commands such as `sudo ls` and check again.
 
-1. Do [this](https://github.com/spiside/pdb-tutorial) hands on `pdb` tutorial to familiarize yourself with the commands. For a more in depth tutorial read [this](https://realpython.com/python-debugging-pdb).
+## Débogage
 
-1. Install [`shellcheck`](https://www.shellcheck.net/) and try checking the following script. What is wrong with the code? Fix it. Install a linter plugin in your editor so you can get your warnings automatically.
+1. Utilisez `journalctl` sous Linux ou `log show` sous macOS pour obtenir les accès et commandes du super utilisateur au cours des dernières 24H. S'il n'y en a pas, vous pouvez exécuter des commandes inoffensives telles que `sudo ls` et vérifier à nouveau.
 
-   ```bash
+1. Faites [ce tutoriel](https://github.com/spiside/pdb-tutorial) pratique sur `pdb` pour vous familiariser avec les commandes. Pour un tutoriel plus approfondi, lisez [ceci](https://realpython.com/python-debugging-pdb).
+
+1. Installez [`shellcheck`](https://www.shellcheck.net/) et essayez de vérifier le script suivant. Qu'est-ce qui ne va pas dans le code ? Corrigez-le. Installez un plugin linter dans votre éditeur afin d'obtenir des avertissements automatiquement.
+    ```bash
    #!/bin/sh
    ## Example: a typical script with several problems
    for f in $(ls *.m3u)
@@ -486,14 +426,15 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
    done
    ```
 
-1. (Advanced) Read about [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) and get a simple example working using [`rr`](https://rr-project.org/) or [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
-## Profiling
+1. (Avancé) Lisez ceci sur le [débogage réversible](https://undo.io/resources/reverse-debugging-whitepaper/) et faites fonctionner un exemple simple en utilisant [`rr`](https://rr-project.org/) ou [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
 
-1. [Here](/static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/pyutils/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
+## Profilage
 
-1. Here's some (arguably convoluted) Python code for computing Fibonacci numbers using a function for each number.
+1. [Voici](/static/files/sorts.py) quelques implémentations d'algorithmes de tri. Utilisez [`cProfile`](https://docs.python.org/3/library/profile.html) et [`line_profiler`](https://github.com/pyutils/line_profiler) pour comparer la durée d'exécution du tri par insertion et du tri sélectif. Quel est le bottleneck de chaque algorithme ? Utilisez ensuite `memory_profiler` pour vérifier la consommation de mémoire, pourquoi le tri par insertion est-il meilleur ? Vérifiez maintenant la version en place de quicksort. Défi : Utilisez `perf` pour regarder le nombre de cycles et les cache hits et cache misses de chaque algorithme.
 
-   ```python
+1. Voici un code Python (sans doute alambiqué) pour calculer les nombres de Fibonacci à l'aide d'une fonction pour chaque nombre.
+
+    ```python
    #!/usr/bin/env python
    def fib0(): return 0
 
@@ -511,13 +452,10 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
        print(eval("fib9()"))
    ```
 
-   Put the code into a file and make it executable. Install prerequisites: [`pycallgraph`](https://pycallgraph.readthedocs.io/) and [`graphviz`](http://graphviz.org/). (If you can run `dot`, you already have GraphViz.) Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
+    Mettez le code dans un fichier et rendez-le exécutable. Installez les prérequis : [`pycallgraph`](https://pycallgraph.readthedocs.io/) et [`graphviz`](http://graphviz.org/) (si vous pouvez exécuter `dot`, vous avez déjà GraphViz). Exécutez le code tel quel avec `pycallgraph graphviz -- ./fib.py` et regardez le fichier `pycallgraph.png`. Combien de fois `fib0` est-il appelé ? Nous pouvons faire mieux que cela en mémorisant les fonctions. Décommentez les lignes commentées et régénérez les images. Combien de fois appelons-nous chaque fonction `fibN` maintenant ?
 
-1. A common issue is that a port you want to listen on is already taken by another process. Let's learn how to discover that process pid. First execute `python -m http.server 4444` to start a minimal web server listening on port `4444`. On a separate terminal run `lsof | grep LISTEN` to print all listening processes and ports. Find that process pid and terminate it by running `kill <PID>`.
+1. Un problème courant est qu'un port que vous souhaitez écouter est déjà occupé par un autre processus. Apprenons à découvrir le pid de ce processus. Exécutez d'abord `python -m http.server 4444` pour démarrer un serveur web minimal écoutant sur le port `4444`. Dans un autre terminal, exécutez `lsof | grep LISTEN` pour afficher tous les processus et ports en écoute. Trouvez le pid de ce processus et mettez-y fin en exécutant `kill <PID>`.
 
-1. Limiting a process's resources can be another handy tool in your toolbox.
-Try running `stress -c 3` and visualize the CPU consumption with `htop`. Now, execute `taskset --cpu-list 0,2 stress -c 3` and visualize it. Is `stress` taking three CPUs? Why not? Read [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html).
-Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Try limiting the memory consumption of `stress -m`.
+1. Limiter les ressources d'un processus peut être un autre outil pratique dans votre boîte à outils. Essayez d'exécuter `stress -c 3` et regardez la consommation du processeur avec `htop`. Maintenant, exécutez `taskset --cpu-list 0,2 stress -c 3` et regardez la consommation à nouveau. Est-ce que `stress` utilise trois CPU ? Pourquoi ? Lisez [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html). Défi : réaliser la même chose en utilisant [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Essayez de limiter la consommation de mémoire de `stress -m`.
 
-1. (Advanced) The command `curl ipinfo.io` performs a HTTP request and fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
-
+1. (Avancé) La commande `curl ipinfo.io` effectue une requête HTTP et récupère des informations sur votre IP publique. Ouvrez [Wireshark](https://www.wireshark.org/) et essayez de sniffer les paquets de requête et de réponse que `curl` a envoyés et reçus. (Conseil : utilisez le filtre `http` pour ne regarder que les paquets HTTP).

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Le semestre manquant de votre formation en informatique
+title: Le cours manquant de votre formation en informatique
 nositetitle: true
 ---
 
