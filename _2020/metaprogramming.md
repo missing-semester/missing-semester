@@ -9,53 +9,17 @@ video:
   id: _Ms1Z4xfqv4
 ---
 
-What do we mean by "metaprogramming"? Well, it was the best collective
-term we could come up with for the set of things that are more about
-_process_ than they are about writing code or working more efficiently.
-In this lecture, we will look at systems for building and testing your
-code, and for managing dependencies. These may seem like they are of
-limited importance in your day-to-day as a student, but the moment you
-interact with a larger code base through an internship or once you enter
-the "real world", you will see this everywhere. We should note that
-"metaprogramming" can also mean "[programs that operate on
-programs](https://en.wikipedia.org/wiki/Metaprogramming)", whereas that
-is not quite the definition we are using for the purposes of this
-lecture.
+Qu'entendons-nous par "metaprogramming" ? C'est le meilleur terme global que nous ayons trouvé pour désigner l'ensemble des choses qui relèvent davantage du _processus_ que de l'écriture de code ou d'un travail plus efficace. Dans ce cours, nous examinerons les systèmes pour build et tester votre code, ainsi que la gestion des dépendances. Ces éléments peuvent sembler avoir une importance limitée dans votre quotidien d'étudiant, mais dès que vous interagirez avec une base de code plus importante dans le cadre d'un stage ou une fois que vous entrerez dans le "monde réel", vous les verrez partout. Il convient de noter que "metaprogramming" peut également signifier "[programmes qui opèrent sur des programmes](https://en.wikipedia.org/wiki/Metaprogramming)", bien que ce ne soit pas tout à fait la définition que nous utilisons dans le cadre de ce cours.
 
 # Build systems
 
-If you write a paper in LaTeX, what are the commands you need to run to
-produce your paper? What about the ones used to run your benchmarks,
-plot them, and then insert that plot into your paper? Or to compile the
-code provided in the class you're taking and then running the tests?
+Si vous écrivez un article en LaTeX, quelles sont les commandes que vous devez exécuter pour produire votre article ? Qu'en est-il de celles utilisées pour exécuter vos benchmarks, tracer un graphique, puis insérer ce graphique dans votre document ? Ou pour compiler le code fourni dans le cours que vous suivez et ensuite exécuter les tests ?
 
-For most projects, whether they contain code or not, there is a "build
-process". Some sequence of operations you need to do to go from your
-inputs to your outputs. Often, that process might have many steps, and
-many branches. Run this to generate this plot, that to generate those
-results, and something else to produce the final paper. As with so many
-of the things we have seen in this class, you are not the first to
-encounter this annoyance, and luckily there exist many tools to help
-you!
+Pour la plupart des projets, qu'ils contiennent du code ou non, il existe un "processus de construction" (build process). Il s'agit d'une séquence d'opérations que vous devez effectuer pour passer de vos entrées à vos sorties. Souvent, ce processus peut comporter de nombreuses étapes et de nombreuses branches. Exécutez ceci pour générer ce graphique, cela pour générer ces résultats, et autre chose pour produire le document final. Comme pour beaucoup de choses que nous avons vues dans ce cours, vous n'êtes pas le premier à rencontrer ce problème, et heureusement, il existe de nombreux outils pour vous aider !
 
-These are usually called "build systems", and there are _many_ of them.
-Which one you use depends on the task at hand, your language of
-preference, and the size of the project. At their core, they are all
-very similar though. You define a number of _dependencies_, a number of
-_targets_, and _rules_ for going from one to the other. You tell the
-build system that you want a particular target, and its job is to find
-all the transitive dependencies of that target, and then apply the rules
-to produce intermediate targets all the way until the final target has
-been produced. Ideally, the build system does this without unnecessarily
-executing rules for targets whose dependencies haven't changed and where
-the result is available from a previous build.
+Ces outils sont généralement appelés "build systems", et il en existe de _nombreux_. Celui que vous utiliserez dépendra de la tâche à accomplir, de votre langue de prédilection et de la taille du projet. Au fond, ils sont tous très similaires. Vous définissez un certain nombre de _dépendances_, un certain nombre de _cibles_, et des _règles_ pour passer de l'une à l'autre. Vous dites au build system que vous voulez une cible particulière, et son travail consiste à trouver toutes les dépendances pour cette cible, puis à appliquer les règles pour produire des cibles intermédiaires jusqu'à ce que la cible finale ait été produite. Idéalement, le build system fait cela sans exécuter inutilement des règles pour des cibles dont les dépendances n'ont pas changé et dont le résultat est disponible depuis une compilation précédente.
 
-`make` is one of the most common build systems out there, and you will
-usually find it installed on pretty much any UNIX-based computer. It has
-its warts, but works quite well for simple-to-moderate projects. When
-you run `make`, it consults a file called `Makefile` in the current
-directory. All the targets, their dependencies, and the rules are
-defined in that file. Let's take a look at one:
+`make` est l'un des build system les plus courants, et vous le trouverez généralement installé sur presque tous les ordinateurs UNIX. Il a ses défauts, mais fonctionne assez bien pour les projets simples à moyens. Lorsque vous lancez `make`, il consulte un fichier appelé `Makefile` dans le répertoire courant. Toutes les cibles, leurs dépendances et les règles sont définies dans ce fichier. Jetons un coup d'oeil à un de ces fichiers :
 
 ```make
 paper.pdf: paper.tex plot-data.png
@@ -65,29 +29,16 @@ plot-%.png: %.dat plot.py
 	./plot.py -i $*.dat -o $@
 ```
 
-Each directive in this file is a rule for how to produce the left-hand
-side using the right-hand side. Or, phrased differently, the things
-named on the right-hand side are dependencies, and the left-hand side is
-the target. The indented block is a sequence of programs to produce the
-target from those dependencies. In `make`, the first directive also
-defines the default goal. If you run `make` with no arguments, this is
-the target it will build. Alternatively, you can run something like
-`make plot-data.png`, and it will build that target instead.
+Chaque directive de ce fichier est une règle permettant de produire le côté gauche en utilisant le côté droit. En d'autres termes, les éléments nommés dans la partie droite sont des dépendances, et la partie gauche est la cible. Le bloc indenté est une séquence de programmes permettant de produire la cible à partir de ces dépendances. Dans `make`, la première directive définit également l'objectif par défaut. Si vous exécutez `make` sans arguments, c'est la cible qu'il construira. Sinon, vous pouvez exécuter quelque chose comme `make plot-data.png`, et il construira cette cible à la place.
 
-The `%` in a rule is a "pattern", and will match the same string on the
-left and on the right. For example, if the target `plot-foo.png` is
-requested, `make` will look for the dependencies `foo.dat` and
-`plot.py`. Now let's look at what happens if we run `make` with an empty
-source directory.
+Le `%` dans une règle est un "pattern", et correspondra à la même chaîne de caractères à gauche et à droite. Par exemple, si la cible `plot-foo.png` est demandée, `make` cherchera les dépendances `foo.dat` et `plot.py`. Voyons maintenant ce qui se passe si nous lançons `make` avec un répertoire source vide.
 
 ```console
 $ make
 make: *** No rule to make target 'paper.tex', needed by 'paper.pdf'.  Stop.
 ```
 
-`make` is helpfully telling us that in order to build `paper.pdf`, it
-needs `paper.tex`, and it has no rule telling it how to make that file.
-Let's try making it!
+`make` nous dit que pour construire `paper.pdf`, il a besoin de `paper.tex`, et qu'il n'a pas de règle lui indiquant comment créer ce fichier. Essayons de le créer !
 
 ```console
 $ touch paper.tex
@@ -95,10 +46,7 @@ $ make
 make: *** No rule to make target 'plot-data.png', needed by 'paper.pdf'.  Stop.
 ```
 
-Hmm, interesting, there _is_ a rule to make `plot-data.png`, but it is a
-pattern rule. Since the source files do not exist (`data.dat`), `make`
-simply states that it cannot make that file. Let's try creating all the
-files:
+Hmm, intéressant, il y a _bien_ une règle pour faire `plot-data.png`, mais c'est une règle de type pattern. Puisque les fichiers sources n'existent pas (`data.dat`), `make` déclare simplement qu'il ne peut pas créer ce fichier. Essayons de créer tous les fichiers :
 
 ```console
 $ cat paper.tex
@@ -130,7 +78,7 @@ $ cat data.dat
 5 8
 ```
 
-Now what happens if we run `make`?
+Que se passe-t-il maintenant si nous lançons `make` ?
 
 ```console
 $ make
@@ -139,18 +87,14 @@ pdflatex paper.tex
 ... lots of output ...
 ```
 
-And look, it made a PDF for us!
-What if we run `make` again?
+Et regardez, il a créé un PDF pour nous ! Et si nous lancions à nouveau `make` ?
 
 ```console
 $ make
 make: 'paper.pdf' is up to date.
 ```
 
-It didn't do anything! Why not? Well, because it didn't need to. It
-checked that all of the previously-built targets were still up to date
-with respect to their listed dependencies. We can test this by modifying
-`paper.tex` and then re-running `make`:
+Il n'a rien fait ! Pourquoi ? Eh bien, parce qu'il n'en avait pas besoin. Il a vérifié que toutes les cibles précédemment construites étaient toujours à jour en ce qui concerne leurs dépendances listées. Nous pouvons tester cela en modifiant `paper.tex` et en relançant `make` :
 
 ```console
 $ vim paper.tex
@@ -158,169 +102,48 @@ $ make
 pdflatex paper.tex
 ...
 ```
+Notez que `make` n'a pas relancé `plot.py` car ce n'était pas nécessaire ; aucune des dépendances de `plot-data.png` n'a changé !
 
-Notice that `make` did _not_ re-run `plot.py` because that was not
-necessary; none of `plot-data.png`'s dependencies changed!
+# Gestion des dépendances
 
-# Dependency management
+À un niveau plus macro, vos projets logiciels sont susceptibles d'avoir des dépendances qui sont elles-mêmes des projets. Vous pouriez dépendre de programmes installés (comme `python`), de packages système (comme `openssl`) ou de librairies dans votre langage de programmation (comme `matplotlib`). De nos jours, la plupart des dépendances sont disponibles par l'intermédiaire d'un _repository_ (dépôt) qui héberge un grand nombre de ces dépendances en un seul endroit et fournit un mécanisme pratique pour les installer. Parmi les exemples, citons les "Ubuntu package repositories" pour les packages système Ubuntu, auxquels vous accédez via l'outil `apt`, RubyGems pour les librairies Ruby, PyPi pour les librairies Python, ou l'Arch User Repository pour les packages contribués par les utilisateurs d'Arch Linux.
 
-At a more macro level, your software projects are likely to have
-dependencies that are themselves projects. You might depend on installed
-programs (like `python`), system packages (like `openssl`), or libraries
-within your programming language (like `matplotlib`). These days, most
-dependencies will be available through a _repository_ that hosts a
-large number of such dependencies in a single place, and provides a
-convenient mechanism for installing them. Some examples include the
-Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPi for Python
-libraries, or the Arch User Repository for Arch Linux user-contributed
-packages.
+Comme les mécanismes exacts d'interaction avec ces repositories varient beaucoup d'un repository à l'autre et d'un outil à l'autre, nous n'entrerons pas trop dans les détails d'aucun d'entre eux dans ce cours. Ce que nous _allons_ aborder, c'est une partie de la terminologie commune qu'ils utilisent tous. Le premier d'entre eux est le _versioning_. La plupart des projets dont dépendent d'autres projets publient un _numéro de version_ à chaque sortie. Il s'agit généralement de quelque chose comme 8.1.3 ou 64.1.20192004. Il s'agit souvent, mais pas toujours, d'un numéro. Les numéros de version ont de nombreuses fonctions, l'une des plus importantes étant de s'assurer que le logiciel continue de fonctionner. Imaginons, par exemple, que je publie une nouvelle version de ma librairie dans laquelle j'ai renommé une fonction particulière. Si quelqu'un essaie de créer un logiciel qui dépend de ma librairie après la publication de cette mise à jour, la création risque d'échouer parce qu'elle fait appel à une fonction qui n'existe plus ! Le versioning tente de résoudre ce problème en permettant à un projet de dire qu'il dépend d'une version particulière, ou d'une série de versions, d'un autre projet. Ainsi, même si la librairie sous-jacente change, le logiciel dépendant continue à fonctionner en utilisant une version plus ancienne de ma librairie.
 
-Since the exact mechanisms for interacting with these repositories vary
-a lot from repository to repository and from tool to tool, we won't go
-too much into the details of any specific one in this lecture. What we
-_will_ cover is some of the common terminology they all use. The first
-among these is _versioning_. Most projects that other projects depend on
-issue a _version number_ with every release. Usually something like
-8.1.3 or 64.1.20192004. They are often, but not always, numerical.
-Version numbers serve many purposes, and one of the most important of
-them is to ensure that software keeps working. Imagine, for example,
-that I release a new version of my library where I have renamed a
-particular function. If someone tried to build some software that
-depends on my library after I release that update, the build might fail
-because it calls a function that no longer exists! Versioning attempts
-to solve this problem by letting a project say that it depends on a
-particular version, or range of versions, of some other project. That
-way, even if the underlying library changes, dependent software
-continues building by using an older version of my library.
+Mais ce n'est pas non plus la solution idéale ! Que se passe-t-il si je publie une mise à jour de sécurité qui ne modifie _pas_ l'interface publique de ma librairie (son "API"), et que tout projet dépendant de l'ancienne version doit immédiatement commencer à utiliser ? C'est là qu'interviennent les différents groupes de chiffres d'une version. La signification exacte de chacun varie d'un projet à l'autre, mais une norme relativement commune est le [_semantic
+versioning_](https://semver.org/). Avec le versioning sémantique, chaque numéro de version est de la forme : major.minor.patch. Les règles sont les suivantes :
 
-That also isn't ideal though! What if I issue a security update which
-does _not_ change the public interface of my library (its "API"), and
-which any project that depended on the old version should immediately
-start using? This is where the different groups of numbers in a version
-come in. The exact meaning of each one varies between projects, but one
-relatively common standard is [_semantic
-versioning_](https://semver.org/). With semantic versioning, every
-version number is of the form: major.minor.patch. The rules are:
+- Si une nouvelle version ne modifie pas l'API, augmentez la version du patch.
+- Si vous ajoutez des éléments à votre API de manière rétrocompatible, augmentez la version minor.
+- Si vous modifiez l'API d'une manière non rétrocompatible, augmentez la version major.
 
- - If a new release does not change the API, increase the patch version.
- - If you _add_ to your API in a backwards-compatible way, increase the
-   minor version.
- - If you change the API in a non-backwards-compatible way, increase the
-   major version.
+Cela présente déjà des avantages majeurs. Maintenant, si mon projet dépend de votre projet, il _devrait_ fonctionner en utilisant la dernière version avec la même version majeure que celle sur laquelle je l'ai construit quand je l'ai développé, tant que sa version mineure est au moins ce qu'elle était à l'époque. En d'autres termes, si je dépends de votre librairie à la version `1.3.7`, il ne _devrait_ pas y avoir de problème à la construire avec `1.3.8`, `1.6.1`, ou même `1.3.0`. La version `2.2.4` ne conviendrait probablement pas, car la version majeure a été augmentée. Les numéros de version de Python sont un exemple de versioning sémantique. Beaucoup d'entre vous savent probablement que les codes Python 2 et Python 3 ne se mélangent pas très bien, c'est pourquoi il y a eu une augmentation de la version _majeure_. De même, le code écrit pour Python 3.5 peut fonctionner correctement sur Python 3.7, mais peut-être pas sur 3.4.
 
-This already provides some major advantages. Now, if my project depends
-on your project, it _should_ be safe to use the latest release with the
-same major version as the one I built against when I developed it, as
-long as its minor version is at least what it was back then. In other
-words, if I depend on your library at version `1.3.7`, then it _should_
-be fine to build it with `1.3.8`, `1.6.1`, or even `1.3.0`. Version
-`2.2.4` would probably not be okay, because the major version was
-increased. We can see an example of semantic versioning in Python's
-version numbers. Many of you are probably aware that Python 2 and Python
-3 code do not mix very well, which is why that was a _major_ version
-bump. Similarly, code written for Python 3.5 might run fine on Python
-3.7, but possibly not on 3.4.
+Lorsque vous travaillez avec des systèmes de gestion des dépendances, vous pouvez également rencontrer la notion de  _lock files_. Un lock file est simplement un fichier qui répertorie la version exacte de chaque dépendance dont vous dépendez _actuellement_. Habituellement, vous devez explicitement lancer un programme de mise à jour pour passer à une version plus récente de vos dépendances. Il y a de nombreuses raisons à cela, comme éviter les recompilations inutiles, avoir des builds reproductibles, ou ne pas mettre à jour automatiquement vers la dernière version (qui peut ne pas bien fonctionner). Une version extrême de ce type de verrouillage des dépendances est le _vendoring_, qui consiste à copier tout le code de vos dépendances dans votre propre projet. Cela vous donne un contrôle total sur toutes les modifications qui y sont apportées et vous permet d'y introduire vos propres changements, mais cela signifie également que vous devez explicitement intégrer les mises à jour des développeurs au fil du temps.
 
-When working with dependency management systems, you may also come
-across the notion of _lock files_. A lock file is simply a file that
-lists the exact version you are _currently_ depending on of each
-dependency. Usually, you need to explicitly run an update program to
-upgrade to newer versions of your dependencies. There are many reasons
-for this, such as avoiding unnecessary recompiles, having reproducible
-builds, or not automatically updating to the latest version (which may
-be broken). An extreme version of this kind of dependency locking is
-_vendoring_, which is where you copy all the code of your dependencies
-into your own project. That gives you total control over any changes to
-it, and lets you introduce your own changes to it, but also means you
-have to explicitly pull in any updates from the upstream maintainers
-over time.
+# Systèmes d'intégration continue
 
-# Continuous integration systems
+Au fur et à mesure que vous travaillez sur des projets de plus en plus importants, vous vous apercevrez qu'il y a souvent des tâches supplémentaires à effectuer chaque fois que vous y apportez une modification. Vous pourriez avoir à publier une nouvelle version de la documentation, publier une version compilée quelque part, publier le code sur pypi, exécuter votre suite de tests, et toutes sortes d'autres choses. Peut-être qu'à chaque fois que quelqu'un vous envoie une pull request sur GitHub, vous voulez que son code soit vérifié du point de vue du style et que des benchmarks soient exécutés ? Lorsque ce genre de besoins se présente, il est temps de jeter un coup d'oeil à l'intégration continue.
 
-As you work on larger and larger projects, you'll find that there are
-often additional tasks you have to do whenever you make a change to it.
-You might have to upload a new version of the documentation, upload a
-compiled version somewhere, release the code to pypi, run your test
-suite, and all sort of other things. Maybe every time someone sends you
-a pull request on GitHub, you want their code to be style checked and
-you want some benchmarks to run? When these kinds of needs arise, it's
-time to take a look at continuous integration.
+L'intégration continue, ou CI, est un terme générique qui désigne les "choses qui s'exécutent chaque fois que votre code est modifié", et il existe de nombreuses entreprises qui fournissent différents types de CI, souvent gratuitement pour les projets open-source. Parmi les plus importantes, citons Travis CI, Azure Pipelines et GitHub Actions. Ils fonctionnent tous à peu près de la même manière : vous ajoutez un fichier à votre repository qui décrit ce qui doit se passer lorsque diverses choses se produisent dans ce dépôt. La règle la plus courante est, de loin, une règle du type "lorsque quelqu'un push du code, exécuter la suite de tests". Lorsque l'événement se déclenche, le fournisseur de CI met en route une machine virtuelle (ou plus), exécute les commandes de votre "recette", puis note généralement les résultats quelque part. Vous pouvez le configurer de manière à être notifié si la suite de tests ne passe plus, ou de manière à ce qu'un petit badge apparaisse sur votre repository tant que les tests passent.
 
-Continuous integration, or CI, is an umbrella term for "stuff that runs
-whenever your code changes", and there are many companies out there that
-provide various types of CI, often for free for open-source projects.
-Some of the big ones are Travis CI, Azure Pipelines, and GitHub Actions.
-They all work in roughly the same way: you add a file to your repository
-that describes what should happen when various things happen to that
-repository. By far the most common one is a rule like "when someone
-pushes code, run the test suite". When the event triggers, the CI
-provider spins up a virtual machines (or more), runs the commands in
-your "recipe", and then usually notes down the results somewhere. You
-might set it up so that you are notified if the test suite stops
-passing, or so that a little badge appears on your repository as long as
-the tests pass.
+Comme exemple de système de CI, le site web de du cours est configuré en utilisant GitHub Pages. Pages est une action CI qui exécute le logiciel de blog Jekyll à chaque push vers `master` et rend le site compilé disponible sur un domaine GitHub particulier. Cela nous permet de mettre à jour le site web en toute simplicité ! Il nous suffit d'effectuer nos modifications localement, de les commit avec git, puis de les push. Le CI s'occupe du reste.
 
-As an example of a CI system, the class website is set up using GitHub
-Pages. Pages is a CI action that runs the Jekyll blog software on every
-push to `master` and makes the built site available on a particular
-GitHub domain. This makes it trivial for us to update the website! We
-just make our changes locally, commit them with git, and then push. CI
-takes care of the rest.
+## Petite parenthèse sur les tests
 
-## A brief aside on testing
+La plupart des grands projets logiciels sont accompagnés d'une "suite de tests". Vous êtes peut-être déjà familiarisé avec le concept général des tests, mais nous avons pensé mentionner rapidement quelques approches des tests et de la terminologie des tests que vous pourriez rencontrer:
 
-Most large software projects come with a "test suite". You may already
-be familiar with the general concept of testing, but we thought we'd
-quickly mention some approaches to testing and testing terminology that
-you may encounter in the wild:
+- Suite de tests : un terme générique pour tous les tests
+- Test unitaire (unit test) : un "micro-test" qui teste une fonctionnalité spécifique de manière isolée.
+- Test d'intégration : un "macro-test" qui exécute une plus grande partie du système pour vérifier que les différentes fonctionnalités ou composants fonctionnent _ensemble_.
+- Test de régression : un test qui met en oeuvre un modèle particulier qui a _précédemment_ causé un bug afin de s'assurer que le bug ne réapparaîsse pas.
+- Mocking : remplacement d'une fonction, d'un module ou d'un type par une fausse implémentation afin d'éviter de tester des fonctionnalités non liées. Par exemple, vous pouvez "simuler (mock) le réseau" ou "simuler (mock) le disque".
 
- - Test suite: a collective term for all the tests
- - Unit test: a "micro-test" that tests a specific feature in isolation
- - Integration test: a "macro-test" that runs a larger part of the
-   system to check that different feature or components work _together_.
- - Regression test: a test that implements a particular pattern that
-   _previously_ caused a bug to ensure that the bug does not resurface.
- - Mocking: to replace a function, module, or type with a fake
-   implementation to avoid testing unrelated functionality. For example,
-   you might "mock the network" or "mock the disk".
+# Exercices
 
-# Exercises
-
- 1. Most makefiles provide a target called `clean`. This isn't intended
-    to produce a file called `clean`, but instead to clean up any files
-    that can be re-built by make. Think of it as a way to "undo" all of
-    the build steps. Implement a `clean` target for the `paper.pdf`
-    `Makefile` above. You will have to make the target
-    [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html).
-    You may find the [`git
-    ls-files`](https://git-scm.com/docs/git-ls-files) subcommand useful.
-    A number of other very common make targets are listed
-    [here](https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets).
- 2. Take a look at the various ways to specify version requirements for
-    dependencies in [Rust's build
-    system](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html).
-    Most package repositories support similar syntax. For each one
-    (caret, tilde, wildcard, comparison, and multiple), try to come up
-    with a use-case in which that particular kind of requirement makes
-    sense.
- 3. Git can act as a simple CI system all by itself. In `.git/hooks`
-    inside any git repository, you will find (currently inactive) files
-    that are run as scripts when a particular action happens. Write a
-    [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) hook
-    that runs `make paper.pdf` and refuses the commit if the `make`
-    command fails. This should prevent any commit from having an
-    unbuildable version of the paper.
- 4. Set up a simple auto-published page using [GitHub
-    Pages](https://pages.github.com/).
-    Add a [GitHub Action](https://github.com/features/actions) to the
-    repository to run `shellcheck` on any shell files in that
-    repository (here is [one way to do
-    it](https://github.com/marketplace/actions/shellcheck)). Check that
-    it works!
- 5. [Build your
-    own](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)
-    GitHub action to run [`proselint`](http://proselint.com/) or
-    [`write-good`](https://github.com/btford/write-good) on all the
-    `.md` files in the repository. Enable it in your repository, and
-    check that it works by filing a pull request with a typo in it.
+1. La plupart des makefiles fournissent une cible appelée `clean`. Cette cible n'est pas destinée à produire un fichier appelé `clean`, mais plutôt à nettoyer tous les fichiers qui peuvent être recompilés par make. Pensez-y comme un moyen d'"annuler" toutes les étapes de la compilation. Implémentez une cible `clean` pour le `Makefile` `paper.pdf` ci-dessus. Vous devrez rendre la cible [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html). La sous-commande [`git
+    ls-files`](https://git-scm.com/docs/git-ls-files) peut s'avérer utile. Un certain nombre d'autres cibles make très courantes sont listées [ici](https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets).
+2. Jetez un oeil aux différentes façons de spécifier les exigences de version pour les dépendances dans le [Rust's build system](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html). La plupart des repositories de packages supportent une syntaxe similaire. Pour chacune d'entre elles (caret, tilde, joker, comparaison et d'autres), essayez de trouver un cas d'utilisation dans lequel ce type particulier d'exigence a du sens.
+3. Git peut agir comme un simple système de CI à lui tout seul. Dans `.git/hooks` à l'intérieur de n'importe quel repository git, vous trouverez des fichiers (actuellement inactifs) qui sont exécutés en tant que scripts lorsqu'une action particulière se produit. Ecrivez un hook [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) qui exécute `make paper.pdf` et refuse le commit si la commande `make` échoue. Cela devrait empêcher tout commit d'avoir une version non-compilable du document.
+4. Mettre en place une simple page auto-publiée en utilisant [GitHub Pages](https://pages.github.com/). Ajoutez une [GitHub Action](https://github.com/features/actions) au repository pour exécuter `shellcheck` sur tous les fichiers shell dans ce repository (voici [une façon de faire](https://github.com/marketplace/actions/shellcheck)). Vérifiez que cela fonctionne !
+5. [Créez votre propre](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions) GitHub Action pour exécuter [`proselint`](http://proselint.com/) ou [`write-good`](https://github.com/btford/write-good) sur tous les fichiers `.md` du repository.  Activez-la dans votre dépôt, et vérifiez qu'elle fonctionne en déposant une pull request avec une faute de frappe.
