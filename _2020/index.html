@@ -11,7 +11,7 @@ excerpt: '' # work around a bug
   {% for lecture in lectures %}
     {% if lecture.phony != true %}
       <li>
-        <strong>{{ lecture.date | date: '%-m/%d' }}</strong>:
+        <strong>{{ lecture.date | date: '%d/%m' }}</strong>:
         {% if lecture.ready %}
           <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% elsif lecture.noclass %}
