@@ -554,7 +554,11 @@ class website](https://github.com/missing-semester/missing-semester).
 1. Like many command line tools, Git provides a configuration file (or dotfile)
    called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
    run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`. Information about git aliases can be found [here](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias).
+   --oneline`. You can do this by directly
+   [editing](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias)
+   the `~/.gitconfig` file, or you can use the `git config` command to add the
+   alias. Information about git aliases can be found
+   [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
 1. You can define global ignore patterns in `~/.gitignore_global` after running
    `git config --global core.excludesfile ~/.gitignore_global`. Do this, and
    set up your global gitignore file to ignore OS-specific or editor-specific
