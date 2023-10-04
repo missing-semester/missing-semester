@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Potpourri"
+title: "Pot-pourri"
 date: 2020-01-29
 ready: true
 video:
@@ -8,63 +8,57 @@ video:
   id: JZDt-PRq0uo
 ---
 
-## Table of Contents
+## Table des matières
 
-- [Keyboard remapping](#keyboard-remapping)
+- [Configuration du clavier](#configuration-du-clavier)
 - [Daemons](#daemons)
 - [FUSE](#fuse)
-- [Backups](#backups)
+- [Sauvegardes](#sauvegardes)
 - [APIs](#apis)
-- [Common command-line flags/patterns](#common-command-line-flagspatterns)
-- [Window managers](#window-managers)
+- [Flags/patterns courants de la ligne de commande](#flagspatterns-courants-de-la-ligne-de-commande)
+- [Gestionnaires de fenêtres](#gestionnaires-de-fenêtres)
 - [VPNs](#vpns)
 - [Markdown](#markdown)
-- [Hammerspoon (desktop automation on macOS)](#hammerspoon-desktop-automation-on-macos)
-- [Booting + Live USBs](#booting--live-usbs)
+- [Hammerspoon (automatisation du bureau sur macOS)](#hammerspoon-automatisation-du-bureau-sur-macOS)
+- [Démarrage + Live USB](#démarrage--live-USB)
 - [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
 - [Notebook programming](#notebook-programming)
 - [GitHub](#github)
 
-## Keyboard remapping
+## Configuration du clavier
 
-As a programmer, your keyboard is your main input method. As with pretty much anything in your computer, it is configurable (and worth configuring).
+En tant que programmeur, votre clavier est votre principale méthode d'entrée. Comme pour la plupart des éléments de votre ordinateur, il est configurable (et mérite de l'être).
 
-The most basic change is to remap keys.
-This usually involves some software that is listening and, whenever a certain key is pressed, it intercepts that event and replaces it with another event corresponding to a different key. Some examples:
-- Remap Caps Lock to Ctrl or Escape. We (the instructors) highly encourage this setting since Caps Lock has a very convenient location but is rarely used.
-- Remapping PrtSc to Play/Pause music. Most OSes have a play/pause key.
-- Swapping Ctrl and the Meta (Windows or Command) key.
+La modification la plus élémentaire consiste à réaffecter les touches. Cela implique généralement un logiciel qui écoute et, chaque fois qu'une certaine touche est pressée, intercepte cet événement et le remplace par un autre événement correspondant à une touche différente. Quelques exemples :
+- Remplacer Caps Lock par Ctrl ou Escape. Nous (les instructeurs) encourageons vivement ce réglage, car Caps Lock est situé à un endroit très pratique, mais est rarement utilisé.
+- Remplacer PrtSc par Play/Pause music. La plupart des systèmes d'exploitation disposent d'une touche de lecture/pause.
+- Échanger Ctrl et la touche Meta (Windows ou Commande).
 
-You can also map keys to arbitrary commands of your choosing. This is useful for common tasks that you perform. Here, some software listens for a specific key combination and executes some script whenever that event is detected.
-- Open a new terminal or browser window.
-- Inserting some specific text, e.g. your long email address or your MIT ID number.
-- Sleeping the computer or the displays.
+Vous pouvez également associer des touches à des commandes arbitraires de votre choix. Cette fonction est utile pour les tâches courantes que vous effectuez. Ici, un logiciel est à l'écoute d'une combinaison de touches spécifique et exécute un script dès que cet événement est détecté.
+- Ouvrir une nouvelle fenêtre de terminal ou de navigateur.
+- Insérer un texte spécifique, par exemple votre adresse mail ou votre numéro d'identification MIT.
+- Mettre en veille l'ordinateur ou les écrans.
 
-There are even more complex modifications you can configure:
-- Remapping sequences of keys, e.g. pressing shift five times toggles Caps Lock.
-- Remapping on tap vs on hold, e.g. Caps Lock key is remapped to Esc if you quickly tap it, but is remapped to Ctrl if you hold it and use it as a modifier.
-- Having remaps being keyboard or software specific.
+Il existe des modifications encore plus complexes que vous pouvez configurer :
+- Remplacement de séquences de touches, par exemple en appuyant cinq fois sur la touche Majuscule pour activer le Caps Lock.
+- Remplacer par example la touche Caps Lock par la touche Esc si vous la touchez rapidement, mais remplacée par la touche Ctrl si vous la maintenez enfoncée.
+- Le fait que les remplacements soient spécifiques au clavier ou au logiciel.
 
-Some software resources to get started on the topic:
-- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
-- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
-- Windows - Builtin in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
-- QMK - If your keyboard supports custom firmware you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps works for any machine you use the keyboard with.
+
+Quelques ressources logicielles pour commencer sur le sujet :
+
+- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) ou [BetterTouchTool](https://folivora.ai/)
+- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) ou [Autokey](https://github.com/autokey/autokey)
+- Windows - intégré dans le panneau de configuration, [AutoHotkey](https://www.autohotkey.com/) ou [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
+- QMK - Si votre clavier prend en charge un firmware personnalisé, vous pouvez utiliser [QMK](https://docs.qmk.fm/) pour configurer le périphérique matériel lui-même afin que les remplacements fonctionnent sur toutes les machines avec lesquelles vous utilisez le clavier.
 
 ## Daemons
 
-You are probably already familiar with the notion of daemons, even if the word seems new.
-Most computers have a series of processes that are always running in the background rather than waiting for a user to launch them and interact with them.
-These processes are called daemons and the programs that run as daemons often end with a `d` to indicate so.
-For example `sshd`, the SSH daemon, is the program responsible for listening to incoming SSH requests and checking that the remote user has the necessary credentials to log in.
+Vous êtes probablement déjà familiarisé avec la notion de daemon, même si le mot vous semble nouveau. La plupart des ordinateurs disposent d'une série de processus qui tournent en permanence en arrière-plan plutôt que d'attendre qu'un utilisateur les lance et interagisse avec eux. Ces processus sont appelés daemons et les programmes qui s'exécutent en tant que daemons se terminent souvent par un `d` pour l'indiquer. Par exemple, `sshd`, le daemon SSH, est le programme chargé d'écouter les requêtes SSH entrantes et de vérifier que l'utilisateur distant dispose des informations d'identification nécessaires pour se connecter.
 
-In Linux, `systemd` (the system daemon) is the most common solution for running and setting up daemon processes.
-You can run `systemctl status` to list the current running daemons. Most of them might sound unfamiliar but are responsible for core parts of the system such as managing the network, solving DNS queries or displaying the graphical interface for the system.
-Systemd can be interacted with the `systemctl` command in order to `enable`, `disable`, `start`, `stop`, `restart` or check the `status` of services (those are the `systemctl` commands).
+Sous Linux, `systemd` (le daemon système) est la solution la plus courante pour exécuter et configurer les processus daemon. Vous pouvez exécuter `systemctl status` pour obtenir la liste des daemons en cours d'exécution. La plupart d'entre eux peuvent sembler peu familiers, mais ils sont responsables de parties essentielles du système, telles que la gestion du réseau, la résolution des requêtes DNS ou l'affichage de l'interface graphique du système. Vous pouvez interagir avec Systemd avec la commande `systemctl` afin d'activer (`enable`), de désactiver (`disable`), de démarrer (`start`), d'arrêter (`stop`), de redémarrer (`restart`) ou de vérifier  l'état des services (`status`) (ce sont les commandes `systemctl`).
 
-More interestingly, `systemd` has a fairly accessible interface for configuring and enabling new daemons (or services).
-Below is an example of a daemon for running a simple Python app.
-We won't go in the details but as you can see most of the fields are pretty self explanatory.
+Plus intéressant encore, `systemd` dispose d'une interface assez accessible pour configurer et activer de nouveaux daemons (ou services). Voici un exemple de daemon permettant d'exécuter une simple application Python. Nous n'entrerons pas dans les détails, mais comme vous pouvez le voir, la plupart des champs sont assez explicites.
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -83,330 +77,145 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-Also, if you just want to run some program with a given frequency there is no need to build a custom daemon, you can use [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html), a daemon your system already runs to perform scheduled tasks.
+De même, si vous souhaitez simplement exécuter un programme à une fréquence donnée, il n'est pas nécessaire de créer un daemon personnalisé. Vous pouvez utiliser [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html), un daemon que votre système exécute déjà pour effectuer des tâches planifiées.
 
 ## FUSE
 
-Modern software systems are usually composed of smaller building blocks that are composed together.
-Your operating system supports using different filesystem backends because there is a common language of what operations a filesystem supports.
-For instance, when you run `touch` to create a file, `touch` performs a system call to the kernel to create the file and the kernel performs the appropriate filesystem call to create the given file.
-A caveat is that UNIX filesystems are traditionally implemented as kernel modules and only the kernel is allowed to perform filesystem calls.
+Les systèmes logiciels modernes sont généralement composés de blocs plus petits qui sont assemblés ensemble. Votre système d'exploitation prend en charge l'utilisation de différents backends de systèmes de fichiers parce qu'il existe un langage commun pour les opérations qu'un système de fichiers prend en charge. Par exemple, lorsque vous exécutez `touch` pour créer un fichier, `touch` effectue un appel système au noyau pour créer le fichier et le noyau effectue l'appel système de fichiers approprié pour créer le fichier donné. Une mise en garde s'impose : les systèmes de fichiers UNIX sont traditionnellement mis en oeuvre en tant que modules du noyau et seul le noyau est autorisé à effectuer des appels au système de fichiers.
 
-[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) allows filesystems to be implemented by a user program. FUSE lets users run user space code for filesystem calls and then bridges the necessary calls to the kernel interfaces.
-In practice, this means that users can implement arbitrary functionality for filesystem calls.
+[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) permet aux systèmes de fichiers d'être implementé par un programme utilisateur. FUSE permet aux utilisateurs d'exécuter le code de l'espace utilisateur pour les appels au système de fichiers, puis d'établir des ponts entre les appels nécessaires et les interfaces du noyau. En pratique, cela signifie que les utilisateurs peuvent mettre en oeuvre des fonctionnalités arbitraires pour les appels au système de fichiers.
 
-For example, FUSE can be used so whenever you perform an operation in a virtual filesystem, that operation is forwarded through SSH to a remote machine, performed there, and the output is returned back to you.
-This way, local programs can see the file as if it was in your computer while in reality it's in a remote server.
-This is effectively what `sshfs` does.
+Par exemple, FUSE peut être utilisé pour que chaque fois que vous effectuez une opération dans un système de fichiers virtuel, cette opération soit transmise via SSH à une machine distante, y soit exécutée et que la sortie vous soit renvoyée. De cette manière, les programmes locaux peuvent voir le fichier comme s'il se trouvait sur votre ordinateur alors qu'en réalité il se trouve sur un serveur distant. C'est concrètement ce que fait `sshfs`.
 
-Some interesting examples of FUSE filesystems are:
-- [sshfs](https://github.com/libfuse/sshfs) - Open locally remote files/folder through an SSH connection.
-- [rclone](https://rclone.org/commands/rclone_mount/) - Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally.
-- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Encrypted overlay system. Files are stored encrypted but once the FS is mounted they appear as plaintext in the mountpoint.
-- [kbfs](https://keybase.io/docs/kbfs) - Distributed filesystem with end-to-end encryption. You can have private, shared and public folders.
-- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount your deduplicated, compressed and encrypted backups for ease of browsing.
+Voici quelques exemples intéressants de systèmes de fichiers FUSE :
 
-## Backups
+- [sshfs](https://github.com/libfuse/sshfs) Ouvrir localement des fichiers/dossiers distants via une connexion SSH.
+- [rclone](https://rclone.org/commands/rclone_mount/) - Monter des services de stockage cloud comme Dropbox, GDrive, Amazon S3 ou Google Cloud Storage et ouvrir les données localement.
+- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Système de recouvrement chiffré. Les fichiers sont stockés de manière cryptée, mais une fois que le système de fichiers est monté, ils apparaissent en clair dans le point de montage.
+- [kbfs](https://keybase.io/docs/kbfs) - Système de fichiers distribué avec chiffrement de bout en bout. Vous pouvez avoir des dossiers privés, partagés et publics.
+- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Monter vos sauvegardes dédupliquées, compressées et cryptées pour faciliter la navigation.
 
-Any data that you haven’t backed up is data that could be gone at any moment, forever.
-It's easy to copy data around, it's hard to reliably backup data.
-Here are some good backup basics and the pitfalls of some approaches.
+## Sauvegardes
 
-First, a copy of the data in the same disk is not a backup, because the disk is the single point of failure for all the data. Similarly, an external drive in your home is also a weak backup solution since it could be lost in a fire/robbery/&c. Instead, having an off-site backup is a recommended practice.
+Toutes les données que vous n'avez pas sauvegardées sont des données qui peuvent disparaître à tout moment, pour toujours. Il est facile de copier des données, mais il est difficile de les sauvegarder de manière fiable. Voici quelques bonnes bases de sauvegarde et les pièges de certaines approches.
 
-Synchronization solutions are not backups. For instance, Dropbox/GDrive are convenient solutions, but when data is erased or corrupted they propagate the change. For the same reason, disk mirroring solutions like RAID are not backups. They don't help if data gets deleted, corrupted or encrypted by ransomware.
+Tout d'abord, une copie des données sur le même disque n'est pas une sauvegarde, car le disque est le seul point de défaillance pour toutes les données. De même, un disque externe à votre domicile n'est pas non plus une bonne solution de sauvegarde, car il peut être perdu en cas d'incendie, de vol, etc. Il est donc recommandé d'effectuer une sauvegarde off-site.
 
-Some core features of good backups solutions are versioning, deduplication and security.
-Versioning backups ensure that you can access your history of changes and efficiently recover files.
-Efficient backup solutions use data deduplication to only store incremental changes and reduce the storage overhead.
-Regarding security, you should ask yourself what someone would need to know/have in order to read your data and, more importantly, to delete all your data and associated backups.
-Lastly, blindly trusting backups is a terrible idea and you should verify regularly that you can use them to recover data.
+Les solutions de synchronisation ne sont pas des sauvegardes. Par exemple, Dropbox/GDrive sont des solutions pratiques, mais lorsque des données sont effacées ou corrompues, elles propagent le changement. Pour la même raison, les solutions de mise en miroir de disques comme RAID ne sont pas des sauvegardes. Elles ne sont d'aucune utilité si les données sont supprimées, corrompues ou cryptées par un ransomware.
 
-Backups go beyond local files in your computer.
-Given the significant growth of web applications, large amounts of your data are only stored in the cloud.
-For instance, your webmail, social media photos, music playlists in streaming services or online docs are gone if you lose access to the corresponding accounts.
-Having an offline copy of this information is the way to go, and you can find online tools that people have built to fetch the data and save it.
+Les principales caractéristiques d'une bonne solution de sauvegarde sont le versioning, la déduplication et la sécurité. Les sauvegardes de versions vous permettent d'accéder à l'historique des modifications et de récupérer efficacement les fichiers. Les solutions de sauvegarde efficaces utilisent la déduplication des données pour ne stocker que les modifications incrémentielles et réduire la charge de stockage. En ce qui concerne la sécurité, vous devez vous demander ce que quelqu'un devrait savoir ou posséder pour lire vos données et, plus important encore, pour supprimer toutes vos données et les sauvegardes associées. Enfin, faire aveuglément confiance aux sauvegardes est une mauvaise idée et vous devriez vérifier régulièrement que vous pouvez les utiliser pour récupérer des données.
 
-For a more detailed explanation, see 2019's lecture notes on [Backups](/2019/backups).
+Les sauvegardes vont au-delà des fichiers locaux de votre ordinateur. Compte tenu de la croissance significative des applications web, de grandes quantités de vos données sont stockées uniquement dans le cloud. Par exemple, votre webmail, vos photos sur les réseaux sociaux, vos playlists de musique dans les services de streaming ou vos documents en ligne disparaissent si vous perdez l'accès aux comptes correspondants. L'idéal est de disposer d'une copie hors ligne de ces informations, et vous pouvez trouver des outils en ligne conçus pour récupérer les données et les sauvegarder.
 
+Pour une explication plus détaillée, voir les notes de cours de 2019 sur les [sauvegardes](/2019/backups). 
 
 ## APIs
 
-We've talked a lot in this class about using your computer more
-efficiently to accomplish _local_ tasks, but you will find that many of
-these lessons also extend to the wider internet. Most services online
-will have "APIs" that let you programmatically access their data. For
-example, the US government has an API that lets you get weather
-forecasts, which you could use to easily get a weather forecast in your
-shell.
+Nous avons beaucoup parlé dans ce cours de l'utilisation plus efficace de votre ordinateur pour accomplir des tâches _en local_, mais vous constaterez que bon nombre de ces leçons s'appliquent également à l'Internet au sens large. La plupart des services en ligne ont des "API" qui vous permettent d'accéder à leurs données via la programmation. Par exemple, le gouvernement américain dispose d'une API qui vous permet d'obtenir les prévisions météorologiques, que vous pouvez utiliser pour obtenir facilement des prévisions météorologiques dans votre shell.
 
-Most of these APIs have a similar format. They are structured URLs,
-often rooted at `api.service.com`, where the path and query parameters
-indicate what data you want to read or what action you want to perform.
-For the US weather data for example, to get the forecast for a
-particular location, you issue GET request (with `curl` for example) to
-https://api.weather.gov/points/42.3604,-71.094. The response itself
-contains a bunch of other URLs that let you get specific forecasts for
-that region. Usually, the responses are formatted as JSON, which you can
-then pipe through a tool like [`jq`](https://stedolan.github.io/jq/) to
-massage into what you care about.
+La plupart de ces API ont un format similaire. Il s'agit d'URL structurées, souvent basée sur `api.service.com`, où le chemin et les paramètres de la requête indiquent les données que vous voulez lire ou l'action que vous voulez effectuer. Pour les données météorologiques américaines, par exemple, afin d'obtenir les prévisions pour un lieu particulier, vous envoyez une requête GET (avec `curl` par exemple) à https://api.weather.gov/points/42.3604,-71.094. La réponse elle-même contient une série d'autres URL qui vous permettent d'obtenir des prévisions spécifiques pour cette région. En général, les réponses sont formatées en JSON, que vous pouvez ensuite passer à un outil comme [`jq`](https://stedolan.github.io/jq/) pour en extraire ce qui vous intéresse.
 
-Some APIs require authentication, and this usually takes the form of
-some sort of secret _token_ that you need to include with the request.
-You should read the documentation for the API to see what the particular
-service you are looking for uses, but "[OAuth](https://www.oauth.com/)"
-is a protocol you will often see used. At its heart, OAuth is a way to
-give you tokens that can "act as you" on a given service, and can only
-be used for particular purposes. Keep in mind that these tokens are
-_secret_, and anyone who gains access to your token can do whatever the
-token allows under _your_ account!
+Certaines API nécessitent une authentification, qui prend généralement la forme d'une sorte de _jeton_ (token) secret que vous devez inclure dans la requête. Vous devriez lire la documentation de l'API pour savoir ce que le service particulier que vous recherchez utilise, mais "[OAuth](https://www.oauth.com/)" est un protocole que vous verrez souvent utilisé. En résumé, OAuth est un moyen de vous donner des tokens qui peuvent "agir comme vous" sur un service donné, et qui ne peuvent être utilisés qu'à des fins particulières.  Gardez à l'esprit que ces tokens sont _secrets_, et que toute personne ayant accès à votre token peut faire tout ce que le token autorise avec _votre_ identifiant !
 
-[IFTTT](https://ifttt.com/) is a website and service centered around the
-idea of APIs — it provides integrations with tons of services, and lets
-you chain events from them in nearly arbitrary ways. Give it a look!
+[IFTTT](https://ifttt.com/) est un site web et un service centré sur l'idée d'API - il fournit des intégrations avec des tonnes de services, et vous permet de chaîner des événements à partir d'eux de manière presque arbitraire. Jetez-y un coup d'oeil !
 
-## Common command-line flags/patterns
+## Flags/patterns courants de la ligne de commande
 
-Command-line tools vary a lot, and you will often want to check out
-their `man` pages before using them. They often share some common
-features though that can be good to be aware of:
+Les outils de ligne de commande varient beaucoup et vous voudrez souvent consulter leurs pages de manuel (`man`) avant de les utiliser. Cependant, ils présentent souvent des caractéristiques communes qu'il peut être utile de connaître :
 
- - Most tools support some kind of `--help` flag to display brief usage
-   instructions for the tool.
- - Many tools that can cause irrevocable change support the notion of a
-   "dry run" in which they only print what they _would have done_, but
-   do not actually perform the change. Similarly, they often have an
-   "interactive" flag that will prompt you for each destructive action.
- - You can usually use `--version` or `-V` to have the program print its
-   own version (handy for reporting bugs!).
- - Almost all tools have a `--verbose` or `-v` flag to produce more
-   verbose output. You can usually include the flag multiple times
-   (`-vvv`) to get _more_ verbose output, which can be handy for
-   debugging. Similarly, many tools have a `--quiet` flag for making it
-   only print something on error.
- - In many tools, `-` in place of a file name means "standard input" or
-   "standard output", depending on the argument.
- - Possibly destructive tools are generally not recursive by default,
-   but support a "recursive" flag (often `-r`) to make them recurse.
- - Sometimes, you want to pass something that _looks_ like a flag as a
-   normal argument. For example, imagine you wanted to remove a file
-   called `-r`. Or you want to run one program "through" another, like
-   `ssh machine foo`, and you want to pass a flag to the "inner" program
-   (`foo`). The special argument `--` makes a program _stop_ processing
-   flags and options (things starting with `-`) in what follows, letting
-   you pass things that look like flags without them being interpreted
-   as such: `rm -- -r` or `ssh machine --for-ssh -- foo --for-foo`.
+- La plupart des outils supportent une sorte de flag `--help` pour afficher de brèves instructions d'utilisation de l'outil.
+- De nombreux outils qui peuvent entraîner des modifications irrévocables prennent en charge la notion d'"exécution à blanc", dans laquelle ils se contentent d'afficher ce qu'ils _auraient fait_, mais n'effectuent pas réellement la modification. De même, ils disposent souvent d'un flag "interactif" qui vous averti avant d'effectuer chaque action destructrice.
+- Vous pouvez généralement utiliser `--version` ou `-V` pour que le programme affiche sa version (pratique pour signaler les bugs !).
+- Presque tous les outils disposent d'un flag `--verbose` ou `-v` pour produire une sortie plus verbeuse. Vous pouvez généralement inclure le flag plusieurs fois (`-vvv`) pour obtenir une sortie _encore plus_ verbeuse, ce qui peut s'avérer pratique pour le débogage. De même, de nombreux outils disposent d'une option `--quiet` pour n'afficher que les erreurs.
+- Dans de nombreux outils, `-` à la place d'un nom de fichier signifie "entrée standard" ou "sortie standard", en fonction de l'argument.
+- Les outils éventuellement destructifs ne sont généralement pas récursifs par défaut, mais supportent un flag "récursif" (souvent `-r`) pour les rendre récursifs.
+- Parfois, vous souhaitez passer quelque chose qui _ressemble_ à un flag en tant qu'argument normal. Par exemple, imaginez que vous souhaitiez supprimer un fichier appelé `-r`. Ou vous voulez exécuter un programme "à travers" un autre, comme `ssh machine foo`, et vous voulez passer un flag au programme "interne" (`foo`). L'argument spécial `--` permet au programme de ne _pas_ traiter les flags et les options (les choses commençant par `-`) dans ce qui suit, ce qui vous permet de passer des choses qui ressemblent à des drapeaux sans qu'elles soient interprétées comme telles : `rm -- -r` ou `ssh machine --for-ssh -- foo --for-foo`.
 
-## Window managers
+## Gestionnaires de fenêtres
 
-Most of you are used to using a "drag and drop" window manager, like
-what comes with Windows, macOS, and Ubuntu by default. There are windows
-that just sort of hang there on screen, and you can drag them around,
-resize them, and have them overlap one another. But these are only one
-_type_ of window manager, often referred to as a "floating" window
-manager. There are many others, especially on Linux. A particularly
-common alternative is a "tiling" window manager. In a tiling window
-manager, windows never overlap, and are instead arranged as tiles on
-your screen, sort of like panes in tmux. With a tiling window manager,
-the screen is always filled by whatever windows are open, arranged
-according to some _layout_. If you have just one window, it takes up the
-full screen. If you then open another, the original window shrinks to
-make room for it (often something like 2/3 and 1/3). If you open a
-third, the other windows will again shrink to accommodate the new
-window. Just like with tmux panes, you can navigate around these tiled
-windows with your keyboard, and you can resize them and move them
-around, all without touching the mouse. They are worth looking into!
-
+La plupart d'entre vous ont l'habitude d'utiliser un gestionnaire de fenêtres par "glisser-déposer", comme celui fourni par défaut avec Windows, macOS et Ubuntu. Il s'agit de fenêtres qui restent suspendues à l'écran et que vous pouvez déplacer, redimensionner et faire se chevaucher. Mais il ne s'agit que d'un seul _type_ de gestionnaire de fenêtres, souvent appelé "flottant". Il en existe de nombreux autres, en particulier sous Linux. Une alternative particulièrement courante est le gestionnaire de fenêtres "en mosaïque". Dans un gestionnaire de fenêtres en mosaïque, les fenêtres ne se chevauchent jamais et sont disposées comme des tuiles sur votre écran, un peu comme les panneaux dans tmux. Avec un gestionnaire de fenêtres en mosaïque, l'écran est toujours rempli par les fenêtres ouvertes, disposées selon une certaine _disposition_. Si vous n'avez qu'une seule fenêtre, elle occupe tout l'écran. Si vous en ouvrez une autre, la fenêtre d'origine se rétrécit pour lui faire de la place (souvent quelque chose comme 2/3 et 1/3). Si vous en ouvrez une troisième, les autres fenêtres se rétrécissent à nouveau pour faire de la place à la nouvelle fenêtre. Tout comme avec les panneaux tmux, vous pouvez naviguer dans ces fenêtres en mosaïque avec votre clavier, et vous pouvez les redimensionner et les déplacer, le tout sans toucher à la souris. Cela vaut la peine d'y jeter un coup d'oeil !
 
 ## VPNs
 
-VPNs are all the rage these days, but it's not clear that's for [any
-good reason](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
-should be aware of what a VPN does and does not get you. A VPN, in the
-best case, is _really_ just a way for you to change your internet
-service provider as far as the internet is concerned. All your traffic
-will look like it's coming from the VPN provider instead of your "real"
-location, and the network you are connected to will only see encrypted
-traffic.
+Les réseaux privés virtuels (VPN) font fureur de nos jours, mais il n'est pas certain que ce soit pour [une bonne raison](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). Vous devez savoir ce qu'un VPN vous apporte et ce qu'il ne vous apporte pas. Dans le meilleur des cas, un VPN n'est _en fait_ qu'un moyen de changer de fournisseur d'accès à l'internet. Tout votre trafic semblera provenir du fournisseur VPN au lieu de votre emplacement "réel", et le réseau auquel vous êtes connecté ne verra que du trafic encrypté.
 
-While that may seem attractive, keep in mind that when you use a VPN,
-all you are really doing is shifting your trust from you current ISP to
-the VPN hosting company. Whatever your ISP _could_ see, the VPN provider
-now sees _instead_. If you trust them _more_ than your ISP, that is a
-win, but otherwise, it is not clear that you have gained much. If you
-are sitting on some dodgy unencrypted public Wi-Fi at an airport, then
-maybe you don't trust the connection much, but at home, the trade-off is
-not quite as clear.
+Bien que cela puisse sembler attrayant, gardez à l'esprit que lorsque vous utilisez un VPN, tout ce que vous faites réellement est de transférer votre confiance de votre ISP actuel à la société d'hébergement du VPN. Ce que votre ISP _pourrait_ voir, le fournisseur de VPN le voit maintenant _à sa place_. Si vous lui faites _plus_ confiance qu'à votre fournisseur d'accès, c'est une victoire, mais dans le cas contraire, il n'est pas certain que vous ayez gagné grand-chose. Si vous êtes connecté sur un Wi-Fi public douteux et non crypté dans un aéroport, vous ne faites peut-être pas beaucoup confiance à la connexion, mais à la maison, le compromis n'est pas aussi clair.
 
-You should also know that these days, much of your traffic, at least of
-a sensitive nature, is _already_ encrypted through HTTPS or TLS more
-generally. In that case, it usually matters little whether you are on
-a "bad" network or not -- the network operator will only learn what
-servers you talk to, but not anything about the data that is exchanged.
+Vous devez également savoir que de nos jours, une grande partie de votre trafic, au moins de nature sensible, est _déjà_ encryptée par HTTPS ou TLS de manière plus générale. Dans ce cas, il importe généralement peu que vous soyez sur un "mauvais" réseau ou non - l'opérateur du réseau ne saura que les serveurs auxquels vous vous adressez, mais rien sur les données échangées.
 
-Notice that I said "in the best case" above. It is not unheard of for
-VPN providers to accidentally misconfigure their software such that the
-encryption is either weak or entirely disabled. Some VPN providers are
-malicious (or at the very least opportunist), and will log all your
-traffic, and possibly sell information about it to third parties.
-Choosing a bad VPN provider is often worse than not using one in the
-first place.
 
-In a pinch, MIT [runs a VPN](https://ist.mit.edu/vpn) for its students,
-so that may be worth taking a look at. Also, if you're going to roll
-your own, give [WireGuard](https://www.wireguard.com/) a look.
+Remarquez que j'ai dit "dans le meilleur des cas" ci-dessus. Il n'est pas rare que les fournisseurs de VPN configurent accidentellement mal leur logiciel, de sorte que l'encryptage est soit faible, soit entièrement désactivé. Certains fournisseurs de VPN sont malveillants (ou au moins opportunistes) et enregistrent tout votre trafic, voire vendent ces informations à des tiers. Choisir un mauvais fournisseur de VPN est souvent pire que de ne pas en utiliser un.
+
+À la rigueur, le MIT [gère un VPN](https://ist.mit.edu/vpn) pour ses étudiants, ce qui peut valoir la peine d'y jeter un coup d'oeil. Par ailleurs, si vous souhaitez créer votre propre VPN, jetez un coup d'oeil à [WireGuard](https://www.wireguard.com/).
 
 ## Markdown
 
-There is a high chance that you will write some text over the course of
-your career. And often, you will want to mark up that text in simple
-ways. You want some text to be bold or italic, or you want to add
-headers, links, and code fragments. Instead of pulling out a heavy tool
-like Word or LaTeX, you may want to consider using the lightweight
-markup language [Markdown](https://commonmark.org/help/).
+Il y a de fortes chances que vous écriviez du texte au cours de votre carrière. Et souvent, vous voudrez marquer ce texte de manière simple. Vous souhaitez mettre du texte en gras ou en italique, ou ajouter des en-têtes, des liens et des fragments de code. Au lieu de sortir un outil lourd comme Word ou LaTeX, vous pouvez envisager d'utiliser le langage de balisage léger [Markdown](https://commonmark.org/help/).
 
-You have probably seen Markdown already, or at least some variant of it.
-Subsets of it are used and supported almost everywhere, even if it's not
-under the name Markdown. At its core, Markdown is an attempt to codify
-the way that people already often mark up text when they are writing
-plain text documents. Emphasis (*italics*) is added by surrounding a
-word with `*`. Strong emphasis (**bold**) is added using `**`. Lines
-starting with `#` are headings (and the number of `#`s is the subheading
-level). Any line starting with `-` is a bullet list item, and any line
-starting with a number + `.` is a numbered list item. Backtick is used
-to show words in `code font`, and a code block can be entered by
-indenting a line with four spaces or surrounding it with
-triple-backticks:
+Vous avez probablement déjà vu du Markdown, ou du moins une de ses variantes. Des sous-ensembles de ce langage sont utilisés et pris en charge presque partout, même si ce n'est pas sous le nom de Markdown. À la base, Markdown est une tentative de codification de la manière dont les gens marquent déjà souvent le texte lorsqu'ils écrivent des documents en texte brut. L'accentuation (*italique*) est ajoutée en entourant un mot d'un `*`. L'accentuation forte (**gras**) est ajoutée en utilisant `**`. Les lignes commençant par `#` sont des titres (et le nombre de `#` correspond au niveau du sous-titre). Toute ligne commençant par `-` est un élément de liste à puces, et toute ligne commençant par un chiffre + `.` est un élément de liste numéroté. La coche arrière (\`) est utilisée pour montrer les mots en `police de code`, et un bloc de code peut être saisi en indentant une ligne de quatre espaces ou en l'entourant de trois coche arrière :
 
     ```
-    code goes here
+    insérer du code ici
     ```
+  
+Pour ajouter un lien, placez le _texte_ du lien entre crochets et l'URL suivant immédiatement entre parenthèses : `[nom](url)`. Markdown est facile à prendre en main et vous pouvez l'utiliser presque partout. En fait, les notes de lecture de ce cours, et de tous les autres, sont écrites en Markdown, et vous pouvez voir le Markdown brut [ici](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
 
-To add a link, place the _text_ for the link in square brackets,
-and the URL immediately following that in parentheses: `[name](url)`.
-Markdown is easy to get started with, and you can use it nearly
-everywhere. In fact, the lecture notes for this lecture, and all the
-others, are written in Markdown, and you can see the raw Markdown
-[here](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
+## Hammerspoon (automatisation du bureau sur macOS)
 
+[Hammerspoon](https://www.hammerspoon.org/) est un framework d'automatisation du bureau pour macOS. Il vous permet d'écrire des scripts Lua qui s'accrochent aux fonctionnalités du système d'exploitation, vous permettant d'interagir avec le clavier/la souris, les fenêtres, les écrans, le système de fichiers, et bien plus encore.
 
+Voici quelques exemples de ce que vous pouvez faire avec Hammerspoon :
 
-## Hammerspoon (desktop automation on macOS)
+- Lier des touches de raccourci pour déplacer des fenêtres à des endroits spécifiques
+- Créer un bouton dans la barre de menu qui affiche automatiquement les fenêtres dans une disposition spécifique.
+- Couper le son de votre haut-parleur lorsque vous arrivez en salle de cours (en détectant le réseau WiFi).
+- Afficher un avertissement si vous avez accidentellement pris le chargeur de votre ami.
 
-[Hammerspoon](https://www.hammerspoon.org/) is a desktop automation framework
-for macOS. It lets you write Lua scripts that hook into operating system
-functionality, allowing you to interact with the keyboard/mouse, windows,
-displays, filesystem, and much more.
+À un niveau élevé, Hammerspoon vous permet d'exécuter un code Lua arbitraire, lié à des boutons de menu, des pressions de touches ou des événements, et Hammerspoon fournit une large librairie pour interagir avec le système, de sorte qu'il n'y a pratiquement aucune limite à ce que vous pouvez faire avec. De nombreuses personnes ont rendu publiques leurs configurations Hammerspoon, de sorte que vous pouvez généralement trouver ce dont vous avez besoin en cherchant sur Internet, mais vous pouvez toujours écrire votre propre code à partir de zéro.
 
-Some examples of things you can do with Hammerspoon:
+### Ressources
 
-- Bind hotkeys to move windows to specific locations
-- Create a menu bar button that automatically lays out windows in a specific layout
-- Mute your speaker when you arrive in lab (by detecting the WiFi network)
-- Show you a warning if you've accidentally taken your friend's power supply
+- [Débuter avec Hammerspoon](https://www.hammerspoon.org/go/)
+- [Exemples de configuration](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
+- [Congiruation Hammerspoon d'Anish](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
 
-At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu
-buttons, key presses, or events, and Hammerspoon provides an extensive library
-for interacting with the system, so there's basically no limit to what you can
-do with it. Many people have made their Hammerspoon configurations public, so
-you can generally find what you need by searching the internet, but you can
-always write your own code from scratch.
+## Démarrage + Live USBs
 
-### Resources
+Lorsque votre machine démarre, avant que le système d'exploitation ne soit chargé, le [BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface) initialise le système. Au cours de ce processus, vous pouvez appuyer sur une combinaison de touches spécifique pour configurer cette couche logicielle. Par exemple, votre ordinateur peut dire quelque chose comme "Appuyez sur F9 pour configurer le BIOS. Appuyez sur F12 pour accéder au menu de démarrage" pendant le processus de démarrage. Vous pouvez configurer toutes sortes de paramètres liés au matériel dans le menu BIOS. Vous pouvez également accéder au menu de démarrage pour démarrer à partir d'un autre périphérique au lieu de votre disque dur.
 
-- [Getting Started with Hammerspoon](https://www.hammerspoon.org/go/)
-- [Sample configurations](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
-- [Anish's Hammerspoon config](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
+Les [Live USBs](https://en.wikipedia.org/wiki/Live_USB) sont des clés USB contenant un système d'exploitation. Vous pouvez en créer une en téléchargeant un système d'exploitation (par exemple, une distribution Linux) et en le flashant sur la clé USB. Ce processus est un peu plus compliqué que la simple copie d'un fichier `.iso` sur le disque. Il existe des outils comme [UNetbootin](https://unetbootin.github.io/) pour vous aider à créer des live USB.
 
-## Booting + Live USBs
-
-When your machine boots up, before the operating system is loaded, the
-[BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface)
-initializes the system. During this process, you can press a specific key
-combination to configure this layer of software. For example, your computer may
-say something like "Press F9 to configure BIOS. Press F12 to enter boot menu."
-during the boot process. You can configure all sorts of hardware-related
-settings in the BIOS menu. You can also enter the boot menu to boot from an
-alternate device instead of your hard drive.
-
-[Live USBs](https://en.wikipedia.org/wiki/Live_USB) are USB flash drives
-containing an operating system. You can create one of these by downloading an
-operating system (e.g. a Linux distribution) and burning it to the flash drive.
-This process is a little bit more complicated than simply copying a `.iso` file
-to the disk. There are tools like [UNetbootin](https://unetbootin.github.io/)
-to help you create live USBs.
-
-Live USBs are useful for all sorts of purposes. Among other things, if you
-break your existing operating system installation so that it no longer boots,
-you can use a live USB to recover data or fix the operating system.
+Les Live USB sont utiles à toutes sortes de fins. Entre autres, si vous cassez votre système d'exploitation existant et qu'il ne démarre plus, vous pouvez utiliser une clé live USB pour récupérer des données ou réparer le système d'exploitation.
 
 ## Docker, Vagrant, VMs, Cloud, OpenStack
 
-[Virtual machines](https://en.wikipedia.org/wiki/Virtual_machine) and similar
-tools like containers let you emulate a whole computer system, including the
-operating system. This can be useful for creating an isolated environment for
-testing, development, or exploration (e.g. running potentially malicious code).
+Les [machines virtuelles](https://fr.wikipedia.org/wiki/Machine_virtuelle) et les outils similaires comme les conteneurs vous permettent d'émuler un système informatique complet, y compris le système d'exploitation. Cela peut être utile pour créer un environnement isolé à des fins de test, de développement ou d'exploration (par exemple, l'exécution d'un code potentiellement malveillant).
 
-[Vagrant](https://www.vagrantup.com/) is a tool that lets you describe machine
-configurations (operating system, services, packages, etc.) in code, and then
-instantiate VMs with a simple `vagrant up`. [Docker](https://www.docker.com/)
-is conceptually similar but it uses containers instead.
+[Vagrant](https://www.vagrantup.com/) est un outil qui vous permet de décrire des configurations machine (système d'exploitation, services, paquets, etc.) en code, puis d'instancier des machines virtuelles à l'aide d'un simple commande `vagrant up`. [Docker](https://www.docker.com/) est conceptuellement similaire, mais il utilise des conteneurs à la place.
 
-You can also rent virtual machines on the cloud, and it's a nice way to get instant
-access to:
+Vous pouvez également louer des machines virtuelles dans le cloud, et c'est un bon moyen d'obtenir un accès instantané à:
 
-- A cheap always-on machine that has a public IP address, used to host services
-- A machine with a lot of CPU, disk, RAM, and/or GPU
-- Many more machines than you physically have access to (billing is often by
-the second, so if you want a lot of computing for a short amount of time, it's
-feasible to rent 1000 computers for a couple of minutes)
+- une machine bon marché toujours active qui possède une adresse IP publique, utilisée pour héberger des services
+- une machine avec beaucoup de CPU, de disques, de RAM et/ou de GPU
+- beaucoup plus de machines que celles auxquelles vous avez physiquement accès (la facturation se fait souvent à la seconde, donc si vous voulez beaucoup de puissance de calcul pendant une courte période, il est possible de louer 1000 ordinateurs pendant quelques minutes).
 
-Popular services include [Amazon AWS](https://aws.amazon.com/), [Google
-Cloud](https://cloud.google.com/),[ Microsoft Azure](https://azure.microsoft.com/),
-[DigitalOcean](https://www.digitalocean.com/).
+Les services les plus courants sont [Amazon AWS](https://aws.amazon.com/), [Google Cloud](https://cloud.google.com/), [ Microsoft Azure](https://azure.microsoft.com/), [DigitalOcean](https://www.digitalocean.com/).
 
-If you're a member of MIT CSAIL, you can get free VMs for research purposes
-through the [CSAIL OpenStack
-instance](https://tig.csail.mit.edu/shared-computing/open-stack/).
+Si vous êtes membre CSAIL du MIT, vous pouvez obtenir des machines virtuelles gratuites à des fins de recherche grâce à l'instance [OpenStack du CSAIL](https://tig.csail.mit.edu/shared-computing/open-stack/).
 
 ## Notebook programming
 
-[Notebook programming
-environments](https://en.wikipedia.org/wiki/Notebook_interface) can be really
-handy for doing certain types of interactive or exploratory development.
-Perhaps the most popular notebook programming environment today is
-[Jupyter](https://jupyter.org/), for Python (and several other languages).
-[Wolfram Mathematica](https://www.wolfram.com/mathematica/) is another notebook
-programming environment that's great for doing math-oriented programming.
+Les [environnements de programmation notebook](https://en.wikipedia.org/wiki/Notebook_interface) peuvent s'avérer très pratiques pour certains types de développements interactifs ou exploratoires. L'environnement de programmation notebook le plus populaire aujourd'hui est sans doute [Jupyter](https://jupyter.org/), pour Python (et plusieurs autres langages). [Wolfram Mathematica](https://www.wolfram.com/mathematica/) est un autre environnement de programmation notebook, idéal pour la programmation orientée vers les mathématiques.
+
 
 ## GitHub
 
-[GitHub](https://github.com/) is one of the most popular platforms for
-open-source software development. Many of the tools we've talked about in this
-class, from [vim](https://github.com/vim/vim) to
-[Hammerspoon](https://github.com/Hammerspoon/hammerspoon), are hosted on
-GitHub. It's easy to get started contributing to open-source to help improve
-the tools that you use every day.
+[GitHub](https://github.com/) est l'une des plateformes les plus populaires pour le développement de logiciels open-source. De nombreux outils dont nous avons parlé dans ce cours, de [vim](https://github.com/vim/vim) à [Hammerspoon](https://github.com/Hammerspoon/hammerspoon), sont hébergés sur GitHub. Il est facile de commencer à contribuer aux logiciels open-source afin d'améliorer les outils que vous utilisez tous les jours.
 
-There are two primary ways in which people contribute to projects on GitHub:
+Il y a deux façons principales de contribuer aux projets sur GitHub :
 
-- Creating an
-[issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue).
-This can be used to report bugs or request a new feature. Neither of these
-involves reading or writing code, so it can be pretty lightweight to do.
-High-quality bug reports can be extremely valuable to developers. Commenting on
-existing discussions can be helpful too.
-- Contribute code through a [pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-This is generally more involved than creating an issue. You can
-[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
-a repository on GitHub, clone your fork, create a new branch, make some changes
-(e.g. fix a bug or implement a feature), push the branch, and then [create a
+- Créer une [issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue). Cela permet de signaler des bugs ou de demander une nouvelle fonctionnalité. Aucun de ces éléments n'implique de lire ou d'écrire du code, ce qui rend l'opération assez légère. Des rapports de bugs de qualité peuvent être extrêmement précieux pour les développeurs. Commenter des discussions existantes peut également s'avérer utile.
+- Contribuer au code par le biais d'une [pull
+request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests). Cette démarche est généralement plus complexe que la création d'une issue. Vous pouvez [forker](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) un repository sur GitHub, cloner votre fork, créer une nouvelle branche, apporter des modifications (par exemple, corriger un bug ou implémenter une fonctionnalité), push la branche, puis [créer une
 pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-After this, there will generally be some back-and-forth with the project
-maintainers, who will give you feedback on your patch. Finally, if all goes
-well, your patch will be merged into the upstream repository. Often times,
-larger projects will have a contributing guide, tag beginner-friendly issues,
-and some even have mentorship programs to help first-time contributors become
-familiar with the project.
+request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). Après cela, il y aura généralement des échanges avec les responsables du projet, qui vous donneront un retour sur votre correctif.  Enfin, si tout se passe bien, votre correctif sera intégré dans le dépôt amont. Souvent, les grands projets disposent d'un guide de contribution, d'une étiquette pour les problèmes pour débutants, et certains ont même des programmes de mentorat pour aider les nouveaux contributeurs à se familiariser avec le projet.
