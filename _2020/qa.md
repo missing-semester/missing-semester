@@ -8,176 +8,154 @@ video:
   id: Wz50FvGG6xU
 ---
 
-For the last lecture, we answered questions that the students submitted:
+Pour le dernier cours, nous répondons aux questions posées par les étudiants :
 
-- [Any recommendations on learning Operating Systems related topics like processes, virtual memory, interrupts, memory management, etc ](#any-recommendations-on-learning-operating-systems-related-topics-like-processes-virtual-memory-interrupts-memory-management-etc)
-- [What are some of the tools you'd prioritize learning first?](#what-are-some-of-the-tools-youd-prioritize-learning-first)
-- [When do I use Python versus a Bash scripts versus some other language?](#when-do-i-use-python-versus-a-bash-scripts-versus-some-other-language)
-- [What is the difference between `source script.sh` and `./script.sh`](#what-is-the-difference-between-source-scriptsh-and-scriptsh)
-- [What are the places where various packages and tools are stored and how does referencing them work? What even is `/bin` or `/lib`?](#what-are-the-places-where-various-packages-and-tools-are-stored-and-how-does-referencing-them-work-what-even-is-bin-or-lib)
-- [Should I `apt-get install` a python-whatever, or `pip install` whatever package?](#should-i-apt-get-install-a-python-whatever-or-pip-install-whatever-package)
-- [What's the easiest and best profiling tools to use to improve performance of my code?](#whats-the-easiest-and-best-profiling-tools-to-use-to-improve-performance-of-my-code)
-- [What browser plugins do you use?](#what-browser-plugins-do-you-use)
-- [What are other useful data wrangling tools?](#what-are-other-useful-data-wrangling-tools)
-- [What is the difference between Docker and a Virtual Machine?](#what-is-the-difference-between-docker-and-a-virtual-machine)
-- [What are the advantages and disadvantages of each OS and how can we choose between them (e.g. choosing the best Linux distribution for our purposes)?](#what-are-the-advantages-and-disadvantages-of-each-os-and-how-can-we-choose-between-them-eg-choosing-the-best-linux-distribution-for-our-purposes)
-- [Vim vs Emacs?](#vim-vs-emacs)
-- [Any tips or tricks for Machine Learning applications?](#any-tips-or-tricks-for-machine-learning-applications)
-- [Any more Vim tips?](#any-more-vim-tips)
-- [What is 2FA and why should I use it?](#what-is-2fa-and-why-should-i-use-it)
-- [Any comments on differences between web browsers?](#any-comments-on-differences-between-web-browsers)
+- [Avez-vous des recommandations sur l'apprentissage de sujets liés aux systèmes d'exploitation tels que les processus, la mémoire virtuelle, les interruptions, la gestion de la mémoire, etc. ?](#avez-vous-des-recommandations-sur-lapprentissage-de-sujets-liés-aux-systèmes-dexploitation-tels-que-les-processus-la-mémoire-virtuelle-les-interruptions-la-gestion-de-la-mémoire-etc-)
+- [Quels sont les outils que vous conseillez d'apprendre en priorité ?](#quels-sont-les-outils-que-vous-conseillez-dapprendre-en-priorité-)
+- [Quand dois-je utiliser Python plutôt qu'un script Bash ou un autre langage ?](#quand-dois-je-utiliser-python-plutôt-quun-script-bash-ou-un-autre-langage-)
+- [Quelle est la différence entre `source script.sh` et `./script.sh` ?](#quelle-est-la-différence-entre-source-scriptsh-et-scriptsh-)
+- [Quels sont les endroits où sont stockés les différents paquets et outils et comment les référencer ? Qu'est-ce que `/bin` ou `/lib` ?](#quels-sont-les-endroits-où-sont-stockés-les-différents-paquets-et-outils-et-comment-les-référencer--quest-ce-que-bin-ou-lib-)
+- [Dois-je utiliser `apt-get install` ou `pip install` pour installer un package ?](#dois-je-utiliser-apt-get-install-ou-pip-install-pour-installer-un-package-)
+- [Quels sont les outils de profilage les plus simples et les meilleurs à utiliser pour améliorer les performances de mon code ?](#quels-sont-les-outils-de-profilage-les-plus-simples-et-les-meilleurs-à-utiliser-pour-améliorer-les-performances-de-mon-code-)
+- [Quels plugins de navigateur utilisez-vous ?](#quels-plugins-de-navigateur-utilisez-vous-)
+- [Quels sont les autres outils utiles de manipulation de données ?](#quels-sont-les-autres-outils-danalyse-de-données-utiles-)
+- [Quelle est la différence entre Docker et une machine virtuelle ?](#quelle-est-la-différence-entre-docker-et-une-machine-virtuelle-)
+- [Quels sont les avantages et les inconvénients de chaque système d'exploitation et comment en choisir un (par exemple, choisir la meilleure distribution Linux pour nos besoins) ?](#quels-sont-les-avantages-et-les-inconvénients-de-chaque-système-dexploitation-et-comment-en-choisir-un-par-exemple-choisir-la-meilleure-distribution-linux-pour-nos-besoins-)
+- [Vim ou Emacs ?](#vim-ou-emacs-)
+- [Des conseils ou des astuces pour les applications de machine learning ?](#des-conseils-ou-des-astuces-pour-les-applications-de-machine-learning-)
+- [D'autres astuces pour Vim ?](#dautres-conseils-pour-vim-)
+- [Qu'est-ce que l'authentification à deux facteurs et pourquoi devrais-je l'utiliser ?](#quest-ce-que-lauthentification-à-deux-facteurs-et-pourquoi-devrais-je-lutiliser-)
+- [Des commentaires sur les différences entre les navigateurs web ?](#des-commentaires-sur-les-différences-entre-les-navigateurs-web-)
 
-## Any recommendations on learning Operating Systems related topics like processes, virtual memory, interrupts, memory management, etc 
+## Avez-vous des recommandations sur l'apprentissage de sujets liés aux systèmes d'exploitation tels que les processus, la mémoire virtuelle, les interruptions, la gestion de la mémoire, etc. ?
 
-First, it is unclear whether you actually need to be very familiar with all of these topics since they are very low level topics.
-They will matter as you start writing more low level code like implementing or modifying a kernel. Otherwise, most topics will not be relevant, with the exception of processes and signals that were briefly covered in other lectures. 
+Tout d'abord, il n'est pas certain que vous ayez besoin d'être très familier avec tous ces sujets puisqu'il s'agit de sujets très bas niveau. Ils seront importants lorsque vous commencerez à écrire du code de plus bas niveau, comme l'implémentation ou la modification d'un noyau. Sinon, la plupart des sujets ne seront pas pertinents, à l'exception des processus et des signaux qui ont été brièvement abordés dans d'autres cours.
 
-Some good resources to learn about this topic:
+Quelques bonnes ressources pour en apprendre plus sur ce sujet :
 
-- [MIT's 6.828 class](https://pdos.csail.mit.edu/6.828/) - Graduate level class on Operating System Engineering. Class materials are publicly available.
-- Modern Operating Systems (4th ed) - by Andrew S. Tanenbaum is a good overview of many of the mentioned concepts.
-- The Design and Implementation of the FreeBSD Operating System - A good resource about the FreeBSD OS (note that this is not Linux). 
-- Other guides like [Writing an OS in Rust](https://os.phil-opp.com/) where people implement a kernel step by step in various languages, mostly for teaching purposes. 
+- [Cours 6.828 du MIT](https://pdos.csail.mit.edu/6.828/) - Cours de niveau supérieur sur l'ingénierie des systèmes d'exploitation. Les supports de cours sont accessibles au public.
+- Modern Operating Systems (4th ed) - par Andrew S. Tanenbaum est une bonne vue d'ensemble des concepts mentionnés.
+- The Design and Implementation of the FreeBSD Operating System - Une bonne ressource sur le système d'exploitation FreeBSD (notez que ce n'est pas Linux).
+- D'autres guides comme [Writing an OS in Rust](https://os.phil-opp.com/) où des personnes implémentent un noyau étape par étape dans différents langages, principalement à des fins d'enseignement.
+
+## Quels sont les outils que vous conseillez d'apprendre en priorité ?
+
+Certains sujets méritent d'être traités en priorité :
+
+- Apprendre à utiliser davantage le clavier et moins la souris. Cela peut se faire par le biais de raccourcis clavier, en changeant d'interface, etc.
+- Apprendre à bien utiliser son éditeur. En tant que programmeur, vous passez la majeure partie de votre temps à éditer des fichiers, il est donc très utile de bien apprendre cette compétence.
+- Apprendre à automatiser et/ou simplifier les tâches répétitives dans votre travail, car le gain de temps sera énorme...
+- Apprendre les outils de contrôle de version comme Git et comment les utiliser en conjonction avec GitHub pour collaborer à des projets logiciels modernes.
+
+## Quand dois-je utiliser Python plutôt qu'un script Bash ou un autre langage ?
+
+En général, les scripts bash sont utiles pour les scripts simples et courts, lorsque vous voulez simplement exécuter une série spécifique de commandes. bash a un ensemble de bizarreries qui le rendent difficile à utiliser pour des programmes ou des scripts plus importants :
+
+- bash est facile à utiliser pour un cas d'utilisation simple, mais il peut être très difficile à utiliser pour toutes les entrées possibles. Par exemple, les espaces dans les arguments des scripts ont conduit à d'innombrables bugs dans les scripts bash.
+- bash ne se prête pas à la réutilisation de code, il peut donc être difficile de réutiliser des composants de programmes précédents que vous avez écrits. Plus généralement, il n'y a pas de concept de librairie logicielles en bash.
+- bash s'appuie sur de nombreuses chaînes magiques comme `$?` ou `$@` pour se référer à des valeurs spécifiques, alors que d'autres langages s'y réfèrent explicitement, comme `exitCode` ou `sys.args` respectivement.
+
+Par conséquent, pour des scripts plus importants et/ou plus complexes, nous recommandons d'utiliser des langages de script plus matures comme Python ou Ruby. Vous pouvez trouver en ligne d'innombrables librairies que des personnes ont déjà écrites pour résoudre des problèmes courants dans ces langages. Si vous trouvez une bibliothèque qui implémente la fonctionnalité spécifique qui vous intéresse dans un certain langage, la meilleure chose à faire est généralement d'utiliser ce langage.
+
+## Quelle est la différence entre `source script.sh` et `./script.sh` ?
+
+Dans les deux cas, le fichier `script.sh` sera lu et exécuté dans une session bash, la différence résidant dans quelle session exécute les commandes. Dans le cas du `source`, les commandes sont exécutées dans votre session bash actuelle et, par conséquent, toute modification apportée à l'environnement actuel, comme le changement de répertoire ou la définition de fonctions, persistera dans la session actuelle une fois que la commande `source` aura fini d'être exécutée. Lorsque vous exécutez le script de manière autonome, comme `./script.sh`, votre session bash actuelle démarre une nouvelle instance de bash qui exécutera les commandes de `script.sh`. Ainsi, si `script.sh` change de répertoire, la nouvelle instance de bash changera de répertoire, mais une fois qu'elle aura quitté la session bash parent et lui aura rendu le contrôle, la session parent restera au même endroit. De même, si `script.sh` définit une fonction à laquelle vous voulez accéder dans votre terminal, vous devez la `source` pour qu'elle soit définie dans votre session bash actuelle. Sinon, si vous l'exécutez, c'est le nouveau processus bash qui traitera la définition de la fonction au lieu de votre shell actuel.
+
+## Quels sont les endroits où sont stockés les différents paquets et outils et comment les référencer ? Qu'est-ce que `/bin` ou `/lib` ?
+
+En ce qui concerne les programmes que vous exécutez dans votre terminal, ils se trouvent tous dans les répertoires énumérés dans votre variable d'environnement `PATH` et vous pouvez utiliser la commande `which` (ou la commande `type`) pour vérifier où votre interpréteur de commandes trouve un programme spécifique. En général, il existe des conventions concernant l'emplacement de certains types de fichiers. Voici quelques-uns des types de fichiers dont nous avons parlé. Consultez la [Filesystem, Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) pour obtenir une liste plus complète.
+
+- `/bin` - Fichiers binaires de commande essentiels
+- `/sbin` - Fichiers binaires essentiels du système, généralement exécutés par le super-utilisateur (root)
+- `/dev` - Fichiers de périphériques, fichiers spéciaux qui sont souvent des interfaces vers des périphériques matériels
+- `/etc` - Fichiers de configuration du système spécifiques à l'hôte
+- `/home` - Répertoires personnels des utilisateurs du système
+- `/lib` - Bibliothèques communes pour les programmes système
+- `/opt` - Logiciel d'application optionnel
+- `/sys` - Contient les informations et la configuration du système (abordé dans le [premier cours](/2020/course-shell/))
+- `/tmp` - Fichiers temporaires (également `/var/tmp`). Ils sont généralement supprimés entre les redémarrages.
+- `/usr/` - Données utilisateur en lecture seule
+  + `/usr/bin` - Binaires de commande non essentiels
+  + `/usr/sbin` - Binaires système non essentiels, généralement exécutés par le super-utilisateur.
+  + `/usr/local/bin` - Binaires pour les programmes compilés par l'utilisateur
+- `/var` - Fichiers variables tels que les logs ou les caches
+
+## Dois-je utiliser `apt-get install` ou `pip install` pour installer un package ?
+
+Il n'y a pas de réponse universelle à cette question. Elle est liée à la question plus générale de savoir si vous devez utiliser le gestionnaire de paquets de votre système ou un gestionnaire de paquets spécifique à votre langage pour installer un logiciel. Voici quelques éléments à prendre en compte :
+
+- Les paquets courants sont disponibles dans les deux cas, mais les paquets moins populaires ou plus récents peuvent ne pas être disponibles dans le gestionnaire de paquets de votre système. Dans ce cas, il est préférable d'utiliser l'outil spécifique au langage.
+- De même, les gestionnaires de paquets spécifiques à un langage disposent généralement de versions plus récentes des paquets que les gestionnaires de paquets système.
+- Lorsque vous utilisez votre gestionnaire de paquets système, les librairies sont installées sur l'ensemble du système. Cela signifie que si vous avez besoin de différentes versions d'une librairie à des fins de développement, le gestionnaire de paquets système peut ne pas suffire. Dans ce cas, la plupart des langages de programmation proposent une sorte d'environnement isolé ou virtuel qui vous permet d'installer différentes versions de librairies sans risque de conflit. Pour Python, il y a virtualenv, et pour Ruby, il y a RVM.
+- En fonction du système d'exploitation et de l'architecture matérielle, certains de ces paquets peuvent être livrés avec des binaires ou doivent être compilés. Par exemple, sur les ordinateurs ARM comme le Raspberry Pi, il peut être préférable d'utiliser le gestionnaire de paquets système plutôt qu'un gestionnaire de paquets spécifique à un langage si le premier se présente sous la forme de binaires et que le second doit être compilé. Cela dépend fortement de votre configuration spécifique.
+
+Vous devriez essayer d'utiliser l'une ou l'autre solution et non les deux, car cela peut conduire à des conflits difficiles à déboguer. Nous recommandons d'utiliser le gestionnaire de paquets spécifique au langage chaque fois que possible, et d'utiliser des environnements isolés (comme le virtualenv de Python) pour éviter de polluer l'environnement global.
+
+## Quels sont les outils de profilage les plus simples et les meilleurs à utiliser pour améliorer les performances de mon code ?
+
+L'outil le plus simple et le plus utile pour le profilage est le [print timing](/2020/debugging-profiling/#timing). Il vous suffit de calculer manuellement le temps écoulé entre les différentes parties de votre code. En répétant cette opération, vous pouvez effectuer une recherche binaire sur votre code et trouver le segment de code qui a pris le plus de temps.
+
+Pour des outils plus avancés, [Callgrind](http://valgrind.org/docs/manual/cl-manual.html) de Valgrind vous permet d'exécuter votre programme et de mesurer le temps nécessaire à chaque étape ainsi que toutes les piles d'appels, à savoir quelle fonction a appelé quelle autre fonction. Il produit ensuite une version annotée du code source de votre programme avec le temps pris par ligne. Cependant, il ralentit votre programme d'un ordre de grandeur et ne supporte pas les threads. Pour les autres cas, l'outil [`perf`](http://www.brendangregg.com/perf.html) et d'autres profileurs d'échantillonnage spécifiques au langage peuvent produire des données utiles assez rapidement. Les [Flamegraphs](http://www.brendangregg.com/flamegraphs.html) sont un bon outil de visualisation des résultats de ces profileurs d'échantillonnage. Vous devriez également essayer d'utiliser des outils spécifiques au langage de programmation ou à la tâche sur laquelle vous travaillez. Par exemple, pour le développement web, les outils de développement intégrés à Chrome et Firefox disposent de profilers fantastiques.
+
+Parfois, la partie lente de votre code est due au fait que votre système attend un événement tel qu'une lecture de disque ou un paquet réseau. Dans ce cas, il est utile de vérifier que les calculs effectués à l'envers sur la vitesse théorique en fonction des capacités du matériel ne s'écartent pas des relevés réels. Il existe également des outils spécialisés pour analyser les temps d'attente dans les appels système. Il s'agit notamment d'outils tels que [eBPF](http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html), qui effectuent un traçage du noyau des programmes utilisateur. En particulier, [`bpftrace`](https://github.com/iovisor/bpftrace) vaut la peine d'être considéré si vous avez besoin d'effectuer ce type de profilage de bas niveau.
+
+## Quels plugins de navigateur utilisez-vous ?
+
+Quelques-uns de nos favoris, principalement liés à la sécurité et à la facilité d'utilisation :
+
+- [uBlock Origin](https://github.com/gorhill/uBlock) - Il s'agit d'un bloqueur à [large spectre](https://github.com/gorhill/uBlock/wiki/Blocking-mode) qui ne se contente pas de bloquer les publicités, mais toutes sortes de communications tierces qu'une page peut tenter d'établir. Il couvre également les scripts et d'autres types de chargement de ressources. Si vous êtes prêt à passer un peu de temps sur la configuration pour faire fonctionner les choses, passez en [mode moyen](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-medium-mode) ou même en [mode difficile](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode). Certains sites ne fonctionneront pas tant que vous n'aurez pas suffisamment manipulé les paramètres, mais votre sécurité en ligne s'en trouvera considérablement améliorée. Sinon, le [mode facile](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-easy-mode) est déjà un bon mode par défaut qui bloque la plupart des publicités et du suivi. Vous pouvez également définir vos propres règles concernant les objets de sites web à bloquer.
+- [Stylus](https://github.com/openstyles/stylus/) - un dérivé de Stylish (n'utilisez pas Stylish, il a été démontré qu'il [volait l'historique de navigation des utilisateurs](https://www.theregister.co.uk/2018/07/05/browsers_pull_stylish_but_invasive_browser_extension/)), vous permet de charger latéralement des feuilles de style CSS personnalisées sur les sites web. Avec Stylus, vous pouvez facilement personnaliser et modifier l'apparence des sites web. Il peut s'agir de supprimer une barre latérale, de changer la couleur d'arrière-plan ou même la taille du texte ou le choix de la police. C'est un outil fantastique pour rendre plus lisibles les sites que vous visitez fréquemment. De plus, Stylus peut trouver des styles écrits par d'autres utilisateurs et publiés sur [userstyles.org](https://userstyles.org/). La plupart des sites web courants disposent d'une ou plusieurs feuilles de style pour les thèmes sombres, par exemple.
+- Full Page Screen Capture - [Intégrée à Firefox](https://screenshots.firefox.com/) et à [l'extension Chrome](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl?hl=en). Permet de faire une capture d'écran d'un site web complet, ce qui est souvent bien mieux qu'une impression à des fins de référence.
+- [Multi Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/) - vous permet de séparer les cookies dans des "conteneurs", ce qui vous permet de naviguer sur le web avec différentes identités et/ou de vous assurer que les sites web ne sont pas en mesure de partager des informations entre eux.
+- Password Manager Integration - La plupart des gestionnaires de mots de passe disposent d'extensions de navigateur qui rendent la saisie de vos informations d'identification sur les sites web non seulement plus pratique, mais aussi plus sûre. Au lieu de simplement copier-coller votre nom d'utilisateur et votre mot de passe, ces outils vérifient d'abord que le domaine du site web correspond à celui indiqué pour l'entrée, empêchant ainsi les attaques par hameçonnage qui usurpent l'identité de sites web populaires pour voler des informations d'identification.
+- [Vimium](https://github.com/philc/vimium) - Une extension de navigateur qui permet de naviguer et de contrôler le web au clavier, dans l'esprit de l'éditeur Vim.
+
+## Quels sont les autres outils d'analyse de données utiles ?
+
+Parmi les outils d'analyse de données que nous n'avons pas eu le temps d'aborder pendant le cours, on peut citer `jq` ou `pup`, qui sont des analyseurs spécialisés pour les données JSON et HTML respectivement. Le langage de programmation Perl est un autre bon outil pour les pipelines d'analyses de données plus avancés. Une autre astuce est la commande `column -t` qui peut être utilisée pour convertir un texte avec espaces (pas nécessairement aligné) en un texte correctement aligné en colonnes.
+
+Plus généralement, vim et Python sont des outils de traitement de données moins conventionnels. Pour certaines transformations complexes sur plusieurs lignes, les macros de vim peuvent être un outil inestimable. Vous pouvez simplement enregistrer une série d'actions et les répéter autant de fois que vous le souhaitez, par exemple dans les [notes de cours](/2020/editors/#macros) sur les éditeurs (et la [vidéo](/2019/editors/) de l'année dernière), il y a un exemple de conversion d'un fichier formaté en XML en JSON en utilisant simplement des macros vim.
+
+Pour les données tabulaires, souvent présentées sous forme de CSV, la librarie Python [pandas](https://pandas.pydata.org/) est un outil formidable. Non seulement parce qu'elle facilite la définition d'opérations complexes telles que le group by, le join ou les filters, mais aussi parce qu'elle permet de représenter graphiquement facilement les différentes propriétés de vos données. Elle permet également d'exporter vers de nombreux formats de tableaux, notamment XLS, HTML ou LaTeX. Par ailleurs, le langage de programmation R (qui est sans doute un [mauvais](http://arrgh.tim-smith.us/) langage de programmation) offre de nombreuses fonctionnalités pour le calcul de statistiques sur les données et peut être très utile en tant que dernière étape de votre pipeline. [ggplot2](https://ggplot2.tidyverse.org/) est une excellente librairie de génération de graphiques dans R.
+
+## Quelle est la différence entre Docker et une machine virtuelle ?
+
+Docker est basé sur un concept plus général appelé conteneurs. La principale différence entre les conteneurs et les machines virtuelles est que les machines virtuelles exécutent une pile complète de systèmes d'exploitation, y compris le noyau, même si le noyau est le même que celui de la machine hôte. Contrairement aux machines virtuelles, les conteneurs évitent d'exécuter une autre instance du noyau et partagent plutôt le noyau avec l'hôte. Dans Linux, cela est possible grâce à un mécanisme appelé LXC, qui utilise une série de mécanismes d'isolation pour lancer un programme qui pense s'exécuter sur son propre matériel, mais qui partage en fait le matériel et le noyau avec l'hôte. Ainsi, les conteneurs ont un coût de fonctionnement inférieur à celui d'une machine virtuelle complète. En revanche, les conteneurs ont une isolation plus faible et ne fonctionnent que si l'hôte utilise le même noyau. Par exemple, si vous exécutez Docker sur macOS, Docker doit démarrer une machine virtuelle Linux pour obtenir un noyau Linux initial, et l'overhead reste donc important. Enfin, Docker est une implémentation spécifique des conteneurs et est conçu pour le déploiement de logiciels. Pour cette raison, il présente quelques particularités : par exemple, les conteneurs Docker ne conservent aucune forme de stockage entre les redémarrages par défaut.
+
+## Quels sont les avantages et les inconvénients de chaque système d'exploitation et comment en choisir un (par exemple, choisir la meilleure distribution Linux pour nos besoins) ?
+
+En ce qui concerne les distributions Linux, même s'il en existe un très grand nombre, la plupart d'entre elles se comportent de manière assez identique dans la plupart des cas d'utilisation. La plupart des fonctionnalités et du fonctionnement interne de Linux et d'UNIX peuvent être appris dans n'importe quelle distribution. Une différence fondamentale entre les distros est la manière dont elles gèrent les mises à jour des paquets. Certaines distros, comme Arch Linux, utilisent une politique de mise à jour en continu où les choses sont à la pointe de la technologie mais où il peut y avoir des pannes de temps en temps. D'un autre côté, certaines distributions comme Debian, CentOS ou Ubuntu LTS sont beaucoup plus conservatrices en ce qui concerne la publication des mises à jour dans leurs repositories, de sorte que les choses sont généralement plus stables au détriment des nouvelles fonctionnalités. Nous recommandons d'utiliser Debian ou Ubuntu pour une expérience facile et stable, tant pour les ordinateurs de bureau que pour les serveurs.
+
+Mac OS est un bon compromis entre Windows et Linux, avec une interface agréablement soignée. Cependant, Mac OS est basé sur BSD plutôt que sur Linux, de sorte que certaines parties du système et certaines commandes sont différentes. FreeBSD est une alternative qui vaut la peine d'être examinée. Même si certains programmes ne fonctionnent pas sous FreeBSD, l'écosystème BSD est beaucoup moins fragmenté et mieux documenté que Linux. Nous déconseillons l'utilisation de Windows, sauf pour le développement d'applications Windows ou si vous avez besoin d'une fonctionnalité essentielle, comme un bon support des drivers pour les jeux vidéos.
 
 
-## What are some of the tools you'd prioritize learning first?
+Pour les systèmes dual boot, nous pensons que l'implémentation la plus efficace est le bootcamp de macOS et que toute autre combinaison peut être problématique à long terme, en particulier si vous la combinez avec d'autres fonctionnalités telles que le cryptage des disques.
 
-Some topics worth prioritizing:
+## Vim ou Emacs ?
 
-- Learning how to use your keyboard more and your mouse less. This can be through keyboard shortcuts, changing interfaces, &c.
-- Learning your editor well. As a programmer most of your time is spent editing files so it really pays off to learn this skill well.
-- Learning how to automate and/or simplify repetitive tasks in your workflow because the time savings will be enormous...
-- Learning about version control tools like Git and how to use it in conjunction with GitHub to collaborate in modern software projects.
+Nous utilisons tous les trois vim comme éditeur principal, mais Emacs est également une bonne alternative et cela vaut la peine d'essayer les deux pour voir ce qui vous convient le mieux. Emacs n'utilise pas l'édition modale de vim, mais celle-ci peut être activée grâce à des plugins Emacs comme [Evil](https://github.com/emacs-evil/evil) ou [Doom Emacs](https://github.com/hlissner/doom-emacs). Un avantage d'Emacs est que les extensions peuvent être implémentées en Lisp, un meilleur langage de script que vimscript, le langage de script par défaut de Vim.
 
-## When do I use Python versus a Bash scripts versus some other language?
+## Des conseils ou des astuces pour les applications de machine learning ?
 
-In general, bash scripts are useful for short and simple one-off scripts when you just want to run a specific series of commands. bash has a set of oddities that make it hard to work with for larger programs or scripts:
+Certaines des leçons et des acquis de ce cours peuvent être directement appliquées aux applications de machine learning. Comme c'est le cas dans de nombreuses disciplines scientifiques, en ML vous réalisez souvent une série d'expériences et vous voulez vérifier ce qui a fonctionné et ce qui n'a pas fonctionné. Vous pouvez utiliser des outils shell pour rechercher facilement et rapidement ces expériences et agréger les résultats d'une manière raisonnable. Il peut s'agir de sous-sélectionner toutes les expériences réalisées dans un laps de temps donné ou qui utilisent un ensemble de données spécifique. En utilisant un simple fichier JSON pour enregistrer tous les paramètres pertinents des expériences, cela peut être incroyablement simple avec les outils que nous avons abordés dans ce cours. Enfin, si vous ne travaillez pas avec une sorte de cluster où vous soumettez vos jobs GPU, vous devriez chercher à automatiser ce processus car il peut s'agir d'une tâche assez fastidieuse qui consomme également votre énergie mentale.
 
-- bash is easy to get right for a simple use case but it can be really hard to get right for all possible inputs. For example, spaces in script arguments have led to countless bugs in bash scripts.
-- bash is not amenable to code reuse so it can be hard to reuse components of previous programs you have written. More generally, there is no concept of software libraries in bash.
-- bash relies on many magic strings like `$?` or `$@` to refer to specific values, whereas other languages refer to them explicitly, like `exitCode` or `sys.args` respectively. 
+## D'autres conseils pour Vim ?
 
-Therefore, for larger and/or more complex scripts we recommend using more mature scripting languages like Python or Ruby. 
-You can find online countless libraries that people have already written to solve common problems in these languages.
-If you find a library that implements the specific functionality you care about in some language, usually the best thing to do is to just use that language.
+Quelques conseils supplémentaires :
 
-## What is the difference between `source script.sh` and `./script.sh`
+- Plugins - Prenez votre temps et explorez les différents plugins. Il y a beaucoup d'excellents plugins qui comblent certaines lacunes de Vim ou qui ajoutent de nouvelles fonctionnalités qui s'intègrent bien dans les flux de travail existants de Vim. Pour cela, les bonnes ressources sont [VimAwesome](https://vimawesome.com/) et les dotfiles d'autres programmeurs.
+- Marques - Dans vim, vous pouvez définir une marque en faisant `m<X>` pour une lettre `X`. Vous pouvez ensuite revenir à cette marque en faisant `'<X>`. Cela vous permet de naviguer rapidement vers des endroits spécifiques d'un fichier ou même d'un fichier à l'autre.
+- Navigation - `Ctrl+O` et `Ctrl+I` vous permettent respectivement de revenir en arrière et d'aller aux endroits que vous avez visités récemment.
+- Arbre d'annulation - Vim dispose d'un mécanisme assez sophistiqué pour garder une trace des modifications. Contrairement à d'autres éditeurs, Vim stocke une arborescence des modifications, de sorte que même si vous annulez puis effectuez une modification différente, vous pouvez toujours revenir à l'état d'origine en naviguant dans l'arborescence d'annulation. Certains plugins comme [gundo.vim](https://github.com/sjl/gundo.vim) et [undotree](https://github.com/mbbill/undotree) affichent cet arbre de manière graphique.
+- Annuler avec le temps - Les commandes `:earlier` et `:later` vous permettent de naviguer dans les fichiers en utilisant des références temporelles au lieu d'une modification à la fois.
+- [L'annulation persistante](https://vim.fandom.com/wiki/Using_undo_branches#Persistent_undo) est une fonctionnalité intégrée étonnante de vim qui est désactivée par défaut. Elle persiste l'historique d'annulation entre les invocations de vim. En définissant `undofile` et `undodir` dans votre `.vimrc`, vim stockera un historique des modifications par fichier.
+- Leader key - La leader key est une touche spéciale qui est souvent laissée à l'utilisateur pour être configurée pour des commandes personnalisées. Il s'agit généralement d'appuyer et de relâcher cette touche (souvent la touche espace), puis une autre touche pour exécuter une certaine commande. Souvent, les plugins utilisent cette touche pour ajouter leur propre fonctionnalité, par exemple le plugin UndoTree utilise `<Leader> U` pour ouvrir l'arbre d'annulation.
+- Objets textuels avancés - Les objets textuels tels que les recherches peuvent également être composés à l'aide de commandes vim. Par exemple, `d/<pattern>` supprimera la prochaine occurrence du pattern ou `cgn` modifiera la prochaine occurrence de la dernière chaîne de caractères recherchée.
 
-In both cases the `script.sh` will be read and executed in a bash session, the difference lies in which session is running the commands.
-For `source` the commands are executed in your current bash session and thus any changes made to the current environment, like changing directories or defining functions will persist in the current session once the `source` command finishes executing.
-When running the script standalone like `./script.sh`, your current bash session starts a new instance of bash that will run the commands in `script.sh`.
-Thus, if `script.sh` changes directories, the new bash instance will change directories but once it exits and returns control to the parent bash session, the parent session will remain in the same place.
-Similarly, if `script.sh` defines a function that you want to access in your terminal, you need to `source` it for it to be defined in your current bash session. Otherwise, if you run it, the new bash process will be the one to process the function definition instead of your current shell.
+## Qu'est-ce que l'authentification à deux facteurs et pourquoi devrais-je l'utiliser ?
 
-## What are the places where various packages and tools are stored and how does referencing them work? What even is `/bin` or `/lib`?
+L'authentification à deux facteurs (2FA) ajoute une couche de protection supplémentaire à vos comptes, en plus des mots de passe. Pour vous connecter, vous devez non seulement connaître un mot de passe, mais aussi "prouver" d'une manière ou d'une autre que vous avez accès à un dispositif matériel. Dans le cas le plus simple, cela peut être réalisé en recevant un SMS sur votre téléphone, bien qu'il y ait des [problèmes connus](https://www.kaspersky.com/blog/2fa-practical-guide/24219/) avec le 2FA par SMS. Une meilleure alternative que nous recommandons est d'utiliser une solution [U2F](https://en.wikipedia.org/wiki/Universal_2nd_Factor) comme [YubiKey](https://www.yubico.com/).
 
-Regarding programs that you execute in your terminal, they are all found in the directories listed in your `PATH` environment variable and you can use the `which` command (or the `type` command) to check where your shell is finding a specific program.
-In general, there are some conventions about where specific types of files live. Here are some of the ones we talked about, check the [Filesystem, Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard) for a more comprehensive list.  
+## Des commentaires sur les différences entre les navigateurs web ?
 
-- `/bin` - Essential command binaries
-- `/sbin` - Essential system binaries, usually to be run by root
-- `/dev` - Device files, special files that often are interfaces to hardware devices
-- `/etc` - Host-specific system-wide configuration files
-- `/home` - Home directories for users in the system
-- `/lib` - Common libraries for system programs
-- `/opt` - Optional application software
-- `/sys` - Contains information and configuration for the system (covered in the [first lecture](/2020/course-shell/))
-- `/tmp` - Temporary files (also `/var/tmp`). Usually deleted between reboots.
-- `/usr/` - Read only user data
-  + `/usr/bin` - Non-essential command binaries
-  + `/usr/sbin` - Non-essential system binaries, usually to be run by root
-  + `/usr/local/bin` - Binaries for user compiled programs
-- `/var` - Variable files like logs or caches
-
-## Should I `apt-get install` a python-whatever, or `pip install` whatever package?
-
-There's no universal answer to this question. It's related to the more general question of whether you should use your system's package manager or a language-specific package manager to install software. A few things to take into account:
-
-- Common packages will be available through both, but less popular ones or more recent ones might not be available in your system package manager. In this case, using the language-specific tool is the better choice.
-- Similarly, language-specific package managers usually have more up to date versions of packages than system package managers.
-- When using your system package manager, libraries will be installed system wide. This means that if you need different versions of a library for development purposes, the system package manager might not suffice. For this scenario, most programming languages provide some sort of isolated or virtual environment so you can install different versions of libraries without running into conflicts. For Python, there's virtualenv, and for Ruby, there's RVM.
-- Depending on the operating system and the hardware architecture, some of these packages might come with binaries or might need to be compiled. For instance, in ARM computers like the Raspberry Pi, using the system package manager can be better than the language specific one if the former comes in form of binaries and the latter needs to be compiled. This is highly dependent on your specific setup.
-
-You should try to use one solution or the other and not both since that can lead to conflicts that are hard to debug. Our recommendation is to use the language-specific package manager whenever possible, and to use isolated environments (like Python's virtualenv) to avoid polluting the global environment. 
-
-## What's the easiest and best profiling tools to use to improve performance of my code?
-
-The easiest tool that is quite useful for profiling purposes is [print timing](/2020/debugging-profiling/#timing).
-You just manually compute the time taken between different parts of your code. By repeatedly doing this, you can effectively do a binary search over your code and find the segment of code that took the longest. 
-
-For more advanced tools, Valgrind's [Callgrind](http://valgrind.org/docs/manual/cl-manual.html) lets you run your program and measure how long everything takes and all the call stacks, namely which function called which other function. It then produces an annotated version of your program's source code with the time taken per line. However, it slows down your program by an order of magnitude and does not support threads. For other cases, the [`perf`](http://www.brendangregg.com/perf.html) tool and other language specific sampling profilers can output useful data pretty quickly. [Flamegraphs](http://www.brendangregg.com/flamegraphs.html) are a good visualization tool for the output of said sampling profilers. You should also try to use specific tools for the programming language or task you are working with. For example, for web development, the dev tools built into Chrome and Firefox have fantastic profilers.
-
-Sometimes the slow part of your code will be because your system is waiting for an event like a disk read or a network packet. In those cases, it is worth checking that back-of-the-envelope calculations about the theoretical speed in terms of hardware capabilities do not deviate from the actual readings. There are also specialized tools to analyze the wait times in system calls. These include tools like [eBPF](http://www.brendangregg.com/blog/2019-01-01/learn-ebpf-tracing.html) that perform kernel tracing of user programs. In particular [`bpftrace`](https://github.com/iovisor/bpftrace) is worth checking out if you need to perform this sort of low level profiling.
-
-
-## What browser plugins do you use?
-
-Some of our favorites, mostly related to security and usability:
-
-- [uBlock Origin](https://github.com/gorhill/uBlock) - It is a [wide-spectrum](https://github.com/gorhill/uBlock/wiki/Blocking-mode) blocker that doesn’t just stop ads, but all sorts of third-party communication a page may try to do. This also covers inline scripts and other types of resource loading. If you’re willing to spend some time on configuration to make things work, go to [medium mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-medium-mode) or even [hard mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode). Those will make some sites not work until you’ve fiddled with the settings enough, but will also significantly improve your online security. Otherwise, the [easy mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-easy-mode) is already a good default that blocks most ads and tracking. You can also define your own rules about what website objects to block.
-- [Stylus](https://github.com/openstyles/stylus/) - a fork of Stylish (don't use Stylish, it was shown to [steal users' browsing history](https://www.theregister.co.uk/2018/07/05/browsers_pull_stylish_but_invasive_browser_extension/)), allows you to sideload custom CSS stylesheets to websites. With Stylus you can easily customize and modify the appearance of websites. This can be removing a sidebar, changing the background color or even the text size or font choice. This is fantastic for making websites that you visit frequently more readable. Moreover, Stylus can find styles written by other users and published in [userstyles.org](https://userstyles.org/). Most common websites have one or several dark theme stylesheets for instance. 
-- Full Page Screen Capture - [Built into Firefox](https://screenshots.firefox.com/) and [Chrome extension](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl?hl=en). Lets you take a screenshot of a full website, often much better than printing for reference purposes.
-- [Multi Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/) - lets you separate cookies into "containers", allowing you to browse the web with different identities and/or ensuring that websites are unable to share information between them.
-- Password Manager Integration - Most password managers have browser extensions that make inputting your credentials into websites not only more convenient but also more secure. Compared to simply copy-pasting your user and password, these tools will first check that the website domain matches the one listed for the entry, preventing phishing attacks that impersonate popular websites to steal credentials. 
-- [Vimium](https://github.com/philc/vimium) - A browser extension that provides keyboard-based navigation and control of the web in the spirit of the Vim editor.
-
-## What are other useful data wrangling tools?
-
-Some of the data wrangling tools we did not have time to cover during the data wrangling lecture include `jq` or `pup` which are specialized parsers for JSON and HTML data respectively. The Perl programming language is another good tool for more advanced data wrangling pipelines. Another trick is the `column -t` command that can be used to convert whitespace text (not necessarily aligned) into properly column aligned text.
-
-More generally a couple of more unconventional data wrangling tools are vim and Python. For some complex and multi-line transformations, vim macros can be a quite invaluable tool to use. You can just record a series of actions and repeat them as many times as you want, for instance in the editors [lecture notes](/2020/editors/#macros) (and last year's [video](/2019/editors/)) there is an example of converting an XML-formatted file into JSON just using vim macros.
-
-For tabular data, often presented in CSVs, the [pandas](https://pandas.pydata.org/) Python library is a great tool. Not only because it makes it quite easy to define complex operations like group by, join or filters; but also makes it quite easy to plot different properties of your data. It also supports exporting to many table formats including XLS, HTML or LaTeX. Alternatively the R programming language (an arguably [bad](http://arrgh.tim-smith.us/) programming language) has lots of functionality for computing statistics over data and can be quite useful as the last step of your pipeline. [ggplot2](https://ggplot2.tidyverse.org/) is a great plotting library in R. 
-
-## What is the difference between Docker and a Virtual Machine?
-
-Docker is based on a more general concept called containers. The main difference between containers and virtual machines is that virtual machines will execute an entire OS stack, including the kernel, even if the kernel is the same as the host machine. Unlike VMs, containers avoid running another instance of the kernel and instead share the kernel with the host. In Linux, this is achieved through a mechanism called LXC, and it makes use of a series of isolation mechanisms to spin up a program that thinks it's running on its own hardware but it's actually sharing the hardware and kernel with the host. Thus, containers have a lower overhead than a full VM. 
-On the flip side, containers have a weaker isolation and only work if the host runs the same kernel. For instance if you run Docker on macOS, Docker needs to spin up a Linux virtual machine to get an initial Linux kernel and thus the overhead is still significant. Lastly, Docker is a specific implementation of containers and it is tailored for software deployment. Because of this, it has some quirks: for example, Docker containers will not persist any form of storage between reboots by default.
-
-## What are the advantages and disadvantages of each OS and how can we choose between them (e.g. choosing the best Linux distribution for our purposes)?
-
-Regarding Linux distros, even though there are many, many distros, most of them will behave fairly identically for most use cases. 
-Most of Linux and UNIX features and inner workings can be learned in any distro. 
-A fundamental difference between distros is how they deal with package updates. 
-Some distros, like Arch Linux, use a rolling update policy where things are bleeding-edge but things might break every so often. On the other hand, some distros like Debian, CentOS or Ubuntu LTS releases are much more conservative with releasing updates in their repositories so things are usually more stable at the expense of sacrificing newer features. 
-Our recommendation for an easy and stable experience with both desktops and servers is to use Debian or Ubuntu.
-
-Mac OS is a good middle point between Windows and Linux that has a nicely polished interface. However, Mac OS is based on BSD rather than Linux, so some parts of the system and commands are different.
-An alternative worth checking is FreeBSD. Even though some programs will not run on FreeBSD, the BSD ecosystem is much less fragmented and better documented than Linux. 
-We discourage Windows for anything but for developing Windows applications or if there is some deal breaker feature that you need, like good driver support for gaming. 
-
-For dual boot systems, we think that the most working implementation is macOS' bootcamp and that any other combination can be problematic  on the long run, specially if you combine it with other features like disk encryption. 
-
-## Vim vs Emacs?
-
-The three of us use vim as our primary editor but Emacs is also a good alternative and it's worth trying both to see which works better for you. Emacs does not follow vim's modal editing, but this can be enabled through Emacs plugins like [Evil](https://github.com/emacs-evil/evil) or [Doom Emacs](https://github.com/hlissner/doom-emacs). 
-An advantage of using Emacs is that extensions can be implemented in Lisp, a better scripting language than vimscript, Vim's default scripting language.
-
-## Any tips or tricks for Machine Learning applications?
-
-Some of the lessons and takeaways from this class can directly be applied to ML applications. 
-As it is the case with many science disciplines, in ML you often perform a series of experiments and want to check what things worked and what didn't. 
-You can use shell tools to easily and quickly search through these experiments and aggregate the results in a sensible way. This could mean subselecting all experiments in a given time frame or that use a specific dataset. By using a simple JSON file to log all relevant parameters of the experiments, this can be incredibly simple with the tools we covered in this class. 
-Lastly, if you do not work with some sort of cluster where you submit your GPU jobs, you should look into how to automate this process since it can be a quite time consuming task that also eats away your mental energy. 
-
-## Any more Vim tips?
-
-A few more tips:
-
-- Plugins - Take your time and explore the plugin landscape. There are a lot of great plugins that address some of vim's shortcomings or add new functionality that composes well with existing vim workflows. For this, good resources are [VimAwesome](https://vimawesome.com/) and other programmers' dotfiles.
-- Marks - In vim, you can set a mark doing `m<X>` for some letter `X`. You can then go back to that mark doing `'<X>`. This lets you quickly navigate to specific locations within a file or even across files. 
-- Navigation - `Ctrl+O` and `Ctrl+I` move you backward and forward respectively through your recently visited locations.
-- Undo Tree - Vim has a quite fancy mechanism for keeping track of changes. Unlike other editors, vim stores a tree of changes so even if you undo and then make a different change you can still go back to the original state by navigating the undo tree. Some plugins like [gundo.vim](https://github.com/sjl/gundo.vim) and [undotree](https://github.com/mbbill/undotree) expose this tree in a graphical way. 
-- Undo with time - The `:earlier` and `:later` commands will let you navigate the files using time references instead of one change at a time.
-- [Persistent undo](https://vim.fandom.com/wiki/Using_undo_branches#Persistent_undo) is an amazing built-in feature of vim that is disabled by default. It persists undo history between vim invocations. By setting `undofile` and `undodir` in your `.vimrc`, vim will store a per-file history of changes.
-- Leader Key - The leader key is a special key that is often left to the user to be configured for custom commands. The pattern is usually to press and release this key (often the space key) and then some other key to execute a certain command. Often, plugins will use this key to add their own functionality, for instance the UndoTree plugin uses `<Leader> U` to open the undo tree. 
-- Advanced Text Objects - Text objects like searches can also be composed with vim commands. E.g. `d/<pattern>` will delete to the next match of said pattern or `cgn` will change the next occurrence of the last searched string. 
-
-## What is 2FA and why should I use it?
-
-Two Factor Authentication (2FA) adds an extra layer of protection to your accounts on top of passwords. In order to login, you not only have to know some password, but you also have to "prove" in some way you have access to some hardware device. In the most simple case, this can be achieved by receiving an SMS on your phone, although there are [known issues](https://www.kaspersky.com/blog/2fa-practical-guide/24219/) with SMS 2FA. A better alternative we endorse is to use a [U2F](https://en.wikipedia.org/wiki/Universal_2nd_Factor) solution like [YubiKey](https://www.yubico.com/).
-
-## Any comments on differences between web browsers?
-
-The current landscape of browsers as of 2020 is that most of them are like Chrome because they use the same engine (Blink). This means that Microsoft Edge which is also based on Blink, and Safari, which is based on WebKit, a similar engine to Blink, are just worse versions of Chrome. Chrome is a reasonably good browser both in terms of performance and usability. Should you want an alternative, Firefox is our recommendation. It is comparable to Chrome in pretty much every regard and it excels for privacy reasons.
-Another browser called [Flow](https://www.ekioh.com/flow-browser/) is not user ready yet, but it is implementing a new rendering engine that promises to be faster than the current ones. 
+Le paysage actuel des navigateurs à partir de 2020 est que la plupart d'entre eux sont comme Chrome parce qu'ils utilisent le même moteur (Blink). Cela signifie que Microsoft Edge, qui est également basé sur Blink, et Safari, qui est basé sur WebKit, un moteur similaire à Blink, ne sont que des versions plus mauvaises de Chrome. Chrome est un navigateur raisonnablement bon, tant en termes de performances que de facilité d'utilisation. Si vous souhaitez une alternative, nous vous recommandons Firefox. Il est comparable à Chrome à presque tous les égards et excelle en matière de protection de la vie privée. Un autre navigateur appelé [Flow](https://www.ekioh.com/flow-browser/) n'est pas encore finalisé pour les utilisateurs, mais il met en oeuvre un nouveau moteur de rendu qui promet d'être plus rapide que les moteurs actuels.
