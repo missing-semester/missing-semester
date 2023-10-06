@@ -1,6 +1,6 @@
 # Setup
-title: 'Missing Semester'
-url: https://missing.csail.mit.edu
+title: 'Le Cours d'Informatique Manquant'
+url: https://ucl-ingi.github.io/com
 
 # Settings
 markdown: kramdown
@@ -11,9 +11,9 @@ highlighter: rouge
 permalink: /:title/
 future: true
 # safe: true # breaks local rendering if enabled
-timezone: America/New_York
-analytics:
-  tracking_id: G-P7WVHD84D1
+# timezone: America/New_York
+# analytics:
+#  tracking_id: G-P7WVHD84D1
 
 collections:
   '2019':
