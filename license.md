@@ -1,33 +1,33 @@
 ---
 layout: default
-title: "License"
+title: "Licence"
 permalink: /license/
 ---
 
-# License
+# Licence
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Tout le contenu de ce cours, y compris le code source du site web, les notes de cours, les exercices et les vidéos de cours, est placé sous licence Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-This means that you are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+Cela signifie que vous êtes libre de
 
-Under the following terms:
+- **Partager** - copier et redistribuer le matériel de cours sur n'importe quel support ou dans n'importe quel format
+- **Adapter** - remixer, transformer et construire à partir du matériel de cours
 
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+Sous réserve des conditions suivantes :
 
-This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+- **Attribution** - Vous devez créditer correctement, fournir un lien vers la licence et indiquer si des modifications ont été apportées. Vous pouvez le faire de toute manière raisonnable, mais pas d'une manière qui suggérerait que le donneur de licence vous approuve ou approuve votre utilisation.
+- **Non commercial** - Vous ne pouvez pas utiliser le matériel à des fins commerciales.
+- **ShareAlike** - Si vous remixez, transformez ou développez le matériel de cours, vous devez distribuer vos contributions sous la même licence que l'original.
 
-## Contribution guidelines
+Il s'agit d'un résumé facile à lire de la [licence](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) (qui ne la remplace pas).
 
-You can submit corrections and suggestions to the course material by submitting issues and pull requests on our GitHub [repo](https://github.com/missing-semester/missing-semester). This includes the captions for the video lectures which are also in the repo (see [here](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
+## Directives relatives aux contributions
 
-## Translation guidelines
+Vous pouvez apporter des corrections et des suggestions au matériel de cours en soumettant des issues et des pull requests sur notre [repository](https://github.com/missing-semester/missing-semester) GitHub. Ceci incluant les sous-titres des cours vidéo qui sont également dans le repo (voir [ici](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
 
-You are free to translate the lecture notes and exercises as long as you follow the license terms.
-If your translation mirrors the course structure, please contact us so we can link your translated version from our page.
 
-For translating the video captions, please submit your translations as community contributions in YouTube.
+## Directives de traduction
 
+Vous êtes libre de traduire les notes de cours et les exercices tant que vous respectez les termes de la licence. Si votre traduction reflète la structure du cours, veuillez nous contacter afin que nous puissions créer un lien vers votre version traduite à partir de notre page.
+
+Pour la traduction des sous-titres des vidéos, veuillez soumettre vos traductions en tant que contributions communautaires sur YouTube.

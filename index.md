@@ -6,7 +6,7 @@ nositetitle: true
 
 Les cours vous enseignent tous les sujets avancés de la science informatique, des systèmes d'exploitation au machine learning, mais il y a un sujet essentiel qui est rarement abordé et qui est plutôt laissé aux étudiants pour qu'ils le découvrent par eux-mêmes : la maîtrise de leurs outils. Nous vous apprendrons à maîtriser la ligne de commande, à utiliser un éditeur de texte puissant, à utiliser les fonctions sophistiquées des systèmes de contrôle de version, et bien plus encore !
 
-Les étudiants passent des centaines d'heures à utiliser ces outils au cours de leurs études (et des milliers au cours de leur carrière), il est donc logique de rendre l'expérience aussi fluide que possible. La maîtrise de ces outils vous permet non seulement de passer moins de temps à comprendre comment plier vos outils à votre volonté, mais elle vous permet également de résoudre des problèmes qui vous semblaient auparavant d'une complexité impossible.
+Les étudiants passent des centaines d'heures à utiliser ces outils au cours de leurs études (et des milliers au cours de leur carrière), il est donc logique de rendre l'expérience aussi fluide que possible. La maîtrise de ces outils vous permet non seulement de passer moins de temps à comprendre comment plier vos outils à votre volonté, mais elle vous permet également de résoudre des problèmes qui vous semblaient auparavant impossibles.
 
 Découvrez [pourquoi nous enseignons ce cours](/about/).
 
@@ -45,7 +45,7 @@ YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57
 # A propos du cours
 
 **Staff**: Ce cours est co-enseigné par [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), et [Jose](http://josejg.com/).<br>
-**Vous avez des questions ?**: Envoyez-nous un mail à [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Vous avez des questions ?** Envoyez-nous un mail à [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Au-delà du MIT
 
@@ -94,7 +94,7 @@ Avez-vous créé une traduction des notes de cours de cette classe ? Soumettez u
 ## Remerciements
 
 Nous remercions Elaine Mello, Jim Cain et [MIT Open
-Learning](https://openlearning.mit.edu/) pour nous avoir permis d'enregistrer des vidéos de cours, Anthony Zolnik et [MIT
+Learning](https://openlearning.mit.edu/) pour nous avoir permis d'enregistrer des vidéos des cours, Anthony Zolnik et [MIT
 AeroAstro](https://aeroastro.mit.edu/) pour l'équipement audiovisuel, et Brandi Adams et [MIT EECS](https://www.eecs.mit.edu/) pour leur soutien à ce cours.
 
 ---
