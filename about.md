@@ -13,12 +13,12 @@ Ces sujets ne sont pas enseignés dans le cadre du programme universitaire : les
 
 Pour remédier à cela, nous organisons un cours qui couvre tous les sujets que nous considérons comme essentiels pour devenir un informaticien et un programmeur efficace. Le cours est pragmatique et pratique, et il fournit une introduction pratique aux outils et techniques que vous pouvez immédiatement appliquer dans une grande variété de situations que vous rencontrerez. Le cours est dispensé pendant la "période d'activités indépendantes" du MIT en janvier 2020 - un semestre d'un mois qui propose des cours plus courts gérés par les étudiants. Bien que les conférences elles-mêmes ne soient accessibles qu'aux étudiants du MIT, nous mettrons à la disposition du public tous les supports de cours ainsi que les enregistrements vidéo des conférences.
 
-Si cela semble vous être pour vous, voici quelques exemples concrets de ce que le cours enseignera :
+Si cela vous semble être pour vous, voici quelques exemples concrets de ce que le cours enseignera :
 
 
 ## Le shell
 
-Comment automatiser les tâches courantes et répétitives avec des alias, des scripts et des systèmes de compilation. Plus besoin de copier-coller des commandes à partir d'un document texte. Plus besoin de "lancer ces 15 commandes l'une après l'autre". Plus de "vous avez oublié d'exécuter cette chose" ou "vous avez oublié de passer cet argument".
+Comment automatiser les tâches courantes et répétitives avec des alias, des scripts et des systèmes de compilation automatique. Plus besoin de copier-coller des commandes à partir d'un document texte. Plus besoin de "lancer ces 15 commandes l'une après l'autre". Plus de "vous avez oublié d'exécuter cette chose" ou "vous avez oublié de passer cet argument".
 
 Par exemple, une recherche rapide dans votre historique peut vous faire gagner énormément de temps. Dans l'exemple ci-dessous, nous montrons plusieurs astuces liées à la navigation dans l'historique de votre shell pour les commandes de conversion `convert`.
 
@@ -28,7 +28,7 @@ Par exemple, une recherche rapide dans votre historique peut vous faire gagner �
 
 ## Contrôle des versions
 
-Comment utiliser _correctement_ le contrôle de version et en tirer parti pour éviter les catastrophes, collaborer avec d'autres personnes et trouver et isoler rapidement les modifications problématiques. Plus de `rm -rf ; git clone`. Plus de conflits de merge (ou du moins, moins de conflits). Plus d'énormes blocs de code commenté. Plus d'inquiétude sur la façon de trouver ce qui a cassé votre code. Plus de "oh non, avons-nous supprimé le code qui fonctionnait ?!". Nous vous apprendrons même à contribuer aux projets d'autres personnes par le biais de demandes de modification (pull requests) !
+Comment utiliser _correctement_ le contrôle de version et en tirer parti pour éviter les catastrophes, collaborer avec d'autres personnes et trouver et isoler rapidement les modifications problématiques. Plus de `rm -rf ; git clone`. Plus de merge conflicts (ou du moins, moins de conflits). Plus d'énormes blocs de code commenté. Plus d'inquiétude sur la façon de trouver ce qui a cassé votre code. Plus de "oh non, avons-nous supprimé le code qui fonctionnait ?!". Nous vous apprendrons même à contribuer aux projets d'autres personnes par le biais de demandes de modification (pull requests) !
 
 Dans l'exemple ci-dessous, nous utilisons `git bisect` pour trouver quel commit a fait échouer un test unitaire, puis nous le corrigeons avec `git revert`.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
@@ -46,7 +46,7 @@ Les macros de Vim sont l'une de ses meilleures fonctionnalités. Dans l'exemple 
 
 ## Machines distantes
 
-Comment rester sain d'esprit lorsque l'on travaille avec des machines distantes en utilisant des clés SSH et le multiplexage de terminaux. Plus besoin de garder plusieurs terminaux ouverts juste pour exécuter deux commandes à la fois. Plus besoin de taper son mot de passe à chaque fois que l'on se connecte. Plus besoin de tout perdre parce que votre connexion Internet s'est déconnecté ou que vous avez dû redémarrer votre ordinateur portable.
+Comment rester sain d'esprit lorsque l'on travaille avec des machines distantes en utilisant des clés SSH et le multiplexage de terminaux. Plus besoin de garder plusieurs terminaux ouverts juste pour exécuter deux commandes à la fois. Plus besoin de taper son mot de passe à chaque fois que l'on se connecte. Plus de perte de données juste parce que votre connexion Internet s'est déconnectée ou que vous avez dû redémarrer votre ordinateur portable.
 
 Dans l'exemple ci-dessous, nous utilisons `tmux` pour maintenir les sessions actives sur les serveurs distants et `mosh` pour prendre en charge l'itinérance et la déconnexion du réseau.
 
@@ -68,7 +68,7 @@ Dans l'exemple ci-dessous, nous recherchons rapidement des fichiers avec `fd` et
 
 ## La manipulation des données
 
-Comment modifier, visualiser, analyser, tracer et calculer rapidement et facilement des données et des fichiers directement depuis la ligne de commande. Fini le copier-coller des fichiers de log. Fini le calcul manuel des statistiques sur les données. Fini les tracés de graphiques dans les feuilles de calcul.
+Comment modifier, visualiser, analyser, tracer et calculer rapidement et facilement des données et des fichiers directement depuis la ligne de commande. Fini le copier-coller des fichiers de log. Fini le calcul manuel des statistiques sur les données. Fini les tracés de graphiques dans des fichiers excel.
 
 ## Machines virtuelles
 

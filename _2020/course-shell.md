@@ -14,7 +14,7 @@ En tant qu'informaticiens, nous savons que les ordinateurs sont parfaits pour fa
 
 Ce cours est une tentative d'y remédier.
 
-Nous voulons vous apprendre à tirer le meilleur parti des outils que vous connaissez, vous montrer de nouveaux outils à ajouter à votre boîte à outils et, nous l'espérons, vous donner envie d'explorer (et peut-être de construire) d'autres outils par vous-même. C'est ce que nous pensons être le semestre manquant dans la plupart des programmes d'enseignement de l'informatique.
+Nous voulons vous apprendre à tirer le meilleur parti des outils que vous connaissez, vous montrer de nouveaux outils à ajouter à votre boîte à outils et, nous l'espérons, vous donner envie d'explorer (et peut-être de construire) d'autres outils par vous-même. C'est ce que nous pensons être le cours manquant dans la plupart des programmes d'enseignement de l'informatique.
 
 # Structure du cours
 
@@ -32,7 +32,7 @@ De nos jours, les ordinateurs disposent d'une grande variété d'interfaces pour
 
 Presque toutes les plateformes sur lesquelles vous pouvez mettre la main ont un shell sous une forme ou une autre, et beaucoup d'entre elles ont plusieurs shells parmi lesquels vous pouvez choisir. Bien qu'ils puissent varier dans les détails, à la base ils sont tous à peu près les mêmes : ils vous permettent d'exécuter des programmes, de leur donner des entrées, et d'inspecter leur sortie d'une manière semi-structurée.
 
-Dans ce cours, nous nous concentrerons sur le Bourne Again SHell, ou "bash" en abrégé. Il s'agit de l'un des shells les plus utilisés, et sa syntaxe est similaire à celle de nombreux autres shells. Pour ouvrir une _invite_ de l'interpréteur de commandes (où vous pouvez saisir des commandes), vous devez d'abord disposer d'un _terminal_. Votre appareil est probablement livré avec un terminal installé, ou vous pouvez en installer un assez facilement.
+Dans ce cours, nous nous concentrerons sur le Bourne Again SHell, ou "bash" en abrégé. Il s'agit de l'un des shells les plus utilisés, et sa syntaxe est similaire à celle de nombreux autres shells. Pour ouvrir une _invite_ de l'interpréteur de commandes (où vous pouvez saisir des commandes), vous devez d'abord disposer d'un _terminal_. Votre appareil possède probablement un terminal pré-installé, ou vous pouvez en installer un assez facilement.
 
 ## Utilisation du shell
 
@@ -59,7 +59,7 @@ hello
 
 Dans ce cas, nous avons demandé à l'interpréteur de commandes d'exécuter le programme `echo` avec l'argument `hello`. Le programme `echo` imprime simplement ses arguments. L'interpréteur de commandes analyse la commande en la séparant par des espaces, puis exécute le programme indiqué par le premier mot, en fournissant chaque mot suivant comme un argument auquel le programme peut accéder. Si vous souhaitez fournir un argument contenant des espaces ou d'autres caractères spéciaux (par exemple, un dossier nommé "Mes photos"), vous pouvez soit mettre l'argument entre guillemets avec `'` ou `"` (`"Mes photos"`), soit éviter uniquement les caractères pertinents avec `\` (`Mes\ photos`).
 
-Mais comment l'interpréteur de commandes sait-il trouver les programmes `date` ou `echo` ? L'interpréteur de commandes est un environnement de programmation, tout comme Python ou Ruby, et il dispose donc de variables, de conditions, de boucles et de fonctions (prochain cours !). Lorsque vous exécutez des commandes dans votre shell, vous écrivez en fait un petit bout de code que votre shell interprète. Si l'interpréteur de commandes est invité à exécuter une commande qui ne correspond pas à l'un de ses mots-clés de programmation, il consulte une _variable d'environnement_ appelée `$PATH`, qui répertorie les répertoires dans lesquels l'interpréteur de commandes doit rechercher des programmes lorsqu'il reçoit une commande :
+Mais comment l'interpréteur de commandes sait-il où trouver les programmes `date` ou `echo` ? L'interpréteur de commandes est un environnement de programmation, tout comme Python ou Ruby, et il dispose donc de variables, de conditions, de boucles et de fonctions (prochain cours !). Lorsque vous exécutez des commandes dans votre shell, vous écrivez en fait un petit bout de code que votre shell interprète. Si l'interpréteur de commandes est invité à exécuter une commande qui ne correspond pas à l'un de ses mots-clés de programmation, il consulte une _variable d'environnement_ appelée `$PATH`, qui répertorie les dossiers dans lesquels l'interpréteur de commandes doit rechercher des programmes lorsqu'il reçoit une commande :
 
 ```console
 missing:~$ echo $PATH
@@ -74,7 +74,7 @@ Lorsque nous lançons la commande `echo`, le shell voit qu'il doit exécuter le 
 
 ## Naviguer dans l'interpréteur de commandes
 
-Un chemin d'accès dans l'interpréteur de commandes est une liste délimitée de répertoires (dossiers), séparés par `/` sous Linux et macOS et par `\` sous Windows. Sous Linux et macOS, le chemin `/` est la "racine" du système de fichiers, sous laquelle se trouvent tous les répertoires et fichiers, alors que sous Windows, il y a une racine pour chaque partition de disque (par exemple, `C:\`). Dans ce cours, nous supposerons que vous utilisez un système de fichiers Linux. Un chemin qui commence par `/` est appelé chemin _absolu_. Tout autre chemin est un chemin _relatif_. Les chemins relatifs sont relatifs au répertoire de travail actuel, que nous pouvons voir avec la commande `pwd` et changer avec la commande `cd`. Dans un chemin d'accès, `.` fait référence au répertoire actuel et `..` à son répertoire parent :
+Un chemin d'accès dans l'interpréteur de commandes est une liste délimitée de répertoires (dossiers), séparés par `/` sous Linux et macOS et par `\` sous Windows. Sous Linux et macOS, le chemin `/` est la "racine" du système de fichiers, sous laquelle se trouvent tous les répertoires et fichiers, alors que sous Windows, il y a une racine pour chaque partition de disque (par exemple, `C:\`). Dans ce cours, nous supposerons que vous utilisez un système de fichiers Linux. Un chemin qui commence par `/` est appelé chemin _absolu_. Tout autre chemin est un chemin _relatif_. Les chemins relatifs sont relatifs au répertoire de travail actuel, que nous pouvons afficher avec la commande `pwd` et changer avec la commande `cd`. Dans un chemin d'accès, `.` fait référence au répertoire actuel et `..` à son répertoire parent :
 
 ```console
 missing:~$ pwd
@@ -116,7 +116,7 @@ home
 ...
 ```
 
-À moins qu'un répertoire ne soit donné comme premier argument, `ls` affiche le contenu du répertoire courant. La plupart des commandes acceptent des drapeaux (flags) et des options (drapeaux avec valeurs) commençant par `-` pour modifier leur comportement. En général, l'exécution d'un programme avec le drapeau `-h` ou `--help` entraîne l'affichage d'un texte d'aide indiquant les options et les drapeaux disponibles. Par exemple, `ls --help` nous indique :
+À moins qu'un répertoire ne soit donné comme premier argument, `ls` affiche le contenu du répertoire courant. La plupart des commandes acceptent des drapeaux (flags) et des options (drapeaux avec valeurs) commençant par `-` pour modifier leur comportement. En général, l'exécution d'un programme avec le flag `-h` ou `--help` entraîne l'affichage d'un texte d'aide indiquant les options et les flags disponibles. Par exemple, `ls --help` nous indique :
 
 ```
   -l                         utilise un format d’affichage long
@@ -171,7 +171,7 @@ Nous reviendrons plus en détail sur la manière de tirer parti des pipes dans l
 
 ## Un outil polyvalent et puissant
 
-Sur la plupart des systèmes de type Unix, un utilisateur est spécial : l'utilisateur "root". Vous l'avez peut-être vu dans résultat du listing de fichiers ci-dessus. L'utilisateur "root" est au-dessus de (presque) toutes les restrictions d'accès et peut créer, lire, mettre à jour et supprimer n'importe quel fichier du système. Cependant, vous ne vous connecterez généralement pas à votre système en tant qu'utilisateur root, car il est trop facile de casser accidentellement quelque chose. Vous utiliserez plutôt la commande `sudo`. Comme son nom l'indique, elle vous permet de "faire" (do) quelque chose "en tant que su" (abréviation de "super utilisateur" (super user) ou "root"). Lorsque vous obtenez des erreurs de refus de permission, c'est généralement parce que vous devez faire quelque chose en tant que super-utilisateur. Cependant, assurez-vous d'abord de vérifier que vous voulez vraiment le faire de cette façon !
+Sur la plupart des systèmes de type Unix, un utilisateur est spécial : l'utilisateur "root". Vous l'avez peut-être vu dans les résultat du listing de fichiers ci-dessus. L'utilisateur "root" est au-dessus de (presque) toutes les restrictions d'accès et peut créer, lire, mettre à jour et supprimer n'importe quel fichier du système. Cependant, vous ne vous connecterez généralement pas à votre système en tant qu'utilisateur root, car il est trop facile de casser accidentellement quelque chose. Vous utiliserez plutôt la commande `sudo`. Comme son nom l'indique, elle vous permet de "faire" (do) quelque chose "en tant que su" (abréviation de "super utilisateur" (super user) ou "root"). Lorsque vous obtenez des erreurs de refus de permission, c'est généralement parce que vous devez faire quelque chose en tant que super-utilisateur. Cependant, assurez-vous d'abord de vérifier que vous voulez vraiment le faire de cette façon !
 
 L'une des choses que vous devez faire en tant que root est d'écrire dans le système de fichiers `sysfs` monté sous `/sys`. `sysfs` expose un certain nombre de paramètres du noyau sous forme de fichiers, de sorte que vous pouvez facilement reconfigurer le noyau à la volée sans outils spécialisés. **Notez que sysfs n'existe pas sous Windows ou macOS.**
 
@@ -233,4 +233,4 @@ Nous n'avons pas rédigé de solutions pour les exercices. Si vous êtes bloqué
 1. Consultez le programme `chmod` (par exemple, utilisez `man chmod`).
 1. Utilisez `chmod` pour rendre possible l'exécution de la commande `./semestre` au lieu de devoir taper `sh semestre`. Comment votre shell sait-il que le fichier est censé être interprété à l'aide de `sh` ? Voir cette page sur la ligne [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) pour plus d'informations.
 1. Utilisez `|` et `>` pour écrire la date de "dernière modification" produite par `semestre` dans un fichier appelé `last-modified.txt` dans votre répertoire "home".
-1. Écrire une commande qui lit le niveau de puissance de la batterie de votre ordinateur portable ou la température du processeur de votre ordinateur à partir de `/sys`. Note : si vous utilisez macOS, votre système d'exploitation ne possède pas `sysfs`, vous pouvez donc passer cet exercice.
+1. Écrivez une commande qui lit le niveau de puissance de la batterie de votre ordinateur portable ou la température du processeur de votre ordinateur à partir de `/sys`. Note : si vous utilisez macOS, votre système d'exploitation ne possède pas `sysfs`, vous pouvez donc passer cet exercice.

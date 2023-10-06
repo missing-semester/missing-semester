@@ -8,7 +8,7 @@ video:
   id: kgII-YWo3Zw
 ---
 
-Dans ce cours, nous présenterons quelques bases de l'utilisation de bash comme le langage script, ainsi qu'un certain nombre d'outils de l'interpréteur de commandes qui couvrent plusieurs des tâches les plus courantes, que vous serez amené à effectuer en ligne de commande.
+Dans ce cours, nous présenterons quelques bases de l'utilisation de bash comme langage script, ainsi qu'un certain nombre d'outils de l'interpréteur de commandes qui couvrent plusieurs des tâches les plus courantes, que vous serez amené à effectuer en ligne de commande.
 
 # Shell Scripting
 
@@ -32,13 +32,13 @@ Les chaînes délimitées par `'` sont des chaînes littérales et ne remplacent
 ```bash
 foo=bar
 echo "$foo"
-# imprime bar
+# affiche bar
 echo '$foo'
-# imprime $foo
+# affiche $foo
 ```
 
-Comme la plupart des langages de programmation, bash supporte les techniques de flux de contrôle comme `if`, `case`, `while` et `for`.
-De la même façon, `bash` a des fonctions qui prennent des arguments et peuvent opérer avec eux. Voici un exemple d'une fonction qui crée un répertoire et `cd`(changer de répertoire) dans celui-ci.
+Comme la plupart des langages de programmation, bash supporte des techniques de flux de contrôle comme `if`, `case`, `while` et `for`.
+De la même façon, `bash` possède des fonctions qui prennent des arguments et peuvent opérer avec eux. Voici un exemple d'une fonction qui crée un répertoire et `cd`(changer de répertoire) dans celui-ci.
 
 ```bash
 mcd () {
@@ -50,10 +50,10 @@ mcd () {
 Ici, `$1` est le premier argument du script/fonction.
 Contrairement à d'autres langages de script, bash utilise une variété de variables spéciales pour faire référence aux arguments, aux codes d'erreur et à d'autres variables pertinentes. Voici une liste de quelques-unes d'entre elles. Une liste plus complète peut être trouvée [ici](https://tldp.org/LDP/abs/html/special-chars.html).
 - `$0` - Nom du script
-- `$1` to `$9` - Arguments du script. `$1` est le premier argument et ainsi de suite.
+- `$1` à `$9` - Arguments du script. `$1` est le premier argument et ainsi de suite.
 - `$@` - Tous les arguments
 - `$#` - Nombre d'arguments
-- `$?` - Code retour de la commande précédente
+- `$?` - Code de retour de la commande précédente
 - `$$` - Numéro d'identification du processus (PID) pour le script actuel
 - `!!` - L'intégralité de la dernière commande, y compris les arguments. Un cas courant est l'exécution d'une commande qui échoue en raison de permissions manquantes ; vous pouvez rapidement réexécuter la commande avec sudo en faisant `sudo !!`
 - `$_` - Dernier argument de la dernière commande. Si vous êtes dans un shell interactif, vous pouvez également obtenir rapidement cette valeur en tapant `Esc` suivi de `.` ou `Alt+.`
@@ -64,7 +64,7 @@ Le code de retour ou le statut de sortie est la façon dont les scripts/commande
 Une valeur de 0 signifie généralement que tout s'est bien passé ; toute valeur différente de 0 signifie qu'une erreur s'est produite.
 
 Les codes de sortie peuvent être utilisés pour exécuter des commandes de manière conditionnelle à l'aide de `&&` (opérateur et) et `||` (opérateur ou), qui sont tous deux des opérateurs de [court-circuitage](https://en.wikipedia.org/wiki/Short-circuit_evaluation). Les commandes peuvent également être séparées sur une même ligne par un point-virgule `;`.
-Le programme `true` aura toujours un code de retour de 0 et la commande `false` aura toujours un code de retour de 1.
+La commande `true` aura toujours un code de retour de 0 et la commande `false` aura toujours un code de retour de 1.
 Voici quelques exemples
 ```bash
 false || echo "Oups, c'est raté"
@@ -91,7 +91,7 @@ Lorsque vous placez `$( CMD )` il exécutera `CMD`, et récupèra la sortie de l
 Par exemple, si vous faites  `for file in $(ls)`,  l'interpréteur de commandes appellera d'abord `ls` et itérera ensuite sur ces valeurs.
 Une fonction similaire moins connue est la  _substitution de commandes_, `<( CMD )` qui exécute `CMD` et place la sortie dans un fichier temporaire et remplace le `<()` par le nom de ce fichier. Ceci est utile lorsque les commandes s'attendent à ce que les valeurs soient transmises par un fichier plutôt que par STDIN. Par exemple, `diff <(ls foo) <(ls bar)` montrera les différences entre les fichiers des répertoires `foo` et `bar`.
 
-Puisque c'est beacoup d'informations d'un coup, voyons un exemple qui illustre certaines de ces fonctionnalités. la fonctionnalité va parcourir les arguments que nous fournissons. On va `grep` pour la chaîne de caractères `foobar`, et l'ajouter au fichier en tant que commentaire si elle n'est pas trouvée.
+Puisque c'est beacoup d'informations d'un coup, voyons un exemple qui illustre certaines de ces fonctionnalités. Le script va parcourir les arguments que nous lui fournissons. Il va `grep` la chaîne de caractères `foobar`, et l'ajouter au fichier en tant que commentaire si elle n'est pas trouvée.
 
 ```bash
 #!/bin/bash
@@ -102,7 +102,7 @@ echo "Execution du programme $0 avec $# arguments et avec le pid $$"
 
 for file in "$@"; do
     grep foobar "$file" > /dev/null 2> /dev/null
-    # Si le motif n'est pas trouvé, grep a le statut de sortie 1.
+    # Si le pattern n'est pas trouvé, grep a le statut de sortie 1.
     # Nous redirigeons STDOUT et STDERR vers un registre nul puisque nous ne nous en soucions pas.
     if [[ $? -ne 0 ]]; then
         echo "Fichier $file n'a pas de foobar, on en ajoute un"
@@ -112,12 +112,12 @@ done
 ```
 
 Dans la comparaison, nous avons testé si `$?` était différent de 0.
-Bash implémente de nombreuses comparaisons de ce type - vous pouvez trouver une liste détaillée de comparaison dans la page de manuel de [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-Lorsque vous effectuez des comparaisons dans bash, essayez d'utiliser des doubles crochets `[[ ]]` au lieu de simples crochets `[ ]`. Les chances de faire des erreurs sont plus faibles, bien qu'elles ne soient pas portables à sh. Une explication plus détaillée peut être trouvée ici. [ici](http://mywiki.wooledge.org/BashFAQ/031).
+Bash implémente de nombreuses comparaisons de ce type - vous pouvez trouver une liste détaillée des comparaisons dans la page de manuel de [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
+Lorsque vous effectuez des comparaisons dans bash, essayez d'utiliser des doubles crochets `[[ ]]` au lieu de simples crochets `[ ]`. Les chances de faire des erreurs sont plus faibles, bien qu'ils ne soient pas compatibles avec `sh`. Une explication plus détaillée peut être trouvée [ici](http://mywiki.wooledge.org/BashFAQ/031).
 
 Lorsque vous lancez des scripts, vous souhaitez souvent fournir des arguments similaires. Bash dispose de moyens pour faciliter cette tâche, en développant les expressions par l'intermédiaire de l'expansion des noms de fichiers. Ces techniques sont souvent appelées shell _globbing_.
 
-- Jokers - Lorsque vous souhaitez effectuer une sorte de recherche avec des jokers, vous pouvez utiliser `?` et `*` pour faire correspondre un ou plusieurs caractères respectivement. Par exemple, avec les fichiers `foo`, `foo1`, `foo2`, `foo10` et `bar`, la commande `rm foo?` supprimera `foo1` et `foo2` alors que `rm foo*` supprimera tout sauf `bar`.
+- Wildcards (jokers) - Lorsque vous souhaitez effectuer une sorte de recherche avec des wildcards, vous pouvez utiliser `?` et `*` pour faire correspondre un ou plusieurs caractères respectivement. Par exemple, avec les fichiers `foo`, `foo1`, `foo2`, `foo10` et `bar`, la commande `rm foo?` supprimera `foo1` et `foo2` alors que `rm foo*` supprimera tout sauf `bar`.
 
 - Accolades `{}` - Lorsque vous avez une sous-chaîne commune dans une série de commandes, vous pouvez utiliser les accolades pour que bash l'étende automatiquement. C'est très pratique pour déplacer ou convertir des fichiers.
 
@@ -136,10 +136,10 @@ mv *{.py,.sh} folder
 
 
 mkdir foo bar
-# Cela crée les fichiers foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
+# Crée les fichiers foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
 touch {foo,bar}/{a..h}
 touch foo/x bar/y
-# Montre les différences entre les fichiers de foo et de bar
+# Montre les différences entre les fichiers foo et bar
 diff <(ls foo) <(ls bar)
 # Sorties
 # < x
@@ -149,7 +149,7 @@ diff <(ls foo) <(ls bar)
 
 <!--Enfin, les tuyaux `|` sont une caractéristique essentielle des scripts. Les pipes connectent la sortie d'un programme à l'entrée du programme suivant. Nous les aborderons plus en détail dans le cours sur le traitement des données. -->
 
-L'écriture de scripts `bash` peut être compliquée et peu compréhensible. Il existe des outils comme [shellcheck](https://github.com/koalaman/shellcheck) qui vous aideront à trouver des erreurs dans vos scripts sh/bash.
+L'écriture de scripts `bash` peut être compliquée et non-intuitive. Il existe des outils comme [shellcheck](https://github.com/koalaman/shellcheck) qui vous aideront à trouver des erreurs dans vos scripts sh/bash.
 
 Notez que les scripts ne doivent pas nécessairement être écrits en bash pour être appelés depuis le terminal. Par exemple, voici un script Python simple qui affiche ses arguments dans l'ordre inverse :
 
@@ -173,25 +173,25 @@ Voici quelques différences entre les fonctions de l'interpréteur de commandes 
 
 ## Savoir utiliser les commandes
 
-À ce stade, vous vous demandez peut-être comment trouver les drapeaux pour les commandes de la section des alias telles que `ls -l`, `mv -i` et `mkdir -p`.
+À ce stade, vous vous demandez peut-être comment trouver les flags pour les commandes de la section des alias telles que `ls -l`, `mv -i` et `mkdir -p`.
 Plus généralement, à partir d'une commande, comment faire pour savoir ce qu'elle fait et quelles sont ses différentes options ?
 Vous pouvez toujours commencer à chercher sur Google, mais comme UNIX est antérieur à StackOverflow, il existe des moyens intégrés pour obtenir ces informations.
 
-Comme nous l'avons vu dans le cours sur l'interpréteur de commandes, l'approche de premier ordre est d'appeler cette commande avec les drapeaux `-h` ou `--help`. Une approche plus détaillée consiste à utiliser la commande `man`.
+Comme nous l'avons vu dans le cours sur l'interpréteur de commandes, l'approche de premier ordre est d'appeler cette commande avec les flags `-h` ou `--help`. Une approche plus détaillée consiste à utiliser la commande `man`.
 Abréviation de manual, [`man`](https://www.man7.org/linux/man-pages/man1/man.1.html) fournit une page de manuel (appelée manpage) pour une commande que vous spécifiez.
-Par exemple, `man rm` affichera le comportement de la commande `rm` ainsi que les drapeaux qu'elle utilise, y compris le drapeau `-i` que nous avons montré plus tôt.
+Par exemple, `man rm` affichera le comportement de la commande `rm` ainsi que les flags qu'elle utilise, y compris le flag `-i` que nous avons montré plus tôt.
 En fait, ce que j'ai lié jusqu'à présent pour chaque commande est la version en ligne des pages de manuel de Linux pour les commandes.
-Même les commandes non natives que vous installez auront des entrées de pages de manuel si le développeur les a écrites et incluses dans le processus d'installation.
+Même les commandes non natives que vous installez auront des entrées de pages de manuel si le développeur les ont écrites et incluses dans le processus d'installation.
 Pour les outils interactifs tels que ceux basés sur ncurses, l'aide pour les commandes est souvent accessible à l'intérieur du programme en utilisant la commande `:help` ou en tapant `?`.
 
-Parfois, les pages de manuel fournissent des descriptions trop détaillées des commandes, ce qui rend difficile le déchiffrage des drapeaux et de la syntaxe à utiliser pour les cas d'utilisation courants.
+Parfois, les pages de manuel fournissent des descriptions trop détaillées des commandes, ce qui rend difficile le déchiffrage des flags et de la syntaxe à utiliser pour les cas d'utilisation courants.
 Les [pages TLDR](https://tldr.sh/) sont une solution complémentaire intéressante qui se concentre sur des exemples d'utilisation d'une commande afin que vous puissiez rapidement comprendre quelles options utiliser.
 Par exemple, je me réfère plus souvent aux pages tldr pour [`tar`](https://tldr.inbrowser.app/pages/common/tar) et [`ffmpeg`](https://tldr.inbrowser.app/pages/common/ffmpeg) qu'aux pages de manuel.
 
 
 ## Trouver des fichiers
 
-L'une des tâches répétitives les plus courantes auxquelles tout programmeur est confronté est la recherche de fichiers ou de répertoires. Tous les systèmes de type UNIX sont munis de [`find`] (https://www.man7.org/linux/man-pages/man1/find.1.html), un excellent outil de l'interpréteur de commandes pour trouver des fichiers. `find` recherche de manière récursive les fichiers correspondant à certains critères. Quelques exemples :
+L'une des tâches répétitives les plus courantes auxquelles tout programmeur est confronté est la recherche de fichiers ou de répertoires. Tous les systèmes de type UNIX sont munis de [`find`](https://www.man7.org/linux/man-pages/man1/find.1.html), un excellent outil de l'interpréteur de commandes pour trouver des fichiers. `find` recherche de manière récursive les fichiers correspondant à certains critères. Quelques exemples :
 
 ```bash
 # Trouver tous les répertoires nommés src
@@ -204,7 +204,7 @@ find . -mtime -1
 find . -size +500k -size -10M -name '*.tar.gz'
 ```
 Outre la liste des fichiers, find peut également effectuer des actions sur les fichiers qui répondent à votre demande.
-Cette propriété peut s'avérer extrêmement utile pour simplifier des tâches qui pourraient être relativement monotones.
+Cette propriété peut s'avérer extrêmement utile pour simplifier des tâches qui pourraient être relativement rébarbatives.
 ```bash
 # Supprimer tous les fichiers portant l'extension .tmpn
 find . -name '*.tmp' -exec rm {} \;
@@ -213,38 +213,38 @@ find . -name '*.png' -exec convert {} {}.jpg \;
 ```
 
 Malgré l'omniprésence de `find`, sa syntaxe peut parfois être difficile à mémoriser.
-Par exemple, pour trouver simplement les fichiers qui correspondent à un motif `PATTERN`, vous devez exécuter `find -name '*PATTERN*'` (ou `-iname` si vous souhaitez que le motif soit insensible à la casse).
+Par exemple, pour trouver simplement les fichiers qui correspondent à un motif `PATTERN`, vous devez exécuter `find -name '*PATTERN*'` (ou `-iname` si vous souhaitez que le pattern soit insensible à la casse).
 Vous pourriez commencer à construire des alias pour ces scénarios, mais une partie de la philosophie du shell est qu'il est bon d'explorer des alternatives.
 Rappelez-vous que l'une des meilleures propriétés de l'interpréteur de commandes est que vous ne faites qu'appeler des programmes, vous pouvez donc trouver (ou même écrire vous-même) des remplacements pour certains d'entre eux.
 Par exemple, [`fd`](https://github.com/sharkdp/fd) est une alternative simple, rapide et facile à utiliser à `find`.
-Il offre des options par défaut intéressantes comme la sortie en couleur, la correspondance par défaut des expressions rationnelles, et le support de l'Unicode. Il a aussi, à mon avis, une syntaxe plus intuitive.
+Il offre des options par défaut intéressantes comme la sortie en couleur, la correspondance par défaut des expressions rationnelles, et le support de l'Unicode. Il a aussi, selon moi, une syntaxe plus intuitive.
 Par exemple, la syntaxe pour trouver un motif `PATTERN` est `fd PATTERN`.
 
 La plupart des gens sont d'accord pour dire que `find` et `fd` sont bons, mais certains d'entre vous peuvent se demander s'il est plus efficace de chercher des fichiers à chaque fois que de compiler une sorte d'index ou de base de données pour une recherche rapide.
 C'est à cela que sert [`locate`](https://www.man7.org/linux/man-pages/man1/locate.1.html).
 `locate` utilise une base de données qui est mise à jour en utilisant [`updatedb`](https://www.man7.org/linux/man-pages/man1/updatedb.1.html).
 Dans la plupart des systèmes, `updatedb` est mis à jour quotidiennement via [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html).
-Par conséquent, l'un des compromis entre les deux est la rapidité contre la nouveauté.
-De plus, `find` et les outils similaires peuvent également trouver des fichiers en utilisant des attributs tels que la taille du fichier, le temps de modification, ou les permissions du fichier, alors que `locate` n'utilise que le nom du fichier.
+Par conséquent, l'un des compromis entre les deux est la rapidité contre la fraicheur des données.
+De plus, `find` et les outils similaires peuvent également trouver des fichiers en utilisant des attributs tels que la taille du fichier, la date de modification, ou les permissions du fichier, alors que `locate` n'utilise que le nom du fichier.
 Une comparaison plus approfondie peut être trouvée [ici](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
 ## Recherche de code
 
 La recherche de fichiers par leur nom est utile, mais il arrive souvent que vous souhaitiez effectuer une recherche basée sur le *contenu* du fichier. 
-Un scénario courant consiste à rechercher tous les fichiers qui contiennent un certain motif, ainsi que l'emplacement de ce motif dans ces fichiers.
-Pour ce faire, la plupart des systèmes de type UNIX fournissent [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), un outil générique pour faire correspondre des motifs à partir d'un texte d'entrée.
+Un scénario courant consiste à rechercher tous les fichiers qui contiennent un certain pattern, ainsi que l'emplacement de ce pattern dans ces fichiers.
+Pour ce faire, la plupart des systèmes de type UNIX fournissent [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), un outil générique pour faire correspondre des patterns à partir d'un texte d'entrée.
 `grep` est un outil shell incroyablement précieux que nous aborderons plus en détail lors de la leçon sur le traitement des données.
 
-Pour l'instant, sachez que `grep` possède de nombreux drapeaux qui en font un outil très polyvalent.
-Certains que j'utilise fréquemment sont `-C` pour obtenir le **C**ontexte autour de la ligne correspondante et `-v` pour in**v**ert la correspondance, c'est-à-dire afficher toutes les lignes qui ne **corresponde pas** au motif. Par exemple, `grep -C 5` affichera 5 lignes avant et après la correspondance.
-Quand il s'agit de rechercher rapidement dans de nombreux fichiers, vous voulez utiliser `-R` puisqu'il va **R**ecursivement dans les répertoires et chercher les fichiers pour la chaîne de caractères correspondante.
+Pour l'instant, sachez que `grep` possède de nombreux flags qui en font un outil très polyvalent.
+Certains que j'utilise fréquemment sont `-C` pour obtenir le **C**ontexte autour de la ligne correspondante et `-v` pour in**v**erser la correspondance, c'est-à-dire afficher toutes les lignes qui ne **corresponde pas** au pattern. Par exemple, `grep -C 5` affichera 5 lignes avant et après la correspondance.
+Quand il s'agit de rechercher rapidement dans de nombreux fichiers, vous voudrez utiliser `-R` puisqu'il va **R**ecursivement dans les répertoires et chercher les fichiers pour la chaîne de caractères correspondante.
 
 Mais `grep -R` peut être amélioré de nombreuses façons, comme ignorer les dossiers `.git`, utiliser le support multi CPU, etc.
 De nombreuses alternatives à `grep` ont été développées, dont [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) et [rg](https://github.com/BurntSushi/ripgrep).
 Toutes sont fantastiques et fournissent à peu près les mêmes fonctionnalités.
 Pour l'instant, je m'en tiens à ripgrep (`rg`), en raison de sa rapidité et de son intuitivité. Quelques exemples :
 ```bash
-# Trouver tous les fichiers python où j'ai utilisé la bibliothèque requests
+# Trouver tous les fichiers python où j'ai utilisé la librairie requests
 rg -t py 'import requests'
 # Trouver tous les fichiers (y compris les fichiers cachés) sans ligne shebang
 rg -u --files-without-match "^#\!"
@@ -262,20 +262,20 @@ La première chose à savoir est qu'en tapant la flèche vers le haut, vous retr
 
 La commande `history` vous permet d'accéder à l'historique de votre shell de manière programmatique.
 Elle affichera l'historique de votre shell sur la sortie standard.
-Si nous voulons y faire des recherches, nous pouvons diriger cette sortie vers `grep` et rechercher des motifs.
-`history | grep find` qui affichera les commandes qui contiennent la sous-chaîne "find".
+Si nous voulons y faire des recherches, nous pouvons diriger cette sortie vers `grep` et rechercher des patterns.
+`history | grep find` affichera les commandes qui contiennent la sous-chaîne "find".
 
-Dans la plupart des shells, vous pouvez utiliser `Ctrl+R` pour effectuer une recherche à rebours dans votre historique.
+Dans la plupart des shells, vous pouvez utiliser `Ctrl+R` pour effectuer une recherche dans votre historique.
 Après avoir appuyé sur `Ctrl+R`, vous pouvez taper une chaîne de caractères que vous voulez faire correspondre aux commandes de votre historique.
 En continuant d'appuyer sur cette touche, vous ferez défiler les correspondances dans votre historique.
 Ceci peut également être activé avec les flèches UP/DOWN dans [zsh](https://github.com/zsh-users/zsh-history-substring-search).
 Un ajout intéressant à `Ctrl+R` est l'utilisation des liens [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r).
-`fzf` est un outil de recherche flou à usage général qui peut être utilisé avec de nombreuses commandes.
-Ici, il est utilisé pour faire des recherches floues dans votre historique et présenter les résultats d'une manière pratique et agréable à l'œil.
+`fzf` est un outil de recherche à usage général qui peut être utilisé avec de nombreuses commandes.
+Ici, il est utilisé pour faire des recherches dans votre historique et présenter les résultats d'une manière pratique et agréable à l'œil.
 
 Les **autosuggestions basées sur l'historique** sont une autre astuce liée à l'histoire que j'apprécie particulièrement.
 Introduite pour la première fois par [fish](https://fishshell.com/) shell, cette fonctionnalité autocomplète dynamiquement la commande courante de l'interpréteur de commandes avec la commande la plus récente que vous avez tapée et qui partage un préfixe commun avec elle.
-Elle peut être activée dans [zsh](https://github.com/zsh-users/zsh-autosuggestions) et constitue un excellent moyen d'améliorer la qualité de vie de votre interpréteur de commandes.
+Elle peut être activée dans [zsh](https://github.com/zsh-users/zsh-autosuggestions) et constitue un excellent moyen d'améliorer l'expérience utilisateur de votre interpréteur de commandes.
 
 Vous pouvez modifier le comportement de l'historique de votre interpréteur de commandes, en empêchant par exemple les commandes comportant un espace en début de ligne d'être incluses. C'est très pratique lorsque vous tapez des commandes contenant des mots de passe ou d'autres informations sensibles.
 Pour ce faire, ajoutez `HISTCONTROL=ignorespace` à votre `.bashrc` ou `setopt HIST_IGNORE_SPACE` à votre `.zshrc`.
@@ -298,7 +298,7 @@ Des outils plus complexes existent pour obtenir rapidement une vue d'ensemble de
 1. Lisez [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) et écrivez une commande `ls` qui liste les fichiers de la manière suivante
 
     - Inclut tous les fichiers, y compris les fichiers cachés
-    - Les tailles sont indiquées dans un format lisible par l'homme (par exemple, 454M au lieu de 454279954).
+    - Les tailles sont indiquées dans un format facilement lisible (par exemple, 454M au lieu de 454279954).
     - Les fichiers sont classés par ordre de récence
     - La sortie est colorisée
 
@@ -358,18 +358,18 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-1. Comme nous l'avons vu dans le cours `find`'s `-exec` peut être très puissant pour effectuer des opérations sur les fichiers que nous recherchons.
+1. Comme nous l'avons vu dans le cours l'option `-exec` de `find`  peut être très puissant pour effectuer des opérations sur les fichiers que nous recherchons.
 Cependant, que faire si nous voulons faire quelque chose avec **tous** les fichiers, comme créer un fichier zip ?
 Comme vous l'avez vu jusqu'à présent, les commandes prennent en entrée les arguments et STDIN.
-Lorsque nous 'piping' `|` des commandes, nous connectons STDOUT à STDIN, mais certaines commandes comme `tar` prennent des entrées à partir des arguments.
+Lorsque nous 'chaînons' (`|`) des commandes, nous connectons STDOUT à STDIN, mais certaines commandes comme `tar` prennent des entrées à partir des arguments.
 Pour combler cette lacune, il existe la commande [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) qui exécute une commande en utilisant STDIN comme argument.
 Par exemple, `ls | xargs rm` effacera les fichiers du répertoire courant.
 
-    Votre tâche est d'écrire une commande qui trouve récursivement tous les fichiers HTML dans le dossier et en fait un fichier zip. Notez que votre commande devrait fonctionner même si les fichiers ont des espaces (indice : vérifiez le drapeau `-d` pour `xargs`).
+    Votre tâche est d'écrire une commande qui trouve récursivement tous les fichiers HTML dans le dossier et en fait un fichier zip. Notez que votre commande devrait fonctionner même si les fichiers ont des espaces (indice : regardez le flag `-d` pour `xargs`).
     {% comment %}
     find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
     {% endcomment %}
 
-    Si vous êtes sous macOS, notez que le `find` de BSD par défaut est différent de celui inclus dans [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). Vous pouvez utiliser `-print0` sur `find` et le drapeau `-0` sur `xargs`. En tant qu'utilisateur de macOS, vous devez être conscient que les utilitaires de ligne de commande livrés avec macOS peuvent être différents de leurs équivalents GNU ; vous pouvez installer les versions GNU si vous le souhaitez en utilisant [brew](https://formulae.brew.sh/formula/coreutils).
+    Si vous êtes sous macOS, notez que le `find` de BSD par défaut est différent de celui inclus dans [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). Vous pouvez utiliser `-print0` sur `find` et le flag `-0` sur `xargs`. En tant qu'utilisateur de macOS, vous devez être conscient que les utilitaires de ligne de commande livrés avec macOS peuvent être différents de leurs équivalents GNU ; vous pouvez installer les versions GNU si vous le souhaitez en utilisant [brew](https://formulae.brew.sh/formula/coreutils).
 
-1 (Avancé) Écrire une commande ou un script pour trouver de manière récursive le fichier le plus récemment modifié dans un répertoire. Plus généralement, pouvez-vous lister tous les fichiers par récence ?
+1. (Avancé) Écrire une commande ou un script pour trouver de manière récursive le fichier le plus récemment modifié dans un répertoire. Plus généralement, pouvez-vous lister tous les fichiers par récence ?

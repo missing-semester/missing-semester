@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Metaprogramming"
-details: build systems, dependency management, testing, CI
+details: build systems, gestion des dépendences, testing, CI
 date: 2020-01-27
 ready: true
 video:
