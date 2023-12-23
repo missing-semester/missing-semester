@@ -32,5 +32,6 @@ jobs:
             ^http://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
             ^https:\/\/linux\.die\.net\/man\/
+            ^https:\/\/www\.reddit\.com\/
           swap_urls: |
             {"^(https://github\\.com/.*)#.*$": "\\1"}
