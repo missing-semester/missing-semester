@@ -3,6 +3,7 @@ layout: lecture
 title: "Q&A"
 date: 2020-01-30
 ready: true
+previous_lesson: "/2020/potpourri"
 video:
   aspect: 56.25
   id: Wz50FvGG6xU

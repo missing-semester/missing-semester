@@ -3,6 +3,7 @@ layout: lecture
 title: "Course overview + the shell"
 date: 2020-01-13
 ready: true
+next_lesson: "/2020/shell-tools"
 video:
   aspect: 56.25
   id: Z56Jmr9Z34Q

@@ -3,6 +3,8 @@ layout: lecture
 title: "Data Wrangling"
 date: 2020-01-16
 ready: true
+previous_lesson: "/2020/editors"
+next_lesson: "/2020/command-line"
 video:
   aspect: 56.25
   id: sz_dsktIjt4

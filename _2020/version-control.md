@@ -3,6 +3,8 @@ layout: lecture
 title: "Version Control (Git)"
 date: 2020-01-22
 ready: true
+previous_lesson: "/2020/command-line"
+next_lesson: "/2020/debugging-profiling"
 video:
   aspect: 56.25
   id: 2sjqTHE0zok
