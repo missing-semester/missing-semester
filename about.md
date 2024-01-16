@@ -23,7 +23,7 @@ efficiently, and thus waste time and effort on tasks that _should_ be simple.
 The standard CS curriculum is missing critical topics about the computing
 ecosystem that could make students' lives significantly easier.
 
-# The missing semester of your CS education
+# The missing semester of your Computer Science education
 
 To help remedy this, we are running a class that covers all the topics we
 consider crucial to be an effective computer scientist and programmer. The

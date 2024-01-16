@@ -5,7 +5,7 @@ permalink: /license/
 ---
 
 # License
-
+# This is the license File.
 All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 This means that you are free to:

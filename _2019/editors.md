@@ -8,6 +8,9 @@ video:
 ---
 
 # Importance of Editors
+Vim is a very powerful editor. The  basic idea of vim is to instead of looking things and wasting time to go to the mouse, its basic idea is to do programming more and more.
+
+If you are new to vim you may find some difficulty in searching commands but we suppose once you spend 20 hours using it you get comfortable to it. 
 
 As programmers, we spend most of our time editing plain-text files. It's worth
 investing time learning an editor that fits your needs.
