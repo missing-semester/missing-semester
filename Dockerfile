@@ -1,7 +1,7 @@
 FROM ruby:2.7-alpine3.16
 # GitHub is using Ruby 2.7 in production
 # https://github.com/github/pages-gem/issues/752#issuecomment-764758292
-
+# just want to learn pull request
 RUN apk add --no-cache ruby-dev alpine-sdk
 
 RUN mkdir /app
