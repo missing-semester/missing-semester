@@ -547,6 +547,18 @@ class website](https://github.com/missing-semester/missing-semester).
    a repository, making some commits and then deleting that file from history
    (you may want to look at
    [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
+  
+   // In this Task to delete a file using git-filter-repo you have to install git_filter-repo. A brew command 
+   
+   brew install git-filter-repo
+   
+   Doesn't work so you have 2 ways to do it.
+   
+   1. Use the pip command to install it.
+   2. get the python script of git-filter repo from github and run it.
+   3. Manually install the git-filter-repo.
+ 
+   //
 1. Clone some repository from GitHub, and modify one of its existing files.
    What happens when you do `git stash`? What do you see when running `git log
    --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
