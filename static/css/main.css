@@ -377,6 +377,7 @@ input[type=checkbox]:checked ~ .menu-label:after {
   a[href^="https://"]::after, a[href^="http://"]::after {
     content: "("attr(href)")"; font-family: monospace; margin: 0 .25em;
   }
+}
 
 .bottom_nav {
   display: flex;
