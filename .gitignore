@@ -2,3 +2,4 @@
 _site/
 __pycache__/
 .jekyll-metadata
+.py
