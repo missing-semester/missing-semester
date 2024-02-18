@@ -27,7 +27,7 @@ ecosystem that could make students' lives significantly easier.
 
 To help remedy this, we are running a class that covers all the topics we
 consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
+class is pragmatic and practical, providing hands-on introduction to
 tools and techniques that you can immediately apply in a wide variety of
 situations you will encounter. The class is being run during MIT's "Independent
 Activities Period" in January 2020 — a one-month semester that features shorter
@@ -36,7 +36,7 @@ students, we will provide all lecture materials along with video recordings of
 lectures to the public.
 
 If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+examples of what the class covers:
 
 ## Command shell
 
@@ -46,7 +46,7 @@ document. No more "run these 15 commands one after the other". No
 more "you forgot to run this thing" or "you forgot to pass this
 argument".
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+For example, searching through your command history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
@@ -59,9 +59,9 @@ save you from disaster, collaborate with others, and quickly find and
 isolate problematic changes. No more `rm -rf; git clone`. No more
 merge conflicts (well, fewer of them at least). No more huge blocks
 of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+your code. No more "oh no, did we delete the working code?!". Additionally, 
+we'll guide you on contributing to other projects using pull requests!
+
 
 In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">

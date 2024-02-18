@@ -28,8 +28,8 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 # Schedule
 
 {% comment %}
-**Lecture**: 35-225, 2pm--3pm<br>
-**Office hours**: 32-G9 lounge, 3pm--4pm (every day, right after lecture)
+**Lecture**: 35-225, 2pm-3pm<br>
+**Office hours**: 32-G9 lounge, 3pm-4pm (every day, right after lecture)
 {% endcomment %}
 
 <ul>
@@ -98,7 +98,7 @@ Some more URLs:
 - [Persian](https://missing-semester-fa.github.io/)
 - [German](https://missing-semester-de.github.io/)
 
-Note: these are external links to community translations. We have not vetted
+Note: These are external links to community translations. We have not vetted
 them.
 
 Have you created a translation of the course notes from this class? Submit a
