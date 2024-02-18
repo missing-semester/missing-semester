@@ -29,3 +29,15 @@ website. Jekyll will re-build the website as you make changes to files.
 ## License
 
 All the contents in this course, including the website source code, lecture notes, exercises, and lecture videos are licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
+
+## Contributing Guidelines
+
+We appreciate any contributions to improve this course. If you'd like to contribute, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your contribution: `git checkout -b feature/your-feature`.
+3. Make your changes and commit them: `git commit -m "Add your contribution details"`.
+4. Push your changes to your fork: `git push origin feature/your-feature`.
+5. Open a pull request on GitHub.
+
+We look forward to your contributions!
