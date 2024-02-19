@@ -17,6 +17,10 @@ tools such as version control and text editors. In the best case, this results
 in inefficiencies and wasted time; in the worst case, it results in issues like
 data loss or inability to complete certain tasks.
 
+
+This is my contribution to this file.
+
+
 These topics are not taught as part of the university curriculum: students are
 never shown how to use these tools, or at least not how to use them
 efficiently, and thus waste time and effort on tasks that _should_ be simple.
