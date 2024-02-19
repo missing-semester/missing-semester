@@ -97,7 +97,7 @@ Some more URLs:
 - [Italian](https://missing-semester-it.github.io/)
 - [Persian](https://missing-semester-fa.github.io/)
 - [German](https://missing-semester-de.github.io/)
-
+- [Urdu](https://missing-semester-de.github.io/)
 Note: these are external links to community translations. We have not vetted
 them.
 
