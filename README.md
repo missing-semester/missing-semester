@@ -15,10 +15,6 @@ To build and view the site locally, run:
 bundle exec jekyll serve -w
 ```
 
-If you'd prefer to develop the site in a Docker container (e.g., to avoid
-having to install Ruby and dependencies on your host machine), run:
-
-
 ```bash
 docker-compose up --build
 ```
