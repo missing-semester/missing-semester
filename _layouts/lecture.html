@@ -14,7 +14,15 @@ layout: default
 
 {{ content }}
 
-<hr>
+<hr />
+
+<div class="small bottom_nav">
+  {% if page.previous_lesson %}
+  <a href="{{page.previous_lesson}}" class="previous_lesson">Previous</a>
+  {% endif %} {% if page.next_lesson %}
+  <a href="{{page.next_lesson}}" class="next_lesson">Next</a>
+{% endif %}
+</div>
 
 <div class="small center">
 <p><a href="https://github.com/missing-semester/missing-semester/blob/master/{{ page.path }}">Edit this page</a>.</p>

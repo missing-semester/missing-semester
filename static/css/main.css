@@ -378,3 +378,20 @@ input[type=checkbox]:checked ~ .menu-label:after {
     content: "("attr(href)")"; font-family: monospace; margin: 0 .25em;
   }
 }
+
+.bottom_nav {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.previous_lesson::before {
+  content: "< ";
+}
+
+.next_lesson {
+  margin-left: auto;
+}
+
+.next_lesson::after {
+  content: " >";
+}
