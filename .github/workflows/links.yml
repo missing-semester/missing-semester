@@ -34,6 +34,7 @@ jobs:
             ^https:\/\/linux\.die\.net\/man\/
             ^https:\/\/www\.reddit\.com\/
             ^https:\/\/stackoverflow\.com\/
+            ^https:\/\/.*\.stackoverflow\.com\/
             ^https:\/\/.*\.stackexchange\.com\/
           swap_urls: |
             {"^(https://github\\.com/.*)#.*$": "\\1"}
