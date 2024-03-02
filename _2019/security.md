@@ -56,7 +56,7 @@ a password manager. Some good ones are:
  - [1password](https://1password.com/)
  - [KeePass](https://keepass.info/)
  - [BitWarden](https://bitwarden.com/)
- - [`pass`](https://www.passwordstore.org/)
+ - [`pass`](https://git.zx2c4.com/password-store/about/)
 
 If you're particularly paranoid, use one that encrypts the passwords
 locally on your computer, as opposed to storing them in plain-text at

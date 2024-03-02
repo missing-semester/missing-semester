@@ -233,7 +233,7 @@ model.
 ## Password managers
 
 This is an essential tool that everyone should try to use (e.g.
-[KeePassXC](https://keepassxc.org/), [pass](https://www.passwordstore.org/),
+[KeePassXC](https://keepassxc.org/), [pass](https://git.zx2c4.com/password-store/about/),
 and [1Password](https://1password.com)). Password managers make it convenient to use unique,
 randomly generated high-entropy passwords for all your logins, and they save
 all your passwords in one place, encrypted with a symmetric cipher with a key
