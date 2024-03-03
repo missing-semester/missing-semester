@@ -213,6 +213,11 @@ alias ll
 Note that aliases do not persist shell sessions by default.
 To make an alias persistent you need to include it in shell startup files, like `.bashrc` or `.zshrc`, which we are going to introduce in the next section.
 
+## Difference between Alias and symlink
+At first glance, both alias and symbolic link look the same but there are a few key difference which we will point out here-
+- Across shell usage- Symbolic link will work in any shell whereas alias are shell specific that is, they won't work if you change your shell.
+- Temporary assigning- Alias are a temporary assignment and you need to change the .configuration file if you want it to work always, else when you close your terminal the alias is destroyed, while symbolic link are permanent and system file dependent.
+- File system dependency- Symbolic link is a file which forwards the command to the associated file, so when you move/copy/delete the associated file or change any of the content, the link will get destroyed and symlink won't work anymore. This doesn't happen with alias.
 
 # Dotfiles
 
