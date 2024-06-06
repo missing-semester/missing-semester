@@ -11,3 +11,6 @@ WORKDIR /app
 RUN bundle install
 
 CMD bundle exec jekyll serve -w --host 0.0.0.0
+
+
+#Adding comment in Dockerfile to know about Pull requests
