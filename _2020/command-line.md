@@ -378,6 +378,29 @@ comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the 
 
 The most common scenario is local port forwarding, where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example, if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus, to forward that to the local port `9999`, we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `localhost:9999` in our local machine.
 
+## Proxying through SSH to another SSH server
+
+Many environments have a "login" or "bastion" server that is open to the internet, with the rest of the servers "behind" it and inaccessible. What if you need to copy data (or otherwise use SSH commands) to/from those servers?
+
+OpenSSH provides a `ProxyCommand` configuration statement to do so. The command is executed when connecting to the server. Recent OpenSSH versions have the convenience configuration `ProxyJump` configuration statement or the equivalent `-J` on the command line.
+
+Example:
+
+```
+ssh -o 'ProxyCommand ssh PROXY_SSH_SERVER -W %h:%p' DESIRED_REMOTE_SERVER
+```
+
+Or, the equivalent:
+
+```
+ssh -o 'ProxyJump ssh PROXY_SSH_SERVER' DESIRED_REMOTE_SERVER
+```
+
+```
+ssh -J PROXY_SSH_SERVER DESIRED_REMOTE_SERVER
+```
+
+Adding one of those configurations to your `$HOME/.ssh/config` (below) lets commands like `scp`, `sftp`, and `rsync` to work through the proxy.
 
 ## SSH Configuration
 
