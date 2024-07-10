@@ -7,6 +7,8 @@ Website for the [The Missing Semester of Your CS Education](https://missing.csai
 Contributions are most welcome! If you have edits or new content to add, please
 open an issue or submit a pull request.
 
+If you are unaware as to how you may do that, please visit the [First Contributions](https://github.com/firstcontributions/first-contributions) repository to learn more.
+
 ## Development
 
 To build and view the site locally, run:
