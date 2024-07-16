@@ -172,7 +172,7 @@ dependencies will be available through a _repository_ that hosts a
 large number of such dependencies in a single place, and provides a
 convenient mechanism for installing them. Some examples include the
 Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPi for Python
+through the `apt` tool, RubyGems for Ruby libraries, PyPI for Python
 libraries, or the Arch User Repository for Arch Linux user-contributed
 packages.
 
