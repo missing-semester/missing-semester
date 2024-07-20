@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    # Check for updates weekly
+    schedule:
+      interval: "weekly"
+    # Combine updates into groups
+    groups:
+      actions:
+        patterns:
+          - "*"
