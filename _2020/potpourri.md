@@ -302,7 +302,7 @@ Some examples of things you can do with Hammerspoon:
 
 - Bind hotkeys to move windows to specific locations
 - Create a menu bar button that automatically lays out windows in a specific layout
-- Mute your speaker when you arrive in lab (by detecting the WiFi network)
+- Mute your speaker when you arrive in lab (by detecting the Wi-Fi network)
 - Show you a warning if you've accidentally taken your friend's power supply
 
 At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu
