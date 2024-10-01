@@ -19,7 +19,7 @@ a command as `root` (but be careful!) using `sudo`.
 ## What happened?
 
 If something goes wrong, the first place to start is to look at what
-happened around the time when things went wrong. For this, we need to
+happened around that time. For this, we need to
 look at logs.
 
 Traditionally, logs were all stored in `/var/log`, and many still are.
@@ -80,7 +80,7 @@ port numbers.
 
 ## System configuration
 
-There are _many_ ways to configure your system, but we'll got through
+There are _many_ ways to configure your system, but we'll go through
 two very common ones: networking and services. Most applications on your
 system tell you how to configure them in their manpage, and usually it
 will involve editing files in `/etc`; the system configuration
