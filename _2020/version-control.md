@@ -568,4 +568,4 @@ class website](https://github.com/missing-semester/missing-semester).
    or some other improvement you can make, and submit a pull request on GitHub
    (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
    Please only submit PRs that are useful (don't spam us, please!). If you
-   can't find an improvement to make, you can skip this exercise.
+   can't find an improvement to make, you can skip this exercise. Virgil was here.
