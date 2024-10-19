@@ -80,7 +80,7 @@ port numbers.
 
 ## System configuration
 
-There are _many_ ways to configure your system, but we'll got through
+There are _many_ ways to configure your system, but we'll go through
 two very common ones: networking and services. Most applications on your
 system tell you how to configure them in their manpage, and usually it
 will involve editing files in `/etc`; the system configuration
