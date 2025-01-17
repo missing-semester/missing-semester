@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+First, my <3 for creating this website/lessons! I've been recommending it for years, especially for scientific computing users who often didn't even have a CS education but are now developing software and running in Unix environments.
