@@ -81,7 +81,7 @@ ssh myserver journalctl
 
 What we just wrote was a simple _regular expression_; a powerful
 construct that lets you match text against patterns. The `s` command is
-written on the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
+written in the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
 regular expression you want to search for, and `SUBSTITUTION` is the
 text you want to substitute matching text with.
 
@@ -165,7 +165,7 @@ characters where the username is. Then we're matching on any single word
 "port" followed by a sequence of digits. Then possibly the suffix
 `[preauth]`, and then the end of the line.
 
-Notice that with this technique, as username of "Disconnected from"
+Notice that with this technique, a username of "Disconnected from"
 won't confuse us any more. Can you see why?
 
 There is one problem with this though, and that is that the entire log
