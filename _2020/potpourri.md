@@ -4,26 +4,26 @@ title: "Potpourri"
 date: 2020-01-29
 ready: true
 video:
-  aspect: 56.25
-  id: JZDt-PRq0uo
+    aspect: 56.25
+    id: JZDt-PRq0uo
 ---
 
 ## Table of Contents
 
-- [Keyboard remapping](#keyboard-remapping)
-- [Daemons](#daemons)
-- [FUSE](#fuse)
-- [Backups](#backups)
-- [APIs](#apis)
-- [Common command-line flags/patterns](#common-command-line-flagspatterns)
-- [Window managers](#window-managers)
-- [VPNs](#vpns)
-- [Markdown](#markdown)
-- [Hammerspoon (desktop automation on macOS)](#hammerspoon-desktop-automation-on-macos)
-- [Booting + Live USBs](#booting--live-usbs)
-- [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
-- [Notebook programming](#notebook-programming)
-- [GitHub](#github)
+-   [Keyboard remapping](#keyboard-remapping)
+-   [Daemons](#daemons)
+-   [FUSE](#fuse)
+-   [Backups](#backups)
+-   [APIs](#apis)
+-   [Common command-line flags/patterns](#common-command-line-flagspatterns)
+-   [Window managers](#window-managers)
+-   [VPNs](#vpns)
+-   [Markdown](#markdown)
+-   [Hammerspoon (desktop automation on macOS)](#hammerspoon-desktop-automation-on-macos)
+-   [Booting + Live USBs](#booting--live-usbs)
+-   [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
+-   [Notebook programming](#notebook-programming)
+-   [GitHub](#github)
 
 ## Keyboard remapping
 
@@ -31,25 +31,29 @@ As a programmer, your keyboard is your main input method. As with pretty much an
 
 The most basic change is to remap keys.
 This usually involves some software that is listening and, whenever a certain key is pressed, it intercepts that event and replaces it with another event corresponding to a different key. Some examples:
-- Remap Caps Lock to Ctrl or Escape. We (the instructors) highly encourage this setting since Caps Lock has a very convenient location but is rarely used.
-- Remapping PrtSc to Play/Pause music. Most OSes have a play/pause key.
-- Swapping Ctrl and the Meta (Windows or Command) key.
+
+-   Remap Caps Lock to Ctrl or Escape. We (the instructors) highly encourage this setting since Caps Lock has a very convenient location but is rarely used.
+-   Remapping PrtSc to Play/Pause music. Most OSes have a play/pause key.
+-   Swapping Ctrl and the Meta (Windows or Command) key.
 
 You can also map keys to arbitrary commands of your choosing. This is useful for common tasks that you perform. Here, some software listens for a specific key combination and executes some script whenever that event is detected.
-- Open a new terminal or browser window.
-- Inserting some specific text, e.g. your long email address or your MIT ID number.
-- Sleeping the computer or the displays.
+
+-   Open a new terminal or browser window.
+-   Inserting some specific text, e.g. your long email address or your MIT ID number.
+-   Sleeping the computer or the displays.
 
 There are even more complex modifications you can configure:
-- Remapping sequences of keys, e.g. pressing shift five times toggles Caps Lock.
-- Remapping on tap vs on hold, e.g. Caps Lock key is remapped to Esc if you quickly tap it, but is remapped to Ctrl if you hold it and use it as a modifier.
-- Having remaps being keyboard or software specific.
+
+-   Remapping sequences of keys, e.g. pressing shift five times toggles Caps Lock.
+-   Remapping on tap vs on hold, e.g. Caps Lock key is remapped to Esc if you quickly tap it, but is remapped to Ctrl if you hold it and use it as a modifier.
+-   Having remaps being keyboard or software specific.
 
 Some software resources to get started on the topic:
-- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
-- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
-- Windows - Builtin in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
-- QMK - If your keyboard supports custom firmware you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps works for any machine you use the keyboard with.
+
+-   macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
+-   Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
+-   Windows - Built-in in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
+-   QMK - If your keyboard supports custom firmware, you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps work for any machine you use the keyboard with.
 
 ## Daemons
 
@@ -64,7 +68,7 @@ Systemd can be interacted with the `systemctl` command in order to `enable`, `di
 
 More interestingly, `systemd` has a fairly accessible interface for configuring and enabling new daemons (or services).
 Below is an example of a daemon for running a simple Python app.
-We won't go in the details but as you can see most of the fields are pretty self explanatory.
+We won't go in the details but as you can see most of the fields are pretty self-explanatory.
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -100,11 +104,12 @@ This way, local programs can see the file as if it was in your computer while in
 This is effectively what `sshfs` does.
 
 Some interesting examples of FUSE filesystems are:
-- [sshfs](https://github.com/libfuse/sshfs) - Open locally remote files/folder through an SSH connection.
-- [rclone](https://rclone.org/commands/rclone_mount/) - Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally.
-- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Encrypted overlay system. Files are stored encrypted but once the FS is mounted they appear as plaintext in the mountpoint.
-- [kbfs](https://keybase.io/docs/kbfs) - Distributed filesystem with end-to-end encryption. You can have private, shared and public folders.
-- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount your deduplicated, compressed and encrypted backups for ease of browsing.
+
+-   [sshfs](https://github.com/libfuse/sshfs) - Open remote files/folder locally through an SSH connection.
+-   [rclone](https://rclone.org/commands/rclone_mount/) - Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally.
+-   [gocryptfs](https://nuetzlich.net/gocryptfs/) - Encrypted overlay system. Files are stored encrypted but once the FS is mounted they appear as plaintext in the mountpoint.
+-   [kbfs](https://keybase.io/docs/kbfs) - Distributed filesystem with end-to-end encryption. You can have private, shared and public folders.
+-   [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount your deduplicated, compressed and encrypted backups for ease of browsing.
 
 ## Backups
 
@@ -128,7 +133,6 @@ For instance, your webmail, social media photos, music playlists in streaming se
 Having an offline copy of this information is the way to go, and you can find online tools that people have built to fetch the data and save it.
 
 For a more detailed explanation, see 2019's lecture notes on [Backups](/2019/backups).
-
 
 ## APIs
 
@@ -171,31 +175,31 @@ Command-line tools vary a lot, and you will often want to check out
 their `man` pages before using them. They often share some common
 features though that can be good to be aware of:
 
- - Most tools support some kind of `--help` flag to display brief usage
-   instructions for the tool.
- - Many tools that can cause irrevocable change support the notion of a
-   "dry run" in which they only print what they _would have done_, but
-   do not actually perform the change. Similarly, they often have an
-   "interactive" flag that will prompt you for each destructive action.
- - You can usually use `--version` or `-V` to have the program print its
-   own version (handy for reporting bugs!).
- - Almost all tools have a `--verbose` or `-v` flag to produce more
-   verbose output. You can usually include the flag multiple times
-   (`-vvv`) to get _more_ verbose output, which can be handy for
-   debugging. Similarly, many tools have a `--quiet` flag for making it
-   only print something on error.
- - In many tools, `-` in place of a file name means "standard input" or
-   "standard output", depending on the argument.
- - Possibly destructive tools are generally not recursive by default,
-   but support a "recursive" flag (often `-r`) to make them recurse.
- - Sometimes, you want to pass something that _looks_ like a flag as a
-   normal argument. For example, imagine you wanted to remove a file
-   called `-r`. Or you want to run one program "through" another, like
-   `ssh machine foo`, and you want to pass a flag to the "inner" program
-   (`foo`). The special argument `--` makes a program _stop_ processing
-   flags and options (things starting with `-`) in what follows, letting
-   you pass things that look like flags without them being interpreted
-   as such: `rm -- -r` or `ssh machine --for-ssh -- foo --for-foo`.
+-   Most tools support some kind of `--help` flag to display brief usage
+    instructions for the tool.
+-   Many tools that can cause irrevocable change support the notion of a
+    "dry run" in which they only print what they _would have done_, but
+    do not actually perform the change. Similarly, they often have an
+    "interactive" flag that will prompt you for each destructive action.
+-   You can usually use `--version` or `-V` to have the program print its
+    own version (handy for reporting bugs!).
+-   Almost all tools have a `--verbose` or `-v` flag to produce more
+    verbose output. You can usually include the flag multiple times
+    (`-vvv`) to get _more_ verbose output, which can be handy for
+    debugging. Similarly, many tools have a `--quiet` flag for making it
+    only print something on error.
+-   In many tools, `-` in place of a file name means "standard input" or
+    "standard output", depending on the argument.
+-   Possibly destructive tools are generally not recursive by default,
+    but support a "recursive" flag (often `-r`) to make them recurse.
+-   Sometimes, you want to pass something that _looks_ like a flag as a
+    normal argument. For example, imagine you wanted to remove a file
+    called `-r`. Or you want to run one program "through" another, like
+    `ssh machine foo`, and you want to pass a flag to the "inner" program
+    (`foo`). The special argument `--` makes a program _stop_ processing
+    flags and options (things starting with `-`) in what follows, letting
+    you pass things that look like flags without them being interpreted
+    as such: `rm -- -r` or `ssh machine --for-ssh -- foo --for-foo`.
 
 ## Window managers
 
@@ -216,7 +220,6 @@ third, the other windows will again shrink to accommodate the new
 window. Just like with tmux panes, you can navigate around these tiled
 windows with your keyboard, and you can resize them and move them
 around, all without touching the mouse. They are worth looking into!
-
 
 ## VPNs
 
@@ -269,7 +272,7 @@ You have probably seen Markdown already, or at least some variant of it.
 Subsets of it are used and supported almost everywhere, even if it's not
 under the name Markdown. At its core, Markdown is an attempt to codify
 the way that people already often mark up text when they are writing
-plain text documents. Emphasis (*italics*) is added by surrounding a
+plain text documents. Emphasis (_italics_) is added by surrounding a
 word with `*`. Strong emphasis (**bold**) is added using `**`. Lines
 starting with `#` are headings (and the number of `#`s is the subheading
 level). Any line starting with `-` is a bullet list item, and any line
@@ -289,8 +292,6 @@ everywhere. In fact, the lecture notes for this lecture, and all the
 others, are written in Markdown, and you can see the raw Markdown
 [here](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
 
-
-
 ## Hammerspoon (desktop automation on macOS)
 
 [Hammerspoon](https://www.hammerspoon.org/) is a desktop automation framework
@@ -300,10 +301,10 @@ displays, filesystem, and much more.
 
 Some examples of things you can do with Hammerspoon:
 
-- Bind hotkeys to move windows to specific locations
-- Create a menu bar button that automatically lays out windows in a specific layout
-- Mute your speaker when you arrive in lab (by detecting the Wi-Fi network)
-- Show you a warning if you've accidentally taken your friend's power supply
+-   Bind hotkeys to move windows to specific locations
+-   Create a menu bar button that automatically lays out windows in a specific layout
+-   Mute your speaker when you arrive in lab (by detecting the Wi-Fi network)
+-   Show you a warning if you've accidentally taken your friend's power supply
 
 At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu
 buttons, key presses, or events, and Hammerspoon provides an extensive library
@@ -314,9 +315,9 @@ always write your own code from scratch.
 
 ### Resources
 
-- [Getting Started with Hammerspoon](https://www.hammerspoon.org/go/)
-- [Sample configurations](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
-- [Anish's Hammerspoon config](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
+-   [Getting Started with Hammerspoon](https://www.hammerspoon.org/go/)
+-   [Sample configurations](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
+-   [Anish's Hammerspoon config](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
 
 ## Booting + Live USBs
 
@@ -355,11 +356,11 @@ is conceptually similar but it uses containers instead.
 You can also rent virtual machines on the cloud, and it's a nice way to get instant
 access to:
 
-- A cheap always-on machine that has a public IP address, used to host services
-- A machine with a lot of CPU, disk, RAM, and/or GPU
-- Many more machines than you physically have access to (billing is often by
-the second, so if you want a lot of computing for a short amount of time, it's
-feasible to rent 1000 computers for a couple of minutes)
+-   A cheap always-on machine that has a public IP address, used to host services
+-   A machine with a lot of CPU, disk, RAM, and/or GPU
+-   Many more machines than you physically have access to (billing is often by
+    the second, so if you want a lot of computing for a short amount of time, it's
+    feasible to rent 1000 computers for a couple of minutes)
 
 Popular services include [Amazon AWS](https://aws.amazon.com/), [Google
 Cloud](https://cloud.google.com/),[ Microsoft Azure](https://azure.microsoft.com/),
@@ -390,23 +391,23 @@ the tools that you use every day.
 
 There are two primary ways in which people contribute to projects on GitHub:
 
-- Creating an
-[issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue).
-This can be used to report bugs or request a new feature. Neither of these
-involves reading or writing code, so it can be pretty lightweight to do.
-High-quality bug reports can be extremely valuable to developers. Commenting on
-existing discussions can be helpful too.
-- Contribute code through a [pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-This is generally more involved than creating an issue. You can
-[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
-a repository on GitHub, clone your fork, create a new branch, make some changes
-(e.g. fix a bug or implement a feature), push the branch, and then [create a
-pull
-request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-After this, there will generally be some back-and-forth with the project
-maintainers, who will give you feedback on your patch. Finally, if all goes
-well, your patch will be merged into the upstream repository. Often times,
-larger projects will have a contributing guide, tag beginner-friendly issues,
-and some even have mentorship programs to help first-time contributors become
-familiar with the project.
+-   Creating an
+    [issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue).
+    This can be used to report bugs or request a new feature. Neither of these
+    involves reading or writing code, so it can be pretty lightweight to do.
+    High-quality bug reports can be extremely valuable to developers. Commenting on
+    existing discussions can be helpful too.
+-   Contribute code through a [pull
+    request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+    This is generally more involved than creating an issue. You can
+    [fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+    a repository on GitHub, clone your fork, create a new branch, make some changes
+    (e.g. fix a bug or implement a feature), push the branch, and then [create a
+    pull
+    request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+    After this, there will generally be some back-and-forth with the project
+    maintainers, who will give you feedback on your patch. Finally, if all goes
+    well, your patch will be merged into the upstream repository. Often times,
+    larger projects will have a contributing guide, tag beginner-friendly issues,
+    and some even have mentorship programs to help first-time contributors become
+    familiar with the project.
