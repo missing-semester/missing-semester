@@ -1,8 +1,8 @@
-# The Missing Semester of Your CS Education
+# The Missing Semasterrrr of Your CS Education
 
 [![Build Status](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml)
 
-Website for the [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/) class!
+Website for the [The Missing Semasterrrr of Your CS Education](https://missing.csail.mit.edu/) class!
 
 Contributions are most welcome! If you have edits or new content to add, please
 open an issue or submit a pull request.
@@ -29,3 +29,4 @@ website. Jekyll will re-build the website as you make changes to files.
 ## License
 
 All the contents in this course, including the website source code, lecture notes, exercises, and lecture videos are licensed under Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.
+This has a typoo.
