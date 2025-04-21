@@ -3,6 +3,8 @@ layout: lecture
 title: "Potpourri"
 date: 2020-01-29
 ready: true
+previous_lesson: "/2020/security"
+next_lesson: "/2020/qa"
 video:
   aspect: 56.25
   id: JZDt-PRq0uo
