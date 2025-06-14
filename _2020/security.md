@@ -277,7 +277,7 @@ We've covered the use of SSH and SSH keys in an [earlier
 lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
 aspects of this.
 
-When you run `ssh-keygen`, it generates an asymmetric keypair, `public_key,
+When you run `ssh-keygen`, it generates an asymmetric key pair, `public_key,
 private_key`. This is generated randomly, using entropy provided by the
 operating system (collected from hardware events, etc.). The public key is
 stored as-is (it's public, so keeping it a secret is not important), but at
