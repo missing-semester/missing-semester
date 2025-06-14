@@ -374,7 +374,7 @@ rustup toolchain list | grep nightly | grep -vE "nightly-x86|01-17" | sed 's/-x8
    of those two-letter combinations are there? And for a challenge:
    which combinations do not occur?
 1. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm) or [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab) or [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1).
    Maybe another one [from
    here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).

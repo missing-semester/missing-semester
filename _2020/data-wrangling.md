@@ -433,7 +433,7 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
    your friend). And finally, eliminate any line whose count is 3 (since
    it _was_ shared among all the boots).
 6. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab), [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
    or maybe one [from
    here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).

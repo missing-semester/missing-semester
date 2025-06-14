@@ -30,6 +30,12 @@ jobs:
             https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/
             https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1
             https://www.autohotkey.com/
+            https://rsync.samba.org/
+            https://fidoalliance.org/
+            https://wiki.mozilla.org/Security/Server_Side_TLS
+            https://undo.io/resources/reverse-debugging-whitepaper/
+            https://www.virtualbox.org/
+            https://pdw.ex-parrot.com/iftop/
           ignore_url_re: |
             ^http://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
