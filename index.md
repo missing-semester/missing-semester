@@ -1,7 +1,7 @@
 ---
-layout: page
-title: The Missing Semester of Your CS Education
-nositetitle: true
+Layout: Page
+Title: The Missing Semester of Your CS Education
+Nositetitle: True
 ---
 
 Classes teach you all about advanced topics within CS, from operating systems
