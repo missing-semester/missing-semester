@@ -4,8 +4,8 @@ title: "Course overview + the shell"
 date: 2020-01-13
 ready: true
 video:
-  aspect: 56.25
-  id: Z56Jmr9Z34Q
+aspect: 56.25
+id: Z56Jmr9Z34Q
 ---
 
 # Motivation
@@ -25,8 +25,8 @@ This class is an attempt to address this.
 We want to teach you how to make the most of the tools you know, show
 you new tools to add to your toolbox, and hopefully instill in you some
 excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+This is what we believe to be the missing semester in most Computer
+Science curriculum.
 
 # Class structure
 
@@ -57,8 +57,8 @@ hesitate to reach out to us and ask for pointers!
 
 ## What is the shell?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
+Computers today have a variety of interfaces for giving them
+commands: fanciful graphical user interfaces, voice interfaces, and
 even AR/VR are everywhere. These are great for 80% of use-cases, but
 they are often fundamentally restricted in what they allow you to do —
 you cannot press a button that isn't there or give a voice command that
