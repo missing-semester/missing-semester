@@ -2,14 +2,18 @@
 layout: default
 ---
 
+<!-- Page title and optional subtitle -->
 <h1 class="title">{{ page.title }}{% if page.subtitle %} <span class="subtitle">{{ page.subtitle }}</span>{% endif %}</h1>
 
+<!-- Embedded video if available -->
 {% if page.video.id %}
   <div class="youtube-wrapper" style="padding-bottom: {{ page.video.aspect }}%;">
     <iframe src="https://www.youtube.com/embed/{{ page.video.id }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 {% elsif page.video %}
-  <p class="center gap accent"><strong>Lecture video coming soon!</strong></p>
+  <p class="center gap accent">
+    <strong>Lecture video coming soon!</strong>
+  </p>
 {% endif %}
 
 {{ content }}
@@ -17,6 +21,9 @@ layout: default
 <hr>
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester/blob/master/{{ page.path }}">Edit this page</a>.</p>
-<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a>.</p>
+  <p>
+    <a href="https://github.com/missing-semester/missing-semester/blob/main/{{ page.path }}">Edit this page</a>.
+  </p>
+  <p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a>.</p>
 </div>
+
