@@ -432,7 +432,7 @@ index 94bab17..f0013b2 100644
 - `git log --all --graph --decorate`: visualizes history as a DAG
 - `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD and current branch
+- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
 
 ## Branching and merging
 
