@@ -209,8 +209,9 @@ This property can be incredibly helpful to simplify what could be fairly monoton
 ```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
+
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {}.jpg \;
+find . -name '*.png' -exec magick {} {}.jpg \;
 ```
 
 Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
