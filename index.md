@@ -87,7 +87,7 @@ Nếu bạn muốn tham gia dịch thuật, hãy submit một [pull request](htt
 ## Cảm Ơn
 
 Chúng tôi cảm ơn Elaine Mello, Jim Cain, và [MIT Open
-Learning](https://openlearning.mit.edu/) đã giúp chúng tôi thu viedo về lớp học này; Anthony Zolnik và [MIT
+Learning](https://openlearning.mit.edu/) đã giúp chúng tôi thu video về lớp học này; Anthony Zolnik và [MIT
 AeroAstro](https://aeroastro.mit.edu/) cho các phương tiện thu phát; và Brandi Adams và
 [MIT EECS](https://www.eecs.mit.edu/) vì đã hỗ trợ khóa học này.
 
