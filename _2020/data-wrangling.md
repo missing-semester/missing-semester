@@ -245,7 +245,7 @@ wouldn't matter, but we're here to learn!
 If we wanted the _least_ common ones, we could use `head` instead of
 `tail`. There's also `sort -r`, which sorts in reverse order.
 
-Okay, so that's pretty cool, but what if we'd like these extract only the usernames
+Okay, so that's pretty cool, but what if we'd like to extract only the usernames
 as a comma-separated list instead of one per line, perhaps for a config file?
 
 ```bash
