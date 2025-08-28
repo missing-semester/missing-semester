@@ -13,7 +13,7 @@ Let's look at some tools that help you do that!
 But first, let's make sure you're able to do introspection. Often,
 system introspection requires that you have certain privileges, like
 being the member of a group (like `power` for shutdown). The `root` user
-is the ultimate privilege; they can do pretty much anything. You can run
+has the ultimate privilege; they can do pretty much anything. You can run
 a command as `root` (but be careful!) using `sudo`.
 
 ## What happened?
