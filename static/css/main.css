@@ -164,6 +164,13 @@ hr {
   border-bottom: 1px solid #fff;
 }
 
+blockquote {
+  padding: 0 0 0 1rem;
+  margin: 0.8rem 0;
+  color: #666;
+  border-left: 0.25rem solid #e5e5e5;
+}
+
 /* Classes */
 
 .title {
