@@ -107,11 +107,11 @@ we can add it to the list!
 
 ## Acknowledgments
 
-We thank Elaine Mello, Jim Cain, and [MIT Open
-Learning](https://openlearning.mit.edu/) for making it possible for us to
-record lecture videos; Anthony Zolnik and [MIT
-AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and
-[MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+{% comment %}
+2026 acks; previous years' acks are on their respective pages
+{% endcomment %}
+
+We thank Luis Turino and [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
 
 ---
 
