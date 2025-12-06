@@ -42,7 +42,7 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 
 # Previous year's lectures
 
-You can find lecture notes and videos from [last year's version of this class](/2019/). Each year's lectures are fully self-contained, and we recommend starting with the most recent version of the material. There is slight variation in the topics covered, so we continue to host notes and videos for earlier versions of this course.
+You can find lecture notes and videos from [last year's version of this class](/2019/). Each year's lectures are fully self-contained, and we recommend starting with the most recent version of the material. There is variation in the topics covered year to year, so we continue to host notes and videos for earlier versions of this course.
 
 # Acknowledgments
 
