@@ -105,7 +105,7 @@ Have you created a translation of the course notes from this class? Submit a
 [pull request](https://github.com/missing-semester/missing-semester/pulls) so
 we can add it to the list!
 
-## Acknowledgements
+## Acknowledgments
 
 We thank Elaine Mello, Jim Cain, and [MIT Open
 Learning](https://openlearning.mit.edu/) for making it possible for us to
