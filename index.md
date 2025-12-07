@@ -24,11 +24,9 @@ relate to the topic of nearly every lecture.
 
 Read about the [motivation behind this class](/about/).
 
-{% comment %}
 # Registration
 
-Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
-{% endcomment %}
+Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 
 # Schedule
 
