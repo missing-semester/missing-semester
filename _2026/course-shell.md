@@ -21,6 +21,7 @@ lecturer: everyone (for intro), Jon (for shell)
 - overview (keep this brief)
     - all three of us should introduce ourselves to the class
     - mention that we don't monetize the class in any way, and talk about how people can support our missions
+    - explicitly call out a way for people to give us feedback (or experience reports/testimonials, esp. from companies and universities)
 - shell
     - overview
     - shell language

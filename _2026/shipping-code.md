@@ -23,6 +23,7 @@ lecturer: Jose
 - Project packaging, environments, Python virtualenvs, hatch, uv
 - Release process, versioning
 - Docker, docker-compose
+- Fully reproducible builds, Nix
 - Deploying libraries, applications, services
 - Services: "How to make your code/website available to the world"
     - DNS, VM, systemd, UptimeRobot, ...

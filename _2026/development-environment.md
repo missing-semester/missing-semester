@@ -21,7 +21,7 @@ In this lecture, we'll cover:
 lecturer: Anish
 
 - Editors generally (IDEs, agentic IDEs, collaborative editing (e.g., Zed), VS Code), autocomplete, LSP
-    - AI: how to write a spec, vibe coding, how to use AI more broadly
+    - AI: how to write a spec, vibe coding, how to use AI more broadly, use cases (incl. read-only use cases, navigating unfamiliar code bases)
         - Overview of AI tools (Copilot, Cursor, Claude, CodeWhisperer)
         - Effective prompt engineering for code (providing context, using roles, breaking down requests)
         - Critical evaluation skills: reviewing AI output for bugs, security issues, hallucinations
@@ -30,5 +30,4 @@ lecturer: Anish
 - Efficient text editing, Vim mode
 - Devcontainers (Docker covered in more detail later)
 - Non-editor code tools (like semgrep)
-- "Reading comprehension", looking at origin materials (e.g., RFCs, first-party documentation / reference over blog posts and tutorials); reading source code, navigating unfamiliar code bases
 {% endcomment %}

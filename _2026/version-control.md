@@ -20,4 +20,5 @@ lecturer: Anish
 
 - revise to use most modern porcelain
 - add git worktrees, GitHub CLI
+- mention things like jj in notes?
 {% endcomment %}
