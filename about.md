@@ -25,14 +25,15 @@ ecosystem that could make students' lives significantly easier.
 
 # The missing semester of your CS education
 
-To help remedy this, we are running a class that covers all the topics we
+To help remedy this, we created a class that covers all the topics we
 consider crucial to be an effective computer scientist and programmer. The
 class is pragmatic and practical, and it provides hands-on introduction to
 tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The class is being run during MIT's "Independent
-Activities Period" in January 2020 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to MIT
-students, we will provide all lecture materials along with video recordings of
+situations you will encounter. The latest iteration of this class, with
+substantially revised material, is being run during MIT's "Independent
+Activities Period" in January 2026 — a one-month semester that features shorter
+student-run classes. While the lectures themselves are only available to the MIT
+community, we will provide all lecture materials along with video recordings of
 lectures to the public.
 
 If this sounds like it might be for you, here are some concrete
@@ -112,28 +113,26 @@ data and files directly from the command-line. No more copy pasting
 from log files. No more manually computing statistics over data. No
 more spreadsheet plotting.
 
-## Virtual machines
+## Code quality and continuous integration
 
-How to use virtual machines to try out new operating systems, isolate
-unrelated projects, and keep your main machine clean and tidy. No
-more accidentally corrupting your computer while doing a security
-lab. No more millions of randomly installed packages with differing
-versions.
+How to use autoformatting, linting, testing, and code coverage tools to improve
+code quality. No more ugly code. No more regressions. No more code that works
+on your computer but crashes on everyone else's.
 
-## Security
+## Beyond the code
 
-How to be on the Internet without immediately revealing all of your
-secrets to the world. No more coming up with passwords that match the
-insane criteria yourself. No more unsecured, open WiFi networks. No
-more unencrypted messaging.
+How to write great documentation, communicate clearly with open-source
+maintainers, submit actionable issues, and contribute pull requests that get
+merged. No more confused users who can't get started using your software. No
+more ghosting from maintainers.
 
 # Conclusion
 
-This, and more, will be covered across the 12 class lectures, each including an
-exercise for you to get more familiar with the tools on your own. If you can't
-wait for January, you can also take a look at the lectures from [Hacker
-Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
-year. It is the precursor to this class, and covers many of the same topics.
+This, and more, will be covered across the 9 class lectures, each including
+exercises for you to get more familiar with the tools on your own. If you can't
+wait until January 2026, you can also take a look at the lectures from the
+[previous offering of the course](/2020/), which covers many of the same
+topics.
 
 We hope to see you in January, whether virtually or in person!
 

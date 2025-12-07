@@ -3,6 +3,7 @@ layout: default
 ---
 
 <h1 class="title">{{ page.title }}</h1>
+{% if page.subtitle %}<h2 class="subtitle">{{ page.subtitle }}</h2>{% endif %}
 
 {% if page.video.id %}
   <div class="youtube-wrapper" style="padding-bottom: {{ page.video.aspect }}%;">

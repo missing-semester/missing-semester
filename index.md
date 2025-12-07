@@ -1,15 +1,14 @@
 ---
 layout: page
 title: The Missing Semester of Your CS Education
+subtitle: IAP 2026
 nositetitle: true
 ---
 
-**Note: this site is under construction for the January 2026 offering of this class.**
-
 Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there’s one critical subject that’s rarely covered,
+to machine learning, but there's one critical subject that's rarely covered,
 and is instead left to students to figure out on their own: proficiency with
-their tools. We’ll teach you how to master the command-line, use a powerful
+their tools. We'll teach you how to master the command-line, use a powerful
 text editor, use fancy features of version control systems, and much more!
 
 Students spend hundreds of hours using these tools over the course of their
@@ -19,23 +18,25 @@ only enables you to spend less time on figuring out how to bend your tools to
 your will, but it also lets you solve problems that would previously seem
 impossibly complex.
 
+AI is changing every aspect of software engineering. Rather than cover AI as a
+standalone topic, we cover the bleeding edge of AI tools and techniques as they
+relate to the topic of nearly every lecture.
+
 Read about the [motivation behind this class](/about/).
 
 {% comment %}
 # Registration
 
-Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
+Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
 {% endcomment %}
 
 # Schedule
 
-{% comment %}
-**Lecture**: 35-225, 2pm--3pm<br>
-**Office hours**: 32-G9 lounge, 3pm--4pm (every day, right after lecture)
-{% endcomment %}
+**Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm<br>
+(_exception_: 3--4pm on Friday 1/16)
 
 <ul>
-{% assign lectures = site['2020'] | sort: 'date' %}
+{% assign lectures = site['2026'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
@@ -50,8 +51,17 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
+We are still finalizing the syllabus for the IAP 2026 offering, so the topics
+we cover may change slightly.
+
+If you can't wait until January 2026, you can also take a look at the lectures
+from the [previous offering of the course](/2020/), which covers many of the
+same topics.
+
+{% comment %}
 Video recordings of the lectures are available [on
 YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+{% endcomment %}
 
 # About the class
 
@@ -113,7 +123,7 @@ we can add it to the list!
 2026 acks; previous years' acks are on their respective pages
 {% endcomment %}
 
-We thank Luis Turino and [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
+We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
 
 ---
 
