@@ -18,9 +18,14 @@ only enables you to spend less time on figuring out how to bend your tools to
 your will, but it also lets you solve problems that would previously seem
 impossibly complex.
 
-AI is changing every aspect of software engineering. Rather than cover AI as a
-standalone topic, we cover the bleeding edge of AI tools and techniques as they
-relate to the topic of nearly every lecture.
+These days, many aspects of software engineering are also in flux
+through the introduction of AI-enabled and AI-enhanced tools and
+workflows. When used appropriately and with awareness of their
+shortcomings, these can often provide significant benefits to
+CS practitioners and are thus worth developing working knowledge of.
+Since AI is a cross-functional enabling technology, there is not a
+standalone AI lecture; we've instead folded the use of the latest
+applicable AI tools and techniques into each lecture directly.
 
 Read about the [motivation behind this class](/about/).
 
