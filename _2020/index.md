@@ -40,10 +40,6 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Previous year's lectures
-
-You can find lecture notes and videos from [last year's version of this class](/2019/). Each year's lectures are fully self-contained, and we recommend starting with the most recent version of the material. There is variation in the topics covered year to year, so we continue to host notes and videos for earlier versions of this course.
-
 # Acknowledgments
 
 We thank Elaine Mello, Jim Cain, and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and [MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
