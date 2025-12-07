@@ -5,7 +5,9 @@ date: 2026-01-22
 ready: true
 ---
 
+<span class="construction">
 This page is under construction for the IAP 2026 offering of Missing Semester.
+</span>
 
 In this lecture, we'll cover essential soft skills, including:
 

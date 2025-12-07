@@ -5,7 +5,9 @@ date: 2026-01-12
 ready: true
 ---
 
+<span class="construction">
 This page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Course overview + shell](/2020/course-shell/) and [Shell Tools and Scripting](/2020/shell-tools/) lectures from the 2020 offering.
+</span>
 
 In this lecture, we'll cover:
 

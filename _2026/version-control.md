@@ -5,7 +5,9 @@ date: 2026-01-21
 ready: true
 ---
 
+<span class="construction">
 This page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Version Control (Git)](/2020/version-control/) lecture from the 2020 offering.
+</span>
 
 In this lecture, we'll cover:
 

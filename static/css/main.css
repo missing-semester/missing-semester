@@ -210,6 +210,13 @@ blockquote {
   border: 0;
 }
 
+.construction {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+  padding: .5em 1em;
+  border-left: 2px solid #A6E22E;
+}
+
 /* Elements */
 
 #content {
