@@ -12,18 +12,9 @@
 }
 
 html {
-/*  font-size: 14px;
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14pt;
   line-height: 1.5;
-}
-
-@media(min-width: 480px) {
-  html {
-    /*font-size: 16px;*/
-    font-size: 14pt;
-  }
 }
 
 body {
@@ -36,7 +27,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   font-weight: bold;
-  /*text-decoration: underline;*/
   line-height: 1.25;
   font-size: 1rem;
 }
@@ -107,7 +97,6 @@ code {
   background-color: rgba(27,31,35,.05);
   border-radius: 3px;
   padding: 0 0.2rem;
-  /*font-size: 0.9em;*/
   font-size: 12pt;
 }
 
@@ -116,7 +105,6 @@ pre {
   margin: 1rem;
   padding: 0.5rem 0.7rem;
   border: 1px dashed #444;
-  /*font-size: .8rem;*/
   font-size: 11pt;
   overflow-x: auto;
 }
@@ -164,6 +152,13 @@ hr {
   border-bottom: 1px solid #fff;
 }
 
+blockquote {
+  padding: 0 0 0 1rem;
+  margin: 0.8rem 0;
+  color: #666;
+  border-left: 0.25rem solid #e5e5e5;
+}
+
 /* Classes */
 
 .title {
@@ -171,8 +166,8 @@ hr {
 }
 
 .subtitle {
-  font-size: 1.5rem;
-  margin-left: 1rem;
+  margin-top: -1rem;
+  font-size: 1.25rem;
 }
 
 .small {
@@ -187,9 +182,12 @@ hr {
   text-align: center;
 }
 
-.gap {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+.padded {
+  padding: 10rem 0;
+}
+
+.bordered {
+  border: 1px solid #ccc;
 }
 
 .accent {
@@ -200,6 +198,7 @@ hr {
   position: relative;
   height: 0;
   margin-bottom: 1rem;
+  background: black;
 }
 
 .youtube-wrapper iframe {
@@ -334,7 +333,6 @@ input[type=checkbox]:checked ~ .menu-label:after {
 
     a {
       color: #66D9EF;
-      /*color: #A6E22E;*/
       text-decoration: none;
     }
 
@@ -364,7 +362,7 @@ input[type=checkbox]:checked ~ .menu-label:after {
 
 @media print {
   #nav-bg, #logo, #top-nav { display: none; }
-  h1.title ~ p.center.gap.accent { display: none; }
+  h1.title ~ p.center.padded.bordered { display: none; }
   .youtube-wrapper { display: none; }
   html { font-size: 1em; font-family: sans-serif; }
   body { background: none; }

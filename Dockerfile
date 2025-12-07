@@ -1,6 +1,4 @@
-FROM ruby:2.7-alpine3.16
-# GitHub is using Ruby 2.7 in production
-# https://github.com/github/pages-gem/issues/752#issuecomment-764758292
+FROM ruby:3.4-alpine3.21
 
 RUN apk add --no-cache ruby-dev alpine-sdk
 
@@ -10,4 +8,4 @@ COPY Gemfile Gemfile.lock \
 WORKDIR /app
 RUN bundle install
 
-CMD bundle exec jekyll serve -w --host 0.0.0.0
+CMD ["bundle", "exec", "jekyll", "serve", "-w", "--host", "0.0.0.0"]
