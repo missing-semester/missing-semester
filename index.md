@@ -30,8 +30,8 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 
 # Schedule
 
-**Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm<br>
-(_exception_: 3--4pm on Friday 1/16)
+**Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
+**Discussion**: [OSSU Discord](https://ossu.dev/#community), in `#missing-semester`
 
 <ul>
 {% assign lectures = site['2026'] | sort: 'date' %}
