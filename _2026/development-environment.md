@@ -27,6 +27,8 @@ lecturer: Anish
         - Critical evaluation skills: reviewing AI output for bugs, security issues, hallucinations
         - The "70% problem", AI gets you most of the way, but expertise matters for the rest
         - Anti-patterns: overreliance, shallow understanding, debugging spirals
+        - MCP
+        - Consider which tools are paid, mention free alternatives; maybe cover local models too
 - Efficient text editing, Vim mode
 - Devcontainers (Docker covered in more detail later)
 - Non-editor code tools (like semgrep)
