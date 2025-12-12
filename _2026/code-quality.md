@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Code Quality and Continuous Integration"
-date: 2026-01-16
+date: 2026-01-21
 ready: true
 ---
 

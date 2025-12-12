@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Version Control (Git)"
-date: 2026-01-21
+date: 2026-01-16
 ready: true
 ---
 
@@ -19,6 +19,7 @@ In this lecture, we'll cover:
 lecturer: Anish
 
 - revise to use most modern porcelain
+- consider: git stash, git diff/apply, git revert, git mergetool
 - add git worktrees, GitHub CLI
 - mention things like jj in notes?
 {% endcomment %}
