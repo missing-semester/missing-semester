@@ -32,4 +32,5 @@ lecturer: Anish
 - Efficient text editing, Vim mode
 - Devcontainers (Docker covered in more detail later)
 - Non-editor code tools (like semgrep)
+- Regex (e.g., regex search, search-and-replace)
 {% endcomment %}
