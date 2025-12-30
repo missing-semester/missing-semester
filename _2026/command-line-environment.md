@@ -21,9 +21,14 @@ In this lecture, we'll cover:
 lecturer: Jose
 
 - shell environment
+    - environment variables, PATH
+    - aliases
+    - job control (Ctrl-C, Ctrl-Z, bg, fg, jobs)
+    - fzf
 - tmux
 - ssh, keys
 - customizing your shell and tools, dotfiles
+- atuin
 - AI shell
 	- https://www.warp.dev/
 	- https://github.com/eliyastein/llm-zsh-plugin
