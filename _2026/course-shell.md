@@ -9,25 +9,81 @@ ready: true
 This page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Course overview + shell](/2020/course-shell/) and [Shell Tools and Scripting](/2020/shell-tools/) lectures from the 2020 offering.
 </span>
 
-In this lecture, we'll cover:
-
-- A brief overview of the course, including [_why_ we're teaching this course](/about/)
-- The shell language
-- Modern shell tools
-
 {% comment %}
 lecturer: everyone
-
-- overview (keep this brief)
-    - all three of us should introduce ourselves to the class
-    - mention that we don't monetize the class in any way, and talk about how people can support our missions
-    - explicitly call out a way for people to give us feedback (or experience reports/testimonials, esp. from companies and universities)
 {% endcomment %}
+
+# Who are we?
+
+This class is co-taught by [Anish](https://anish.io/),
+[Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
+are all ex-MIT students who started this MIT IAP class back when we were
+students. You can reach us collectively at
+[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+
+We are not paid to teach this class, and do not monetize the class in
+any way. We make all the [course
+materials](https://missing.csail.mit.edu/) and [recordings of the
+lectures](https://www.youtube.com/@MissingSemester) freely available
+online. If you want to support our work, the best way to do so is to
+simply spread the word about the class. If you're a company, university,
+or other organization that runs this content past larger cohorts, please
+send us experience reports/testimonials by email so we get to hear about
+it :)
+
+# Motivation
+
+As computer scientists, we know that computers are great at aiding in
+repetitive tasks. However, far too often, we forget that this applies
+just as much to our _use_ of the computer as it does to the computations
+we want our programs to perform. We have a vast range of tools available
+at our fingertips that enable us to be more productive and solve more
+complex problems when working on any computer-related problem. Yet many
+of us utilize only a small fraction of those tools; we only know enough
+magical incantations by rote to get by, and blindly copy-paste commands
+from the internet when we get stuck.
+
+This class is an attempt to [address this](/about/).
+
+We want to teach you how to make the most of the tools you know, show
+you new tools to add to your toolbox, and hopefully instill in you some
+excitement for exploring (and perhaps building) more tools on your own.
+This is what we believe to be the missing semester from most Computer
+Science curricula.
+
+# Class structure
+
+The not-for-credit class consists of 9 1-hour lectures, each one
+centering on a [particular topic](/2026/). The lectures are largely
+independent, though as the semester goes on we will presume that you are
+familiar with the content from the earlier lectures. We have lecture
+notes online, but there may be content covered in class (e.g. in the
+form of demos) that may not be in the notes. As for past years, we will
+be recording lectures and posting the recordings
+[online](https://www.youtube.com/@MissingSemester).
+
+We are trying to cover a lot of ground over the course of just a few
+1-hour lectures, so the lectures are fairly dense. To allow you some
+time to get familiar with the content at your own pace, each lecture
+includes a set of exercises that guide you through the lecture's key
+points. We will not be running dedicated office hours, but we encourage
+you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
+in `#missing-semester`, or email us at
+[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+
+Due to the limited time we have, we won't be able to cover all the tools
+in the same level of detail a full-scale class might. Where possible, we
+will try to point you towards resources for digging further into a tool
+or topic, but if something particularly strikes your fancy, don't
+hesitate to reach out to us and ask for pointers!
+
+Finally, if you have feedback about the class, please send it to us by
+email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Topic 1: The Shell
 
 {% comment %}
-lecturer: Jon (for shell)
+lecturer: Jon
 {% endcomment %}
 
 ## What is the shell?
