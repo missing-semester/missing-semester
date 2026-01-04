@@ -3,6 +3,8 @@ layout: lecture
 title: "Shell Tools and Scripting"
 date: 2020-01-14
 ready: true
+previous_lesson: "/2020/course-shell"
+next_lesson: "/2020/editors"
 video:
   aspect: 56.25
   id: kgII-YWo3Zw
