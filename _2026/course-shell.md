@@ -296,7 +296,7 @@ missing:~$ ls /bin
 This will, on most computers, print a _lot_ of programs, but we'll only
 focus on some of the most important ones here. First, some simple ones:
 
-- `cat file`, which prints the contents `file`.
+- `cat file`, which prints the contents of `file`.
 - `sort file`, which prints out the lines of `file` in sorted order.
 - `uniq file`, which eliminate consecutive duplicate lines from `file`.
 - `head file` and `tail file`, which respectively print the first and
