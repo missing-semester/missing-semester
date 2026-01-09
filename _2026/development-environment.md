@@ -29,6 +29,7 @@ lecturer: Anish
         - Anti-patterns: overreliance, shallow understanding, debugging spirals
         - MCP
         - Consider which tools are paid, mention free alternatives; maybe cover local models too
+        - Maybe also talk about basic strategies like using git worktrees, subagents, skills, and persisting knowledge in AGENT.md
 - Efficient text editing, Vim mode
 - Devcontainers (Docker covered in more detail later)
 - Non-editor code tools (like semgrep)
