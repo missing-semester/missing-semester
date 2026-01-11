@@ -36,7 +36,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 # Schedule
 
 **Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
-**Discussion**: [OSSU Discord](https://ossu.dev/#community), in `#missing-semester`
+**Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors)
 
 <ul>
 {% assign lectures = site['2026'] | sort: 'date' %}
@@ -54,8 +54,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-We are still finalizing the syllabus for the IAP 2026 offering, so the topics
-we cover may change slightly.
+Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We will upload edited lecture videos to YouTube during the week of 1/26.
 
 If you can't wait until January 2026, you can also take a look at the lectures
 from the [previous offering of the course](/2020/), which covers many of the
