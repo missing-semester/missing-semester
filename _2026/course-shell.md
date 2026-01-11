@@ -427,6 +427,12 @@ to analyze after the fact. `>>file` will append to `file` rather than
 overwrite it. There's also `<file` which tells the shell to read from
 `file` instead of from your keyboard as the standard input to a program.
 
+> This is a good time to mention the `tee` program. `tee` will print
+> standard input to standard output (just like `cat`!), but will _also_
+> print it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
+> will preserve the full verbose log to a file while keeping your
+> terminal clean!
+
 Next, conditionals: `if command1; then command2; command3; fi` will
 execute `command1`, and if it doesn't result in an error, will run
 `command2` and `command3`. You can also have an `else` branch if you
@@ -475,7 +481,7 @@ echo "Logging to $LOGFILE"
 
 # Run tests until one fails
 RUN=1
-while cargo test my_test >> "$LOGFILE" 2>&1; do
+while cargo test my_test > "$LOGFILE" 2>&1; do
     echo "Run $RUN passed"
     ((RUN++))
 done
