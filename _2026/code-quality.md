@@ -23,6 +23,7 @@ lecturer: Anish
 - Autoformatters
 - Linters
     - AI for addressing issues
+    - [semgrep](https://github.com/semgrep/semgrep) for custom linting
 - Testing
     - including fuzzing, property-based testing
     - AI for writing tests
