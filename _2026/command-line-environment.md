@@ -11,8 +11,6 @@ lecturer: Jose
 
 # Topic 2: The Command Line Environment
 
-## Shell Scripting
-
 As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
 but in practice they provide an entire programming language full of common patterns and abstractions.
 However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
@@ -144,6 +142,17 @@ Namely, the shell is not first calling cat, then grep, and then uniq.
 Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
 When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
 
+We can demonstrate this concurrency—all commands in a pipeline start immediately:
+
+```console
+$ sleep 60 | cat | grep "pattern" &
+[1] 12345
+$ ps aux | grep sleep
+user  12345  ... sleep 60
+```
+
+Even though `sleep` is first in the pipeline, we can see it running right away. The shell spawns all processes and connects their streams before any of them finish.
+
 Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
 
 ```shell
@@ -236,7 +245,8 @@ Alternatively, we can use the `export` built-in function that will modify our cu
 ```shell
 export DEBUG=1
 # All programs from this point onwards will have DEBUG=1 in their environment
-ls -la
+bash -c 'echo $DEBUG'
+# prints 1
 ```
 
 To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
@@ -272,6 +282,19 @@ true && echo "This will always print"
 false || echo "This will always print"
 ```
 
+The same principle applies to `if` and `while` statements—they use return codes to make decisions:
+
+```shell
+# if uses the return code of the condition command (0 = true, nonzero = false)
+if grep -q "pattern" file.txt; then
+    echo "Found"
+fi
+
+# while loops continue as long as the command returns 0
+while read line; do
+    echo "$line"
+done < file.txt
+```
 
 ### Signals
 
@@ -360,36 +383,16 @@ $ jobs
 [1]  + suspended  sleep 1000
 [2]  - running    nohup sleep 2000
 
-$ bg %1
-[1]  - 18653 continued  sleep 1000
-
-$ jobs
-[1]  - running    sleep 1000
-[2]  + running    nohup sleep 2000
-
-$ kill -STOP %1
-[1]  + 18653 suspended (signal)  sleep 1000
-
-$ jobs
-[1]  + suspended (signal)  sleep 1000
-[2]  - running    nohup sleep 2000
-
 $ kill -SIGHUP %1
 [1]  + 18653 hangup     sleep 1000
 
-$ jobs
-[2]  + running    nohup sleep 2000
-
-$ kill -SIGHUP %2
+$ kill -SIGHUP %2   # nohup protects from SIGHUP
 
 $ jobs
 [2]  + running    nohup sleep 2000
 
 $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
-
-$ jobs
-
 ```
 
 A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
@@ -449,30 +452,12 @@ If you, like me, prefer to learn by example, this is a good usecase of the `tldr
 
       chmod u+rw path/to/file_or_directory
 
-  Remove e[x]ecutable rights from the [g]roup:
-
-      chmod g-x path/to/file
-
   Give [a]ll users rights to [r]ead and e[x]ecute:
 
       chmod a+rx path/to/file
-
-  Give [o]thers (not in the file owner's group) the same rights as the [g]roup:
-
-      chmod o=g path/to/file
-
-  Remove all rights from [o]thers:
-
-      chmod o= path/to/file
-
-  Change permissions recursively giving [g]roup and [o]thers the ability to [w]rite:
-
-      chmod -R g+w,o+w path/to/directory
-
-  Recursively give [a]ll users [r]ead permissions to files and e[X]ecute permissions to sub-directories within a directory:
-
-      chmod -R a+rX path/to/directory
 ```
+
+Run `tldr chmod` to see more examples, including recursive operations and group permissions.
 
 > Your shell might show you something like `command not found: tldr`. That is because it is a more modern tool and it is not pre-installed in most systems. A good reference for how to install tools is the [https://command-not-found.com](https://command-not-found.com) website. It contains instructions for a huge collection of CLI tools for popular OS distributions.
 
@@ -484,7 +469,7 @@ To change the owner of a file or folder, we use the `chown` command.
 
 You can learn more about UNIX file permissions [here](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions)
 
-
+So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
 
 ## Remote Machines
 
@@ -589,18 +574,37 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
 
 > To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial  and [this](http://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
 
+With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
 
-## Configuring the CLI environment
+## Customizing the Shell
 
-Shell scripting is designed with configurability and ease of use in mind. Most aspects of your shell can be configured.
+A wide array of command line programs are configured using plain-text files known as _dotfiles_
+(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
+hidden in the directory listing `ls` by default).
 
-We can start with a simple change, adding new locations for the shell to find programs. This is a rather common pattern and you will encounter it when installing software with the cli
+> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
+
+Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
+Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
+[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+
+For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
+Some other examples of tools that can be configured through dotfiles are:
+
+- `bash` - `~/.bashrc`, `~/.bash_profile`
+- `git` - `~/.gitconfig`
+- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `ssh` - `~/.ssh/config`
+- `tmux` - `~/.tmux.conf`
+
+A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
+
 Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `/path/to/append`.
+This will allow children processes to find programs located under `path/to/append`.
 
 We can also create our own command aliases using the `alias` shell built-in.
 A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
@@ -646,31 +650,7 @@ alias ll
 
 Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
 
-However, aliases (and other shell modifications like `export`) will not persist across shell sessions.
-To make them persistent, we need to add them to shell startup files like `.bashrc` or `.zshrc`, which we cover in the next section.
-
-## Dotfiles
-
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
-
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
-
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
-
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable like we saw before.
-
-Some other examples of tools that can be configured through dotfiles are:
-
-- `bash` - `~/.bashrc`, `~/.bash_profile`
-- `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
-- `ssh` - `~/.ssh/config`
-- `tmux` - `~/.tmux.conf`
+Most shells support `Ctrl-R` for reverse history search—press it and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
 
 How should you organize your dotfiles? They should be in their own folder,
 under version control, and **symlinked** into place using a script. This has
@@ -702,7 +682,6 @@ All of the class instructors have their dotfiles publicly accessible on GitHub: 
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
-
 **Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
 
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
@@ -714,8 +693,6 @@ All of the class instructors have their dotfiles publicly accessible on GitHub: 
 Shells like [fish](https://fishshell.com/) include many of these features by default.
 
 > You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
-
-Earlier we introduced `fzf` as a fuzzy finder. It integrates well with shell history—pressing `Ctrl-R` with fzf configured gives you an interactive history search that's much more powerful than the default.
 
 
 ## AI in the Shell
@@ -920,22 +897,3 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
 1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
 
 1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
-
-
-{% comment %}
-lecturer: Jose
-
-- shell environment
-    - environment variables, PATH
-    - aliases
-    - job control (Ctrl-C, Ctrl-Z, bg, fg, jobs)
-    - fzf
-- tmux
-- ssh, keys
-- customizing your shell and tools, dotfiles
-- atuin
-- AI shell
-    - https://www.warp.dev/
-    - https://github.com/eliyastein/llm-zsh-plugin
-    - https://github.com/day50-dev/Zummoner
-{% endcomment %}
