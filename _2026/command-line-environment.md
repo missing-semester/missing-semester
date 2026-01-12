@@ -15,7 +15,7 @@ TODO: replace non-runnable examples with foo, bar, with sensible runnable versio
 
 ## Shell Scripting
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up othe programs, 
+As we covered in the previous lecture, most shells are not a mere launcher to start up other programs, 
 but in practice they provide an entire programming language full of common patterns and abstractions. 
 However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate to other simply and efficiently. 
 
@@ -37,6 +37,7 @@ In contrast, shell scripts can look quite different at first glance
 
 ```shell
 #!/usr/bin/env bash
+# TODO: verify, is this how we read stdin?
 
 if [[-f $1]]; then
     echo "Target file already exists"
@@ -573,23 +574,22 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
 
 # Configuring the CLI environment
 
-Shell scripting is designed with configurability and ease of use in mind. Most aspects of your shell can be configured.
+Shell scripting is designed with configurability and ease of use in mind. Most aspects of your shell can be configured. 
 
-
-
-At this point, you are now equipped to understand a quite common shell incantation that you will probably encounter when installing software with the cli
+We can start with a simple change, adding new locations for the shell to find programs. THis is a rather common pattern and you will encounter it when installing software with the cli
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
-We are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
+Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
 This will allow children processes to find programs located under `/path/to/append`.
 
 
+TODO: 
 
-It can become tiresome typing long commands that involve many flags or verbose options.
-For this reason, most shells support _aliasing_.
-A shell alias is a short form for another command that your shell will replace automatically for you.
+
+We can also create our own command aliases using the `alias` shell built-in. 
+A shell alias is a short form for another command that your shell will replace automatically before evaluting the expression. 
 For instance, an alias in bash has the following structure:
 
 ```bash
@@ -607,7 +607,6 @@ alias ll="ls -lh"
 # Save a lot of typing for common commands
 alias gs="git status"
 alias gc="git commit"
-alias v="vim"
 
 # Save you from mistyping
 alias sl=ls
@@ -631,23 +630,30 @@ alias ll
 # Will print ll='ls -lh'
 ```
 
-Note that <!-- aliases do not persist shell sessions by default.
+Alias have limitations in 
+
+
 To make an alias persistent you need to include it in shell startup files, like `.bashrc` or `.zshrc`, which we are going to introduce in the next section.
- -->
+
+
+However, these previous modifications will not persist our shell session. 
+Namely, we would have to rerun them on every new shell to be able to use them.
+To make the change persistent we need to modify the shell configuration file, which is read upon startup.
 
 # Dotfiles
 
-Many programs are configured using plain-text files known as _dotfiles_
+A wide array command line programs are configured using plain-text files known as _dotfiles_
 (because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
 hidden in the directory listing `ls` by default).
+
+> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention). 
 
 Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
 Depending on the shell, whether you are starting a login and/or interactive the entire process can be quite complex.
 [Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
 
 For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable.
-In fact, many programs will ask you to include a line like `export PATH="$PATH:/path/to/program/bin"` in your shell configuration file so their binaries can be found.
+Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable like we saw before.
 
 Some other examples of tools that can be configured through dotfiles are:
 
@@ -688,8 +694,29 @@ All of the class instructors have their dotfiles publicly accessible on GitHub: 
 [Jose](https://github.com/jjgo/dotfiles).
 
 
+# AI
 
-# Exercises
+TODO: Section with message: "There are many ways to incorporate AI tooling in the shell. From helping launch commands (show example with simonw llm cmd), to using AI within the pipeline (move llm command with dogs/cats from earlier here), running a terminal emulator with AI autocomplete like Warp, to using something like Claude Code as a meta shell that accepts English commands
+
+# Terminal Emulators
+
+Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. 
+A terminal emulator is a GUI program that (TODO: finish this)
+There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)) - TODO: replace with more recent comparison.
+
+Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+
+- Font choice
+- Color Scheme
+- Keyboard shortcuts
+- Tab/Pane support
+- Scrollback configuration
+- Performance (some newer terminals like [Alacritty](https://github.com/jwilm/alacritty) or [Ghostty](TODO:link) offer GPU acceleration).
+
+
+
+# Exercises (TODO: group them by topic and sort them by the order they appear in the lecture, prepend bold labels)
+TODO: maybe add a few more short exercises on topics missing them
 
 1. you might see `cmd --flag -- --notaflag` pattern. TODO: finish
 
@@ -707,6 +734,134 @@ diff <(ls foo) <(ls bar)
 
 2. TODO: Exercise on `true` and `false`, why do they exist?
 
+1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner
+
+    - Includes all files, including hidden files
+    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
+    - Files are ordered by recency
+    - Output is colorized
+
+    A sample output would look like this
+
+    ```
+    -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
+    drwxr-xr-x   5 user group  160 Jan 14 09:53 .
+    -rw-r--r--   1 user group  514 Jan 14 06:42 bar
+    -rw-r--r--   1 user group 106M Jan 13 12:12 foo
+    drwx------+ 47 user group 1.5K Jan 12 18:08 ..
+    ```
+
+{% comment %}
+ls -lath --color=auto
+{% endcomment %}
+
+1. Write bash functions  `marco` and `polo` that do the following.
+Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`.
+For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+
+{% comment %}
+marco() {
+    export MARCO=$(pwd)
+}
+
+polo() {
+    cd "$MARCO"
+}
+{% endcomment %}
+
+1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run.
+Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end.
+Bonus points if you can also report how many runs it took for the script to fail.
+
+    ```bash
+    #!/usr/bin/env bash
+
+    n=$(( RANDOM % 100 ))
+
+    if [[ n -eq 42 ]]; then
+       echo "Something went wrong"
+       >&2 echo "The error was using magic numbers"
+       exit 1
+    fi
+
+    echo "Everything went according to plan"
+    ```
+
+{% comment %}
+#!/usr/bin/env bash
+
+count=0
+until [[ "$?" -ne 0 ]];
+do
+  count=$((count+1))
+  ./random.sh &> out.txt
+done
+
+echo "found error after $count runs"
+cat out.txt
+{% endcomment %}
+
+1. As we covered in the lecture `find`'s `-exec` can be very powerful for performing operations over the files we are searching for.
+However, what if we want to do something with **all** the files, like creating a zip file?
+As you have seen so far commands will take input from both arguments and STDIN.
+When piping commands, we are connecting STDOUT to STDIN, but some commands like `tar` take inputs from arguments.
+To bridge this disconnect there's the [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command which will execute a command using STDIN as arguments.
+For example `ls | xargs rm` will delete the files in the current directory.
+
+    Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check `-d` flag for `xargs`).
+    {% comment %}
+    find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
+    {% endcomment %}
+
+    If you're on macOS, note that the default BSD `find` is different from the one included in [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). You can use `-print0` on `find` and the `-0` flag on `xargs`. As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by [using brew](https://formulae.brew.sh/formula/coreutils).
+
+1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+
+
+
+1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+
+1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`.
+One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+
+    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist.
+    Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+
+1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+
+1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+
+1.  Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10`  to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+
+
+Let's get you up to speed with dotfiles.
+1. Create a folder for your dotfiles and set up version
+   control.
+1. Add a configuration for at least one program, e.g. your shell, with some
+   customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized
+   utility](https://dotfiles.github.io/utilities/).
+1. Test your installation script on a fresh virtual machine.
+1. Migrate all of your current tool configurations to your dotfiles repository.
+1. Publish your dotfiles on GitHub.
+
+Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+
+1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
+1. Edit `.ssh/config` to have an entry as follows
+
+    ```bash
+    Host vm
+        User username_goes_here
+        HostName ip_goes_here
+        IdentityFile ~/.ssh/id_ed25519
+        LocalForward 9999 localhost:8888
+    ```
+1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. Edit your SSH server config by doing  `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
 
 
 {% comment %}
