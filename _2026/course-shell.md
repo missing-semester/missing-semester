@@ -5,10 +5,6 @@ date: 2026-01-12
 ready: true
 ---
 
-<span class="construction">
-This page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Course overview + shell](/2020/course-shell/) and [Shell Tools and Scripting](/2020/shell-tools/) lectures from the 2020 offering.
-</span>
-
 {% comment %}
 lecturer: everyone
 {% endcomment %}
@@ -53,7 +49,7 @@ Science curricula.
 
 # Class structure
 
-The not-for-credit class consists of 9 1-hour lectures, each one
+The not-for-credit class consists of nine 1-hour lectures, each one
 centering on a [particular topic](/2026/). The lectures are largely
 independent, though as the semester goes on we will presume that you are
 familiar with the content from the earlier lectures. We have lecture
@@ -68,7 +64,7 @@ time to get familiar with the content at your own pace, each lecture
 includes a set of exercises that guide you through the lecture's key
 points. We will not be running dedicated office hours, but we encourage
 you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
-in `#missing-semester`, or email us at
+in `#missing-semester-forum`, or email us at
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 Due to the limited time we have, we won't be able to cover all the tools
@@ -144,8 +140,9 @@ _combine_ programs in creative ways to automate nearly any task.
 Knowing your way around a shell is also very useful to navigate the
 world of open-source software (which often come with install
 instructions that require the shell), building continuous integration
-for your software projects (as described in the "Code Quality" lecture),
-and debugging errors when other programs fail.
+for your software projects (as described in the [Code Quality
+lecture](/2026/code-quality/)), and debugging errors when other programs
+fail.
 
 ## Navigating in the shell
 
@@ -219,10 +216,10 @@ missing:~$
 
 A lot of commands operate on the current working directory if nothing
 else is specified. If you're ever unsure where you are, you can run
-`pwd` or print the `$PWD` environment variable, both of which produce
-the current working directory.
+`pwd` or print the `$PWD` environment variable (with `echo $PWD`), both
+of which produce the current working directory.
 
-The current working directory also come in handy in that it allows us to
+The current working directory also comes in handy in that it allows us to
 use _relative_ paths. All the paths we've seen so far have been
 _absolute_ --- they start with `/` and give the full set of directories
 needed to navigate to some location from the root of the file system
@@ -309,9 +306,11 @@ There's also `grep pattern file`, which finds lines matching `pattern`
 in `file`. This one deserves slightly more attention as it's both _very_
 useful and sports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
-complex patterns --- we'll cover those in the editor lecture. You can
-also specify a directory instead of a file (or leave it off for `.`) and
-pass `-r` to recursively search all the files in a directory.
+complex patterns --- we'll [cover
+those](/2026/development-environment/#regular-expressions-for-search-and-replace)
+in the editor lecture. You can also specify a directory instead of a
+file (or leave it off for `.`) and pass `-r` to recursively search all
+the files in a directory.
 
 > Consider installing and using
 > [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
@@ -429,7 +428,7 @@ overwrite it. There's also `<file` which tells the shell to read from
 
 > This is a good time to mention the `tee` program. `tee` will print
 > standard input to standard output (just like `cat`!), but will _also_
-> print it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
+> write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
 > will preserve the full verbose log to a file while keeping your
 > terminal clean!
 
@@ -458,8 +457,9 @@ for i in $(seq 1 10); do
 This executes the command `seq 1 10` (which prints the numbers from 1 to
 10 inclusive) and then replaces the whole `$()` with that command's
 output, giving you a 10-iteration for loop. In older code you'll
-sometimes see literal backticks instead of `$()`, but you should
-strongly prefer the `$()` form as it can be nested.
+sometimes see literal backticks (like ``for i in `seq 1 10`; do``)
+instead of `$()`, but you should strongly prefer the `$()` form as it
+can be nested.
 
 While you _can_ write long shell scripts directly in your prompt, you'll
 usually want to write them into a `.sh` file instead. For example,
@@ -545,14 +545,15 @@ Some give you a specific task to do, while others are open-ended, like
 "try using X and Y programs". We highly encourage you to try them out.
 
 We have not written solutions for the exercises. If you are stuck on
-anything in particular, feel free to send us an email describing what
-you've tried so far, and we will try to help you out. These exercises
-will also likely work well as initial prompts in a conversation with an
-LLM where you can interactively dive into the topic. The real value in
-these exercises is the journey of discovering the answers, not the
-answer itself. We encourage you to follow tangents and ask "why" as you
-work through them, rather than just looking for the shortest path to the
-solution.
+anything in particular, feel free to post in `#missing-semester-forum`
+on [Discord](https://ossu.dev/#community) or send us an email describing
+what you've tried so far, and we will try to help you out. These
+exercises will also likely work well as initial prompts in a
+conversation with an LLM where you can interactively dive into the
+topic. The real value in these exercises is the journey of discovering
+the answers, not the answer itself. We encourage you to follow tangents
+and ask "why" as you work through them, rather than just looking for the
+shortest path to the solution.
 
 1. For this course, you need to be using a Unix shell like Bash or ZSH. If
    you are on Linux or macOS, you don't have to do anything special. If you
