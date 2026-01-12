@@ -253,7 +253,7 @@ The convention is that zero means everything went well whereas nonzero means som
 To return a nonzero exit code we have to use the `exit NUM` shell built-in.
 We can access the return code of the last command that was run by accessing the special variable `$?`.
 
-The shell has boolean operators '&&' and '||' for performing AND and OR operations respectively.
+The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
 Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
 Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
 This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
@@ -285,7 +285,7 @@ $ sleep 100
 $
 ```
 
-> Note, here `^` is how `Ctrl` is displayed when typed in the terminal.
+> Note, here `^C` is how `Ctrl` is displayed when typed in the terminal.
 
 Under the hood, what happened here is the following:
 
@@ -587,7 +587,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
     + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
     + `<C-b> <space>` Cycle through pane arrangements.
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial  and [this](http://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](http://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
 
 
 ## Configuring the CLI environment
