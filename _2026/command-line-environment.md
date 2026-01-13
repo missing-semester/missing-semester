@@ -20,12 +20,11 @@ We will now cover many of the concepts required to understand how command line p
 
 ## The Command Line Interface
 
-Writing a function in most programming languages looks like:
+Writing a function in most programming languages looks something like:
 
 ```
-function add(x, y)
+def add(x: int, y: int) -> int:
     return x + y
-end
 ```
 
 Here we can explicitly see the inputs and the outputs of the program.
@@ -69,8 +68,8 @@ Flags can be identified because they are preceded by a dash (`-`) or double-dash
 Flags are usually optional and their role is to modify the behavior of the program.
 For example `ls -l` changes how `ls` formats its output.
 
-You will see double dash flags with long names like `--list`, and single dash flags like `-l`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -l` and `ls --list` are equivalent.
+You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
+The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
 Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
 The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
 Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
@@ -111,6 +110,10 @@ Curly braces `{}` expand a comma-separated list of patterns into multiple argume
 In practice, globs are best understood with motivating examples
 
 ```shell
+touch folder/{a,b,c}.py
+# Will expand to
+touch folder/a.py folder/b.py folder/c.py 
+
 convert image.{png,jpg}
 # Will expand to
 convert image.png image.jpg
@@ -145,13 +148,17 @@ When using the pipe operator `|`, the shell operates on streams of data that flo
 We can demonstrate this concurrency, all commands in a pipeline start immediately:
 
 ```console
-$ sleep 60 | cat | grep "pattern" &
+$ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
 [1] 12345
-$ ps aux | grep -P '(sleep|cat|grep)'
-user  12345  ... sleep 60
+$ ps | grep -P '(sleep|cat|grep|sort|uniq)'
+  32930 pts/1    00:00:00 sleep
+  32931 pts/1    00:00:00 grep
+  32932 pts/1    00:00:00 sort
+  32933 pts/1    00:00:00 uniq
+  32948 pts/1    00:00:00 grep
 ```
 
-Even though `sleep` is first in the pipeline, we can see it running right away. The shell spawns all processes and connects their streams before any of them finish.
+We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
 
 Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
 
@@ -165,6 +172,15 @@ Similarly, every program has two output streams: stdout and stderr.
 The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
 The standard error is an alternative stream that is intended for programs to report warnings and other type of issues, without that output getting parsed by the next command in the chain.
 
+```console
+$ ls /nonexistent
+ls: cannot access '/nonexistent': No such file or directory
+$ ls /nonexistent | grep "pattern"
+ls: cannot access '/nonexistent': No such file or directory
+# The error message still appears because stderr is not piped
+$ ls /nonexistent 2>/dev/null
+# No output - stderr was redirected to /dev/null
+```
 
 The shell provides syntax for redirecting these streams, here are some illustrative examples
 
@@ -176,10 +192,10 @@ echo "hello" > output.txt
 echo "world" >> output.txt
 
 # Redirect stderr to a file
-cmd 2> errors.txt
+ls foobar 2> errors.txt
 
 # Redirect both stdout and stderr to the same file
-cmd &> all_output.txt
+ls foobar &> all_output.txt
 
 # Redirect stdin from a file
 grep "pattern" < input.txt
@@ -235,9 +251,11 @@ Whenever a shell program calls another program it passes along a set of variable
 From within a shell we can find the current environment variables by running `printenv`.
 To pass an environment variable explicitly we can prepend a command with a variable assignment
 
+> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+
 ```shell
-DEBUG=1 cmd
-echo $DEBUG # this will be empty, since DEBUG was only set for the child command
+TZ=Asia/Tokyo date  # prints the current time in Tokyo
+echo $TZ  # this will be empty, since TZ was only set for the child command
 ```
 
 Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
@@ -251,8 +269,7 @@ bash -c 'echo $DEBUG'
 
 To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$EDITOR`, which many programs use to determine which text editor to launch.
-
+> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
 
 ### Return codes
 
@@ -361,9 +378,9 @@ The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lis
 You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
 More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case).
+One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
 
-To background an already running program you can do `Ctrl-Z` followed by `bg`.
+
 Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
 To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
 Alternatively, you can use a terminal multiplexer as we will see in the next section.
@@ -410,7 +427,7 @@ cleanup() {
 trap cleanup EXIT  # Run cleanup when script exits
 trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
 ```
-
+{% comment %}
 ### Users, Files and Permissions
 
 Lastly, another way programs have to indirectly communicate with each other is using files.
@@ -426,7 +443,6 @@ $ ls -l notes.txt
 Here `ls` is listing what is the owner of the file, user `alice`, and the group `users`. Then the `rw-r--r--` are a shorthand notation for the permissions.
 In this case, the file `notes.txt` has read/write permissions for the user alice `rw-`, and only read permissions for the group and the rest of users in the file system.
 
-{% comment %}
 ```console
 $ ./script.sh
 # permission denied
@@ -469,9 +485,10 @@ Try running `sudo whoami` and `sudo id -u` to see how the output changes (you mi
 To change the owner of a file or folder, we use the `chown` command.
 
 You can learn more about UNIX file permissions [here](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions)
-{% endcomment %}
 
 So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
+
+{% endcomment %}
 
 ## Remote Machines
 
@@ -490,7 +507,7 @@ An often overlooked feature of `ssh` is the ability to run commands non-interact
 ssh alice@server ls | wc -l
 
 # here both ls and wc run in the server
-ssh alice@server 'ls | grep .py'
+ssh alice@server 'ls | wc -l'
 
 ```
 
@@ -514,7 +531,7 @@ At the server side `ssh` will look into `.ssh/authorized_keys` to determine whic
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 
-# or equivalently if ssh-copy-id is available
+# or more simply (if ssh-copy-id is available)
 
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
@@ -752,25 +769,27 @@ $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. Here's an example:
+**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
 
 ```console
-$ cat breeds.txt
-Golden Retriever
-Persian
-Labrador
-Siamese
-Beagle
-Maine Coon
-$ INSTRUCTIONS="For each breed output 'dog' or 'cat' on a separate line, nothing else"
-$ llm "$INSTRUCTIONS" < breeds.txt | sort | uniq -c
-   3 cat
-   3 dog
+$ cat users.txt
+Contact: john.doe@example.com
+User 'alice_smith' logged in at 3pm
+Posted by: @bob_jones on Twitter
+Author: Jane Doe (jdoe)
+Message from mike_wilson yesterday
+Submitted by user: sarah.connor
+$ INSTRUCTIONS="Extract just the username from each line, one per line, nothing else"
+$ llm "$INSTRUCTIONS" < users.txt
+john.doe
+alice_smith
+bob_jones
+jdoe
+mike_wilson
+sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< breeds.txt` to redirect the file's content to stdin.
-
-**AI-native terminals**: Terminal emulators like [Warp](https://www.warp.dev/) include built-in AI features for command suggestions and autocompletion.
+Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
 
 **AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
 
