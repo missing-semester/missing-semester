@@ -3,6 +3,7 @@ layout: lecture
 title: "Course Overview + Introduction to the Shell"
 date: 2026-01-12
 ready: true
+panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=263325eb-0a35-4dfd-a880-b3b700e1ca2e"
 ---
 
 {% comment %}
