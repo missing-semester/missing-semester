@@ -426,6 +426,7 @@ $ ls -l notes.txt
 Here `ls` is listing what is the owner of the file, user `alice`, and the group `users`. Then the `rw-r--r--` are a shorthand notation for the permissions.
 In this case, the file `notes.txt` has read/write permissions for the user alice `rw-`, and only read permissions for the group and the rest of users in the file system.
 
+{% comment %}
 ```console
 $ ./script.sh
 # permission denied
@@ -468,6 +469,7 @@ Try running `sudo whoami` and `sudo id -u` to see how the output changes (you mi
 To change the owner of a file or folder, we use the `chown` command.
 
 You can learn more about UNIX file permissions [here](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions)
+{% endcomment %}
 
 So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
 
@@ -605,6 +607,50 @@ export PATH="$PATH:path/to/append"
 
 Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
 This will allow children processes to find programs located under `path/to/append`.
+
+
+Customizing your shell often means installing new command-line tools. Package managers make this easy—they handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
+
+Here's how to install two useful tools using Homebrew on macOS:
+
+```shell
+# ripgrep: a faster grep with better defaults
+brew install ripgrep
+
+# fd: a faster, user-friendly find
+brew install fd
+```
+
+With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+
+> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky—you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> ```shell
+> curl -fsSL https://example.com/install.sh -o install.sh
+> less install.sh  # review the script
+> bash install.sh
+> ```
+> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+
+When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource—search for any command and it will show you how to install it across different package managers and distributions.
+
+Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+
+```console
+$ tldr fd
+  An alternative to find.
+  Aims to be faster and easier to use than find.
+
+  Recursively find files matching a pattern in the current directory:
+      fd "pattern"
+
+  Find files that begin with "foo":
+      fd "^foo"
+
+  Find files with a specific extension:
+      fd --extension txt
+```
+
+Sometimes you don't need a whole new program—you just want a shortcut for an existing command with specific flags. That's where aliases come in
 
 We can also create our own command aliases using the `alias` shell built-in.
 A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
@@ -751,15 +797,6 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 
 1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
 
-1. Run the following commands and explain what the first command does and what the output of the last command shows:
-
-    ```shell
-    mkdir foo bar
-    touch {foo,bar}/{a..h}
-    touch foo/x bar/y
-    diff <(ls foo) <(ls bar)
-    ```
-
 1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
     - Includes all files, including hidden files
     - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
@@ -780,15 +817,7 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 ls -lath --color=auto
 {% endcomment %}}
 
-### Streams
-
-1. The [`xargs`](https://www.man7.org/linux/man-pages/man1/xargs.1.html) command executes a command using STDIN as arguments. For example `ls | xargs rm` will delete the files in the current directory. Write a command that recursively finds all HTML files in the folder and makes a tar archive with them. Note that your command should work even if the files have spaces (hint: check `-print0` on `find` and `-0` flag for `xargs`).
-
-    {% comment %}
-    find . -type f -name "*.html" -print0 | xargs -0 tar -cvzf archive.tar.gz
-    {% endcomment %}}
-
-    If you're on macOS, note that the default BSD `find` is different from the one included in [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands). As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by [using brew](https://formulae.brew.sh/formula/coreutils).
+1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
 
 ### Environment Variables
 
@@ -805,8 +834,6 @@ polo() {
 {% endcomment %}}
 
 ### Return Codes
-
-1. The programs `true` and `false` are shell built-ins that do nothing except return exit code 0 and 1 respectively. Experiment with them using `&&` and `||` to understand how short-circuit evaluation works with return codes.
 
 1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
 
