@@ -142,12 +142,12 @@ Namely, the shell is not first calling cat, then grep, and then uniq.
 Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
 When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
 
-We can demonstrate this concurrency—all commands in a pipeline start immediately:
+We can demonstrate this concurrency, all commands in a pipeline start immediately:
 
 ```console
 $ sleep 60 | cat | grep "pattern" &
 [1] 12345
-$ ps aux | grep sleep
+$ ps aux | grep -P '(sleep|cat|grep)'
 user  12345  ... sleep 60
 ```
 
@@ -282,7 +282,7 @@ true && echo "This will always print"
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements—they use return codes to make decisions:
+The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
 
 ```shell
 # if uses the return code of the condition command (0 = true, nonzero = false)
@@ -609,7 +609,7 @@ Here, we are telling the shell to set the value of the $PATH variable to its cur
 This will allow children processes to find programs located under `path/to/append`.
 
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy—they handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
+Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
 
 Here's how to install two useful tools using Homebrew on macOS:
 
@@ -623,7 +623,7 @@ brew install fd
 
 With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky—you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
 > less install.sh  # review the script
@@ -631,7 +631,7 @@ With these installed, you can use `rg` instead of `grep` and `fd` instead of `fi
 > ```
 > Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource—search for any command and it will show you how to install it across different package managers and distributions.
+When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
 
 Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
 
@@ -650,7 +650,7 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program—you just want a shortcut for an existing command with specific flags. That's where aliases come in
+Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in
 
 We can also create our own command aliases using the `alias` shell built-in.
 A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
@@ -696,7 +696,7 @@ alias ll
 
 Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
 
-Most shells support `Ctrl-R` for reverse history search—press it and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
 
 How should you organize your dotfiles? They should be in their own folder,
 under version control, and **symlinked** into place using a script. This has
