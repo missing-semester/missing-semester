@@ -427,7 +427,7 @@ better way of doing this", there probably is: look it up online.
 - [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
 - [Vim Golf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
-- [Vim Screencasts](https://vimcasts.org/)
+- [Vim Screencasts](http://vimcasts.org/)
 - [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
 
 # Exercises
