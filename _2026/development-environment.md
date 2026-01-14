@@ -380,6 +380,10 @@ If you use regex groups `(...)`, you can refer to sub-parts of the match for ext
 
 In your text editor, you can use reference capture groups in replace patterns. The syntax might vary between IDE. For example, in VS Code, you can use variables like `$1`, `$2`, etc., and in Vim, you can use `\1`, `\2`, etc., to reference groups.
 
+## Limitations
+
+[Regular languages](https://en.wikipedia.org/wiki/Regular_language) are powerful but limited; there are classes of strings that cannot be expressed as a standard regex (e.g., it is [not possible](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages) to write a regular expression that matches the set of strings {a^n b^n \| n &ge; 0}, the set of strings of a number of "a"s followed by the same number of "b"s; more practically, languages like HTML are not regular languages). In practice, modern regex engines support features like lookahead and backreferences that extend support beyond regular languages, and they are practically extremely useful, but it is important to know that they are still limited in their expressive power. For more sophisticated languages, you might need to reach for a more capable type of parser (for one example, see [pyparsing](https://github.com/pyparsing/pyparsing), a [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) parser).
+
 ## Learning regex
 
 We recommend learning the fundamentals (what we have covered in this lecture), and then looking at regex references as you need them, rather than memorizing the entirety of the language.
