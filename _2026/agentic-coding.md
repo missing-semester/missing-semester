@@ -11,7 +11,9 @@ Coding agents are conversational AI models with access to tools such as reading/
 
 Continuing the example from the [Development Environment and Tools](/2026/development-environment/) lecture, we can try prompting a coding agent with the following task:
 
-> Turn this into a proper command-line program, with argparse for argument parsing. Add type annotations, and make sure the program passes type checking.
+```
+Turn this into a proper command-line program, with argparse for argument parsing. Add type annotations, and make sure the program passes type checking.
+```
 
 The agent will read the file to understand it, then make some edits, and finally invoke the type checker to make sure the type annotations are correct. If it makes a mistake such that it fails type checking, it will likely iterate, though this is a simple task so that is unlikely to happen. Because coding agents have access to tools that may be harmful, by default, agent harnesses prompt the user to confirm tool calls.
 
@@ -58,7 +60,9 @@ Here, we give a brief overview of some more advanced usage patterns and capabili
 
 For many of the advanced features that require writing prompts (e.g., skills or subagents), you can use LLMs to get you started. Some coding agents even have built-in support for doing this. For example, Claude Code can generate a subagent from a short prompt (invoke `/agents` and create a new agent). Try creating a subagent with this prompt:
 
-> A Python code checking agent that uses `mypy` and `ruff` to type-check, lint, and format *check* any files that have been modified from the last git commit.
+```
+A Python code checking agent that uses `mypy` and `ruff` to type-check, lint, and format *check* any files that have been modified from the last git commit.
+```
 
 Then, you can use the top-level agent to explicitly invoke the subagent with a message like "use the code checker subagent". You might also be able to get the top-level agent to automatically invoke the subagent when appropriate, for example, after modifying any Python files.
 
