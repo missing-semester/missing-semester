@@ -35,9 +35,9 @@ lecturer: Anish
 - Regular expressions (moved from dev env lecture)
 {% endcomment %}
 
-# Regular expressions for search and replace
+# Regular expressions for pattern matching
 
-_Regular expressions_, commonly abbreviated as "regex", is a language used to represent sets of strings. IDEs support regex for pattern-based search and search-and-replace. Regex patterns are also used commonly in other contexts such as command-line tools. For example, [ag](https://github.com/ggreer/the_silver_searcher) supports regex patterns for codebase-wide search (e.g., `ag "import .* as .*"` will find all renamed imports in Python), and [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) supports a `-run [regexp]` option for selecting a subset of tests. Furthermore, programming languages have built-in support or third-party libraries for regular expression matching, so you can use regexes for functionality such as pattern matching, validation, and parsing.
+_Regular expressions_, commonly abbreviated as "regex", is a language used to represent sets of strings. IDEs support regex for pattern-based search and search-and-replace. Regex patterns are also used commonly for pattern matching in other contexts such as command-line tools. For example, [ag](https://github.com/ggreer/the_silver_searcher) supports regex patterns for codebase-wide search (e.g., `ag "import .* as .*"` will find all renamed imports in Python), and [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) supports a `-run [regexp]` option for selecting a subset of tests. Furthermore, programming languages have built-in support for third-party libraries for regular expression matching, so you can use regexes for functionality such as pattern matching, validation, and parsing.
 
 To help build intuition, below are some examples of regex patterns. In this lecture, we use [Python regex syntax](https://docs.python.org/3/library/re.html). There are many flavors of regex, with slight variation between them, especially in the more sophisticated functionality. You can use an online regex tester like [regex101](https://regex101.com/) to develop and debug regular expressions.
 
@@ -96,3 +96,8 @@ Write a Python-style regex pattern that matches the requested path from log line
 
 169.254.1.1 - - [09/Jan/2026:21:28:51 +0000] "GET /feed.xml HTTP/2.0" 200 2995 "-" "python-requests/2.32.3"
 ```
+
+# Exercises
+
+1. Practice regex search-and-replace by replacing the `-` [Markdown bullet markers](https://spec.commonmark.org/0.31.2/#bullet-list-marker) with `*` bullet markers in the [lecture notes for today](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md). Note that just replacing all the "-" characters in the file would be incorrect, as there are many uses of that character that are not bullet markers.
+1. Write a regex to capture from JSON structures of the form `{"name": "Alyssa P. Hacker", "college": "MIT"}` the name (e.g., `Alyssa P. Hacker`, in this example). Hint: in your first attempt, you might end up writing a regex that extracts `Alyssa P. Hacker", "college": "MIT`; read about greedy quantifiers in the [Python regex docs](https://docs.python.org/3/library/re.html) to figure out how to fix it.

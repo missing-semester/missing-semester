@@ -7,8 +7,6 @@ ready: true
 
 This lecture builds on the AI-powered development material from the [Development Environment and Tools](/2026/development-environment/) lecture.
 
-# Coding agents
-
 Coding agents are conversational AI models with access to tools such as reading/writing files, web search, and invoking shell commands. They live either in the IDE or in standalone command-line or GUI tools. Coding agents are highly autonomous and powerful tools, enabling a wide variety of use cases.
 
 Continuing the example from the [Development Environment and Tools](/2026/development-environment/) lecture, we can try prompting a coding agent with the following task:
@@ -19,7 +17,7 @@ The agent will read the file to understand it, then make some edits, and finally
 
 Coding agents support multi-turn interaction, so you can iterate on work over a back-and-forth conversation with the agent. You can even interrupt the agent if it's going down the wrong track. One helpful mental model might be that of a manager of an intern: the intern will do the nitty gritty work, but will require guidance, and will occasionally do the wrong thing and need to be corrected.
 
-## How AI models and agents work
+# How AI models and agents work
 
 Fully explaining the inner workings of modern [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) and infrastructure such as agent harnesses is beyond the scope of this course. However, having a high-level understanding of some of the key ideas is helpful for effectively _using_ this bleeding edge technology and understanding its limitations.
 
@@ -31,7 +29,7 @@ Most AI coding tools in their standard configurations send a lot of your data to
 
 There are open-source AI coding tools and open-source LLMs that are pretty good (though not quite as good as the proprietary models), but at the present, for most users, running bleeding-edge open LLMs locally will be infeasible due to hardware limitations.
 
-## Use cases
+# Use cases
 
 Coding agents can be helpful for a wide variety of tasks. Some examples:
 
@@ -40,9 +38,10 @@ Coding agents can be helpful for a wide variety of tasks. Some examples:
 - **Refactoring.** You can use coding agents to refactor code in various ways, from simple tasks like renaming a method (this kind of refactoring is also supported by [code intelligence](/2026/development-environment/#code-intelligence-and-language-servers)) to more complex tasks like breaking out functionality into a separate module.
 - **Code review.** You can ask coding agents to review code. You can give them basic guidance, like "review my latest changes that are not yet committed". If you want to review a pull request and your coding agent supports web fetch, or you have command-line tools like the [GitHub CLI](https://cli.github.com/) installed, you might even be able to ask the coding agent "Review the pull request {link}" and it'll handle it from there.
 - **Code understanding.** You can ask a coding agent questions about a codebase, which can be particularly helpful for onboarding.
+- **As a shell.** You can ask the coding agent to use a particular tool to solve a task, so you can invoke a shell command using natural language, such as "use the find command to find all files older than 30 days".
 - **Vibe coding.** Agents are powerful enough that you can implement some applications without writing a single line of code yourself.
 
-## Advanced agents
+# Advanced agents
 
 Here, we give a brief overview of some more advanced usage patterns and capabilities of coding agents.
 
@@ -63,9 +62,21 @@ For many of the advanced features that require writing prompts (e.g., skills or 
 
 Then, you can use the top-level agent to explicitly invoke the subagent with a message like "use the code checker subagent". You might also be able to get the top-level agent to automatically invoke the subagent when appropriate, for example, after modifying any Python files.
 
-## What to watch out for
+# What to watch out for
 
 AI tools can make mistakes. They are built on LLMs, which are just probabilistic next-token-prediction models. They are not "intelligent" in the same way as humans. Review AI output for correctness and security bugs. Sometimes verifying code can be harder than writing the code yourself; for critical code, consider writing it by hand. AI can go down rabbit holes and try to gaslight you; be aware of debugging spirals. Don't use AI as a crutch, and be wary of overreliance or having a shallow understanding. There's still a huge class of programming tasks that AI is still incapable of doing. Computational thinking is still valuable.
+
+# Recommended software
+
+Many IDEs / AI coding extensions include coding agents (see recommendations from the [development environment lecture](development environment lecture). Other popular coding agents include Anthropic's [Claude Code](https://www.claude.com/product/claude-code), OpenAI's [Codex](https://openai.com/codex/), and open-source agents like [opencode](https://github.com/anomalyco/opencode).
+
+# Exercises
+
+1. Compare the experience of coding by hand, using AI autocomplete, inline chat, and agents by doing the same programming task four times. The best candidate is a small-sized feature from a project you're already working on. If you're looking for other ideas, you could consider completing "good first issue" style tasks in open-source projects on GitHub, or [Advent of Code](https://adventofcode.com/) or [LeetCode](https://leetcode.com/) problems.
+1. Use an AI coding agent to navigate an unfamiliar codebase. This is best done in the context of wanting to debug or add a new feature to a project you actually care about. If you don't have any that come to mind, try using an AI agent to understand how security-related features work in the [opencode](https://github.com/anomalyco/opencode) agent.
+1. Vibe code a small app from scratch. Do not write a single line of code by hand.
+1. For your coding agent of choice, create and test an `AGENTS.md` (or analogous for your agent of choice, such as `CLAUDE.md`), a reusable prompt (e.g., [custom slash command in Claude Code](https://code.claude.com/docs/en/slash-commands#custom-slash-commands) or [custom prompts in Codex](https://developers.openai.com/codex/custom-prompts)), a skill (e.g., [skill in Claude Code](https://code.claude.com/docs/en/skills) or [skill in Codex](https://developers.openai.com/codex/skills/)), and a subagent (e.g., [subagent in Claude Code](https://code.claude.com/docs/en/sub-agents)). Think about when you'd want to use one of these versus another. Note that your coding agent of choice might not support some of these functionalities; you can either skip them, or try a different coding agent that has support.
+1. Use a coding agent to accomplish the same goal as in the Markdown bullet points regex exercise from the [Code Quality lecture](/2026/code-quality/). Does it complete the tasks via direct file edits? What are the downsides and limitations of an agent editing the file directly to complete such a task? Figure out how to prompt the agent such that it doesn't complete the task via direct file edits. Hint: ask the agent to use one of the command-line tools mentioned in the [first lecture](/2026/course-shell/).
 
 {% comment %}
 lecturer: Anish
