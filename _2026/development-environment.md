@@ -180,13 +180,12 @@ The best way to learn Vim is to learn the fundamentals (what we've covered so fa
 
 IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
 
-- **Code formatting.** Auto-indentation and auto-formatting for blocks of code.
 - **Code completion.** Better autocomplete and autosuggest, such as being able to see an object's fields and methods after typing `object.`.
 - **Inline documentation.** Seeing documentation on hover and autosuggest.
 - **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
 - **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
-- **Type checking and linting.** Find errors in your code as you type.
 - **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
+- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
 
 ## Configuring language servers
 
@@ -207,41 +206,61 @@ AI-powered autocomplete has the same form factor as traditional autocomplete in 
 For example, let's write a script to download the contents of these lecture notes and extract all the links. We can start with:
 
 ```python
-url = "https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md"
-```
-
-Next, we can prompt the autocomplete model by writing a comment:
-
-```python
-# download the url and get its contents as a string
-```
-
-The model will suggest something like:
-
-```python
 import requests
-response = requests.get(url)
-content = response.text
+
+def download_contents(url: str) -> str:
 ```
 
-We can also write some partial code, using a descriptive variable name to guide the model::
+The model will autocomplete the body of the function:
 
 ```python
-import re
-links = re.findall(
+    response = requests.get(url)
+    return response.text
 ```
 
-And the model will complete the line:
+We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but doesn't have a particularly descriptive name:
 
 ```python
-links = re.findall(r'\[([^\]]+)\]\((https?://[^\)]+)\)', content)
+def extract(contents: str) -> list[str]:
+```
+
+The model will autocomplete something like this:
+
+```python
+    lines = contents.splitlines()
+    return [line for line in lines if line.strip()]
+```
+
+We can guide the completion through code comments:
+
+```python
+def extract(content: str) -> list[str]:
+    # extract all Markdown links from the content
+```
+
+This time, the model gives a better completion:
+
+```python
+    import re
+    pattern = r'\[.*?\]\((.*?)\)'
+    return re.findall(pattern, content)
+```
+
+Here, we see one downside of this AI coding tool: it can only provide completions at the cursor. In this case, it would be better practice to put the `import re` at the module level, rather than inside the function.
+
+The example above used a poorly-named function to demonstrate how code completion can be steered using comments; in practice, you'd want to write code with functions named more descriptively, like `extract_links`, and you'd want to write docstrings (and based on this, the model should generate a completion analogous to the one above).
+
+For demonstration purposes, we can complete the script:
+
+```python
+print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
 ```
 
 ## Inline chat
 
 Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
 
-Continuing the example from above, supposed we don't like that the model is using the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+Continuing the example from above, supposed we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
 
 ```
 use built-in libraries instead
@@ -250,9 +269,11 @@ use built-in libraries instead
 The model proposes:
 
 ```python
-import urllib.request
-with urllib.request.urlopen(url) as response:
-    content = response.read().decode('utf-8')
+from urllib.request import urlopen
+
+def download_contents(url: str) -> str:
+    with urlopen(url) as response:
+        return response.read().decode('utf-8')
 ```
 
 ## Coding agents
@@ -274,6 +295,10 @@ Fully explaining the inner workings of modern [large language models (LLMs)](htt
 LLMs can be viewed as modeling the probability distribution of completion strings (outputs) given prompt strings (inputs). LLM inference (what happens when you, e.g., supply a query to a conversational chat app) _samples_ from this probability distribution. LLMs have a fixed _context window_, the maximum length of the input and output strings.
 
 AI tools such as conversational chat and coding agents build on top of this primitive. For multi-turn interactions, chat apps and agents use turn markers and supply the entire conversation history as the prompt string every time there is a new user prompt, invoking LLM inference once per user prompt. For tool-calling agents, the harness interprets certain LLM outputs as requests to invoke a tool, and the harness supplies the results of the tool call back to the model as part of the prompt string (so LLM inference runs again every time there is a tool call/response).
+
+Most AI coding tools in their standard configurations send a lot of your data to the cloud. Sometimes the harness runs locally while LLM inference runs in the cloud, other times even more of the software is running in the cloud (and, e.g., the service provider might effectively get a copy of your entire repository as well as all interactions you have with the AI tool).
+
+There are open-source AI coding tools and open-source LLMs that are pretty good (though not quite as good as the proprietary models), but at the present, for most users, running bleeding-edge open LLMs locally will be infeasible due to hardware limitations.
 
 ### Use cases
 
@@ -331,6 +356,7 @@ You can find a comprehensive guide to regex syntax in [this documentation](https
 - `a|b` matches either pattern (e.g., "a" or "b")
 - `\d` matches any digit character (e.g., "3")
 - `\w` matches any word character (e.g., "x")
+- `\b` matches any word _boundary_ (e.g., in the string "missing semester", matches just before the "m", just after the "g", just before the "s", and just after the "r")
 - `(...)` matches the group of a pattern
 - `...?` matches zero or one of a pattern, such as `words?` to match "word" or "words"
 - `...*` matches any number of a pattern, such as `.*` to match any number of any character
@@ -383,4 +409,5 @@ IDEs are powerful tools, made even more powerful by _extensions_. We can't cover
 1. Vibe code a small app from scratch. Do not write a single line of code by hand.
 1. Practice regex search-and-replace by replacing the `-` [Markdown bullet markers](https://spec.commonmark.org/0.31.2/#bullet-list-marker) with `*` bullet markers in the [lecture notes for today](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md). Note that just replacing all the "-" characters in the file would be incorrect, as there are many uses of that character that are not bullet markers.
 1. Use an AI agent to accomplish the same goal as in the exercise above.
+1. Write a regex to capture from JSON structures of the form `{"name": "Alyssa P. Hacker", "college": "MIT"}` the name (e.g., `Alyssa P. Hacker`, in this example). Hint: in your first attempt, you might end up writing a regex that extracts `Alyssa P. Hacker", "college": "MIT`; read about greedy quantifiers in the [Python regex docs](https://docs.python.org/3/library/re.html) to figure out how to fix it.
 1. Browse a list of IDE extensions and install one that seems useful to you.
