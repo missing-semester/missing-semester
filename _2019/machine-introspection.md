@@ -60,10 +60,10 @@ log files. `journalctl -f`, `dmesg -w`, and `tail -f` are you friends
 here.
 
 Sometimes, you want to know more about the resources being used overall
-on your system. [`dstat`](http://dag.wiee.rs/home-made/dstat/) is
+on your system. [`dool`](https://github.com/scottchiefbaker/dool) is
 excellent for that. It gives you real-time resource metrics for lots of
 different subsystems like I/O, networking, CPU utilization, context
-switches, and the like. `man dstat` is the place to start.
+switches, and the like. `man dool` is the place to start.
 
 If you're running out of disk space, there are two primary utilities
 you'll want to know about: `df` and `du`. The former shows you the
