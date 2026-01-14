@@ -356,7 +356,7 @@ With this setting, for example, the Python REPL will support Vim bindings.
 ## Others
 
 There are even vim keybinding extensions for web
-[browsers](http://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers) - some
+[browsers](https://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers) - some
 popular ones are
 [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)
 for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for
@@ -373,7 +373,7 @@ better way of doing this", there probably is: look it up online.
 
 ## Search and replace
 
-`:s` (substitute) command ([documentation](http://vim.wikia.com/wiki/Search_and_replace)).
+`:s` (substitute) command ([documentation](https://vim.wikia.com/wiki/Search_and_replace)).
 
 - `%s/foo/bar/g`
     - replace foo with bar globally in file
@@ -423,9 +423,9 @@ better way of doing this", there probably is: look it up online.
 
 - `vimtutor` is a tutorial that comes installed with Vim - if Vim is installed, you should be able to run `vimtutor` from your shell
 - [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
-- [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
+- [Vim Tips Wiki](https://vim.wikia.com/wiki/Vim_Tips_Wiki)
 - [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [Vim Golf](http://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Golf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
 - [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
