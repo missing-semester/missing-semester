@@ -120,6 +120,9 @@ strace ./my_program
 # Trace only file-related calls
 strace -e trace=file ./my_program
 
+# Follow child processes (important for programs that start other programs)
+strace -f ./my_program
+
 # Trace a running process
 strace -p <PID>
 
@@ -136,11 +139,11 @@ strace -T ./my_program
 [eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) is a powerful Linux technology that allows running sandboxed programs in the kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) provides a high-level syntax for writing eBPF programs. These are arbitrary programs running in the kernel, and thus have huge expressive power (though also a somewhat clumsy awk-like syntax). The most common use-case for them is to investigate what system calls are being invoked, including aggregations (like counts or latency statistics) or introspecting (or even filtering on) system call arguments.
 
 ```bash
-# Count system calls by name
-sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
-
-# Trace file opens with the path
+# Trace file opens system-wide (prints immediately)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm, str(args->filename)); }'
+
+# Count system calls by name (prints summary on Ctrl-C)
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
 ```
 
 However, you can also write eBPF programs directly in C using a toolchain like [`bcc`](https://github.com/iovisor/bcc), which also ships with [many handy tools](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) like `biosnoop` for printing latency distributions for disk operations or `opensnoop` for printing all open files.
@@ -148,14 +151,14 @@ However, you can also write eBPF programs directly in C using a toolchain like [
 Where `strace` is useful because it's easy to "just get up and running", `bpftrace` is what you should reach for when you need lower overhead, want to trace through kernel functions, need to do any kind of aggregation, etc. Note that `bpftrace` has to run as `root` though, and that it generally monitors the entire kernel, not just a particular process. To target a specific program, you can filter by command name or PID:
 
 ```bash
-# Filter by command name
-sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "myprogram"/ { @[probe] = count(); }'
+# Filter by command name (prints summary on Ctrl-C)
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "bash"/ { @[probe] = count(); }'
 
-# Filter by PID (use $target with -c to trace a command from startup)
-sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == $target/ { @[probe] = count(); }' -c ./myprogram
+# Trace a specific command from startup using -c (cpid = child PID)
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == cpid/ { @[probe] = count(); }' -c 'ls -la'
 ```
 
-The `-c` flag runs the specified command and sets `$target` to its PID, which is useful for tracing a program from the moment it starts.
+The `-c` flag runs the specified command and sets `cpid` to its PID, which is useful for tracing a program from the moment it starts. When the traced command exits, bpftrace prints the aggregated results.
 
 ### Network Debugging
 
@@ -433,67 +436,56 @@ Summary
 
    ```c
    #include <stdio.h>
-   #include <stdlib.h>
-   #include <string.h>
 
    typedef struct {
-       char name[8];
        int id;
-       int balance;
-   } Account;
+       int scores[3];
+   } Student;
 
-   Account accounts[3];
+   Student students[2];
 
-   void init_accounts() {
-       strcpy(accounts[0].name, "Alice");
-       accounts[0].id = 1;
-       accounts[0].balance = 1000;
+   void init() {
+       students[0].id = 1001;
+       students[0].scores[0] = 85;
+       students[0].scores[1] = 92;
+       students[0].scores[2] = 78;
 
-       strcpy(accounts[1].name, "Bob");
-       accounts[1].id = 2;
-       accounts[1].balance = 500;
-
-       strcpy(accounts[2].name, "Charlie");
-       accounts[2].id = 3;
-       accounts[2].balance = 750;
+       students[1].id = 1002;
+       students[1].scores[0] = 90;
+       students[1].scores[1] = 88;
+       students[1].scores[2] = 95;
    }
 
-   void update_name(int index, const char* new_name) {
-       strcpy(accounts[index].name, new_name);
-   }
-
-   void print_accounts() {
-       for (int i = 0; i < 3; i++) {
-           printf("Account %d: %s, id=%d, balance=%d\n",
-                  i, accounts[i].name, accounts[i].id, accounts[i].balance);
+   void curve_scores(int student_idx, int curve) {
+       for (int i = 0; i < 4; i++) {
+           students[student_idx].scores[i] += curve;
        }
    }
 
    int main() {
-       init_accounts();
+       init();
        printf("=== Initial state ===\n");
-       print_accounts();
+       printf("Student 0: id=%d\n", students[0].id);
+       printf("Student 1: id=%d\n", students[1].id);
 
-       accounts[0].balance -= 100;
-       accounts[1].balance += 100;
-       update_name(0, "Alexandria");
-       accounts[2].balance -= 50;
+       curve_scores(0, 5);
 
-       printf("\n=== After operations ===\n");
-       print_accounts();
+       printf("\n=== After curving ===\n");
+       printf("Student 0: id=%d\n", students[0].id);
+       printf("Student 1: id=%d\n", students[1].id);
 
-       if (accounts[0].id != 1) {
-           printf("\nERROR: Account 0 ID was corrupted! Expected 1, got %d\n",
-                  accounts[0].id);
+       if (students[1].id != 1002) {
+           printf("\nERROR: Student 1's ID was corrupted! Expected 1002, got %d\n",
+                  students[1].id);
            return 1;
        }
        return 0;
    }
    ```
 
-   Compile with `gcc -g corruption.c -o corruption` and run it. The account ID gets corrupted, but it's not obvious why. Use `rr record ./corruption` and `rr replay` to find the culprit. Set a watchpoint on `accounts[0].id` and use `reverse-continue` after the corruption to find exactly which line of code overwrote it.
+   Compile with `gcc -g corruption.c -o corruption` and run it. Student 1's ID gets corrupted, but the corruption happens in a function that only touches student 0. Use `rr record ./corruption` and `rr replay` to find the culprit. Set a watchpoint on `students[1].id` and use `reverse-continue` after the corruption to find exactly which line of code overwrote it.
 
-1. Debug a memory error with AddressSanitizer. Save this as `leak.c`:
+1. Debug a memory error with AddressSanitizer. Save this as `uaf.c`:
 
    ```c
    #include <stdlib.h>
@@ -501,18 +493,24 @@ Summary
    #include <stdio.h>
 
    int main() {
-       char* buf = malloc(10);
-       strcpy(buf, "hello world!");
-       printf("%s\n", buf);
+       char *greeting = malloc(32);
+       strcpy(greeting, "Hello, world!");
+       printf("%s\n", greeting);
+
+       free(greeting);
+
+       greeting[0] = 'J';
+       printf("%s\n", greeting);
+
        return 0;
    }
    ```
 
-   First compile and run without sanitizers: `gcc leak.c -o leak && ./leak`. It may appear to work. Now compile with AddressSanitizer: `gcc -fsanitize=address -g leak.c -o leak && ./leak`. Read the error report. What bugs does ASan find? Fix all issues it identifies.
+   First compile and run without sanitizers: `gcc uaf.c -o uaf && ./uaf`. It may appear to work. Now compile with AddressSanitizer: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Read the error report. What bug does ASan find? Fix the issue it identifies.
 
 1. Use `strace` (Linux) or `dtruss` (macOS) to trace the system calls made by a command like `ls -l`. What system calls is it making? Try tracing a more complex program and see what files it opens.
 
-1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix.
+1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix. Try putting some of the output from `strace` or the address sanitizer into it.
 
 ## Profiling
 
