@@ -153,10 +153,124 @@ hr {
 }
 
 blockquote {
-  padding: 0 0 0 1rem;
-  margin: 0.8rem 0;
-  color: #666;
-  border-left: 0.25rem solid #e5e5e5;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  background-color: rgba(36, 0, 140, 0.05);
+  border-left: 3px solid #24008c;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote.epigraph {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 1.5rem 0 1.5rem 1rem;
+}
+
+blockquote.epigraph p {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+blockquote.epigraph footer {
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+@media (min-width: 64rem) {
+  #content {
+    position: relative;
+  }
+
+  .sidenote-column {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 1.5rem);
+    width: 14rem;
+  }
+
+  /* Hide inline sidenotes on desktop, show margin ones */
+  .sidenote-inline {
+    display: none;
+  }
+
+  .sidenote-margin {
+    position: absolute;
+    width: 100%;
+    padding: 0.2rem 0.5rem 0.5rem 0.5rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: #000;
+    background: none;
+    border: none;
+    border-left: 2px solid #54008c;
+  }
+
+  .sidenote-ref {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+    width: 100%;
+    background-color: #e8e8e8;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    padding: 0.15rem 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .sidenote-arrows {
+    color: #54008c;
+    letter-spacing: 0.1em;
+  }
+
+  .sidenote-label {
+    color: #666;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  .sidenote-num {
+    color: #54008c;
+    font-size: 0.65rem;
+    font-weight: bold;
+    margin-right: 0.15rem;
+    margin-bottom: 0.1rem;
+    display: block;
+  }
+
+  .sidenote-back {
+    color: #54008c;
+    text-decoration: none;
+    font-size: 0.9em;
+  }
+
+  .sidenote-back:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  /* Hide margin sidenotes and column on mobile, show inline ones */
+  .sidenote-column {
+    display: none;
+  }
+
+  .sidenote-inline {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background-color: #faf8fc;
+    border-left: 3px solid #54008c;
+  }
+
+  .sidenote-ref {
+    display: none;
+  }
 }
 
 /* Classes */
@@ -370,12 +484,68 @@ input[type=checkbox]:checked ~ .menu-label:after {
     background: rgba(0, 0, 0, 0.5);
     border-left: 2px solid #A6E22E;
   }
+
+  blockquote {
+    background-color: rgba(166, 226, 46, 0.06);
+    border-left-color: #A6E22E;
+  }
+
+  .sidenote-margin {
+    color: #bbb;
+    border-left-color: #A6E22E;
+  }
+
+  .sidenote-inline {
+    border-left-color: #A6E22E;
+  }
+
+  .sidenote-ref {
+    background-color: #404040;
+  }
+
+  .sidenote-arrows {
+    color: #A6E22E;
+  }
+
+  .sidenote-label {
+    color: #aaa;
+  }
+
+  .sidenote-num {
+    color: #A6E22E;
+  }
+
+  .sidenote-back {
+    color: #A6E22E;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (min-width: 64rem) {
+  .sidenote-margin {
+    background: none;
+    color: #ddd;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 63.99rem) {
+  .sidenote-inline {
+    background-color: rgba(166, 226, 46, 0.06);
+  }
 }
 
 @media print {
   #nav-bg, #logo, #top-nav { display: none; }
   h1.title ~ p.center.padded.bordered { display: none; }
   .youtube-wrapper { display: none; }
+  .sidenote-column { display: none; }
+  .sidenote-ref { display: none; }
+  .sidenote-inline {
+    display: block;
+    background: none;
+    border-left: 2px solid #999;
+    padding: 0 0 0 0.75rem;
+    margin: 1rem 0;
+  }
   html { font-size: 1em; font-family: sans-serif; }
   body { background: none; }
   #content { max-width: none; }
