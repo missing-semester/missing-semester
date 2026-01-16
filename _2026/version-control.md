@@ -8,10 +8,10 @@ ready: true
 Version control systems (VCSs) are tools used to track changes to source code
 (or other collections of files and folders). As the name implies, these tools
 help maintain a history of changes; furthermore, they facilitate collaboration.
-VCSs track changes to a folder and its contents in a series of snapshots, where
-each snapshot encapsulates the entire state of files/folders within a top-level
-directory. VCSs also maintain metadata like who created each snapshot, messages
-associated with each snapshot, and so on.
+Logically, VCSs track changes to a folder and its contents in a series of
+_snapshots_, where each snapshot encapsulates the entire state of files/folders
+within a top-level directory. VCSs also maintain metadata like who created each
+snapshot, messages associated with each snapshot, and so on.
 
 Why is version control useful? Even when you're working by yourself, it can let
 you look at old snapshots of a project, keep a log of why certain changes were
@@ -48,9 +48,9 @@ terms of how they manipulate the underlying data model.
 
 # Git's data model
 
-There are many ad-hoc approaches you could take to version control. Git has a
-well-thought-out model that enables all the nice features of version control,
-like maintaining history, supporting branches, and enabling collaboration.
+Git's ingenuity is in its well-thought-out data model that enables all the nice
+features of version control, like maintaining history, supporting branches, and
+enabling collaboration.
 
 ## Snapshots
 
@@ -260,8 +260,9 @@ area".
 # Git command-line interface
 
 To avoid duplicating information, we're not going to explain the commands below
-in detail. See the highly recommended [Pro Git](https://git-scm.com/book/en/v2)
-for more information, or watch the lecture video.
+in detail in these lecture notes. See the highly recommended [Pro
+Git](https://git-scm.com/book/en/v2) for more information, or watch the lecture
+video.
 
 ## Basics
 
