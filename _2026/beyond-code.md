@@ -359,6 +359,49 @@ is in scope for a particular task, ask!
 > Trying to do so discretely without getting caught **will** come back
 > to bite you.
 
-{% comment %}
-TODO: exercises
-{% endcomment %}
+# Exercises
+
+1. Browse the source code of a well-known project (e.g.,
+   [Redis](https://github.com/redis/redis) or
+   [curl](https://github.com/curl/curl)). Find examples of some of the
+   comment types mentioned in the lecture: a useful TODO, a reference to
+   external documentation, a "why not" comment explaining an avoided
+   approach, or a hard-learned lesson. What would be lost if that
+   comment was not there?
+
+1. Pick an open-source project you're interested in and look at its
+   recent commit history (`git log`). Find one commit with a good
+   message that explains *why* the change was made, and one with a weak
+   message that only describes *what* changed. For the weak one, look at
+   the diff (`git show <hash>`) and try to write a better commit message
+   following the Problem → Solution → Implications structure. Notice how
+   much work is required to reassemble the necessary context after the
+   fact!
+
+1. Compare the READMEs of three GitHub projects with 1000+ stars. Are
+   all of them equally useful? Look for things that come across mostly
+   as noise to you as a lesson for future READMEs you write yourself.
+
+1. Find an open issue on a project you use (check the "good first issue"
+   or "help wanted" labels if they have it). Evaluate the issue against
+   the criteria from the lecture: does it seem like it values the
+   maintainer's time and contains all the information necessary to debug
+   it, or do you expect that the maintainer may need to go multiple
+   rounds of questions with the submitter to get to the root problem?
+
+1. Think of a bug you've encountered in software you use (or find one in
+   an issue tracker). Practice creating a minimal reproducible example:
+   strip away everything unrelated to the bug until you have the
+   smallest case that still demonstrates the problem. Write up what you
+   removed and why.
+
+1. Find a merged pull request on a project you're familiar with that has
+   substantive review comments (not just "LGTM"). Read through the
+   review. Were all the comments equally productive? If you were the PR
+   author, how would you find the experience of getting all those
+   comments?
+
+1. Go to Stack Overflow and find a question in a technology you know
+   that has a highly-voted answer. Then find one that was closed or
+   heavily downvoted. Compare them against the advice from the lecture;
+   was it predictable which question would get better answers?
