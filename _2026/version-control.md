@@ -283,8 +283,9 @@ video.
 
 - `git branch`: shows branches
 - `git branch <name>`: creates a branch
+- `git switch <name>`: switches to a branch
 - `git checkout -b <name>`: creates a branch and switches to it
-    - same as `git branch <name>; git checkout <name>`
+    - same as `git branch <name>; git switch <name>`
 - `git merge <revision>`: merges into current branch
 - `git mergetool`: use a fancy tool to help resolve merge conflicts
 - `git rebase`: rebase set of patches onto a new base
@@ -302,8 +303,8 @@ video.
 ## Undo
 
 - `git commit --amend`: edit a commit's contents/message
-- `git reset HEAD <file>`: unstage a file
-- `git checkout -- <file>`: discard changes
+- `git reset <file>`: unstage a file
+- `git restore`: discard changes
 
 # Advanced Git
 
@@ -314,6 +315,8 @@ video.
 - `git blame`: show who last edited which line
 - `git stash`: temporarily remove modifications to working directory
 - `git bisect`: binary search history (e.g. for regressions)
+- `git revert`: create a new commit that reverses the effect of an earlier commit
+- `git worktree`: check out multiple branches at the same time
 - `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
 
 # Miscellaneous
