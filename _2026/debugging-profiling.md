@@ -3,6 +3,7 @@ layout: lecture
 title: "Debugging and Profiling"
 date: 2026-01-15
 ready: true
+panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a72c48e3-5eb2-46fa-aa03-b3b700e1ca8d"
 ---
 
 {% comment %}
