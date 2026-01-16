@@ -379,9 +379,9 @@ class website](https://github.com/missing-semester/missing-semester).
        show`).
 1. One common mistake when learning Git is to commit large files that should
    not be managed by Git or adding sensitive information. Try adding a file to
-   a repository, making some commits and then deleting that file from history
-   (you may want to look at
-   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
+   a repository, making some commits and then deleting that file from _history_
+   (not just the latest commit). You may want to look at
+   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/).
 1. Clone some repository from GitHub, and modify one of its existing files.
    What happens when you do `git stash`? What do you see when running `git log
    --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
