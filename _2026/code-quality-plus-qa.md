@@ -1,7 +1,7 @@
 ---
 layout: lecture
-title: "Code Quality and Continuous Integration"
-date: 2026-01-21
+title: "Code Quality and Continuous Integration + Q&A"
+date: 2026-01-23
 ready: true
 ---
 
@@ -96,6 +96,18 @@ Write a Python-style regex pattern that matches the requested path from log line
 
 169.254.1.1 - - [09/Jan/2026:21:28:51 +0000] "GET /feed.xml HTTP/2.0" 200 2995 "-" "python-requests/2.32.3"
 ```
+
+# Q&A
+
+{% comment %}
+lecturer: everyone
+{% endcomment %}
+
+In the second half, we will cover student questions. Please submit your questions in advance of the lecture:
+
+**<https://forms.gle/4jnhiok72KQUD3Tn7>**
+
+See [here](/2020/qa/) for the Q&A from the previous offering of this course.
 
 # Exercises
 
