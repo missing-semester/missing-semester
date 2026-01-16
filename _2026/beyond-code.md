@@ -97,6 +97,20 @@ particularly important; real engineering involves balancing concerns,
 and documenting that a trade-off was intentional prevents future
 developers from thinking you missed the problem.
 
+LLMs _can_ be helpful in writing commit messages. However, if you simply
+point one at your change and ask it to write the commit message for the
+change, the LLM will only have access to the _what_, not the _why_. And
+the resulting commit message will thus be mostly descriptive (the
+opposite of what we want!). If you used an LLM to help you make the
+change in the first place, asking the LLM to write the commit in that
+same session can be a much better option since your conversation with
+the LLM is inherently a rich source of context about the change!
+Otherwise, or in addition, a useful trick is to specifically tell the
+LLM you'd like a commit message focused on the "why" (and other nuances
+from the notes above), and then _tell it to query you for missing
+context_. Essentially, you're acting like a MCP "tool" for the coding
+agent that it can use to "read" context.
+
 As your changes get more complex, make sure to also break up commits
 logically (`git add -p` is your friend). Each commit should represent
 one coherent change that could be understood and reviewed independently.
