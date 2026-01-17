@@ -314,7 +314,7 @@ leave that as an exercise to the reader.
 
 ## Analyzing data
 
-You can do math directly in your shell using `bc`, a calculator that can read 
+You can do math directly in your shell using `bc`, a calculator that can read
 from STDIN! For example, add the numbers on each line together by concatenating
 them together, delimited by `+`:
 

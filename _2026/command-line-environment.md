@@ -113,7 +113,7 @@ In practice, globs are best understood with motivating examples
 ```shell
 touch folder/{a,b,c}.py
 # Will expand to
-touch folder/a.py folder/b.py folder/c.py 
+touch folder/a.py folder/b.py folder/c.py
 
 convert image.{png,jpg}
 # Will expand to

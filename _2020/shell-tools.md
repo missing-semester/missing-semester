@@ -232,7 +232,7 @@ A more in-depth comparison can be found [here](https://unix.stackexchange.com/qu
 
 ## Finding code
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
+Finding files by name is useful, but quite often you want to search based on file *content*.
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
 To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
 `grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.

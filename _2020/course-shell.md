@@ -85,7 +85,7 @@ When you launch your terminal, you will see a _prompt_ that often looks
 a little like this:
 
 ```console
-missing:~$ 
+missing:~$
 ```
 
 This is the main textual interface to the shell. It tells you that you
@@ -98,7 +98,7 @@ most basic command is to execute a program:
 ```console
 missing:~$ date
 Fri 10 Jan 2020 11:49:31 AM EST
-missing:~$ 
+missing:~$
 ```
 
 Here, we executed the `date` program, which (perhaps unsurprisingly)
