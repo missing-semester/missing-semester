@@ -3,6 +3,7 @@ layout: lecture
 title: "Version Control (Git)"
 date: 2026-01-16
 ready: true
+panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4ce9ab0a-4811-4292-af65-b3b700e1caa1"
 ---
 
 Version control systems (VCSs) are tools used to track changes to source code
