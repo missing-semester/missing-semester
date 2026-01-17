@@ -103,8 +103,8 @@ with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with
 You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to
 Escape ([macOS
 instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS))
-or create an [alternative 
-mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` 
+or create an [alternative
+mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>`
 with a simple key sequence.
 
 # Basics
@@ -356,7 +356,7 @@ With this setting, for example, the Python REPL will support Vim bindings.
 ## Others
 
 There are even vim keybinding extensions for web
-[browsers](https://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers) - some
+[browsers](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers) - some
 popular ones are
 [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)
 for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for
@@ -373,7 +373,7 @@ better way of doing this", there probably is: look it up online.
 
 ## Search and replace
 
-`:s` (substitute) command ([documentation](https://vim.wikia.com/wiki/Search_and_replace)).
+`:s` (substitute) command ([documentation](https://vim.fandom.com/wiki/Search_and_replace)).
 
 - `%s/foo/bar/g`
     - replace foo with bar globally in file
@@ -423,7 +423,7 @@ better way of doing this", there probably is: look it up online.
 
 - `vimtutor` is a tutorial that comes installed with Vim - if Vim is installed, you should be able to run `vimtutor` from your shell
 - [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
-- [Vim Tips Wiki](https://vim.wikia.com/wiki/Vim_Tips_Wiki)
+- [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
 - [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
 - [Vim Golf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)

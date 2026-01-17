@@ -373,7 +373,7 @@ To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages
 
 Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
 
 The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
 You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
@@ -592,7 +592,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
     + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
     + `<C-b> <space>` Cycle through pane arrangements.
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](http://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
 
 With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
 
@@ -887,7 +887,7 @@ cat out.txt
 
 ### Signals and Job Control
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
 
 1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
 

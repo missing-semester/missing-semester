@@ -155,7 +155,7 @@ locally, and then you can use a local editor.
 
 ## References
 
-- [SSH Hacks](http://matt.might.net/articles/ssh-hacks/)
+- [SSH Hacks](https://matt.might.net/articles/ssh-hacks/)
 - [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
 
 {% comment %}

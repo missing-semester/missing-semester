@@ -242,7 +242,7 @@ Large language models have become surprisingly useful debugging assistants. They
 
 # Profiling
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
 
 ## Timing
 
@@ -329,11 +329,11 @@ $ perf stat ./slow_program
        12,345,678      branch-misses             #    1.00% of all branches
 ```
 
-Profiler output for real world programs will contain large amounts of information. Humans are visual creatures and are quite terrible at reading large amounts of numbers. [Flame graphs](http://www.brendangregg.com/flamegraphs.html) are a visualization that makes profiling data much easier to understand.
+Profiler output for real world programs will contain large amounts of information. Humans are visual creatures and are quite terrible at reading large amounts of numbers. [Flame graphs](https://www.brendangregg.com/flamegraphs.html) are a visualization that makes profiling data much easier to understand.
 
 A flame graph displays a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They're interactive—you can click to zoom into specific parts of the program.
 
-[![FlameGraph](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](http://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
+[![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
 To generate a flame graph from `perf` data:
 
