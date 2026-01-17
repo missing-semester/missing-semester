@@ -142,7 +142,7 @@ Knowing your way around a shell is also very useful to navigate the
 world of open-source software (which often come with install
 instructions that require the shell), building continuous integration
 for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality/)), and debugging errors when other programs
+lecture](/2026/code-quality-plus-qa/)), and debugging errors when other programs
 fail.
 
 ## Navigating in the shell
@@ -308,7 +308,7 @@ in `file`. This one deserves slightly more attention as it's both _very_
 useful and sports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
 complex patterns --- we'll [cover
-those](/2026/development-environment/#regular-expressions-for-search-and-replace)
+those](/2026/code-quality-plus-qa/#regular-expressions-for-pattern-matching)
 in the editor lecture. You can also specify a directory instead of a
 file (or leave it off for `.`) and pass `-r` to recursively search all
 the files in a directory.

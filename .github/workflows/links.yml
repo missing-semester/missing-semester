@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '0 8 * * 6'
 jobs:
-  build:
+  links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -22,7 +22,7 @@ jobs:
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
           ignore_url: |
             https://crates.io/
-            http://dtrace.org/blogs/about/
+            https://dtrace.org/about/
             https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
             https://www.vmware.com/
             https://fossbytes.com/enable-full-disk-encryption-windows-10/
@@ -36,13 +36,20 @@ jobs:
             https://undo.io/resources/reverse-debugging-whitepaper/
             https://www.virtualbox.org/
             https://pdw.ex-parrot.com/iftop/
+            https://whereis.mit.edu/?go=35
+            https://openai.com/codex/
+            https://pdw.ex-parrot.com/Mail-RFC822-Address.html
+            https://zsh.sourceforge.io/Guide/zshguide04.html
+            https://leetcode.com/
           ignore_url_re: |
-            ^http://www.brendangregg.com/
+            ^https://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
             ^https:\/\/linux\.die\.net\/man\/
             ^https:\/\/www\.reddit\.com\/
             ^https:\/\/stackoverflow\.com\/
             ^https:\/\/.*\.stackoverflow\.com\/
             ^https:\/\/.*\.stackexchange\.com\/
+            ^https:\/\/medium\.com\/
+            ^https:\/\/www\.gnu\.org\/
           swap_urls: |
             {"^(https://github\\.com/.*)#.*$": "\\1"}
