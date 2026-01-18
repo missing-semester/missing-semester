@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Editors (Vim)"
+thumbnail: /static/assets/thumbnails/2020/lec3.png
 date: 2020-01-15
 ready: true
 video:

@@ -1,6 +1,7 @@
 ---
 layout: lecture
-title: "Course overview + the shell"
+title: "Course Overview + The Shell"
+thumbnail: /static/assets/thumbnails/2020/lec1.png
 date: 2020-01-13
 ready: true
 video:

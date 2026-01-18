@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Command-line Environment"
+thumbnail: /static/assets/thumbnails/2020/lec5.png
 date: 2020-01-21
 ready: true
 video:

@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Data Wrangling"
+thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
 video:

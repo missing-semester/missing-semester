@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Metaprogramming"
+thumbnail: /static/assets/thumbnails/2020/lec8.png
 details: build systems, dependency management, testing, CI
 date: 2020-01-27
 ready: true

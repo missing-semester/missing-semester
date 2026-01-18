@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Shell Tools and Scripting"
+thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true
 video:

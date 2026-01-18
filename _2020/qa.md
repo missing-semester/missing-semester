@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Q&A"
+thumbnail: /static/assets/thumbnails/2020/lec11.png
 date: 2020-01-30
 ready: true
 video:

@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
+thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
 video:

@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Potpourri"
+thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true
 video:

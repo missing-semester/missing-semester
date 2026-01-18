@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Debugging and Profiling"
+thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
 video:
