@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Development Environment and Tools"
+thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
 panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=72eb20c5-be86-46dd-85ee-b3b700e1ca7a"

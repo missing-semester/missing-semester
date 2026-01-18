@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Version Control and Git"
+thumbnail: /static/assets/thumbnails/2026/lec5.png
 date: 2026-01-16
 ready: true
 panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4ce9ab0a-4811-4292-af65-b3b700e1caa1"

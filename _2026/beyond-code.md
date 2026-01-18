@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Beyond the Code"
+thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
 ---

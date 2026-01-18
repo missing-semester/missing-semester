@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Agentic Coding"
+thumbnail: /static/assets/thumbnails/2026/lec7.png
 date: 2026-01-21
 ready: true
 ---

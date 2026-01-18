@@ -1,6 +1,7 @@
 ---
 layout: lecture
 title: "Command-line Environment"
+thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true
 panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b78c8f07-fc8f-4d16-a3f9-b3b700e1ca67"
