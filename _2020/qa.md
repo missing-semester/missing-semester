@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Q&A"
+description: >
+  Answers to student questions on topics like operating systems, shell scripting, tool recommendations, and more.
 thumbnail: /static/assets/thumbnails/2020/lec11.png
 date: 2020-01-30
 ready: true

@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Development Environment and Tools"
+description: >
+  Learn about IDEs, Vim, language servers, and AI-powered development tools.
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true

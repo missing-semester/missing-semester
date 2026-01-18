@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Course Overview + The Shell"
+description: >
+  Learn about the motivation for this class, and get started with the shell.
 thumbnail: /static/assets/thumbnails/2020/lec1.png
 date: 2020-01-13
 ready: true

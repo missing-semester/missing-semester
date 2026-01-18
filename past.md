@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Past Offerings
+description: >
+  Find all past offerings of Missing Semester.
 ---
 
 {% comment %} pop to remove default "posts" collection {% endcomment %}

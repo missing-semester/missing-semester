@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Code Quality + Q&A"
+description: >
+  Learn about linting, testing, continuous integration, and regular expressions, followed by Q&A.
 thumbnail: /static/assets/thumbnails/2026/lec9.png
 date: 2026-01-23
 ready: true

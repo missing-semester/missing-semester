@@ -1,6 +1,8 @@
 ---
 layout: page
 title: The Missing Semester of Your CS Education
+description: >
+  Master powerful tools that will make you a more productive computer scientist and programmer.
 subtitle: IAP 2026
 nositetitle: true
 ---

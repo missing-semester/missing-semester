@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Version Control (Git)"
+description: >
+  Learn Git's data model and how to use Git for version control and collaboration.
 thumbnail: /static/assets/thumbnails/2020/lec6.png
 date: 2020-01-22
 ready: true

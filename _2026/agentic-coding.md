@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Agentic Coding"
+description: >
+  Learn how to use AI coding agents effectively for software development tasks.
 thumbnail: /static/assets/thumbnails/2026/lec7.png
 date: 2026-01-21
 ready: true

@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
+description: >
+  Learn about cryptographic primitives like hashes and key derivation functions, and understand how tools like Git and SSH use them.
 thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
