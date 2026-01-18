@@ -5,20 +5,28 @@ date: 2026-01-20
 ready: true
 ---
 
-<span class="construction">
-This page is under construction for the IAP 2026 offering of Missing Semester.
-</span>
-
-Writing code to work as intended is difficult, yet getting that same code to run in a machine different from your own is often harder.
+Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
 
 Shipping code means taking the code you wrote and converting it into a usable thing that someone else can run without your computer's exact setup.
-Shipping code takes many forms and depends on the choices of programming language, system libraries, or operating system, among other factors.
+Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
 It also depends on what you are building; a software library, a command line tool, and a web service all have different requirements and deployment steps.
 Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is -- a.k.a the _artifact_ -- and what assumptions it makes about the environment around it.
 
+In this lecture, we'll cover:
+
+- [Dependencies & Environments](#dependencies--environments)
+- [Artifacts & Packaging](#artifacts--packaging)
+- [Releases & Versioning](#releases--versioning)
+- [Reproducibility](#reproducibility)
+- [VMs & Containers](#vms--containers)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+- [Publishing](#publishing)
+- [Documentation](#documentation)
+- [AI for packaging and shipping code](#ai-for-packaging-and-shipping-code)
+
 ## Dependencies & Environments
 
-No man is an island and no program ships alone.
 In modern software development layers of abstraction are ubiquitous.
 Programs naturally offload logic to other libraries or services. 
 However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
@@ -47,7 +55,7 @@ Executing `pip install requests` produces the following sequence of actions:
 
 1. Search for requests in the Python Package Index (PyPI)
 1. Search for the appropriate artifact for the platform we are running under
-1. Resolve dependencies -- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies, more on that later
+1. Resolve dependencies -- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies and install them beforehand
 1. Download the artifacts, then unpack and copy the files into the right places in our filesystem
 
 ```console
@@ -82,7 +90,7 @@ In some languages like Rust, the toolchain is unified -- `cargo` handles buildin
 In others like Python, the unification happens at a specification level -- rather than a single tool, there are standardized specifications (PEPs) that define how packaging works, allowing multiple competing tools for each task (`pip` vs `uv`, `setuptools` vs `hatch` vs `poetry`).
 And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
 
-Introducing dependencies, also introduces dependency conflicts.
+Introducing dependencies also introduces dependency conflicts.
 Conflicts happen when programs require incompatible versions of the same dependency.
 For example, if `tensorflow==2.3.0` requires `numpy>=1.16.0,<1.19.0` and `pandas==1.2.0`  requires `numpy>=1.16.5`, then any version satifying `numpy>=1.16.0,<1.19.0` will be valid.
 But if another package in your project requires `numpy>=1.19`, you have a conflict with no valid version that satisfies all constraints.
@@ -262,7 +270,7 @@ For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/rel
 ## Releases & Versioning
 
 Code is built in a continuous process but is released on a discrete basis. 
-In software development there is a clear distinction between **dev**evelopment and **prod**uction environments.
+In software development there is a clear distinction between development and production environments.
 Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
 The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
 
@@ -358,6 +366,8 @@ This problem is often referred to as _dependency hell_ and is mitigated by expan
 
 ## VMs & Containers
 
+### Why Containers?
+
 As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
 One common reason is having to interface with specific system libraries or hardware drivers.
 For example, in scientific computing and AI, programs often need specialized libraries and drivers to utilize GPU hardware.
@@ -368,10 +378,17 @@ VMs abstract the entire computer and provide a completely isolated environment w
 A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
 Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
 
+**When to use containers:**
+- Your application has system-level dependencies (specific library versions, drivers)
+- You need consistent environments across development and production
+- You want to isolate applications from each other on the same machine
+
+### Dockerfiles
+
 A Dockerfile allows us to specify exactly what dependencies, system libraries, and configurations each container requires.
 
 In practice your program might depend on the entire filesystem.
-To overcome this, we ship the entire filesystem of the application as the artifcat of choice by using containers.
+To overcome this, we ship the entire filesystem of the application as the artifact of choice by using containers.
 
 ```dockerfile
 FROM python:3.12
@@ -386,7 +403,7 @@ In the previous example we start from a given image using `FROM` which provides 
 
 An important distinction: a Docker **image** is the packaged artifact (like a template), while a **container** is a running instance of that image. You can run multiple containers from the same image. Images are built in layers, where each instruction in a Dockerfile creates a new layer. Docker caches these layers, so if you change a line in your Dockerfile, only that layer and subsequent layers need to be rebuilt -- this is why the order of instructions matters for build performance.
 
-
+### Best Practices
 
 The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, and doesn't clean up package manager caches. Common pitfalls like these lead to bloated images. Other frequent mistakes include running containers as root (a security risk) and accidentally embedding secrets in layers.
 
@@ -426,8 +443,7 @@ CMD ["myapp"]
 
 The builder pattern uses multiple stages: the first stage has all the build tools needed to compile/package the code, while the final stage only contains what's needed to run the application. This dramatically reduces image size since compilers, headers, and build artifacts don't end up in the final image.
 
-
-
+### Limitations
 
 Docker has some important limitations to be aware of. First, container images are often platform-specific -- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs -- containers share the host kernel, which is a security concern in multi-tenant environments.
 
@@ -470,14 +486,16 @@ Some best practices for handling secrets include: never committing them to versi
 As with the build process, automation is your friend in this regard, with tools like [Trufflehog](https://github.com/trufflesecurity/trufflehog) detecting frequent secret patterns and preventing you from publishing them accidentally.
 
 
-## Deployment & Orchestration
+## Deployment
+
+### Docker Compose & Orchestration
 
 Docker Compose is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together.
 
 As an example, if we determine our application might benefit from using a cache, instead of rolling our own we can leverage existing battle tested solutions like [Redis](https://redis.io/) or [Memcached](https://memcached.org/).
 We could embed redis in our application dependencies by building it as part of the container, but that means harmonizing all the dependencies between redis and our application which could be challenging or even unfeasible.
 Instead what we can do is deploy each application separately in its own container.
-This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs. 
+This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs.
 
 Now our full application encompasses more than one container and we can use orchestration solutions like docker compose:
 
@@ -502,16 +520,13 @@ volumes:
   redis_data:
 ```
 
-With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically). 
+With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
 
 Docker compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
 
-As deployment requirements grow more complex -- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees -- docker compose reaches its limits. For these scenarios, organizations turn to container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. However, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects. 
+As deployment requirements grow more complex -- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees -- docker compose reaches its limits. For these scenarios, organizations turn to container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. However, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
 
-
-## Deployment & Services
-
-For deployments on a single machine, systemd can manage your application as a service -- starting it on boot, restarting it if it crashes, and handling logs.
+### Services & HTTP APIs
 
 Modern services communicate over HTTP APIs, a standardized protocol for request-response interactions. For example, whenever a program interacts with an LLM provider like OpenAI or Anthropic, what we are doing is sending an HTTP request to their servers and receiving a response:
 
@@ -525,6 +540,10 @@ Modern services communicate over HTTP APIs, a standardized protocol for request-
 ```
 
 The libraries you use (like `anthropic` or `openai` in Python) are wrappers around these HTTP calls, handling authentication, serialization, and error handling for you.
+
+### Single-machine deployment
+
+For deployments on a single machine, systemd can manage your application as a service -- starting it on boot, restarting it if it crashes, and handling logs.
 
 ## Publishing
 
@@ -615,7 +634,7 @@ However, AI-generated infrastructure code comes with important caveats: models m
 
 ## Exercises
 
-1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? Run `which deactivate` and reason about what the deactivate bash function is doing.
+1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
 1. Create a Python package with a `pyproject.toml` and install it in a virtual environment.
 1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
 1. Write a Dockerfile for a simple Python application.
