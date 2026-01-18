@@ -37,7 +37,6 @@ jobs:
             https://www.virtualbox.org/
             https://pdw.ex-parrot.com/iftop/
             https://whereis.mit.edu/?go=35
-            https://openai.com/codex/
             https://pdw.ex-parrot.com/Mail-RFC822-Address.html
             https://zsh.sourceforge.io/Guide/zshguide04.html
             https://leetcode.com/
@@ -51,6 +50,7 @@ jobs:
             ^https:\/\/.*\.stackexchange\.com\/
             ^https:\/\/medium\.com\/
             ^https:\/\/www\.gnu\.org\/
+            ^https:\/\/openai\.com\/
           swap_urls: |
             {"^https:\\/\\/missing\\.csail\\.mit\\.edu/": "/",
              "^(https:\\/\\/github\\.com/.*)#.*$": "\\1"}
