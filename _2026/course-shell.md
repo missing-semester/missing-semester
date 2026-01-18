@@ -6,7 +6,9 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec1.png
 date: 2026-01-12
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=263325eb-0a35-4dfd-a880-b3b700e1ca2e"
+video:
+  aspect: 56.25
+  id: fn1n84wpwOE
 ---
 
 {% comment %}
