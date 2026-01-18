@@ -52,4 +52,5 @@ jobs:
             ^https:\/\/medium\.com\/
             ^https:\/\/www\.gnu\.org\/
           swap_urls: |
-            {"^(https://github\\.com/.*)#.*$": "\\1"}
+            {"^https:\\/\\/missing\\.csail\\.mit\\.edu/": "/",
+             "^(https:\\/\\/github\\.com/.*)#.*$": "\\1"}
