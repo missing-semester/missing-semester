@@ -1,6 +1,7 @@
 # Setup
 title: 'Missing Semester'
 url: https://missing.csail.mit.edu
+thumbnail: "/static/assets/thumbnails/default.png"
 
 # Settings
 markdown: kramdown
