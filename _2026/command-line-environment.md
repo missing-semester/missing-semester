@@ -13,8 +13,6 @@ panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b78c8f07-f
 lecturer: Jose
 {% endcomment %}
 
-# Topic 2: The Command Line Environment
-
 As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
 but in practice they provide an entire programming language full of common patterns and abstractions.
 However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
@@ -22,7 +20,7 @@ However, unlike the majority of programming languages, in shell scripting everyt
 In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
 We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
 
-## The Command Line Interface
+# The Command Line Interface
 
 Writing a function in most programming languages looks something like:
 
@@ -58,7 +56,7 @@ To properly understand what is going in scripts like this one we first need to i
 - Return codes
 - Signals
 
-### Arguments
+## Arguments
 
 Shell programs receive a list of arguments when they are executed.
 Arguments are plain strings in shell, and it is up to the program how to interpret them.
@@ -134,7 +132,7 @@ mv *{.py,.sh} folder
 > Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
 
 
-### Streams
+## Streams
 
 Whenever we execute a program pipeline like
 
@@ -218,7 +216,7 @@ $ cat ~/.bash_history | fzf
 `fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
 
 
-### Environment variables
+## Environment variables
 
 To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
 Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
@@ -275,7 +273,7 @@ To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
 
 > Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
 
-### Return codes
+## Return codes
 
 As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
 
@@ -317,7 +315,7 @@ while read line; do
 done < file.txt
 ```
 
-### Signals
+## Signals
 
 In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
 The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
@@ -494,7 +492,7 @@ So far we've focused on your local machine, but many of these skills become even
 
 {% endcomment %}
 
-## Remote Machines
+# Remote Machines
 
 It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
 
@@ -559,7 +557,7 @@ Host *.mit.edu
 
 
 
-## Terminal Multiplexers
+# Terminal Multiplexers
 
 When using the command line interface you will often want to run more than one thing at once.
 For instance, you might want to run your editor and your program side by side.
@@ -599,7 +597,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
 
 With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
 
-## Customizing the Shell
+# Customizing the Shell
 
 A wide array of command line programs are configured using plain-text files known as _dotfiles_
 (because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
@@ -762,7 +760,7 @@ Shells like [fish](https://fishshell.com/) include many of these features by def
 > You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
 
 
-## AI in the Shell
+# AI in the Shell
 
 There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
 
@@ -797,7 +795,7 @@ Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces,
 
 **AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
 
-## Terminal Emulators
+# Terminal Emulators
 
 Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
 A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
@@ -814,9 +812,9 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 
 
 
-## Exercises
+# Exercises
 
-### Arguments and Globs
+## Arguments and Globs
 
 1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
 
@@ -842,7 +840,7 @@ ls -lath --color=auto
 
 1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
 
-### Environment Variables
+## Environment Variables
 
 1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
 
@@ -856,7 +854,7 @@ polo() {
 }
 {% endcomment %}}
 
-### Return Codes
+## Return Codes
 
 1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
 
@@ -888,7 +886,7 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}}
 
-### Signals and Job Control
+## Signals and Job Control
 
 1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
 
@@ -896,15 +894,15 @@ cat out.txt
 
     However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
 
-### Files and Permissions
+## Files and Permissions
 
 1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
 
-### Terminal Multiplexers
+## Terminal Multiplexers
 
 1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 
-### Aliases and Dotfiles
+## Aliases and Dotfiles
 
 1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
 
@@ -922,7 +920,7 @@ cat out.txt
 
 1. Publish your dotfiles on GitHub.
 
-### Remote Machines (SSH)
+## Remote Machines (SSH)
 
 Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
 
