@@ -29,7 +29,7 @@ In this lecture, we'll cover:
 ## Dependencies & Environments
 
 In modern software development layers of abstraction are ubiquitous.
-Programs naturally offload logic to other libraries or services. 
+Programs naturally offload logic to other libraries or services.
 However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
 For instance, in Python to fetch the content of a website we often do
 
@@ -86,7 +86,7 @@ requests        2.32.3
 ```
 
 Programming languages have different tools, conventions and practices for installing and publishing libraries.
-In some languages like Rust, the toolchain is unified -- `cargo` handles building, testing, dependency management, and publishing. 
+In some languages like Rust, the toolchain is unified -- `cargo` handles building, testing, dependency management, and publishing.
 In others like Python, the unification happens at a specification level -- rather than a single tool, there are standardized specifications that define how packaging works, allowing multiple competing tools for each task (`pip` vs `uv`, `setuptools` vs `hatch` vs `poetry`).
 And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
 
@@ -97,7 +97,7 @@ But if another package in your project requires `numpy>=1.19`, you have a confli
 
 This situation -- where multiple packages require mutually incompatible versions of shared dependencies -- is commonly referred to as _dependency hell_.
 One way to deal with conflicts is to isolate the dependencies of each program into their own _environment_.
-In Python we create a virtual environment by running 
+In Python we create a virtual environment by running
 
 ```console
 ❯ which python
@@ -186,8 +186,8 @@ ModuleNotFoundError: No module named 'mylib'
 The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
 
 In Python, packaging a library involves producing an artifact that package installers like `pip` or `uv` can use to install the relevant files.
-Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment. 
-Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other details. In Python, we use `pyproject.toml` for this purpose. 
+Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
+Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other details. In Python, we use `pyproject.toml` for this purpose.
 
 > `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
 
@@ -251,7 +251,7 @@ This would install the library we built earlier into their environment, includin
 There are limitations to this approach. In particular if our library depends on platform-specific libraries, e.g. CUDA for GPU acceleration, then our artifact only works on systems with those specific libraries installed, and we may need to build separate wheels for different platforms (Linux, macOS, Windows) and architectures (x86, ARM).
 
 
-When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine -- this requires having a compiler and build tools installed, and can take significant time for large projects. 
+When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine -- this requires having a compiler and build tools installed, and can take significant time for large projects.
 
 Installing a prebuilt binary means downloading an artifact that was already compiled by someone else -- faster and simpler, but the binary must match your platform and architecture.
 For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
@@ -259,7 +259,7 @@ For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/rel
 
 ## Releases & Versioning
 
-Code is built in a continuous process but is released on a discrete basis. 
+Code is built in a continuous process but is released on a discrete basis.
 In software development there is a clear distinction between development and production environments.
 Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
 The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
@@ -294,9 +294,9 @@ dependencies = [
     "numpy>=1.24,<2.0",      # Range - at least 1.24 but less than 2.0
     "pandas~=2.1.0",         # Compatible release - >=2.1.0 and <2.2.0
 ]
-``` 
+```
 
-Not all software uses semantic versioning. An common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases. 
+Not all software uses semantic versioning. An common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
 
 
 ## Reproducibility
@@ -388,7 +388,7 @@ An important distinction: a Docker **image** is the packaged artifact (like a te
 
 The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, versions are not pinned, and it doesn't clean up package manager caches, shipping unnecessary files. Other frequent mistakes include insecurely running containers as root and accidentally embedding secrets in layers.
 
-Here's an improved version 
+Here's an improved version
 
 ```dockerfile
 FROM python:3.12-slim
@@ -408,9 +408,9 @@ Docker has important limitations to be aware of. First, container images are oft
 
 ## Configuration
 
-Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale. 
+Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
 Software configuration should not be embedded in the code but be provided at runtime.
-A couple of common ones being environment variables and config files. 
+A couple of common ones being environment variables and config files.
 
 Here's an example of configuring an application via environment variables:
 
@@ -513,7 +513,7 @@ Package managers sometimes support installing directly from GitHub, either from 
 ❯ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
-In fact, some languages like Go use a decentralized distribution model -- rather than a central package repository, Go modules are distributed directly from their source code repositories. 
+In fact, some languages like Go use a decentralized distribution model -- rather than a central package repository, Go modules are distributed directly from their source code repositories.
 Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo` or `brew` index pre-built packages for ease of distribution and  installation. If we run
 
 ```console
@@ -554,7 +554,7 @@ Different languages have their own package registries: [crates.io](https://crate
 
 Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
 
-<!-- 
+<!--
 ## Documentation
 
 So far we have emphasized the deliverable _artifact_ as the main output of packaging and shipping code.
