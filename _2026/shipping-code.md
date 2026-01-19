@@ -167,6 +167,7 @@ Python 3.11.10
 
 This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
 
+> In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
 
 # Artifacts & Packaging
 
@@ -342,6 +343,7 @@ For libraries, it is good practice to specify version ranges to maximize compati
 
 For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
 
+> You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
 
 A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
 We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality-plus-qa/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
@@ -374,7 +376,7 @@ Hello from inside a container!
 
 In practice your program might depend on the entire filesystem.
 To overcome this, container images ship the entire filesystem of the application as the artifact of choice by using containers.
-The container images are created programatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
+The container images are created programmatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
 
 ```dockerfile
 FROM python:3.12
@@ -409,6 +411,7 @@ In the previous example we see that instead of installing `uv` from source, we a
 
 Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
 
+> These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
 
 # Configuration
 
@@ -497,7 +500,7 @@ $ curl https://api.anthropic.com/v1/messages \
 Once you have shown your code to work, you might be interested in distributing it for others to download and install.
 Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
 
-The most simple form of distribution is uploading artifacts for people to download and install locally.
+The simplest form of distribution is uploading artifacts for people to download and install locally.
 This is still common and you can find it in places like [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/), which is essentially an HTTP directory listing of `.deb` files.
 
 These days, GitHub has become the de facto platform for publishing source code and artifacts.
@@ -518,7 +521,7 @@ $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py
 ```
 
 In fact, some languages like Go use a decentralized distribution model --- rather than a central package repository, Go modules are distributed directly from their source code repositories.
-Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo` or `brew` index pre-built packages for ease of distribution and  installation. If we run
+Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo`, or `brew` have central indexes of pre-packaged projects for ease of distribution and installation. If we run
 
 ```console
 $ uv pip install requests --verbose --no-cache 2>&1 | grep -F '.whl'
@@ -575,4 +578,4 @@ For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (for
 1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
 1. Write a Dockerfile for a simple Python application. Then write a `docker-compose.yml` that runs your application alongside a Redis cache.
 1. Publish a Python package to TestPyPI (don't publish to the real PyPI unless it's worth sharing!). Then build a Docker image with said package and push it to `ghcr.io`.
-1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra credit: configure it with a custom domain.
+1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra (non-)credit: configure it with a custom domain.
