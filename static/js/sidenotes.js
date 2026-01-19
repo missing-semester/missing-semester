@@ -13,6 +13,7 @@
 
   var sidenoteIndex = 1;
   var sidenoteData = [];
+  var positionedAtDesktopWidth = false;
 
   function transformToEpigraph(blockquote) {
     var html = blockquote.innerHTML.trim();
@@ -113,22 +114,28 @@
 
   // Position sidenotes vertically (only needed for desktop, CSS handles visibility)
   function positionSidenotes() {
+    // Already positioned successfully, or not at desktop width (refs hidden)
+    if (positionedAtDesktopWidth) return;
+    if (sidenoteData.length === 0 || sidenoteData[0].ref.offsetWidth === 0) return;
+
     var contentRect = content.getBoundingClientRect();
-    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
     var lastBottom = 0;
 
     sidenoteData.forEach(function(item) {
       var refRect = item.ref.getBoundingClientRect();
-      var desiredTop = refRect.top + scrollY - contentRect.top - scrollY;
+      var desiredTop = refRect.top - contentRect.top;
       var actualTop = Math.max(desiredTop, lastBottom + 10);
       item.sidenote.style.top = actualTop + 'px';
       lastBottom = actualTop + item.sidenote.offsetHeight;
     });
+
+    positionedAtDesktopWidth = true;
   }
 
   // Position after DOM is ready and after images load
   positionSidenotes();
   window.addEventListener('load', positionSidenotes);
+  window.addEventListener('resize', positionSidenotes);
 
   document.querySelectorAll('img').forEach(function(img) {
     if (!img.complete) {
