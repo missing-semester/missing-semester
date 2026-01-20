@@ -1,6 +1,9 @@
 ---
 layout: lecture
-title: "Trình quản lý phiên bản (Git)"
+title: "Version Control (Git)"
+description: >
+  Learn Git's data model and how to use Git for version control and collaboration.
+thumbnail: /static/assets/thumbnails/2020/lec6.png
 date: 2020-01-22
 ready: true
 video:
@@ -603,7 +606,7 @@ index 94bab17..f0013b2 100644
 - `git log --all --graph --decorate`: visualizes history as a DAG
 - `git diff <filename>`: show changes you made relative to the staging area
 - `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD and current branch
+- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
 -->
 
 ## Chia nhánh (branching) và hợp nhánh (merging)
@@ -838,13 +841,20 @@ class website](https://github.com/missing-semester/missing-semester).
 1. Like many command line tools, Git provides a configuration file (or dotfile)
    called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
    run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`. Information about git aliases can be found [here](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias).
-1. You can define global ignore patterns in `~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. Do this, and
-   set up your global gitignore file to ignore OS-specific or editor-specific
-   temporary files, like `.DS_Store`.
+   --oneline`. You can do this by directly
+   [editing](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias)
+   the `~/.gitconfig` file, or you can use the `git config` command to add the
+   alias. Information about git aliases can be found
+   [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
+1. You can define global ignore patterns in` ~/.gitignore_global` after running
+   `git config --global core.excludesfile ~/.gitignore_global`. This sets the
+   location of the global ignore file that Git will use, but you still need to
+   manually create the file at that path. Set up your global gitignore file to
+   ignore OS-specific or editor-specific temporary files, like `.DS_Store`.
 1. Fork the [repository for the class
    website](https://github.com/missing-semester/missing-semester), find a typo
    or some other improvement you can make, and submit a pull request on GitHub
    (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
+   Please only submit PRs that are useful (don't spam us, please!). If you
+   can't find an improvement to make, you can skip this exercise.
 -->

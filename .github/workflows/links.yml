@@ -5,37 +5,54 @@ on:
   schedule:
     - cron: '0 8 * * 6'
 jobs:
-  build:
+  links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-ruby@v1
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.x
-      - uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          ruby-version: "3.4"
+          bundler-cache: true
       - run: bundle exec jekyll build
-      - uses: anishathalye/proof-html@v1
+      - uses: anishathalye/proof-html@v2
         with:
           directory: ./_site
           enforce_https: false
-          check_img_http: false
           tokens: |
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
-          url_ignore: |
+          ignore_url: |
             https://crates.io/
-            http://dtrace.org/blogs/about/
+            https://dtrace.org/about/
             https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
             https://www.vmware.com/
             https://fossbytes.com/enable-full-disk-encryption-windows-10/
             http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/
-          url_ignore_re: |
-            ^http://www.brendangregg.com/
+            https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/
+            https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1
+            https://www.autohotkey.com/
+            https://rsync.samba.org/
+            https://fidoalliance.org/
+            https://wiki.mozilla.org/Security/Server_Side_TLS
+            https://undo.io/resources/reverse-debugging-whitepaper/
+            https://www.virtualbox.org/
+            https://pdw.ex-parrot.com/iftop/
+            https://whereis.mit.edu/?go=35
+            https://pdw.ex-parrot.com/Mail-RFC822-Address.html
+            https://zsh.sourceforge.io/Guide/zshguide04.html
+            https://leetcode.com/
+            https://www.npmjs.com
+            https://crates.io
+          ignore_url_re: |
+            ^https://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
+            ^https:\/\/linux\.die\.net\/man\/
+            ^https:\/\/www\.reddit\.com\/
+            ^https:\/\/stackoverflow\.com\/
+            ^https:\/\/.*\.stackoverflow\.com\/
+            ^https:\/\/.*\.stackexchange\.com\/
+            ^https:\/\/medium\.com\/
+            ^https:\/\/www\.gnu\.org\/
+            ^https:\/\/openai\.com\/
+          swap_urls: |
+            {"^https:\\/\\/missing\\.csail\\.mit\\.edu/": "/",
+             "^(https:\\/\\/github\\.com/.*)#.*$": "\\1"}

@@ -1,6 +1,9 @@
 ---
 layout: lecture
-title: "Sắp xếp dữ liệu"
+title: "Data Wrangling"
+description: >
+  Learn how to manipulate and transform data using command-line tools like sed, awk, and regular expressions.
+thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
 video:
@@ -81,7 +84,7 @@ ssh myserver journalctl
 
 What we just wrote was a simple _regular expression_; a powerful
 construct that lets you match text against patterns. The `s` command is
-written on the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
+written in the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
 regular expression you want to search for, and `SUBSTITUTION` is the
 text you want to substitute matching text with.
 
@@ -116,10 +119,7 @@ you can pass `-E`.
 So, looking back at `/.*Disconnected from /`, we see that it matches
 any text that starts with any number of characters, followed by the
 literal string "Disconnected from &rdquo;. Which is what we wanted. But
-{% comment %}
-note: the spelling of "trixy" below is intentional; see https://github.com/missing-semester/missing-semester/pull/84
-{% endcomment %}
-beware, regular expressions are trixy. What if someone tried to log in
+beware, regular expressions are tricky. What if someone tried to log in
 with the username "Disconnected from"? We'd have:
 
 ```
@@ -168,7 +168,7 @@ characters where the username is. Then we're matching on any single word
 "port" followed by a sequence of digits. Then possibly the suffix
 `[preauth]`, and then the end of the line.
 
-Notice that with this technique, as username of "Disconnected from"
+Notice that with this technique, a username of "Disconnected from"
 won't confuse us any more. Can you see why?
 
 There is one problem with this though, and that is that the entire log
@@ -186,7 +186,7 @@ As you can probably imagine, you can come up with _really_ complicated
 regular expressions. For example, here's an article on how you might
 match an [e-mail
 address](https://www.regular-expressions.info/email.html). It's [not
-easy](https://emailregex.com/). And there's [lots of
+easy](https://web.archive.org/web/20221223174323/http://emailregex.com/). And there's [lots of
 discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
 And people have [written
 tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
@@ -248,7 +248,7 @@ wouldn't matter, but we're here to learn!
 If we wanted the _least_ common ones, we could use `head` instead of
 `tail`. There's also `sort -r`, which sorts in reverse order.
 
-Okay, so that's pretty cool, but what if we'd like these extract only the usernames
+Okay, so that's pretty cool, but what if we'd like to extract only the usernames
 as a comma-separated list instead of one per line, perhaps for a config file?
 
 ```bash
@@ -317,7 +317,7 @@ leave that as an exercise to the reader.
 
 ## Analyzing data
 
-You can do math directly in your shell using `bc`, a calculator that can read 
+You can do math directly in your shell using `bc`, a calculator that can read
 from STDIN! For example, add the numbers on each line together by concatenating
 them together, delimited by `+`:
 
@@ -436,10 +436,10 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
    your friend). And finally, eliminate any line whose count is 3 (since
    it _was_ shared among all the boots).
 6. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab), [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
    or maybe one [from
-   here](https://www.springboard.com/blog/free-public-data-sets-data-science-project/).
+   here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
    Fetch it using `curl` and extract out just two columns of numerical
    data. If you're fetching HTML data,
    [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON

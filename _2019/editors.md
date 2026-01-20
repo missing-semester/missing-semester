@@ -155,7 +155,7 @@ powerful, composable commands).
 - `s` substitute character (equal to `xi`)
 - visual mode + manipulation
     - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r` to redo
+- `u` to undo, `<C-r>` to redo
 - Lots more to learn: e.g. `~` flips the case of a character
 
 ### Resources
@@ -189,7 +189,7 @@ better way of doing this", there probably is: look it up online.
 
 ### Search and replace
 
-`:s` (substitute) command ([documentation](http://vim.wikia.com/wiki/Search_and_replace)).
+`:s` (substitute) command ([documentation](https://vim.fandom.com/wiki/Search_and_replace)).
 
 - `%s/foo/bar/g`
     - replace foo with bar globally in file
@@ -276,15 +276,15 @@ emulation.
 - `~/.inputrc`
     - `set editing-mode vi`
 
-There are even vim keybinding extensions for web [browsers](http://vim.wikia.com/wiki/Vim_key_bindings_for_web_browsers), some popular ones are [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en) for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for Firefox.
+There are even vim keybinding extensions for web [browsers](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers), some popular ones are [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en) for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for Firefox.
 
 
 ## Resources
 
-- [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
+- [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
 - [Vim Advent Calendar](https://vimways.org/2018/): various Vim tips
 - [Neovim](https://neovim.io/) is a modern vim reimplementation with more active development.
-- [Vim Golf](http://www.vimgolf.com/): Various Vim challenges
+- [Vim Golf](https://www.vimgolf.com/): Various Vim challenges
 
 {% comment %}
 # Resources

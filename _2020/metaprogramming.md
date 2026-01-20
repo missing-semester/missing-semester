@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Metaprogramming"
+description: >
+  Learn about build systems, dependency management, testing, and continuous integration.
+thumbnail: /static/assets/thumbnails/2020/lec8.png
 details: build systems, dependency management, testing, CI
 date: 2020-01-27
 ready: true
@@ -172,7 +175,7 @@ dependencies will be available through a _repository_ that hosts a
 large number of such dependencies in a single place, and provides a
 convenient mechanism for installing them. Some examples include the
 Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPi for Python
+through the `apt` tool, RubyGems for Ruby libraries, PyPI for Python
 libraries, or the Arch User Repository for Arch Linux user-contributed
 packages.
 
@@ -320,7 +323,7 @@ you may encounter in the wild:
     it works!
  5. [Build your
     own](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)
-    GitHub action to run [`proselint`](http://proselint.com/) or
+    GitHub action to run [`proselint`](https://github.com/amperser/proselint) or
     [`write-good`](https://github.com/btford/write-good) on all the
     `.md` files in the repository. Enable it in your repository, and
     check that it works by filing a pull request with a typo in it.

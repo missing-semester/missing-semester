@@ -39,7 +39,7 @@ for more suggestions.
 ## General Security Advice
 
 Tech Solidarity has a pretty great list of [do's and don'ts for
-journalists](https://techsolidarity.org/resources/basic_security.htm)
+journalists](https://web.archive.org/web/20221123204419/https://techsolidarity.org/resources/basic_security.htm)
 that has a lot of sane advice, and is decently up-to-date. [@thegrugq](https://medium.com/@thegrugq)
 also has a good blog post on [travel security
 advice](https://medium.com/@thegrugq/stop-fabricating-travel-security-advice-35259bf0e869)
@@ -56,7 +56,7 @@ a password manager. Some good ones are:
  - [1password](https://1password.com/)
  - [KeePass](https://keepass.info/)
  - [BitWarden](https://bitwarden.com/)
- - [`pass`](https://www.passwordstore.org/)
+ - [`pass`](https://git.zx2c4.com/password-store/about/)
 
 If you're particularly paranoid, use one that encrypts the passwords
 locally on your computer, as opposed to storing them in plain-text at
@@ -116,7 +116,7 @@ trying to secure against?
    really wants your secrets.
  - Online attacks (someone has your laptop and it's on): use file
    encryption. There are two primary mechanisms for doing so
-    - Encrypted filesystems: stacked filesystem encryption software encrypts files individually rather than having encrypted block devices. You can "mount" these filesystems by providing the decryption key, and then browse the files inside it freely. When you unmount it, those files are all unavailable.  Modern solutions include [gocryptfs](https://github.com/rfjakob/gocryptfs) and [eCryptFS](http://ecryptfs.org/). More detailed comparisons can be found [here](https://nuetzlich.net/gocryptfs/comparison/) and [here](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table)
+    - Encrypted filesystems: stacked filesystem encryption software encrypts files individually rather than having encrypted block devices. You can "mount" these filesystems by providing the decryption key, and then browse the files inside it freely. When you unmount it, those files are all unavailable.  Modern solutions include [gocryptfs](https://github.com/rfjakob/gocryptfs) and [eCryptFS](https://www.ecryptfs.org/). More detailed comparisons can be found [here](https://nuetzlich.net/gocryptfs/comparison/) and [here](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table)
     - Encrypted files: encrypt individual files with symmetric
       encryption (see `gpg -c`) and a secret key. Or, like `pass`, also
       encrypt the key with your public key so only you can read it back

@@ -1,6 +1,9 @@
 ---
 layout: lecture
-title: "Tổng quan khóa học + Shell"
+title: "Course Overview + The Shell"
+description: >
+  Learn about the motivation for this class, and get started with the shell.
+thumbnail: /static/assets/thumbnails/2020/lec1.png
 date: 2020-01-13
 ready: true
 video:
@@ -129,7 +132,7 @@ hasn't been programmed. To take full advantage of the tools your
 computer provides, we have to go old-school and drop down to a textual
 interface: The Shell.
 
-Nearly all platforms you can get your hand on has a shell in one form or
+Nearly all platforms you can get your hands on have a shell in one form or
 another, and many of them have several shells for you to choose from.
 While they may vary in the details, at their core they are all roughly
 the same: they allow you to run programs, give them input, and inspect
@@ -160,7 +163,7 @@ a little like this:
 -->
 
 ```console
-missing:~$ 
+missing:~$
 ```
 
 Đây là giao diện câu chữ chính của trình shell (vỏ). Nó cho bạn biết ta đang ở trên máy `missing` và thư mục mà ta đang ở hiện tại là `~` (ngắn gọn cho "home" hay trang chủ của tài khỏan người dùng hiện tại). Dấu hiệu `$` lại cho ta biết người dùng hiện tại (ta), không phải là người dùng gốc (root). Trên dòng nhắc prompt này, bạn có thể nhập một _câu lệnh (command)_, thứ mà sau đó sẽ được thông dịch bởi shell. Một câu lệnh vô cùng đơn giản là:
@@ -177,7 +180,7 @@ most basic command is to execute a program:
 ```console
 missing:~$ date
 Fri 10 Jan 2020 11:49:31 AM EST
-missing:~$ 
+missing:~$
 ```
 
 Ở đây, ta đã chạy trình `date`, thứ mà (không có gì bất ngờ) sẽ in ra ngày giờ hiện tại. Trình shell sau đó sẽ lại hỏi ta một câu lệnh khác để chạy. Chúng ta cũng có thể chạy câu lệnh với các _đối số (arguments):_

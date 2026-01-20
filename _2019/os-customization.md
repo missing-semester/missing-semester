@@ -70,8 +70,8 @@ layout trivial.
 # Resources
 
 - [Hammerspoon](https://www.hammerspoon.org/) - macOS desktop automation
-- [Spectacle](https://www.spectacleapp.com/) - macOS window manager
-- [Karabiner](https://pqrs.org/osx/karabiner/) - sophisticated macOS keyboard remapping
+- [Rectangle](https://rectangleapp.com/) - macOS window manager
+- [Karabiner](https://karabiner-elements.pqrs.org/) - sophisticated macOS keyboard remapping
 - [r/unixporn](https://www.reddit.com/r/unixporn/) - screenshots and
 documentation of people's fancy configurations
 

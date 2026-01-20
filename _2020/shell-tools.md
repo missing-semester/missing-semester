@@ -1,6 +1,9 @@
 ---
 layout: lecture
-title: "Các công cụ của shell và viết ngôn ngữ kịch bản"
+title: "Shell Tools and Scripting"
+description: >
+  Learn how to write shell scripts and use powerful command-line tools.
+thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true
 video:
@@ -32,7 +35,7 @@ Do đó, việc tạo quy trình cho lệnh (pipe), lưu kết quả vào file, 
 
 <!-- Shell scripts are the next step in complexity.
 Most shells have their own scripting language with variables, control flow and its own syntax.
-What makes shell scripting different from other scripting programming language is that it is optimized for performing shell-related tasks.
+What makes shell scripting different from other scripting programming languages is that it is optimized for performing shell-related tasks.
 Thus, creating command pipelines, saving results into files, and reading from standard input are primitives in shell scripting, which makes it easier to use than general purpose scripting languages.
 For this section we will focus on bash scripting since it is the most common. -->
 
@@ -183,7 +186,7 @@ Khi mã nguồn được thực thi, việc truyền nhiều đối số tương
 <!-- 
 In the comparison we tested whether `$?` was not equal to 0.
 Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](https://mywiki.wooledge.org/BashFAQ/031).
 
 When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
 - Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
@@ -251,8 +254,9 @@ For this example the shebang line would look like `#!/usr/bin/env python`.
 Some differences between shell functions and scripts that you should keep in mind are:
 - Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
 - Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
-- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions. -->
+- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Environment variables which have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html) are passed by value to scripts.
+- As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
+-->
 
 # Công cụ của shell 
 
@@ -285,7 +289,7 @@ For interactive tools such as the ones based on ncurses, help for the commands c
 
 Sometimes manpages can provide overly detailed descriptions of the commands, making it hard to decipher what flags/syntax to use for common use cases.
 [TLDR pages](https://tldr.sh/) are a nifty complementary solution that focuses on giving example use cases of a command so you can quickly figure out which options to use.
-For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.ostera.io/tar) and [`ffmpeg`](https://tldr.ostera.io/ffmpeg) way more often than the manpages. -->
+For instance, I find myself referring back to the tldr pages for [`tar`](https://tldr.inbrowser.app/pages/common/tar) and [`ffmpeg`](https://tldr.inbrowser.app/pages/common/ffmpeg) way more often than the manpages.-->
 
 
 ## Finding files
@@ -316,8 +320,9 @@ This property can be incredibly helpful to simplify what could be fairly monoton
 ```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
+
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {}.jpg \;
+find . -name '*.png' -exec magick {} {}.jpg \;
 ```
 
 Mặc dù sự phổ biến của `find`, cú pháp của nó thực sự khó ghi nhớ.
@@ -386,7 +391,7 @@ For now I am sticking with ripgrep (`rg`), given how fast and intuitive it is. S
 # Find all python files where I used the requests library
 rg -t py 'import requests'
 # Find all files (including hidden files) without a shebang line
-rg -u --files-without-match "^#!"
+rg -u --files-without-match "^#\!"
 # Find all matches of foo and print the following 5 lines
 rg foo -A 5
 # Print statistics of matches (# of matched lines and files )
@@ -446,7 +451,7 @@ It can be enabled in [zsh](https://github.com/zsh-users/zsh-autosuggestions) and
 
 You can modify your shell's history behavior, like preventing commands with a leading space from being included. This comes in handy when you are typing commands with passwords or other bits of sensitive information.
 To do this, add `HISTCONTROL=ignorespace` to your `.bashrc` or `setopt HIST_IGNORE_SPACE` to your `.zshrc`.
-If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zhistory`. -->
+If you make the mistake of not adding the leading space, you can always manually remove the entry by editing your `.bash_history` or `.zsh_history`. -->
 
 ## Directory Navigation
 Ở đoạn trước, chúng ta đã mặc định rằng chúng ta đang ở đúng nơi cần thực hiện các tác vụ đó. Tuy nhiên làm thể để nào để di chuyển nhanh chóng giữa các thư mục.

@@ -22,7 +22,7 @@ The [3-2-1 rule](https://www.us-cert.gov/sites/default/files/publications/data_b
 - **2** copies in **different mediums**
 - **1** of the copies being **offsite**
 
-The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you lose everything, that's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
+The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you'll lose everything! That's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
 
 ## Testing your backups
 
@@ -93,7 +93,7 @@ Some good backup programs and services we have used and can honestly recommend:
 
 1. Figure out how to backup your email accounts
 
-1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://youtube-dl.org/)) solutions based on available APIs.
+1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solutions based on available APIs.
 
 1. Think of a website you have visited repeatedly over the years and look it up in [archive.org](https://archive.org/web/), how many versions does it have?
 

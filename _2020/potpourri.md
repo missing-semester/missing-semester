@@ -1,6 +1,9 @@
 ---
 layout: lecture
-title: "Chủ đề hỗn hợp"
+title: "Potpourri"
+description: >
+  Learn about a variety of useful topics including keyboard remapping, daemons, backups, APIs, and more.
+thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true
 video:
@@ -46,7 +49,7 @@ There are even more complex modifications you can configure:
 - Having remaps being keyboard or software specific.
 
 Some software resources to get started on the topic:
-- macOS - [karabiner-elements](https://pqrs.org/osx/karabiner/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
+- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
 - Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
 - Windows - Builtin in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
 - QMK - If your keyboard supports custom firmware you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps works for any machine you use the keyboard with.
@@ -221,7 +224,7 @@ around, all without touching the mouse. They are worth looking into!
 ## VPNs
 
 VPNs are all the rage these days, but it's not clear that's for [any
-good reason](https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
+good reason](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
 should be aware of what a VPN does and does not get you. A VPN, in the
 best case, is _really_ just a way for you to change your internet
 service provider as far as the internet is concerned. All your traffic
@@ -302,7 +305,7 @@ Some examples of things you can do with Hammerspoon:
 
 - Bind hotkeys to move windows to specific locations
 - Create a menu bar button that automatically lays out windows in a specific layout
-- Mute your speaker when you arrive in lab (by detecting the WiFi network)
+- Mute your speaker when you arrive in lab (by detecting the Wi-Fi network)
 - Show you a warning if you've accidentally taken your friend's power supply
 
 At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu

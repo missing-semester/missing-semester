@@ -37,6 +37,17 @@ học được tổ chức trong "Thời Gian Của Các Hoạt Động Độc L
 mặc dù lớp học chỉ dành cho sinh viên MIT hiện tại, chúng tôi sẽ cung cấp các văn
 bản ghi chép kiến thức và video cho toàn cộng đồng.
 
+<!-- To help remedy this, we created a class that covers all the topics we
+consider crucial to be an effective computer scientist and programmer. The
+class is pragmatic and practical, and it provides hands-on introduction to
+tools and techniques that you can immediately apply in a wide variety of
+situations you will encounter. The latest iteration of this class, with
+substantially revised material, is being run during MIT's "Independent
+Activities Period" in January 2026 — a one-month semester that features shorter
+student-run classes. While the lectures themselves are only available to the MIT
+community, we will provide all lecture materials along with video recordings of
+lectures to the public.-->
+
 Nếu bạn nghĩ khóa học này có vẻ thú vị cho bạn, sau đây là một số kiến thức
 sẽ được đề cập đến:
 
@@ -125,12 +136,29 @@ vài triệu packages được cài đặt với vô vàn các phiên bản khá
 Làm sao để tham gia Internet mà không làm lọ bí mật của bạn cho cả thế giới?
 Không cần phải tự mình tạo ra các passwords hóc búa. Không còn những mạng Wifi mở
 thiếu bảo mật. Và không còn nhắn tin thiếu an toàn nữa
+## Code quality and continuous integration
+
+How to use autoformatting, linting, testing, and code coverage tools to improve
+code quality. No more ugly code. No more regressions. No more code that works
+on your computer but crashes on everyone else's.
+
+## Beyond the code
+
+How to write great documentation, communicate clearly with open-source
+maintainers, submit actionable issues, and contribute pull requests that get
+merged. No more confused users who can't get started using your software. No
+more ghosting from maintainers.
 
 # Kết
 
 Những thứ ở trên và còn hơn thế nữa, sẽ được giới thiệu trong seri 12 lớp, với các 
 bài tập để bạn có thể tự làm quen với những công cụ. Nếu bạn không thể đợi đến tháng 1, hãy tham khảo
 các kiến thức từ [Hacker Tools](https://hacker-tools.github.io/lectures/), một sê ri chúng tôi tổ chức trong kì IAP năm ngoái
+This, and more, will be covered across the 9 class lectures, each including
+exercises for you to get more familiar with the tools on your own. If you can't
+wait until January 2026, you can also take a look at the lectures from the
+[previous offering of the course](/2020/), which covers many of the same
+topics.
 
 Hẹn gặp vào tháng Một, dù là trực tiếp hay gián tiếp!
 

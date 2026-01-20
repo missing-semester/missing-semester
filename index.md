@@ -18,21 +18,30 @@ xử lý những vấn đề phức tạp, không tưởng.
 
 Đọc thêm về [cảm hứng](/about/) của chúng tôi cho khóa học này.
 
+These days, many aspects of software engineering are also in flux
+through the introduction of AI-enabled and AI-enhanced tools and
+workflows. When used appropriately and with awareness of their
+shortcomings, these can often provide significant benefits to
+CS practitioners and are thus worth developing working knowledge of.
+Since AI is a cross-functional enabling technology, there is not a
+standalone AI lecture; we've instead folded the use of the latest
+applicable AI tools and techniques into each lecture directly.
+
+Read about the [motivation behind this class](/about/).
+
 {% comment %}
 # Registration
 
-Sign up for the IAP 2020 class by filling out this [registration form](https://forms.gle/TD1KnwCSV52qexVt9).
+Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 {% endcomment %}
 
 # Schedule
 
-{% comment %}
-**Lecture**: 35-225, 2pm--3pm<br>
-**Office hours**: 32-G9 lounge, 3pm--4pm (every day, right after lecture)
-{% endcomment %}
+**Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
+**Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors)
 
 <ul>
-{% assign lectures = site['2020'] | sort: 'date' %}
+{% assign lectures = site['2026'] | sort: 'date' %}
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
@@ -48,11 +57,23 @@ Sign up for the IAP 2020 class by filling out this [registration form](https://f
 </ul>
 
 Video cho các bài giảng đã được upload lên [Youtube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We will upload edited lecture videos to YouTube during the week of 1/26.
+
+If you can't wait until January 2026, you can also take a look at the lectures
+from the [previous offering of the course](/2020/), which covers many of the
+same topics.
+
+{% comment %}
+Video recordings of the lectures are available [on
+YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+{% endcomment %}
 
 # Thông tin khóa học
 
 **Người Đứng Lớp**: Khóa học này được truyền đạt bởi [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/).
 **Thắc mắc**: Email chúng tôi tại [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Staff**: This class is co-taught by [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/).<br>
+**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
 # Ngoài MIT
 
@@ -70,7 +91,6 @@ diễn đàn, trang tin dưới đây.
 # Bản Dịch
 
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
-- [Chinese (Traditional)](https://missing-semester-zh-hant.github.io/)
 - [Japanese](https://missing-semester-jp.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
@@ -79,6 +99,11 @@ diễn đàn, trang tin dưới đây.
 - [Spanish](https://missing-semester-esp.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
+- [Arabic](https://missing-semester-ar.github.io/)
+- [Italian](https://missing-semester-it.github.io/)
+- [Persian](https://missing-semester-fa.github.io/)
+- [German](https://missing-semester-de.github.io/)
+- [Bengali](https://missing-semester-bn.github.io/)
 
 Lưu Ý: Những bản dịch này được đóng góp bởi cộng đồng mã nguồn mở.
 
@@ -90,6 +115,13 @@ Chúng tôi cảm ơn Elaine Mello, Jim Cain, và [MIT Open
 Learning](https://openlearning.mit.edu/) đã giúp chúng tôi thu video về lớp học này; Anthony Zolnik và [MIT
 AeroAstro](https://aeroastro.mit.edu/) cho các phương tiện thu phát; và Brandi Adams và
 [MIT EECS](https://www.eecs.mit.edu/) vì đã hỗ trợ khóa học này.
+## Acknowledgments
+
+{% comment %}
+2026 acks; previous years' acks are on their respective pages
+{% endcomment %}
+
+We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
 
 ---
 

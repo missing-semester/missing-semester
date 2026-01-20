@@ -63,13 +63,13 @@ comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the 
 
 
 **Local Port Forwarding**
-![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png  "Local Port Forwarding")
+![Local Port Forwarding](https://i.stack.imgur.com/a28N8.png)
 
 **Remote Port Forwarding**
-![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png  "Remote Port Forwarding")
+![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png)
 
 
-The most common scenario is local port forwarding where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus to forward that to the local port `9999` we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `locahost:9999` in our local machine.
+The most common scenario is local port forwarding where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus to forward that to the local port `9999` we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `localhost:9999` in our local machine.
 
 ## Graphics Forwarding
 
@@ -96,7 +96,7 @@ A downside of `mosh` is that is does not support roaming port/graphics forwardin
 
 ## SSH Configuration
 
-#### Client
+### Client
 
 We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_serer="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, however there is a better alternative, using `~/.ssh/config`.
 
@@ -121,7 +121,7 @@ Note that the `~/.ssh/config` file can be considered a dotfile, and in general i
 
 Warning: Never include your RSA keys ( `~/.ssh/id_rsa*` ) in a public repository!
 
-#### Server side
+### Server side
 
 Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make  changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings in a per user basis.
 
@@ -132,7 +132,7 @@ locally, and then you can use a local editor.
 
 ## Exercises
 
-1. For SSH to work the host needs to be running an SSH server. Install an SSH server (such as OpenSSH) in a virtual machine so you the rest of the exercises. To figure out what is the ip of the machine run the command `ip addr` and look for the inet field (ignore the `127.0.0.1` entry, that corresponds to the loopback interface).
+1. For SSH to work the host needs to be running an SSH server. Install an SSH server (such as OpenSSH) in a virtual machine so you can do the rest of the exercises. To figure out what is the ip of the machine run the command `ip addr` and look for the inet field (ignore the `127.0.0.1` entry, that corresponds to the loopback interface).
 
 1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -t rsa -b 4096`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
 
@@ -155,7 +155,7 @@ locally, and then you can use a local editor.
 
 ## References
 
-- [SSH Hacks](http://matt.might.net/articles/ssh-hacks/)
+- [SSH Hacks](https://matt.might.net/articles/ssh-hacks/)
 - [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
 
 {% comment %}
