@@ -8,6 +8,15 @@ date: 2026-01-20
 ready: true
 ---
 
+{% comment %}
+lecturer: Jose
+
+TODO
+- Maybe mention container image tagging
+- Mention systemd somewhere
+{% endcomment %}
+
+
 Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
 
 Shipping code means taking the code you wrote and converting it into a usable thing that someone else can run without your computer's exact setup.
@@ -168,19 +177,19 @@ This helps when you need to test your code across multiple Python versions or wh
 
 In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code -- ready to be installed or deployed.
 An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
-Consider this example where we have a Python file `mylib.py` in our current directory:
+Consider this example where we have a Python file `greet.py` in our current directory:
 
 ```console
-❯ cat mylib.py
+❯ cat greet.py
 def greet(name):
     return f"Hello, {name}!"
 
-❯ python -c "from mylib import greet; print(greet('World'))"
+❯ python -c "from greet import greet; print(greet('World'))"
 Hello, World!
 
 ❯ cd /tmp
-❯ python -c "from mylib import greet; print(greet('World'))"
-ModuleNotFoundError: No module named 'mylib'
+❯ python -c "from greet import greet; print(greet('World'))"
+ModuleNotFoundError: No module named 'greet'
 ```
 
 The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
@@ -198,7 +207,7 @@ Here's a minimal `pyproject.toml` for a library that also provides a command-lin
 name = "greeting"
 version = "0.1.0"
 description = "A simple greeting library"
-dependencies = ["click>=8.0"]
+dependencies = ["typer>=0.9"]
 
 [project.scripts]
 greet = "greeting:main"
@@ -211,15 +220,19 @@ build-backend = "setuptools.build_meta"
 And the corresponding `greeting.py`:
 
 ```python
-import click
+import typer
 
-def hello(name):
+
+def greet(name: str) -> str:
     return f"Hello, {name}!"
 
-@click.command()
-@click.argument("name")
-def main(name):
-    click.echo(hello(name))
+
+def main(name: str):
+    print(greet(name))
+
+
+if __name__ == "__main__":
+    typer.run(main)
 ```
 
 With this file, we can now build the wheel:
@@ -357,7 +370,7 @@ VMs abstract the entire computer and provide a completely isolated environment w
 A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
 Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
 
-The most popular container platform is [Docker](https://www.docker.com/). Docker introduced a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime -- an industry standard that other tools like Kubernetes also use.
+The most popular container platform is [Docker](https://www.docker.com/). Docker defines a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime -- an industry standard that other tools like Kubernetes also use.
 
 Running a container is straightforward. For example, to run a Python interpreter inside a container we use `docker run` (The `-it` flags make the container interactive with a terminal. When you exit, the container stops.).
 
@@ -504,13 +517,13 @@ Package managers sometimes support installing directly from GitHub, either from 
 
 ```console
 # Install from source (will clone and build)
-❯ pip install git+https://github.com/psf/requests.git
+❯ uv pip install git+https://github.com/psf/requests.git
 
 # Install from a specific tag/branch
-❯ pip install git+https://github.com/psf/requests.git@v2.32.3
+❯ uv pip install git+https://github.com/psf/requests.git@v2.32.3
 
 # Install a wheel directly from a GitHub release
-❯ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
+❯ uv pip install https://github.com/psf/requests/releases/download/v2.32.5/requests-2.32.5-py3-none-any.whl
 ```
 
 In fact, some languages like Go use a decentralized distribution model -- rather than a central package repository, Go modules are distributed directly from their source code repositories. 
