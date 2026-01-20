@@ -40,6 +40,8 @@ jobs:
             https://pdw.ex-parrot.com/Mail-RFC822-Address.html
             https://zsh.sourceforge.io/Guide/zshguide04.html
             https://leetcode.com/
+            https://www.npmjs.com
+            https://crates.io
           ignore_url_re: |
             ^https://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/

@@ -8,7 +8,7 @@ date: 2026-01-12
 ready: true
 video:
   aspect: 56.25
-  id: fn1n84wpwOE
+  id: MSgoeuMqUmU
 ---
 
 {% comment %}

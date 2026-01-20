@@ -6,7 +6,9 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=72eb20c5-be86-46dd-85ee-b3b700e1ca7a"
+video:
+  aspect: 56.25
+  id: QnM1nVzrkx8
 ---
 
 A _development environment_ is a set of tools for developing software. At the heart of a development environment is text editing functionality, along with accompanying features such as syntax highlighting, type checking, code formatting, and autocomplete. _Integrated development environments_ (IDEs) such as [VS Code][vs-code] bring together all of this functionality into a single application. Terminal-based development workflows combine tools such as [tmux](https://github.com/tmux/tmux) (a terminal multiplexer), [Vim](https://www.vim.org/) (a text editor), [Zsh](https://www.zsh.org/) (a shell), and language-specific command-line tools, such as [Ruff](https://docs.astral.sh/ruff/) (a Python linter and code formatter) and [Mypy](https://mypy-lang.org/) (a Python type checker).
