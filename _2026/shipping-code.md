@@ -217,6 +217,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
+The `click` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+
 And the corresponding `greeting.py`:
 
 ```python
@@ -250,6 +252,22 @@ greeting-0.1.0.tar.gz
 ```
 
 The `.whl` file is the wheel (a zip archive with a specific structure), and the `.tar.gz` is a source distribution for systems that need to build from source.
+
+You can inspect the contents of a wheel to see what gets packaged:
+
+```console
+$ unzip -l dist/greeting-0.1.0-py3-none-any.whl
+Archive:  dist/greeting-0.1.0-py3-none-any.whl
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      150  2024-01-15 10:30   greeting.py
+      312  2024-01-15 10:30   greeting-0.1.0.dist-info/METADATA
+       92  2024-01-15 10:30   greeting-0.1.0.dist-info/WHEEL
+        9  2024-01-15 10:30   greeting-0.1.0.dist-info/top_level.txt
+      435  2024-01-15 10:30   greeting-0.1.0.dist-info/RECORD
+---------                     -------
+      998                     5 files
+```
 
 Now if we were to give this wheel to someone else, they could install it by running:
 
@@ -295,7 +313,7 @@ Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PA
 - MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
 
 > This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-so packaging supports semantic versioning natively so when we specify the versions of our dependencies we can use various specifiers:
+Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
 
 In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies
 
@@ -309,7 +327,9 @@ dependencies = [
 ]
 ``` 
 
-Not all software uses semantic versioning. An common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases. 
+Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator -- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
+
+Not all software uses semantic versioning. An common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
 
 
 ## Reproducibility
@@ -382,7 +402,7 @@ Hello from inside a container!
 ```
 
 In practice your program might depend on the entire filesystem.
-To overcome this, container images ship the entire filesystem of the application as the artifact of choice by using containers.
+To overcome this, we can use container images that ship the entire filesystem of the application as the artifact.
 The container images are created programatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
 
 ```dockerfile
@@ -487,6 +507,28 @@ volumes:
 
 With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
 Docker compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
+
+For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
+
+```ini
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=My Application
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose down
+
+[Install]
+WantedBy=multi-user.target
+```
+
+This systemd unit file ensures your application starts when the system boots (after Docker is ready), and provides standard controls like `systemctl start myapp`, `systemctl stop myapp`, and `systemctl status myapp`.
 
 As deployment requirements grow more complex -- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees -- organizations turn to sophisticated container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. That said, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
 
