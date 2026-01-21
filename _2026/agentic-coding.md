@@ -10,7 +10,7 @@ ready: true
 
 Coding agents are conversational AI models with access to tools such as reading/writing files, web search, and invoking shell commands. They live either in the IDE or in standalone command-line or GUI tools. Coding agents are highly autonomous and powerful tools, enabling a wide variety of use cases.
 
-This lecture builds on the AI-powered development material from the [Development Environment and Tools](/2026/development-environment/) lecture. As a quick demo, let's continue with the example from [AI-powered development](/2026/development-environment/#ai-powered-development) section:
+This lecture builds on the AI-powered development material from the [Development Environment and Tools](/2026/development-environment/) lecture. As a quick demo, let's continue with the example from the [AI-powered development](/2026/development-environment/#ai-powered-development) section:
 
 ```python
 from urllib.request import urlopen
@@ -39,7 +39,7 @@ The agent will read the file to understand it, then make some edits, and finally
 
 Coding agents support multi-turn interaction, so you can iterate on work over a back-and-forth conversation with the agent. You can even interrupt the agent if it's going down the wrong track. One helpful mental model might be that of a manager of an intern: the intern will do the nitty gritty work, but will require guidance, and will occasionally do the wrong thing and need to be corrected.
 
-> For a more illustrative demo, try asking the agent as a follow-up to run the resulting script. Observe the outputs, and try asking it to make an change (e.g., ask it to include only absolute URLs).
+> For a more illustrative demo, try asking the agent as a follow-up to run the resulting script. Observe the outputs, and try asking it to make a change (e.g., ask it to include only absolute URLs).
 
 # How AI models and agents work
 
@@ -155,7 +155,7 @@ Example prompt, off of master:
 This is something that'll be fast, for demonstration purposes.
 {% endcomment %}
     - **Skills.** Content in the `AGENTS.md` is always loaded, in its entirety, into the context window of an agent. _Skills_ add one level of indirection to avoid context bloat: you can provide the agent with a list of skills along with descriptions, and the agent can "open" the skill (load it into its context window) as desired.
-    - **Subagents.** Some coding agents let you define subagents, which are agents for task-specific workflows. The top-level coding agent can invoke a sub-agent to complete a particular task, which enables both the top-level agent and subagent to more effectively manage context. The top-level agent's context isn't bloated with everything the subagent sees, and the subagent can get just the context it needs for its task. As one example, some coding agents implement the web research as a subagent: the top-level agent will pose a query to the subagent, which will run web search, retrieve individual web pages, analyze them, and provide an answer to the query to the top-level agent. This way, the top-level agent doesn't have its context bloated by the full content of all retrieved web pages, and the subagent doesn't have in its context the rest of the conversation history of the top-level agent.
+    - **Subagents.** Some coding agents let you define subagents, which are agents for task-specific workflows. The top-level coding agent can invoke a sub-agent to complete a particular task, which enables both the top-level agent and subagent to more effectively manage context. The top-level agent's context isn't bloated with everything the subagent sees, and the subagent can get just the context it needs for its task. As one example, some coding agents implement web research as a subagent: the top-level agent will pose a query to the subagent, which will run web search, retrieve individual web pages, analyze them, and provide an answer to the query to the top-level agent. This way, the top-level agent doesn't have its context bloated by the full content of all retrieved web pages, and the subagent doesn't have in its context the rest of the conversation history of the top-level agent.
 
 For many of the advanced features that require writing prompts (e.g., skills or subagents), you can use LLMs to get you started. Some coding agents even have built-in support for doing this. For example, Claude Code can generate a subagent from a short prompt (invoke `/agents` and create a new agent). Try creating a subagent with this prompt:
 
@@ -171,7 +171,7 @@ AI tools can make mistakes. They are built on LLMs, which are just probabilistic
 
 # Recommended software
 
-Many IDEs / AI coding extensions include coding agents (see recommendations from the [development environment lecture](/2026/development-environment/). Other popular coding agents include Anthropic's [Claude Code](https://www.claude.com/product/claude-code), OpenAI's [Codex](https://openai.com/codex/), and open-source agents like [opencode](https://github.com/anomalyco/opencode).
+Many IDEs / AI coding extensions include coding agents (see recommendations from the [development environment lecture](/2026/development-environment/)). Other popular coding agents include Anthropic's [Claude Code](https://www.claude.com/product/claude-code), OpenAI's [Codex](https://openai.com/codex/), and open-source agents like [opencode](https://github.com/anomalyco/opencode).
 
 # Exercises
 
