@@ -131,7 +131,7 @@ another time.
 As engineers, we may spend a large part of our job coding at our own
 keyboard, but a sizeable chunk of our time is also taken up by
 communicating with others. That time is usually split into collaboration
-and education, and the payoff from investing in getter better at both is
+and education, and the payoff from investing in getting better at both is
 significant.
 
 ## Contributing
@@ -287,7 +287,7 @@ A lot of our non-coding time as engineers is spent either asking or
 answering questions, possibly a mixture of both; during collaboration,
 in dialogue with peers, or while trying to learn. Asking good questions
 is a skill that makes you better at learning from anyone, not just
-perfect explainers. Julia Evans' hsa some excellent blog posts on "[How
+perfect explainers. Julia Evans' has some excellent blog posts on "[How
 to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
 to get useful answers to your
 questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
