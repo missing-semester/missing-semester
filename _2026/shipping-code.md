@@ -6,6 +6,7 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
+panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=112914ad-4e94-49b3-a13b-b3b700e1cac8"
 ---
 
 {% comment %}
