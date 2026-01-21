@@ -93,7 +93,7 @@ Show usage in Missing Semester, point out that the agent did make some mistakes.
 {%- comment %}
 In Porcupine repo, prompt agent with:
 
-    https://github.com/anishathalye/porcupine/pull/39
+    Review this PR: https://github.com/anishathalye/porcupine/pull/39
 {% endcomment %}
 - **Code understanding.** You can ask a coding agent questions about a codebase, which can be particularly helpful for onboarding.
 {%- comment %}
