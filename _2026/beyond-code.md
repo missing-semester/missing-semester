@@ -63,14 +63,14 @@ Types of comments that are nearly always worthwhile:
 - **"Why not"s**: When you deliberately avoid the obvious approach,
   explain why. Otherwise someone will "fix" it later and break things.
 
-> READMEs (you have one, right?) are also a common first touch-point
-> with other developers. A good one answers four questions immediately:
-> What does this do? Why should I care? How do I use it? How do I
-> install it? In that order. Structure it like a funnel: a one-liner and
-> maybe a visual demo at the top so someone can decide in seconds if
-> this solves their problem, then progressively add depth. Show usage
-> before installation — people want to see what they're getting before
-> committing to setup steps.
+READMEs (you have one, right?) are also a common first touch-point with
+other developers. A good one answers four questions immediately: What
+does this do? Why should I care? How do I use it? How do I install it?
+In that order. Structure it like a funnel: a one-liner and maybe a
+visual demo at the top so someone can decide in seconds if this solves
+their problem, then progressively add depth. Show usage before
+installation — people want to see what they're getting before committing
+to setup steps.
 
 Commit messages are another kind of "writing for others" that is often
 neglected. They are often written as "fixed blah" or "added foo", and
@@ -194,7 +194,6 @@ having to go through lots of back and forth on the content.
 > [choosealicense.com](https://choosealicense.com/) has more useful
 > information.
 
-
 When you've decided to open a pull request ("PR"), first make sure you
 isolate the change you actually want to be accepted. If your PR changes
 lots of other unrelated things at the same time, chances are the
@@ -215,6 +214,12 @@ call out parts of the change that warrant special attention in the
 review, if any. Depending on `CONTRIBUTING.md` and the nature of your
 change, reviewers may also expect to see additional information like
 trade-offs you made or how to test the change.
+
+> We recommend contributing back to upstream projects rather than
+> "forking" the project, at least as a first approach. Forking (license
+> permitting) should be reserved for when the contributions you want to
+> make are out of scope for the original project. If you do fork, make
+> sure you acknowledge the original project!
 
 AI makes it incredibly easy to generate plausible-looking code and PRs
 quickly, but this doesn't excuse you from understanding what you're
@@ -258,6 +263,9 @@ some tips that can make them much better much faster:
 
 - **Review the code, not the person**:
   "This function is confusing" vs "You wrote confusing code."
+- **Prefer actionable comments**:
+  "Can you replace these globals with a config dataclass" is an easier
+  comment to address than "Don't use globals here"
 - **Ask questions rather than making demands**:
   "What happens if X is null here?" invites discussion better than
   "Handle the null case."
@@ -287,7 +295,7 @@ A lot of our non-coding time as engineers is spent either asking or
 answering questions, possibly a mixture of both; during collaboration,
 in dialogue with peers, or while trying to learn. Asking good questions
 is a skill that makes you better at learning from anyone, not just
-perfect explainers. Julia Evans' has some excellent blog posts on "[How
+perfect explainers. Julia Evans has some excellent blog posts on "[How
 to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
 to get useful answers to your
 questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
@@ -330,7 +338,10 @@ their use that are worth discussing.
 The first of these is that when AI meaningfully contributed to your
 work, **disclose it**. This isn't about shame — it's about honesty,
 setting appropriate expectations, and ensuring the resulting work gets
-the appropriate level of review.
+the appropriate level of review. It's also worthwhile to disclose which
+_parts_ you use AI for — there's a meaningful distinction between "this
+whole thing is vibecoded" and "I wrote this backup tool and used an LLM
+to style the web frontend".
 
 You'll also want to follow the norms of the teams and projects you're
 contributing to here. Some teams have stricter policies around the use
