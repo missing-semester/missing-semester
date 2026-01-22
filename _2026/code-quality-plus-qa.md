@@ -8,8 +8,17 @@ date: 2026-01-23
 ready: true
 ---
 
+# Q&A
+
+In the second half of this lecture, we will cover student questions. Please submit your questions in advance of the lecture:
+
+**<https://forms.gle/4jnhiok72KQUD3Tn7>**
+
+See [here](/2020/qa/) for the Q&A from the previous offering of this course.
+
+
 <span class="construction">
-This page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Metaprogramming](/2020/metaprogramming/) lecture from the 2020 offering.
+This rest of this page is under construction for the IAP 2026 offering of Missing Semester. This lecture will cover topics similar to the [Metaprogramming](/2020/metaprogramming/) lecture from the 2020 offering.
 </span>
 
 In this lecture, we'll cover:
@@ -99,18 +108,6 @@ Write a Python-style regex pattern that matches the requested path from log line
 
 169.254.1.1 - - [09/Jan/2026:21:28:51 +0000] "GET /feed.xml HTTP/2.0" 200 2995 "-" "python-requests/2.32.3"
 ```
-
-# Q&A
-
-{% comment %}
-lecturer: everyone
-{% endcomment %}
-
-In the second half, we will cover student questions. Please submit your questions in advance of the lecture:
-
-**<https://forms.gle/4jnhiok72KQUD3Tn7>**
-
-See [here](/2020/qa/) for the Q&A from the previous offering of this course.
 
 # Exercises
 
