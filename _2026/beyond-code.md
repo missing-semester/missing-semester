@@ -346,7 +346,8 @@ the appropriate level of review. It's also worthwhile to disclose which
 _parts_ you use AI for — there's a meaningful distinction between "this
 whole thing is vibecoded" and "I wrote this backup tool and used an LLM
 to style the web frontend". For example, we've used LLMs to help write
-many of these lecture notes, including this very paragraph!
+some of these lecture notes, including proofreading, brainstorming, and
+generating first drafts of code snippets and exercises.
 
 You'll also want to follow the norms of the teams and projects you're
 contributing to here. Some teams have stricter policies around the use
