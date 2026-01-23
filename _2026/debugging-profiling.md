@@ -105,7 +105,7 @@ This is incredibly powerful for debugging. Say you have a crash—instead of gue
 - Crashes that are hard to reproduce
 - Any bug where you wish you could "go back in time"
 
-> Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instance, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
+> Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instances, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
 
 > **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
 

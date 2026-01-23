@@ -32,7 +32,7 @@ def add(x: int, y: int) -> int:
 ```
 
 Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance
+In contrast, shell scripts can look quite different at first glance.
 
 ```shell
 #!/usr/bin/env bash
@@ -111,7 +111,7 @@ So if our folder has `main.py` and `utils.py` then the `rm` program will receive
 The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
 Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
 
-In practice, globs are best understood with motivating examples
+In practice, globs are best understood with motivating examples.
 
 ```shell
 touch folder/{a,b,c}.py
@@ -174,7 +174,7 @@ echo "hello" | grep "hello" -
 
 Similarly, every program has two output streams: stdout and stderr.
 The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other type of issues, without that output getting parsed by the next command in the chain.
+The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
 
 ```console
 $ ls /nonexistent
@@ -186,7 +186,7 @@ $ ls /nonexistent 2>/dev/null
 # No output - stderr was redirected to /dev/null
 ```
 
-The shell provides syntax for redirecting these streams, here are some illustrative examples
+The shell provides syntax for redirecting these streams. Here are some illustrative examples.
 
 ```shell
 # Redirect stdout to a file (overwrite)
@@ -515,7 +515,7 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exit sleep, changing networks and dealing with high latency links.
+> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
 
 For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
 We can do this via passwords or ssh keys.
@@ -671,7 +671,7 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in
+Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
 
 We can also create our own command aliases using the `alias` shell built-in.
 A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
@@ -838,7 +838,7 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 
 {% comment %}
 ls -lath --color=auto
-{% endcomment %}}
+{% endcomment %}
 
 1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
 
@@ -854,7 +854,7 @@ marco() {
 polo() {
     cd "$MARCO"
 }
-{% endcomment %}}
+{% endcomment %}
 
 ## Return Codes
 
@@ -886,7 +886,7 @@ done
 
 echo "found error after $count runs"
 cat out.txt
-{% endcomment %}}
+{% endcomment %}
 
 ## Signals and Job Control
 

@@ -192,7 +192,7 @@ or `"` (`"My Photos"`), or escape just the relevant characters with `\`
 (`My\ Photos`).
 
 Perhaps the most important command when you're starting out is `man`,
-short of "manual". The `man` program, among other things, lets you look
+short for "manual". The `man` program, among other things, lets you look
 up more information about any command on your system. For example, if
 you run `man date`, it'll explain what `date` is, and all of the various
 arguments you can pass it to alter its behavior. You can also usually
@@ -301,7 +301,7 @@ focus on some of the most important ones here. First, some simple ones:
 
 - `cat file`, which prints the contents of `file`.
 - `sort file`, which prints out the lines of `file` in sorted order.
-- `uniq file`, which eliminate consecutive duplicate lines from `file`.
+- `uniq file`, which eliminates consecutive duplicate lines from `file`.
 - `head file` and `tail file`, which respectively print the first and
   last few lines of `file`.
 
@@ -313,8 +313,8 @@ in `file`. This one deserves slightly more attention as it's both _very_
 useful and sports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
 complex patterns --- we'll [cover
-those](/2026/code-quality-plus-qa/#regular-expressions-for-pattern-matching)
-in the editor lecture. You can also specify a directory instead of a
+those](/2026/code-quality-plus-qa/#regular-expressions)
+in the code quality lecture. You can also specify a directory instead of a
 file (or leave it off for `.`) and pass `-r` to recursively search all
 the files in a directory.
 

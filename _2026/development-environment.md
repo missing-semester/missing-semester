@@ -223,7 +223,7 @@ The model will autocomplete the body of the function:
     return response.text
 ```
 
-We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but doesn't have a particularly descriptive name:
+We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but it doesn't have a particularly descriptive name:
 
 ```python
 def extract(contents: str) -> list[str]:
@@ -265,7 +265,7 @@ print(extract(download_contents("https://raw.githubusercontent.com/missing-semes
 
 Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
 
-Continuing the example from above, supposed we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+Continuing the example from above, suppose we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
 
 ```
 use built-in libraries instead
@@ -293,7 +293,7 @@ Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-cop
 
 IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The lecture on [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
+- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
 - Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
 - Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
 

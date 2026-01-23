@@ -154,7 +154,7 @@ An "object" is a blob, tree, or commit:
 type object = blob | tree | commit
 ```
 
-In Git data store, all objects are content-addressed by their [SHA-1
+In Git's data store, all objects are content-addressed by their [SHA-1
 hash](https://en.wikipedia.org/wiki/SHA-1).
 
 ```
@@ -398,7 +398,7 @@ class website](https://github.com/missing-semester/missing-semester).
    the `~/.gitconfig` file, or you can use the `git config` command to add the
    alias. Information about git aliases can be found
    [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
-1. You can define global ignore patterns in` ~/.gitignore_global` after running
+1. You can define global ignore patterns in `~/.gitignore_global` after running
    `git config --global core.excludesfile ~/.gitignore_global`. This sets the
    location of the global ignore file that Git will use, but you still need to
    manually create the file at that path. Set up your global gitignore file to

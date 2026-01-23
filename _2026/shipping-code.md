@@ -23,7 +23,7 @@ Getting code to work as intended is hard; getting that same code to run on a mac
 Shipping code means taking the code you wrote and converting it into a usable form that someone else can run without your computer's exact setup.
 Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
 It also depends on what you are building: a software library, a command line tool, and a web service all have different requirements and deployment steps.
-Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a the _artifact_ --- and what assumptions it makes about the environment around it.
+Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a. the _artifact_ --- and what assumptions it makes about the environment around it.
 
 In this lecture, we'll cover:
 
@@ -223,7 +223,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
-The `click` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+The `typer` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
 
 And the corresponding `greeting.py`:
 
@@ -280,7 +280,7 @@ Now if we were to give this wheel to someone else, they could install it by runn
 ```console
 $ uv pip install ./greeting-0.1.0-py3-none-any.whl
 $ greet Alice
-Hello Alice!
+Hello, Alice!
 ```
 
 This would install the library we built earlier into their environment, including the `greet` cli tool.
@@ -335,7 +335,7 @@ dependencies = [
 
 Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator --- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
 
-Not all software uses semantic versioning. An common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
+Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
 
 
 # Reproducibility
@@ -475,7 +475,7 @@ server:
   debug: false
 ```
 
-A good right hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
+A good right-hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
 
 Among the many configuration options there is often sensitive data such as API keys.
 Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
