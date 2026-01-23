@@ -313,7 +313,7 @@ in `file`. This one deserves slightly more attention as it's both _very_
 useful and sports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
 complex patterns --- we'll [cover
-those](/2026/code-quality-plus-qa/#regular-expressions)
+those](/2026/code-quality/#regular-expressions)
 in the code quality lecture. You can also specify a directory instead of a
 file (or leave it off for `.`) and pass `-r` to recursively search all
 the files in a directory.
