@@ -26,7 +26,12 @@ collections:
 
 # Excludes
 exclude:
-  - README.md
+  - AGENTS.md
+  - CNAME
+  - Dockerfile
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - browser.sh
+  - docker-compose.yml
   - vendor
