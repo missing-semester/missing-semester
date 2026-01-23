@@ -147,7 +147,7 @@ Knowing your way around a shell is also very useful to navigate the
 world of open-source software (which often come with install
 instructions that require the shell), building continuous integration
 for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality-plus-qa/)), and debugging errors when other programs
+lecture](/2026/code-quality/)), and debugging errors when other programs
 fail.
 
 ## Navigating in the shell

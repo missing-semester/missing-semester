@@ -380,7 +380,7 @@ For projects requiring maximum reproducibility, tools like [Nix](https://nixos.o
 > You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
 
 A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
-We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality-plus-qa/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
+We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
 
 Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
 In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
