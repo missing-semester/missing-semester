@@ -9,14 +9,6 @@ ready: true
 panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4ab74d71-c342-4bdb-ac96-b3b700e1caf4"
 ---
 
-{% comment %}
-lecturer: Jon
-{% endcomment %}
-
-<span class="construction">
-This page is under construction for the IAP 2026 offering of Missing Semester.
-</span>
-
 Being a good software engineer isn't just about writing code that
 works. It's about writing code that others (including future you) can
 understand, maintain, and build upon. It's about communicating
