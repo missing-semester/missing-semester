@@ -6,6 +6,7 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec9.png
 date: 2026-01-23
 ready: true
+panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5c68abbd-de36-41b3-9dd6-b3b700e1cb12"
 ---
 
 There are a variety of tools and techniques that support developers in writing high-quality code. In this lecture, we'll cover:
