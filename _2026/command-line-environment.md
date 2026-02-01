@@ -227,7 +227,7 @@ This behavior can be confusing and tricky to get used to, so keep it in mind.
 
 Shell variables do not have types, they are all strings.
 Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not perform string interpolation using variable values, whereas `"` delimited strings will.
+Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
 
 ```shell
 foo=bar
