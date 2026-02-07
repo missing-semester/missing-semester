@@ -58,7 +58,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We will upload edited lecture videos to YouTube during the week of 1/26.
+Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We are working on editing lecture videos and uploading them to YouTube. A couple have been uploaded already; we expect the rest to be uploaded by mid-February.
 
 If you can't wait until January 2026, you can also take a look at the lectures
 from the [previous offering of the course](/2020/), which covers many of the
