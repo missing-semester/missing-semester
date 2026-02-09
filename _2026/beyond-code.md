@@ -139,7 +139,7 @@ and an order of magnitude more contributors than there are maintainers.
 As a result, maintainer time is highly oversubscribed. If you want to
 increase the likelihood that your contribution goes somewhere
 productive, you have to ensure that your contributions carry a high
-signal-to-noise ratio and is worth the maintainers' time.
+signal-to-noise ratio and are worth the maintainers' time.
 
 For example, a good bug report respects the maintainer's time by
 providing everything needed to understand and reproduce the problem:
