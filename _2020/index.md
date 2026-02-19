@@ -42,6 +42,19 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
  - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
+{% comment %}
+Some more URLs:
+
+- https://news.ycombinator.com/item?id=27154577
+- https://news.ycombinator.com/item?id=34934216
+- https://www.reddit.com/r/learnprogramming/comments/nca1v3/mit_the_missing_semester_of_your_cs_education/
+- https://www.reddit.com/r/compsci/comments/eyywv8/the_missing_semester_of_your_cs_education_from_mit/
+- https://www.reddit.com/r/programming/comments/io7nq3/the_missing_semester_of_your_cs_education_mit/
+- https://twitter.com/MIT_CSAIL/status/1349766980413263873
+- https://twitter.com/MIT_CSAIL/status/1481676163491659780
+- https://twitter.com/MIT_CSAIL/status/1581313961093484545
+{% endcomment %}
+
 # Acknowledgments
 
 We thank Elaine Mello, Jim Cain, and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and [MIT EECS](https://www.eecs.mit.edu/) for supporting this class.

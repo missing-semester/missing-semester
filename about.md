@@ -137,4 +137,4 @@ topics.
 We hope to see you in January, whether virtually or in person!
 
 Happy hacking,<br>
-Anish, Jose, and Jon
+[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/)
