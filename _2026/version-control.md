@@ -6,7 +6,9 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec5.png
 date: 2026-01-16
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4ce9ab0a-4811-4292-af65-b3b700e1caa1"
+video:
+  aspect: 56.25
+  id: 9K8lB61dl3Y
 ---
 
 Version control systems (VCSs) are tools used to track changes to source code

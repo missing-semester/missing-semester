@@ -6,17 +6,10 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=112914ad-4e94-49b3-a13b-b3b700e1cac8"
+video:
+  aspect: 56.25
+  id: KBMiB-8P4Ns
 ---
-
-{% comment %}
-lecturer: Jose
-
-TODO
-- Maybe mention container image tagging
-- Mention systemd somewhere
-{% endcomment %}
-
 
 Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
 

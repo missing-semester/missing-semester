@@ -6,7 +6,9 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4ab74d71-c342-4bdb-ac96-b3b700e1caf4"
+video:
+  aspect: 56.25
+  id: 2DOEATfXT8k
 ---
 
 Being a good software engineer isn't just about writing code that

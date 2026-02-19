@@ -6,7 +6,9 @@ description: >
 thumbnail: /static/assets/thumbnails/2026/lec7.png
 date: 2026-01-21
 ready: true
-panopto: "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8ef1621f-195a-4a84-8289-b3b700e1cade"
+video:
+  aspect: 56.25
+  id: sTdz6PZoAnw
 ---
 
 Coding agents are conversational AI models with access to tools such as reading/writing files, web search, and invoking shell commands. They live either in the IDE or in standalone command-line or GUI tools. Coding agents are highly autonomous and powerful tools, enabling a wide variety of use cases.

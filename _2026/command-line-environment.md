@@ -11,10 +11,6 @@ video:
   id: ccBGsPedE9Q
 ---
 
-{% comment %}
-lecturer: Jose
-{% endcomment %}
-
 As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
 but in practice they provide an entire programming language full of common patterns and abstractions.
 However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.

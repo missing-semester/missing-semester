@@ -11,10 +11,6 @@ video:
   id: MSgoeuMqUmU
 ---
 
-{% comment %}
-lecturer: everyone
-{% endcomment %}
-
 # Who are we?
 
 This class is co-taught by [Anish](https://anish.io/),
