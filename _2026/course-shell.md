@@ -1,210 +1,101 @@
 ---
 layout: lecture
-title: "Course Overview + Introduction to the Shell"
+title: "ภาพรวมของคอร์สเรียน + แนะนำให้รู้จักกับ Shell (Course Overview + Introduction to the Shell)"
 description: >
-  Learn about the motivation for this class, and get started with the shell.
+    ทำความเข้าใจแรงบันดาลใจเบื้องหลังคอร์สนี้ และเริ่มลงมือลุยใช้งาน shell ไปด้วยกันครับ
 thumbnail: /static/assets/thumbnails/2026/lec1.png
 date: 2026-01-12
 ready: true
 video:
-  aspect: 56.25
-  id: MSgoeuMqUmU
+    aspect: 56.25
+    id: MSgoeuMqUmU
 ---
 
-# Who are we?
+# พวกเราคือใคร? (Who are we?)
 
-This class is co-taught by [Anish](https://anish.io/),
-[Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
-are all ex-MIT students who started this MIT IAP class back when we were
-students. You can reach us collectively at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+คลาสนี้สอนร่วมกันโดย [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), และ [Jose](http://josejg.com/) ครับ พวกเราเป็นศิษย์เก่า MIT ที่ริเริ่มคลาส MIT IAP นี้มาตั้งแต่สมัยยังเป็นนักศึกษา คุณสามารถพูดคุยหรือติดต่อพวกเราแบบเหมารวมได้ที่ [missing-semester@mit.edu](mailto:missing-semester@mit.edu) นะครับ
 
-We are not paid to teach this class, and do not monetize the class in
-any way. We make all the [course
-materials](https://missing.csail.mit.edu/) and [recordings of the
-lectures](https://www.youtube.com/@MissingSemester) freely available
-online. If you want to support our work, the best way to do so is to
-simply spread the word about the class. If you're a company, university,
-or other organization that runs this content past larger cohorts, please
-send us experience reports/testimonials by email so we get to hear about
-it :)
+พวกเราไม่ได้รับค่าตอบแทนจากการสอนคลาสนี้ และไม่ได้หาช่องทางทำเงินจากคลาสนี้เลยแม้แต่น้อย [เนื้อหาของคอร์ส](https://missing.csail.mit.edu/) และ [วิดีโอบันทึกการสอน](https://www.youtube.com/@MissingSemester) ทั้งหมดถูกเปิดให้เข้าถึงได้ฟรีบนช่องทางออนไลน์ ถ้าคุณชอบและอยากสนับสนุนผลงานของเรา วิธีที่ดีที่สุดคือแค่ช่วยบอกต่อหรือแชร์คลาสนี้ให้คนอื่นๆ ได้รับรู้ครับ และถ้าคุณมาจากบริษัท, มหาวิทยาลัย, หรือองค์กรที่นำเนื้อหานี้ไปประยุกต์ใช้สอนคนกลุ่มใหญ่ๆ รบกวนส่งอีเมลมาเล่าประสบการณ์ให้เราฟังหน่อยนะครับ จะดีใจมากเลย :)
 
-# Motivation
+# แรงบันดาลใจ (Motivation)
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools available
-at our fingertips that enable us to be more productive and solve more
-complex problems when working on any computer-related problem. Yet many
-of us utilize only a small fraction of those tools; we only know enough
-magical incantations by rote to get by, and blindly copy-paste commands
-from the internet when we get stuck.
+ในฐานะคนสาย Computer Science เราต่างรู้ดีว่าคอมพิวเตอร์เกิดมาเพื่อช่วยเราจัดการกับงานที่ต้องทำซ้ำๆ (repetitive tasks) แต่หลายครั้งที่เรากลับลืมไปว่า กฎข้อนี้มันเอามาใช้กับการ _ใช้งาน_ คอมพิวเตอร์ด้วยเหมือนกัน ไม่ใช่แค่สำหรับการเขียนโปรแกรมหน้าคอมเพียงอย่างเดียว ในทุกวันเรามีเครื่องมือหรือ tools มากมายก่ายกองให้หยิบมาใช้ ซึ่งมันช่วยให้เราทำงานได้ Productive ขึ้นและแก้ปัญหาหน้างานที่ซับซ้อนได้แบบชิลๆ แต่ความเป็นจริงคือ พวกเราหลายคนกลับหยิบ Tools เหล่านี้มาใช้แค่นิดเดียว; เรารู้วิธีสั่งงานแค่พอถูไถให้งานเสร็จไปวันๆ และพอถึงทางตันก็เอาแต่ก็อปปี้คำสั่งจากเน็ตมาวางแบบไม่ได้คิดอะไรต่อ
 
-This class is an attempt to [address this](/about/).
+คลาสนี้สร้างขึ้นมาเพื่อ [จัดการกับปัญหานี้แหละครับ](/about/)
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+เราอยากสอนให้คุณดึงประสิทธิภาพจาก Tools ที่คุณคุ้นเคยอยู่แล้วออกมาให้สุด, เบิกเนตรพาไปรู้จักกับ Tools ใหม่ๆ เพื่อพกติดตัวเป็นอาวุธเสริม, และหวังลึกๆ ว่ามันจะช่วยจุดประกายความสนุกให้คุณอยากไปงัดแงะ (หรืออาจจะถึงขั้นสร้าง) Tools ใหม่ๆ ด้วยตัวเองต่อไป สิ่งเหล่านี้คือสิ่งที่เราเชื่อสุดใจว่ามันคือ "ภาคการศึกษาที่หล่นหายไป" (the missing semester) ในหลักสูตร Computer Science ทั่วไปครับ
 
-# Class structure
+# โครงสร้างคลาสเรียน (Class structure)
 
-The not-for-credit class consists of nine 1-hour lectures, each one
-centering on a [particular topic](/2026/). The lectures are largely
-independent, though as the semester goes on we will presume that you are
-familiar with the content from the earlier lectures. We have lecture
-notes online, but there may be content covered in class (e.g. in the
-form of demos) that may not be in the notes. As for past years, we will
-be recording lectures and posting the recordings
-[online](https://www.youtube.com/@MissingSemester).
+คอร์สเรียนแบบไม่เก็บหน่วยกิตนี้ จะประกอบไปด้วยการบรรยาย 9 ครั้ง ครั้งละ 1 ชั่วโมง โดยแต่ละครั้งจะเจาะลึกไปที่ [แต่ละหัวข้อ](/2026/th/) แบบเน้นๆ เนื้อหาในแต่ละเลคเชอร์จะค่อนข้างมีอิสระแยกจากกัน แต่พอเรียนลึกลงไปเรื่อยๆ เราจะถือว่าคุณเริ่มแม่นและจับทางเนื้อหาจากเลคเชอร์แรกๆ ได้แล้วนะครับ เรามี lecture notes แปะไว้ให้อ่านออนไลน์รอล่วงหน้า แต่ในคลาสก็อาจจะมีปล่อยของเพิ่มเติม (เช่น ช่วง Demos ต่างๆ) ที่คุณจะหาไม่ได้จากใน notes แน่นอนว่าเรามีการบันทึกวิดีโอการสอนและทยอยอัปโหลดให้ดูแห้งแบบปีที่ผ่านๆ มาบน [YouTube](https://www.youtube.com/@MissingSemester) ด้วยครับ
 
-We are trying to cover a lot of ground over the course of just a few
-1-hour lectures, so the lectures are fairly dense. To allow you some
-time to get familiar with the content at your own pace, each lecture
-includes a set of exercises that guide you through the lecture's key
-points. We will not be running dedicated office hours, but we encourage
-you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
-in `#missing-semester-forum`, or email us at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+เวลาเรามีแค่ไม่กี่ชั่วโมง เราก็เลยตั้งใจจะยัดเนื้อหามาให้ครอบคลุมที่สุดเท่าที่ทำได้ เลคเชอร์ของคอร์สนี้จึงเรียกได้ว่า "อัดแน่น" สุดๆ เพื่อให้คุณมีเวลาทำความคุ้นเคยกับพวกมันตามสปีดของคุณเอง ในแต่ละเลคเชอร์เราเลยจะเหน็บโจทย์แบบฝึกหัด (exercises) มาเป็นไกด์พาคุณลุยทลายจุดสำคัญของเนื้อหานั้นๆ มาด้วย เราอาจจะไม่ได้ตั้งโต๊ะเปิด session Office hours แบบจริงจัง แต่เราขอเชียร์แบบสุดใจให้คุณกล้าขยับไปถามใน [OSSU Discord](https://ossu.dev/#community), โพสต์คำถามทิ้งที่ `#missing-semester-forum`, หรือจะอีเมลตรงมาหาเราที่ [missing-semester@mit.edu](mailto:missing-semester@mit.edu) ได้เลยครับ
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+ด้วยเวลาที่จำกัด เราคงไม่สามารถพาไปเจาะลึกงัดครอบคลุม Tools แบบละเอียดยิบย่อยเท่ากับคอร์สแบบเต็มเทอมได้ จุดไหนที่เราพอชี้ช่องทางวาปให้คุณไปดำดิ่งขุดลึกต่อได้เราก็จะทำฮะ แต่ถ้ามีเรื่องหัวข้อหรือ Tool ตัวไหนที่คุณรู้สึกคันไม้คันมือสนใจเป็นพิเศษ ก็อย่าได้เกรงใจ แวะมาทักหรือขอคำปรึกษาชี้เป้าจากพวกเราได้เสมอ!
 
-Finally, if you have feedback about the class, please send it to us by
-email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+ท้ายสุดนี้ ถ้าคุณมี Feedback หรือคำติชมอะไรเกี่ยวกับคลาส ส่งอีเมลมาหาพวกเราได้เลยที่ [missing-semester@mit.edu](mailto:missing-semester@mit.edu) นะครับ
 
-# Topic 1: The Shell
+# หัวข้อที่ 1: แนะนำให้รู้จักกับ Shell (Topic 1: The Shell)
 
 {% comment %}
-lecturer: Jon
+ผู้สอน: Jon
 {% endcomment %}
 
-## What is the shell?
+## Shell คืออะไร? (What is the shell?)
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, AR/VR,
-and more recently: LLMs. These are great for 80% of use-cases, but they
-are often fundamentally restricted in what they allow you to do — you
-cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+ไอ้เครื่องคอมพิวเตอร์สมัยนี้มันมีหน้าตา Interfaces ให้เราเลือกใช้สั่งงานกันสารพัดรูปแบบเลยครับ ทั้งแบบ Graphical User Interfaces (GUI) สวยๆ, สั่งงานด้วยเสียง (Voice interfaces), ลุยโลกเสมือน (AR/VR), และน้องใหม่ไฟแรงอย่าง LLMs อินเตอร์เฟซพวกนี้มันเกิดมาดีฮะ และมันตอบโจทย์ Use-cases ทั่วไปตามที่เราต้องการได้กว่า 80% เลยนะ แต่เอาเข้าจริง... มันมักจะมีกำแพงบีบให้เราทำได้แค่ตาม "สิ่งที่เค้าออกแบบมาให้ทำเท่านั้น" — คุณจะไปเนียนกดปุ่มที่มันไม่มีอยู่ให้กดก็ไม่ได้ หรือจะไปพ่นสั่งเสียงในเครื่องหรือคำสั่งที่มันยังไม่ได้ลืมตาตื่นมาเรียนรู้โปรแกรมก็ไม่ได้เหมือนกัน ถ้าคุณอยากจะดึงพลังของ Tools ที่คอมพิวเตอร์ซ่อนไว้มาใช้แบบเต็มสตรีมและรีดประสิทธิภาพออกมาได้สุดตัวล่ะก็ เราก็คงต้องงัดเอาวิธีสุดคลาสสิก (old-school) กลับมาพึ่งพาอินเตอร์เฟซแบบตัวอักษรพิมพ์สั่งงานกันยาวๆ นั่นก็คือการใช้: The Shell ครับ
 
-Nearly all platforms you can get your hands on have a shell in one form
-or another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+แทบทุก Platform ที่คุณได้จับหรือมีโอกาสผ่านหูผ่านตาน่าจะต้องให้ตัว shell แบบใดแบบหนึ่งมาด้วยเสมอล่ะ แถมหลายๆ OS ก็มี shells ให้คุณจิ้มเลือกได้ตามใจชอบเต็มไปหมด แม้ว่าพวกมันอาจจะมีหน้าตาหรือลูกผสมปลีกย่อยที่ต่างกันไปบ้าง ทว่าในแก่นแท้ก้นบึ้งของมันแล้วพวกมันก็ทำงานคล้ายๆ กันอยู่ดีครับ: ซึ่งก็คือมันอ้าแขนรับให้คุณสามารถสั่งรันโปรแกรมได้ ส่งข้อมูล (Input) เข้าไปให้มันประมวลผลได้ และรออ่านเช็คข้อมูล (Output) ที่บ้วนออกมาในรูปแบบที่ค่อนข้างเป็นระบบระเบียบ (semi-structured way) ได้ครับ
 
-To open a shell _prompt_ (where you can type commands), you first need a
-_terminal_, which is the visual interface to a shell. Your device
-probably shipped with one installed, or you can install one fairly
-easily:
+ก่อนที่เราจะมางัดเปิดจอพิมพ์เรียกตัว _prompt_ ของ shell (เพื่อสาดพิมพ์คำสั่ง) เราจำเป็นต้องมีสิ่งแรกก่อน นั่นคือสิ่งที่เรียกว่า _Terminal_ ซึ่งมันก็คือตัวหน้าต่างภาพที่คอยเอามาครอบโชว์เนื้อหาให้กับ shell ของเรานั่นเองฮะ เครื่องที่คุณใช้อยู่ก็น่าจะมีแอบแฝงติดเครื่องมาให้เป็นพื้นฐานอยู่แล้ว หรือถ้าไม่มีก็หาทางลงได้สบายๆ ง่ายมากครับ:
 
 - **Linux:**
-  Press `Ctrl + Alt + T` (works on most distributions). Or search for
-  "Terminal" in your applications menu.
+  กด `Ctrl + Alt + T` (ท่านี้รันและเวิร์กกับ Distributions ส่วนใหญ่เลยฮะ) หรือถนัดหน่อยก็คือลองเซิร์ชหาคำว่า "Terminal" ในช่อง applications menu เดี๋ยวมันก็เด้งมาเอง
 - **Windows:**
-  Press `Win + R`, type `cmd` or `powershell`, and press Enter.
-  Alternatively, search "Terminal" or "Command Prompt" in the Start menu.
+  กดปุ่ม `Win + R`, พิมพ์ `cmd` ไม่ก็ `powershell` แล้วทุบปุ่ม Enter เบาๆ หรืออีกท่าก็เซิร์ช "Terminal" หรือ "Command Prompt" ตรงหน้าเมนู Start
 - **macOS:**
-  Press `Cmd + Space` to open Spotlight, type "Terminal", and press Enter.
-  Or find it in Applications → Utilities → Terminal.
+  กระแทกปุ่ม `Cmd + Space` ดึงหน้าต่าง Spotlight ขึ้นมา, พิมพ์ "Terminal" ค้นหา แล้วคีย์ Enter รัวๆ หรือแวะไปแหวกหาที่ Applications → Utilities → Terminal ก็ยังได้ครับ
 
-On Linux and macOS, this will usually open the Bourne Again SHell, or
-"bash" for short. This is one of the most widely used shells, and its
-syntax is similar to what you will see in many other shells. On Windows,
-you'll be greeted by the "batch" or "powershell" shells, depending on
-which command you ran. These are Windows-specific, and not what we'll be
-focusing on in this class, although it has analogues for most of what
-we'll be teaching. You'll instead want the [Windows Subsystem for
-Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-machine.
+บนระบบ Linux และ macOS ถ้าคุณเปิด terminal ขึ้นมาตัวที่คุณมักจะเจอเลยก็มักจะเป็น Bourne Again SHell หรือที่เราเรียกกันติดปากสุดๆ ว่า "bash" นี่แหละ ตัวนี้เรียกได้ว่าเป็น shell คู่บุญที่คนใช้กันเกร่อและเยอะที่สุดตัวนึงเลยก็ว่าได้ แถมตัว syntax คำสั่งของมันก็ยังแชร์คอนเซปต์ซ้ำรอยคล้ายคลึงกับที่คุณจะเห็นใน shells ตัวอื่นๆ ด้วย ส่วนถ้าเป็นทางฝั่ง Windows คุณจะได้รับการโบกมือทักทายจากหน้า shell สายพันธุ์ "batch" ไม่ก็ "powershell" แทน (ขึ้นอยู่กับว่าคุณเลือกเปิดจิ้มรันค่ายไหนขึ้นมา) เจ้าพวกนี้ถือเป็นตัวของฝั่งเจาะจง Windows-specific โดยแท้ ซึ่งก็ไม่ใช่ตัวที่เราจะหยิบมาโฟกัสเทรนกันในคลาสนี้หรอกนะฮะ (ถึงแม้โดยหลักการมันจะมีกลไกเทียบเคียงที่ก็คล้ายๆ กับสิ่งที่เราจะสาธยายบอกสอนไปก็ตามที) คำแนะนำของเราคือให้งัดไปซบใช้ [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/) หรือไม่ก็แอบรันบนตัว Linux virtual machine แทนไปซะจะจบงานเนียนๆ เข้าขากว่าเยอะ
 
-Other shells exist, often with many ergonomic improvements over bash
-(fish and zsh are among the most common). While these are very popular
-(all the instructors use one), they're nowhere near as ubiquitous as
-bash, and lean on many of the same concepts, so we won't be focusing on
-those in this lecture.
+และในท้องตลาดมันก็ยังมี shells ตัวอื่นๆ ให้เลือกเสพอีกเพียบฮะ ซึ่งหลายตัวมักมีฟีเจอร์แจ่มๆ ที่ถูกปรับแก้มาให้ล้ำและดูลื่นหน้ามี Ergonomic improvements ที่เหนือชั้นขิงใส่ bash แบบห่างชั้นเลยแหละ (เช่น fish และ zsh ที่ทรงฮิตๆ กันอยู่ช่วงนี้) แต่ถึงแม้มันจะป๊อปคอร์นกินใจแอร์ไทม์ชาวบ้านไปมากแค่ไหน (แอบบอกว่าอาจารย์ผู้สอนในคลาสนี้ทุกคนก็มีใช้กันนะ) มันก็ยังมีฐานมวลชนที่ไม่ได้แพร่หลายครอบคลุมระดับฝั่งของ bash อยู่ดีครับ แถมแนวคิดหลักๆ ส่วนมากก็ยังลอกและยึดโครงพื้นฐานอิงอยู่กับคอนเซ็ปต์เดียวกันเป๊ะๆ ด้วย เพราะงั้นรอบนี้เราก็เลยตัดสินใจจะขอพักยังไม่ขยี้ลงลึกไปโฟกัส shell พวกนั้นในการบรรยายบทนี้นะครับ
 
-## Why should you care about it?
+## ทำไมต้องใส่ใจมันด้วยล่ะ? (Why should you care about it?)
 
-The shell is not just (usually) much faster than "clicking around", it
-also comes with expressive power you can't easily find in any one
-graphical program. As we'll see, the shell gives you the ability to
-_combine_ programs in creative ways to automate nearly any task.
+การควบคุมผ่าน Shell นี่ไม่ได้แปลว่ามันจะทำได้เร็วกว่าแค่ "การลากเมาส์เสิร์ชแล้วคลิก" เสมอไปหรอกฮะ (แม้ปกติตัวมันมักจะเป็นงั้นจริงๆ ก็เถอะ) แต่มันมาพร้อมกับขุมพลังและความยืดหยุ่น Expressive power ในระดับที่คุณไม่สามารถหามาซัปพอร์ตได้ง่ายๆ จากโปรแกรมที่พึ่งแต่หน้าต่าง GUI ทั่วไปเป็นตัวขับเคลื่อนแค่อย่างเดียวเลยล่ะ เดี๋ยวเราจะได้เรียนรู้กันครับว่า เจ้าเปลือก shell เนื่ยมันหยิบยื่นความสามารถวิเศษให้คุณพร้อมรับสิทธิ์ที่จะ "จับรวมร่าง(combine)" โปรแกรมหลายตัวเข้าด้วยกันและพลิกแพลงใช้กับทริคต่างๆ สร้างสรรค์งาน automate มาช่วยทุ่นแรงแบบครอบจักรวาลแก้ปัญหางานได้เกือบแทบทุกโจทย์
 
-Knowing your way around a shell is also very useful to navigate the
-world of open-source software (which often come with install
-instructions that require the shell), building continuous integration
-for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality/)), and debugging errors when other programs
-fail.
+ยิ่งไปกว่านั้น การที่คุณโชว์สกิลใช้ shell ได้อย่างทะลุปรุโปร่ง ยังเปรียบเหมือนมีสกิลติดตัวไปลุยเบิกทางให้คุณฝ่าฟันลุยดงใช้ของจากโลกของ Open-source software (ที่มักจะสอดไส้ทิ้งคู่มือรันติดตั้งเป็นแบบสไตล์ Command-line ผ่าน shell ไว้ให้ออกบ่อย) หรือแม้แต่ในจังหวะที่คุณจะต้องพยายามสร้างตัวช่วยรัน Continuous Integration ใส่เข้าไปให้สำหรับโปรเจกต์งานเดฟของตัวคุณเอง (เรื่องหัวนี้เดี๋ยวเราอธิบายเจาะกันใน [Code Quality](/2026/th/code-quality/)), หรือในวันที่คุณต้องลงแรงหน้าดำคร่ำเครียดแงะโค้ดนั่งเชค Debug errors หาตัวการเวลาที่โปรแกรมคนอื่นดันเจ๊ง ไม่ก็ล้มลงรันไม่ได้ฮะ
 
-## Navigating in the shell
+## การท่องโลกใน shell (Navigating in the shell)
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+เมื่อคุณเปิด terminal ขึ้นมา คุณจะเจอกับแผงข้อความตั้งต้นที่เรียกว่า _prompt_ ซึ่งหน้าตาก็มักจะออกมาประมาณนี้ฮะ:
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+ตัวอักษรพวกนี้คืออินเตอร์เฟซหลักที่ใช้สื่อสารกับ shell ครับ มันกำลังบอกเป็นนัยว่าคุณกำลังล็อกอินสิงสถิตอยู่บนเครื่องคอมพิวเตอร์ชื่อ `missing` และตำแหน่งโฟลเดอร์ปัจจุบัน ("current working directory") หรือถิ่นที่คุณกำลังเหยียบย่ำอยู่ก็คือโฟลเดอร์ `~` (เป็นตัวย่อของโฟลเดอร์ "home" นั่นเองฮะ) เครื่องหมายท้ายสุดตัวดอลลาร์ `$` คือรหัสลับแอบบอกว่าคุณไม่ได้สิทธิระดับแอดมินหรือ root user แต่อย่างใด (เดี๋ยวหัวข้อนี้กั๊กไว้ไปขยี้กันต่อทีหลังนะ) จากจุด prompt ตรงนี้เอง คุณสามารถป้อนพิมพ์ _command_ ลงไปได้เลย แล้วเดี๋ยว shell มันจะตีความจัดการต่อให้เองครับ ซึ่งท่าเบสิกที่สุดของการป้อน command ก็คือการสั่งรันโปรแกรมนั่นแหละ:
 
 ```console
 missing:~$ date
-Fri 10 Jan 2020 11:49:31 AM EST
+Fri 10 Jan 2026 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+จากตัวอย่างนี้ เราได้เรียกโปรแกรมที่ชื่อ `date` ขึ้นมาทำงาน ซึ่งหน้าที่ของมันก็ตรงตามชื่อเป๊ะ นั่นคือเสกโชว์วันและเวลาในปัจจุบันออกมาฮะ พอมันพ่นผลลัพธ์เสร็จ shell ก็จะดีดตัว prompt กลับมาตีหน้าซื่อรอให้เราป้อนคำสั่งต่อไปได้เลยทันที นอกเหนือจากนี้ เรายังสามารถแนบของแถมที่เรียกว่า _arguments_ พ่วงเข้าไปด้วยกับ command ได้ด้วยนะ:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+ในเคสนี้ เราวานให้ shell ไปปลุกโปรแกรม `echo` แล้วตะโกนฝาก argument คำว่า `hello` ติดไปด้วยฮะ ซึ่งไอ้โปรแกรม `echo` นี่มันมีหน้าที่ดื้อๆ เลยคือรับข้อความ (arguments) อะไรมาก็แค่ปริ้นต์โชว์สะท้อนกลับไปแค่นั้นเอง หลักการคือ shell มันจะใช้การ "เว้นวรรค" (whitespace) เป็นตัวหั่นคำสั่งออกเป็นชิ้นๆ จากนั้นมันหมายหัวคำแรกสุดให้เป็นตัวชูโรงบอกชื่อโปรแกรมที่ต้องเอาไปรัน ส่วนคำก้อนอื่นๆ ที่ต่อท้ายยาวไปนั่นแหละ มันจะเหมาโหลจับรวบรวมเป็น arguments ถวายใส่พานส่งโปรแกรมให้เอาไปใช้ต่อครับ ในกรณีที่คุณดันอยากจะโยน argument เดี่ยวๆ ที่ดันทะลึ่งมีข้อความเว้นวรรคผสมอยู่ข้างใน (อย่างเช่นชื่อโฟลเดอร์ "My Photos") คุณจะเจอไฟท์บังคับให้ต้องเอา quote มาคลุม arguments นั้นครับ ไม่ว่าจะเป็น single quote `'` หรือ double quote `"` ก็ได้ (เช่น `"My Photos"`) หรืออีกท่าก็สามารถเสกอักขระพิเศษอย่าง `\` ไปบังหน้าตัวสเปเซสได้เหมือนกันครับ (`My\ Photos`)
 
-Perhaps the most important command when you're starting out is `man`,
-short for "manual". The `man` program, among other things, lets you look
-up more information about any command on your system. For example, if
-you run `man date`, it'll explain what `date` is, and all of the various
-arguments you can pass it to alter its behavior. You can also usually
-get a short version of the help by passing `--help` as an argument to
-most commands.
+ตัวคำสั่งที่เรียกได้ว่าทรงอิทธิพลที่สุดสำหรับมือใหม่หัดขับน่าจะเป็น `man` นะ ย่อมาจากคำว่า "manual" นั่นแหละ โปรแกรม `man` มันจะยอมให้คุณงัดเอาคู่มือหรือข้อมูลเบื้องลึกเบื้องหลังของทุกๆ command ในระบบออกมาดูได้ ยกตัวอย่างเช่น ถ้าคุณเกิดสงสัยจัดแล้วกดสับไก `man date` มันก็จะกางตําราว่าน้อง `date` คือใคร ทำงานยังไง แล้วมีลีลาแงะ arguments ตัวไหนโยนให้มันแปลงกายงัดท่าแปลกๆ ได้บ้าง คุณยังสามารถหาข้อความช่วยเหลือแบบสรุปย่อได้จากการโยน `--help` ไปเป็น argument ท้ายคำสั่งของโปรแกรมส่วนใหญ่นะครับ
 
-> Consider installing and using [`tldr`](https://tldr.sh/) in addition
-> to `man`, as it shows you common usage examples right there in the
-> terminal. LLMs are also usually very good at explaining how commands
-> work and how you can call them to achieve what you want to accomplish.
+> แอบป้ายยาว่าคุณควรไปตำ [`tldr`](https://tldr.sh/) มาติดเครื่องควบคู่กับการใช้ `man` ไปด้วยเลยฮะ เพราะมันมักจะป้อนสรุปกางให้เห็นถึงตัวอย่าง usage ที่ใช้กันบ่อยๆ ฮิตๆ ได้ถูกจริตและง่ายกว่าใน terminal อีกอย่างนึงคือ เดี๋ยวนี้บรรดา LLMs มักจะเป็นเซียนอธิบายลีลาการทำงานของพวกคำสั่งต่างๆ ได้เทพและเคลียร์สุดๆ ช่วยไกด์ได้แม่นมากเลยฮะว่าต้องสั่งท่าไหนจะได้ผลลัพธ์ตามที่คุณต้องการเป๊ะๆ
 
-After `man`, the most important command to learn is `cd`, or "change
-directory". This command is actually built into the shell, and isn't a
-separate program (i.e., `which cd` will say "no cd found"). You pass it
-a path, and that path becomes your current working directory. You'll
-also see the working directory reflected in the shell prompt:
+ถ้าผ่านด่าน `man` มาแล้ว คำสั่งสุดยอดคิวทองระดับถัดมาที่คุณไม่รู้จักไม่ได้ก็คือ `cd` หรือชื่อเต็มๆ ว่า "change directory" นั่นเองฮะ จริงๆ ตัวนี้มันคือฟีเจอร์ระดับ built-in ที่ฝังมากับ shell เลย ไม่ได้แยกตัวออกมาเป็นโปรแกรมสแตนด์อโลน (i.e. สมมติถ้ารัน `which cd` จอคุณก็จะบ้วนคำว่า "no cd found") เวลาใช้งานคุณก็แค่โยนก้อน path ดินแดนที่คุณอยากผจญภัยไปส่งให้มัน แล้ว path ตรงนั้นก็จะกลายร่างมาเป็น current working directory (ฐานบัญชาการปัจจุบัน) ของคุณทันทีฮะ คุณสามารถซุ่มแอบลอบมองเช็คสถานะการเข้าพักของ directory ได้จากตัวอักษรที่ขึ้นบน shell prompt เลย:
 
 ```console
 missing:~$ cd /bin
@@ -213,23 +104,11 @@ missing:/$ cd ~
 missing:~$
 ```
 
-> Note that the shell comes with auto-completion, so you can often
-> complete paths faster by pressing `<TAB>`!
+> อย่าเพิ่งลืมว่า shell มันมีฟีเจอร์ช่วยเติมคำ (auto-completion) มาให้แต่เกิดฮะ เพราะงั้นส่วนใหญ่คุณกดรัวพิมพ์เปิดไปแค่นิดเดียวแล้วกดปุ่ม `<TAB>` เพื่อให้มันป้อนจบ path ยาวๆ ได้แบบไม่ต้องเมื่อยนิ้วเลยนะ!
 
-A lot of commands operate on the current working directory if nothing
-else is specified. If you're ever unsure where you are, you can run
-`pwd` or print the `$PWD` environment variable (with `echo $PWD`), both
-of which produce the current working directory.
+โปรแกรมคำสั่งส่วนมาก มักจะสุมหัวใช้ฐาน `current working directory` ของคุณนั่นแหละเป็นพื้นที่ทดสอบเวลาที่คุณไม่ได้โยนตัวแปรเฉพาะเจาะจงลงไป หากวันไหนเกิดหลงเวิ้งขุ่นมัวจนไม่แน่ใจว่าตัวคุณเองไปสิงอยู่หลุมไหน คุณสามารถรันสืบค้นได้ด้วย `pwd` หรือแงะข้อมูลสิ่งแวดล้อมจากตัวแปร `$PWD` เอาด้วย (รันป้อนด้วย `echo $PWD`) ซึ่งทั้งคู่ก็เป็นคู่หูที่ช่วยเสิร์ชหาสถานะ current working directory โชว์กลับมาให้คุณครับ.
 
-The current working directory also comes in handy in that it allows us to
-use _relative_ paths. All the paths we've seen so far have been
-_absolute_ --- they start with `/` and give the full set of directories
-needed to navigate to some location from the root of the file system
-(`/`). In practice, you'll more commonly work with relative paths; so
-called because they are relative to the current working directory. In a
-relative path (anything _not_ starting with `/`), the first path
-component is looked up in the current working directory, and subsequent
-components traverse as usual. For example:
+ความฉลาดของเจ้า current working directory นี้ยังก้าวไปอีกขั้นเพราะมันช่วยเปิดช่องทางให้เราสามารถประยุกต์ใช้แบบ _relative_ paths (เส้นทางสัมพัทธ์) ได้ด้วยฮะ เส้นทาง path ทั้งหมดที่เราเจอเลื่อนขึ้นดูด้านบนมานั้นเป็นพวกสายตระกูล _absolute_ paths ล้วนๆ เลย — หมายความว่ามันเริ่มต้นเดินสับขาด้วย `/` โชว์ตารางโครงสร้าง directories ตั้งแต่ระดับบนสุดเสร็จสรรพ (ตัว `/`) ไล่ลากจูงมาตามลำดับ แต่บอกเลยว่าชีวิตในโลกทำงานจริง คุณจะใช้ตัว relative paths กันจนเบื่อแน่นอน; ได้ชื่อว่าสัมพัทธ์ก็เพราะมันอ้างอิงทางเดินก้าวแรกเริ่มจากตัว current working directory ของคุณนั่นแหละ โดยในการอธิบายตำแหน่งทรง relative path (หรือเอาง่ายๆ คือไอ้เส้นทางไหนก็ตามที่ก้าวเท้าท่อนเปิด _ไม่ได้_ เริ่มด้วย `/`) ท่อนเส้นทางอักษรปฐมบทจะมุดขุดคุ้ยค้นหาจาก current working directory เสมอ แล้วไอ้ส่วนท่อนหางยาวหลังจากนั้นก็ค่อยหักเลี้ยวเสาะหาดำดิ่งเข้าไปข้างในเป็นสเต็ปตามปกติ ตัวอย่างฮะ:
 
 ```console
 missing:~$ cd /
@@ -237,9 +116,7 @@ missing:/$ cd bin
 missing:/bin$
 ```
 
-There are also two "special" components that exist in every directory:
-`.` and `..`. `.` is "this directory", and `..` is "the parent
-directory". So:
+มีแก๊งป่วนพิเศษ components ห่อหมกในทุก directory ด้วยกันอยู่ 2 ตัวถ้วนครับ: นั่นก็คือ `.` กับ `..` ความหมายคืออะไร? `.` สื่อตัวมันเองเลยว่า "นี่แหละห้องปัจจุบัน" (this directory) แล้วก็ `..` จะให้ความหมายทรงถอยหลังว่า "เลื่อนออกไปยังห้องพ่อคุมกำเนิดของมัน 1 สเตป" (the parent directory) อย่างเช่น:
 
 ```console
 missing:~$ cd /
@@ -247,21 +124,14 @@ missing:/$ cd bin/../bin/../bin/././../bin/..
 missing:/$
 ```
 
-You can usually use absolute and relative paths interchangeably for any
-command argument, just keep in mind what your current working directory
-is when using a relative one!
+ส่วนมากแล้ว... คุณสามารถที่จะรวบกอดผสมจิ้มใช้ absolute และ relative paths รัวสลับกันไปมาได้แบบอิสระใน command argument แทบทุกที่เลยครับ แค่ต้องตั้งหมั่นมีสติเอาไว้ว่าตัวฐาน current working directory ของคุณในตอนที่กดเรียก relative paths น่ะ มันตั้งรกรากอยู่ตรงไหนก็พอ!
 
-> Consider installing and using
-> [`zoxide`](https://github.com/ajeetdsouza/zoxide) to speed up your
-> `cd`ing --- `z` will remember the paths you frequently visit and let
-> you access with less typing.
+> ขอแชร์ทริคนอกเรื่องนิดนึงฮะ... แวะไปสรรหาดึงและติดตั้งใช้งาน [`zoxide`](https://github.com/ajeetdsouza/zoxide) ดูสิ มันโกงช่วยสปีดอัประดับการรัวสับเปลี่ยนห้องของคุณเร็วเป็นอีกขั้นระดับ --- ด้วยการพิมพ์ `z` เพียวๆ พ่อหนุ่มหัวใสตัวนี้มันจะแอบจดจำประวัติ paths ที่คุณแวะค้างบ่อยเข้ากระดูกดำ แล้วให้สิทธิบัตรซัดเปิดประตูห้องลัดปรู๊ดปร๊าดแบบไม่ต้องเมื่อยนิ้วกดแช่นานครับ
 
-## What is available in the shell?
+## มีของเล่นอะไรให้รันบ้างใน shell? (What is available in the shell?)
 
-But how does the shell know how to find programs like `date` or `echo`?
-If the shell is asked to execute a command, it consults an _environment
-variable_ called `$PATH` that lists which directories the shell should
-search for programs when it is given a command:
+คำถามคือ แล้วเปลือก shell มันตรัสรู้ได้ยังไงล่ะว่าต้องงมไปหาโปรแกรมอย่าง `date` หรือ `echo` จากป่าไหน?
+อธิบายง่ายๆ ฮะ เวลาที่ shell โดนสั่งให้รันคำสั่งอะไรสักอย่าง มันจะหันไปตบไหล่ปรึกษากับ _ตัวแปรสภาพแวดล้อมระบบ (environment variable)_ ตัวนึงที่ชื่อว่า `$PATH` ซึ่งไอ้ตัวแปรเนี้ย มันทำหน้าที่เป็นเหมือนลายแทงลิสต์ว่า shell ควรจะหน้าด้านไปควานหาโฟลเดอร์ไหนบ้างเพื่อตามล่าหาโปรแกรมเวลาที่ได้รับสาส์นคำสั่งมา:
 
 ```console
 missing:~$ echo $PATH
@@ -272,122 +142,70 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+ตอนที่เราทุบ enter สั่งรันคำสั่ง `echo` ไปนั้น ตัว shell มันจะรู้ตัวว่าต้องปลุกโปรแกรม `echo` ขึ้นมานะเว้ย จากนั้นมันก็จะรีบวิ่งไล่สแกนกวาดหาทะลวงผ่านแผงรหัสโฟลเดอร์ที่โดนคั่นด้วย `:` ในก้อนตัวแปร `$PATH` เพื่องมหาไฟล์ที่ชื่อเป๊ะตามนั้นให้เจอฮะ พอเจอเป้าหมายปุ๊บ มันก็จะจับรันทำงานเลยทันที (ภายใต้กฎเหล็กคือ ไอไฟล์นั้นมันต้องมีสิทธิ์เป็นไฟล์ที่ทะลวง _executable_ สั่งรันได้นะ; เดี๋ยวหัวข้อนี้ไว้ขยี้ทีหลัง) คุณสามารถสืบหาไส้ในแอบดูได้เลยนะว่า ไอคำสั่งโปรแกรมที่เราเรียกใช้อยู่นี่ ตกลงแล้ว shell มันแอบไปดึงไฟล์หน้าตาแบบไหนจากซอกหลืบไหนมารันให้ โดยใช้โปรแกรม `which` มาช่วยหาให้ครับ หรืออีกเวหา ถ้าเราขี้เกียจไปพึ่งพิงยืมจมูก `$PATH` หายใจ เราก็ทำแค่รันโดยยัด _path เต็มๆ_ หรือโยนเส้นทางแบบระบุตำแหน่งไฟล์เป๊ะๆ เข้าไปรันให้มันเลยก็ได้เหมือนกัน
 
-This also gives a clue for how we can determine _all_ the programs we're
-able to execute in the shell: by listing the contents of all the
-directories on `$PATH`. We can do this by passing a given directory path
-to the `ls` program, which lists files:
+เกร็ดเล็กๆ นี่แหละครับที่มันช่วยเป็นคําใบ้ชี้ช่องให้คุณนึกออกแล้วใช่มั้ยว่า งั้นเราสามารถงัดดู _ทุกๆ Programs_ ที่ระบบอนุญาตให้รันได้ใน shell ได้ทั้งหมดเลยปะวะ? คำตอบคือ "ได้ดิวะ"! เราก็แค่หว่านไถคำสั่งสั่งลิสต์ไส้ในของทุกๆ โฟลเดอร์ที่ซ่อนสิงอยู่ในตัวแปร `$PATH` ออกมาดูให้หมดเลยฮะ ซึ่งท่าง่ายๆ เราก็แค่โยนโฟลเดอร์เหล่านั้นไปให้โปรแกรม `ls` (ที่แปลว่า list files) งัดของออกมากางนั่นแหละ:
 
 ```console
 missing:~$ ls /bin
 ```
 
-> Consider installing and using [`eza`](https://eza.rocks/) for a more
-> human-friendly `ls`.
+> ของมันต้องขิง... ขอป้ายยาอวยให้ลองไปโหลด [`eza`](https://eza.rocks/) มาใช้แทนตัว `ls` รุ่นพระเจ้าเหาสักหน่อยฮะ มันมีตัวโชว์ที่โคตรจะ human-friendly สวยเนียนตากับคนอ่านกว่าเยอะเลยแหละ
 
-This will, on most computers, print a _lot_ of programs, but we'll only
-focus on some of the most important ones here. First, some simple ones:
+ไอ้คำสั่ง `ls /bin` นี่นะฮะ ด้วยคอมร้อยทั้งร้อยพอกดรันแล้ว... รับรองเลยว่าคุณจะได้จอที่ปริ้นต์ชื่อโปรแกรมบานสะพรั่งออกมา _บานตะไท_ ยาวเป็นหางว่าวแน่ๆ แต่เราจะร่อนเร่ขอโฟกัสหยิบเฉพาะตัวเด็ดๆ เนื้อๆ ที่เค้านิยมใช้กันมากางให้ดูแล้วกันครับ ซอฟต์ๆ ก่อนเลย:
 
-- `cat file`, which prints the contents of `file`.
-- `sort file`, which prints out the lines of `file` in sorted order.
-- `uniq file`, which eliminates consecutive duplicate lines from `file`.
-- `head file` and `tail file`, which respectively print the first and
-  last few lines of `file`.
+- `cat file` - จับเนื้อหาไส้ในของไฟล์ปริ้นต์สาดขึ้นจอโต้งๆ เลย
+- `sort file` - รันจับทุกบรรทัดของไฟล์มาเข้าแถวเรียงลำดับให้เนียนกริ๊บทรง sorted
+- `uniq file` - เป็นมือสังหารคอยกรองตัดบรรทัดที่ซ้อนร่างซ้ำๆ (duplicates) ที่อยู่ติดๆ กัน ออกจากไฟล์ให้เกลี้ยง
+- `head file` และ `tail file` - โปรแกรมหยิบจับแบบระบุหัวท้าย ซึ่งก็จะปริ้นต์หยิบแค่ท่อนหัวไม่กี่บรรทัดแรก หรือเตะเอาแค่ท่อนหางบรรทัดท้ายๆ ของไฟล์ออกมาโชว์ฮะ
 
-> Consider installing and using [`bat`](https://github.com/sharkdp/bat)
-> over `cat` for syntax highlighting and scrolling.
+> ป้ายยาอีกดอก: ลองสอย [`bat`](https://github.com/sharkdp/bat) มาสถิตใช้แทนคอมมานด์ `cat` เก่าๆ ของคุณดูฮะ เเล้วคุณจะติดใจกับตัว syntax highlighting ไฮไลท์สีแยกตัวอักษรกับสไลด์ตาสมองไหลลื่นๆ ของมัน
 
-There's also `grep pattern file`, which finds lines matching `pattern`
-in `file`. This one deserves slightly more attention as it's both _very_
-useful and sports a wider array of features than one may expect.
-`pattern` is actually a _regular expression_ which can express very
-complex patterns --- we'll [cover
-those](/2026/code-quality/#regular-expressions)
-in the code quality lecture. You can also specify a directory instead of a
-file (or leave it off for `.`) and pass `-r` to recursively search all
-the files in a directory.
+นอกจากนี้ เรายังมีทีเด็ดอย่าง `grep pattern file` ที่จะคอยทำหน้าที่กางไฟล์งมล่าหาบรรทัดที่มีข้อความตรงเป๊ะเข้ากับคำค้น `pattern` ครับ โปรแกรมตัวนี้มันของแรงที่คู่ควรเจียดเวลามาลูบคลำมันสักนิด เพราะคุณประโยชน์มัน _ทะลุหลอด_ พ่วงฟีเจอร์จุกๆ เยอะแยะเหนือจินตนาการมากฮะ ตัว `pattern` จริงๆ มันก้าวล่วงเอา _regular expression_ (นิพจน์ปรกติ) ที่ครอบจักรวาลแปรฟอร์มไปประติมากรรมเสกเป็นรูปแบบการค้นหาที่สุดแสนจะซับซ้อนก็ได้ --- เดี๋ยวเรามีจ่อเลคเชอร์ [เจาะลึกเรื่องนี้แบบเต็มๆ](/2026/th/code-quality/#regular-expressions) กันในบทของ Code quality นะครับ คุณสามารถประเคนชื่อโฟลเดอร์ directory ยัดแทนการระบุไฟล์เดี่ยวๆ ให้มันได้เหมือนกัน (หรือขี้เกียจใส่ก็เคาะเป็นคอมมานด์ `.` ไป) แล้วตอกย้ำด้วย parameter `-r` โยนพ่วงให้มันลงแรงตามปูพรมค้นทุกซอกซอยไฟล์ให้ลึกเข้าไปยันก้านมะยมของไดเรกทอรีงุ้งงิ้งๆ ได้อีกแน่ะ
 
-> Consider installing and using
-> [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
-> faster and more human-friendly (but less portable) alternative.
-> `ripgrep` will also recursively search the current working directory
-> by default!
+> อยากซิ่งต้องลองของนะ... เราเชียร์ให้ติดตั้งและปล้ำรัน [`ripgrep`](https://github.com/BurntSushi/ripgrep) ใช้แทน `grep` ยุคไดโนเสาร์ฮะ ตัวนี้ทั้งรีดความเร็วปรี๊ดปร๊าดเป็นจรวด แถมยังส่งรีพอร์ตโชว์สวยเนียนตากับคนมากกว่า (ถึงแม้อาจจะพกพายกไปรันแพลตฟอร์มอื่นไม่ง่ายนักก็เหอะ) แถมความดีงามคือ `ripgrep` มันก็ตั้งลิมิตค่าเริ่มต้นเป็น default สับขาหลอกให้งมขุดคุ้ยหาโฟลเดอร์ปัจจุบันแบบ recursively search ให้อัตโนมัติด้วยนะเว้ย!
 
-There are also some very useful tools with a slightly more complicated
-interface. First among those is `sed`, which is a programmatic file
-editor. It has its own programming language for making automated edits
-to files, but the most common use of it is:
+ถัดมาฮะ... ยังมีกองกำลังเครื่องมือเด็ดดวงที่มี interface อาจจะดูซับซ้อนปวดขมองขึ้นมาอีกนิด ตัวเป้งๆ เลยก็เช่นพี่ `sed` ซึ่งมันคือปรมาจารย์เรื่อง programmatic file editor (นักโมดิฟายด์แก้ไขไฟล์ด้วยมาดโปรแกรมมิ่ง) มันมีจักรวาลภาษาโปรแกรมของตัวมันเองที่เอาไว้ไล่แงะจับสับเปลี่ยนไฟล์โดยอัตโนมัติเลยฮะ แต่ท่าโพสเบสิกที่เค้านิยมงัดมาตบทรัพย์ใช้บ่อยที่สุดก็หนีไม่พ้นการใช้สับข้อความนี่แหละ:
 
 ```console
 missing:~$ sed -i 's/pattern/replacement/g' file
 ```
 
-This replaces all instances of `pattern` with `replacement` in `file`.
-The `-i` indicates that we want the substitutions to happen inline (as
-opposed to leaving `file` unmodified and printing the substituted
-contents). The `s/` is the way to express in the sed programming
-language that we want to do a substitution. The `/` separates the
-pattern from the replacement. And the trailing `/g` indicates that we
-want to replace _all_ occurrences on each line rather than just the
-first. As with `grep`, `pattern` here is a regular expression, which
-gives you significant expressive power. Regular expression substitutions
-also allow `replacement` to refer back to parts of the matched pattern;
-we'll see an example of that in a second.
+ไอ้คำสั่งงูๆ ปลาๆ ด้านตะกี้นี้แหละ ความหมายมันคือ: สั่งประหารไล่แทนที่เนื้อหา `pattern` ทุกติ่งที่โผล่มาให้เห็นด้วยตัวอักษรใหม่ `replacement` ภายใน `file` ครับ ตัว `-i` คือรหัสลับแง้มบอกว่าเราอยากให้กระบวนการเชือดเปลี่ยนร่างนี้ เกิดขึ้นและทับถมลงตัวไฟล์แบบดื้อๆ ถาวรไปเลยนะ inline edit อะ (แทนที่จะแค่ปริ้นต์บ้วนผลลัพธ์ผ่านหน้าจอแล้วปล่อยไฟล์เป้าหมายรอดตัวไม่บุบสลายไปเฉยๆ) ส่วนไอ้เครื่องหมาย `s/` อันนี้เปรียบดั่งภาษาใบ้ของก๊วนโปรแกรม sed ไว้สะบัดบอกชี้ตรงๆ เลยว่า "เฮ้ย ข้าต้องการทำ substitution (แทนที่) นะเฟ้ย" ตัวเส้นแบ็กสแลช `/` มีไว้ทำคอกขวางกั้นระหว่างคำที่ต้องการหากับคำที่จะเอามาเสียบแทน และไอ้ตรงชิ้นหางปลา `/g` ที่แอบติ่งอยู่ด้วยนั่น เป็นตัวกำกับว่าให้ช่วยวิ่งกวาดแทนที่มันซะ _ทั้งหมด_ ของทุกๆ บรรทัดเลยนะ ไม่ใช่เอาแค่คำแรกสุดที่เจอแล้วก็เลิกทำ เหมือนกันกับของ `grep` เป๊ะเลยฮะ ตัว `pattern` ที่ยัดเข้าไปนี้ คุณสามารถงัดท่า _regular expression_ ใส่ลงไปได้ ซึ่งมันจะเสกพลังอำนาจการระบุที่โคตรจะอภินิหารให้คุณ แถมฟีเจอร์ระดับเทพของ Regular expression มันก็ดันยินยอมให้ ไอ้ตัวคำ `replacement` สามารถเรียกดูดจั๊มป์เชื่อมข้อมูลอ้างอิงย้อนกลับดึงมาจากกลุ่มแพทเทิร์นจับที่กางตาข่ายครอบไว้ได้อีกด้วย; เดี๋ยวเรามีของดีสาธิตโชว์ให้แงะดูให้เห็นภาพในไม่กี่อึดใจนี้ฮะ.
 
-Next, we have `find`, which lets you find files (recursively) that match
-certain conditions. For example:
+ของขลังลำดับถัดไป เราขอมอบมงให้พี่ `find`, ทวยเทพแห่งการตามล่าหาไฟล์ (แถมมุดซอกซอนเข้าแบบ recursively) ที่มีเงื่อนไขเป๊ะปังตามที่คุณตั้งกฎครอบเอาไว้ ตัวอย่างเช่นแบบนี้ฮะ:
 
 ```console
 missing:~$ find ~/Downloads -type f -name "*.zip" -mtime +30
 ```
 
-Finds ZIP files in the download directory that are older than 30 days.
+มันจะวิ่งหน้าตั้งตามหาของในโฟลเดอร์ดาวน์โหลดว่ามีไฟล์ ZIP ตัวไหนบ้างที่เก่าเหม็นบูดนอนอืดมานานเกินกว่า 30 วันแล้ว.
 
 ```console
 missing:~$ find ~ -type f -size +100M -exec ls -lh {} \;
 ```
 
-Finds files larger than 100M in your home directory and lists them. Note
-that `-exec` takes a _command_ terminated with a stand-alone `;` (which
-we need to escape much like a space) where `{}` is replaced with each
-matching file path by `find`.
+หาไฟล์ตัวอ้วนๆ ที่มีขนาดซดพื้นที่อิ่มๆ ใหญ่กว่า 100M ขึ้นไปใน home directory แล้วลิสต์กางมันออกมาโชว์ฮะ โปรดสังเกตนะว่าการส่งพารามิเตอร์ `-exec` มันจะไปปลุกผีลากคำสั่ง _command_ สังหารตัวนึงขึ้นมา แล้วปิดท้ายคอมโบด้วยตัว stand-alone วายร้าย `;` (ซึ่งตามกฎแล้วเราจำเป็นต้องกดสวม escape `\` ให้มันคล้ายๆ เว้นวรรคนั่นแหละ) โดยที่ไอ้ตัวกรอบช่องว่าง `{}` จะถูก `find` ดึงผลลัพธ์ path ทั้งหมดที่งมเจอมาทยอยจับยัดห่าสาดใส่รัวๆ สลับกันไปแบบอัตโนมัติฮะ.
 
 ```console
 missing:~$ find . -name "*.py" -exec grep -l "TODO" {} \;
 ```
 
-Finds any `.py` files with TODO items in them.
+ค้นหาครอบคุมไล่ขุดคุ้ยไฟล์นามสกุล `.py` ทั้งหมดที่แอบมีความลับข้อความซุกซ่อนคำว่า TODO สิงอยู่ข้างในฮะ.
 
-The syntax of `find` can be a little daunting, but hopefully this gives
-you a sense of how useful it can be!
+ความมึนงงในการพยายามนั่งพิมพ์จดจำ syntax ของ `find` ในแวบแรกอาจจะให้ฟีลเหมือนเดินดงหญ้ารกชันชวนท้ออยู่บ้าง แต่ก็แอบหวังนะฮะว่า ตัวอย่างพวกนี้มันจะพอกระตุกต่อมให้เห็นเลยว่า ไอ้หมอนี่แม่งทรงพลังน่าหยิบมาใช้แค่ไหน!
 
-> Consider installing and using [`fd`](https://github.com/sharkdp/fd)
-> instead of `find` for a more human-friendly (but less portable!)
-> experience.
+> ขอแวะป้ายยาอีกรอบ: ลองแวะไปกราบไหว้โหลด [`fd`](https://github.com/sharkdp/fd) เข้ามาใช้งานแทนที่ `find` โบราณๆ ดูครับ ได้ใจมวลชนเรื่องความเป็นมนุษย์ (human-friendly) สบายตาใช้ง่ายมาก (ถึงแม้ข้อเสียจะแลกมาเรื่องที่ไปหิ้วรันเครื่องชาวบ้านอาจจะไม่ง่ายนัก Portable น้อยกว่าก็ตามทีนะ!)
 
-Next on the docket is `awk`, which, like `sed`, has its own programming
-language. Where `sed` is built for editing files, `awk` is built for
-parsing them. By far the most common use of `awk` is for data files with
-a regular syntax (like CSV files) where you want to extract only certain
-parts of every record (i.e., line):
+ของดีลำดับสุดทัายที่เรียงคิวรอการใช้งานคือ `awk` ซึ่งตัวนี้ก็อีหรอบเดียวกับ `sed` ฮะ คือมีภาษา programming ของตัวมันเองอภิสิทธิ์ชนเลย ในขณะที่พี่ `sed` เกิดมาเพื่อจับไฟล์มาหั่นดัดแปลงแก้ไข, น้อง `awk` แกเกิดมาพร้อมคติทุบไฟล์มาประมวลผลแตกกระจุย (parsing them) ฮะ ท่ายอดฮิตสแตนดาร์ดที่งัดพี่ `awk` มาตีกินตีกินฟาร์มบ่อยสุด คงหนีไม่พ้นการจับเอาไปกระซวกไฟล์เก็บฐานข้อมูลแบบตารางดاتاที่มีกฎระเบียบ Syntax นิ่งๆ (อย่างพวกไฟล์ CSV) ซึ่งหัวใจคือคุณแค่กระหายอยากจะดึงจกเอาบางพาร์ต บางส่วนย่อยของเนื้อหา record (หรือแค่ใน 1 บรรทัด) ออกมาใช้แค่นั้นฮะ อย่างเช่น:
 
 ```console
 missing:~$ awk '{print $2}' file
 ```
 
-Prints the second whitespace-separated column of every line of `file`.
-If you add `-F,`, it'll print the second comma-separated column of every
-line. `awk` can do much more --- filtering rows, computing aggregates,
-and more --- see the exercises for a taste.
+มันจะดึงกระฉากเอาลิสต์ข้อมูล คอลัมน์ที่ 2 สะบัดรอยต่อด้วยจุดเว้นวรรค (whitespace-separated column) ของทุกๆ บรรทัดใน `file` ออกมาปริ้นต์ฮะ ถ้าคุณแอบซุกตัวเปลี่ยน `-F,` เข้าไปร่วมแจม มันก็ฉลาดพอที่จะปริ้นต์แค่คอลัมน์ลำดับที่สองโดยอิงรอยตัดจากตัวจุลภาคคอมม่าแทนทุกบรรทัดเลย `awk` มันวาดลวดลายดิ้นได้ซับซ้อนกว่านี้อีกเยอะฮะ --- เป็นทั้งตระแกรงร่อนกรองแถว filtering rows, ประมวลคำนวณรวบยอด aggregates ให้, แล้วก็บลาๆ อีกเป็นกอง --- ลองแวะไปด้อมๆ มองๆ ในโจทย์แบบฝึกหัด (exercises) กันได้ กะเอาพอให้เป็นแค่น้ำจิ้มรู้รสชาติพอฮะ.
 
-Putting these tools together, we can do fancy things like:
+ทีนี้พอลองเอาอุปกรณ์ของขลังทั้งหมดมามัดรวมร่างจับโปเตโต้ฟิวชันกันดู เราก็สามารถเสกให้เกิดเวทมนตร์อลังการแบบนี้ได้เลยฮะ:
 
 ```console
 missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
@@ -398,76 +216,29 @@ missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
 postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 ```
 
-This grabs SSH logs from a remote server (we'll talk more about `ssh` in
-the next lecture), searches for disconnect messages, extracts the
-username from each such message, and prints the top 10 usernames
-comma-separated. All in one command! We'll leave dissecting each step as
-an exercise.
+ไอ้ก้อนคำสั่งนี้มันเพิ่งจะทำโชว์เหนือ วิ่งไปคว้าท่อดึงข้อมูลบันทึกประวัติการใช้รัน SSH logs จากเครื่องเซิร์ฟเวอร์ระยะไกล (เรื่องไอ้ตัว `ssh` นี่เดี๋ยวเราขอเก็บกั๊กไว้ไปบ่นอธิบายต่อแบบเต็มที่ในพาร์ทเลคเชอร์หน้านะ) จากนั้นก็วิ่งคลำหาบรรทัดที่มีสาส์นคำว่า disconnect, ถกประหวัดกระซวกดึงเอาแค่ชื่อ username ของยูสเซอร์สวะสวะจากแต่ละข้อความออกมารวม, ยำผลลัพธ์จัดหนัก แล้วก็ตบท้ายด้วยการกางพ่นโพสต์บอกลำดับท็อป 10 ยูสเซอร์ฮิตติดชาร์ตออกมาแบบแผ่หลาแถมมีคอมม่าคั่นให้เสร็จสรรพ ทัายที่สุด ทั้งหมดนี้เสร็จสิ้นภายในลมหายใจสับไกคอมมานด์เดียวตูม! สำหรับการชำแหละไล่ผ่าทีละท่อนว่าไอ้ตัวไหนมันแอบทำอะไรบ้างนั้น... ขออนุญาตโยนบาปทิ้งไว้ให้เป็นเครื่องแบบฝึกหัดท้าทายชาวบ้านแล้วกันฮะ.
 
-## The shell language (bash)
+## ภาษาของ shell (The shell language - bash)
 
-The previous example introduced a new concept: pipes (`|`). These let
-you string together the output of one program with the input of another.
-This works because most command-line programs will operate on their
-"standard input" (where your keystrokes normally go) if no `file`
-argument is given. `|` takes the "standard output" (what normally gets
-printed to your terminal) of the program before the `|` and makes it be
-the standard input of the program after the `|`. This allows you to
-_compose_ shell programs, and it's part of what makes the shell such a
-productive environment to work in!
+ตัวอย่างของรอบที่แล้วได้หิ้วเอาคอนเซ็ปต์ของเล่นใหม่อย่างนึงมาเปิดตัวด้วย นั่นก็คือ: ท่อสวม pipelines (`|`) ฮะ ตัวขีดกลางเนี่ยมันเกิดมาเพื่อให้คุณจับมัดร้อยเอาท่อบ้วนของออก (output) จากโปรแกรมตัวแรก ไปเสียบต่อเข้าช่องสูบของเข้า (input) ของโปรแกรมอีกตัวนึงเป็นทอดๆ ได้ หลักการนี้มันทำงานฉลุยก็เพราะว่า บรรดา programs คู่บุญของหน้าต่างคอมมานด์ไลน์ส่วนใหญ่มักจะดีไซน์มาให้ยินยอมรับก้อนเนื้อข้อมูลผ่าน "standard input" (ซึ่งก็คือช่องลมปกติจากที่คุณกระแทกคีย์บอร์ดพิมพ์ลงเป๊ะๆ นั่นแหละ) ในจังหวะที่มันโดนปลุกขึ้นมาแล้วไม่มีการโยน `file` argument จุกจิกอะไรมาให้มันฮะ พอเราตอกเครื่องหมาย `|` ปุ๊บ มันก็จะไปสอยเอาสายท่อน้ำทิ้ง "standard output" (ที่ตามปกติจะพุ่งปริ้นต์มาบนเทอร์มินัลเรานั่นแหละ) ของโปรแกรมก้อนหน้า `|` มาปั้นน้ำเป็นเส้น แล้วเสียบดัดแปลงให้กลายเป็นเส้นทาง standard input ไหลจ๊อกๆ ป้อนอุดปากให้กับโปรแกรมตัวหลัง `|` แทน ด้วยพลังเวทมนตร์นี้แหละ มันเปิดโอกาสให้คุณ _รวมร่าง_ (compose) หลากหลายโปรแกรมใน shell ได้อิสระสุดๆ และนี่ล่ะคือไม้ตายเด็ดที่ทำให้ environment แบบ shell กลายเป็นดินแดนมหัศจรรย์ที่ทรงประสิทธิภาพในการลุยงานมากๆ ฮะ!
 
-In fact, most shells implement a full programming language (like bash),
-just like Python or Ruby. It has variables, conditionals, loops, and
-functions. When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. We won't teach you all of
-bash today, but there are some bits you'll find particularly useful:
+เอาเข้าจริง shell แทบทุกตัวบนโลกมักจะฝังภาษา programming ภาษาหนึ่งแบบฟูลออปชัน (อย่างเช่น bash) ยัดไส้เอาไว้ข้างในด้วยนะ รัศมีแทบจะลูกพี่ลูกน้องกับพวก Python หรือ Ruby เลย มันสร้าง variables ได้, มี conditionals เช็คเงื่อนไข, วน loops, ควบยันสร้าง functions ก็ยังได้ เวลาที่คุณอัดตัวอักษรสั่ง commands ลงเปลือก shell เนี่ย จริงๆ แล้วคุณกำลังนั่งขีดเขียนร่างโค้ดเล็กๆ ให้ตัว shell มันไปแปลนั่งงมรันผลอยู่เบื้องหลังแหละฮะ ในวันนี้เราอาจจะไม่ได้พาทัวร์ทฤษฎี bash หมดเปลือกยับๆ นะฮะ แต่มีน้ำจิ้มของดีบางส่วนแหละที่คุณน่าจะหยิบไปตีบวกพลิกแพลงใช้จนชินได้เลย:
 
-First, redirects: `>file` lets you take the standard output of a program
-and write it to `file` instead of to your terminal. This makes it easier
-to analyze after the fact. `>>file` will append to `file` rather than
-overwrite it. There's also `<file` which tells the shell to read from
-`file` instead of from your keyboard as the standard input to a program.
+ตัวแรก, กฎการ redirects (เบี่ยงเส้นทางมวลสาร): `>file` จะเป็นท่าปล้นชิงตะกรันผลลัพธ์พวก standard output ของหน้าต่างโปรแกรม แทนที่จะบ้วนขึ้นประจานความโง่บนเทอร์มินัลของคุณ มันจะโดนดูดจับไปยัดไส้เขียนเซฟลงไปใน `file` แทน การกระทำแบบนี้มันช่วยชีวิตให้เรากลับมางัดไฟล์หาสืบวิเคราะห์ผลลัพธ์ทีหลังได้สะดวกโคตรฮะ ส่วนท่า `>>file` ก็แนวๆ เดียวกัน แค่มันไม่ได้บ้าเลือดทำลายล้างเขียนทับ (overwrite) หรอกนะ แต่มันจะซ้อนสับ append พอกพูนต่อท้าย `file` เรื่อยๆ นอกจากนี้มันยังมี `<file` ซึ่งจะใช้มนต์เกลี้ยกล่อมบังคับให้ shell ไปตักตวงสูบทรัพย์อ่านของจากก้นบึ้งใน `file` แล้วป่าวประกาศป้อนยัดให้กับโปรแกรมเป็นเสบียง standard input (แทนการนั่งเมื่อยพิมพ์กรอกข้อมูลด้วยมือนั่นเองฮะ)
 
-> This is a good time to mention the `tee` program. `tee` will print
-> standard input to standard output (just like `cat`!), but will _also_
-> write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
-> will preserve the full verbose log to a file while keeping your
-> terminal clean!
+> นี่แหละฤกษ์งามยามดีที่ขออนุญาตหยิบโปรแกรม `tee` มาอวยหน่อยละกัน ตัว `tee` มันก็คือตัวถ่ายผล (ปริ้นต์) standard input คายออกมาเป็น standard output นี่แหละ (อารมณ์คล้ายท่าของแฝดพี่ `cat` เป๊ะ!) แต่ความเจ๋งคือมันจะ _ก๊อป_ บ้วนสาดสำเนาอัดยัดลงไฟล์ให้ด้วยฮะ เพราะงั้นสมมติคุณรันอ้อมๆ `verbose cmd | tee verbose.log | grep CRITICAL` มันก็จะอ้วกซากล็อก verbose ดิบๆ ทั้งหมดแพ็กทิ้งไว้ในไฟล์เนียนๆ ในขณะที่หน้าต่าง terminal ของคุณก็ตีนิ่งโชว์สะอาดตา (มีโผล่แต่เฉพาะคำ CRITICAL!)
 
-Next, conditionals: `if command1; then command2; command3; fi` will
-execute `command1`, and if it doesn't result in an error, will run
-`command2` and `command3`. You can also have an `else` branch if you
-wish. The most common command to use as `command1` is the `test`
-command, often abbreviated simply as `[`, which lets you evaluate
-conditions like "does a file exist" (`test -f file` / `[ -f file ]`) or
-"does a string equal another" (`[ "$var" = "string" ]`). In bash,
-there's also `[[ ]]`, which is a "safer" built-in version of `test` that
-has fewer odd behaviours around quoting.
+ถัดมา, การเช็คเงื่อนไข (conditionals): `if command1; then command2; command3; fi` มันก็จะทำการรัน `command1` ดูก่อนฮะ ถ้าสรุปมันไม่พ่น error ไปซะก่อน มันก็จะไปซิ่งไล่กดรัน `command2` แล้วก็ค่อยสะบัดไปดึง `command3` ออกมารันต่อฮะ แน่นอนว่าถ้าคุณอินดี้ ก็สามารถแวะพ่วงท่อน `else` ให้มันเป็นสาขาทางเลือกยามฉุกเฉินต่อได้ด้วย คำสั่งหน้าเดิมประจำการที่เค้านิยมดึงกระชากมาจับวางใส่ให้เป็น `command1` มากที่สุดก็คือโปรแกรมอย่าง `test` นั่ยแหละ (ส่วนโค้ดก็นิยมเขียนย่อเป็นอักษรเดี่ยวๆ เปิดด้วยก้ามปู `[` แค่นี้เลย), โปรแกรมตัวนี้มันเสกเปิดช่องให้คุณตั้งป้อมประเมินคำถามเชิงเงื่อนไขต่างๆ นานา เช่น "ไฟล์นี้มันมีมั้ยวะ" (`test -f file` / `[ -f file ]`) หรือ "เฮ้ย สอง string นี้มันต่อกันเป๊ะมั้ย" (`[ "$var" = "string" ]`) ในจักรวาล bash ยังมีอีกท่านึงนั่นคือ `[[ ]]` ด้วยนะ อันนี้กระซิบว่าเป็นตัว built-in อัปเกรดเวอร์ชันของ `test` ที่พกเอาลีลาการ quote ข้อมูลมาได้ปลอดภัยละมุนละม่อมและแผลงฤทธิ์ป่วนขัดกวนใจน้อยกว่าฮะ
 
-Bash also has two forms of loops, `while` and `for`. `while command1; do
-command2; command3; done` functions just like the equivalent `if`
-command, except that it will re-execute the whole thing over and over
-for as long as `command1` does not error. `for varname in a b c d; do
-command; done` executes `command` four times, each time with `$varname`
-set to one of `a`, `b`, `c`, and `d`. Instead of listing the items
-explicitly, you'll often use "command substitution", such as:
+จักรวาล bash ยังพกแก๊งลูปปั่นยอด 2 ทรงมาให้ด้วยนะ ได้แก่ `while` กับ `for` ฮะ ท่าแรก `while command1; do command2; command3; done` ก็ทำงานถอดแบบเดียวกับพวก `if` เลย เพียงแต่พอกดรันจนจบ done มันจะพลิกตัวเวียนจ่อหน้ากดรันคำสั่งทั้งหมดวนไปเรื่อยๆ ทบไปไม่หยุด (over and over) ตราบใดที่อีตัว `command1` ไม่ทะนุถนอมสร้าง error โผล่ออกมาขัดตาทัพฮะ ส่วน `for varname in a b c d; do command; done` อันนี้มันจะลุย execute `command` อัดไปเน้นๆ 4 ยกด้วยกัน ซึ่งในแต่ละรอบมันจะผลัดโอนตัวแปรตัวเอก `$varname` สไลด์ชิ่งเวียนค่าเป็นหนึ่งในช้อยส์ `a`, `b`, `c`, และ `d` ตามคิวฮะ ปกติชาวบ้านเค้ามักจะไม่ค่อยมานั่งหลังขดเขียนพิมพ์ค่านับลิสต์ช้อยส์กันโต้งๆ หรอก แต่เค้าจะพึ่งพาทริคอย่าง "command substitution" กันแทน ยกตัวอย่าง:
 
 ```bash
 for i in $(seq 1 10); do
 ```
 
-This executes the command `seq 1 10` (which prints the numbers from 1 to
-10 inclusive) and then replaces the whole `$()` with that command's
-output, giving you a 10-iteration for loop. In older code you'll
-sometimes see literal backticks (like ``for i in `seq 1 10`; do``)
-instead of `$()`, but you should strongly prefer the `$()` form as it
-can be nested.
+อันนี้จะเริ่มรันคำสั่ง `seq 1 10` ก่อนเลย (ซึ่งเป้าหมายมันมีไว้ปริ้นต์เศษเลขไล่ลามตั้งแต่ 1 ถีง 10 รวบยอดหมด) หลังจากนั้นก็จะเอาผลลัพธ์ตะกรันทั้งหมดที่ได้จากคำสั่งนั้น มายัดสวมรอยแทนตัวก้อน `$()` ไปซะดื้อๆ ส่งผลให้มันกลายร่างเป็น for loop แบบวิ่งเวียน 10 รอบนั่นเองฮะ ถ้าไปคุ้ยเจอในถิ่นโค้ดพวกจารึกเก่าๆ คุณอาจจะเจอตัวใช้สัญลักษณ์อิงแอบแบ็กทิก (อย่างเช่น ``for i in `seq 1 10`; do``) แทนที่จะเป็นทรง `$()` แต่เราขออวยไส้แตกเลยว่า แนะนำให้ฝังใจจดจำเป็นท่า `$()` ซะดีกว่านะฮะ เหตุผลหลักๆ ก็คือมันแอบออริจินัลเสกให้สามารถยัดสอดไส้ (nested) คำสั่งซ้อนพะรุงพะรังทับกันได้ง่ายดายลื่นปื๊ดนั่นเอง
 
-While you _can_ write long shell scripts directly in your prompt, you'll
-usually want to write them into a `.sh` file instead. For example,
-here's a script that will run a program in a loop until it fails,
-printing the output only of the failed run, while stressing your CPU in
-the background (useful to reproduce flaky tests for example):
+ในขณะที่คุณ _สามารถ_ โชว์สกิลคีย์บอร์ดพิมพ์รัว shell scripts สายมาราธอนผ่านตัว prompt ได้โต้งๆ เลยก็จริง แต่โดยปกติชีวิตธรรมดามักจะเลือกเขียนดองยัดไว้ในไฟล์ `.sh` ซะมากกว่า ยกตัวอย่างให้เห็นภาพก็นี่เลย... บท script นี้มันพยายามจะวิ่งรันตัว test ของโปรแกรมสักตัวนึงไปเรื่อยๆ เข้าลูปแบบไม่มีวันตาย จนกว่าผลลัพธ์ที่ได้มันจะบึ้มพัง (fails), พอมันพังปุ๊บก็คอยงัดเอาเฉพาะบรรทัดที่มันพังออกมาแฉ แถมแอบซ้อนสั่งกระชาก CPU ไปรันกวนใน background พ่วงไปด้วยนะ (มีประโยชน์ไว้ลองวิชาวิเคราะห์ของพังจำลองเทส flaky tests ไรเงี้ยฮะ):
 
 ```bash
 #!/bin/bash
@@ -496,40 +267,13 @@ tail -n 20 "$LOGFILE"
 echo "Full log: $LOGFILE"
 ```
 
-This has a number of new things in it that I recommend you spend some
-time diving into, as they're very useful in crafting useful shell
-invocations like background jobs (`&`) to run programs concurrently,
-trickier [shell
-redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html),
-and [arithmetic
-expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html).
+โพยข้างบนนี้มันแอบยัดไส้ลูกเล่นของใหม่ๆ แผลงๆ ไว้เพียบเลยนะ ซึ่งเราขอเอาท้าให้คุณไปลองงมดำน้ำขลุกแกะซุยศึกษาต่อก็จะคุ้มมาก เพราะลูกเล่นพวกนี้มันเวิร์กสุดๆ เวลาอยากหาช่องหลอมสร้าง shell invocations หรูๆ อาทิเช่น ปั้นงานให้ไปแอบวิ่งซุ่มซ่อนตัวอยู่ใน background (`&`) รันแบบตีคู่ขนานพร้อมกัน (concurrently) แง้มเปิดกระบวนท่าตุกติก [shell redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html), รวมไปถึงเสพย์ลูกเล่น [arithmetic expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html) ได้อีกฮะ.
 
-It's worth spending a second on the first two lines of the program
-though. The first is the "shebang" -- you'll see this at the top of
-other files than shell scripts too. When a file that starts with the
-magic incantation `#!/path` is executed, the shell will start the
-program at `/path`, and pass it the contents of the file as input. In
-the case of a shell script, this means passing the contents of the shell
-script to `/bin/bash`, but you can also write Python scripts with a
-shebang line of `/usr/bin/python`!
+ขอพักเจียดเวลามางัดปมแกะปอกลอกในโค้ดสองบรรทัดบนสุดนั่นสักแพร็บนึงดีกว่า. แถวแรกนี่เราเรียกกันแบบหล่อๆ ว่า "shebang" -- ซึ่งหน้าตาแบบนี้คุณก็จะได้เจอะเจอได้ในโหมดหัวไฟล์ของตัวอื่นๆ ที่ไม่ได้เป็น shell scripts อยู่บ่อยๆ เหมือนกันฮะ กฎง่ายๆ คือ เวลาที่คุณรันไฟล์อะไรสักไฟล์ที่มีการเริ่มเปิดหัวร่ายเวทมนตร์ด้วย `#!/path` เข้าไป... ตัว shell เค้าจะรีบไปปลุกเรียกโปรแกรมตามตำแหน่งอ้างอิง `/path` นั้นขึ้นมา แล้วก็จัดแจงโยนเอาสารพัดข้อมูลในไฟล์นี้สุมเข้าไปป้อนให้เป็น input ต่อเลย ในมุมมองแบบฉบับ shell script อย่างเคสนี้ มันก็จะตีความกรายๆ ว่าเรากำลังโยนแผงเนื้อหา shell script ไปให้กับนาย `/bin/bash` ปิ้งย่างทำงานนั่นแหละครับ แต่คุณก็ยังสามารถดัดแปลงเน้นๆ เขียน Python scripts พร้อมกับห้อยเปิดตัว shebang เป็นท่อนว่า `/usr/bin/python` ได้สบายๆ แนบเนียนเช่นกันนะเออ!
 
-The second line is a way to make bash "stricter", and mitigate a number
-of footguns when writing shell scripts. `set` can take a whole lot of
-arguments, but briefly: `-e` makes it so that if any command fails, the
-script exits early; `-u` makes it so that use of undefined variables
-crashes the script rather than just using an empty string; and `-o
-pipefail` makes it so that if programs in a `|` sequence fail, the
-shell script as a whole also exits early.
+บรรทัดที่สองนี่เป็นด่านกำแพงเหล็กที่เอาไว้บังคับข่มขู่ทำให้ bash มีความ "โหดตึง" (stricter) มีกฎเกณฑ์ขึ้นอีกนิดหน่อยฮะ และก็แอบปัดกวาดกับระเบิด footguns หลุมพรางบางอย่างออกให้เวลาที่เราหลอกเขียน shell scripts กัน คำสั่ง `set` จริงๆ เอาออปชันสารพัดใส่ต่อท้ายได้เป็นหางว่าว แต่แก่นกระซิบแบบสั้นๆ: ท่า `-e` ทำให้มั่นใจว่าถ้ามีคำสั่งตัวไหนพ่น failed แม้แต่บรรทัดเดียวละก็ ให้ script แม่งชิงจบปิดตายล่มวงไปไวๆ เลย; ตัว `-u` ออกระเบียบไว้ว่าถ้าดึงใช้ตัวแปรที่ยังไม่ได้เซ็ตค่าขึ้นเบิกมา ให้สอย script ขาดตายคางานทันที ไม่ยอมให้มันมาแกล้งถูไถอุปโลกน์ว่าเป็น empty string เหมือนปกติ; ส่วนตัว `-o pipefail` เป็นมุ้งดักอีกระดับ คือบอกว่าถ้ามีกัปตันโปรแกรมคนไหนในขบวนท่อ `|` ทำงานได้ล่มพังตาย ไม่รอ script ตีเหมาขบวนทั้งหมดเจ๊งวายวอดแอบชิงตายทิ้งกลางคันเหมือนกันเลย.
 
-> Shell programming is a deep topic, just as any programming language
-> is, but be warned: bash has an unusual number of gotchas, to the point
-> that there are [multiple](https://tldp.org/LDP/abs/html/gotchas.html)
-> websites dedicated to [listing them](https://mywiki.wooledge.org/BashPitfalls).
-> I highly recommend making heavy use of
-> [shellcheck](https://www.shellcheck.net/) when writing them. LLMs are
-> also great at writing and debugging shell scripts, as well as
-> translating them to a "real" programming language (like Python) when
-> they've grown too unwieldy for bash (100+ lines).
+> การเขียน Shell programming เป็นยุทธจักรสายลึกที่มีความมึน เหมือนพวก programming language ค่ายไหนๆ แต่เตือนไว้ก่อนนะฮะ: ตัวแม่ bash แม่งพกปม gotchas หักเหลี่ยมล่อเป้าเก็บซ่อนไว้เยอะจัดๆ จนถึงขั้นที่มีแก๊งขุมทรัพย์งัดแงะเว็บบ้าเลือด[หลายๆ เจ้า](https://tldp.org/LDP/abs/html/gotchas.html) ถือกำเนิดขึ้นมาเอาไว้จัดรวบรวม[แฉลิสต์ตอแหลโชว์กาก](https://mywiki.wooledge.org/BashPitfalls) ของมันโดยเฉพาะเลย ผมขออวยเชียร์แกมบังคับให้คุณพึ่งพาจับดึง [shellcheck](https://www.shellcheck.net/) ถือหางมาคอยตรวจโค้ดให้มันบ่อยๆ เวลานั่งเขียน แถมโชคดีคือเดี๋ยวนี้มีพวกก๊วน LLMs เป็นอีกแรงตัวเทพคอยช่วยเขียนช่วย Debug คลำจับผิดให้เราได้ดีเลิศหรูหราเลยฮะ รวมไปถึงช่วยแปลทรานสเลตแปลงร่างให้มันกลายเป็นสายเลือด programming language ที่เป็น "ของจริง" (อย่างพวก Python) ในกรณีที่คุณรู้สึกว่าเห้ยไอโค้ด shell นี้แม่งเริ่มรุงรังชักจะงอแงเยิ่นเย้อยาวคุม bash ไม่อยู่แล้วอะ (ถ้าหลักๆ มันเด้งหลุดกรอบเกิน 100+ lines ขึ้นไปเงี้ย)
 
 # Next steps
 
@@ -609,48 +353,48 @@ shortest path to the solution.
    look at `ls -l check.sh` before and after the `chmod`.)
 
 1. What happens if you add `-x` to the `set` flags in a script? Try it with
-    a simple script and observe the output. See [The Set
-    Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
+   a simple script and observe the output. See [The Set
+   Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 1. Write a command that copies a file to a backup with today's date in the
-    filename (e.g., `notes.txt` → `notes_2026-01-12.txt`). (Hint: `$(date
-    +%Y-%m-%d)`). See [Command
-    Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html).
+   filename (e.g., `notes.txt` → `notes_2026-01-12.txt`). (Hint: `$(date
++%Y-%m-%d)`). See [Command
+   Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html).
 
 1. Modify the flaky test script from the lecture to accept the test command
-    as an argument instead of hardcoding `cargo test my_test`. (Hint: `$1`
-    or `$@`). See [Special
-    Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
+   as an argument instead of hardcoding `cargo test my_test`. (Hint: `$1`
+   or `$@`). See [Special
+   Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
 
 1. Use pipes to find the 5 most common file extensions in your home
-    directory. (Hint: combine `find`, `grep` or `sed` or `awk`, `sort`,
-    `uniq -c`, and `head`.)
+   directory. (Hint: combine `find`, `grep` or `sed` or `awk`, `sort`,
+   `uniq -c`, and `head`.)
 
 1. `xargs` converts lines from stdin into command arguments. Use `find` and
-    `xargs` together (not `find -exec`) to find all `.sh` files in a
-    directory and count the lines in each with `wc -l`. Bonus: make it
-    handle filenames with spaces. (Hint: `-print0` and `-0`). See `man
-    xargs`.
+   `xargs` together (not `find -exec`) to find all `.sh` files in a
+   directory and count the lines in each with `wc -l`. Bonus: make it
+   handle filenames with spaces. (Hint: `-print0` and `-0`). See `man
+xargs`.
 
 1. Use `curl` to fetch the HTML of the course website
-    (`https://missing.csail.mit.edu/`) and pipe it to `grep` to count how
-    many lectures are listed. (Hint: look for a pattern that appears once
-    per lecture; use `curl -s` to silence the progress output.)
+   (`https://missing.csail.mit.edu/`) and pipe it to `grep` to count how
+   many lectures are listed. (Hint: look for a pattern that appears once
+   per lecture; use `curl -s` to silence the progress output.)
 
 1. [`jq`](https://jqlang.github.io/jq/) is a powerful tool for processing
-    JSON data. Fetch the sample data at
-    `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` with
-    `curl` and use `jq` to extract just the names of people whose version
-    is greater than 6. (Hint: pipe to `jq .` first to see the structure;
-    then try `jq '.[] | select(...) | .name'`)
+   JSON data. Fetch the sample data at
+   `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` with
+   `curl` and use `jq` to extract just the names of people whose version
+   is greater than 6. (Hint: pipe to `jq .` first to see the structure;
+   then try `jq '.[] | select(...) | .name'`)
 
 1. `awk` can filter lines based on column values and manipulate output.
-    For example, `awk '$3 ~ /pattern/ {$4=""; print}'` prints only lines
-    where the third column matches `pattern`, while omitting the fourth
-    column. Write an `awk` command that prints only lines where the second
-    column is greater than 100, and swaps the first and third columns. Test
-    with: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
+   For example, `awk '$3 ~ /pattern/ {$4=""; print}'` prints only lines
+   where the third column matches `pattern`, while omitting the fourth
+   column. Write an `awk` command that prints only lines where the second
+   column is greater than 100, and swaps the first and third columns. Test
+   with: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
 
 1. Dissect the SSH log pipeline from the lecture: what does each step do?
-    Then build something similar to find your most-used shell commands from
-    `~/.bash_history` (or `~/.zsh_history`).
+   Then build something similar to find your most-used shell commands from
+   `~/.bash_history` (or `~/.zsh_history`).
