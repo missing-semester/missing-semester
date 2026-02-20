@@ -2,7 +2,7 @@
 layout: lecture
 title: "Command-line Environment"
 description: >
-  Learn how command-line programs work, including input/output streams, environment variables, and remote machines with SSH.
+  เรียนรู้วิธีการทำงานของโปรแกรม command-line ตั้งแต่ input/output streams, environment variables ไปจนถึงการเชื่อมต่อ remote machine ด้วย SSH
 thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true
@@ -11,24 +11,20 @@ video:
   id: ccBGsPedE9Q
 ---
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
-but in practice they provide an entire programming language full of common patterns and abstractions.
-However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
+อย่างที่เราคุยกันในบทก่อน shell ส่วนใหญ่ไม่ได้เป็นแค่ตัว launcher สำหรับรันโปรแกรมอื่น แต่จริงๆ แล้วมันคือภาษาโปรแกรมที่สมบูรณ์ มี patterns และ abstractions ให้ใช้มากมาย สิ่งที่ทำให้ shell scripting แตกต่างจากภาษาอื่นคือ ทุกอย่างถูกออกแบบมาเพื่อการรันโปรแกรมและให้โปรแกรมต่างๆ สื่อสารกันได้อย่างง่ายและมีประสิทธิภาพ
 
-In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
-We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
+โดยเฉพาะอย่างยิ่ง shell scripting ผูกติดอยู่กับ _conventions_ มาก สำหรับโปรแกรม CLI จะทำงานร่วมกับสภาพแวดล้อม shell ได้ดี มันต้องปฏิบัติตาม patterns ทั่วไปบางอย่าง บทนี้เราจะมาทำความเข้าใจ concepts เหล่านั้น รวมถึง conventions ที่พบได้ทั่วไปสำหรับการใช้งานและ configure โปรแกรม CLI
 
 # The Command Line Interface
 
-Writing a function in most programming languages looks something like:
+การเขียน function ในภาษาโปรแกรมทั่วไปจะมีหน้าตาแบบนี้:
 
 ```
 def add(x: int, y: int) -> int:
     return x + y
 ```
 
-Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance.
+เราเห็น input และ output ได้ชัดเจน แต่ shell scripts นั้นมีหน้าตาต่างออกไปมากเมื่อมองแวบแรก:
 
 ```shell
 #!/usr/bin/env bash
@@ -46,7 +42,7 @@ else
 fi
 ```
 
-To properly understand what is going in scripts like this one we first need to introduce a few concepts that appear often when shell programs communicate with each other or with the shell environment:
+เพื่อทำความเข้าใจ script แบบนี้อย่างถ่องแท้ เราต้องรู้จัก concepts สำคัญที่ปรากฏบ่อยเมื่อโปรแกรม shell สื่อสารกันหรือกับสภาพแวดล้อม shell:
 
 - Arguments
 - Streams
@@ -56,41 +52,28 @@ To properly understand what is going in scripts like this one we first need to i
 
 ## Arguments
 
-Shell programs receive a list of arguments when they are executed.
-Arguments are plain strings in shell, and it is up to the program how to interpret them.
-For instance when we do `ls -l folder/`, we are executing the program `/bin/ls` with arguments `['-l', 'folder/']`.
+โปรแกรม shell รับ arguments เป็น list ตอนที่ถูกรัน Arguments คือ strings ธรรมดา และเป็นหน้าที่ของโปรแกรมเองที่จะตีความว่าจะใช้อย่างไร ตัวอย่างเช่น เมื่อรัน `ls -l folder/` คือการรันโปรแกรม `/bin/ls` ด้วย arguments `['-l', 'folder/']`
 
-From within a shell script we access these via special shell syntax.
-To access the first argument we access the variable `$1`, second argument `$2` and so on and so forth until `$9`. To access all arguments as a list we use `$@` and to retrieve the number of arguments `$#`. Additionally we can also access the name of the program with `$0`.
+ภายใน shell script เราเข้าถึง arguments ผ่าน syntax พิเศษ โดย `$1` คือ argument แรก, `$2` คือตัวที่สอง ไล่ไปจนถึง `$9` ใช้ `$@` เพื่อเข้าถึง arguments ทั้งหมดเป็น list, `$#` สำหรับจำนวน arguments และ `$0` สำหรับชื่อโปรแกรม
 
-For most programs the arguments will consist of a mixture of _flags_ and regular strings.
-Flags can be identified because they are preceded by a dash (`-`) or double-dash (`--`).
-Flags are usually optional and their role is to modify the behavior of the program.
-For example `ls -l` changes how `ls` formats its output.
+Arguments ส่วนใหญ่จะเป็นการผสมกันระหว่าง _flags_ และ strings ธรรมดา Flags สังเกตได้จากการนำหน้าด้วยขีด (`-`) หรือขีดคู่ (`--`) Flags มักเป็น optional และใช้ปรับพฤติกรรมของโปรแกรม ตัวอย่างเช่น `ls -l` เปลี่ยนรูปแบบการแสดงผลของ `ls`
 
-You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
-Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
-The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
-Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
+Flags แบบขีดคู่มีชื่อยาว เช่น `--all` และแบบขีดเดียวมักตามด้วยตัวอักษรเดียว เช่น `-a` โดย `ls -a` กับ `ls --all` ให้ผลเหมือนกัน Single dash flags มักรวมกันได้ ดังนั้น `ls -l -a` กับ `ls -la` ก็เท่ากัน ลำดับ flags มักไม่สำคัญ flags ที่พบบ่อยและควรรู้จักไว้ได้แก่ `--help`, `--verbose`, `--version`
 
-> Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
-Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
-> In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
+> Flags เป็นตัวอย่างแรกของ shell conventions ภาษา shell ไม่ได้บังคับให้ใช้ `-` หรือ `--` แต่การไม่ทำตามจะทำให้คนอื่นสับสน ในทางปฏิบัติ ภาษาโปรแกรมส่วนใหญ่มี library สำหรับ parse CLI flags อยู่แล้ว เช่น `argparse` ใน Python
 
-Another common convention in CLI programs is for programs to accept a variable number of arguments of the same type. When given arguments in this way the command performs the same operation on each one of them.
+Convention อีกอย่างของ CLI คือการรับ arguments จำนวนตัวแปรที่เป็น type เดียวกัน เมื่อได้รับแบบนี้ คำสั่งจะทำ operation เดิมกับแต่ละตัว:
 
 ```shell
 mkdir src
 mkdir docs
-# is equivalent to
+# เทียบเท่ากับ
 mkdir src docs
 ```
 
-This syntax sugar might seem unnecessary at first, but it becomes really powerful when combined with _globbing_.
-Globbing or globs are special patterns that the shell will expand before calling the program.
+Syntax นี้จะทรงพลังมากเมื่อรวมกับ _globbing_ ซึ่งเป็น special patterns ที่ shell จะขยายก่อนเรียกโปรแกรม
 
-Say we wanted to delete all .py files in the current folder nonrecursively. From what we learned in the previous lecture we could achieve this by running
+สมมติเราต้องการลบไฟล์ .py ทั้งหมดในโฟลเดอร์ปัจจุบัน วิธียาวคือ:
 
 ```shell
 for file in $(ls | grep -P '\.py$'); do
@@ -98,54 +81,44 @@ for file in $(ls | grep -P '\.py$'); do
 done
 ```
 
-But we can replace that with just `rm *.py`!
+แต่เราใช้แค่ `rm *.py` แทนได้เลย!
 
-When we type `rm *.py` into the terminal, the shell will not call the `/bin/rm` program with arguments `['*.py']`.
-Instead, the shell will search for files in the current folder matching the pattern `*.py` where `*` can match any string of zero or more characters of any type.
-So if our folder has `main.py` and `utils.py` then the `rm` program will receive arguments `['main.py', 'utils.py']`.
+เมื่อพิมพ์ `rm *.py` shell จะไม่ส่ง `['*.py']` ไปให้ `/bin/rm` แต่จะค้นหาไฟล์ที่ match กับ pattern `*.py` ก่อน โดย `*` match ได้กับ string ใดๆ (รวมถึงว่างเปล่า) ดังนั้นถ้าในโฟลเดอร์มี `main.py` และ `utils.py` โปรแกรม `rm` จะได้รับ `['main.py', 'utils.py']`
 
-The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
-Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
-
-In practice, globs are best understood with motivating examples.
+Globs ที่พบบ่อย ได้แก่ `*` (ศูนย์ตัวหรือมากกว่า), `?` (หนึ่งตัว) และ `{}` สำหรับขยาย list ออกเป็นหลาย arguments:
 
 ```shell
 touch folder/{a,b,c}.py
-# Will expand to
+# ขยายเป็น
 touch folder/a.py folder/b.py folder/c.py
 
 convert image.{png,jpg}
-# Will expand to
+# ขยายเป็น
 convert image.png image.jpg
 
 cp /path/to/project/{setup,build,deploy}.sh /newpath
-# Will expand to
+# ขยายเป็น
 cp /path/to/project/setup.sh /path/to/project/build.sh /path/to/project/deploy.sh /newpath
 
-# Globbing techniques can also be combined
+# รวมวิธีการ glob เข้าด้วยกันได้
 mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
+# ย้ายทุกไฟล์ *.py และ *.sh
 ```
 
-> Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
+> บาง shell เช่น zsh รองรับ `**` ที่ขยายแบบ recursive ด้วย เช่น `rm **/*.py` จะลบไฟล์ .py ทุกตัวในทุก subfolder
 
 
 ## Streams
 
-Whenever we execute a program pipeline like
+เมื่อรัน pipeline แบบนี้:
 
 ```shell
 cat myfile | grep -P '\d+' | uniq -c
 ```
 
-we see that the `grep` program is communicating with both the `cat` and `uniq` programs.
+จะเห็นว่า `grep` สื่อสารกับทั้ง `cat` และ `uniq` สิ่งสำคัญที่ควรรู้คือทั้งสามโปรแกรมรันพร้อมกันทีเดียว shell ไม่ได้รัน cat เสร็จก่อนแล้วค่อยรัน grep แต่ spawn ทั้งสามพร้อมกันและเชื่อม output ของ cat เข้า input ของ grep และ output ของ grep เข้า input ของ uniq
 
-An important observation here is that all three programs are executing at once.
-Namely, the shell is not first calling cat, then grep, and then uniq.
-Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
-When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
-
-We can demonstrate this concurrency, all commands in a pipeline start immediately:
+เราสามารถพิสูจน์ได้ว่าทุกคำสั่งใน pipeline เริ่มพร้อมกันจริง:
 
 ```console
 $ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
@@ -158,156 +131,139 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
   32948 pts/1    00:00:00 grep
 ```
 
-We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
+จะเห็นว่าทุก process ยกเว้น `cat` รันอยู่ทันที shell spawn และเชื่อม streams ไว้ก่อนที่ process ใดจะเสร็จ `cat` จะเริ่มก็ต่อเมื่อ sleep เสร็จ แล้ว output ก็จะไหลต่อไปยัง grep ตามลำดับ
 
-Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
+ทุกโปรแกรมมี input stream ที่เรียกว่า stdin (standard input) เมื่อใช้ pipe stdin จะเชื่อมต่ออัตโนมัติ หลายโปรแกรมรับ `-` เป็นชื่อไฟล์ หมายถึง "อ่านจาก stdin":
 
 ```shell
-# These are equivalent when data comes from a pipe
+# สองคำสั่งนี้เทียบเท่ากันเมื่อข้อมูลมาจาก pipe
 echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
 
-Similarly, every program has two output streams: stdout and stderr.
-The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
+ทุกโปรแกรมมี output streams สองตัว คือ stdout และ stderr stdout ใช้สำหรับ pipe ข้อมูลไปโปรแกรมถัดไป ส่วน stderr ใช้สำหรับ error messages และ warnings โดยไม่ถูก parse โดยโปรแกรมถัดไปใน pipeline:
 
 ```console
 $ ls /nonexistent
 ls: cannot access '/nonexistent': No such file or directory
 $ ls /nonexistent | grep "pattern"
 ls: cannot access '/nonexistent': No such file or directory
-# The error message still appears because stderr is not piped
+# error ยังแสดงอยู่เพราะ stderr ไม่ถูก pipe
 $ ls /nonexistent 2>/dev/null
-# No output - stderr was redirected to /dev/null
+# ไม่มี output เพราะ stderr ถูก redirect ไปที่ /dev/null
 ```
 
-The shell provides syntax for redirecting these streams. Here are some illustrative examples.
+Shell มี syntax สำหรับ redirect streams:
 
 ```shell
-# Redirect stdout to a file (overwrite)
+# Redirect stdout ไปยังไฟล์ (เขียนทับ)
 echo "hello" > output.txt
 
-# Redirect stdout to a file (append)
+# Redirect stdout ไปยังไฟล์ (ต่อท้าย)
 echo "world" >> output.txt
 
-# Redirect stderr to a file
+# Redirect stderr ไปยังไฟล์
 ls foobar 2> errors.txt
 
-# Redirect both stdout and stderr to the same file
+# Redirect ทั้ง stdout และ stderr ไปยังไฟล์เดียวกัน
 ls foobar &> all_output.txt
 
-# Redirect stdin from a file
+# Redirect stdin จากไฟล์
 grep "pattern" < input.txt
 
-# Discard output by redirecting to /dev/null
+# ทิ้ง output โดย redirect ไปที่ /dev/null
 cmd > /dev/null 2>&1
 ```
 
-Another powerful tool that exemplifies the Unix philosophy is [`fzf`](https://github.com/junegunn/fzf), a fuzzy finder. It reads lines from stdin and provides an interactive interface to filter and select:
+อีก tool ที่มีประโยชน์และสะท้อน Unix philosophy ได้ดีคือ [`fzf`](https://github.com/junegunn/fzf) ซึ่งเป็น fuzzy finder มันอ่าน lines จาก stdin และเปิด interactive interface ให้กรองและเลือก:
 
 ```console
 $ ls | fzf
 $ cat ~/.bash_history | fzf
 ```
 
-`fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
+`fzf` สามารถผสานเข้ากับ shell operations ต่างๆ ได้มาก เราจะเห็นการใช้งานเพิ่มเติมในหัวข้อ shell customization
 
 
 ## Environment variables
 
-To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
-Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
-In shell scripting the role of the space character is to perform argument splitting.
-This behavior can be confusing and tricky to get used to, so keep it in mind.
+ใน bash เราใช้ syntax `foo=bar` เพื่อกำหนดค่าตัวแปร และเข้าถึงค่าด้วย `$foo` ระวังว่า `foo = bar` เป็น syntax ที่ผิด เพราะ shell จะตีความว่าเป็นการเรียกโปรแกรม `foo` ด้วย arguments `['=', 'bar']` ใน shell scripting ช่องว่างทำหน้าที่แยก arguments โดยเฉพาะ ซึ่งอาจทำให้สับสนในช่วงแรก ควรจำไว้ให้ดี
 
-Shell variables do not have types, they are all strings.
-Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
+ตัวแปรใน shell ไม่มี type ทุกตัวเป็น string และ single quote กับ double quote ใช้แทนกันไม่ได้ Strings ที่ล้อมด้วย `'` เป็น literal strings จะไม่ขยาย variables ไม่ทำ command substitution และไม่ process escape sequences แต่ `"` จะทำทั้งหมดนั้น:
 
 ```shell
 foo=bar
 echo "$foo"
-# prints bar
+# แสดง bar
 echo '$foo'
-# prints $foo
+# แสดง $foo
 ```
 
-To capture the output of a command into a variable we use _command substitution_.
-When we execute
+เพื่อ capture output ของคำสั่งเข้าตัวแปร เราใช้ _command substitution_:
+
 ```shell
 files=$(ls)
 echo "$files" | grep README
 echo "$files" | grep ".py"
 ```
-the output (concretely the stdout) of ls is placed into the variable `$files` which we can access later.
-The content of the `$files` variable does include the newlines from the ls output, which is how programs like `grep` know to operate on each item independently.
 
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name.
-This is useful when commands expect values to be passed by file instead of by STDIN.
-For example, `diff <(ls src) <(ls docs)` will show differences between files in dirs `src` and `docs`.
+output ของ ls จะถูกเก็บในตัวแปร `$files` โดยรวม newlines ไว้ด้วย ซึ่งทำให้ `grep` รู้ว่าต้องทำงานกับแต่ละรายการแยกกัน
 
-Whenever a shell program calls another program it passes along a set of variables that are often referred to as _environment variables_.
-From within a shell we can find the current environment variables by running `printenv`.
-To pass an environment variable explicitly we can prepend a command with a variable assignment
+feature ที่คล้ายกันแต่ไม่ค่อยรู้จักคือ _process substitution_ โดย `<( CMD )` จะรัน `CMD` เก็บ output ลงในไฟล์ชั่วคราว แล้วแทนที่ `<()` ด้วยชื่อไฟล์นั้น มีประโยชน์เมื่อคำสั่งต้องรับค่าผ่านไฟล์แทน STDIN เช่น `diff <(ls src) <(ls docs)` จะแสดงความแตกต่างระหว่างไฟล์ในสองโฟลเดอร์
 
-> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+เมื่อ shell program เรียกโปรแกรมอื่น มันจะส่งชุดตัวแปรที่เรียกว่า _environment variables_ ไปด้วย เราดู environment variables ปัจจุบันได้ด้วย `printenv` และส่งค่าไปชั่วคราวได้โดยนำหน้าคำสั่ง:
+
+> Environment variables ตามแบบแผนจะเขียนด้วยตัวพิมพ์ใหญ่ (เช่น `HOME`, `PATH`, `DEBUG`) นี่เป็น convention ไม่ใช่ข้อบังคับ แต่ช่วยให้แยกแยะออกจาก local shell variables ที่มักเป็นตัวพิมพ์เล็ก
 
 ```shell
-TZ=Asia/Tokyo date  # prints the current time in Tokyo
-echo $TZ  # this will be empty, since TZ was only set for the child command
+TZ=Asia/Tokyo date  # แสดงเวลาปัจจุบันในโตเกียว
+echo $TZ  # จะว่างเปล่า เพราะ TZ ถูก set เฉพาะสำหรับ child command นั้นเท่านั้น
 ```
 
-Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
+หรือจะใช้ `export` เพื่อให้ child processes ทุกตัว inherit ตัวแปรนั้น:
 
 ```shell
 export DEBUG=1
-# All programs from this point onwards will have DEBUG=1 in their environment
+# โปรแกรมทุกตัวหลังจากนี้จะมี DEBUG=1 ใน environment
 bash -c 'echo $DEBUG'
-# prints 1
+# แสดง 1
 ```
 
-To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
+ลบตัวแปรด้วย `unset` เช่น `unset DEBUG`
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
+> Environment variables ใช้ปรับพฤติกรรมโปรแกรมแบบ implicit แทนที่จะ explicit เช่น shell set `$HOME` ด้วย path ของ home folder และโปรแกรมต่างๆ ก็ใช้ตัวแปรนี้แทนที่จะรับ `--home /home/alice` อย่างชัดเจน อีกตัวอย่างคือ `$TZ` ที่หลายโปรแกรมใช้ format วันที่และเวลา
 
 ## Return codes
 
-As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
+output หลักของ shell program ส่งผ่าน stdout/stderr streams และการแก้ไข filesystem
 
-By default a shell script will return exit code zero.
-The convention is that zero means everything went well whereas nonzero means some issues were encountered.
-To return a nonzero exit code we have to use the `exit NUM` shell built-in.
-We can access the return code of the last command that was run by accessing the special variable `$?`.
+shell script return exit code เป็นศูนย์โดย default Convention คือศูนย์หมายถึงสำเร็จ ส่วนค่าอื่นหมายถึงมีปัญหา เพื่อ return exit code ที่ไม่ใช่ศูนย์ ใช้ `exit NUM` และเข้าถึง return code ของคำสั่งล่าสุดผ่าน `$?`
 
-The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
-Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
-Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
-This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
+Shell มี boolean operators `&&` (AND) และ `||` (OR) ที่ทำงานกับ return code ของโปรแกรม ทั้งสองเป็น [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators ซึ่งใช้รันคำสั่งแบบมีเงื่อนไขตามผลลัพธ์ของคำสั่งก่อนหน้า:
 
 ```shell
-# echo will only run if grep succeeds (finds a match)
+# echo จะรันก็ต่อเมื่อ grep สำเร็จ (พบ match)
 grep -q "pattern" file.txt && echo "Pattern found"
 
-# echo will only run if grep fails (no match)
+# echo จะรันก็ต่อเมื่อ grep ล้มเหลว (ไม่พบ match)
 grep -q "pattern" file.txt || echo "Pattern not found"
 
-# true is a shell program that always succeeds
+# true คือโปรแกรมที่สำเร็จเสมอ
 true && echo "This will always print"
 
-# and false is a shell program that always fails
+# false คือโปรแกรมที่ล้มเหลวเสมอ
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
+หลักการเดียวกันใช้กับ `if` และ `while` ทั้งสองใช้ return codes ในการตัดสินใจ:
 
 ```shell
-# if uses the return code of the condition command (0 = true, nonzero = false)
+# if ใช้ return code ของ condition command (0 = true, ไม่ใช่ศูนย์ = false)
 if grep -q "pattern" file.txt; then
     echo "Found"
 fi
 
-# while loops continue as long as the command returns 0
+# while ทำงานต่อไปตราบที่คำสั่ง return 0
 while read line; do
     echo "$line"
 done < file.txt
@@ -315,9 +271,7 @@ done < file.txt
 
 ## Signals
 
-In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
-The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+บางครั้งต้องหยุดโปรแกรมขณะที่มันทำงาน วิธีง่ายที่สุดคือกด `Ctrl-C` แต่ทำไมบางทีมันถึงไม่หยุด?
 
 ```console
 $ sleep 100
@@ -325,21 +279,18 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl` is displayed when typed in the terminal.
+> `^C` คือวิธีที่ `Ctrl` แสดงผลใน terminal
 
-Under the hood, what happened here is the following:
+สิ่งที่เกิดขึ้นจริงๆ คือ:
 
-1. We pressed `Ctrl-C`
-2. The shell identified the special combination of characters
-3. The shell process sent a SIGINT signal to the `sleep` process
-4. The signal interrupted the execution of the `sleep` process
+1. กด `Ctrl-C`
+2. Shell ระบุ key combination พิเศษนั้น
+3. Shell ส่ง SIGINT signal ไปยัง process `sleep`
+4. Signal หยุดการทำงานของ `sleep`
 
-Signals are a special communication mechanism.
-When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Signals เป็นกลไกสื่อสารพิเศษ เมื่อ process รับ signal มันจะหยุดชั่วคราว จัดการ signal และอาจเปลี่ยนทิศทางการทำงาน ด้วยเหตุนี้ signals จึงเป็น _software interrupts_
 
-
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+ต่อไปนี้เป็น Python program ตัวอย่างที่ดัก `SIGINT` แล้วละเว้นมัน ทำให้โปรแกรมไม่หยุด ต้องใช้ `SIGQUIT` (Ctrl-\) แทน:
 
 ```python
 #!/usr/bin/env python
@@ -356,7 +307,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+ผลที่ได้เมื่อส่ง `SIGINT` สองครั้ง ตามด้วย `SIGQUIT`:
 
 ```console
 $ python sigint.py
@@ -367,25 +318,17 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+`SIGTERM` เป็น signal ทั่วไปที่ใช้ขอให้ process ออกอย่าง graceful ส่งได้ด้วย [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) ด้วย syntax `kill -TERM <PID>`
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Signals ทำได้มากกว่าแค่ kill process ตัวอย่างเช่น `SIGSTOP` หยุดชั่วคราว (pause) process ใน terminal กด `Ctrl-Z` จะส่ง `SIGTSTP` (Terminal Stop) จากนั้นใช้ [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) หรือ [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html) เพื่อ continue ใน foreground หรือ background
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+คำสั่ง [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) แสดง jobs ที่ยังไม่เสร็จในปัจจุบัน อ้างอิง job ด้วย pid (ใช้ [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) เพื่อหา) หรือใช้ `%` ตามด้วยหมายเลข job และ `$!` สำหรับ job ล่าสุดที่ background
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+suffix `&` รันคำสั่งใน background และคืน prompt กลับมาทันที หรือ background โปรแกรมที่รันอยู่แล้วด้วย `Ctrl-Z` แล้วตามด้วย `bg`
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
+ระวังว่า backgrounded processes ยังเป็น child ของ terminal และจะตายเมื่อปิด terminal (จะส่ง `SIGHUP`) ป้องกันได้ด้วยการรันผ่าน [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) หรือใช้ `disown` ถ้า process เริ่มไปแล้ว หรือใช้ terminal multiplexer (จะพูดถึงในหัวข้อถัดไป)
 
-
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
-
-Below is a sample session to showcase some of these concepts.
+ตัวอย่าง session สำหรับแสดง concepts เหล่านี้:
 
 ```
 $ sleep 1000
@@ -403,7 +346,7 @@ $ jobs
 $ kill -SIGHUP %1
 [1]  + 18653 hangup     sleep 1000
 
-$ kill -SIGHUP %2   # nohup protects from SIGHUP
+$ kill -SIGHUP %2   # nohup ป้องกันจาก SIGHUP
 
 $ jobs
 [2]  + running    nohup sleep 2000
@@ -412,11 +355,11 @@ $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+`SIGKILL` เป็น signal พิเศษที่ process ไม่สามารถ capture ได้และจะ terminate ทันทีเสมอ แต่อาจทิ้ง orphaned child processes ไว้
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+อ่านเพิ่มเติมเกี่ยวกับ signals ได้ [ที่นี่](https://en.wikipedia.org/wiki/Signal_(IPC)) หรือรัน [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) หรือ `kill -l`
 
-Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
+ภายใน shell scripts ใช้ `trap` built-in เพื่อรันคำสั่งเมื่อรับ signals มีประโยชน์สำหรับ cleanup:
 
 ```shell
 #!/usr/bin/env bash
@@ -424,8 +367,8 @@ cleanup() {
     echo "Cleaning up temporary files..."
     rm -f /tmp/mytemp.*
 }
-trap cleanup EXIT  # Run cleanup when script exits
-trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
+trap cleanup EXIT  # รัน cleanup เมื่อ script ออก
+trap cleanup SIGINT SIGTERM  # รันด้วยเมื่อกด Ctrl-C หรือ kill
 ```
 {% comment %}
 ### Users, Files and Permissions
@@ -492,53 +435,48 @@ So far we've focused on your local machine, but many of these skills become even
 
 # Remote Machines
 
-It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
+ทุกวันนี้ programmer หลายคนทำงานกับ remote servers อยู่เป็นประจำ tool ที่ใช้กันมากที่สุดคือ SSH (Secure Shell) ที่ช่วยให้เราเชื่อมต่อกับ remote server และใช้งาน shell interface ที่คุ้นเคย:
 
 ```bash
 ssh alice@server.mit.edu
 ```
 
-Here we are trying to ssh as user `alice` in server `server.mit.edu`.
-
-An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
+feature ของ `ssh` ที่มักถูกมองข้ามคือความสามารถในการรันคำสั่งแบบ non-interactive โดย `ssh` จัดการ stdin/stdout ได้ถูกต้อง ทำให้รวมกับคำสั่งอื่นได้:
 
 ```shell
-# here ls runs in the remote, and wc runs locally
+# ls รันบน remote, wc รันบน local
 ssh alice@server ls | wc -l
 
-# here both ls and wc run in the server
+# ทั้ง ls และ wc รันบน server
 ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
+> ลองติดตั้ง [Mosh](https://mosh.org/) เป็นตัวแทน SSH ที่รองรับ disconnect, เปลี่ยน network และ latency สูงได้ดีกว่า
 
-For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
-We can do this via passwords or ssh keys.
-Key-based authentication utilizes public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
-Key based authentication is both more convenient and more secure, so you should prefer it.
-Note that the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so and never share its contents.
+เพื่อให้ `ssh` อนุญาตให้รันคำสั่งได้ ต้องพิสูจน์ตัวตนผ่าน password หรือ SSH key การ authenticate ด้วย key ใช้ public-key cryptography พิสูจน์กับ server ว่าเป็นเจ้าของ private key โดยไม่เปิดเผย key นั้น วิธีนี้สะดวกและปลอดภัยกว่า ควรใช้แทน password ระวังว่า private key (มักอยู่ที่ `~/.ssh/id_rsa` หรือ `~/.ssh/id_ed25519`) คือรหัสผ่านของคุณ อย่าแชร์ให้ใคร
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+สร้าง key pair ด้วยคำสั่ง:
+
 ```bash
 ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+ถ้าเคย configure SSH สำหรับ GitHub แล้ว คุณอาจมี key pair อยู่แล้ว ตรวจสอบด้วย `ssh-keygen -y -f /path/to/key`
 
-At the server side `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+ฝั่ง server `ssh` ดูที่ `.ssh/authorized_keys` เพื่อตัดสินว่า client ไหนเข้าได้ copy public key ขึ้นไปด้วย:
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 
-# or more simply (if ssh-copy-id is available)
+# หรือง่ายกว่า (ถ้ามี ssh-copy-id)
 
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
 
-Beyond running commands, the connection that ssh establishes can be used to transfer files from and to the server securely. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) is the most traditional tool and the syntax is `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+นอกจากรันคำสั่ง การเชื่อมต่อ SSH ยังใช้ transfer files ได้อย่างปลอดภัย [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) เป็น tool ดั้งเดิมที่มี syntax คือ `scp path/to/local_file remote_host:path/to/remote_file` และ [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) พัฒนาต่อจาก `scp` โดย detect ไฟล์ที่เหมือนกันเพื่อหลีกเลี่ยงการ copy ซ้ำ รองรับ symlinks, permissions และ `--partial` flag สำหรับ resume การ copy ที่ถูกขัดจังหวะ
 
-SSH client configuration is located at `~/.ssh/config` and it lets us declare hosts and set default settings for them. This configuration file is not just read by `ssh` but also other programs like `scp`, `rsync`, `mosh`, &c.
+SSH client configuration อยู่ที่ `~/.ssh/config` ให้ประกาศ hosts และ default settings ไฟล์นี้ถูกอ่านโดย `ssh`, `scp`, `rsync`, `mosh` ด้วย:
 
 ```bash
 Host vm
@@ -547,7 +485,7 @@ Host vm
     Port 2222
     IdentityFile ~/.ssh/id_ed25519
 
-# Configs can also take wildcards
+# ใช้ wildcards ได้
 Host *.mit.edu
     User alice
 ```
@@ -557,100 +495,87 @@ Host *.mit.edu
 
 # Terminal Multiplexers
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+เมื่อใช้ command line เราอาจต้องการรันหลายอย่างพร้อมกัน เช่น editor กับโปรแกรมคู่กัน การเปิด terminal window ใหม่ทำได้ แต่ terminal multiplexer เป็นทางเลือกที่ versatile กว่า
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions in an efficient manner.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-Because of this, terminal multiplexers are really convenient when working with remote machines, as it avoids the need to use `nohup` and similar tricks.
+Terminal multiplexers อย่าง [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) ให้เรา multiplex terminal windows ด้วย panes และ tabs เพื่อจัดการ shell sessions หลายตัวอย่างมีประสิทธิภาพ ยิ่งไปกว่านั้น ยังให้ detach session และ reattach ในภายหลังได้ มีประโยชน์มากเมื่อทำงานกับ remote machines เพราะไม่ต้องใช้ `nohup`
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+`tmux` ปรับแต่งได้มากและมี keybindings ทุกอันรูปแบบ `<C-b> x` หมายถึง (1) กด `Ctrl+b`, (2) ปล่อย, (3) กด `x` โครงสร้างของ `tmux`:
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+- **Sessions** - workspace อิสระที่มีหนึ่ง window หรือมากกว่า
+    + `tmux` เริ่ม session ใหม่
+    + `tmux new -s NAME` เริ่มด้วยชื่อ
+    + `tmux ls` แสดง sessions ทั้งหมด
+    + `<C-b> d` detach session ปัจจุบัน
+    + `tmux a` attach session ล่าสุด (ใช้ `-t` ระบุ session)
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **Windows** - เทียบเท่ากับ tabs ในแต่ละ session
+    + `<C-b> c` สร้าง window ใหม่ ปิดด้วย `<C-d>`
+    + `<C-b> N` ไปยัง window ที่ N
+    + `<C-b> p` / `<C-b> n` ไปยัง window ก่อนหน้า/ถัดไป
+    + `<C-b> ,` เปลี่ยนชื่อ window
+    + `<C-b> w` แสดง windows ทั้งหมด
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Panes** - แบ่งหน้าจอใน window เดียวกัน
+    + `<C-b> "` แบ่งแนวนอน
+    + `<C-b> %` แบ่งแนวตั้ง
+    + `<C-b> <direction>` ย้ายระหว่าง panes (ใช้ arrow keys)
+    + `<C-b> z` zoom pane ปัจจุบัน
+    + `<C-b> [` เข้า scrollback mode (กด `<space>` เริ่ม select, `<enter>` copy)
+    + `<C-b> <space>` วน cycle รูปแบบการจัด panes
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> อ่านเพิ่มเติมเกี่ยวกับ tmux ได้จาก [tutorial นี้](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) และ [คำอธิบายละเอียด](https://linuxcommand.org/lc3_adv_termmux.php)
 
-With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
+เมื่อมี tmux และ SSH แล้ว คุณก็จะอยากปรับแต่ง environment ให้รู้สึกเหมือนบ้านไม่ว่าจะอยู่บน machine ไหน นั่นคือที่มาของ shell customization
 
 # Customizing the Shell
 
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+โปรแกรม command line จำนวนมาก configure ด้วยไฟล์ text ธรรมดาที่เรียกว่า _dotfiles_ (ชื่อไฟล์ขึ้นต้นด้วย `.` เช่น `~/.vimrc` ทำให้ซ่อนอยู่ใน `ls` โดย default)
 
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
+> Dotfiles เป็น shell convention อีกอย่าง จุดที่นำหน้าเพื่อ "ซ่อน" ไว้เมื่อ list
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Shell เป็นหนึ่งในโปรแกรมที่ configure ด้วยไฟล์เหล่านี้ เมื่อ startup shell จะอ่านไฟล์หลายอันเพื่อโหลด configuration รายละเอียดอ่านเพิ่มได้ [ที่นี่](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html)
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Some other examples of tools that can be configured through dotfiles are:
+สำหรับ `bash` แก้ไข `.bashrc` หรือ `.bash_profile` ได้บนระบบส่วนใหญ่ ตัวอย่าง tools ที่ configure ผ่าน dotfiles:
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` และโฟลเดอร์ `~/.vim`
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
+การเปลี่ยน configuration ที่พบบ่อยคือการเพิ่ม path ใหม่ให้ shell หาโปรแกรม:
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
 
-Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `path/to/append`.
+คำสั่งนี้บอก shell ให้ set `$PATH` เป็นค่าปัจจุบันบวกกับ path ใหม่ และ child processes ทั้งหมดจะ inherit ค่านี้ ทำให้หาโปรแกรมใน `path/to/append` ได้
 
+การ customize shell มักหมายถึงการติดตั้ง command-line tools ใหม่ Package managers ช่วยจัดการ download, ติดตั้ง และอัปเดต macOS ใช้ [Homebrew](https://brew.sh/), Ubuntu/Debian ใช้ `apt`, Fedora ใช้ `dnf`, Arch ใช้ `pacman` เราจะพูดถึง package managers ในบท shipping code
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
-
-Here's how to install two useful tools using Homebrew on macOS:
+ตัวอย่างการติดตั้ง tools ที่มีประโยชน์ด้วย Homebrew:
 
 ```shell
-# ripgrep: a faster grep with better defaults
+# ripgrep: grep ที่เร็วกว่าพร้อม defaults ที่ดีกว่า
 brew install ripgrep
 
-# fd: a faster, user-friendly find
+# fd: find ที่เร็วกว่าและใช้งานง่ายกว่า
 brew install fd
 ```
 
-With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+เมื่อติดตั้งแล้ว ใช้ `rg` แทน `grep` และ `fd` แทน `find` ได้เลย
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **คำเตือนเรื่อง `curl | bash`**: คำแนะนำการติดตั้งหลายอันมีรูปแบบ `curl -fsSL https://example.com/install.sh | bash` ซึ่ง download script แล้วรันทันที สะดวกแต่เสี่ยง เพราะรัน code ที่ยังไม่ได้ตรวจสอบ ทางที่ปลอดภัยกว่าคือ:
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
-> less install.sh  # review the script
+> less install.sh  # ตรวจสอบ script ก่อน
 > bash install.sh
 > ```
-> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+> บาง installer ใช้ `/bin/bash -c "$(curl -fsSL https://url)"` ซึ่งอย่างน้อยก็ให้ bash interpret แทน shell ปัจจุบัน
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
+เมื่อรันคำสั่งที่ยังไม่ได้ติดตั้ง shell จะแสดง `command not found` เว็บไซต์ [command-not-found.com](https://command-not-found.com) มีวิธีติดตั้งสำหรับ package managers และ distributions ต่างๆ
 
-Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+[`tldr`](https://tldr.sh/) เป็นอีก tool ที่มีประโยชน์ ให้ man pages แบบย่อเน้นตัวอย่าง แทนที่จะอ่าน documentation ยาวๆ:
 
 ```console
 $ tldr fd
@@ -667,109 +592,90 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
+บางครั้งไม่ต้องการโปรแกรมใหม่ทั้งหมด แค่ shortcut สำหรับคำสั่งที่มีอยู่พร้อม flags เฉพาะ นั่นคือที่มาของ aliases
 
-We can also create our own command aliases using the `alias` shell built-in.
-A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
-For instance, an alias in bash has the following structure:
+เราสร้าง aliases ด้วย `alias` shell built-in shell alias คือรูปย่อของคำสั่งอื่นที่ shell จะแทนที่อัตโนมัติก่อน evaluate:
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-> Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+> ไม่มีช่องว่างรอบเครื่องหมาย `=` เพราะ [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) รับ argument เดียว
 
-Aliases have many convenient features:
+ตัวอย่าง aliases ที่มีประโยชน์:
 
 ```bash
-# Make shorthands for common flags
+# shorthand สำหรับ flags ที่ใช้บ่อย
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# ลดการพิมพ์สำหรับคำสั่งที่ใช้บ่อย
 alias gs="git status"
 alias gc="git commit"
 
-# Save you from mistyping
+# ป้องกันการพิมพ์ผิด
 alias sl=ls
 
-# Overwrite existing commands for better defaults
-alias mv="mv -i"           # -i prompts before overwrite
-alias mkdir="mkdir -p"     # -p make parent dirs as needed
-alias df="df -h"           # -h prints human readable format
+# เขียนทับคำสั่งด้วย defaults ที่ดีกว่า
+alias mv="mv -i"           # -i ถามก่อน overwrite
+alias mkdir="mkdir -p"     # -p สร้าง parent dirs โดยอัตโนมัติ
+alias df="df -h"           # -h แสดงในรูปแบบที่อ่านง่าย
 
-# Alias can be composed
+# Alias ต่อกันได้
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# ข้าม alias ชั่วคราวด้วย \
 \ls
-# Or disable an alias altogether with unalias
+# หรือลบ alias ด้วย unalias
 unalias la
 
-# To get an alias definition just call it with alias
+# ดู alias definition ด้วย
 alias ll
-# Will print ll='ls -lh'
+# แสดง ll='ls -lh'
 ```
 
-Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
+Aliases ไม่สามารถรับ arguments ตรงกลางคำสั่งได้ สำหรับ logic ที่ซับซ้อนกว่านั้น ควรใช้ shell functions แทน
 
-Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+Shell ส่วนใหญ่รองรับ `Ctrl-R` สำหรับค้นหา history แบบย้อนกลับ เมื่อ configure shell integration ของ `fzf` แล้ว `Ctrl-R` จะกลายเป็น interactive fuzzy search ผ่าน history ทั้งหมด ซึ่ง powerful กว่า default มาก
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+Dotfiles ควร organize อย่างไร? ควรอยู่ในโฟลเดอร์ของตัวเอง ภายใต้ version control และ **symlinked** เข้าที่ด้วย script ประโยชน์ที่ได้:
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **ติดตั้งง่าย**: บน machine ใหม่ใช้เวลาแค่นาทีเดียว
+- **Portability**: ทำงานเหมือนกันทุกที่
+- **Synchronization**: update ที่ไหนก็ sync ทุกที่
+- **Change tracking**: มี version history สำหรับ project ที่ยืนยาว
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+เรียนรู้ settings ของ tools ได้จากเอกสารออนไลน์หรือ [man pages](https://en.wikipedia.org/wiki/Man_page) หรือดูจากบทความ blog หรือดู dotfiles ของคนอื่นบน [GitHub](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) ตัวที่ได้รับความนิยมสูงสุดดูได้ [ที่นี่](https://github.com/mathiasbynens/dotfiles) (แต่ไม่แนะนำให้ copy ตรงๆ โดยไม่ทำความเข้าใจก่อน) และ [dotfiles.github.io](https://dotfiles.github.io/) เป็นแหล่งข้อมูลที่ดีอีกแห่ง
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+อาจารย์ผู้สอนทุกคนเปิดเผย dotfiles บน GitHub: [Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
-[Jose](https://github.com/jjgo/dotfiles).
+[Jose](https://github.com/jjgo/dotfiles)
 
-**Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
+**Frameworks และ plugins** ปรับปรุง shell ได้อีกมาก frameworks ทั่วไปได้แก่ [prezto](https://github.com/sorin-ionescu/prezto) หรือ [oh-my-zsh](https://ohmyz.sh/) และ plugins ขนาดเล็กสำหรับ features เฉพาะ:
 
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - suggests commands from history as you type
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) - additional completion definitions
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-like history search
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - fast, customizable prompt theme
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - ระบายสีคำสั่ง valid/invalid ขณะพิมพ์
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - แนะนำคำสั่งจาก history ขณะพิมพ์
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) - completion definitions เพิ่มเติม
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - ค้นหา history แบบ fish
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - prompt theme ที่เร็วและ customize ได้
 
-Shells like [fish](https://fishshell.com/) include many of these features by default.
+Shells อย่าง [fish](https://fishshell.com/) มี features เหล่านี้ built-in อยู่แล้ว
 
-> You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
+> ไม่จำเป็นต้องใช้ framework ขนาดใหญ่อย่าง oh-my-zsh การติดตั้ง plugins แยกมักเร็วกว่าและให้ control มากกว่า Frameworks ขนาดใหญ่อาจทำให้ shell startup ช้าลงมาก ควรติดตั้งเฉพาะที่ใช้จริง
 
 
-# AI in the Shell
+# AI ใน Shell
 
-There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
+มีหลายวิธีในการผสาน AI เข้ากับ shell workflow:
 
-**Command generation**: Tools like [`simonw/llm`](https://github.com/simonw/llm) can help generate shell commands from natural language descriptions:
+**Command generation**: Tools อย่าง [`simonw/llm`](https://github.com/simonw/llm) ช่วย generate shell commands จากคำอธิบายภาษาธรรมชาติ:
 
 ```console
 $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
+**Pipeline integration**: LLMs ผสานเข้ากับ shell pipelines ได้ เหมาะมากเมื่อต้องการ extract ข้อมูลจาก formats ที่ไม่สม่ำเสมอซึ่ง regex จะยุ่งยาก:
 
 ```console
 $ cat users.txt
@@ -789,40 +695,38 @@ mike_wilson
 sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
+ใช้ `"$INSTRUCTIONS"` (ใส่ quotes) เพราะตัวแปรมีช่องว่าง และ `< users.txt` เพื่อ redirect เนื้อหาไฟล์ไปยัง stdin
 
-**AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
+**AI shells**: Tools อย่าง [Claude Code](https://docs.anthropic.com/en/docs/claude-code) ทำหน้าที่เป็น meta-shell ที่รับคำสั่งภาษาอังกฤษและแปลเป็น shell operations, การแก้ไขไฟล์ และ tasks ที่ซับซ้อนกว่า
 
 # Terminal Emulators
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
-A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
-There are many terminal emulators out there.
+นอกจาก customize shell แล้ว ควรใช้เวลาเลือก **terminal emulator** ที่เหมาะกับตัวเองด้วย terminal emulator คือโปรแกรม GUI ที่ให้ text-based interface สำหรับรัน shell
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+เนื่องจากคุณจะใช้เวลาหลายร้อยถึงหลายพันชั่วโมงใน terminal จึงคุ้มค่าที่จะปรับ settings สิ่งที่ควรพิจารณา:
 
-- Font choice
+- การเลือกฟอนต์
 - Color Scheme
 - Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/alacritty/alacritty) or [Ghostty](https://ghostty.org/) offer GPU acceleration).
+- รองรับ Tab/Pane
+- การตั้งค่า Scrollback
+- Performance (terminals ใหม่อย่าง [Alacritty](https://github.com/alacritty/alacritty) หรือ [Ghostty](https://ghostty.org/) มี GPU acceleration)
 
 
 
-# Exercises
+# แบบฝึกหัด
 
-## Arguments and Globs
+## Arguments และ Globs
 
-1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
+1. คุณอาจเห็นคำสั่งแบบ `cmd --flag -- --notaflag` โดย `--` เป็น argument พิเศษที่บอกให้โปรแกรมหยุด parse flags ทุกอย่างหลัง `--` จะถือเป็น positional argument ทำไมสิ่งนี้ถึงมีประโยชน์? ลองรัน `touch -- -myfile` แล้วลบมันโดยไม่ใช้ `--`
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+1. อ่าน [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) แล้วเขียนคำสั่ง `ls` ที่แสดงผลแบบนี้:
+    - แสดงไฟล์ทั้งหมด รวมถึงไฟล์ที่ซ่อน
+    - ขนาดแสดงในรูปแบบที่อ่านง่าย (เช่น 454M แทน 454279954)
+    - เรียงตามความใหม่ล่าสุด
+    - Output มีสี
 
-    A sample output would look like this:
+    ตัวอย่าง output:
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -836,25 +740,25 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 ls -lath --color=auto
 {% endcomment %}
 
-1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
+1. Process substitution `<(command)` ให้ใช้ output ของคำสั่งราวกับว่าเป็นไฟล์ ใช้ `diff` กับ process substitution เพื่อเปรียบเทียบ output ของ `printenv` และ `export` ทำไมมันถึงต่างกัน? (Hint: ลอง `diff <(printenv | sort) <(export | sort)`)
 
 ## Environment Variables
 
-1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. เขียน bash functions `marco` และ `polo` ดังนี้: เมื่อรัน `marco` ให้บันทึก current working directory ไว้ แล้วเมื่อรัน `polo` ไม่ว่าจะอยู่ที่ไหน ให้ `cd` กลับไปยัง directory นั้น เพื่อ debug ง่ายขึ้น เขียน code ในไฟล์ `marco.sh` และโหลดด้วย `source marco.sh`
 
 {% comment %}
 marco() {
-    export MARCO=$(pwd)
+export MARCO=$(pwd)
 }
 
 polo() {
-    cd "$MARCO"
+cd "$MARCO"
 }
 {% endcomment %}
 
 ## Return Codes
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
+1. สมมติคุณมีคำสั่งที่ล้มเหลวนานๆ ครั้ง เพื่อ debug ต้องการ capture output แต่กว่าจะเจอการ fail อาจใช้เวลานาน เขียน bash script ที่รัน script ต่อไปนี้จนกว่าจะล้มเหลว และ capture stdout และ stderr ไปยังไฟล์ แล้วแสดงทุกอย่างในตอนท้าย โบนัสถ้า report ได้ว่าใช้กี่ครั้งก่อนจะล้มเหลว:
 
     ```bash
     #!/usr/bin/env bash
@@ -874,57 +778,57 @@ polo() {
 #!/usr/bin/env bash
 
 count=0
-until [[ "$?" -ne 0 ]];
+until [["$?" -ne 0]];
 do
-  count=$((count+1))
-  ./random.sh &> out.txt
+count=$((count+1))
+./random.sh &> out.txt
 done
 
 echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-## Signals and Job Control
+## Signals และ Job Control
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+1. เริ่ม job `sleep 10000` ใน terminal, background ด้วย `Ctrl-Z` แล้ว continue ด้วย `bg` จากนั้นใช้ [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) หา pid และ [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) เพื่อ kill โดยไม่ต้องพิมพ์ pid เลย (Hint: ใช้ flags `-af`)
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. สมมติคุณไม่ต้องการเริ่ม process จนกว่า process อื่นจะเสร็จ ทำได้อย่างไร? ใน exercise นี้ limiting process คือ `sleep 60 &` วิธีหนึ่งคือใช้ [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) ลองรัน sleep แล้วให้ `ls` รอจนกว่า background process จะเสร็จ
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+    อย่างไรก็ตาม วิธีนี้จะล้มเหลวถ้าเริ่มใน bash session ที่ต่างกัน เพราะ `wait` ทำงานได้เฉพาะกับ child processes `kill -0` ไม่ส่ง signal แต่จะให้ exit status ที่ไม่ใช่ศูนย์ถ้า process ไม่มีอยู่ เขียน bash function `pidwait` ที่รับ pid และรอจนกว่า process นั้นจะเสร็จ ใช้ `sleep` เพื่อหลีกเลี่ยงการใช้ CPU โดยไม่จำเป็น
 
 ## Files and Permissions
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (ขั้นสูง) เขียนคำสั่งหรือ script เพื่อค้นหาไฟล์ที่ถูกแก้ไขล่าสุดใน directory แบบ recursive และ list ไฟล์ทั้งหมดเรียงตามความใหม่ล่าสุดได้ไหม?
 
 ## Terminal Multiplexers
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. ทำตาม `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) แล้วเรียนรู้การ customize เบื้องต้นตาม [ขั้นตอนเหล่านี้](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/)
 
-## Aliases and Dotfiles
+## Aliases และ Dotfiles
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+1. สร้าง alias `dc` ที่ resolve ไปยัง `cd` สำหรับเมื่อพิมพ์ผิด
 
-1. Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1. รัน `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` เพื่อดู 10 คำสั่งที่ใช้บ่อยที่สุด แล้วพิจารณาเขียน aliases ที่สั้นกว่า หมายเหตุ: สำหรับ ZSH ใช้ `history 1` แทน `history`
 
-1. Create a folder for your dotfiles and set up version control.
+1. สร้างโฟลเดอร์สำหรับ dotfiles และ setup version control
 
-1. Add a configuration for at least one program, e.g. your shell, with some customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. เพิ่ม configuration สำหรับโปรแกรมอย่างน้อยหนึ่งตัว เช่น shell พร้อม customization บางอย่าง (เริ่มต้นอาจง่ายๆ แค่ customize shell prompt ด้วย `$PS1`)
 
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
+1. Setup วิธีติดตั้ง dotfiles อย่างรวดเร็วบน machine ใหม่ อาจเป็นแค่ shell script ที่เรียก `ln -s` สำหรับแต่ละไฟล์ หรือใช้ [specialized utility](https://dotfiles.github.io/utilities/)
 
-1. Test your installation script on a fresh virtual machine.
+1. ทดสอบ installation script บน virtual machine ที่ใหม่สะอาด
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+1. ย้าย tool configurations ปัจจุบันทั้งหมดไปยัง dotfiles repository
 
-1. Publish your dotfiles on GitHub.
+1. เผยแพร่ dotfiles บน GitHub
 
 ## Remote Machines (SSH)
 
-Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+ติดตั้ง Linux virtual machine (หรือใช้อันที่มีอยู่แล้ว) สำหรับ exercises เหล่านี้ ถ้าไม่คุ้นเคยกับ virtual machines ดู [tutorial นี้](https://hibbard.eu/install-ubuntu-virtual-box/)
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
+1. ไปที่ `~/.ssh/` และตรวจสอบว่ามี SSH key pair ไหม ถ้าไม่มี generate ด้วย `ssh-keygen -a 100 -t ed25519` แนะนำให้ใช้ password และ `ssh-agent` ดูข้อมูลเพิ่มเติม [ที่นี่](https://www.ssh.com/ssh/agent)
 
-1. Edit `.ssh/config` to have an entry as follows:
+1. แก้ไข `.ssh/config` ให้มี entry ดังนี้:
 
     ```bash
     Host vm
@@ -934,12 +838,12 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
         LocalForward 9999 localhost:8888
     ```
 
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. ใช้ `ssh-copy-id vm` เพื่อ copy ssh key ไปยัง server
 
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. เริ่ม webserver ใน VM ด้วย `python -m http.server 8888` แล้วเข้าถึงผ่าน `http://localhost:9999` บน machine ของคุณ
 
-1. Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. แก้ไข SSH server config ด้วย `sudo vim /etc/ssh/sshd_config` — ปิด password authentication โดยแก้ `PasswordAuthentication` และปิด root login โดยแก้ `PermitRootLogin` จากนั้น restart ด้วย `sudo service sshd restart` แล้วลอง ssh เข้าอีกครั้ง
 
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (Challenge) ติดตั้ง [`mosh`](https://mosh.org/) ใน VM แล้วสร้าง connection จากนั้น disconnect network adapter mosh สามารถ recover ได้ไหม?
 
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+1. (Challenge) ศึกษา flags `-N` และ `-f` ใน `ssh` และหาคำสั่งสำหรับทำ background port forwarding
