@@ -94,21 +94,23 @@ benefit from these resources. You can find posts and discussion on
 
 # Translations
 
+{% comment %} keep these in alphabetical order {% endcomment %}
+
+- [Arabic](https://missing-semester-ar.github.io/)
+- [Bengali](https://missing-semester-bn.github.io/)
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
+- [German](https://missing-semester-de.github.io/)
+- [Italian](https://missing-semester-it.github.io/)
 - [Japanese](https://missing-semester-jp.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
+- [Persian](https://missing-semester-fa.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
 - [Russian](https://missing-semester-rus.github.io/)
 - [Serbian](https://netboxify.com/missing-semester/)
 - [Spanish](https://missing-semester-esp.github.io/)
+- [Thai](https://missing-semester-th.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
-- [Arabic](https://missing-semester-ar.github.io/)
-- [Italian](https://missing-semester-it.github.io/)
-- [Persian](https://missing-semester-fa.github.io/)
-- [German](https://missing-semester-de.github.io/)
-- [Bengali](https://missing-semester-bn.github.io/)
-- [Thai](https://missing-semester-th.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
