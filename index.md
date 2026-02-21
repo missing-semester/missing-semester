@@ -108,6 +108,7 @@ benefit from these resources. You can find posts and discussion on
 - [Persian](https://missing-semester-fa.github.io/)
 - [German](https://missing-semester-de.github.io/)
 - [Bengali](https://missing-semester-bn.github.io/)
+- [Thai](https://missing-semester-th.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
