@@ -43,7 +43,7 @@ jobs:
             https://www.npmjs.com
             https://crates.io
             https://www.vagrantup.com/
-            https://www.nongnu.org/atool
+            https://www.nongnu.org/atool/
           ignore_url_re: |
             ^https://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
