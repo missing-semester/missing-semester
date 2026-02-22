@@ -102,6 +102,7 @@ benefit from these resources. You can find posts and discussion on
 - [German](https://missing-semester-de.github.io/)
 - [Italian](https://missing-semester-it.github.io/)
 - [Japanese](https://missing-semester-jp.github.io/)
+- [Kannada](https://missing-semester-kn.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
 - [Persian](https://missing-semester-fa.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
