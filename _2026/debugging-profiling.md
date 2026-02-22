@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "ಡಿಬಗ್ಗಿಂಗ್ ಮತ್ತು ಪ್ರೊಫೈಲಿಂಗ್"
 description: >
-  Learn how to debug programs using logging and debuggers, and how to profile code for performance.
+  ಲಾಗಿಂಗ್ ಮತ್ತು ಡಿಬಗ್ಗರ್‌ಗಳನ್ನು ಬಳಸಿ ಪ್ರೋಗ್ರಾಂಗಳನ್ನು ಹೇಗೆ ಡಿಬಗ್ ಮಾಡುವುದು, ಮತ್ತು ಕಾರ್ಯಕ್ಷಮತಿಗಾಗಿ ಕೋಡ್ ಅನ್ನು ಹೇಗೆ ಪ್ರೊಫೈಲ್ ಮಾಡುವುದು ಎಂಬುದನ್ನು ಕಲಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec4.png
 date: 2026-01-15
 ready: true
@@ -12,69 +12,66 @@ video:
   id: 8VYT9TcUmKs
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do. Bridging that gap can sometimes be a quite difficult feat. In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+ಪ್ರೋಗ್ರಾಮಿಂಗ್‌ನಲ್ಲಿನ ಒಂದು ಸುವರ್ಣ ನಿಯಮವೆಂದರೆ: ಕೋಡ್ ನೀವು ನಿರೀಕ್ಷಿಸುವುದನ್ನು ಮಾಡುವುದಿಲ್ಲ, ನೀವು ಅದಕ್ಕೆ ಹೇಳಿದುದನ್ನೇ ಮಾಡುತ್ತದೆ. ಈ ಅಂತರವನ್ನು ಭರ್ತಿಮಾಡುವುದು ಕೆಲವೊಮ್ಮೆ ಬಹಳ ಕಷ್ಟಕರವಾಗಿರಬಹುದು. ಈ ಉಪನ್ಯಾಸದಲ್ಲಿ ದೋಷಯುಕ್ತ ಮತ್ತು ಸಂಪನ್ಮೂಲ-ಆಹಾರಿ ಕೋಡ್‌ನೊಂದಿಗೆ ಕೆಲಸ ಮಾಡಲು ಉಪಯುಕ್ತ ತಂತ್ರಗಳನ್ನು ನೋಡೋಣ: ಡಿಬಗ್ಗಿಂಗ್ ಮತ್ತು ಪ್ರೊಫೈಲಿಂಗ್.
 
-# Debugging
+# ಡಿಬಗ್ಗಿಂಗ್
 
-## Printf Debugging and Logging
+## Printf ಡಿಬಗ್ಗಿಂಗ್ ಮತ್ತು ಲಾಗಿಂಗ್
 
-> "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+> "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" - Brian Kernighan, _Unix for Beginners_.
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+ಒಂದು ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಡಿಬಗ್ ಮಾಡಲು ಮೊದಲ ವಿಧಾನವೆಂದರೆ, ಸಮಸ್ಯೆಯನ್ನು ಕಂಡುಹಿಡಿದ ಸ್ಥಳದ ಸುತ್ತಲೂ print statements ಸೇರಿಸಿ, ಸಮಸ್ಯೆಗೆ ಕಾರಣವೇನು ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಾಕಷ್ಟು ಮಾಹಿತಿ ದೊರೆಯುವವರೆಗೆ ಅದನ್ನು ಮರುಮರು ಪ್ರಯತ್ನಿಸುವುದು.
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is essentially "printing with more care", and is usually done through a logging framework that includes built-in support for things like:
+ಎರಡನೇ ವಿಧಾನವೆಂದರೆ ad hoc print statements ಬದಲು ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂನಲ್ಲಿ logging ಬಳಸುವುದು. Logging ಎಂದರೆ ಮೂಲತಃ "ಹೆಚ್ಚು ಜಾಗ್ರತೆಯಿಂದ print ಮಾಡುವುದು", ಮತ್ತು ಸಾಮಾನ್ಯವಾಗಿ ಇದನ್ನು logging framework ಮೂಲಕ ಮಾಡಲಾಗುತ್ತದೆ. ಇವು ಸಾಮಾನ್ಯವಾಗಿ ಕೆಳಗಿನಂತಿರುವ built-in ಬೆಂಬಲವನ್ನು ಒಳಗೊಂಡಿರುತ್ತವೆ:
 
-- the ability to direct the logs (or subsets of the logs) to other output locations;
-- setting severity levels (such as INFO, DEBUG, WARN, ERROR, etc.) and allow you to filter the output according to those; and
-- support for structured logging of data related to the log entries, which can then be extracted more easily after the fact.
+- ಲಾಗ್‌ಗಳನ್ನು (ಅಥವಾ ಲಾಗ್‌ಗಳ ಉಪಸಮೂಹಗಳನ್ನು) ಬೇರೆ output ಸ್ಥಳಗಳಿಗೆ ಕಳುಹಿಸುವ ಸಾಮರ್ಥ್ಯ;
+- ತೀವ್ರತಾ ಮಟ್ಟಗಳನ್ನು (INFO, DEBUG, WARN, ERROR ಮುಂತಾದವು) ಹೊಂದಿಸಿ, ಅವುಗಳ ಆಧಾರದ ಮೇಲೆ output ಅನ್ನು ಫಿಲ್ಟರ್ ಮಾಡುವ ಸಾಮರ್ಥ್ಯ; ಮತ್ತು
+- log entries ಗೆ ಸಂಬಂಧಿಸಿದ ಡೇಟಾವನ್ನು structured logging ರೂಪದಲ್ಲಿ ಉಳಿಸುವ ಬೆಂಬಲ, ಇದರಿಂದ ನಂತರ ಅವನ್ನು ಸುಲಭವಾಗಿ ಹೊರತೆಗೆಯಬಹುದು.
 
-Logging statements you'll also usually proactively put in while
-programming so that the data you need to debug may already be there!
-And indeed, once you've found and fixed a problem using print
-statements, it's often worthwhile to convert those prints into proper
-log statements before removing them. This way, if similar bugs occur
-in the future, you'll already have the diagnostic information you need
-without modifying the code.
+ಸಾಮಾನ್ಯವಾಗಿ, ಡಿಬಗ್ಗಿಂಗ್‌ಗೆ ಬೇಕಾದ ಮಾಹಿತಿ ಮುಂಚೆಯೇ ಲಭ್ಯವಾಗಲೆಂದು ನೀವು ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಮಾಡುವಾಗಲೇ logging statements ಅನ್ನು ಪ್ರೋಆಕ್ಟಿವ್ ಆಗಿ ಸೇರಿಸುತ್ತೀರಿ.
+ಮತ್ತು ನಿಜಕ್ಕೂ, print statements ಬಳಸಿ ಸಮಸ್ಯೆಯನ್ನು ಕಂಡು ಸರಿಪಡಿಸಿದ ನಂತರ, ಅವನ್ನು ತೆಗೆದುಹಾಕುವ ಮೊದಲು ಸರಿಯಾದ log statements ಆಗಿ ಪರಿವರ್ತಿಸುವುದು ಬಹಳ ಉಪಯುಕ್ತ.
+ಈ ವಿಧಾನದಿಂದ ಮುಂದೆಯೂ ಹೋಲುವ ದೋಷಗಳು ಕಂಡುಬಂದರೆ,
+ಕೋಡ್ ಅನ್ನು ತಿದ್ದುಪಡಿ ಮಾಡದೇ ನಿಮಗೆ ಬೇಕಾದ diagnostic ಮಾಹಿತಿ ಈಗಾಗಲೇ ಲಭ್ಯವಾಗಿರುತ್ತದೆ.
 
-> **Third-party logs**: Many programs support the `-v` or `--verbose` flag to print more information when they run. This can be useful for discovering why a given command fails. Some even allow repeating the flag for more details. When debugging issues with services (databases, web servers, etc.), check their logs—often in `/var/log/` on Linux. Use `journalctl -u <service>` to view logs for systemd services. For third-party libraries, check if they support debug logging via environment variables or configuration.
+> **Third-party logs**: ಅನೇಕ ಪ್ರೋಗ್ರಾಂಗಳು ಚಾಲನೆಯಲ್ಲಿರುವಾಗ ಹೆಚ್ಚಿನ ಮಾಹಿತಿಯನ್ನು ಮುದ್ರಿಸಲು `-v` ಅಥವಾ `--verbose` flag ಅನ್ನು ಬೆಂಬಲಿಸುತ್ತವೆ. ನಿರ್ದಿಷ್ಟ command ಏಕೆ ವಿಫಲವಾಗುತ್ತಿದೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು ಇದು ಉಪಯುಕ್ತವಾಗಬಹುದು. ಕೆಲವು ಪ್ರೋಗ್ರಾಂಗಳು ಹೆಚ್ಚಿನ ವಿವರಗಳಿಗೆ flag ಅನ್ನು ಮರುಮರು ನೀಡಲು ಸಹ ಅವಕಾಶ ಕೊಡುತ್ತವೆ. services (databases, web servers, ಇತ್ಯಾದಿ) ಗೆ ಸಂಬಂಧಿಸಿದ ಸಮಸ್ಯೆಗಳನ್ನು ಡಿಬಗ್ ಮಾಡುವಾಗ, ಅವುಗಳ logs ಪರಿಶೀಲಿಸಿ - Linux ನಲ್ಲಿ ಸಾಮಾನ್ಯವಾಗಿ `/var/log/` ನಲ್ಲಿ ಇರುತ್ತವೆ. systemd services ಗಳ log ವೀಕ್ಷಿಸಲು `journalctl -u <service>` ಬಳಸಿ. third-party libraries ಗಾಗಿ, environment variables ಅಥವಾ configuration ಮೂಲಕ debug logging ಬೆಂಬಲವಿದೆಯೇ ಎಂದು ನೋಡಿ.
 
-## Debuggers
+## ಡಿಬಗ್ಗರ್‌ಗಳು
 
-Print debugging works well when you know what to print and can easily modify and re-run your code. Debuggers become valuable when you're not sure what information you need, when the bug only manifests in hard-to-reproduce conditions, or when modifying and restarting the program is expensive (long startup times, complex state to recreate, etc.).
+ನೀವು ಏನು print ಮಾಡಬೇಕು ಎಂದು ತಿಳಿದಿದ್ದಾಗ ಮತ್ತು ಕೋಡ್ ಅನ್ನು ಸುಲಭವಾಗಿ ತಿದ್ದುಪಡಿ ಮಾಡಿ ಮರುಚಾಲನೆ ಮಾಡಬಹುದಾಗಿದ್ದಾಗ print debugging ಉತ್ತಮವಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಆದರೆ ಯಾವ ಮಾಹಿತಿ ಬೇಕು ಎಂಬುದು ಸ್ಪಷ್ಟವಿಲ್ಲದಾಗ, ದೋಷವು ಪುನರುತ್ಪಾದಿಸಲು ಕಷ್ಟವಾದ ಸಂದರ್ಭಗಳಲ್ಲಿ ಮಾತ್ರ ಕಾಣಿಸಿಕೊಂಡಾಗ, ಅಥವಾ ಪ್ರೋಗ್ರಾಂ ತಿದ್ದುಪಡಿ ಮಾಡಿ ಮರುಪ್ರಾರಂಭಿಸುವುದು ದುಬಾರಿಯಾದಾಗ (ಉದಾ: ದೀರ್ಘ startup ಸಮಯ, ಮರುಸೃಷ್ಟಿಸಲು ಕಷ್ಟವಾದ ಸ್ಥಿತಿ) debuggers ಬಹಳ ಮೌಲ್ಯಮಯವಾಗುತ್ತವೆ.
 
-Debuggers are programs that let you interact with the execution of a program as it happens, allowing you to:
+ಡಿಬಗ್ಗರ್‌ಗಳು ಪ್ರೋಗ್ರಾಂ ಕಾರ್ಯಗತಗೊಳ್ಳುವ ಸಂದರ್ಭದಲ್ಲಿ ಅದರೊಂದಿಗೆ ಸಂವಹನ ಮಾಡಲು ಅವಕಾಶ ನೀಡುವ ಸಾಧನಗಳು. ಇವುಗಳ ಮೂಲಕ ನೀವು:
 
-- Halt execution when it reaches a certain line.
-- Step through one instruction at a time.
-- Inspect values of variables after a crash.
-- Conditionally halt execution when a given condition is met.
-- And many more advanced features.
+- ನಿರ್ದಿಷ್ಟ ಸಾಲಿಗೆ ತಲುಪಿದಾಗ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಬಹುದು.
+- ಒಂದೊಂದು instruction ಅನ್ನು ಹಂತ ಹಂತವಾಗಿ ನಡೆಸಬಹುದು.
+- crash ನಂತರ variable ಮೌಲ್ಯಗಳನ್ನು ಪರಿಶೀಲಿಸಬಹುದು.
+- ನಿರ್ದಿಷ್ಟ condition ಸತ್ಯವಾದಾಗ ಮಾತ್ರ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಬಹುದು.
+- ಮತ್ತು ಇನ್ನೂ ಅನೇಕ ಸುಧಾರಿತ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಬಳಸಬಹುದು.
 
-Most programming languages support (or come with) some form of debugger. The most versatile are **general-purpose debuggers** like [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) and [`lldb`](https://lldb.llvm.org/) (LLVM Debugger), which can debug any native binary. Many languages also have **language-specific debuggers** that integrate more tightly with the runtime (like Python's pdb or Java's jdb).
+ಬಹುತೇಕ programming languages ಗಳು debugger‌ನ ಯಾವುದೋ ರೂಪವನ್ನು ಬೆಂಬಲಿಸುತ್ತವೆ (ಅಥವಾ ಅದೊಂದಿಗೇ ಬರುತ್ತವೆ). ಅತ್ಯಂತ ಬಹುಮುಖವಾದವು **general-purpose debuggers** ಆಗಿರುವ [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) ಮತ್ತು [`lldb`](https://lldb.llvm.org/) (LLVM Debugger), ಇವು ಯಾವುದೇ native binary ಅನ್ನು ಡಿಬಗ್ ಮಾಡಬಲ್ಲವು. ಅನೇಕ ಭಾಷೆಗಳಿಗೆ runtime ಜೊತೆಗೆ ಹೆಚ್ಚು ಒಗ್ಗೂಡುವ **language-specific debuggers** ಕೂಡ ಇವೆ (ಉದಾ: Python‌ನ pdb, Java‌ನ jdb).
 
-`gdb` is the de-facto standard debugger for C, C++, Rust, and other compiled languages. It lets you probe pretty much any process and get its current machine state: registers, stack, program counter, and more.
+`gdb` C, C++, Rust ಮತ್ತು ಇತರೆ compiled languages ಗಾಗಿ de-facto standard debugger ಆಗಿದೆ. ಇದು ಯಾವುದಾದರೂ process ಅನ್ನು ಪರಿಶೀಲಿಸಲು ಮತ್ತು ಅದರ ಪ್ರಸ್ತುತ machine state - registers, stack, program counter ಮುಂತಾದವುಗಳನ್ನು - ತಿಳಿಯಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
-Some useful GDB commands:
+ಕೆಲವು ಉಪಯುಕ್ತ GDB commands:
 
-- `run` - Start the program
-- `b {function}` or `b {file}:{line}` - Set a breakpoint
-- `c` - Continue execution
-- `step` / `next` / `finish` - Step in / step over / step out
-- `p {variable}` - Print value of variable
-- `bt` - Show backtrace (call stack)
-- `watch {expression}` - Break when the value changes
+- `run` - ಪ್ರೋಗ್ರಾಂ ಪ್ರಾರಂಭಿಸು
+- `b {function}` ಅಥವಾ `b {file}:{line}` - breakpoint ಹೊಂದಿಸು
+- `c` - ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆ ಮುಂದುವರಿಸು
+- `step` / `next` / `finish` - ಒಳಗೆ ಹೋಗು / ಮೇಲಿಂದ ಮುಂದುವರಿಸು / ಹೊರಗೆ ಬಾ
+- `p {variable}` - variable ಮೌಲ್ಯ ಮುದ್ರಿಸು
+- `bt` - backtrace (call stack) ತೋರಿಸು
+- `watch {expression}` - ಮೌಲ್ಯ ಬದಲಾಗುವಾಗ break ಆಗು
 
-> Consider using GDB's TUI mode (`gdb -tui` or press `Ctrl-x a` inside GDB) for a split-screen view showing source code alongside the command prompt.
+> source code ಮತ್ತು command prompt ಅನ್ನು split-screen ನಲ್ಲಿ ನೋಡಲು GDBಯ TUI mode (`gdb -tui` ಅಥವಾ GDB ಒಳಗೆ `Ctrl-x a`) ಬಳಸುವುದನ್ನು ಪರಿಗಣಿಸಿ.
 
-### Record-Replay Debugging
+### Record-Replay ಡಿಬಗ್ಗಿಂಗ್
 
-Some of the most frustrating bugs are _Heisenbugs_: bugs that seem to disappear or change behavior when you try to observe them. Race conditions, timing-dependent bugs, and issues that only appear under certain system conditions fall into this category. Traditional debugging is often useless here because running the program again produces different behavior (e.g., print statements may slow down the code sufficiently that the race no longer happens).
+ಕೆಲವು ಅತ್ಯಂತ ಕಿರಿಕಿರಿ ಉಂಟುಮಾಡುವ ದೋಷಗಳು _Heisenbugs_ ಆಗಿರುತ್ತವೆ: ಅವನ್ನು ಗಮನಿಸಲು ಪ್ರಯತ್ನಿಸಿದಾಗ ಅವು ಕಾಣೆಯಾಗುವುದು ಅಥವಾ ವರ್ತನೆ ಬದಲಾಗುವುದು. race conditions, timing-dependent bugs, ಮತ್ತು ನಿರ್ದಿಷ್ಟ system ಪರಿಸ್ಥಿತಿಗಳಲ್ಲಿ ಮಾತ್ರ ಕಾಣಿಸಿಕೊಳ್ಳುವ ಸಮಸ್ಯೆಗಳು ಈ ವರ್ಗಕ್ಕೆ ಸೇರುತ್ತವೆ. ಇಂತಹ ಸಂದರ್ಭಗಳಲ್ಲಿ ಪರಂಪರागत ಡಿಬಗ್ಗಿಂಗ್ ಹೆಚ್ಚಾಗಿ ಫಲಕಾರಿಯಾಗುವುದಿಲ್ಲ, ಏಕೆಂದರೆ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಮತ್ತೆ ಓಡಿಸಿದಾಗ ವರ್ತನೆ ಬದಲಾಗಿರುತ್ತದೆ (ಉದಾ: print statements ಕಾರಣದಿಂದ code ನಿಧಾನವಾಗಿ ಓಡಿ race ನಡೆಯದೇ ಇರಬಹುದು).
 
-**Record-replay debugging** solves this by recording a program's execution and allowing you to replay it deterministically as many times as you need. Even better, you can _reverse_ through the execution to find exactly where things went wrong.
+**Record-replay debugging** ಈ ಸಮಸ್ಯೆಗೆ ಪರಿಹಾರ ನೀಡುತ್ತದೆ: ಪ್ರೋಗ್ರಾಂ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು ದಾಖಲಿಸಿ, ಅದನ್ನು deterministic ರೀತಿಯಲ್ಲಿ ಬೇಕಾದಷ್ಟು ಬಾರಿ replay ಮಾಡಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ. ಇನ್ನೂ ಉತ್ತಮವೆಂದರೆ, ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯಲ್ಲಿ _ಹಿಂದಕ್ಕೆ_ ಹೋಗಿ ದೋಷ ಎಲ್ಲಿ ಸಂಭವಿಸಿತು ಎಂಬುದನ್ನು ಖಚಿತವಾಗಿ ಕಂಡುಹಿಡಿಯಬಹುದು.
 
-[rr](https://rr-project.org/) is a powerful tool for Linux that records program execution and allows deterministic replay with full debugging capabilities. It works with GDB, so you already know the interface.
+[rr](https://rr-project.org/) Linux ಗಾಗಿ ಶಕ್ತಿಶಾಲಿ ಸಾಧನವಾಗಿದೆ. ಇದು ಪ್ರೋಗ್ರಾಂ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು ದಾಖಲಿಸಿ, ಸಂಪೂರ್ಣ debugging ಸಾಮರ್ಥ್ಯಗಳೊಂದಿಗೆ deterministic replay ಮಾಡಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ. ಇದು GDB ಜೊತೆ ಕೆಲಸ ಮಾಡುವುದರಿಂದ, interface ಈಗಾಗಲೇ ಪರಿಚಿತವಾಗಿರುತ್ತದೆ.
 
-Basic usage:
+ಮೂಲ ಬಳಕೆ:
 
 ```bash
 # Record a program execution
@@ -84,37 +81,37 @@ rr record ./my_program
 rr replay
 ```
 
-The magic happens during replay. Because the execution is deterministic, you can use **reverse debugging** commands:
+ನಿಜವಾದ ಶಕ್ತಿ replay ವೇಳೆ ಗೋಚರಿಸುತ್ತದೆ. ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆ deterministic ಆಗಿರುವುದರಿಂದ, ನೀವು **reverse debugging** commands ಬಳಸಬಹುದು:
 
-- `reverse-continue` (`rc`) - Run backwards until hitting a breakpoint
-- `reverse-step` (`rs`) - Step backwards one line
-- `reverse-next` (`rn`) - Step backwards, skipping function calls
-- `reverse-finish` - Run backwards until entering the current function
+- `reverse-continue` (`rc`) - breakpoint ತಲುಪುವವರೆಗೆ ಹಿಂದಕ್ಕೆ ಓಡು
+- `reverse-step` (`rs`) - ಒಂದು ಸಾಲು ಹಿಂದಕ್ಕೆ ಹಂತ ಹಾಕು
+- `reverse-next` (`rn`) - function calls ಬಿಟ್ಟು ಹಿಂದಕ್ಕೆ ಹಂತ ಹಾಕು
+- `reverse-finish` - ಪ್ರಸ್ತುತ function ಗೆ ಪ್ರವೇಶಿಸುವವರೆಗೆ ಹಿಂದಕ್ಕೆ ಓಡು
 
-This is incredibly powerful for debugging. Say you have a crash—instead of guessing where the bug is and setting breakpoints, you can:
+ಡಿಬಗ್ಗಿಂಗ್‌ಗಾಗಿ ಇದು ಅತ್ಯಂತ ಶಕ್ತಿಯುತ ವಿಧಾನವಾಗಿದೆ. ಉದಾಹರಣೆಗೆ crash ಆಗಿದೆ ಎಂದ್ಕೊಳ್ಳಿ - ದೋಷ ಎಲ್ಲಿರಬಹುದು ಎಂದು ಊಹಿಸಿ breakpoints ಹಾಕುವುದಕ್ಕೆ ಬದಲು, ನೀವು:
 
-1. Run to the crash
-2. Inspect the corrupted state
-3. Set a watchpoint on the corrupted variable
-4. `reverse-continue` to find exactly where it was corrupted
+1. crash ವರೆಗೆ ಓಡಿಸಿ
+2. corrupted state ಪರಿಶೀಲಿಸಿ
+3. corrupted variable ಮೇಲೆ watchpoint ಹೊಂದಿಸಿ
+4. `reverse-continue` ಬಳಸಿ ಅದು ಎಲ್ಲಿ corrupt ಆಯಿತು ಎಂದು ಖಚಿತವಾಗಿ ಕಂಡುಹಿಡಿಯಿರಿ
 
-**When to use rr:**
-- Flaky tests that fail intermittently
-- Race conditions and threading bugs
-- Crashes that are hard to reproduce
-- Any bug where you wish you could "go back in time"
+**rr ಅನ್ನು ಯಾವಾಗ ಬಳಸಬೇಕು:**
+- ಮಧ್ಯಂತರವಾಗಿ ವಿಫಲವಾಗುವ flaky tests
+- race conditions ಮತ್ತು threading bugs
+- ಪುನರುತ್ಪಾದಿಸಲು ಕಷ್ಟವಾದ crashes
+- "ಸಮಯದಲ್ಲಿ ಹಿಂದೆ ಹೋಗಬಹುದೇ?" ಎಂದು ನೀವು ಬಯಸುವ ಯಾವುದೇ bug
 
-> Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instances, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
+> ಗಮನಿಸಿ: rr Linux ನಲ್ಲಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಮತ್ತು hardware performance counters ಅಗತ್ಯವಿರುತ್ತವೆ. ಈ counters ಅನ್ನು expose ಮಾಡದ VMಗಳಲ್ಲಿ (ಉದಾ: ಬಹುತೇಕ AWS EC2 instances) ಇದು ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ, ಮತ್ತು GPU access ಗೆ ಬೆಂಬಲವಿಲ್ಲ. macOSಗಾಗಿ [Warpspeed](https://warpspeed.dev/) ನೋಡಿ.
 
-> **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
+> **rr ಮತ್ತು concurrency**: rr ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು deterministicವಾಗಿ ದಾಖಲಿಸುವುದರಿಂದ, ಇದು thread scheduling ಅನ್ನು serialize ಮಾಡುತ್ತದೆ. ಅಂದರೆ ನಿರ್ದಿಷ್ಟ timing ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿರುವ ಕೆಲವು race conditions rr ಅಡಿ ಕಾಣಿಸದೇ ಇರಬಹುದು. ಆದರೂ rr race debugging ಗೆ ಉಪಯುಕ್ತವೇ - ಒಮ್ಮೆ failing run ಅನ್ನು capture ಮಾಡಿದರೆ ಅದನ್ನು ವಿಶ್ವಾಸಾರ್ಹವಾಗಿ replay ಮಾಡಬಹುದು - ಆದರೆ intermittent bug ಹಿಡಿಯಲು ಹಲವು recording ಪ್ರಯತ್ನಗಳು ಬೇಕಾಗಬಹುದು. concurrency ಸೇರದ ದೋಷಗಳಿಗೆ rr ಅತ್ಯಂತ ಉತ್ತಮ: ನೀವು ಅದೇ ಕಾರ್ಯಗತಗೊಳಿಸುವಿಕೆಯನ್ನು ಎಂದಿಗೂ ಪುನರುತ್ಪಾದಿಸಿ reverse debugging ಮೂಲಕ corruption ಹಂತವರೆಗೆ ತಲುಪಬಹುದು.
 
-## System Call Tracing
+## System Call ಟ್ರೇಸಿಂಗ್
 
-Sometimes you need to understand how your program interacts with the operating system. Programs make [system calls](https://en.wikipedia.org/wiki/System_call) to request services from the kernel—opening files, allocating memory, creating processes, and more. Tracing these calls can reveal why a program is hanging, what files it's trying to access, or where it's spending time waiting.
+ಕೆಲವೊಮ್ಮೆ ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂ operating system ಜೊತೆ ಹೇಗೆ ಸಂವಹನ ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕಾಗುತ್ತದೆ. ಪ್ರೋಗ್ರಾಂಗಳು kernel ನಿಂದ ಸೇವೆಗಳನ್ನು ಕೇಳಲು [system calls](https://en.wikipedia.org/wiki/System_call) ಮಾಡುತ್ತವೆ - files ತೆರೆಯುವುದು, memory allocate ಮಾಡುವುದು, processes ರಚಿಸುವುದು ಮುಂತಾದವು. ಈ calls ಅನ್ನು trace ಮಾಡುವುದರಿಂದ ಪ್ರೋಗ್ರಾಂ ಏಕೆ hang ಆಗುತ್ತಿದೆ, ಯಾವ files ಅನ್ನು access ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದೆ, ಅಥವಾ ಯಾವ ಸ್ಥಳದಲ್ಲಿ ಕಾಯುವಿಕೆಯಲ್ಲಿ ಸಮಯ ಕಳೆಯುತ್ತಿದೆ ಎಂಬುದು ಗೊತ್ತಾಗಬಹುದು.
 
-### strace (Linux) and dtruss (macOS)
+### strace (Linux) ಮತ್ತು dtruss (macOS)
 
-[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) lets you observe every system call a program makes:
+[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) ಪ್ರೋಗ್ರಾಂ ಮಾಡುವ ಪ್ರತಿಯೊಂದು system call ಅನ್ನು ಗಮನಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ:
 
 ```bash
 # Trace all system calls
@@ -133,13 +130,13 @@ strace -p <PID>
 strace -T ./my_program
 ```
 
-> On macOS and BSD, use [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (which wraps `dtrace`) for similar functionality:
+> macOS ಮತ್ತು BSD ಯಲ್ಲಿ, ಸಮಾನ ಕಾರ್ಯಕ್ಷಮತೆಗೆ [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (ಇದು `dtrace` ಅನ್ನು wrap ಮಾಡುತ್ತದೆ) ಬಳಸಿ:
 
-> For deeper dives into `strace`, check out Julia Evans' excellent [strace zine](https://jvns.ca/strace-zine-unfolded.pdf).
+> `strace` ಕುರಿತು ಇನ್ನಷ್ಟು ಆಳವಾಗಿ ತಿಳಿಯಲು Julia Evans ಅವರ ಅತ್ಯುತ್ತಮ [strace zine](https://jvns.ca/strace-zine-unfolded.pdf) ನೋಡಿ.
 
-### bpftrace and eBPF
+### bpftrace ಮತ್ತು eBPF
 
-[eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) is a powerful Linux technology that allows running sandboxed programs in the kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) provides a high-level syntax for writing eBPF programs. These are arbitrary programs running in the kernel, and thus have huge expressive power (though also a somewhat clumsy awk-like syntax). The most common use-case for them is to investigate what system calls are being invoked, including aggregations (like counts or latency statistics) or introspecting (or even filtering on) system call arguments.
+[eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) Linux ನಲ್ಲಿನ ಶಕ್ತಿಶಾಲಿ ತಂತ್ರಜ್ಞಾನವಾಗಿದೆ; ಇದು kernel ಒಳಗೆ sandboxed programs ಓಡಿಸಲು ಅವಕಾಶ ಮಾಡುತ್ತದೆ. [`bpftrace`](https://github.com/iovisor/bpftrace) eBPF programs ಬರೆಯಲು high-level syntax ಒದಗಿಸುತ್ತದೆ. ಇವು kernel ನಲ್ಲಿ ನಡೆಯುವ arbitrary programs ಆಗಿರುವುದರಿಂದ, ಅವುಗಳಿಗೆ ದೊಡ್ಡ ಮಟ್ಟದ expressive power ಇದೆ (ಆದರೆ ಸ್ವಲ್ಪ awk-like ಅಸೌಕರ್ಯಕರ syntax ಸಹ ಇದೆ). ಇವುಗಳ ಸಾಮಾನ್ಯ ಬಳಕೆ ಪ್ರಕರಣವೆಂದರೆ ಯಾವ system calls invoke ಆಗುತ್ತಿವೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸುವುದು - aggregations (ಉದಾ: counts ಅಥವಾ latency statistics) ಸೇರಿದಂತೆ - ಅಥವಾ system call arguments ಅನ್ನು introspect (ಅಥವಾ filter) ಮಾಡುವುದು.
 
 ```bash
 # Trace file opens system-wide (prints immediately)
@@ -149,9 +146,9 @@ sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm,
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
 ```
 
-However, you can also write eBPF programs directly in C using a toolchain like [`bcc`](https://github.com/iovisor/bcc), which also ships with [many handy tools](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) like `biosnoop` for printing latency distributions for disk operations or `opensnoop` for printing all open files.
+ಆದರೆ, [`bcc`](https://github.com/iovisor/bcc) போன்ற toolchain ಬಳಸಿ eBPF programs ಅನ್ನು ನೇರವಾಗಿ C ಯಲ್ಲಿ ಬರೆಯಬಹುದು. ಇದರಲ್ಲಿ `biosnoop` (disk operations ಗೆ latency distributions ಮುದ್ರಿಸಲು) ಅಥವಾ `opensnoop` (open files ಎಲ್ಲವನ್ನೂ ಮುದ್ರಿಸಲು) ಮುಂತಾದ [ಬಹಳ ಉಪಯುಕ್ತ ಸಾಧನಗಳು](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) ಕೂಡ ದೊರಕುತ್ತವೆ.
 
-Where `strace` is useful because it's easy to "just get up and running", `bpftrace` is what you should reach for when you need lower overhead, want to trace through kernel functions, need to do any kind of aggregation, etc. Note that `bpftrace` has to run as `root` though, and that it generally monitors the entire kernel, not just a particular process. To target a specific program, you can filter by command name or PID:
+`strace` ನ ಲಾಭವೆಂದರೆ ಅದನ್ನು ತಕ್ಷಣವೇ ಸುಲಭವಾಗಿ ಪ್ರಾರಂಭಿಸಬಹುದು. ಆದರೆ ಕಡಿಮೆ overhead ಬೇಕಾದಾಗ, kernel functions ಮೂಲಕ trace ಮಾಡಬೇಕಾದಾಗ, ಅಥವಾ ಯಾವುದಾದರೂ aggregation ಬೇಕಾದಾಗ `bpftrace` ಅನ್ನು ಬಳಸುವುದು ಸೂಕ್ತ. ಆದರೆ `bpftrace` ಅನ್ನು `root` ಆಗಿ ಓಡಿಸಬೇಕು, ಹಾಗೂ ಇದು ಸಾಮಾನ್ಯವಾಗಿ ನಿರ್ದಿಷ್ಟ process ಮಾತ್ರವಲ್ಲದೆ ಸಂಪೂರ್ಣ kernel ಅನ್ನು monitor ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ಗಮನಿಸಿ. ನಿರ್ದಿಷ್ಟ program ಗುರಿಯಾಗಬೇಕಾದರೆ command name ಅಥವಾ PID ಆಧಾರವಾಗಿ filter ಮಾಡಬಹುದು:
 
 ```bash
 # Filter by command name (prints summary on Ctrl-C)
@@ -161,11 +158,11 @@ sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "bash"/ { @[probe] = 
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == cpid/ { @[probe] = count(); }' -c 'ls -la'
 ```
 
-The `-c` flag runs the specified command and sets `cpid` to its PID, which is useful for tracing a program from the moment it starts. When the traced command exits, bpftrace prints the aggregated results.
+`-c` flag ನಿರ್ದಿಷ್ಟ command ಅನ್ನು ಓಡಿಸಿ ಅದರ PID ಅನ್ನು `cpid` ಗೆ ಹೊಂದಿಸುತ್ತದೆ. ಪ್ರೋಗ್ರಾಂ ಪ್ರಾರಂಭವಾದ ಕ್ಷಣದಿಂದ trace ಮಾಡಲು ಇದು ಉಪಯುಕ್ತ. trace ಆಗುತ್ತಿರುವ command ಮುಗಿದ ನಂತರ bpftrace aggregated ಫಲಿತಾಂಶಗಳನ್ನು ಮುದ್ರಿಸುತ್ತದೆ.
 
-### Network Debugging
+### ನೆಟ್ವರ್ಕ್ ಡಿಬಗ್ಗಿಂಗ್
 
-For network issues, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) let you capture and analyze network packets:
+ನೆಟ್ವರ್ಕ್ ಸಮಸ್ಯೆಗಳಿಗಾಗಿ [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) ಮತ್ತು [Wireshark](https://www.wireshark.org/) ಬಳಸಿ network packets capture ಮಾಡಿ ವಿಶ್ಲೇಷಿಸಬಹುದು:
 
 ```bash
 # Capture packets on port 80
@@ -175,16 +172,16 @@ sudo tcpdump -i any port 80
 sudo tcpdump -i any -w capture.pcap
 ```
 
-For HTTPS traffic, the encryption makes tcpdump less useful. Tools like [mitmproxy](https://mitmproxy.org/) can act as an intercepting proxy to inspect encrypted traffic. Browser developer tools (Network tab) are often the easiest way to debug HTTPS requests from web applications—they show decrypted request/response data, headers, and timing.
+HTTPS traffic ಗಾಗಿ encryption ಇರುವುದರಿಂದ tcpdump ಕಡಿಮೆ ಉಪಯುಕ್ತವಾಗಬಹುದು. [mitmproxy](https://mitmproxy.org/) போன்ற tools intercepting proxy ಆಗಿ ಕೆಲಸಮಾಡಿ encrypted traffic ಪರಿಶೀಲಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ. web applications ನ HTTPS requests ಡಿಬಗ್ ಮಾಡಲು browser developer tools (Network tab) ಸಾಮಾನ್ಯವಾಗಿ ಸುಲಭ ವಿಧಾನವಾಗಿದೆ - ಇವು decrypted request/response data, headers, ಮತ್ತು timing ತೋರಿಸುತ್ತವೆ.
 
-## Memory Debugging
+## ಮೆಮೊರಿ ಡಿಬಗ್ಗಿಂಗ್
 
-Memory bugs—buffer overflows, use-after-free, memory leaks—are among the most dangerous and difficult to debug. They often don't crash immediately but corrupt memory in ways that cause problems much later.
+buffer overflows, use-after-free, memory leaks ಮುಂತಾದ memory bugs ಅತ್ಯಂತ ಅಪಾಯಕಾರಿ ಮತ್ತು ಡಿಬಗ್ ಮಾಡಲು ಕಷ್ಟವಾದವುಗಳಾಗಿವೆ. ಇವು ತಕ್ಷಣ crash ಆಗದೇ, ನಂತರದ ಹಂತಗಳಲ್ಲಿ ಸಮಸ್ಯೆ ಉಂಟುಮಾಡುವ ರೀತಿಯಲ್ಲಿ memory ಅನ್ನು ಹಾಳುಮಾಡಬಹುದು.
 
 ### Sanitizers
 
-One approach to finding memory bugs is to use **sanitizers**, which are compiler features that instrument your code to detect errors at runtime. For example, the widely used **AddressSanitizer (ASan)** detects:
-- Buffer overflows (stack, heap, and global)
+memory bugs ಹುಡುಕುವ ಒಂದು ವಿಧಾನವೆಂದರೆ **sanitizers** ಬಳಸುವುದು. ಇವು compiler ವೈಶಿಷ್ಟ್ಯಗಳು; runtime ನಲ್ಲಿ errors ಪತ್ತೆಹಚ್ಚಲು ನಿಮ್ಮ code ಅನ್ನು instrument ಮಾಡುತ್ತವೆ. ಉದಾಹರಣೆಗೆ ವ್ಯಾಪಕವಾಗಿ ಬಳಕೆಯಲ್ಲಿರುವ **AddressSanitizer (ASan)** ಕೆಳಗಿನ ದೋಷಗಳನ್ನು ಪತ್ತೆಹಚ್ಚುತ್ತದೆ:
+- Buffer overflows (stack, heap, ಮತ್ತು global)
 - Use-after-free
 - Use-after-return
 - Memory leaks
@@ -195,66 +192,66 @@ gcc -fsanitize=address -g program.c -o program
 ./program
 ```
 
-There are a variety of useful sanitizers:
+ಉಪಯುಕ್ತವಾದ ಹಲವು sanitizers ಲಭ್ಯವಿವೆ:
 
-- **ThreadSanitizer (TSan)**: Detects data races in multithreaded code (`-fsanitize=thread`)
-- **MemorySanitizer (MSan)**: Detects reads of uninitialized memory (`-fsanitize=memory`)
-- **UndefinedBehaviorSanitizer (UBSan)**: Detects undefined behavior like integer overflow (`-fsanitize=undefined`)
+- **ThreadSanitizer (TSan)**: multithreaded code ನಲ್ಲಿ data races ಪತ್ತೆಹಚ್ಚುತ್ತದೆ (`-fsanitize=thread`)
+- **MemorySanitizer (MSan)**: uninitialized memory ಓದುಗಳನ್ನು ಪತ್ತೆಹಚ್ಚುತ್ತದೆ (`-fsanitize=memory`)
+- **UndefinedBehaviorSanitizer (UBSan)**: integer overflow ಮುಂತಾದ undefined behavior ಪತ್ತೆಹಚ್ಚುತ್ತದೆ (`-fsanitize=undefined`)
 
-Sanitizers require recompilation but are fast enough to use in CI pipelines and during regular development.
+sanitizers ಬಳಸಲು recompilation ಅಗತ್ಯ, ಆದರೆ CI pipelines ಮತ್ತು ದೈನಂದಿನ development ನಲ್ಲಿ ಬಳಕೆಗೆ ಸಾಕಷ್ಟು ವೇಗವಾಗಿವೆ.
 
-### Valgrind: When You Can't Recompile
+### Valgrind: ಮರುಸಂಕಲನ ಸಾಧ್ಯವಿಲ್ಲದಾಗ
 
-[Valgrind](https://valgrind.org/) instead runs your program in something akin to a virtual machine to detect memory errors. It's slower than sanitizers but doesn't require recompilation:
+[Valgrind](https://valgrind.org/) memory errors ಪತ್ತೆಹಚ್ಚಲು ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು virtual machine ಗೆ ಸಮಾನವಾದ ನಿಯಂತ್ರಿತ ಪರಿಸರದಲ್ಲಿ ಓಡಿಸುತ್ತದೆ. sanitizers ಗಿಂತ ನಿಧಾನ, ಆದರೆ recompilation ಅಗತ್ಯವಿಲ್ಲ:
 
 ```bash
 valgrind --leak-check=full ./my_program
 ```
 
-Use Valgrind when:
-- You don't have source code
-- You can't recompile (third-party libraries)
-- You need specific tools not available as sanitizers
+ಈ ಸಂದರ್ಭಗಳಲ್ಲಿ Valgrind ಬಳಸಿ:
+- source code ಇಲ್ಲದಿದ್ದಾಗ
+- ಮರುಸಂಕಲನ ಮಾಡಲು ಆಗದಿದ್ದಾಗ (third-party libraries)
+- sanitizers ರೂಪದಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲದ ನಿರ್ದಿಷ್ಟ tools ಬೇಕಾದಾಗ
 
-Valgrind is actually a really powerful controlled execution environment, and we'll see more of it later when we get to profiling!
+Valgrind ನಿಜವಾಗಿ ಬಹಳ ಶಕ್ತಿಯುತ ನಿಯಂತ್ರಿತ execution environment ಆಗಿದೆ. profiling ವಿಭಾಗಕ್ಕೆ ಬಂದಾಗ ಇದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ನೋಡುತ್ತೇವೆ.
 
-## AI for Debugging
+## ಡಿಬಗ್ಗಿಂಗ್‌ಗಾಗಿ AI
 
-Large language models have become surprisingly useful debugging assistants. They excel at certain debugging tasks that complement traditional tools.
+Large language models ಪರಂಪರಾಗತ tools ಗೆ ಪೂರಕವಾಗುವ ರೀತಿಯಲ್ಲಿ ಆಶ್ಚರ್ಯಕರವಾಗಿ ಉಪಯುಕ್ತ debugging assistants ಆಗಿವೆ. ನಿರ್ದಿಷ್ಟ ರೀತಿಯ debugging ಕಾರ್ಯಗಳಲ್ಲಿ ಇವು ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿ.
 
-**Where LLMs shine:**
+**LLMs ಉತ್ತಮವಾಗಿ ನೆರವಾಗುವ ಸ್ಥಳಗಳು:**
 
-- **Explaining cryptic error messages**: Compiler errors, especially from C++ templates or Rust's borrow checker, can be notoriously cryptic. LLMs can translate them into plain English and suggest fixes.
+- **ಗುಂಗುರುವ error messages ವಿವರಣೆ**: Compiler errors - ವಿಶೇಷವಾಗಿ C++ templates ಅಥವಾ Rust borrow checker ನವು - ಬಹಳ ಗೂಢವಾಗಿರಬಹುದು. LLMs ಅವನ್ನು ಸರಳ ಭಾಷೆಗೆ ಅನುವಾದಿಸಿ ತಿದ್ದುಪಡಿ ಸಲಹೆಗಳನ್ನು ನೀಡಬಹುದು.
 
-- **Traversing language and abstraction boundaries**: If you're debugging a problem that spans multiple languages (say, a bug in a C library that manifests through a Python binding), LLMs can help navigate the different layers. They're particularly good at understanding FFI boundaries, build system issues, and cross-language debugging (e.g., my program errors, but I believe it is because of a bug in one of my dependencies).
+- **ಭಾಷೆ ಮತ್ತು abstraction ಗಡಿಗಳನ್ನು ದಾಟುವುದು**: ಹಲವು ಭಾಷೆಗಳನ್ನು ಅಡ್ಡಬರುವ ದೋಷವನ್ನು (ಉದಾ: Python binding ಮೂಲಕ ಕಾಣಿಸಿಕೊಳ್ಳುವ C library ದೋಷ) ಡಿಬಗ್ ಮಾಡುತ್ತಿರುವಾಗ, LLMs ವಿಭಿನ್ನ ಪದರಗಳನ್ನು ಅನ್ವೇಷಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ. FFI boundaries, build system issues, ಮತ್ತು cross-language debugging ನಲ್ಲಿ ಇವು ವಿಶೇಷವಾಗಿ ಉತ್ತಮ (ಉದಾ: ನನ್ನ ಪ್ರೋಗ್ರಾಂ ದೋಷ ತೋರಿಸುತ್ತದೆ, ಆದರೆ ಅದು dependency ಯ ದೋಷ ಎಂದು ನಾನು ನಂಬುತ್ತೇನೆ).
 
-- **Correlating symptoms with root causes**: "My program works fine but uses 10x more memory than expected" is the kind of vague symptom that LLMs can help investigate, suggesting likely causes and what to look for.
+- **ಲಕ್ಷಣಗಳು ಮತ್ತು ಮೂಲ ಕಾರಣಗಳ ನಡುವೆ ಸಂಬಂಧ ಕಂಡುಹಿಡಿಯುವುದು**: "ನನ್ನ ಪ್ರೋಗ್ರಾಂ ಸರಿಯಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಆದರೆ ನಿರೀಕ್ಷಿತಕ್ಕಿಂತ 10x memory ಹೆಚ್ಚು ಬಳಕೆ ಮಾಡುತ್ತಿದೆ" ಎಂಬಂತ ಅಸ್ಪಷ್ಟ ಲಕ್ಷಣಗಳನ್ನು ಪರಿಶೀಲಿಸಲು LLMs ಸಾಧ್ಯ ಕಾರಣಗಳು ಮತ್ತು ಯಾವ ಅಂಶಗಳನ್ನು ಪರೀಕ್ಷಿಸಬೇಕು ಎಂಬುದರ ಬಗ್ಗೆ ದಿಕ್ಕು ತೋರಿಸುತ್ತವೆ.
 
-- **Analyzing crash dumps and stack traces**: Paste a stack trace and ask what might have caused it.
+- **crash dumps ಮತ್ತು stack traces ವಿಶ್ಲೇಷಣೆ**: stack trace ಅಂಟಿಸಿ, ಅದಕ್ಕೆ ಸಾಧ್ಯ ಕಾರಣಗಳ ಬಗ್ಗೆ ಪ್ರಶ್ನಿಸಬಹುದು.
 
-> **Note on debug symbols**: For meaningful stack traces and debugging, ensure your binaries (and any linked libraries) are compiled with debug symbols (`-g` flag). Debug information is typically stored in DWARF format. Additionally, compiling with frame pointers (`-fno-omit-frame-pointer`) makes stack traces more reliable, especially for profiling tools. Without these, stack traces may show only memory addresses or be incomplete. This matters more for natively compiled programs (C++, Rust) than Python or Java.
+> **debug symbols ಬಗ್ಗೆ ಗಮನಿಸಿ**: ಅರ್ಥಪೂರ್ಣ stack traces ಮತ್ತು debugging ಗಾಗಿ, binaries (ಮತ್ತು link ಆಗಿರುವ libraries) debug symbols (`-g` flag) ಜೊತೆ compile ಆಗಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿ. debug ಮಾಹಿತಿ ಸಾಮಾನ್ಯವಾಗಿ DWARF format ನಲ್ಲಿ ಸಂಗ್ರಹವಾಗಿರುತ್ತದೆ. ಜೊತೆಗೆ frame pointers (`-fno-omit-frame-pointer`) ಜೊತೆ compile ಮಾಡಿದರೆ stack traces ಹೆಚ್ಚು ವಿಶ್ವಾಸಾರ್ಹವಾಗುತ್ತವೆ - ವಿಶೇಷವಾಗಿ profiling tools ಗಾಗಿ. ಇಲ್ಲದಿದ್ದರೆ stack traces ನಲ್ಲಿ memory addresses ಮಾತ್ರ ಕಾಣಿಸಬಹುದು ಅಥವಾ ಅವು ಅಪೂರ್ಣವಾಗಿರಬಹುದು. ಇದು Python ಅಥವಾ Java ಗಿಂತ native compiled programs (C++, Rust) ಗಾಗಿ ಹೆಚ್ಚು ಮಹತ್ವದ್ದಾಗಿದೆ.
 
-**Limitations to keep in mind:**
-- LLMs can hallucinate plausible-sounding but wrong explanations
-- They may suggest fixes that mask the bug rather than fix it
-- Always verify suggestions with actual debugging tools
-- They work best as a complement to, not replacement for, understanding your code
+**ಗಮನದಲ್ಲಿರಬೇಕಾದ ಮಿತಿಗಳು:**
+- LLMs ಯುಕ್ತಿಯುಕ್ತವಾಗಿ ಕೇಳಿಸಬಹುದಾದರೂ ತಪ್ಪಾದ ವಿವರಣೆಗಳನ್ನು (hallucinations) ನೀಡಬಹುದು
+- ಅವು ದೋಷವನ್ನು ಸರಿಪಡಿಸುವ ಬದಲು ಅದನ್ನು ಮಸುಕಾಗಿಸುವ ತಿದ್ದುಪಡಿಗಳನ್ನು ಸೂಚಿಸಬಹುದು
+- ಸಲಹೆಗಳನ್ನು ಯಾವಾಗಲೂ ನೈಜ debugging tools ಬಳಸಿ ಪರಿಶೀಲಿಸಿ
+- ಇವು ನಿಮ್ಮ code ಅರಿವಿಗೆ ಪರ್ಯಾಯವಲ್ಲ; ಪೂರಕ ಮಾತ್ರ
 
-> This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
+> ಇದು Development Environment ಉಪನ್ಯಾಸದಲ್ಲಿ ಒಳಗೊಂಡಿರುವ [general AI coding capabilities](/2026/development-environment/#ai-powered-development) ಇಂದ ಭಿನ್ನವಾಗಿದೆ. ಇಲ್ಲಿ ನಾವು ವಿಶೇಷವಾಗಿ LLMs ಅನ್ನು debugging ನೆರವಿಗಾಗಿ ಬಳಸುವ ಬಗ್ಗೆ ಮಾತನಾಡುತ್ತಿದ್ದೇವೆ.
 
-# Profiling
+# ಪ್ರೊಫೈಲಿಂಗ್
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+ನಿಮ್ಮ code ಕಾರ್ಯಾತ್ಮಕವಾಗಿ ಸರಿಯಾಗಿದ್ದರೂ, ಅದೇ ಸಮಯದಲ್ಲಿ ಎಲ್ಲ CPU ಅಥವಾ memory ಸಂಪನ್ಮೂಲಗಳನ್ನು ಉಪಯೋಗಿಸಿದರೆ ಅದು ಸಾಕಾಗುವುದಿಲ್ಲ. algorithms ತರಗತಿಗಳು ಸಾಮಾನ್ಯವಾಗಿ big _O_ notation ಅನ್ನು ಕಲಿಸುತ್ತವೆ, ಆದರೆ ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂಗಳಲ್ಲಿ hot spots ಹೇಗೆ ಕಂಡುಹಿಡಿಯುವುದು ಎಂಬುದನ್ನು ಕಲಿಸುವುದಿಲ್ಲ. [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization) ಎಂಬುದರಿಂದ, profilers ಮತ್ತು monitoring tools ಬಗ್ಗೆ ಕಲಿಯುವುದು ಮುಖ್ಯ. ಇವು ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂನ ಯಾವ ಭಾಗಗಳಲ್ಲಿ ಹೆಚ್ಚು ಸಮಯ ಮತ್ತು/ಅಥವಾ ಸಂಪನ್ಮೂಲ ಬಳಕೆಯಾಗುತ್ತಿದೆ ಎಂಬುದನ್ನು ತಿಳಿಸಿ, ನೀವು ಸುಧಾರಣೆಗೊಳಿಸಬೇಕಾದ ಭಾಗಗಳ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.
 
-## Timing
+## ಸಮಯ ಮಾಪನ
 
-The simplest way to measure performance is to time things. In many scenarios it can be enough to just print the time it took your code between two points.
+ಕಾರ್ಯಕ್ಷಮತೆ ಅಳೆಯುವ ಅತ್ಯಂತ ಸರಳ ವಿಧಾನವೆಂದರೆ ಸಮಯ ಮಾಪನ. ಅನೇಕ ಸಂದರ್ಭಗಳಲ್ಲಿ ನಿಮ್ಮ code ನಲ್ಲಿ ಎರಡು ಬಿಂದುಗಳ ನಡುವೆ ತೆಗೆದುಕೊಂಡ ಸಮಯವನ್ನು print ಮಾಡಿದರೆ ಸಾಕಾಗಬಹುದು.
 
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. The `time` command distinguishes between _Real_, _User_, and _Sys_ time:
+ಆದರೆ wall clock time ತಪ್ಪುದಾರಿ ತೋರಿಸಬಹುದು, ಏಕೆಂದರೆ ನಿಮ್ಮ ಕಂಪ್ಯೂಟರ್ ಸಮಕಾಲೀನವಾಗಿ ಬೇರೆ processes ಓಡಿಸುತ್ತಿರಬಹುದು ಅಥವಾ ಘಟನೆಗಳಿಗಾಗಿ ಕಾಯುತ್ತಿರಬಹುದು. `time` command _Real_, _User_, ಮತ್ತು _Sys_ ಸಮಯಗಳನ್ನು ಪ್ರತ್ಯೇಕಿಸುತ್ತದೆ:
 
-- **Real** - Wall clock time from start to finish, including time spent waiting
-- **User** - Time spent in the CPU running user code
-- **Sys** - Time spent in the CPU running kernel code
+- **Real** - ಆರಂಭದಿಂದ ಅಂತ್ಯವರೆಗಿನ wall clock ಸಮಯ, ಕಾಯುವ ಸಮಯ ಸಹಿತ
+- **User** - user code ನಡೆಸುವಾಗ CPU ನಲ್ಲಿ ಕಳೆದ ಸಮಯ
+- **Sys** - kernel code ನಡೆಸುವಾಗ CPU ನಲ್ಲಿ ಕಳೆದ ಸಮಯ
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -263,58 +260,58 @@ user	0m0.079s
 sys	    0m0.028s
 ```
 
-Here the request took nearly 300 milliseconds (real time) but only 107ms of CPU time (user + sys). The rest was waiting for the network.
+ಈ ಉದಾಹರಣೆಯಲ್ಲಿ request ಸುಮಾರು 300 milliseconds (real time) ತೆಗೆದುಕೊಂಡರೂ, CPU ಸಮಯ ಕೇವಲ 107ms (user + sys) ಮಾತ್ರ. ಉಳಿದದ್ದು network ಕಾಯುವಿಕೆಯಲ್ಲಿ ಕಳೆದಿದೆ.
 
-## Resource Monitoring
+## ಸಂಪನ್ಮೂಲ ಮಾನಿಟರಿಂಗ್
 
-Sometimes the first step towards analyzing the performance of your program is to understand what its actual resource consumption is. Programs often run slowly when they are resource constrained.
+ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂನ ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ವಿಶ್ಲೇಷಿಸುವ ಮೊದಲ ಹೆಜ್ಜೆಯಾಗಿ ಅದರ ನಿಜವಾದ ಸಂಪನ್ಮೂಲ ಬಳಕೆ ಏನು ಎಂಬುದನ್ನು ತಿಳಿದುಕೊಳ್ಳುವುದು ಅಗತ್ಯವಾಗಿರಬಹುದು. programs ಸಾಮಾನ್ಯವಾಗಿ resource constrained ಆಗಿದ್ದಾಗ ನಿಧಾನವಾಗಿ ಓಡುತ್ತವೆ.
 
-- **General Monitoring**: [`htop`](https://htop.dev/) is an improved version of `top` that presents various statistics for currently running processes. Useful keybinds: `<F6>` to sort processes, `t` to show tree hierarchy, `h` to toggle threads. There's also [`btop`](https://github.com/aristocratos/btop) which monitors _way_ more things.
+- **General Monitoring**: [`htop`](https://htop.dev/) `top` ನ ಸುಧಾರಿತ ರೂಪವಾಗಿದ್ದು, ಪ್ರಸ್ತುತ ಓಡುತ್ತಿರುವ processes ಗಳ ವಿವಿಧ ಅಂಕಿಅಂಶಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. ಉಪಯುಕ್ತ keybinds: processes sort ಮಾಡಲು `<F6>`, tree hierarchy ತೋರಿಸಲು `t`, threads toggle ಮಾಡಲು `h`. ಹೆಚ್ಚುವರಿಯಾಗಿ _ಇನ್ನಷ್ಟು_ ಅಂಶಗಳನ್ನು ಮಾನಿಟರ್ ಮಾಡುವ [`btop`](https://github.com/aristocratos/btop) ಕೂಡ ಇದೆ.
 
-- **I/O Operations**: [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information.
+- **I/O Operations**: [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) live I/O ಬಳಕೆ ಮಾಹಿತಿಯನ್ನು ತೋರಿಸುತ್ತದೆ.
 
-- **Memory Usage**: [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays total free and used memory.
+- **Memory Usage**: [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) ಒಟ್ಟು free ಮತ್ತು used memory ತೋರಿಸುತ್ತದೆ.
 
-- **Open Files**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) lists file information about files opened by processes. Useful for checking which process has opened a specific file.
+- **Open Files**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) processes ತೆರೆಯಿರುವ files ಬಗ್ಗೆ ಮಾಹಿತಿ ಪಟ್ಟಿ ಮಾಡುತ್ತದೆ. ನಿರ್ದಿಷ್ಟ file ಅನ್ನು ಯಾವ process ತೆರೆಯಿದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಲು ಉಪಯುಕ್ತ.
 
-- **Network Connections**: [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor network connections. A common use case is figuring out what process is using a given port: `ss -tlnp | grep :8080`.
+- **Network Connections**: [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) network connections ಮಾನಿಟರ್ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಸಾಮಾನ್ಯ ಬಳಕೆ: ನಿರ್ದಿಷ್ಟ port ಅನ್ನು ಯಾವ process ಬಳಸುತ್ತಿದೆ ಎಂದು ಕಂಡುಹಿಡಿಯುವುದು - `ss -tlnp | grep :8080`.
 
-- **Network Usage**: [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage per process.
+- **Network Usage**: [`nethogs`](https://github.com/raboof/nethogs) ಮತ್ತು [`iftop`](https://pdw.ex-parrot.com/iftop/) process ಪ್ರತಿ network ಬಳಕೆಯನ್ನು ಮಾನಿಟರ್ ಮಾಡಲು ಉತ್ತಮ interactive CLI tools.
 
-## Visualizing Performance Data
+## ಕಾರ್ಯಕ್ಷಮತಾ ಡೇಟಾ ದೃಶ್ಯೀಕರಣ
 
-Humans spot patterns in graphs much faster than in tables of numbers. When analyzing performance, plotting your data often reveals trends, spikes, and anomalies that would be invisible in raw numbers.
+ಮಾನವರು ಸಂಖ್ಯೆಗಳ ಪಟ್ಟಿಗಿಂತ ಗ್ರಾಫ್‌ಗಳಲ್ಲಿ ಮಾದರಿಗಳನ್ನು ಬಹಳ ವೇಗವಾಗಿ ಗುರುತಿಸುತ್ತಾರೆ. ಕಾರ್ಯಕ್ಷಮತಾ ವಿಶ್ಲೇಷಣೆಯಲ್ಲಿ ಡೇಟಾವನ್ನು plot ಮಾಡಿದರೆ raw ಸಂಖ್ಯಗಳಲ್ಲಿ ಕಾಣದ trends, spikes, anomalies ಸ್ಪಷ್ಟವಾಗುತ್ತವೆ.
 
-**Making data plottable**: When adding print or log statements for debugging, consider formatting the output so it can be easily graphed later. A simple timestamp and value in CSV format (`1705012345,42.5`) is much easier to plot than a prose sentence. JSON-structured logs can also be parsed and plotted with minimal effort. In other words, log your data [in a tidy way](https://vita.had.co.nz/papers/tidy-data.pdf).
+**ಡೇಟಾವನ್ನು plot ಮಾಡಲು ಸೂಕ್ತಗೊಳಿಸುವುದು**: debugging ಗಾಗಿ print ಅಥವಾ log statements ಸೇರಿಸುವಾಗ, output ಅನ್ನು ನಂತರ ಸುಲಭವಾಗಿ graph ಮಾಡಲು ಸಾಧ್ಯವಾಗುವಂತೆ ವಿನ್ಯಾಸಗೊಳಿಸುವುದನ್ನು ಪರಿಗಣಿಸಿ. ಉದಾ: CSV (`1705012345,42.5`) ರೂಪದಲ್ಲಿ ಸರಳ timestamp ಮತ್ತು value, prose sentence ಗಿಂತ plot ಮಾಡಲು ಬಹಳ ಸುಲಭ. JSON-structured logs ಕೂಡ ಕಡಿಮೆ ಪ್ರಯತ್ನದಲ್ಲಿ parse ಮಾಡಿ plot ಮಾಡಬಹುದು. ಅಂದರೆ, ನಿಮ್ಮ ಡೇಟಾವನ್ನು [tidy ರೀತಿಯಲ್ಲಿ](https://vita.had.co.nz/papers/tidy-data.pdf) log ಮಾಡಿ.
 
-**Quick plotting with gnuplot**: For simple command-line plotting, [`gnuplot`](http://www.gnuplot.info/) can generate graphs directly from data files:
+**gnuplot ಮೂಲಕ ವೇಗವಾದ plotting**: ಸರಳ command-line plotting ಗಾಗಿ [`gnuplot`](http://www.gnuplot.info/) data files ನಿಂದ ನೇರವಾಗಿ graphs ರಚಿಸಬಹುದು:
 
 ```bash
 # Plot a simple CSV with timestamp,value
 gnuplot -e "set datafile separator ','; plot 'latency.csv' using 1:2 with lines"
 ```
 
-**Iterative exploration with matplotlib and ggplot2**: For deeper analysis, Python's [`matplotlib`](https://matplotlib.org/) and R's [`ggplot2`](https://ggplot2.tidyverse.org/) enable iterative exploration. Unlike one-off plotting, these tools let you quickly slice and transform data to investigate hypotheses. ggplot2's facet plots are particularly powerful—you can split a single dataset across multiple subplots by category (e.g., faceting request latency by endpoint or time-of-day) to tease out patterns that would otherwise be hidden.
+**matplotlib ಮತ್ತು ggplot2 ಮೂಲಕ ಪುನರಾವರ್ತಿತ ಅನ್ವೇಷಣೆ**: ಆಳವಾದ ವಿಶ್ಲೇಷಣೆಗೆ Python ನ [`matplotlib`](https://matplotlib.org/) ಮತ್ತು R ನ [`ggplot2`](https://ggplot2.tidyverse.org/) ಉಪಕರಣಗಳು iterative exploration ಗೆ ಅನುಕೂಲಕರ. one-off plotting ಗಿಂತ ಭಿನ್ನವಾಗಿ, ಇವು hypotheses ಪರಿಶೀಲಿಸಲು data ಅನ್ನು ತ್ವರಿತವಾಗಿ slice ಮತ್ತು transform ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ. ggplot2 ನ facet plots ವಿಶೇಷವಾಗಿ ಶಕ್ತಿಶಾಲಿ - category ಆಧಾರದ ಮೇಲೆ ಒಂದೇ dataset ಅನ್ನು ಹಲವಾರು subplots ಗಳಾಗಿ ವಿಭಜಿಸಬಹುದು (ಉದಾ: endpoint ಅಥವಾ time-of-day ಪ್ರಕಾರ request latency faceting), ಇದರಿಂದ ಮರೆಯಾಗಿದ್ದ ಮಾದರಿಗಳು ಗೋಚರಿಸುತ್ತವೆ.
 
-**Example use cases:**
-- Plotting request latency over time reveals periodic slowdowns (garbage collection, cron jobs, traffic patterns) that raw percentiles obscure
-- Visualizing insert times for a growing data structure can expose algorithmic complexity issues—a plot of vector insertions will show characteristic spikes when the backing array doubles in size
-- Faceting metrics by different dimensions (request type, user cohort, server) often reveals that a "system-wide" problem is actually isolated to one category
+**ಉದಾಹರಣೆ ಬಳಕೆ ಪ್ರಕರಣಗಳು:**
+- ಕಾಲಾಂತರದಲ್ಲಿ request latency plot ಮಾಡಿದರೆ periodic slowdowns (garbage collection, cron jobs, traffic patterns) ಗೋಚರಿಸುತ್ತವೆ - raw percentiles ಇದನ್ನು ಮರೆಮಾಚಬಹುದು
+- ಬೆಳೆಯುತ್ತಿರುವ data structure ಗಾಗಿ insert times ದೃಶ್ಯೀಕರಿಸಿದರೆ algorithmic complexity ಸಮಸ್ಯೆಗಳು ಬಯಲಾಗಬಹುದು - vector insertions plot ನಲ್ಲಿ backing array ದ್ವಿಗುಣಗೊಳ್ಳುವಾಗ ಲಕ್ಷಣಾತ್ಮಕ spikes ಕಾಣುತ್ತವೆ
+- ಬೇರೆ dimensions (request type, user cohort, server) ಆಧಾರವಾಗಿ metrics faceting ಮಾಡಿದಾಗ, "system-wide" ಸಮಸ್ಯೆ ವಾಸ್ತವದಲ್ಲಿ ಒಂದೇ category ಗೆ ಸೀಮಿತವಾಗಿರುವುದು ಅನೇಕ ಬಾರಿ ತಿಳಿಯುತ್ತದೆ
 
-## CPU Profilers
+## CPU ಪ್ರೊಫೈಲರ್‌ಗಳು
 
-Most of the time when people refer to _profilers_ they mean _CPU profilers_. There are two main types:
+ಜನರು _profilers_ ಎಂದು ಹೇಳಿದಾಗ ಹೆಚ್ಚಿನ ಸಂದರ್ಭಗಳಲ್ಲಿ _CPU profilers_ ಅನ್ನು ಉದ್ದೇಶಿಸುತ್ತಾರೆ. ಮುಖ್ಯವಾಗಿ ಎರಡು ವಿಧಗಳಿವೆ:
 
-- **Tracing profilers** keep a record of every function call your program makes
-- **Sampling profilers** probe your program periodically (commonly every millisecond) and record the program's stack
+- **Tracing profilers** ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂ ಮಾಡುವ ಪ್ರತಿಯೊಂದು function call ನ ದಾಖಲೆಯನ್ನು ಇಟ್ಟುಕೊಳ್ಳುತ್ತವೆ
+- **Sampling profilers** ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಅವಧಿ ಅವಧಿಗೆ (ಸಾಮಾನ್ಯವಾಗಿ ಪ್ರತಿ millisecond) sample ಮಾಡಿ stack ಅನ್ನು ದಾಖಲಿಸುತ್ತವೆ
 
-Sampling profilers have lower overhead and are generally preferred for production use.
+Sampling profilers ಗಳ overhead ಕಡಿಮೆ ಇರುವುದರಿಂದ, production ಬಳಕೆಗೆ ಸಾಮಾನ್ಯವಾಗಿ ಇವುಗಳನ್ನು ಮೆಚ್ಚಲಾಗುತ್ತದೆ.
 
-### perf: the sampling profiler
+### perf: sampling profiler
 
-[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) is the standard Linux profiler. It can profile any program without recompilation:
+[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) Linux ನ ಮಾನದಂಡ profiler ಆಗಿದೆ. ಇದು recompilation ಇಲ್ಲದೇ ಯಾವುದೇ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು profile ಮಾಡಬಹುದು:
 
-`perf stat` gives you a quick overview of where time is spent:
+`perf stat` ಸಮಯ ಎಲ್ಲಿ ವ್ಯಯವಾಗುತ್ತಿದೆ ಎಂಬುದರ ತ್ವರಿತ ಅವಲೋಕನ ನೀಡುತ್ತದೆ:
 
 ```bash
 $ perf stat ./slow_program
@@ -331,13 +328,13 @@ $ perf stat ./slow_program
        12,345,678      branch-misses             #    1.00% of all branches
 ```
 
-Profiler output for real world programs will contain large amounts of information. Humans are visual creatures and are quite terrible at reading large amounts of numbers. [Flame graphs](https://www.brendangregg.com/flamegraphs.html) are a visualization that makes profiling data much easier to understand.
+ನೈಜ ಲೋಕದ programs ಗೆ profiler output ಬಹಳ ದೊಡ್ಡ ಮಾಹಿತಿಯನ್ನು ಒಳಗೊಂಡಿರುತ್ತದೆ. ಮಾನವರು ದೃಶ್ಯಾಧಾರಿತ ಪ್ರಾಣಿಗಳಾಗಿರುವುದರಿಂದ, ದೊಡ್ಡ ಪ್ರಮಾಣದ ಸಂಖ್ಯೆಗಳ ಓದಿನಲ್ಲಿ ಕಡಿಮೆ ಪರಿಣಾಮಕಾರಿಗಳು. [Flame graphs](https://www.brendangregg.com/flamegraphs.html) profiling data ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದನ್ನು ಬಹಳ ಸುಲಭಗೊಳಿಸುವ ದೃಶ್ಯೀಕರಣ ವಿಧಾನವಾಗಿದೆ.
 
-A flame graph displays a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They're interactive—you can click to zoom into specific parts of the program.
+flame graph ನಲ್ಲಿ function calls ನ hierarchy Y axis ಮೇಲೆ ಹಾಗೂ ತೆಗೆದುಕೊಳ್ಳುವ ಸಮಯ X axis ಮೇಲೆ ಅನುಪಾತವಾಗಿ ತೋರಿಸಲಾಗುತ್ತದೆ. ಅವು interactive ಆಗಿರುವುದರಿಂದ, ನಿರ್ದಿಷ್ಟ ಭಾಗಗಳಿಗೆ click ಮಾಡಿ zoom ಮಾಡಬಹುದು.
 
 [![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-To generate a flame graph from `perf` data:
+`perf` data ನಿಂದ flame graph ರಚಿಸಲು:
 
 ```bash
 # Record profile
@@ -347,11 +344,11 @@ perf record -g ./my_program
 perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
 ```
 
-> Consider using [Speedscope](https://www.speedscope.app/) for an interactive web-based flame graph viewer, or [Perfetto](https://perfetto.dev/) for comprehensive system-level analysis.
+> interactive web-based flame graph viewer ಗಾಗಿ [Speedscope](https://www.speedscope.app/) ಅಥವಾ comprehensive system-level analysis ಗಾಗಿ [Perfetto](https://perfetto.dev/) ಬಳಸುವುದನ್ನು ಪರಿಗಣಿಸಿ.
 
-### Valgrind's Callgrind: the tracing profiler
+### Valgrind ನ Callgrind: tracing profiler
 
-[`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) is a profiling tool that records the call history and instruction counts of your program. Unlike sampling profilers, it provides exact call counts and can show the relationship between callers and callees:
+[`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂನ call history ಮತ್ತು instruction counts ದಾಖಲಿಸುವ profiling tool ಆಗಿದೆ. sampling profilers ಗಿಂತ ವಿಭಿನ್ನವಾಗಿ, ಇದು ಖಚಿತ call counts ನೀಡುತ್ತದೆ ಮತ್ತು callers-ಗೆ-callees ಸಂಬಂಧವನ್ನು ತೋರಿಸುತ್ತದೆ:
 
 ```bash
 # Run with callgrind
@@ -362,30 +359,30 @@ callgrind_annotate callgrind.out.<pid>
 kcachegrind callgrind.out.<pid>
 ```
 
-Callgrind is slower than sampling profilers but provides precise call counts and can optionally simulate cache behavior (with `--cache-sim=yes`) if you need that information.
+Callgrind sampling profilers ಗಿಂತ ನಿಧಾನವಾದರೂ, ನಿಖರ call counts ಒದಗಿಸುತ್ತದೆ ಮತ್ತು ಅಗತ್ಯವಿದ್ದರೆ cache behavior ಅನ್ನು (`--cache-sim=yes`) simulate ಮಾಡಬಹುದು.
 
-> If you're using a particular language, there may be more specialized profilers. For example, Python has [`cProfile`](https://docs.python.org/3/library/profile.html) and [`py-spy`](https://github.com/benfred/py-spy), Go has [`go tool pprof`](https://pkg.go.dev/cmd/pprof), and Rust has [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph).
+> ನೀವು ನಿರ್ದಿಷ್ಟ ಭಾಷೆಯನ್ನು ಬಳಸುತ್ತಿದ್ದರೆ, ಇನ್ನಷ್ಟು ವಿಶೇಷ profilers ಲಭ್ಯವಿರಬಹುದು. ಉದಾಹರಣೆಗೆ, Python ನಲ್ಲಿ [`cProfile`](https://docs.python.org/3/library/profile.html) ಮತ್ತು [`py-spy`](https://github.com/benfred/py-spy), Go ನಲ್ಲಿ [`go tool pprof`](https://pkg.go.dev/cmd/pprof), ಮತ್ತು Rust ನಲ್ಲಿ [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) ಇದೆ.
 
-## Memory Profilers
+## ಮೆಮೊರಿ ಪ್ರೊಫೈಲರ್‌ಗಳು
 
-Memory profilers help you understand how your program uses memory over time and find memory leaks.
+memory profilers ನಿಮ್ಮ ಪ್ರೋಗ್ರಾಂ ಕಾಲಕ್ರಮದಲ್ಲಿ memory ಅನ್ನು ಹೇಗೆ ಬಳಸುತ್ತಿದೆ ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಮತ್ತು memory leaks ಪತ್ತೆಹಚ್ಚಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.
 
-### Valgrind's Massif
+### Valgrind ನ Massif
 
-[`massif`](https://valgrind.org/docs/manual/ms-manual.html) profiles heap memory usage:
+[`massif`](https://valgrind.org/docs/manual/ms-manual.html) heap memory ಬಳಕೆಯನ್ನು profile ಮಾಡುತ್ತದೆ:
 
 ```bash
 valgrind --tool=massif ./my_program
 ms_print massif.out.<pid>
 ```
 
-This shows you heap usage over time, helping identify memory leaks and excessive allocation.
+ಇದು ಕಾಲಕ್ರಮದಲ್ಲಿ heap usage ತೋರಿಸಿ memory leaks ಮತ್ತು ಅತಿಯಾದ allocation ಗುರುತಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
-> For Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) provides line-by-line memory usage information.
+> Python ಗಾಗಿ [`memory-profiler`](https://pypi.org/project/memory-profiler/) line-by-line memory usage ಮಾಹಿತಿ ಒದಗಿಸುತ್ತದೆ.
 
-## Benchmarking
+## ಬೆಂಚ್ಮಾರ್ಕಿಂಗ್
 
-When you need to compare the performance of different implementations or tools, [`hyperfine`](https://github.com/sharkdp/hyperfine) is excellent for benchmarking command-line programs:
+ಬೇರೆ implementations ಅಥವಾ tools ಗಳ ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ಹೋಲಿಸಬೇಕಾದಾಗ, command-line programs ಬೆಂಚ್ಮಾರ್ಕ್ ಮಾಡಲು [`hyperfine`](https://github.com/sharkdp/hyperfine) ಅತ್ಯುತ್ತಮ ಸಾಧನವಾಗಿದೆ:
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -402,13 +399,13 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-> For web development, browser developer tools include excellent profilers. See the [Firefox Profiler](https://profiler.firefox.com/docs/) and [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation.
+> web development ಗಾಗಿ browser developer tools ನಲ್ಲಿ ಅತ್ಯುತ್ತಮ profilers ಒಳಗೊಂಡಿವೆ. [Firefox Profiler](https://profiler.firefox.com/docs/) ಮತ್ತು [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation ನೋಡಿ.
 
-# Exercises
+# ಅಭ್ಯಾಸಗಳು
 
-## Debugging
+## ಡಿಬಗ್ಗಿಂಗ್
 
-1. **Debug a sorting algorithm**: The following pseudocode implements merge sort but contains a bug. Implement it in a language of your choice, then use a debugger (gdb, lldb, pdb, or your IDE's debugger) to find and fix the bug.
+1. **sorting algorithm ಅನ್ನು ಡಿಬಗ್ ಮಾಡಿ**: ಕೆಳಗಿನ pseudocode merge sort ಅನ್ನು ಅನುಷ್ಠಾನಗೊಳಿಸುತ್ತದೆ, ಆದರೆ ಇದರಲ್ಲಿ ಒಂದು bug ಇದೆ. ಇದನ್ನು ನಿಮ್ಮ ಆಯ್ಕೆಯ ಭಾಷೆಯಲ್ಲಿ ಅನುಷ್ಠಾನಗೊಳಿಸಿ, ನಂತರ debugger (gdb, lldb, pdb, ಅಥವಾ ನಿಮ್ಮ IDE ಯ debugger) ಬಳಸಿ bug ಅನ್ನು ಕಂಡುಹಿಡಿದು ಸರಿಪಡಿಸಿ.
 
    ```
    function merge_sort(arr):
@@ -433,9 +430,9 @@ Summary
        return result
    ```
 
-   Test vector: `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` should return `[1, 1, 2, 3, 4, 5, 6, 9]`. Use breakpoints and step through the merge function to find where the incorrect element is being selected.
+   ಪರೀಕ್ಷಾ vector: `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` ಫಲಿತಾಂಶವಾಗಿ `[1, 1, 2, 3, 4, 5, 6, 9]` ಮರಳಬೇಕು. ತಪ್ಪಾದ element ಯಾವ ಸ್ಥಳದಲ್ಲಿ ಆಯ್ಕೆಯಾಗುತ್ತಿದೆ ಎಂಬುದನ್ನು ಕಂಡುಹಿಡಿಯಲು breakpoints ಬಳಸಿ merge function ಅನ್ನು ಹಂತ ಹಂತವಾಗಿ ನಡೆಸಿ.
 
-1. Install [`rr`](https://rr-project.org/) and use reverse debugging to find a corruption bug. Save this program as `corruption.c`:
+1. [`rr`](https://rr-project.org/) install ಮಾಡಿ ಮತ್ತು reverse debugging ಬಳಸಿ corruption bug ಅನ್ನು ಕಂಡುಹಿಡಿಯಿರಿ. ಈ program ಅನ್ನು `corruption.c` ಎಂಬ ಹೆಸರಿನಲ್ಲಿ ಉಳಿಸಿ:
 
    ```c
    #include <stdio.h>
@@ -486,9 +483,9 @@ Summary
    }
    ```
 
-   Compile with `gcc -g corruption.c -o corruption` and run it. Student 1's ID gets corrupted, but the corruption happens in a function that only touches student 0. Use `rr record ./corruption` and `rr replay` to find the culprit. Set a watchpoint on `students[1].id` and use `reverse-continue` after the corruption to find exactly which line of code overwrote it.
+   `gcc -g corruption.c -o corruption` ಮೂಲಕ compile ಮಾಡಿ ಮತ್ತು program ಅನ್ನು ಓಡಿಸಿ. Student 1 ರ ID corrupt ಆಗುತ್ತದೆ, ಆದರೆ corruption student 0 ಅನ್ನು ಮಾತ್ರ ತಾಕುವ function ನಲ್ಲಿ ಆಗುತ್ತದೆ. ಕಾರಣವನ್ನು ಕಂಡುಹಿಡಿಯಲು `rr record ./corruption` ಮತ್ತು `rr replay` ಬಳಸಿ. `students[1].id` ಮೇಲೆ watchpoint ಹೊಂದಿಸಿ, corruption ಆದ ನಂತರ `reverse-continue` ಬಳಸಿ ಅದನ್ನು ಯಾವ code ಸಾಲು overwrite ಮಾಡಿತು ಎಂದು ಖಚಿತವಾಗಿ ಪತ್ತೆಹಚ್ಚಿ.
 
-1. Debug a memory error with AddressSanitizer. Save this as `uaf.c`:
+1. AddressSanitizer ಬಳಸಿ memory error ಡಿಬಗ್ ಮಾಡಿ. ಇದನ್ನು `uaf.c` ಎಂದು ಉಳಿಸಿ:
 
    ```c
    #include <stdlib.h>
@@ -509,17 +506,17 @@ Summary
    }
    ```
 
-   First compile and run without sanitizers: `gcc uaf.c -o uaf && ./uaf`. It may appear to work. Now compile with AddressSanitizer: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Read the error report. What bug does ASan find? Fix the issue it identifies.
+   ಮೊದಲು sanitizers ಇಲ್ಲದೆ compile ಮಾಡಿ ಓಡಿಸಿ: `gcc uaf.c -o uaf && ./uaf`. ಇದು ಕೆಲಸ ಮಾಡಿದಂತೆ ಕಾಣಬಹುದು. ಈಗ AddressSanitizer ಜೊತೆಗೆ compile ಮಾಡಿ: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. error report ಓದಿ. ASan ಯಾವ bug ಪತ್ತೆಹಚ್ಚುತ್ತದೆ? ಅದು ಗುರುತಿಸಿದ ಸಮಸ್ಯೆಯನ್ನು ಸರಿಪಡಿಸಿ.
 
-1. Use `strace` (Linux) or `dtruss` (macOS) to trace the system calls made by a command like `ls -l`. What system calls is it making? Try tracing a more complex program and see what files it opens.
+1. `strace` (Linux) ಅಥವಾ `dtruss` (macOS) ಬಳಸಿ `ls -l` போன்ற command ಮಾಡುವ system calls ಅನ್ನು trace ಮಾಡಿ. ಅದು ಯಾವ system calls ಮಾಡುತ್ತಿದೆ? ಇನ್ನಷ್ಟು ಸಂಕೀರ್ಣ program ಅನ್ನು trace ಮಾಡಿ ಅದು ಯಾವ files ತೆರೆಯುತ್ತದೆ ಎಂಬುದನ್ನೂ ನೋಡಿ.
 
-1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix. Try putting some of the output from `strace` or the address sanitizer into it.
+1. ಗುಂಗುರುವ error message ಅನ್ನು ಡಿಬಗ್ ಮಾಡಲು LLM ಬಳಸಿ. ಒಂದು compiler error (ವಿಶೇಷವಾಗಿ C++ templates ಅಥವಾ Rust ನಿಂದ) ನಕಲಿಸಿ ಅದರ ವಿವರಣೆ ಮತ್ತು ತಿದ್ದುಪಡಿ ಕೇಳಿ. `strace` ಅಥವಾ address sanitizer output ನ ಕೆಲ ಭಾಗಗಳನ್ನು ಕೂಡ ನೀಡಿ ಪ್ರಯತ್ನಿಸಿ.
 
-## Profiling
+## ಪ್ರೊಫೈಲಿಂಗ್
 
-1. Use `perf stat` to get basic performance statistics for a program of your choice. What do the different counters mean?
+1. ನಿಮ್ಮ ಆಯ್ಕೆಯ program ಗೆ `perf stat` ಬಳಸಿ ಮೂಲ ಕಾರ್ಯಕ್ಷಮತಾ ಅಂಕಿಅಂಶಗಳನ್ನು ಪಡೆಯಿರಿ. ವಿಭಿನ್ನ counters ಎಂದರೆ ಏನು?
 
-1. Profile with `perf record`. Save this as `slow.c`:
+1. `perf record` ಬಳಸಿ profile ಮಾಡಿ. ಇದನ್ನು `slow.c` ಎಂದು ಉಳಿಸಿ:
 
    ```c
    #include <math.h>
@@ -545,10 +542,10 @@ Summary
    }
    ```
 
-   Compile with debug symbols: `gcc -g -O2 slow.c -o slow -lm`. Run `perf record -g ./slow`, then `perf report` to see where time is spent. Try generating a flame graph using the flamegraph scripts.
+   debug symbols ಜೊತೆ compile ಮಾಡಿ: `gcc -g -O2 slow.c -o slow -lm`. `perf record -g ./slow` ಓಡಿಸಿ, ನಂತರ `perf report` ಬಳಸಿ ಸಮಯ ಎಲ್ಲಿ ಕಳೆಯುತ್ತಿದೆ ನೋಡಿ. flamegraph scripts ಬಳಸಿ flame graph ರಚಿಸಲು ಪ್ರಯತ್ನಿಸಿ.
 
-1. Use `hyperfine` to benchmark two different implementations of the same task (e.g., `find` vs `fd`, `grep` vs `ripgrep`, or two versions of your own code).
+1. ಒಂದೇ ಕಾರ್ಯದ ಎರಡು ವಿಭಿನ್ನ implementations ಅನ್ನು `hyperfine` ಬಳಸಿ ಬೆಂಚ್ಮಾರ್ಕ್ ಮಾಡಿ (ಉದಾ: `find` vs `fd`, `grep` vs `ripgrep`, ಅಥವಾ ನಿಮ್ಮದೇ code ನ ಎರಡು ಆವೃತ್ತಿಗಳು).
 
-1. Use `htop` to monitor your system while running a resource-intensive program. Try using `taskset` to limit which CPUs a process can use: `taskset --cpu-list 0,2 stress -c 3`. Why doesn't `stress` use three CPUs?
+1. resource-intensive program ಓಡಿಸುತ್ತಿರುವಾಗ ನಿಮ್ಮ system ಅನ್ನು `htop` ಮೂಲಕ ಮಾನಿಟರ್ ಮಾಡಿ. process ಯಾವ CPUs ಬಳಕೆ ಮಾಡಬಹುದು ಎಂಬುದನ್ನು ಮಿತಿಗೊಳಿಸಲು `taskset` ಬಳಸಿ ಪ್ರಯತ್ನಿಸಿ: `taskset --cpu-list 0,2 stress -c 3`. `stress` ಮೂರು CPUs ಬಳಸದೇ ಇರುವುದಕ್ಕೆ ಕಾರಣವೇನು?
 
-1. A common issue is that a port you want to listen on is already taken by another process. Learn how to discover that process: First execute `python -m http.server 4444` to start a minimal web server on port 4444. On a separate terminal run `ss -tlnp | grep 4444` to find the process. Terminate it with `kill <PID>`.
+1. ನೀವು listen ಮಾಡಲು ಬಯಸುವ port ಅನ್ನು ಬೇರೆ process ಈಗಾಗಲೇ ಬಳಸುತ್ತಿರುವುದು ಸಾಮಾನ್ಯ ಸಮಸ್ಯೆ. ಆ process ಅನ್ನು ಹೇಗೆ ಪತ್ತೆಹಚ್ಚುವುದು ಎಂಬುದನ್ನು ಕಲಿಯಿರಿ: ಮೊದಲು port 4444 ಮೇಲೆ ಕನಿಷ್ಠ web server ಆರಂಭಿಸಲು `python -m http.server 4444` ನಡೆಸಿ. ಪ್ರತ್ಯೇಕ terminal ನಲ್ಲಿ `ss -tlnp | grep 4444` ಓಡಿಸಿ process ಪತ್ತೆಮಾಡಿ. ನಂತರ `kill <PID>` ಮೂಲಕ ಅದನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ.

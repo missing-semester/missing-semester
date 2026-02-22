@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Packaging and Shipping Code"
+title: "ಕೋಡ್ ಪ್ಯಾಕೇಜಿಂಗ್ ಮತ್ತು ಶಿಪ್ಪಿಂಗ್"
 description: >
-  Learn about project packaging, environments, versioning, and deploying libraries, applications, and services.
+  ಪ್ರಾಜೆಕ್ಟ್ ಪ್ಯಾಕೇಜಿಂಗ್, environments, versioning, ಮತ್ತು libraries, applications, ಹಾಗೂ services ಗಳ deployment ಬಗ್ಗೆ ತಿಳಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
@@ -11,32 +11,32 @@ video:
   id: KBMiB-8P4Ns
 ---
 
-Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
+ಕೋಡ್ ಅನ್ನು ಉದ್ದೇಶಿತ ರೀತಿಯಲ್ಲಿ ಕಾರ್ಯನಿರ್ವಹಿಸುವಂತೆ 만드는ುದು ಕಷ್ಟಕರ - ಅದೇ ಕೋಡ್ ಅನ್ನು ನಿಮ್ಮ ಯಂತ್ರಕ್ಕಿಂತ ಭಿನ್ನವಾದ ಯಂತ್ರದಲ್ಲಿ ಓಡಿಸುವುದು ಬಹುಪಾಲು ಇನ್ನಷ್ಟು ಕಷ್ಟಕರ.
 
-Shipping code means taking the code you wrote and converting it into a usable form that someone else can run without your computer's exact setup.
-Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
-It also depends on what you are building: a software library, a command line tool, and a web service all have different requirements and deployment steps.
-Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a. the _artifact_ --- and what assumptions it makes about the environment around it.
+ಕೋಡ್ ಶಿಪ್ಪಿಂಗ್ ಎಂದರೆ ನೀವು ಬರೆದ ಕೋಡ್ ಅನ್ನು, ನಿಮ್ಮ ಕಂಪ್ಯೂಟರ್‌ನ ನಿಖರ setup ಇಲ್ಲದೆ ಮತ್ತೊಬ್ಬರು ನಡೆಸಬಹುದಾದ ಬಳಸಬಹುದಾದ ರೂಪಕ್ಕೆ ಪರಿವರ್ತಿಸುವುದಾಗಿದೆ.
+ಕೋಡ್ ಶಿಪ್ಪಿಂಗ್ ಹಲವು ರೂಪಗಳನ್ನು ಹೊಂದಿದ್ದು, programming language, system libraries, ಮತ್ತು operating system ಸೇರಿದಂತೆ ಅನೇಕ ಅಂಶಗಳ ಆಯ್ಕೆಗಳ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿರುತ್ತದೆ.
+ಇದು ನೀವು ನಿರ್ಮಿಸುತ್ತಿರುವದನ್ನು ಕೂಡ ಅವಲಂಬಿಸುತ್ತದೆ: software library, command line tool, ಮತ್ತು web service - ಇವು ಪ್ರತಿಯೊಂದಕ್ಕೂ ವಿಭಿನ್ನ ಅವಶ್ಯಕತೆಗಳು ಮತ್ತು deployment ಹಂತಗಳು ಇವೆ.
+ಆದಾಗ್ಯೂ, ಈ ಎಲ್ಲಾ ಸಂದರ್ಭಗಳಲ್ಲಿ ಒಂದು ಸಾಮಾನ್ಯ ಮಾದರಿ ಇದೆ: deliverable ಏನು - ಅಂದರೆ _artifact_ ಏನು - ಮತ್ತು ಅದರ ಸುತ್ತಲಿನ environment ಬಗ್ಗೆ ಅದು ಯಾವ assumptions ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ನಿರ್ದಿಷ್ಟಗೊಳಿಸಬೇಕು.
 
-In this lecture, we'll cover:
+ಈ ಉಪನ್ಯಾಸದಲ್ಲಿ ನಾವು ಈ ಕೆಳಗಿನ ವಿಷಯಗಳನ್ನು ಆವರಿಸುತ್ತೇವೆ:
 
-- [Dependencies & Environments](#dependencies--environments)
-- [Artifacts & Packaging](#artifacts--packaging)
-- [Releases & Versioning](#releases--versioning)
+- [Dependencies ಮತ್ತು Environments](#dependencies--environments)
+- [Artifacts ಮತ್ತು Packaging](#artifacts--packaging)
+- [Releases ಮತ್ತು Versioning](#releases--versioning)
 - [Reproducibility](#reproducibility)
-- [VMs & Containers](#vms--containers)
+- [VMs ಮತ್ತು Containers](#vms--containers)
 - [Configuration](#configuration)
-- [Services & Orchestration](#services--orchestration)
+- [Services ಮತ್ತು Orchestration](#services--orchestration)
 - [Publishing](#publishing)
 
-We'll explain these concepts through examples from the Python ecosystem, as concrete examples are helpful for understanding. While the tools are different for other programming language ecosystems, the concepts will largely be the same.
+ಈ ಪರಿಕಲ್ಪನೆಗಳನ್ನು ನಾವು Python ecosystem ನ ಉದಾಹರಣೆಗಳ ಮೂಲಕ ವಿವರಿಸುತ್ತೇವೆ, ಏಕೆಂದರೆ ಸ್ಪಷ್ಟ ಉದಾಹರಣೆಗಳು ಅರ್ಥಗರ್ಭಿತ ತಿಳುವಳಿಕೆಗೆ ಸಹಾಯಕ. ಇತರೆ programming language ecosystems ಗಳಲ್ಲಿ tools ಬೇರೆಯಾಗಿದ್ದರೂ, ಪರಿಕಲ್ಪನೆಗಳ ಮೂಲಭೂತ ಅಂಶಗಳು ಬಹುತೇಕ ಒಂದೇ ಆಗಿರುತ್ತವೆ.
 
 # Dependencies & Environments
 
-In modern software development, layers of abstraction are ubiquitous.
-Programs naturally offload logic to other libraries or services.
-However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
-For instance, in Python, to fetch the content of a website we often do:
+ಆಧುನಿಕ software development ನಲ್ಲಿ abstraction ಪದರಗಳು ಎಲ್ಲೆಡೆ ಕಂಡುಬರುತ್ತವೆ.
+ಪ್ರೋಗ್ರಾಂಗಳು ಸ್ವಾಭಾವಿಕವಾಗಿ ಕೆಲವು logic ಅನ್ನು ಇತರೆ libraries ಅಥವಾ services ಗಳಿಗೆ ಒಪ್ಪಿಸುತ್ತವೆ.
+ಆದರೆ ಇದರಿಂದ ನಿಮ್ಮ program ಮತ್ತು ಅದು ಕಾರ್ಯನಿರ್ವಹಿಸಲು ಅಗತ್ಯವಿರುವ libraries ಗಳ ನಡುವೆ _dependency_ ಸಂಬಂಧ ನಿರ್ಮಾಣವಾಗುತ್ತದೆ.
+ಉದಾಹರಣೆಗೆ, Python ನಲ್ಲಿ website ನ content ಪಡೆಯಲು ನಾವು ಸಾಮಾನ್ಯವಾಗಿ ಹೀಗೆ ಮಾಡುತ್ತೇವೆ:
 
 ```python
 import requests
@@ -44,7 +44,7 @@ import requests
 response = requests.get("https://missing.csail.mit.edu")
 ```
 
-Yet the `requests` library does not come bundled with the Python runtime, so if we try to run this code without having `requests` installed, Python will raise an error:
+ಆದರೆ `requests` library Python runtime ಜೊತೆಗೆ bundled ಆಗಿ ಬರುವುದಿಲ್ಲ; ಆದ್ದರಿಂದ `requests` install ಮಾಡದೆ ಈ ಕೋಡ್ ಅನ್ನು ಓಡಿಸಲು ಯತ್ನಿಸಿದರೆ Python error ನೀಡುತ್ತದೆ:
 
 ```console
 $ python fetch.py
@@ -54,14 +54,14 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'requests'
 ```
 
-To make this library available we need to first run `pip install requests` to install it.
-`pip` is the command line tool that the Python programming language provides for installing packages.
-Executing `pip install requests` produces the following sequence of actions:
+ಈ library ಲಭ್ಯವಾಗಲು ಮೊದಲು `pip install requests` ಅನ್ನು ಚಾಲನೆ ಮಾಡಿ install ಮಾಡಬೇಕು.
+`pip` ಎಂದರೆ Python programming language ಒದಗಿಸುವ package install ಮಾಡುವ command line tool ಆಗಿದೆ.
+`pip install requests` ಕಾರ್ಯಗತಗೊಳಿಸಿದಾಗ ಕೆಳಗಿನ ಕ್ರಮದಲ್ಲಿ ಹಂತಗಳು ನಡೆಯುತ್ತವೆ:
 
-1. Search for requests in the Python Package Index ([PyPI](https://pypi.org/))
-1. Search for the appropriate artifact for the platform we are running under
-1. Resolve dependencies --- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies and install them beforehand
-1. Download the artifacts, then unpack and copy the files into the right places in our filesystem
+1. Python Package Index ([PyPI](https://pypi.org/)) ನಲ್ಲಿ requests ಹುಡುಕುವುದು
+1. ನಾವು ಬಳಸುತ್ತಿರುವ platform ಗೆ ಸರಿಯಾದ artifact ಹುಡುಕುವುದು
+1. Dependencies resolve ಮಾಡುವುದು - `requests` library ಗೆ ತಾನೇ ಇತರೆ packages ಮೇಲೂ ಅವಲಂಬನೆ ಇದೆ; ಆದ್ದರಿಂದ installer ಎಲ್ಲಾ transitive dependencies ಗಳಿಗೂ ಹೊಂದಿಕೊಳ್ಳುವ versions ಕಂಡುಹಿಡಿದು ಮೊದಲು install ಮಾಡಬೇಕು
+1. Artifacts download ಮಾಡಿ, ನಂತರ files ಅನ್ನು unpack ಮಾಡಿ filesystem ನಲ್ಲಿ ಸರಿಯಾದ ಸ್ಥಳಗಳಿಗೆ ನಕಲಿಸುವುದು
 
 ```console
 $ pip install requests
@@ -79,8 +79,8 @@ Installing collected packages: urllib3, idna, charset-normalizer, certifi, reque
 Successfully installed certifi-2024.8.30 charset-normalizer-3.4.0 idna-3.10 requests-2.32.3 urllib3-2.2.3
 ```
 
-Here we can see that `requests` has its own dependencies such as `certifi` or `charset-normalizer` and that they have to be installed before `requests` can be installed.
-Once installed, the Python runtime can find this library when importing it.
+ಇಲ್ಲಿ `requests` ಗೆ `certifi` ಅಥವಾ `charset-normalizer` ನಂತಹ ತನ್ನದೇ dependencies ಇರುವುದನ್ನು ನೋಡಬಹುದು; ಹಾಗಾಗಿ `requests` install ಮಾಡುವ ಮೊದಲು ಅವು install ಆಗಬೇಕು.
+ಒಮ್ಮೆ install ಆದ ನಂತರ, import ಮಾಡುವಾಗ Python runtime ಈ library ಅನ್ನು ಹುಡುಕಿ ಬಳಸಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ.
 
 ```console
 $ python -c 'import requests; print(requests.__path__)'
@@ -90,19 +90,19 @@ $ pip list | grep requests
 requests        2.32.3
 ```
 
-Programming languages have different tools, conventions and practices for installing and publishing libraries.
-In some languages like Rust, the toolchain is unified --- `cargo` handles building, testing, dependency management, and publishing.
-In others like Python, the unification happens at a specification level --- rather than a single tool, there are standardized specifications that define how packaging works, allowing multiple competing tools for each task (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
-And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
+Programming languages ಗಳಲ್ಲಿ libraries install ಮತ್ತು publish ಮಾಡಲು ಬೇರೆ ಬೇರೆ tools, conventions ಮತ್ತು practices ಇರುತ್ತವೆ.
+Rust ನಂತಹ ಕೆಲವು languages ಗಳಲ್ಲಿ toolchain ಏಕೀಕೃತವಾಗಿದೆ - `cargo` build, test, dependency management, ಮತ್ತು publishing ಎಲ್ಲವನ್ನೂ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.
+Python ನಂತಹ ecosystems ಗಳಲ್ಲಿ ಈ ಏಕೀಕರಣವು specification ಮಟ್ಟದಲ್ಲಿ ನಡೆದಿದೆ - ಒಂದೇ tool ಬದಲಾಗಿ packaging ಹೇಗೆ ಕೆಲಸ ಮಾಡಬೇಕು ಎಂಬುದನ್ನು standardized specifications ನಿರ್ಧರಿಸುತ್ತವೆ; ಇದರ ಮೂಲಕ ಪ್ರತಿ ಕಾರ್ಯಕ್ಕೂ ಹಲವಾರು ಸ್ಪರ್ಧಾತ್ಮಕ tools ಇರಲು ಅವಕಾಶವಿದೆ (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
+ಮತ್ತೆ LaTeX ನಂತಹ ಕೆಲ ecosystems ಗಳಲ್ಲಿ TeX Live ಅಥವಾ MacTeX distributions ಗಳೊಂದಿಗೆ ಸಾವಿರಾರು packages ಪೂರ್ವಸ್ಥಾಪಿತವಾಗಿ bundled ಆಗಿ ಬರುತ್ತವೆ.
 
-Introducing dependencies also introduces dependency conflicts.
-Conflicts happen when programs require incompatible versions of the same dependency.
-For example, if `tensorflow==2.3.0` requires `numpy>=1.16.0,<1.19.0` and `pandas==1.2.0`  requires `numpy>=1.16.5`, then any version satisfying `numpy>=1.16.5,<1.19.0` will be valid.
-But if another package in your project requires `numpy>=1.19`, you have a conflict with no valid version that satisfies all constraints.
+Dependencies ಪರಿಚಯಿಸುವುದರಿಂದ dependency conflicts ಕೂಡ ಉಂಟಾಗುತ್ತವೆ.
+ಒಂದೇ dependency ಗೆ programs ಪರಸ್ಪರ ಹೊಂದಿಕೆಯಾಗದ versions ಅಗತ್ಯವಿದ್ದಾಗ conflicts ಉಂಟಾಗುತ್ತವೆ.
+ಉದಾಹರಣೆಗೆ, `tensorflow==2.3.0` ಗೆ `numpy>=1.16.0,<1.19.0` ಅಗತ್ಯವಿದ್ದು, `pandas==1.2.0` ಗೆ `numpy>=1.16.5` ಅಗತ್ಯವಿದ್ದರೆ `numpy>=1.16.5,<1.19.0` ತೃಪ್ತಿಪಡಿಸುವ ಯಾವ version ಆದರೂ ಮಾನ್ಯ.
+ಆದರೆ ನಿಮ್ಮ project ನ ಇನ್ನೊಂದು package ಗೆ `numpy>=1.19` ಅಗತ್ಯವಿದ್ದರೆ, ಎಲ್ಲ constraints ಗಳನ್ನೂ ತೃಪ್ತಿಪಡಿಸುವ ಮಾನ್ಯ version ಇಲ್ಲದ conflict ಉಂಟಾಗುತ್ತದೆ.
 
-This situation --- where multiple packages require mutually incompatible versions of shared dependencies --- is commonly referred to as _dependency hell_.
-One way to deal with conflicts is to isolate the dependencies of each program into their own _environment_.
-In Python we create a virtual environment by running:
+ಈ ಪರಿಸ್ಥಿತಿ - ಹಲವಾರು packages ಗಳು shared dependencies ಗಳಿಗೆ ಪರಸ್ಪರ ಅಸಂಗತ versions ಬೇಡುವುದು - ಸಾಮಾನ್ಯವಾಗಿ _dependency hell_ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ.
+ಈ conflicts ನನ್ನು ನಿಭಾಯಿಸುವ ಒಂದು ವಿಧಾನವೆಂದರೆ ಪ್ರತಿ program ನ dependencies ಗಳನ್ನು ಪ್ರತ್ಯೇಕ _environment_ ಗಳಲ್ಲಿ ಪ್ರತ್ಯೇಕಿಸುವುದು.
+Python ನಲ್ಲಿ virtual environment ರಚಿಸಲು ಹೀಗೆ ಮಾಡುತ್ತೇವೆ:
 
 ```console
 $ which python
@@ -124,17 +124,17 @@ Package Version
 pip     24.0
 ```
 
-You can think of an environment as an entire standalone version of the language runtime with its own set of installed packages.
-This virtual environment or venv isolates the installed dependencies from the global Python installation.
-It is a good practice to have a virtual environment for each project, containing the dependencies it requires.
+Environment ಅನ್ನು language runtime ನ ಸಂಪೂರ್ಣ standalone ರೂಪವಾಗಿ, ಅದಕ್ಕೇ ಸೇರಿದ packages ಗಳ ಸಮೂಹದೊಂದಿಗೆ ಕಲ್ಪಿಸಬಹುದು.
+ಈ virtual environment ಅಥವಾ venv, install ಆಗಿರುವ dependencies ಗಳನ್ನು global Python installation ನಿಂದ ಪ್ರತ್ಯೇಕಿಸುತ್ತದೆ.
+ಪ್ರತಿ project ಗೆ ಅದಕ್ಕೆ ಬೇಕಾದ dependencies ಒಳಗೊಂಡ ಪ್ರತ್ಯೇಕ virtual environment ಇರುವುದು ಉತ್ತಮ ಅಭ್ಯಾಸ.
 
-> While many modern operating systems ship with installations of programming language runtimes like Python, it is unwise to modify these installations since the OS might rely on them for its own functionality. Prefer using separate environments instead.
+> ಅನೇಕ ಆಧುನಿಕ operating systems ಗಳು Python ಮುಂತಾದ programming language runtimes ಗಳ installations ಜೊತೆ ಬರುತ್ತವೆ; ಆದರೆ OS ತನ್ನ ಸ್ವಂತ ಕಾರ್ಯಚಟುವಟಿಕೆಗಾಗಿ ಅವುಗಳ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿರಬಹುದಾದ್ದರಿಂದ ಅವನ್ನು ತಿದ್ದುಪಡಿ ಮಾಡುವುದು ಸಮಂಜಸವಲ್ಲ. ಬದಲಾಗಿ ಪ್ರತ್ಯೇಕ environments ಬಳಸುವುದನ್ನು ಆದ್ಯತೆ ನೀಡಿ.
 
-In some languages, the installation protocol is not defined by a tool but as a specification.
-In Python [PEP 517](https://peps.python.org/pep-0517/) defines the build system interface and [PEP 621](https://peps.python.org/pep-0621/) specifies how project metadata is stored in `pyproject.toml`.
-This has enabled developers to improve upon `pip` and produce more optimized tools like `uv`. To install `uv` it suffices to do `pip install uv`.
+ಕೆಲ languages ಗಳಲ್ಲಿ installation protocol ಒಂದು tool ಮೂಲಕವಲ್ಲ, specification ರೂಪದಲ್ಲೇ ವ್ಯಾಖ್ಯಾನಗೊಂಡಿರುತ್ತದೆ.
+Python ನಲ್ಲಿ [PEP 517](https://peps.python.org/pep-0517/) build system interface ಅನ್ನು ವ್ಯಾಖ್ಯಾನಿಸುತ್ತದೆ ಮತ್ತು [PEP 621](https://peps.python.org/pep-0621/) project metadata ಅನ್ನು `pyproject.toml` ನಲ್ಲಿ ಹೇಗೆ ಸಂಗ್ರಹಿಸಬೇಕು ಎಂದು ಸೂಚಿಸುತ್ತದೆ.
+ಇದರ ಫಲವಾಗಿ ಅಭಿವೃದ್ಧಿಪರರು `pip` ಅನ್ನು ಸುಧಾರಿಸಿ `uv` ನಂತಹ ಹೆಚ್ಚು optimized tools ರೂಪಿಸಿದ್ದಾರೆ. `uv` install ಮಾಡಲು `pip install uv` ಸಾಕಾಗುತ್ತದೆ.
 
-Using `uv` instead of `pip` follows the same interface but is significantly faster:
+`pip` ಬದಲಿಗೆ `uv` ಬಳಸಿದರೂ interface ಅದೇ ಇರುತ್ತದೆ; ಆದರೆ ವೇಗ ಗಣನೀಯವಾಗಿ ಹೆಚ್ಚಿರುತ್ತದೆ:
 
 ```console
 $ uv pip install requests
@@ -148,9 +148,9 @@ Installed 5 packages in 8ms
  + urllib3==2.2.3
 ```
 
-> We strongly recommend using `uv pip` instead of `pip` whenever possible as it dramatically reduces the installation time.
+> ಸಾಧ್ಯವಾದಾಗಲೆಲ್ಲ `pip` ಬದಲು `uv pip` ಬಳಸಿ ಎಂದು ನಾವು ಬಲವಾಗಿ ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ, ಏಕೆಂದರೆ ಇದು installation ಸಮಯವನ್ನು ಗಣನೀಯವಾಗಿ ಕಡಿತಗೊಳಿಸುತ್ತದೆ.
 
-Beyond dependency isolation, environments also allow you to have different versions of your programming language runtime.
+Dependency isolation ಗಿಂತಲೂ ಹೊರತು, environments ನಿಮ್ಮ programming language runtime ನ ವಿಭಿನ್ನ versions ಇಟ್ಟುಕೊಳ್ಳಲು ಸಹ ನೆರವಾಗುತ್ತವೆ.
 
 ```console
 $ uv venv --python 3.12 venv312
@@ -168,15 +168,15 @@ $ source venv311/bin/activate && python --version
 Python 3.11.10
 ```
 
-This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
+ಇದು ಹಲವು Python versions ಗಳಲ್ಲಿ ನಿಮ್ಮ code test ಮಾಡಲು ಅಥವಾ project ಒಂದು ನಿರ್ದಿಷ್ಟ version ಬೇಡುವಾಗ ಬಹಳ ಉಪಯುಕ್ತ.
 
-> In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
+> ಕೆಲವು programming languages ಗಳಲ್ಲಿ ಪ್ರತಿ project ಗೆ dependencies ಗಾಗಿ environment ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಿಗುತ್ತದೆ; ನೀವು ಕೈಯಾರೆ ರಚಿಸುವ ಅಗತ್ಯವಿಲ್ಲ. ಆದರೂ ತತ್ವ ಒಂದೇ. ಇಂದಿನ ಬಹುತೇಕ languages ಒಂದೇ system ನಲ್ಲಿ ಭಾಷೆಯ ಹಲವು versions ನಿರ್ವಹಿಸಲು ಹಾಗೂ ಪ್ರತಿ project ಗೆ ಯಾವ version ಬಳಸಬೇಕು ಎಂದು ಸೂಚಿಸಲು ವ್ಯವಸ್ಥೆ ಹೊಂದಿವೆ.
 
 # Artifacts & Packaging
 
-In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code --- ready to be installed or deployed.
-An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
-Consider this example where we have a Python file `greet.py` in our current directory:
+Software development ನಲ್ಲಿ source code ಮತ್ತು artifacts ಮಧ್ಯೆ ನಾವು ವ್ಯತ್ಯಾಸ ಮಾಡುತ್ತೇವೆ. ಅಭಿವೃದ್ಧಿಪರರು source code ಓದುತ್ತಾರೆ ಮತ್ತು ಬರೆಯುತ್ತಾರೆ; artifacts ಎಂದರೆ ಆ source code ನಿಂದ ಉತ್ಪತ್ತಿಯಾಗುವ packaged, distributable outputs - install ಅಥವಾ deploy ಮಾಡಲು ಸಿದ್ಧವಾಗಿರುವವು.
+Artifact ಒಂದು ನಾವು ಓಡಿಸುವ ಸರಳ code file ಆಗಿರಬಹುದು; ಅಥವಾ application ನ ಎಲ್ಲಾ ಅಗತ್ಯ ಅಂಶಗಳನ್ನು ಹೊಂದಿರುವ ಸಂಪೂರ್ಣ Virtual Machine ಆಗಿರಬಹುದು.
+ಉದಾಹರಣೆಗೆ, ನಮ್ಮ ಪ್ರಸ್ತುತ directory ಯಲ್ಲಿ `greet.py` ಎಂಬ Python file ಇದೆ ಎಂದು ಪರಿಗಣಿಸಿ:
 
 ```console
 $ cat greet.py
@@ -191,15 +191,15 @@ $ python -c "from greet import greet; print(greet('World'))"
 ModuleNotFoundError: No module named 'greet'
 ```
 
-The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
+ಬೇರೆ directory ಗೆ ಹೋದ ಕೂಡಲೇ import ವಿಫಲವಾಗುತ್ತದೆ, ಏಕೆಂದರೆ Python modules ಅನ್ನು ನಿರ್ದಿಷ್ಟ ಸ್ಥಳಗಳಲ್ಲಿ ಮಾತ್ರ ಹುಡುಕುತ್ತದೆ (current directory, installed packages, ಮತ್ತು `PYTHONPATH` ನಲ್ಲಿರುವ paths). Packaging ಈ ಸಮಸ್ಯೆಯನ್ನು ಕೋಡ್ ಅನ್ನು ತಿಳಿದಿರುವ ಸ್ಥಳಕ್ಕೆ install ಮಾಡುವ ಮೂಲಕ ಪರಿಹರಿಸುತ್ತದೆ.
 
-In Python, packaging a library involves producing an artifact that package installers like `pip` or `uv` can use to install the relevant files.
-Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
-Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other information. In Python, we use `pyproject.toml` for this purpose.
+Python ನಲ್ಲಿ library ಪ್ಯಾಕೇಜ್ ಮಾಡುವುದೆಂದರೆ `pip` ಅಥವಾ `uv` ಮುಂತಾದ package installers ಗೆ ಸಂಬಂಧಿತ files install ಮಾಡಲು ಸಾಧ್ಯವಾಗುವ artifact ನಿರ್ಮಿಸುವುದು.
+Python artifacts ಗಳನ್ನು _wheels_ ಎಂದು ಕರೆಯುತ್ತಾರೆ; package install ಮಾಡಲು ಬೇಕಾದ ಎಲ್ಲಾ ಮಾಹಿತಿಯನ್ನು ಅವು ಹೊಂದಿರುತ್ತವೆ: code files, package metadata (name, version, dependencies), ಮತ್ತು files ಅನ್ನು environment ನಲ್ಲಿ ಯಾವ ಸ್ಥಳಕ್ಕೆ ಇಡಬೇಕು ಎಂಬ ಸೂಚನೆಗಳು.
+Artifact ನಿರ್ಮಿಸಲು project file (manifest ಎಂದೂ ಕರೆಯಲಾಗುತ್ತದೆ) ಬರೆಯಬೇಕು; ಅದರಲ್ಲಿ project ವಿವರಗಳು, ಅಗತ್ಯ dependencies, package version, ಮತ್ತು ಇತರ ಮಾಹಿತಿ ಇರಬೇಕು. Python ನಲ್ಲಿ ಈ ಉದ್ದೇಶಕ್ಕಾಗಿ `pyproject.toml` ಬಳಸುತ್ತೇವೆ.
 
-> `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
+> `pyproject.toml` ಆಧುನಿಕ ಮತ್ತು ಶಿಫಾರಸುಗೊಂಡ ವಿಧಾನವಾಗಿದೆ. `requirements.txt` ಅಥವಾ `setup.py` ನಂತಹ ಹಿಂದಿನ packaging ವಿಧಾನಗಳಿಗೆ ಇನ್ನೂ support ಇದ್ದರೂ, ಸಾಧ್ಯವಾದರೆ `pyproject.toml` ಗೆ ಆದ್ಯತೆ ನೀಡಿ.
 
-Here's a minimal `pyproject.toml` for a library that also provides a command-line tool:
+Command-line tool ಕೂಡ ಒದಗಿಸುವ library ಗಾಗಿ ಕನಿಷ್ಠ `pyproject.toml` ಉದಾಹರಣೆ ಇಲ್ಲಿದೆ:
 
 ```toml
 [project]
@@ -216,9 +216,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
-The `typer` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+`typer` library ಎಂದರೆ ಅತಿ ಕಡಿಮೆ boilerplate ನೊಂದಿಗೆ command-line interfaces ರಚಿಸಲು ಪ್ರಸಿದ್ಧ Python package ಆಗಿದೆ.
 
-And the corresponding `greeting.py`:
+ಇದಕ್ಕೆ ಹೊಂದುವ `greeting.py`:
 
 ```python
 import typer
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     typer.run(main)
 ```
 
-With this file, we can now build the wheel:
+ಈ file ನೊಂದಿಗೆ ಈಗ ನಾವು wheel build ಮಾಡಬಹುದು:
 
 ```console
 $ uv build
@@ -250,9 +250,9 @@ greeting-0.1.0-py3-none-any.whl
 greeting-0.1.0.tar.gz
 ```
 
-The `.whl` file is the wheel (a zip archive with a specific structure), and the `.tar.gz` is a source distribution for systems that need to build from source.
+`.whl` file ಎಂದರೆ wheel (ನಿರ್ದಿಷ್ಟ ರಚನೆಯ zip archive), ಮತ್ತು `.tar.gz` ಎಂದರೆ source ನಿಂದ build ಮಾಡಬೇಕಾದ systems ಗಾಗಿ source distribution.
 
-You can inspect the contents of a wheel to see what gets packaged:
+Package ಆಗುವ ವಿಷಯವನ್ನು ನೋಡಲು wheel ನ ಒಳಗಿನ ವಿಷಯವನ್ನು ಪರಿಶೀಲಿಸಬಹುದು:
 
 ```console
 $ unzip -l dist/greeting-0.1.0-py3-none-any.whl
@@ -268,7 +268,7 @@ Archive:  dist/greeting-0.1.0-py3-none-any.whl
       998                     5 files
 ```
 
-Now if we were to give this wheel to someone else, they could install it by running:
+ಈ wheel ಅನ್ನು ಇನ್ನೊಬ್ಬರಿಗೆ ಕೊಟ್ಟರೆ, ಅವರು ಹೀಗೆ install ಮಾಡಬಹುದು:
 
 ```console
 $ uv pip install ./greeting-0.1.0-py3-none-any.whl
@@ -276,45 +276,45 @@ $ greet Alice
 Hello, Alice!
 ```
 
-This would install the library we built earlier into their environment, including the `greet` cli tool.
+ಇದರಿಂದ ನಾವು ಮೊದಲು build ಮಾಡಿದ್ದ library ಅನ್ನು, `greet` cli tool ಸೇರಿ, ಅವರ environment ನಲ್ಲಿ install ಮಾಡಬಹುದು.
 
-There are limitations to this approach. In particular if our library depends on platform-specific libraries, e.g. CUDA for GPU acceleration, then our artifact only works on systems with those specific libraries installed, and we may need to build separate wheels for different platforms (Linux, macOS, Windows) and architectures (x86, ARM).
+ಈ ವಿಧಾನಕ್ಕೆ ಕೆಲವು ಮಿತಿಗಳಿವೆ. ವಿಶೇಷವಾಗಿ, ನಮ್ಮ library platform-specific libraries ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿದ್ದರೆ (ಉದಾ., GPU acceleration ಗಾಗಿ CUDA), artifact ಆ ವಿಶೇಷ libraries install ಆಗಿರುವ systems ಗಳಲ್ಲಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ; ಜೊತೆಗೆ ವಿಭಿನ್ನ platforms (Linux, macOS, Windows) ಮತ್ತು architectures (x86, ARM) ಗಾಗಿ ಬೇರೆ ಬೇರೆ wheels build ಮಾಡಬೇಕಾಗಬಹುದು.
 
 
-When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine --- this requires having a compiler and build tools installed, and can take significant time for large projects.
+Software install ಮಾಡುವಾಗ source ನಿಂದ install ಮಾಡುವುದೂ prebuilt binary ನಿಂದ install ಮಾಡುವುದೂ ಬೇರೆ ಎಂಬ ಮುಖ್ಯ ವ್ಯತ್ಯಾಸವಿದೆ. Source ನಿಂದ install ಮಾಡುವುದೆಂದರೆ ಮೂಲ code download ಮಾಡಿ ನಿಮ್ಮ ಯಂತ್ರದಲ್ಲೇ compile ಮಾಡುವುದು - ಇದಕ್ಕಾಗಿ compiler ಮತ್ತು build tools install ಆಗಿರಬೇಕು; ದೊಡ್ಡ projects ಗಳಿಗೆ ಇದು ಹೆಚ್ಚಿನ ಸಮಯ ತೆಗೆದುಕೊಳ್ಳಬಹುದು.
 
-Installing a prebuilt binary means downloading an artifact that was already compiled by someone else --- faster and simpler, but the binary must match your platform and architecture.
-For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
+Prebuilt binary install ಮಾಡುವುದೆಂದರೆ ಇತರೆ ಯಾರಾದರೂ ಈಗಾಗಲೇ compile ಮಾಡಿದ artifact download ಮಾಡುವುದು - ವೇಗವಾಗಿ ಹಾಗೂ ಸರಳವಾಗಿ ನಡೆಯುತ್ತದೆ; ಆದರೆ binary ನಿಮ್ಮ platform ಮತ್ತು architecture ಗೆ ಹೊಂದಿರಬೇಕು.
+ಉದಾಹರಣೆಗೆ, [ripgrep ನ releases page](https://github.com/BurntSushi/ripgrep/releases) ನಲ್ಲಿ Linux (x86_64, ARM), macOS (Intel, Apple Silicon), ಮತ್ತು Windows ಗಾಗಿ prebuilt binaries ಕಾಣಬಹುದು.
 
 
 # Releases & Versioning
 
-Code is built in a continuous process but is released on a discrete basis.
-In software development there is a clear distinction between development and production environments.
-Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
-The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
+ಕೋಡ್ ನಿರಂತರ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿ ನಿರ್ಮಾಣವಾಗುತ್ತದೆ, ಆದರೆ release ಗಳು discrete ಆಧಾರದ ಮೇಲೆ ನಡೆಯುತ್ತವೆ.
+Software development ನಲ್ಲಿ development ಮತ್ತು production environments ಗಳ ನಡುವೆ ಸ್ಪಷ್ಟ ವ್ಯತ್ಯಾಸವಿದೆ.
+ಕೋಡ್ ಅನ್ನು prod ಗೆ _shipped_ ಮಾಡುವ ಮೊದಲು dev environment ನಲ್ಲಿ ಅದು ಸರಿಯಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂಬುದು ದೃಢವಾಗಬೇಕು.
+Release ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿ testing, dependency management, versioning, configuration, deployment, ಮತ್ತು publishing ಸೇರಿದಂತೆ ಅನೇಕ ಹಂತಗಳು ಸೇರಿರುತ್ತವೆ.
 
 
-Software libraries are not static and evolve over time getting fixes and new features.
-We track this evolution by discrete version identifiers that correspond to the state of the library at a certain point in time.
-Changes in the behavior of a library can range from patches that fix noncritical functionality, new features that extend its functionality, to changes breaking backwards compatibility.
-Changelogs document what changes a version introduces --- these are documents that software developers use to communicate the changes associated with a new release.
+Software libraries ಸ್ಥಿರವಾಗಿರುವುದಿಲ್ಲ; ಅವು ಕಾಲಕ್ರಮದಲ್ಲಿ fixes ಹಾಗೂ ಹೊಸ features ಗಳೊಂದಿಗೆ ವಿಕಸಿಸುತ್ತವೆ.
+ಈ ವಿಕಾಸವನ್ನು ನಾವು discrete version identifiers ಮೂಲಕ ಹತ್ತಿರದಿಂದ ಅನುಸರಿಸುತ್ತೇವೆ; ಅವು ನಿರ್ದಿಷ್ಟ ಸಮಯದ library ಸ್ಥಿತಿಯನ್ನು ಸೂಚಿಸುತ್ತವೆ.
+Library ವರ್ತನೆಯಲ್ಲಿ ಬರುವ ಬದಲಾವಣೆಗಳು noncritical ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ಸರಿಪಡಿಸುವ patches ಇಂದ, ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ವಿಸ್ತರಿಸುವ ಹೊಸ features ಗಳವರೆಗೆ, ಹಾಗೂ backwards compatibility ಮುರಿಯುವ ಬದಲಾವಣೆಗಳವರೆಗೆ ಇರಬಹುದು.
+Changelogs ಒಂದು version ಪರಿಚಯಿಸುವ ಬದಲಾವಣೆಗಳನ್ನು ದಾಖಲಿಸುತ್ತವೆ - ಹೊಸ release ಗೆ ಸಂಬಂಧಿಸಿದ ಬದಲಾವಣೆಗಳನ್ನು software developers ಪರಸ್ಪರ ಸಂವಹನ ಮಾಡಲು ಬಳಸುವ ದಾಖಲೆಗಳು ಅವು.
 
-However, keeping track of the ongoing changes in each and every dependency is impractical, even more so when we consider the transitive dependencies --- i.e. the dependencies of our dependencies.
+ಆದಾಗ್ಯೂ, ಪ್ರತಿ dependency ಯ ನಡೆಯುತ್ತಿರುವ ಬದಲಾವಣೆಗಳನ್ನು ಎಲ್ಲವನ್ನೂ ಟ್ರ್ಯಾಕ್ ಮಾಡುವುದು ಪ್ರಾಯೋಗಿಕವಲ್ಲ; transitive dependencies - ಅಂದರೆ ನಮ್ಮ dependencies ಗಳ dependencies - ಪರಿಗಣಿಸಿದರೆ ಇದು ಇನ್ನೂ ಕಷ್ಟಕರ.
 
-> You can visualize the entire dependency tree of your project with `uv tree`, which shows all packages and their transitive dependencies in a tree format.
+> ನಿಮ್ಮ project ನ ಸಂಪೂರ್ಣ dependency tree ಅನ್ನು `uv tree` ಮೂಲಕ ದೃಶ್ಯೀಕರಿಸಬಹುದು; ಇದು ಎಲ್ಲಾ packages ಮತ್ತು ಅವುಗಳ transitive dependencies ಅನ್ನು tree ರೂಪದಲ್ಲಿ ತೋರಿಸುತ್ತದೆ.
 
-To simplify this problem there are conventions on how to version software, and one of the most prevalent is [Semantic Versioning](https://semver.org/) or SemVer.
-Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PATCH where each one of the values takes an integer value. The short version is that upgrading:
+ಈ ಸಮಸ್ಯೆಯನ್ನು ಸರಳಗೊಳಿಸಲು software versioning ಕುರಿತು conventions ಇವೆ; ಅವುಗಳಲ್ಲಿ ಹೆಚ್ಚು ವ್ಯಾಪಕವಾದುದು [Semantic Versioning](https://semver.org/) ಅಥವಾ SemVer.
+Semantic Versioning ಅಡಿಯಲ್ಲಿ version ರೂಪ MAJOR.MINOR.PATCH ಆಗಿರುತ್ತದೆ; ಪ್ರತಿಯೊಂದು ಮೌಲ್ಯವೂ ಪೂರ್ಣಾಂಕ. ಸಂಕ್ಷಿಪ್ತವಾಗಿ, upgrade ಮಾಡುವಾಗ:
 
-- PATCH (e.g., 1.2.3 → 1.2.4) should only contain bug fixes and be fully backwards compatible
-- MINOR (e.g., 1.2.3 → 1.3.0) adds new functionality in a backwards-compatible way
-- MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
+- PATCH (ಉದಾ., 1.2.3 → 1.2.4) ನಲ್ಲಿ bug fixes ಮಾತ್ರ ಇರಬೇಕು ಮತ್ತು ಸಂಪೂರ್ಣ backwards compatible ಆಗಿರಬೇಕು
+- MINOR (ಉದಾ., 1.2.3 → 1.3.0) backwards-compatible ರೀತಿಯಲ್ಲಿ ಹೊಸ functionality ಸೇರಿಸುತ್ತದೆ
+- MAJOR (ಉದಾ., 1.2.3 → 2.0.0) breaking changes ಸೂಚಿಸುತ್ತದೆ; code ಬದಲಾವಣೆಗಳು ಅಗತ್ಯವಾಗಬಹುದು
 
-> This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
+> ಇದು ಸರಳೀಕೃತ ವಿವರಣೆ ಮಾತ್ರ. ಉದಾಹರಣೆಗೆ 0.1.3 ಇಂದ 0.2.0 ಗೆ ಹೋಗುವಾಗ ಏಕೆ breaking changes ಆಗಬಹುದು ಅಥವಾ 1.0.0-rc.1 ಎಂದರೇನು ಎಂಬುದನ್ನು ತಿಳಿಯಲು ಪೂರ್ಣ SemVer specification ಓದಲು ನಾವು ಪ್ರೋತ್ಸಾಹಿಸುತ್ತೇವೆ.
+Python packaging semantic versioning ಗೆ ಸ್ಥಳೀಯ support ನೀಡುತ್ತದೆ; ಆದ್ದರಿಂದ dependencies versions ಸೂಚಿಸುವಾಗ ವಿವಿಧ specifiers ಬಳಸಬಹುದು:
 
-In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies:
+`pyproject.toml` ನಲ್ಲಿ dependencies ಗಳ compatible versions ಶ್ರೇಣಿಯನ್ನು constrain ಮಾಡಲು ಬೇರೆ ಬೇರೆ ವಿಧಾನಗಳಿವೆ:
 
 ```toml
 [project]
@@ -326,22 +326,22 @@ dependencies = [
 ]
 ```
 
-Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator --- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
+Version specifiers ಅನೇಕ package managers (npm, cargo, ಇತ್ಯಾದಿ) ಗಳಲ್ಲಿ ಕಂಡುಬರುತ್ತವೆ; ಆದರೆ ನಿಖರ semantics ಬೇರೆ ಇರಬಹುದು. `~=` operator Python ನ "compatible release" operator - `~=2.1.0` ಎಂದರೆ "2.1.0 ಗೆ ಹೊಂದಿಕೊಳ್ಳುವ ಯಾವುದೇ version", ಅಂದರೆ `>=2.1.0` ಮತ್ತು `<2.2.0`. ಇದು npm ಮತ್ತು cargo ಯ caret (`^`) operator ಗೆ ಸುಮಾರು ಸಮಾನ, ಅದು SemVer compatibility ಪರಿಕಲ್ಪನೆ ಅನುಸರಿಸುತ್ತದೆ.
 
-Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
+ಎಲ್ಲ software ಗಳು semantic versioning ಬಳಸುವುದಿಲ್ಲ. ಸಾಮಾನ್ಯ ಪರ್ಯಾಯವೆಂದರೆ Calendar Versioning (CalVer), ಇದರಲ್ಲಿ versions semantic ಅರ್ಥದ ಬದಲಾಗಿ release ದಿನಾಂಕಗಳ ಆಧಾರವಾಗಿರುತ್ತವೆ. ಉದಾಹರಣೆಗೆ, Ubuntu `24.04` (April 2024) ಮತ್ತು `24.10` (October 2024) ಮಾದರಿಯ versions ಬಳಸುತ್ತದೆ. CalVer release ಎಷ್ಟು ಹಳೆಯದು ಎನ್ನುವುದನ್ನು ಸುಲಭವಾಗಿ ತೋರಿಸುತ್ತದೆ; ಆದರೆ compatibility ಬಗ್ಗೆ ಮಾಹಿತಿ ನೀಡುವುದಿಲ್ಲ. ಕೊನೆಗೆ, semantic versioning ಅಚ್ಯುತವಲ್ಲ; ಕೆಲವೊಮ್ಮೆ maintainers minor ಅಥವಾ patch releases ಗಳಲ್ಲಿಯೂ ಅಜಾಗರೂಕತೆಯಿಂದ breaking changes ಪರಿಚಯಿಸುತ್ತಾರೆ.
 
 
 # Reproducibility
 
-In modern software development the code you write sits atop a significant number of layers of abstraction.
-This includes things like your programming language runtime, third party libraries, the operating system, or even the hardware itself.
-Any difference across any of these layers might change the behavior of your code or even prevent it from working as intended.
-Furthermore, even differences in the underlying hardware impact your ability to ship software.
+ಆಧುನಿಕ software development ನಲ್ಲಿ ನೀವು ಬರೆಯುವ code ಬಹಳ ಪ್ರಮಾಣದ abstraction ಪದರಗಳ ಮೇಲೆ ನಿಂತಿರುತ್ತದೆ.
+ಇದರಲ್ಲಿ ನಿಮ್ಮ programming language runtime, third party libraries, operating system, ಅಥವಾ hardware ಕೂಡ ಸೇರಿರಬಹುದು.
+ಈ ಪದರಗಳಲ್ಲಿ ಯಾವುದಾದರೂ ವ್ಯತ್ಯಾಸವು ನಿಮ್ಮ code ವರ್ತನೆಯನ್ನು ಬದಲಿಸಬಹುದು ಅಥವಾ ಅದು ಉದ್ದೇಶಿತಂತೆ ಕೆಲಸ ಮಾಡುವುದನ್ನೇ ತಡೆಯಬಹುದು.
+ಮತ್ತಷ್ಟು, ಅಡಿಗಟ್ಟಿನ hardware ವ್ಯತ್ಯಾಸಗಳೂ software ship ಮಾಡುವ ನಿಮ್ಮ ಸಾಮರ್ಥ್ಯವನ್ನು ಪ್ರಭಾವಿಸುತ್ತವೆ.
 
-Pinning a library refers to specifying an exact version rather than a range, e.g. `requests==2.32.3` instead of `requests>=2.0`.
+Library pinning ಎಂದರೆ range ಬದಲಿಗೆ exact version ಸೂಚಿಸುವುದು; ಉದಾ., `requests>=2.0` ಬದಲಿಗೆ `requests==2.32.3`.
 
-Part of the job of a package manager is to consider all the constraints provided by the dependencies --- and transitive dependencies --- and then produce a valid list of versions that will satisfy all the constraints.
-The specific list of versions can then be saved to a file for reproducibility purposes; these files are referred to as _lock files_.
+Package manager ನ ಪ್ರಮುಖ ಕೆಲಸಗಳಲ್ಲಿ ಒಂದು ಎಂದರೆ dependencies - ಹಾಗೂ transitive dependencies - ನೀಡುವ ಎಲ್ಲಾ constraints ಗಳನ್ನು ಪರಿಗಣಿಸಿ, ಅವನ್ನೆಲ್ಲ ತೃಪ್ತಿಪಡಿಸುವ ಮಾನ್ಯ versions ಪಟ್ಟಿಯನ್ನು ಉತ್ಪಾದಿಸುವುದು.
+ಆ ನಿರ್ದಿಷ್ಟ versions ಪಟ್ಟಿಯನ್ನು reproducibility ಗಾಗಿ file ಗೆ ಉಳಿಸಬಹುದು; ಇವುಗಳನ್ನು _lock files_ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ.
 
 ```console
 $ uv lock
@@ -362,37 +362,37 @@ wheels = [
 ...
 ```
 
-One critical distinction when dealing with dependency versioning and reproducibility is the difference between libraries and applications/services.
-A library is intended to be imported and used by other code which might have its own dependencies, so specifying overly strict version constraints can cause conflicts with the user's other dependencies.
-In contrast, applications or services are final consumers of the software and typically expose their functionality through a user interface or an API, not through a programming interface.
-For libraries, it is good practice to specify version ranges to maximize compatibility with the wider package ecosystem. For applications, pinning exact versions ensures reproducibility --- everyone running the application uses the exact same dependencies.
+Dependency versioning ಮತ್ತು reproducibility ನೋಡಿಕೊಳ್ಳುವಾಗ ಒಂದು ಪ್ರಮುಖ ವ್ಯತ್ಯಾಸವೆಂದರೆ libraries ಮತ್ತು applications/services ನಡುವಿನ ಭೇದ.
+Library ಅನ್ನು ಇತರೆ code import ಮಾಡಿ ಬಳಸಲು ಉದ್ದೇಶಿಸಿರುವುದರಿಂದ, ಆ ಇತರೆ code ಗೆ ತನ್ನದೇ dependencies ಇರಬಹುದು; ಆದ್ದರಿಂದ ಅತಿಯಾಗಿ ಕಠಿಣ version constraints ನೀಡುವುದು ಬಳಕೆದಾರರ ಇತರೆ dependencies ಗಳೊಂದಿಗೆ conflicts ಉಂಟುಮಾಡಬಹುದು.
+ಇದಕ್ಕೆ ವಿರುದ್ಧವಾಗಿ, applications ಅಥವಾ services software ನ ಅಂತಿಮ ಗ್ರಾಹಕರು; ಅವು ಸಾಮಾನ್ಯವಾಗಿ programming interface ಮೂಲಕವಲ್ಲ, user interface ಅಥವಾ API ಮೂಲಕ ತಮ್ಮ functionality ಒದಗಿಸುತ್ತವೆ.
+Libraries ಗಾಗಿ, package ecosystem ನಲ್ಲಿ ಹೆಚ್ಚಿನ compatibility ಪಡೆಯಲು version ranges ಸೂಚಿಸುವುದು ಉತ್ತಮ ಅಭ್ಯಾಸ. Applications ಗಾಗಿ, exact versions pin ಮಾಡುವುದರಿಂದ reproducibility ಖಚಿತವಾಗುತ್ತದೆ - application ಓಡಿಸುವ ಎಲ್ಲರೂ ಅದೇ dependencies ಬಳಸುತ್ತಾರೆ.
 
 
-For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
+ಗರಿಷ್ಠ reproducibility ಅಗತ್ಯವಿರುವ projects ಗಾಗಿ [Nix](https://nixos.org/) ಮತ್ತು [Bazel](https://bazel.build/) ನಂತಹ tools _hermetic_ builds ಒದಗಿಸುತ್ತವೆ - ಇಲ್ಲಿ compilers, system libraries, ಹಾಗೂ build environment ಕೂಡ ಸೇರಿ ಪ್ರತಿಯೊಂದು input pin ಆಗಿ content-addressed ಆಗಿರುತ್ತದೆ. ಇದರಿಂದ build ಯಾವಾಗ, ಎಲ್ಲಲ್ಲಿ ನಡೆದರೂ bit-for-bit ಒಂದೇ output ದೊರೆಯುತ್ತದೆ.
 
-> You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
+> ನೀವು NixOS ಬಳಸಿ ಸಂಪೂರ್ಣ ಕಂಪ್ಯೂಟರ್ install ನ್ನೇ ನಿರ್ವಹಿಸಬಹುದು; ಹೀಗಾಗಿ ನಿಮ್ಮ setup ನ ಹೊಸ ಪ್ರತಿಗಳನ್ನು ಸುಲಭವಾಗಿ ನಿರ್ಮಿಸಿ, ಅವುಗಳ ಸಂಪೂರ್ಣ configuration ಅನ್ನು version-controlled configuration files ಮೂಲಕ ನಿರ್ವಹಿಸಬಹುದು.
 
-A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
-We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
+Software development ನಲ್ಲಿ ಅಂತ್ಯವಿಲ್ಲದ ಒತ್ತಡವೊಂದಿದೆ: ಹೊಸ software versions ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿಯೂ ಅಥವಾ ಅನಾಯಾಸವಾಗಿಯೂ breakage ತರಬಹುದು; ಮತ್ತೊಂದೆಡೆ ಹಳೆಯ software versions ಕಾಲಕ್ರಮದಲ್ಲಿ security vulnerabilities ಗೆ ಒಳಗಾಗುತ್ತವೆ.
+ಇದನ್ನು continuous integration pipelines (ಇದರ ಬಗ್ಗೆ [Code Quality and CI](/2026/code-quality/) ಉಪನ್ಯಾಸದಲ್ಲಿ ಇನ್ನಷ್ಟು ನೋಡುತ್ತೇವೆ) ಬಳಸಿ, ಹೊಸ software versions ವಿರುದ್ಧ application ಅನ್ನು test ಮಾಡುವ ಮೂಲಕ ಮತ್ತು dependencies ಗಳ ಹೊಸ versions ಬಿಡುಗಡೆಯಾಗುವಾಗ ಪತ್ತೆಹಚ್ಚುವ automation (ಉದಾ., [Dependabot](https://github.com/dependabot)) ಇಟ್ಟುಕೊಳ್ಳುವ ಮೂಲಕ ಎದುರಿಸಬಹುದು.
 
-Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
-In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
+CI testing ಇದ್ದರೂ software versions upgrade ಮಾಡುವಾಗ ಸಮಸ್ಯೆಗಳು ಉಂಟಾಗುತ್ತವೆ; ಬಹುಪಾಲು dev ಮತ್ತು prod environments ನಡುವಿನ ಅನಿವಾರ್ಯ ವ್ಯತ್ಯಾಸ ಇದಕ್ಕೆ ಕಾರಣ.
+ಅಂತಹ ಸಂದರ್ಭಗಳಲ್ಲಿ ಉತ್ತಮ ವಿಧಾನವೆಂದರೆ _rollback_ ಯೋಜನೆ ಹೊಂದಿರುವುದು - version upgrade ಹಿಂತೆಗೆದು, ಹಿಂದಿನ known-good version ಮರು-deploy ಮಾಡುವುದು.
 
 # VMs & Containers
 
-As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
-One common reason is having to interface with specific system libraries or hardware drivers.
-For example, in scientific computing and AI, programs often need specialized libraries and drivers to utilize GPU hardware.
-Many system-level dependencies (GPU drivers, specific compiler versions, shared libraries like OpenSSL) still require system-wide installation.
+ನೀವು ಹೆಚ್ಚು ಸಂಕೀರ್ಣ dependencies ಗಳ ಮೇಲೆ ಅವಲಂಬಿಸತೊಡಗಿದಂತೆ, ನಿಮ್ಮ code dependencies package manager ನ ವ್ಯಾಪ್ತಿಯನ್ನು ಮೀರಿ ಹೋಗುವ ಸಾಧ್ಯತೆ ಹೆಚ್ಚಾಗುತ್ತದೆ.
+ಇದಕ್ಕೆ ಸಾಮಾನ್ಯ ಕಾರಣಗಳಲ್ಲಿ ಒಂದು ನಿರ್ದಿಷ್ಟ system libraries ಅಥವಾ hardware drivers ಜೊತೆ ಸಂವಹನ ಮಾಡುವ ಅಗತ್ಯ.
+ಉದಾಹರಣೆಗೆ, scientific computing ಮತ್ತು AI ನಲ್ಲಿ programs ಗಳು GPU hardware ಬಳಸಲು ವಿಶೇಷ libraries ಮತ್ತು drivers ಅಗತ್ಯಪಡುತ್ತವೆ.
+ಅನೇಕ system-level dependencies (GPU drivers, ನಿರ್ದಿಷ್ಟ compiler versions, OpenSSL ನಂತಹ shared libraries) ಇನ್ನೂ system-wide installation ಅಗತ್ಯಪಡಿಸುತ್ತವೆ.
 
-Traditionally this wider dependency problem was solved with Virtual Machines (VMs).
-VMs abstract the entire computer and provide a completely isolated environment with its own dedicated operating system.
-A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
-Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
+ಪಾರಂಪರಿಕವಾಗಿ ಈ ವಿಶಾಲ dependency ಸಮಸ್ಯೆಯನ್ನು Virtual Machines (VMs) ಮೂಲಕ ಪರಿಹರಿಸಲಾಗುತ್ತಿತ್ತು.
+VM ಗಳು ಸಂಪೂರ್ಣ ಕಂಪ್ಯೂಟರ್ ಅನ್ನು abstract ಮಾಡಿ, ತನ್ನದೇ dedicated operating system ಹೊಂದಿರುವ ಸಂಪೂರ್ಣ isolated environment ಒದಗಿಸುತ್ತವೆ.
+ಹೆಚ್ಚು ಆಧುನಿಕ ವಿಧಾನವೆಂದರೆ containers, ಇವು application ಜೊತೆಗೆ ಅದರ dependencies, libraries, ಮತ್ತು filesystem ಅನ್ನು package ಮಾಡುತ್ತವೆ; ಆದರೆ ಸಂಪೂರ್ಣ ಕಂಪ್ಯೂಟರ್ virtualize ಮಾಡುವ ಬದಲು host ನ operating system kernel ಹಂಚಿಕೊಳ್ಳುತ್ತವೆ.
+Containers, kernel ಹಂಚಿಕೊಳ್ಳುವುದರಿಂದ, VMs ಗಿಂತ lightweight ಆಗಿದ್ದು ಆರಂಭಿಸಲು ವೇಗವಾಗಿಯೂ ಚಲಾಯಿಸಲು ಪರಿಣಾಮಕಾರಿಯಾಗಿಯೂ ಇರುತ್ತವೆ.
 
-The most popular container platform is [Docker](https://www.docker.com/). Docker introduced a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime --- an industry standard that other tools like Kubernetes also use.
+ಅತ್ಯಂತ ಜನಪ್ರಿಯ container platform ಎಂದರೆ [Docker](https://www.docker.com/). Docker containers build, distribute, ಮತ್ತು run ಮಾಡಲು standardized ವಿಧಾನವನ್ನು ಪರಿಚಯಿಸಿತು. ಒಳಭಾಗದಲ್ಲಿ Docker ತನ್ನ container runtime ಆಗಿ containerd ಬಳಸುತ್ತದೆ - Kubernetes ನಂತಹ ಇತರೆ tools ಕೂಡ ಬಳಸುವ industry standard ಇದು.
 
-Running a container is straightforward. For example, to run a Python interpreter inside a container we use `docker run` (The `-it` flags make the container interactive with a terminal. When you exit, the container stops.).
+Container ಓಡಿಸುವುದು ಸರಳ. ಉದಾಹರಣೆಗೆ container ಒಳಗೆ Python interpreter ಓಡಿಸಲು `docker run` ಬಳಸುತ್ತೇವೆ (ಇಲ್ಲಿನ `-it` flags container ಅನ್ನು terminal ಜೊತೆ interactive ಆಗಿ ಮಾಡುತ್ತವೆ. ನೀವು ಹೊರಬಂದಾಗ container ನಿಲ್ಲುತ್ತದೆ.).
 
 ```console
 $ docker run -it python:3.12 python
@@ -401,9 +401,9 @@ Python 3.12.7 (main, Nov  5 2024, 02:53:25) [GCC 12.2.0] on linux
 Hello from inside a container!
 ```
 
-In practice your program might depend on the entire filesystem.
-To overcome this, we can use container images that ship the entire filesystem of the application as the artifact.
-The container images are created programmatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
+ಪ್ರಾಯೋಗಿಕವಾಗಿ ನಿಮ್ಮ program ಸಂಪೂರ್ಣ filesystem ಮೇಲೇ ಅವಲಂಬಿತವಾಗಿರಬಹುದು.
+ಇದನ್ನು ನಿಭಾಯಿಸಲು, application ನ ಸಂಪೂರ್ಣ filesystem ಅನ್ನು artifact ಆಗಿ ಶಿಪ್ ಮಾಡುವ container images ಬಳಸಬಹುದು.
+Container images ಅನ್ನು programmatically ರಚಿಸಲಾಗುತ್ತದೆ. Docker ನಲ್ಲಿ image ಗೆ ಬೇಕಾದ dependencies, system libraries, ಮತ್ತು configuration ಅನ್ನು Dockerfile syntax ಮೂಲಕ ನಿಖರವಾಗಿ ಸೂಚಿಸುತ್ತೇವೆ:
 
 ```dockerfile
 FROM python:3.12
@@ -417,11 +417,11 @@ WORKDIR /app
 RUN pip install .
 ```
 
-An important distinction: a Docker **image** is the packaged artifact (like a template), while a **container** is a running instance of that image. You can run multiple containers from the same image. Images are built in layers, where each instruction (`FROM`, `RUN`, `COPY`, etc) in a Dockerfile creates a new layer. Docker caches these layers, so if you change a line in your Dockerfile, only that layer and subsequent layers need to be rebuilt.
+ಒಂದು ಪ್ರಮುಖ ವ್ಯತ್ಯಾಸ: Docker **image** packaged artifact (template ನಂತಹುದು), ಆದರೆ **container** ಆ image ನ running instance. ಒಂದೇ image ನಿಂದ ಅನೇಕ containers ಓಡಿಸಬಹುದು. Images ಪದರಗಳಲ್ಲಿ build ಆಗುತ್ತವೆ; Dockerfile ನ ಪ್ರತಿಯೊಂದು instruction (`FROM`, `RUN`, `COPY`, ಇತ್ಯಾದಿ) ಹೊಸ layer ರಚಿಸುತ್ತದೆ. Docker ಈ layers ಅನ್ನು cache ಮಾಡುತ್ತದೆ; ಆದ್ದರಿಂದ Dockerfile ನಲ್ಲಿ ಒಂದು line ಬದಲಾದರೆ, ಆ layer ಮತ್ತು ಅದರ ನಂತರದ layers ಮಾತ್ರ rebuild ಆಗಬೇಕು.
 
-The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, versions are not pinned, and it doesn't clean up package manager caches, shipping unnecessary files. Other frequent mistakes include insecurely running containers as root and accidentally embedding secrets in layers.
+ಹಿಂದಿನ Dockerfile ನಲ್ಲಿ ಹಲವು ದೋಷಗಳಿವೆ: ಇದು slim variant ಬದಲಿಗೆ full Python image ಬಳಸುತ್ತದೆ, ಅನಗತ್ಯ layers ಉಂಟುಮಾಡುವಂತೆ ಪ್ರತ್ಯೇಕ `RUN` commands ಬಳಸುತ್ತದೆ, versions pin ಆಗಿಲ್ಲ, package manager caches ಶುದ್ಧೀಕರಿಸಲಾಗಿಲ್ಲ, ಹೀಗಾಗಿ ಅನಗತ್ಯ files ship ಆಗುತ್ತವೆ. ಸಾಮಾನ್ಯವಾಗಿ ಕಾಣುವ ಇತರೆ ತಪ್ಪುಗಳಲ್ಲಿ containers ಅನ್ನು ಅಸುರಕ್ಷಿತವಾಗಿ root ಆಗಿ ಓಡಿಸುವುದು ಮತ್ತು layers ನಲ್ಲಿ ಅನಾಹುತವಾಗಿ secrets ಸೇರಿಸುವುದೂ ಸೇರಿವೆ.
 
-Here's an improved version
+ಇಲ್ಲಿ ಸುಧಾರಿತ version ಇದೆ
 
 ```dockerfile
 FROM python:3.12-slim
@@ -434,19 +434,19 @@ RUN uv pip install --system -r uv.lock
 COPY . /app
 ```
 
-In the previous example we see that instead of installing `uv` from source, we are copying the prebuilt binary from the `ghcr.io/astral-sh/uv:latest` image. This is known as the _builder_ pattern. With this pattern we do not need to ship all the tools needed to compile our code, just the final binary that is needed to run the application (`uv` in this case).
+ಹಿಂದಿನ ಉದಾಹರಣೆಯಲ್ಲಿ `uv` ಅನ್ನು source ನಿಂದ install ಮಾಡುವ ಬದಲಾಗಿ `ghcr.io/astral-sh/uv:latest` image ನಿಂದ prebuilt binary ನಕಲಿಸುತ್ತಿದ್ದೇವೆ. ಇದನ್ನು _builder_ pattern ಎನ್ನುತ್ತಾರೆ. ಈ pattern ಮೂಲಕ code compile ಮಾಡಲು ಬೇಕಾದ tools ಎಲ್ಲವನ್ನೂ ship ಮಾಡುವ ಅಗತ್ಯವಿಲ್ಲ; application ಓಡಿಸಲು ಬೇಕಾದ ಅಂತಿಮ binary (`uv` ಈ ಸಂದರ್ಭದಲ್ಲ) ಮಾತ್ರ ಸಾಕಾಗುತ್ತದೆ.
 
-Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
+Docker ಗೆ ಗಮನಿಸಬೇಕಾದ ಕೆಲವು ಮುಖ್ಯ ಮಿತಿಗಳು ಇವೆ. ಮೊದಲನೆಯದಾಗಿ, container images ಬಹಳ ಬಾರಿ platform-specific ಆಗಿರುತ್ತವೆ - `linux/amd64` ಗಾಗಿ build ಮಾಡಿದ image, emulation ಇಲ್ಲದೆ `linux/arm64` (Apple Silicon Macs) ನಲ್ಲಿ native ಆಗಿ ಓಡುವುದಿಲ್ಲ; emulation ನಿಧಾನ. ಎರಡನೆಯದಾಗಿ, Docker containers ಗೆ Linux kernel ಅಗತ್ಯವಿರುವುದರಿಂದ macOS ಮತ್ತು Windows ನಲ್ಲಿ Docker ವಾಸ್ತವವಾಗಿ ಒಳಗೆ lightweight Linux VM ಓಡಿಸುತ್ತದೆ, ಇದರಿಂದ overhead ಸೇರುತ್ತದೆ. ಮೂರನೆಯದಾಗಿ, Docker isolation VMs ಗಿಂತ ದುರ್ಬಲ - containers host kernel ಹಂಚಿಕೊಳ್ಳುತ್ತವೆ; multi-tenant environments ಗಳಲ್ಲಿ ಇದು security ಚಿಂತೆ.
 
-> These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
+> ಇತ್ತೀಚೆಗೆ, ಇನ್ನೂ ಹೆಚ್ಚು projects [nix flakes](https://serokell.io/blog/practical-nix-flakes) ಮೂಲಕ project-ಪ್ರತಿ "system-wide" libraries ಮತ್ತು applications ಗಳನ್ನೂ ನಿರ್ವಹಿಸಲು nix ಬಳಸುತ್ತಿವೆ.
 
 # Configuration
 
-Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
-Software configuration should not be embedded in the code but be provided at runtime.
-A couple of common ones being environment variables and config files.
+Software ಸ್ವಭಾವತಃ configurable ಆಗಿದೆ. [command line environment](/2026/command-line-environment/) ಉಪನ್ಯಾಸದಲ್ಲಿ flags, environment variables ಅಥವಾ configuration files (a.k.a. dotfiles) ಮೂಲಕ programs options ಸ್ವೀಕರಿಸುವುದನ್ನು ನೋಡಿದ್ದೇವೆ. ಇದೇ ತತ್ವ ಹೆಚ್ಚು ಸಂಕೀರ್ಣ applications ಗಳಿಗೂ ಅನ್ವಯಿಸುತ್ತದೆ, ಮತ್ತು scale ನಲ್ಲಿ configuration ನಿರ್ವಹಣೆಗೆ ಸ್ಥಿರವಾದ patterns ಇವೆ.
+Software configuration code ನಲ್ಲಿ hardcode ಆಗಿರಬಾರದು; runtime ನಲ್ಲಿ ಒದಗಿಸಬೇಕು.
+ಸಾಮಾನ್ಯ ವಿಧಾನಗಳಲ್ಲಿ environment variables ಮತ್ತು config files ಪ್ರಮುಖ.
 
-Here's an example of an application that is configured via environment variables:
+Environment variables ಮೂಲಕ configure ಆಗುವ application ಉದಾಹರಣೆ ಇಲ್ಲಿದೆ:
 
 ```python
 import os
@@ -456,7 +456,7 @@ DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 API_KEY = os.environ["API_KEY"]  # Required - will raise if not set
 ```
 
-An application could also be configured via a configuration file (e.g., a Python program that loads a config via `yaml.load`), `config.yaml`:
+Configuration file ಮೂಲಕವೂ application configure ಮಾಡಬಹುದು (ಉದಾ., `yaml.load` ಮೂಲಕ config load ಮಾಡುವ Python program), `config.yaml`:
 
 ```yaml
 database:
@@ -468,22 +468,22 @@ server:
   debug: false
 ```
 
-A good right-hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
+Configuration ಬಗ್ಗೆ ಯೋಚಿಸಲು ಉತ್ತಮ right-hand rule ಎಂದರೆ: ಒಂದೇ codebase ಅನ್ನು ವಿಭಿನ್ನ environments (development, staging, production) ಗೆ deploy ಮಾಡಬಹುದಾಗಿರಬೇಕು; ಬದಲಾಗುವುದು configuration ಮಾತ್ರ, code ಎಂದಿಗೂ ಅಲ್ಲ.
 
-Among the many configuration options there is often sensitive data such as API keys.
-Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
+ಬಹು configuration ಆಯ್ಕೆಗಳಲ್ಲಿ API keys ಮುಂತಾದ sensitive data ಸಾಮಾನ್ಯವಾಗಿ ಇರುತ್ತವೆ.
+Secrets ಅನ್ನು ಅಪರಾಧಪ್ರಾಯವಾಗಿ ಬಯಲಾಗದಂತೆ ಜಾಗ್ರತೆಯಿಂದ ನಿರ್ವಹಿಸಬೇಕು; ಮತ್ತು ಅವನ್ನು version control ನಲ್ಲಿ ಎಂದಿಗೂ ಸೇರಿಸಬಾರದು.
 
 
 # Services & Orchestration
 
-Modern applications rarely exist in isolation. A typical web application might need a database for persistent storage, a cache for performance, a message queue for background tasks, and various other supporting services. Rather than bundling everything into a single monolithic application, modern architectures often decompose functionality into separate services that can be developed, deployed, and scaled independently.
+ಆಧುನಿಕ applications ಅಪರೂಪವಾಗಿ ಒಂಟಿಯಾಗಿಯೇ ಇರುತ್ತವೆ. ಒಂದು ಸಾಮಾನ್ಯ web application ಗೆ persistent storage ಗಾಗಿ database, performance ಗಾಗಿ cache, background tasks ಗಾಗಿ message queue, ಮತ್ತು ಇತರ supporting services ಅಗತ್ಯವಿರಬಹುದು. ಎಲ್ಲವನ್ನೂ ಒಂದೇ monolithic application ನಲ್ಲಿ ಬಂಧಿಸುವ ಬದಲು, ಆಧುನಿಕ architectures ಸಾಮಾನ್ಯವಾಗಿ functionality ಅನ್ನು ಪ್ರತ್ಯೇಕ services ಗಳಾಗಿ ವಿಭಜಿಸುತ್ತವೆ; ಇವುಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಅಭಿವೃದ್ಧಿಪಡಿಸಿ, deploy ಮಾಡಿ, scale ಮಾಡಬಹುದು.
 
-As an example, if we determine our application might benefit from using a cache, instead of rolling our own we can leverage existing battle tested solutions like [Redis](https://redis.io/) or [Memcached](https://memcached.org/).
-We could embed Redis in our application dependencies by building it as part of the container, but that means harmonizing all the dependencies between Redis and our application which could be challenging or even unfeasible.
-Instead what we can do is deploy each application separately in its own container.
-This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs.
+ಉದಾಹರಣೆಗೆ, ನಮ್ಮ application ಗೆ cache ಉಪಯುಕ್ತ ಎಂದು ನಿರ್ಧರಿಸಿದರೆ, ನಮ್ಮದೇ ಪರಿಹಾರ ನಿರ್ಮಿಸುವ ಬದಲು [Redis](https://redis.io/) ಅಥವಾ [Memcached](https://memcached.org/) ನಂತಹ battle tested ಪರಿಹಾರಗಳನ್ನು ಬಳಸಬಹುದು.
+Redis ಅನ್ನು container ಭಾಗವಾಗಿ build ಮಾಡಿ ನಮ್ಮ application dependencies ಒಳಗೆ ಸೇರಿಸಬಹುದಾದರೂ, Redis ಮತ್ತು application ನಡುವಿನ ಎಲ್ಲಾ dependencies harmonize ಮಾಡಬೇಕಾಗುತ್ತದೆ; ಅದು ಸವಾಲಾಗಬಹುದು ಅಥವಾ ಅಸಾಧ್ಯವೂ ಆಗಬಹುದು.
+ಬದಲಾಗಿ, ಪ್ರತಿ application ಅನ್ನು ಅದರದೇ container ನಲ್ಲಿ ಪ್ರತ್ಯೇಕವಾಗಿ deploy ಮಾಡಬಹುದು.
+ಇದನ್ನು ಸಾಮಾನ್ಯವಾಗಿ microservice architecture ಎಂದು ಕರೆಯುತ್ತಾರೆ; ಇಲ್ಲಿ ಪ್ರತಿ component ಒಂದು ಸ್ವತಂತ್ರ service ಆಗಿ ಓಡಿ, ಸಾಮಾನ್ಯವಾಗಿ HTTP APIs ಮೂಲಕ network ಮೇಲೆ ಸಂವಹನ ಮಾಡುತ್ತದೆ.
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together. Now our full application encompasses more than one container:
+[Docker Compose](https://docs.docker.com/compose/) multi-container applications ನಿರ್ಧರಿಸಿ ಓಡಿಸಲು ಉಪಯುಕ್ತ tool ಆಗಿದೆ. Containers ಅನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ನಿರ್ವಹಿಸುವ ಬದಲಾಗಿ, ನೀವು ಎಲ್ಲ services ಗಳನ್ನು ಒಂದೇ YAML file ನಲ್ಲಿ ಘೋಷಿಸಿ ಅವನ್ನು ಒಟ್ಟಿಗೆ orchestrate ಮಾಡುತ್ತೀರಿ. ಈಗ ನಮ್ಮ ಸಂಪೂರ್ಣ application ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು container ಒಳಗೊಂಡಿದೆ:
 
 ```yaml
 # docker-compose.yml
@@ -506,10 +506,10 @@ volumes:
   redis_data:
 ```
 
-With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
-Docker Compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
+`docker compose up` ಮೂಲಕ ಎರಡೂ services ಒಟ್ಟಿಗೆ ಪ್ರಾರಂಭಗೊಳ್ಳುತ್ತವೆ; web application `cache` hostname ಬಳಸಿ Redis ಗೆ ಸಂಪರ್ಕಿಸಬಹುದು (Docker ನ internal DNS service names ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ resolve ಮಾಡುತ್ತದೆ).
+Docker Compose ಮೂಲಕ ಒಂದು ಅಥವಾ ಹೆಚ್ಚು services ಅನ್ನು ಹೇಗೆ deploy ಮಾಡಬೇಕು ಎಂದು ಘೋಷಿಸಬಹುದು; ಜೊತೆಗೆ ಅವನ್ನು ಒಟ್ಟಿಗೆ ಆರಂಭಿಸುವುದು, networking ಹೊಂದಿಸುವುದು, ಮತ್ತು data persistence ಗಾಗಿ shared volumes ನಿರ್ವಹಿಸುವ orchestration ನ್ನೂ ಇದು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ.
 
-For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
+Production deployments ಗಾಗಿ, docker compose services boot ಸಮಯದಲ್ಲೇ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಆರಂಭವಾಗಿ failure ಆಗಿದರೆ ಮರುಪ್ರಾರಂಭಗೊಳ್ಳಬೇಕು ಎಂದು ನೀವು ಬಯಸಬಹುದು. ಸಾಮಾನ್ಯ ವಿಧಾನವೆಂದರೆ docker compose deployment ಅನ್ನು systemd ಮೂಲಕ ನಿರ್ವಹಿಸುವುದು:
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -529,11 +529,11 @@ ExecStop=/usr/bin/docker compose down
 WantedBy=multi-user.target
 ```
 
-This systemd unit file ensures your application starts when the system boots (after Docker is ready), and provides standard controls like `systemctl start myapp`, `systemctl stop myapp`, and `systemctl status myapp`.
+ಈ systemd unit file ನಿಮ್ಮ application ಅನ್ನು system boot ಆಗುವಾಗ (Docker ಸಿದ್ಧವಾದ ನಂತರ) ಪ್ರಾರಂಭವಾಗುವಂತೆ ಖಚಿತಪಡಿಸುತ್ತದೆ; ಜೊತೆಗೆ `systemctl start myapp`, `systemctl stop myapp`, ಮತ್ತು `systemctl status myapp` ನಂತಹ standard controls ಒದಗಿಸುತ್ತದೆ.
 
-As deployment requirements grow more complex --- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees --- organizations turn to sophisticated container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. That said, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
+Deployment ಅಗತ್ಯಗಳು ಇನ್ನಷ್ಟು ಸಂಕೀರ್ಣವಾದಂತೆ - ಅನೇಕ ಯಂತ್ರಗಳಾಚೆ scalability, services crash ಆದಾಗ fault tolerance, ಮತ್ತು high availability guarantees ಅಗತ್ಯವಿರುವ ಸಂದರ್ಭಗಳಲ್ಲಿ - ಸಂಸ್ಥೆಗಳು Kubernetes (k8s) ನಂತಹ ಉನ್ನತ ಮಟ್ಟದ container orchestration platforms ಕಡೆ ತಿರುಗುತ್ತವೆ; ಇವು machines ಗಳ clusters ಅಳೆಯಲ್ಲೂ ಸಾವಿರಾರು containers ನಿರ್ವಹಿಸಬಲ್ಲವು. ಆದಾಗ್ಯೂ Kubernetes ಗೆ ಕಲಿಕೆಯ ತೀವ್ರ ವಕ್ರತೆ ಹಾಗೂ ಗಮನಾರ್ಹ operational overhead ಇರುವುದರಿಂದ, ಸಣ್ಣ projects ಗಾಗಿ ಇದು ಅನೇಕ ಬಾರಿ ಅತಿಯಾಗುತ್ತದೆ.
 
-This multi-container setup is partly feasible because modern services communicate with each other via standardized APIs, with HTTP REST APIs. For example, whenever a program interacts with an LLM provider like OpenAI or Anthropic, under the hood it is sending an HTTP request to their servers and parsing the response:
+ಈ multi-container setup ಭಾಗಶಃ ಸಾಧ್ಯವಾಗಿರುವುದು, ಆಧುನಿಕ services ಪರಸ್ಪರ standardized APIs ಮೂಲಕ - ಮುಖ್ಯವಾಗಿ HTTP REST APIs ಮೂಲಕ - ಸಂವಹನ ಮಾಡುವುದರಿಂದ. ಉದಾಹರಣೆಗೆ, program ಒಂದು OpenAI ಅಥವಾ Anthropic ನಂತಹ LLM provider ಜೊತೆ ಸಂವಹನಿಸಿದಾಗ, ಒಳಗೆ ಅದು ಅವರ servers ಗೆ HTTP request ಕಳುಹಿಸಿ response parse ಮಾಡುತ್ತದೆ:
 
 ```console
 $ curl https://api.anthropic.com/v1/messages \
@@ -546,17 +546,17 @@ $ curl https://api.anthropic.com/v1/messages \
 
 # Publishing
 
-Once you have shown your code to work, you might be interested in distributing it for others to download and install.
-Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
+ನಿಮ್ಮ code ಸರಿಯಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ ಎಂದು ತೋರಿಸಿದ ನಂತರ, ಅದನ್ನು ಇತರರು download ಮಾಡಿ install ಮಾಡಲು ಹಂಚಬೇಕೆಂಬ ಆಸಕ್ತಿ ಮೂಡಬಹುದು.
+Distribution ಹಲವು ರೂಪಗಳನ್ನು ಹೊಂದಿದ್ದು, ಅದು ನಿಮ್ಮ programming language ಹಾಗೂ ನೀವು ಕಾರ್ಯನಿರ್ವಹಿಸುವ environments ಜೊತೆಗೆ ಆಂತರಿಕವಾಗಿ ಸಂಬಂಧಿಸಿದೆ.
 
-The simplest form of distribution is uploading artifacts for people to download and install locally.
-This is still common and you can find it in places like [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/), which is essentially an HTTP directory listing of `.deb` files.
+Distribution ನ ಸರಳ ರೂಪವೆಂದರೆ ಜನರು download ಮಾಡಿ ಸ್ಥಳೀಯವಾಗಿ install ಮಾಡಲು artifacts ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದು.
+ಇದು ಇನ್ನೂ ಸಾಮಾನ್ಯವಾಗಿದೆ; ಉದಾಹರಣೆಗೆ [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/) ನಲ್ಲಿ ಕಾಣಬಹುದು, ಅದು ಮೂಲತಃ `.deb` files ಗಳ HTTP directory listing ಆಗಿದೆ.
 
-These days, GitHub has become the de facto platform for publishing source code and artifacts.
-While the source code is often publicly available, GitHub Releases allow maintainers to attach prebuilt binaries and other artifacts to tagged versions.
+ಇತ್ತೀಚಿನ ದಿನಗಳಲ್ಲಿ source code ಮತ್ತು artifacts publish ಮಾಡಲು GitHub de facto platform ಆಗಿದೆ.
+Source code ಬಹುಶಃ ಸಾರ್ವಜನಿಕವಾಗಿದ್ದರೂ, GitHub Releases maintainers ಗೆ tagged versions ಗೆ prebuilt binaries ಮತ್ತು ಇತರೆ artifacts ಸೇರಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ.
 
 
-Package managers sometimes support installing directly from GitHub, either from source or from a pre-built wheel:
+Package managers ಕೆಲವೊಮ್ಮೆ GitHub ನಿಂದ ನೇರವಾಗಿ install ಮಾಡಲು support ಮಾಡುತ್ತವೆ - source ನಿಂದಲೂ, pre-built wheel ನಿಂದಲೂ:
 
 ```console
 # Install from source (will clone and build)
@@ -569,8 +569,8 @@ $ pip install git+https://github.com/psf/requests.git@v2.32.3
 $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
-In fact, some languages like Go use a decentralized distribution model --- rather than a central package repository, Go modules are distributed directly from their source code repositories.
-Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo`, or `brew` have central indexes of pre-packaged projects for ease of distribution and installation. If we run
+ವಾಸ್ತವವಾಗಿ Go ನಂತಹ ಕೆಲವು languages decentralized distribution model ಬಳಸುತ್ತವೆ - central package repository ಬದಲಿಗೆ, Go modules ನೇರವಾಗಿ source code repositories ಗಳಿಂದ ಹಂಚಲಾಗುತ್ತವೆ.
+`github.com/gorilla/mux` ನಂತಹ module paths code ಎಲ್ಲಿದೆ ಎಂಬುದನ್ನು ಸೂಚಿಸುತ್ತವೆ; `go get` ಅಲ್ಲಿಂದಲೇ fetch ಮಾಡುತ್ತದೆ. ಆದರೆ `pip`, `cargo`, ಅಥವಾ `brew` ಮುಂತಾದ ಬಹುತೇಕ package managers distribution ಮತ್ತು installation ಸುಗಮಗೊಳಿಸಲು pre-packaged projects ಗಳ central indexes ಹೊಂದಿವೆ. ನಾವು ಹೀಗೆ ಚಾಲನೆ ಮಾಡಿದರೆ
 
 ```console
 $ uv pip install requests --verbose --no-cache 2>&1 | grep -F '.whl'
@@ -579,18 +579,18 @@ DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3ea
 DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl
 ```
 
-we see where we are fetching the `requests` wheel from. Notice the `py3-none-any` in the filename --- this means the wheel works with any Python 3 version, on any OS, on any architecture. For packages with compiled code, the wheel is platform-specific:
+`requests` wheel ಅನ್ನು ನಾವು ಎಲ್ಲಿಂದ fetch ಮಾಡುತ್ತಿದ್ದೇವೆ ಎಂಬುದು ಗೋಚರಿಸುತ್ತದೆ. filename ನಲ್ಲಿರುವ `py3-none-any` ಗಮನಿಸಿ - ಇದರ ಅರ್ಥ ಆ wheel ಯಾವುದೇ Python 3 version, ಯಾವುದೇ OS, ಯಾವುದೇ architecture ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ. Compiled code ಇರುವ packages ಗಾಗಿ wheel platform-specific ಆಗಿರುತ್ತದೆ:
 
 ```console
 $ uv pip install numpy --verbose --no-cache 2>&1 | grep -F '.whl'
 DEBUG Selecting: numpy==2.2.1 [compatible] (numpy-2.2.1-cp312-cp312-macosx_14_0_arm64.whl)
 ```
 
-Here `cp312-cp312-macosx_14_0_arm64` indicates this wheel is specifically for CPython 3.12 on macOS 14+ for ARM64 (Apple Silicon). If you're on a different platform, `pip` will download a different wheel or build from source.
+ಇಲ್ಲಿ `cp312-cp312-macosx_14_0_arm64` ಎಂದರೆ ಈ wheel CPython 3.12, macOS 14+, ARM64 (Apple Silicon) ಗಾಗಿ ವಿಶೇಷವಾಗಿ ಸಿದ್ಧಪಡಿಸಲಾಗಿದೆ. ನೀವು ಬೇರೆ platform ನಲ್ಲಿ ಇದ್ದರೆ `pip` ಬೇರೆ wheel download ಮಾಡುತ್ತದೆ ಅಥವಾ source ನಿಂದ build ಮಾಡುತ್ತದೆ.
 
-Conversely, for people to be able to find a package we've created, we need to publish it to one of these registries.
-In Python, the main registry is the [Python Package Index (PyPI)](https://pypi.org).
-Like with installing, there are multiple ways of publishing packages. The `uv publish` command provides a modern interface for uploading packages to PyPI:
+ಇನ್ನೊಂದೆಡೆ, ನಾವು ಸೃಷ್ಟಿಸಿದ package ಇತರರಿಗೆ ದೊರೆಯಲು ಅದನ್ನು ಈ registries ಗಳಲ್ಲಿ ಒಂದಕ್ಕೆ publish ಮಾಡಬೇಕು.
+Python ನಲ್ಲಿ ಮುಖ್ಯ registry [Python Package Index (PyPI)](https://pypi.org) ಆಗಿದೆ.
+Install ಮಾಡುವಂತೆಯೇ, packages publish ಮಾಡಲು ಅನೇಕ ವಿಧಾನಗಳಿವೆ. `uv publish` command, packages ಅನ್ನು PyPI ಗೆ upload ಮಾಡಲು ಆಧುನಿಕ interface ಒದಗಿಸುತ್ತದೆ:
 
 ```console
 $ uv publish --publish-url https://test.pypi.org/legacy/
@@ -598,33 +598,33 @@ Publishing greeting-0.1.0.tar.gz
 Publishing greeting-0.1.0-py3-none-any.whl
 ```
 
-Here we are using [TestPyPI](https://test.pypi.org) --- a separate package registry intended for testing your publishing workflow without polluting the real PyPI. Once uploaded, you can install from TestPyPI:
+ಇಲ್ಲಿ ನಾವು [TestPyPI](https://test.pypi.org) ಬಳಸುತ್ತಿದ್ದೇವೆ - ಇದು ನಿಜವಾದ PyPI ಯನ್ನು ಅಶುದ್ಧಗೊಳಿಸದೆ ನಿಮ್ಮ publishing workflow ಪರೀಕ್ಷಿಸಲು ಉದ್ದೇಶಿತ ಪ್ರತ್ಯೇಕ package registry. Upload ಆದ ನಂತರ, ನೀವು TestPyPI ಯಿಂದ install ಮಾಡಬಹುದು:
 
 ```console
 $ uv pip install --index-url https://test.pypi.org/simple/ greeting
 ```
 
-A key consideration when publishing software is trust. How do users verify that the package they download actually comes from you and hasn't been tampered with? Package registries use checksums to verify integrity, and some ecosystems support package signing to provide cryptographic proof of authorship.
+Software publish ಮಾಡುವಾಗ trust ಪ್ರಮುಖ ಪ್ರಶ್ನೆಯಾಗುತ್ತದೆ. ಬಳಕೆದಾರರು download ಮಾಡುವ package ನಿಜವಾಗಿ ನಿಮ್ಮಿಂದ ಬಂದಿದೆಯೇ ಮತ್ತು tamper ಆಗಿಲ್ಲವೇ ಎಂಬುದನ್ನು ಹೇಗೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳುವುದು? Package registries integrity ಪರಿಶೀಲಿಸಲು checksums ಬಳಸುತ್ತವೆ; ಕೆಲವು ecosystems authorship ಗೆ cryptographic proof ಒದಗಿಸಲು package signing support ಮಾಡುತ್ತವೆ.
 
-Different languages have their own package registries: [crates.io](https://crates.io) for Rust, [npm](https://www.npmjs.com) for JavaScript, [RubyGems](https://rubygems.org) for Ruby, and [Docker Hub](https://hub.docker.com) for container images. Meanwhile, for private or internal packages, organizations often deploy their own package repositories (such as a private PyPI server or a private Docker registry) or use managed solutions from cloud providers.
+ವಿಭಿನ್ನ languages ಗಳಿಗೆ ಸ್ವಂತ package registries ಇವೆ: Rust ಗಾಗಿ [crates.io](https://crates.io), JavaScript ಗಾಗಿ [npm](https://www.npmjs.com), Ruby ಗಾಗಿ [RubyGems](https://rubygems.org), ಮತ್ತು container images ಗಾಗಿ [Docker Hub](https://hub.docker.com). ಮತ್ತೊಂದೆಡೆ private ಅಥವಾ internal packages ಗಾಗಿ ಸಂಸ್ಥೆಗಳು ತಮ್ಮದೇ package repositories (ಉದಾ., private PyPI server ಅಥವಾ private Docker registry) deploy ಮಾಡಬಹುದು, ಅಥವಾ cloud providers ನ managed solutions ಬಳಸಬಹುದು.
 
-Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
+Web service ಅನ್ನು internet ಗೆ deploy ಮಾಡಲು ಹೆಚ್ಚುವರಿ infrastructure ಅಗತ್ಯ: domain name registration, ನಿಮ್ಮ domain ಅನ್ನು server ಕಡೆ point ಮಾಡಲು DNS configuration, ಮತ್ತು ಬಹಳ ಬಾರಿ HTTPS ನಿರ್ವಹಿಸಿ traffic route ಮಾಡಲು nginx ನಂತಹ reverse proxy. documentation ಅಥವಾ static sites ನಂತಹ ಸರಳ ಬಳಕೆ ಸಂದರ್ಭಗಳಿಗೆ [GitHub Pages](https://pages.github.com/) repository ನಿಂದ ನೇರವಾಗಿ ಉಚಿತ hosting ಒದಗಿಸುತ್ತದೆ.
 
 <!--
 ## Documentation
 
-So far we have emphasized the deliverable _artifact_ as the main output of packaging and shipping code.
-In addition to the artifact, we need to document for users the code's functionality, installation instructions, and usage examples.
+ಇಲ್ಲಿಯವರೆಗೆ ನಾವು packaging ಮತ್ತು shipping code ನ ಮುಖ್ಯ output ಆಗಿ deliverable _artifact_ ಮೇಲೆ ಒತ್ತಡ ನೀಡಿದ್ದೇವೆ.
+Artifact ಜೊತೆಗೆ, code ನ functionality, installation ಸೂಚನೆಗಳು, ಮತ್ತು usage ಉದಾಹರಣೆಗಳನ್ನು ಬಳಕೆದಾರರಿಗೆ documentation ರೂಪದಲ್ಲಿ ನೀಡಬೇಕಾಗುತ್ತದೆ.
 
-Tools like [Sphinx](https://www.sphinx-doc.org/) (Python) and [MkDocs](https://www.mkdocs.org/) can automatically generate browsable documentation from docstrings and markdown files, often hosted on services like [Read the Docs](https://readthedocs.org/).
-For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (formerly Swagger) provides a standard format for describing API endpoints, which tools can use to generate interactive documentation and client libraries automatically. -->
+[Sphinx](https://www.sphinx-doc.org/) (Python) ಮತ್ತು [MkDocs](https://www.mkdocs.org/) ನಂತಹ tools docstrings ಮತ್ತು markdown files ನಿಂದ browsable documentation ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಚಿಸಬಹುದು; ಇದನ್ನು ಸಾಮಾನ್ಯವಾಗಿ [Read the Docs](https://readthedocs.org/) ನಂತಹ ಸೇವೆಗಳಲ್ಲಿ host ಮಾಡಲಾಗುತ್ತದೆ.
+HTTP ಆಧಾರಿತ APIs ಗಾಗಿ [OpenAPI specification](https://www.openapis.org/) (ಹಿಂದೆ Swagger) API endpoints ವಿವರಿಸಲು ಒಂದು ಮಾನದಂಡಿತ ರೂಪ ಒದಗಿಸುತ್ತದೆ; ಇದನ್ನು tools ಬಳಸಿ interactive documentation ಮತ್ತು client libraries ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಚಿಸಬಹುದು. -->
 
 
 # Exercises
 
-1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
-1. Create a Python package with a `pyproject.toml` and install it in a virtual environment. Create a lockfile and inspect it.
-1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
-1. Write a Dockerfile for a simple Python application. Then write a `docker-compose.yml` that runs your application alongside a Redis cache.
-1. Publish a Python package to TestPyPI (don't publish to the real PyPI unless it's worth sharing!). Then build a Docker image with said package and push it to `ghcr.io`.
-1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra (non-)credit: configure it with a custom domain.
+1. `printenv` ಬಳಸಿ ನಿಮ್ಮ environment ಅನ್ನು file ಗೆ ಉಳಿಸಿ, venv ರಚಿಸಿ, activate ಮಾಡಿ, ಮತ್ತೊಂದು file ಗೆ `printenv` ಉಳಿಸಿ, ಮತ್ತು `diff before.txt after.txt` ಚಾಲನೆ ಮಾಡಿ. Environment ನಲ್ಲಿ ಏನು ಬದಲಾಯಿತು? shell ಯಾಕೆ venv ಗೆ ಆದ್ಯತೆ ನೀಡುತ್ತದೆ? (ಸುಳಿವು: activation ಮೊದಲು ಮತ್ತು ನಂತರ `$PATH` ನೋಡಿ.) `which deactivate` ಚಾಲನೆ ಮಾಡಿ, deactivate bash function ಏನು ಮಾಡುತ್ತಿದೆ ಎಂದು ವಿಶ್ಲೇಷಿಸಿ.
+1. `pyproject.toml` ಹೊಂದಿರುವ Python package ರಚಿಸಿ, ಅದನ್ನು virtual environment ನಲ್ಲಿ install ಮಾಡಿ. lockfile ರಚಿಸಿ ಮತ್ತು ಅದನ್ನು ಪರಿಶೀಲಿಸಿ.
+1. Docker install ಮಾಡಿ ಮತ್ತು docker compose ಬಳಸಿ Missing Semester class website ಅನ್ನು ಸ್ಥಳೀಯವಾಗಿ build ಮಾಡಿ.
+1. ಸರಳ Python application ಗಾಗಿ Dockerfile ಬರೆಯಿರಿ. ನಂತರ ನಿಮ್ಮ application ಜೊತೆಗೆ Redis cache ಓಡಿಸುವ `docker-compose.yml` ಬರೆಯಿರಿ.
+1. Python package ಅನ್ನು TestPyPI ಗೆ publish ಮಾಡಿ (ಹಂಚಿಕೊಳ್ಳುವ ಮೌಲ್ಯವಿದ್ದಾಗ ಮಾತ್ರ ನಿಜವಾದ PyPI ಗೆ publish ಮಾಡಿ). ನಂತರ ಆ package ಒಳಗೊಂಡ Docker image build ಮಾಡಿ ಮತ್ತು ಅದನ್ನು `ghcr.io` ಗೆ push ಮಾಡಿ.
+1. [GitHub Pages](https://docs.github.com/en/pages/quickstart) ಬಳಸಿ website ನಿರ್ಮಿಸಿ. Extra (non-)credit: ಅದನ್ನು custom domain ಜೊತೆಗೆ configure ಮಾಡಿ.

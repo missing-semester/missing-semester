@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Development Environment and Tools"
+title: "Development Environment ಮತ್ತು Tools"
 description: >
-  Learn about IDEs, Vim, language servers, and AI-powered development tools.
+  IDEs, Vim, language servers, ಮತ್ತು AI-powered development tools ಬಗ್ಗೆ ಕಲಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
@@ -11,121 +11,121 @@ video:
   id: QnM1nVzrkx8
 ---
 
-A _development environment_ is a set of tools for developing software. At the heart of a development environment is text editing functionality, along with accompanying features such as syntax highlighting, type checking, code formatting, and autocomplete. _Integrated development environments_ (IDEs) such as [VS Code][vs-code] bring together all of this functionality into a single application. Terminal-based development workflows combine tools such as [tmux](https://github.com/tmux/tmux) (a terminal multiplexer), [Vim](https://www.vim.org/) (a text editor), [Zsh](https://www.zsh.org/) (a shell), and language-specific command-line tools, such as [Ruff](https://docs.astral.sh/ruff/) (a Python linter and code formatter) and [Mypy](https://mypy-lang.org/) (a Python type checker).
+_development environment_ ಎಂದರೆ software ಅಭಿವೃದ್ಧಿಗೆ ಬಳಸುವ tools ಸಮೂಹ. ಇದರ ಕೇಂದ್ರದಲ್ಲಿ text editing functionality ಇರುತ್ತದೆ; ಜೊತೆಗೆ syntax highlighting, type checking, code formatting, autocomplete ಮೊದಲಾದ ಬೆಂಬಲ ವೈಶಿಷ್ಟ್ಯಗಳು ಇರುತ್ತವೆ. [VS Code][vs-code] ಮೊದಲಾದ _integrated development environments_ (IDEs) ಈ ಎಲ್ಲವನ್ನು ಒಂದೇ application ನಲ್ಲಿ ಒಟ್ಟುಗೂಡಿಸುತ್ತವೆ. Terminal-based development workflows ನಲ್ಲಿ [tmux](https://github.com/tmux/tmux) (terminal multiplexer), [Vim](https://www.vim.org/) (text editor), [Zsh](https://www.zsh.org/) (shell), ಮತ್ತು ಭಾಷೆ-ನಿರ್ದಿಷ್ಟ command-line tools ಬಳಸಲಾಗುತ್ತವೆ - ಉದಾ: [Ruff](https://docs.astral.sh/ruff/) (Python linter ಮತ್ತು formatter), [Mypy](https://mypy-lang.org/) (Python type checker).
 
-IDEs and terminal-based workflows each have their strengths and weaknesses. For example, graphical IDEs can be easier to learn, and today's IDEs generally have better out-of-the-box AI integrations like AI autocomplete; on the other hand, terminal-based workflows are lightweight, and they may be your only option in environments where you don't have a GUI or can't install software. We recommend you develop basic familiarity with both and develop mastery of at least one. If you don't already have a preferred IDE, we recommend starting with [VS Code][vs-code].
+IDEs ಮತ್ತು terminal-based workflows ಎರಡಕ್ಕೂ ತಮ್ಮದೇ ಬಲ-ದೌರ್ಬಲ್ಯಗಳಿವೆ. ಉದಾ: graphical IDEs ಕಲಿಯಲು ಸುಲಭವಾಗಬಹುದು, ಹಾಗೂ ಇಂದಿನ IDE ಗಳಲ್ಲಿ AI autocomplete ಮೊದಲಾದ out-of-the-box AI integrations ಉತ್ತಮವಾಗಿರುತ್ತವೆ. ಮತ್ತೊಂದೆಡೆ terminal-based workflows ಹಗುರವಾಗಿವೆ; GUI ಇಲ್ಲದ ಅಥವಾ software install ಸಾಧ್ಯವಿಲ್ಲದ ಪರಿಸರಗಳಲ್ಲಿ ಕೆಲವೊಮ್ಮೆ ಇದೇ ಏಕೈಕ ಆಯ್ಕೆ. ಎರಡರ ಮೇಲೂ ಮೂಲ ಪರಿಚಯ ಬೆಳೆಸಿಕೊಳ್ಳಿ, ಮತ್ತು ಕನಿಷ್ಠ ಒಂದರಲ್ಲಿ ನೈಪುಣ್ಯ ಗಳಿಸಿ. ಈಗಾಗಲೇ ನಿಮಗೆ ಇಷ್ಟದ IDE ಇಲ್ಲದಿದ್ದರೆ, [VS Code][vs-code] ನಿಂದ ಪ್ರಾರಂಭಿಸಲು ಶಿಫಾರಸು.
 
-In this lecture, we'll cover:
+ಈ ಉಪನ್ಯಾಸದಲ್ಲಿ ನಾವು ನೋಡೋವುದು:
 
-- [Text editing and Vim](#text-editing-and-vim)
-- [Code intelligence and language servers](#code-intelligence-and-language-servers)
-- [AI-powered development](#ai-powered-development)
-- [Extensions and other IDE functionality](#extensions-and-other-ide-functionality)
+- [ಪಠ್ಯ ಸಂಪಾದನೆ ಮತ್ತು Vim](#text-editing-and-vim)
+- [ಕೋಡ್ ಇಂಟೆಲಿಜೆನ್ಸ್ ಮತ್ತು language servers](#code-intelligence-and-language-servers)
+- [AI-ಆಧಾರಿತ ಅಭಿವೃದ್ಧಿ](#ai-powered-development)
+- [Extensions ಮತ್ತು ಇತರೆ IDE ವೈಶಿಷ್ಟ್ಯಗಳು](#extensions-and-other-ide-functionality)
 
 [vs-code]: https://code.visualstudio.com/
 
 # Text editing and Vim
 
-When programming, you spend most of your time navigating through code, reading snippets of code, and making edits to code, rather than writing long streams or reading files top-to-bottom. [Vim] is a text editor that is optimized for this distribution of tasks.
+Programming ಮಾಡುವಾಗ ಹೆಚ್ಚು ಸಮಯ code ನಲ್ಲಿ ಸಂಚರಿಸುವುದು, snippets ಓದುವುದು, edits ಮಾಡುವುದು ಇತ್ಯಾದಿಗಳಲ್ಲೇ ಕಳೆಯುತ್ತದೆ - ದೀರ್ಘ ಪಠ್ಯ ನಿರಂತರವಾಗಿ ಬರೆಯುವುದಕ್ಕಿಂತಲೂ, file ಅನ್ನು top-to-bottom ಓದುವುದಕ್ಕಿಂತಲೂ. [Vim] ಈ ಕೆಲಸಗಳ ವಿನ್ಯಾಸಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗುವಂತೆ optimize ಮಾಡಲಾದ text editor.
 
-**The philosophy of Vim.** Vim has a beautiful idea as its foundation: its interface is itself a programming language, designed for navigating and editing text. Keystrokes (with mnemonic names) are commands, and these commands are composable. Vim avoids the use of the mouse, because it's too slow; Vim even avoids use of the arrow keys because it requires too much movement. The result: an editor that feels like a brain-computer interface and matches the speed at which you think.
+**Vim ನ ತತ್ತ್ವ.** Vim ನ ಮೂಲಭೂತ ಕಲ್ಪನೆ ಬಹಳ ಸುಂದರ: Vim interface ತಾನೇ navigation ಮತ್ತು text editing ಗಾಗಿ ವಿನ್ಯಾಸಗೊಂಡ programming language ಆಗಿದೆ. Keystrokes (ಅರ್ಥಪೂರ್ಣ mnemonic ಹೆಸರುಗಳೊಂದಿಗೆ) commands ಆಗಿವೆ; commands composable ಆಗಿವೆ. Vim mouse ಬಳಕೆಯನ್ನು ತಪ್ಪಿಸುತ್ತದೆ - ಅದು ನಿಧಾನ. Vim arrow keys ಬಳಕೆಯನ್ನೂ ಕಡಿಮೆ ಮಾಡುತ್ತದೆ - ಹೆಚ್ಚು ಕೈ ಚಲನೆ ಬೇಕಾಗುತ್ತದೆ. ಫಲಿತಾಂಶ: ನಿಮ್ಮ ಚಿಂತನೆಯ ವೇಗಕ್ಕೆ ಹೊಂದಿಕೊಂಡಂತೆ brain-computer interface ಅನುಭವ ನೀಡುವ editor.
 
-**Vim support in other software.** You don't have to use [Vim] itself to benefit from the ideas at its core. Many programs that involve any kind of text editing support "Vim mode", either as built-in functionality or as a plugin. For example, VS Code has the [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin, Zsh has [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) for Vim emulation, and even Claude Code has [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) for Vim editor mode. Chances are that any tool you use that involves text editing supports Vim mode in one way or another.
+**ಇತರೆ software ನಲ್ಲಿ Vim ಬೆಂಬಲ.** [Vim] ನ್ನೇ ನೇರವಾಗಿ ಬಳಸದೆ ಅದರ ಮೂಲ ಕಲ್ಪನೆಗಳ ಲಾಭ ಪಡೆಯಬಹುದು. Text editing ಒಳಗೊಂಡ ಅನೇಕ software ಗಳಲ್ಲಿ "Vim mode" ಇದೆ - built-in ಆಗಿರಬಹುದು ಅಥವಾ plugin ಆಗಿರಬಹುದು. ಉದಾ: VS Code ನಲ್ಲಿ [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin ಇದೆ, Zsh ನಲ್ಲಿ Vim emulation ಗೆ [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) ಇದೆ, Claude Code ನಲ್ಲೂ [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) ಇದೆ. ನೀವು ಬಳಸುವ text-editing tools ಬಹುತೇಕ ಯಾವುದಾದರೂ ರೂಪದಲ್ಲಿ Vim mode ಬೆಂಬಲಿಸುತ್ತವೆ.
 
 ## Modal editing
 
-Vim is a _modal editor_: it has different operating modes for different classes of tasks.
+Vim ಒಂದು _modal editor_: ವಿಭಿನ್ನ ಕಾರ್ಯಗಳಿಗೆ ವಿಭಿನ್ನ modes ಇವೆ.
 
-- **Normal**: for moving around a file and making edits
-- **Insert**: for inserting text
-- **Replace**: for replacing text
-- **Visual** (plain, line, or block): for selecting blocks of text
-- **Command-line**: for running a command
+- **Normal**: file ನಲ್ಲಿ ಸಂಚರಿಸಿ edits ಮಾಡಲು
+- **Insert**: text ಸೇರಿಸಲು
+- **Replace**: text ಬದಲಿಸಲು
+- **Visual** (plain, line, block): text blocks ಆಯ್ಕೆ ಮಾಡಲು
+- **Command-line**: command run ಮಾಡಲು
 
-Keystrokes have different meanings in different operating modes. For example, the letter `x` in Insert mode will just insert a literal character "x", but in Normal mode, it will delete the character under the cursor, and in Visual mode, it will delete the selection.
+Keystrokes ಅರ್ಥ mode ಪ್ರಕಾರ ಬದಲಾಗುತ್ತದೆ. ಉದಾ: Insert mode ನಲ್ಲಿ `x` ಒತ್ತಿದರೆ literal "x" ಸೇರುತ್ತದೆ. ಆದರೆ Normal mode ನಲ್ಲಿ cursor ಕೆಳಗಿನ character delete ಆಗುತ್ತದೆ. Visual mode ನಲ್ಲಿ selection delete ಆಗುತ್ತದೆ.
 
-In its default configuration, Vim shows the current mode in the bottom left. The initial/default mode is Normal mode. You'll generally spend most of your time between Normal mode and Insert mode.
+Default configuration ನಲ್ಲಿ Vim ಕೆಳ ಎಡ ಭಾಗದಲ್ಲಿ current mode ತೋರಿಸುತ್ತದೆ. ಪ್ರಾರಂಭ/ಪೂರ್ವನಿಯೋಜಿತ mode Normal mode. ಸಾಮಾನ್ಯವಾಗಿ ಹೆಚ್ಚು ಸಮಯ Normal ಮತ್ತು Insert mode ನಡುವೆ ಕಳೆಯುತ್ತೀರಿ.
 
-You change modes by pressing `<ESC>` (the escape key) to switch from any mode back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with `:`.
+Modes ಬದಲಿಸಲು `<ESC>` ಕೀ ಬಳಸಿ - ಯಾವುದೇ mode ನಿಂದ Normal mode ಗೆ ಮರಳಬಹುದು. Normal mode ನಿಂದ Insert ಗೆ `i`, Replace ಗೆ `R`, Visual ಗೆ `v`, Visual Line ಗೆ `V`, Visual Block ಗೆ `<C-v>` (Ctrl-V; ಕೆಲವೊಮ್ಮೆ `^V`), Command-line mode ಗೆ `:` ಬಳಸಿ.
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to Escape ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) or create an [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` with a simple key sequence.
+Vim ಬಳಸುವಾಗ `<ESC>` ಅನ್ನು ತುಂಬಾ ಬಾರಿ ಬಳಸುತ್ತೀರಿ. ಆದ್ದರಿಂದ Caps Lock ಅನ್ನು Escape ಗೆ remap ಮಾಡುವುದನ್ನು ಪರಿಗಣಿಸಿ ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)); ಅಥವಾ ಸರಳ key sequence ಮೂಲಕ `<ESC>` ಗೆ [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) ರಚಿಸಬಹುದು.
 
 ## Basics: inserting text
 
-From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any other text editor, until you press `<ESC>` to return to Normal mode. This, along with the basics explained above, are all you need to start editing files using Vim (though not particularly efficiently, if you're spending all your time editing from Insert mode).
+Normal mode ನಿಂದ `i` ಒತ್ತಿ Insert mode ಗೆ ಹೋಗಿ. ಈಗ `<ESC>` ಒತ್ತಿ Normal ಗೆ ಮರಳುವವರೆಗೆ Vim ಇತರೆ ಸಾಮಾನ್ಯ text editor ಹೋಲೆಯೇ ವರ್ತಿಸುತ್ತದೆ. ಮೇಲಿನ ಮೂಲಭೂತಗಳ ಜೊತೆಗೆ ಇದಿಷ್ಟೇ ಸಾಕು - Vim ನಲ್ಲಿ files edit ಮಾಡಲು ಪ್ರಾರಂಭಿಸಬಹುದು (Insert mode ನಲ್ಲೇ ಇಡೀ ಸಮಯ ಕಳೆಯುತ್ತಿದ್ದರೆ ಮಾತ್ರ ದಕ್ಷತೆ ಕಡಿಮೆ).
 
 ## Vim's interface is a programming language
 
-Vim's interface is a programming language. Keystrokes (with mnemonic names) are commands, and these commands _compose_. This enables efficient movement and edits, especially once the commands become muscle memory, just like typing becomes super efficient once you've learned your keyboard layout.
+Vim interface ಒಂದು programming language. Keystrokes (mnemonic ಹೆಸರುಗಳೊಂದಿಗೆ) commands ಆಗಿವೆ; commands _compose_ ಆಗುತ್ತವೆ. ಇದರಿಂದ ಪರಿಣಾಮಕಾರಿ navigation ಮತ್ತು edits ಸಾಧ್ಯವಾಗುತ್ತವೆ, ವಿಶೇಷವಾಗಿ commands muscle memory ಆಗಿದ ಮೇಲೆ - keyboard layout ಕಲಿತ ಮೇಲೆ typing ವೇಗ ಹೆಚ್ಚಿದಂತೆ.
 
 ### Movement
 
-You should spend most of your time in Normal mode, using movement commands to navigate the file. Movements in Vim are also called "nouns", because they refer to chunks of text.
+ಸಮಯದ ಬಹುಪಾಲು Normal mode ನಲ್ಲಿ ಇರಬೇಕು. Movement commands ಬಳಸಿ file ನಲ್ಲಿ ಸಂಚರಿಸಿ. Vim ನಲ್ಲಿ movements ಅನ್ನು "nouns" ಎಂದೂ ಕರೆಯುತ್ತಾರೆ, ಏಕೆಂದರೆ ಅವು text chunks ಸೂಚಿಸುತ್ತವೆ.
 
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- Scroll: `Ctrl-u` (up), `Ctrl-d` (down)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-    - `<CR>` refers to the carriage return / enter key
-- Misc: `%` (matching item, like parenthesis or brace)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-    - `,` / `;` for navigating matches
-- Search: `/{regex}`, `n` / `N` for navigating matches
+- ಮೂಲ ಚಲನೆ: `hjkl` (ಎಡ, ಕೆಳಗೆ, ಮೇಲೆ, ಬಲ)
+- ಪದಗಳು: `w` (ಮುಂದಿನ ಪದ), `b` (ಪದದ ಆರಂಭ), `e` (ಪದದ ಅಂತ್ಯ)
+- ಸಾಲುಗಳು: `0` (ಸಾಲಿನ ಆರಂಭ), `^` (ಮೊದಲ ಖಾಲಿಯಲ್ಲದ ಅಕ್ಷರ), `$` (ಸಾಲಿನ ಅಂತ್ಯ)
+- ತೆರೆ: `H` (ತೆರೆಯ ಮೇಲ್ಭಾಗ), `M` (ಮಧ್ಯಭಾಗ), `L` (ಕೆಳಭಾಗ)
+- ಸ್ಕ್ರೋಲ್: `Ctrl-u` (ಮೇಲಕ್ಕೆ), `Ctrl-d` (ಕೆಳಕ್ಕೆ)
+- ಫೈಲ್: `gg` (ಫೈಲ್ ಆರಂಭ), `G` (ಫೈಲ್ ಅಂತ್ಯ)
+- ಸಾಲು ಸಂಖ್ಯೆಗಳು: `:{number}<CR>` ಅಥವಾ `{number}G` (ಸಾಲು {number})
+    - `<CR>` ಎಂದರೆ carriage return / enter key
+- ಇತರೆ: `%` (ಹೊಂದುವ ಜೋಡಿ item, ಉದಾ: parenthesis ಅಥವಾ brace)
+- ಹುಡುಕು: `f{character}`, `t{character}`, `F{character}`, `T{character}`
+    - ಪ್ರಸ್ತುತ ಸಾಲಿನಲ್ಲಿ {character} ಅನ್ನು ಮುಂದೆ/ಹಿಂದೆ ಹುಡುಕುತ್ತದೆ
+    - ಹೊಂದಿಕೆಗಳ ನಡುವೆ ಸಂಚರಿಸಲು `,` / `;`
+- ಹುಡುಕಾಟ: `/{regex}`, ಹೊಂದಿಕೆಗಳ ನಡುವೆ ಸಂಚರಿಸಲು `n` / `N`
 
 ### Selection
 
-Visual modes:
+ದೃಶ್ಯ ಮೋಡ್‌ಗಳು:
 
 - Visual: `v`
 - Visual Line: `V`
 - Visual Block: `Ctrl-v`
 
-Can use movement keys to make selection.
+ಆಯ್ಕೆ ಮಾಡಲು movement keys ಬಳಸಬಹುದು.
 
 ### Edits
 
-Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here's where Vim's interface starts to look like a programming language. Vim's editing commands are also called "verbs", because verbs act on nouns.
+ನೀವು mouse ಬಳಸಿ ಮಾಡುತ್ತಿದ್ದ ಹಲವಾರು editing ಕೆಲಸಗಳನ್ನು ಈಗ keyboard ಮೂಲಕ movement commands ಜೊತೆ compose ಆಗುವ editing commands ಮೂಲಕ ಮಾಡುತ್ತೀರಿ. ಇಲ್ಲಿಯೇ Vim interface ಒಂದು programming language ನಂತೆ ಸ್ಪಷ್ಟವಾಗುತ್ತದೆ. Vim editing commands ಅನ್ನು "verbs" ಎಂದು ಕರೆಯುತ್ತಾರೆ, ಏಕೆಂದರೆ verbs nouns ಮೇಲೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ.
 
-- `i` enter Insert mode
-    - but for manipulating/deleting text, want to use something more than backspace
-- `o` / `O` insert line below / above
+- `i` Insert mode ಗೆ ಹೋಗಲು
+    - ಆದರೆ text manipulate/delete ಮಾಡಲು backspace ಗಿಂತ ಹೆಚ್ಚಿನ commands ಬಳಸುವುದು ಉತ್ತಮ
+- `o` / `O` ಕೆಳಗೆ / ಮೇಲೆ line ಸೇರಿಸಲು
 - `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete to beginning of line
+    - ಉದಾ: `dw` delete word, `d$` line ಅಂತ್ಯವರೆಗೆ delete, `d0` line ಆರಂಭದವರೆಗೆ delete
 - `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equivalent to `dl`)
-- `s` substitute character (equivalent to `cl`)
+    - ಉದಾ: `cw` change word
+    - `d{motion}` ನಂತರ `i` ಹೋಲುತ್ತದೆ
+- `x` character delete (`dl` ಗೆ ಸಮಾನ)
+- `s` substitute character (`cl` ಗೆ ಸಮಾನ)
 - Visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- `y` to copy / "yank" (some other commands like `d` also copy)
-- `p` to paste
-- Lots more to learn: for example, `~` flips the case of a character, and `J` joins together lines
+    - text ಆಯ್ಕೆ ಮಾಡಿ, `d` delete ಅಥವಾ `c` change
+- `u` undo, `<C-r>` redo
+- `y` copy / "yank" (`d` ಮೊದಲಾದ ಕೆಲವು commands ಕೂಡ copy ಮಾಡುತ್ತವೆ)
+- `p` paste
+- ಇನ್ನೂ ಬಹಳವು: ಉದಾ `~` character case flip ಮಾಡುತ್ತದೆ, `J` lines join ಮಾಡುತ್ತದೆ
 
 ### Counts
 
-You can combine nouns and verbs with a count, which will perform a given action a number of times.
+Nouns ಮತ್ತು verbs ಗೆ count ಸೇರಿಸಿ action ಅನ್ನು ಹಲವು ಬಾರಿ ನಡೆಸಬಹುದು.
 
-- `3w` move 3 words forward
-- `5j` move 5 lines down
-- `7dw` delete 7 words
+- `3w` 3 words ಮುಂದೆ ಸರಿಯುತ್ತದೆ
+- `5j` 5 lines ಕೆಳಗೆ ಸರಿಯುತ್ತದೆ
+- `7dw` 7 words delete ಮಾಡುತ್ತದೆ
 
 ### Modifiers
 
-You can use modifiers to change the meaning of a noun. Some modifiers are `i`, which means "inner" or "inside", and `a`, which means "around".
+Modifier ಗಳಿಂದ noun ನ ಅರ್ಥ ಬದಲಾಗುತ್ತದೆ. ಸಾಮಾನ್ಯ modifiers: `i` ("inner" ಅಥವಾ "inside"), `a` ("around").
 
-- `ci(` change the contents inside the current pair of parentheses
-- `ci[` change the contents inside the current pair of square brackets
-- `da'` delete a single-quoted string, including the surrounding single quotes
+- `ci(` ಪ್ರಸ್ತುತ parentheses ಜೋಡಿಯ ಒಳಗಿನ ವಿಷಯ ಬದಲಾಯಿಸುತ್ತದೆ
+- `ci[` ಪ್ರಸ್ತುತ square brackets ಜೋಡಿಯ ಒಳಗಿನ ವಿಷಯ ಬದಲಾಯಿಸುತ್ತದೆ
+- `da'` single-quoted string ಪೂರ್ಣವಾಗಿ (quotes ಸಹಿತ) delete ಮಾಡುತ್ತದೆ
 
 ## Putting it all together
 
-Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation:
+ಇಲ್ಲಿ ಒಂದು broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation ಇದೆ:
 
 ```python
 def fizz_buzz(limit):
@@ -142,73 +142,73 @@ def main():
     fizz_buzz(20)
 ```
 
-We use the following sequence of commands to fix the issues, beginning in Normal mode:
+ಈ ದೋಷಗಳನ್ನು ಸರಿಪಡಿಸಲು, Normal mode ನಿಂದ ಆರಂಭಿಸಿ, ಕೆಳಗಿನ command ಕ್ರಮ ಬಳಸಿ:
 
-- Main is never called
-    - `G` to jump to the end of the file
-    - `o` to **o**pen a new line below
-    - Type in `if __name__ == "__main__": main()`
-        - If your editor has Python language support, it might do some auto-indentation for you in Insert mode
-    - `<ESC>` to go back to Normal mode
-- Starts at 0 instead of 1
-    - `/` followed by `range` and `<CR>` to search for "range"
-    - `ww` to move forward two **w**ords (you could also use `2w`, but in practice, for small counts it's common to repeat the key instead of using the count functionality)
-    - `i` to switch to **i**nsert mode, and add `1,`
-    - `<ESC>` to go back to Normal mode
-    - `e` to jump to the **e**nd of the next word
-    - `a` to start **a**ppending text, and add `+ 1`
-    - `<ESC>` to go back to Normal mode
-- Prints "fizz" for multiples of 5
-    - `:6<CR>` to go to line 6
-    - `ci"` to **c**hange **i**nside the '**"**', change to `"buzz"`
-    - `<ESC>` to go back to Normal mode
+- Main call ಆಗುವುದಿಲ್ಲ
+    - file ಅಂತ್ಯಕ್ಕೆ jump ಮಾಡಲು `G`
+    - ಕೆಳಗೆ ಹೊಸ line **o**pen ಮಾಡಲು `o`
+    - `if __name__ == "__main__": main()` ಎಂದು type ಮಾಡಿ
+        - editor ನಲ್ಲಿ Python language support ಇದ್ದರೆ Insert mode ನಲ್ಲಿ auto-indentation ಆಗಬಹುದು
+    - Normal mode ಗೆ ಮರಳಲು `<ESC>`
+- 1 ಬದಲು 0 ರಿಂದ ಆರಂಭವಾಗುತ್ತದೆ
+    - `range` ಹುಡುಕಲು `/` ನಂತರ `range` ಹಾಗೂ `<CR>`
+    - ಎರಡು **w**ords ಮುಂದೆ ಹೋಗಲು `ww` (`2w` ಕೂಡ ಬಳಸಿ; ಆದರೆ ಸಣ್ಣ counts ನಲ್ಲಿ count ಬರೆವುದಕ್ಕಿಂತ key ಮರುಬಳಕೆ ಸಾಮಾನ್ಯ)
+    - **i**nsert mode ಗೆ `i`, ನಂತರ `1,` ಸೇರಿಸಿ
+    - Normal mode ಗೆ `<ESC>`
+    - ಮುಂದಿನ ಪದದ **e**nd ಗೆ `e`
+    - **a**ppend mode ಗೆ `a`, ನಂತರ `+ 1` ಸೇರಿಸಿ
+    - Normal mode ಗೆ `<ESC>`
+- 5 ರ multiples ಗೆ "fizz" ಮುದ್ರಿಸುತ್ತದೆ
+    - line 6 ಗೆ `:6<CR>`
+    - quotes ಒಳಗಿನ ಭಾಗ **c**hange **i**nside ಮಾಡಲು `ci"`, ನಂತರ `"buzz"` ಹಾಕಿ
+    - Normal mode ಗೆ `<ESC>`
 
 ## Learning Vim
 
-The best way to learn Vim is to learn the fundamentals (what we've covered so far) and then just enable Vim mode in all your software and start using it in practice. Avoid the temptation to use the mouse or the arrow keys; in some editors, you can unbind the arrow keys to force yourself to build good habits.
+Vim ಕಲಿಯಲು ಅತ್ಯುತ್ತಮ ವಿಧಾನ: ಮೂಲಭೂತಗಳನ್ನು (ಇಲ್ಲಿವರೆಗೆ ನೋಡಿದ್ದು) ಕಲಿತು, ನಂತರ ನಿಮ್ಮ software ಎಲ್ಲೆಲ್ಲಿ ಸಾಧ್ಯವೋ ಅಲ್ಲಿ Vim mode ಸಕ್ರಿಯಗೊಳಿಸಿ ನಿಜವಾದ ಕೆಲಸದಲ್ಲಿ ಬಳಸುವುದು. Mouse ಅಥವಾ arrow keys ಗೆ ತಕ್ಷಣ ಮರಳುವ ಅಭ್ಯಾಸ ತಪ್ಪಿಸಿ. ಕೆಲವು editors ನಲ್ಲಿ arrow keys unbind ಮಾಡಿ ಉತ್ತಮ ಅಭ್ಯಾಸ ಬೆಳೆಸಿಕೊಳ್ಳಬಹುದು.
 
 ### Additional resources
 
-- The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
-- `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
-- [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
+- ಈ ತರಗತಿಯ ಹಿಂದಿನ ಆವೃತ್ತಿಯ [Vim lecture](/2020/editors/) - ಅಲ್ಲಿ Vim ಅನ್ನು ಹೆಚ್ಚಿನ ಆಳದಲ್ಲಿ ನೋಡಿದ್ದೇವೆ
+- `vimtutor` Vim ಜೊತೆ ಬರುತ್ತದೆ - Vim install ಇದ್ದರೆ shell ನಿಂದ `vimtutor` run ಮಾಡಬಹುದು
+- [Vim Adventures](https://vim-adventures.com/) - Vim ಕಲಿಯುವ ಆಟ
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [VimGolf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Advent Calendar](https://vimways.org/2019/) - ಹಲವು Vim ಸಲಹೆಗಳು
+- [VimGolf](https://www.vimgolf.com/) - [code golf](https://en.wikipedia.org/wiki/Code_golf), ಆದರೆ programming language Vim UI
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (ಪುಸ್ತಕ)
 
 [Vim]: https://www.vim.org/
 
 # Code intelligence and language servers
 
-IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
+IDEs ಸಾಮಾನ್ಯವಾಗಿ language-specific support ಕೊಡುತ್ತವೆ. ಇದು code ನ semantic understanding ಆಧರಿಸಿ _language servers_ ಗೆ ಸಂಪರ್ಕಿಸುವ IDE extensions ಮೂಲಕ ನಡೆಯುತ್ತದೆ. Language servers ಗಳು [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) ಅನ್ನು ಜಾರಿಗೊಳಿಸುತ್ತವೆ. ಉದಾ: [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python), [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) ಮೇಲೆ ಅವಲಂಬಿತ. [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go), first-party [gopls](https://go.dev/gopls/) ಬಳಕೆ ಮಾಡುತ್ತದೆ. ನೀವು ಕೆಲಸ ಮಾಡುವ ಭಾಷೆಗಳ extension + language server install ಮಾಡಿದರೆ IDE ಯಲ್ಲಿ ಅನೇಕ language-specific ವೈಶಿಷ್ಟ್ಯಗಳು ಸಕ್ರಿಯವಾಗುತ್ತವೆ:
 
-- **Code completion.** Better autocomplete and autosuggest, such as being able to see an object's fields and methods after typing `object.`.
-- **Inline documentation.** Seeing documentation on hover and autosuggest.
-- **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
-- **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
-- **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
-- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
+- **Code completion.** ಉತ್ತಮ autocomplete/autosuggest - ಉದಾ: `object.` ನಂತರ object's fields/methods ಕಾಣುವುದು.
+- **Inline documentation.** hover/autosuggest ಸಮಯದಲ್ಲಿ documentation ಕಾಣುವುದು.
+- **Jump-to-definition.** ಬಳಕೆ ಸ್ಥಳದಿಂದ definition ಗೆ ಹೋಗುವುದು - ಉದಾ: `object.field` ಇಂದ field definition ಗೆ.
+- **Find references.** ಮೇಲಿನದಕ್ಕೆ ವಿರೋಧ - ನಿರ್ದಿಷ್ಟ field/type ಎಲ್ಲೆಲ್ಲಿ ಬಳಕೆಯಾಗಿದೆ ಎನ್ನುವುದು ಕಂಡುಹಿಡಿಯುವುದು.
+- **Help with imports.** imports ಸಂಘಟಿಸುವುದು, unused imports ತೆಗೆದುಹಾಕುವುದು, missing imports ಸೂಚಿಸುವುದು.
+- **Code quality.** ಈ tools standalone ಆಗಿಯೂ ಬಳಸಬಹುದು; ಆದರೆ language servers ಮುಖಾಂತರವೂ ಈ functionality ಲಭ್ಯ. Code formatting auto-indent/auto-format ಮಾಡುತ್ತದೆ. Type checkers/linters ನೀವು type ಮಾಡುವಾಗಲೇ ದೋಷ ಹಿಡಿಯುತ್ತವೆ. ಈ ವರ್ಗವನ್ನು [code quality](/2026/code-quality/) ಉಪನ್ಯಾಸದಲ್ಲಿ ಆಳವಾಗಿ ನೋಡುತ್ತೇವೆ.
 
 ## Configuring language servers
 
-For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
+ಕೆಲವು ಭಾಷೆಗಳಲ್ಲಿ extension ಮತ್ತು language server install ಮಾಡಿದರೆ ಸಾಕು. ಇತರ ಭಾಷೆಗಳಲ್ಲಿ language server ನ ಸಂಪೂರ್ಣ ಲಾಭ ಪಡೆಯಲು IDE ಗೆ ನಿಮ್ಮ environment ಬಗ್ಗೆ ತಿಳಿಸಬೇಕು. ಉದಾ: VS Code ನಲ್ಲಿ [Python environment](https://code.visualstudio.com/docs/python/environments) ಸೂಚಿಸಿದರೆ language server ಗೆ installed packages ಗೋಚರಿಸುತ್ತವೆ. Environments ಕುರಿತು ಹೆಚ್ಚಿನ ಮಾಹಿತಿ [packaging and shipping code](/2026/shipping-code/) ಉಪನ್ಯಾಸದಲ್ಲಿ.
 
-Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
+ಭಾಷೆ ಪ್ರಕಾರ language server ಗೆ configure ಮಾಡಬಹುದಾದ settings ಇರಬಹುದು. ಉದಾ: VS Code ಯ Python support ನಲ್ಲಿ optional type annotations ಬಳಸದೆ ಇರುವ projects ಗಾಗಿ static type checking disable ಮಾಡಬಹುದು.
 
 # AI-powered development
 
-Since the introduction of [GitHub Copilot][github-copilot] using OpenAI's [Codex model](https://openai.com/index/openai-codex/) in mid 2021, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) have become widely adopted in software engineering. There are three main form factors in use right now: autocomplete, inline chat, and coding agents.
+2021 ಮಧ್ಯಭಾಗದಲ್ಲಿ OpenAI ಯ [Codex model](https://openai.com/index/openai-codex/) ಬಳಸಿದ [GitHub Copilot][github-copilot] ಪರಿಚಯವಾದ ನಂತರ, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) software engineering ನಲ್ಲಿ ವ್ಯಾಪಕವಾಗಿ ಅಳವಡಿಸಲ್ಪಟ್ಟಿವೆ. ಈಗ ಮುಖ್ಯವಾಗಿ ಮೂರು form factors ಹೆಚ್ಚು ಬಳಕೆಯಲ್ಲಿವೆ: autocomplete, inline chat, coding agents.
 
 [github-copilot]: https://github.com/features/copilot/ai-code-editor
 
 ## Autocomplete
 
-AI-powered autocomplete has the same form factor as traditional autocomplete in your IDE, suggesting completions at your cursor position as you type. Sometimes, it's used as a passive feature that "just works". Beyond that, AI autocomplete is generally [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) using code comments.
+AI-powered autocomplete, ನಿಮ್ಮ IDE ಯ ಪರಂಪರಾಗತ autocomplete ಹೋಲೆಯೇ ಕಾಣುತ್ತದೆ - ನೀವು type ಮಾಡುವಾಗ cursor ಸ್ಥಾನದಲ್ಲೇ completions ಸೂಚಿಸುತ್ತದೆ. ಕೆಲವೊಮ್ಮೆ ಇದು passive feature ಆಗಿ "ಹಾಗೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ". ಅದಕ್ಕಿಂತ ಮುಂದೆ, AI autocomplete ಸಾಮಾನ್ಯವಾಗಿ code comments ಮೂಲಕ [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) ಆಗುತ್ತದೆ.
 
-For example, let's write a script to download the contents of these lecture notes and extract all the links. We can start with:
+ಉದಾಹರಣೆಗೆ lecture notes content download ಮಾಡಿ links ತೆಗೆಯುವ script ಬರೆಯೋಣ. ಆರಂಭ:
 
 ```python
 import requests
@@ -216,34 +216,34 @@ import requests
 def download_contents(url: str) -> str:
 ```
 
-The model will autocomplete the body of the function:
+Model function body autocomplete ಮಾಡುತ್ತದೆ:
 
 ```python
     response = requests.get(url)
     return response.text
 ```
 
-We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but it doesn't have a particularly descriptive name:
+Comments ಮೂಲಕ completion ಅನ್ನು ಇನ್ನಷ್ಟು guide ಮಾಡಬಹುದು. ಉದಾ: Markdown links ತೆಗೆದುಹಾಕುವ function ಬರೆಯಲು ಶುರುಮಾಡಿದಾಗ function name ಸಾಕಷ್ಟು descriptive ಆಗಿರದಿದ್ದರೆ:
 
 ```python
 def extract(contents: str) -> list[str]:
 ```
 
-The model will autocomplete something like this:
+Model ಈ ರೀತಿಯ completion ಕೊಡಬಹುದು:
 
 ```python
     lines = contents.splitlines()
     return [line for line in lines if line.strip()]
 ```
 
-We can guide the completion through code comments:
+Code comments ಮೂಲಕ completion ದಿಕ್ಕು ತೋರಿಸಬಹುದು:
 
 ```python
 def extract(content: str) -> list[str]:
     # extract all Markdown links from the content
 ```
 
-This time, the model gives a better completion:
+ಈ ಬಾರಿ completion ಉತ್ತಮವಾಗಿರುತ್ತದೆ:
 
 ```python
     import re
@@ -251,11 +251,11 @@ This time, the model gives a better completion:
     return re.findall(pattern, content)
 ```
 
-Here, we see one downside of this AI coding tool: it can only provide completions at the cursor. In this case, it would be better practice to put the `import re` at the module level, rather than inside the function.
+ಇಲ್ಲಿ ಈ AI coding tool ನ ಒಂದು ಮಿತಿ ಕಾಣಿಸುತ್ತದೆ: cursor ಇರುವ ಸ್ಥಳಕ್ಕಷ್ಟೇ completion ಕೊಡುತ್ತದೆ. ಈ ಸಂದರ್ಭದಲ್ಲಿ `import re` ಅನ್ನು function ಒಳಗೆ ಬದಲಾಗಿ module ಮಟ್ಟದಲ್ಲಿ ಇಡುವುದು ಉತ್ತಮ ಅಭ್ಯಾಸ.
 
-The example above used a poorly-named function to demonstrate how code completion can be steered using comments; in practice, you'd want to write code with functions named more descriptively, like `extract_links`, and you'd want to write docstrings (and based on this, the model should generate a completion analogous to the one above).
+ಮೇಲಿನ ಉದಾಹರಣೆಯಲ್ಲಿ comments ಮೂಲಕ code completion ಹೇಗೆ steer ಮಾಡಬಹುದು ತೋರಿಸಲು function name ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ಸರಳವಾಗಿ ಇಡಲಾಗಿದೆ. ಪ್ರಾಯೋಗಿಕವಾಗಿ `extract_links` ಹೀಗೆ descriptive function names ಬಳಸಿ, docstrings ಬರೆಯುವುದು ಉತ್ತಮ (ಇದರಿಂದ model ಮೇಲಿನಂತೆಯೇ ಸೂಕ್ತ completion ಕೊಡುತ್ತದೆ).
 
-For demonstration purposes, we can complete the script:
+Demo ಗಾಗಿ script ಪೂರ್ಣಗೊಳಿಸಬಹುದು:
 
 ```python
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
@@ -263,15 +263,15 @@ print(extract(download_contents("https://raw.githubusercontent.com/missing-semes
 
 ## Inline chat
 
-Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
+Inline chat ನಲ್ಲಿ line/block ಆಯ್ಕೆ ಮಾಡಿ, ನೇರವಾಗಿ AI model ಗೆ edit ಸೂಚಿಸಬಹುದು. ಈ mode ನಲ್ಲಿ model ಇರುವ code ನ್ನೇ ಬದಲಾಯಿಸಬಹುದು (autocomplete ಇಂದ ವ್ಯತ್ಯಾಸ - ಅದು cursor ನಂತರದ code ಮಾತ್ರ ಪೂರ್ಣಗೊಳಿಸುತ್ತದೆ).
 
-Continuing the example from above, suppose we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+ಮೇಲಿನ ಉದಾಹರಣೆ ಮುಂದುವರಿಸಿದರೆ, third-party `requests` library ಬಳಸಬಾರದು ಎಂದು ತೀರ್ಮಾನಿಸಿದ್ದೇವೆ ಎಂದು ಊಹಿಸೋಣ. ಸಂಬಂಧಿತ ಮೂರು lines ಆಯ್ಕೆ ಮಾಡಿ inline chat invoke ಮಾಡಿ ಹೀಗೆ ಹೇಳಬಹುದು:
 
 ```
 use built-in libraries instead
 ```
 
-The model proposes:
+Model ನೀಡುವ ಪ್ರಸ್ತಾವನೆ:
 
 ```python
 from urllib.request import urlopen
@@ -283,23 +283,23 @@ def download_contents(url: str) -> str:
 
 ## Coding agents
 
-Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
+Coding agents ಬಗ್ಗೆ [Agentic Coding](/2026/agentic-coding/) ಉಪನ್ಯಾಸದಲ್ಲಿ ಆಳವಾಗಿ ನೋಡುತ್ತೇವೆ.
 
 ## Recommended software
 
-Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-copilot] extension and [Cursor](https://cursor.com/). GitHub Copilot is currently available [for free for students](https://github.com/education/students), teachers, and maintainers of popular open source projects. This is a rapidly evolving space. Many of the leading products have roughly equivalent functionality.
+ಜನಪ್ರಿಯ AI IDEs ಗಳಲ್ಲಿ [GitHub Copilot][github-copilot] extension ಹೊಂದಿರುವ [VS Code][vs-code] ಮತ್ತು [Cursor](https://cursor.com/) ಪ್ರಮುಖ. GitHub Copilot ಇದೀಗ [students](https://github.com/education/students), teachers, ಮತ್ತು ಜನಪ್ರಿಯ open-source project maintainers ಗಾಗಿ ಉಚಿತ ಲಭ್ಯ. ಈ ಕ್ಷೇತ್ರ ವೇಗವಾಗಿ ಬದಲಾಗುತ್ತಿದೆ; ಮುಂಚೂಣಿ ಉತ್ಪನ್ನಗಳಲ್ಲಿ ಅನೇಕವು ಸಮಾನ ಮಟ್ಟದ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಹೊಂದಿವೆ.
 
 # Extensions and other IDE functionality
 
-IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
+IDEs ಶಕ್ತಿಶಾಲಿ tools. _Extensions_ ಅವನ್ನು ಇನ್ನಷ್ಟು ಶಕ್ತಿಶಾಲಿಯಾಗಿಸುತ್ತವೆ. ಒಂದು ಉಪನ್ಯಾಸದಲ್ಲಿ ಎಲ್ಲ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಆವರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ, ಆದ್ದರಿಂದ ಇಲ್ಲಿ ಕೆಲ ಪ್ರಮುಖ extensions ಕಡೆ ಸೂಚನೆಗಳನ್ನು ಕೊಡುತ್ತೇವೆ. ಈ ಕ್ಷೇತ್ರವನ್ನು ನೀವು ಸ್ವತಃ ಅನ್ವೇಷಿಸಲು ಪ್ರೋತ್ಸಾಹಿಸುತ್ತೇವೆ. ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಜನಪ್ರಿಯ IDE extensions ಪಟ್ಟಿಗಳು ಹಲವೆಡೆ ಲಭ್ಯ - ಉದಾ: Vim plugins ಗೆ [Vim Awesome](https://vimawesome.com/), ಮತ್ತು [ಜನಪ್ರಿಯತೆ ಆಧಾರದ ಮೇಲೆ ಸಜ್ಜುಗೊಳಿಸಿದ VS Code extensions](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
-- Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
-- Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
+- [Development containers](https://containers.dev/): ಜನಪ್ರಿಯ IDEs ಬೆಂಬಲಿಸುತ್ತವೆ (ಉದಾ: [VS Code support](https://code.visualstudio.com/docs/devcontainers/containers)). Dev containers ಮೂಲಕ development tools ಅನ್ನು container ಒಳಗೆ ನಡೆಸಬಹುದು. ಇದು portability ಮತ್ತು isolation ಗೆ ಸಹಾಯಕ. [packaging and shipping code](/2026/shipping-code/) ಉಪನ್ಯಾಸದಲ್ಲಿ containers ಕುರಿತು ಹೆಚ್ಚಿನ ವಿವರ.
+- Remote development: SSH ಬಳಸಿ remote machine ನಲ್ಲಿ development ಮಾಡಿ (ಉದಾ: [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). Cloud ನಲ್ಲಿ ಇರುವ ಶಕ್ತಿಶಾಲಿ GPU machine ಮೇಲೆ code ಬರೆಯಲು/ಓಡಿಸಲು ಇದು ಉಪಯುಕ್ತ.
+- Collaborative editing: Google Docs ಶೈಲಿಯಲ್ಲಿ ಅದೇ file ಅನ್ನು ಒಟ್ಟಿಗೆ edit ಮಾಡಿ (ಉದಾ: [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
 
 # Exercises
 
-1. Enable Vim mode in all the software you use that supports it, such as your editor and your shell, and use Vim mode for all your text editing for the next month. Whenever something seems inefficient, or when you think "there must be a better way", try Googling it, there probably is a better way.
-1. Complete a challenge from [VimGolf](https://www.vimgolf.com/).
-1. Configure an IDE extension and language server for a project that you're working on. Ensure that all the expected functionality, such as jump-to-definition for library dependencies, works as expected. If you don't have code that you can use for this exercise, you can use some open-source project from GitHub (such as [this one](https://github.com/spf13/cobra)).
-1. Browse a list of IDE extensions and install one that seems useful to you.
+1. ನೀವು ಬಳಸುವ ಎಲ್ಲ Vim-support software ಗಳಲ್ಲಿ (ಉದಾ: editor, shell) Vim mode ಸಕ್ರಿಯಗೊಳಿಸಿ. ಮುಂದಿನ ಒಂದು ತಿಂಗಳು ನಿಮ್ಮ text editing ಕೆಲಸಗಳೆಲ್ಲ Vim mode ನಲ್ಲಿ ಮಾಡಿ. ಯಾವುದಾದರೂ ಅಸಮರ್ಥವಾಗಿ ಕಂಡರೆ, ಅಥವಾ "ಇದಕ್ಕಿಂತ ಉತ್ತಮ ಮಾರ್ಗ ಇರಬೇಕು" ಅನ್ನಿಸಿದರೆ Google ನಲ್ಲಿ ಹುಡುಕಿ - ಬಹುಶಃ ಉತ್ತಮ ಮಾರ್ಗ ಇರುತ್ತದೆ.
+1. [VimGolf](https://www.vimgolf.com/) ನಲ್ಲಿ ಒಂದು challenge ಪೂರ್ಣಗೊಳಿಸಿ.
+1. ನೀವು ಕೆಲಸ ಮಾಡುತ್ತಿರುವ project ಗೆ IDE extension ಮತ್ತು language server configure ಮಾಡಿ. Library dependencies ಗೆ jump-to-definition ಸೇರಿದಂತೆ ನಿರೀಕ್ಷಿತ features ಸರಿಯಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತಿವೆಯೇ ಪರಿಶೀಲಿಸಿ. ಈ exercise ಗೆ ನಿಮ್ಮ code ಇಲ್ಲದಿದ್ದರೆ GitHub open-source project ಒಂದನ್ನು ಬಳಸಿ (ಉದಾ: [this one](https://github.com/spf13/cobra)).
+1. IDE extensions ಪಟ್ಟಿ ವೀಕ್ಷಿಸಿ, ನಿಮಗೆ ಉಪಯುಕ್ತವೆನಿಸುವ ಒಂದು extension install ಮಾಡಿ.

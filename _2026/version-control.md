@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Version Control and Git"
+title: "ಆವೃತ್ತಿ ನಿಯಂತ್ರಣ ಮತ್ತು Git"
 description: >
-  Learn Git's data model and how to use Git for version control and collaboration.
+  Git ನ data model ಅನ್ನು ತಿಳಿದುಕೊಂಡು, version control ಮತ್ತು collaboration ಗಾಗಿ Git ಅನ್ನು ಬಳಸುವ ವಿಧಾನವನ್ನು ಕಲಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec5.png
 date: 2026-01-16
 ready: true
@@ -11,61 +11,46 @@ video:
   id: 9K8lB61dl3Y
 ---
 
-Version control systems (VCSs) are tools used to track changes to source code
-(or other collections of files and folders). As the name implies, these tools
-help maintain a history of changes; furthermore, they facilitate collaboration.
-Logically, VCSs track changes to a folder and its contents in a series of
-_snapshots_, where each snapshot encapsulates the entire state of files/folders
-within a top-level directory. VCSs also maintain metadata like who created each
-snapshot, messages associated with each snapshot, and so on.
+Version control systems (VCSs) ಎಂದರೆ source code
+(ಅಥವಾ files ಮತ್ತು folders ಗಳ ಇತರ ಸಂಗ್ರಹಗಳು) ಗಳಲ್ಲಿನ ಬದಲಾವಣೆಗಳನ್ನು ಹಾದುಹೋಗುವಂತೆ ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಬಳಸುವ ಉಪಕರಣಗಳು. ಹೆಸರೇ ಸೂಚಿಸುವಂತೆ, ಈ ಉಪಕರಣಗಳು
+ಬದಲಾವಣೆಗಳ ಇತಿಹಾಸವನ್ನು ನಿರ್ವಹಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ; ಇನ್ನೂ ಮುಂದೆ, ಅವು collaboration ನ್ನೂ ಸುಗಮಗೊಳಿಸುತ್ತವೆ.
+ತಾರ್ಕಿಕವಾಗಿ ನೋಡಿದರೆ, VCSs ಒಂದು folder ಹಾಗೂ ಅದರ ಒಳಪರಿವಿಡಿಯನ್ನು
+_snapshots_ ಗಳ ಸರಣಿಯಾಗಿ ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತವೆ; ಇಲ್ಲಿ ಪ್ರತಿಯೊಂದು snapshot, top-level directory ಒಳಗಿನ files/folders ಗಳ ಸಂಪೂರ್ಣ ಸ್ಥಿತಿಯನ್ನು ಒಳಗೊಂಡಿರುತ್ತದೆ. VCSs ಪ್ರತಿಯೊಂದು
+snapshot ಅನ್ನು ಯಾರು ಸೃಷ್ಟಿಸಿದರು, snapshot ಗೆ ಸಂಬಂಧಿಸಿದ ಸಂದೇಶಗಳು, ಇತ್ಯಾದಿ metadata ಯನ್ನೂ ನಿರ್ವಹಿಸುತ್ತವೆ.
 
-Why is version control useful? Even when you're working by yourself, it can let
-you look at old snapshots of a project, keep a log of why certain changes were
-made, work on parallel branches of development, and much more. When working
-with others, it's an invaluable tool for seeing what other people have changed,
-as well as resolving conflicts in concurrent development.
+Version control ಯಾಕೆ ಉಪಯುಕ್ತ? ನೀವು ಒಬ್ಬರೇ ಕೆಲಸ ಮಾಡುತ್ತಿದ್ದರೂ ಸಹ, ಇದು ಯೋಜನೆಯ ಹಳೆಯ snapshots ಗಳನ್ನು ನೋಡಲು, ನಿರ್ದಿಷ್ಟ ಬದಲಾವಣೆಗಳನ್ನು ಏಕೆ ಮಾಡಲಾಯಿತು ಎಂಬ ಲಾಗ್ ಅನ್ನು ಉಳಿಸಲು,
+ಅಭಿವೃದ್ಧಿಯ ಸಮಾಂತರ branches ಗಳಲ್ಲಿ ಕೆಲಸ ಮಾಡಲು ಮತ್ತು ಇನ್ನೂ ಅನೇಕ ಕಾರ್ಯಗಳಿಗೆ ನೆರವಾಗುತ್ತದೆ. ಇತರರೊಂದಿಗೆ ಕೆಲಸ ಮಾಡುವಾಗ, ಇದು ಇತರರು ಏನು ಬದಲಾಯಿಸಿದ್ದಾರೆ ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು,
+ಹಾಗೂ concurrent development ನಲ್ಲಿ ಉಂಟಾಗುವ conflicts ಗಳನ್ನು ಪರಿಹರಿಸಲು ಅಮೂಲ್ಯವಾದ ಸಾಧನವಾಗುತ್ತದೆ.
 
-Modern VCSs also let you easily (and often automatically) answer questions
-like:
+ಆಧುನಿಕ VCSsಗಳು ಈ ರೀತಿಯ ಪ್ರಶ್ನೆಗಳಿಗೆ ಸುಲಭವಾಗಿ (ಮತ್ತು ಬಹುಶಃ ಸ್ವಯಂಚಾಲಿತವಾಗಿ) ಉತ್ತರಿಸಲು ಸಹ ಅವಕಾಶ ಮಾಡಿಕೊಡುತ್ತವೆ:
 
-- Who wrote this module?
-- When was this particular line of this particular file edited? By whom? Why
-  was it edited?
-- Over the last 1000 revisions, when/why did a particular unit test stop
-working?
+- ಈ module ಅನ್ನು ಯಾರು ಬರೆದರು?
+- ಈ ನಿರ್ದಿಷ್ಟ file ನ ಈ ನಿರ್ದಿಷ್ಟ line ಅನ್ನು ಯಾವಾಗ ಸಂಪಾದಿಸಲಾಯಿತು? ಯಾರೆಂದರು? ಏಕೆ
+  ಸಂಪಾದಿಸಲಾಯಿತು?
+- ಕಳೆದ 1000 revisions ಗಳಲ್ಲಿ, ನಿರ್ದಿಷ್ಟ unit test ಯಾವಾಗ/ಏಕೆ ಕೆಲಸ ಮಾಡುವುದು ನಿಂತಿತು?
 
-While other VCSs exist, **Git** is the de facto standard for version control.
-This [XKCD comic](https://xkcd.com/1597/) captures Git's reputation:
+ಇತರೆ VCSs ಇದ್ದರೂ ಸಹ, version control ಗಾಗಿ **Git** de facto standard ಆಗಿದೆ.
+ಈ [XKCD comic](https://xkcd.com/1597/) Git ನ ಖ್ಯಾತಿಯನ್ನು ಚೆನ್ನಾಗಿ ಹಿಡಿದಿಡುತ್ತದೆ:
 
 ![xkcd 1597](https://imgs.xkcd.com/comics/git.png)
 
-Because Git's interface is a leaky abstraction, learning Git top-down (starting
-with its interface / command-line interface) can lead to a lot of confusion.
-It's possible to memorize a handful of commands and think of them as magic
-incantations, and follow the approach in the comic above whenever anything goes
-wrong.
+Git ನ interface ಒಂದು leaky abstraction ಆಗಿರುವುದರಿಂದ, Git ಅನ್ನು top-down ರೀತಿಯಲ್ಲಿ ಕಲಿಯುವುದು (ಅಂದರೆ ಅದರ interface / command-line interface ರಿಂದ ಪ್ರಾರಂಭಿಸುವುದು)
+ಸಾಕಷ್ಟು ಗೊಂದಲಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು. ಕೆಲವು commands ಗಳನ್ನು ಕೇವಲ ಮನಪಾಠ ಮಾಡಿಕೊಂಡು ಅವನ್ನು magic
+incantations ಎಂದು ಭಾವಿಸಿ, ಏನಾದರೂ ತಪ್ಪಾದಾಗ ಮೇಲಿನ comic ನಲ್ಲಿರುವ ವಿಧಾನವನ್ನೇ ಅನುಸರಿಸುವ ಸಾಧ್ಯತೆಯಿದೆ.
 
-While Git admittedly has an ugly interface, its underlying design and ideas are
-beautiful. While an ugly interface has to be _memorized_, a beautiful design
-can be _understood_. For this reason, we give a bottom-up explanation of Git,
-starting with its data model and later covering the command-line interface.
-Once the data model is understood, the commands can be better understood in
-terms of how they manipulate the underlying data model.
+Git ನ interface ಆಕರ್ಷಕವಲ್ಲ ಎಂಬುದು ಸತ್ಯವಾದರೂ, ಅದರ ಒಳಗಿನ design ಮತ್ತು ಕಲ್ಪನೆಗಳು ಅತ್ಯಂತ ಸುಂದರವಾಗಿವೆ. ಅಂದರೆ, ಅಸ್ವಚ್ಛ interface ಅನ್ನು _memorize_ ಮಾಡಬೇಕಾಗುತ್ತದೆ, ಆದರೆ ಉತ್ತಮ design ಅನ್ನು _understand_ ಮಾಡಬಹುದು.
+ಈ ಕಾರಣಕ್ಕಾಗಿ, ನಾವು Git ನ ವಿವರಣೆಯನ್ನು bottom-up ರೀತಿಯಲ್ಲಿ ನೀಡುತ್ತೇವೆ - ಮೊದಲು ಅದರ data model, ನಂತರ command-line interface.
+ಒಮ್ಮೆ data model ಅರ್ಥವಾದ ನಂತರ, commands ಗಳು ಒಳಗಿನ data model ಅನ್ನು ಹೇಗೆ ಪ್ರಭಾವಿಸುತ್ತವೆ ಎಂಬ ದೃಷ್ಟಿಯಿಂದ ಇನ್ನೂ ಸ್ಪಷ್ಟವಾಗಿ ಅರ್ಥವಾಗುತ್ತವೆ.
 
-# Git's data model
+# Git ನ data model
 
-Git's ingenuity is in its well-thought-out data model that enables all the nice
-features of version control, like maintaining history, supporting branches, and
-enabling collaboration.
+Git ನ ಮೇಧಾವಿತ್ವವು ಅದರ ಸುಸಂರಚಿತ data model ನಲ್ಲಿ ಇದೆ; ಇದೇ version control ನ ಅನೇಕ ಉಪಯುಕ್ತ ಲಕ್ಷಣಗಳನ್ನು - ಉದಾಹರಣೆಗೆ history ನಿರ್ವಹಣೆ, branches ಬೆಂಬಲ, ಮತ್ತು collaboration - ಸಾಧ್ಯಗೊಳಿಸುತ್ತದೆ.
 
-## Snapshots
+## Snapshot ಗಳು
 
-Git models the history of a collection of files and folders within some
-top-level directory as a series of snapshots. In Git terminology, a file is
-called a "blob", and it's just a bunch of bytes. A directory is called a
-"tree", and it maps names to blobs or trees (so directories can contain other
-directories). A snapshot is the top-level tree that is being tracked. For
-example, we might have a tree as follows:
+Git, ನಿರ್ದಿಷ್ಟ top-level directory ಒಳಗಿನ files ಮತ್ತು folders ಗಳ ಇತಿಹಾಸವನ್ನು snapshots ಗಳ ಸರಣಿಯಾಗಿ ಮಾದರೀಕರಿಸುತ್ತದೆ. Git ಪದಪ್ರಯೋಗದಲ್ಲಿ file ಅನ್ನು
+"blob" ಎಂದು ಕರೆಯುತ್ತಾರೆ; ಅದು bytes ಗಳ ಸಮೂಹ ಮಾತ್ರ. directory ಅನ್ನು "tree" ಎಂದು ಕರೆಯುತ್ತಾರೆ; ಅದು ಹೆಸರುಗಳನ್ನು blobs ಅಥವಾ trees ಗಳಿಗೆ ನಕ್ಷೆಗೊಳಿಸುತ್ತದೆ (ಅಂದರೆ directories ಒಳಗೆ ಇತರ directories ಇರಬಹುದು). snapshot ಎಂದರೆ ಟ್ರ್ಯಾಕ್ ಮಾಡಲಾಗುತ್ತಿರುವ top-level tree.
+ಉದಾಹರಣೆಗೆ, ನಮ್ಮಲ್ಲಿ ಈ ಕೆಳಗಿನ tree ಇರಬಹುದು:
 
 ```
 <root> (tree)
@@ -77,24 +62,18 @@ example, we might have a tree as follows:
 +- baz.txt (blob, contents = "git is wonderful")
 ```
 
-The top-level tree contains two elements, a tree "foo" (that itself contains
-one element, a blob "bar.txt"), and a blob "baz.txt".
+ಈ top-level tree ಯಲ್ಲಿ ಎರಡು ಅಂಶಗಳಿವೆ: "foo" ಎಂಬ tree (ಅದರೊಳಗೆ ಒಂದು ಅಂಶವಾದ "bar.txt" blob ಇದೆ), ಮತ್ತು "baz.txt" blob.
 
-## Modeling history: relating snapshots
+## History ಮಾದರೀಕರಣ: snapshots ಗಳ ಸಂಬಂಧ
 
-How should a version control system relate snapshots? One simple model would be
-to have a linear history. A history would be a list of snapshots in time-order.
-For many reasons, Git doesn't use a simple model like this.
+ಒಂದು version control system snapshots ಗಳನ್ನು ಹೇಗೆ ಪರಸ್ಪರ ಸಂಬಂಧಿಸಬೇಕು? ಒಂದು ಸರಳ ಮಾದರಿ ಎಂದರೆ linear history ಇರುವುದು. history ಎಂದರೆ ಕಾಲಕ್ರಮದಲ್ಲಿ ಸರಿದಟ್ಟಲಾದ snapshots ಗಳ ಪಟ್ಟಿಯಾಗಿರಬಹುದು.
+ಅನೇಕ ಕಾರಣಗಳಿಂದ Git ಇಂತಹ ಸರಳ ಮಾದರಿಯನ್ನು ಬಳಸುವುದಿಲ್ಲ.
 
-In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
-sound like a fancy math word, but don't be intimidated. All this means is that
-each snapshot in Git refers to a set of "parents", the snapshots that preceded
-it. It's a set of parents rather than a single parent (as would be the case in
-a linear history) because a snapshot might descend from multiple parents, for
-example, due to combining (merging) two parallel branches of development.
+Git ನಲ್ಲಿ history ಎಂದರೆ snapshots ಗಳ directed acyclic graph (DAG).
+ಇದು ಅತಿಯಾಗಿ ಗಣಿತಪದದಂತೆ ಕೇಳಿಸಬಹುದು, ಆದರೆ ಭಯಪಡುವ ಅಗತ್ಯವಿಲ್ಲ. ಇದರ ಅರ್ಥ, Git ನಲ್ಲಿನ ಪ್ರತಿಯೊಂದು snapshot ತನ್ನಿಗಿಂತ ಮುಂಚೆ ಬಂದ snapshots ಗಳಾದ "parents" ಗಳ ಗುಂಪನ್ನು ಸೂಚಿಸುತ್ತದೆ.
+ಇದು single parent ಅಲ್ಲ, parents ಗಳ set ಆಗಿರುವುದು (linear history ಯಲ್ಲಿ single parent ಇರುತ್ತದೆ) ಏಕೆಂದರೆ ಒಂದು snapshot ಬಹು parents ಗಳಿಂದ ಇಳಿಯಿರಬಹುದು - ಉದಾಹರಣೆಗೆ ಅಭಿವೃದ್ಧಿಯ ಎರಡು ಸಮಾಂತರ branches ಗಳನ್ನು ಸೇರಿಸುವ (merging) ಸಂದರ್ಭದಲ್ಲಿ.
 
-Git calls these snapshots "commit"s. Visualizing a commit history might look
-something like this:
+Git ಈ snapshots ಗಳನ್ನು "commit" ಗಳು ಎಂದು ಕರೆಯುತ್ತದೆ. commit history ಯನ್ನು ದೃಶ್ಯೀಕರಿಸಿದರೆ ಇದು ಹೀಗಿರಬಹುದು:
 
 ```
 o <-- o <-- o <-- o
@@ -103,14 +82,9 @@ o <-- o <-- o <-- o
               --- o <-- o
 ```
 
-In the ASCII art above, the `o`s correspond to individual commits (snapshots).
-The arrows point to the parent of each commit (it's a "comes before" relation,
-not "comes after"). After the third commit, the history branches into two
-separate branches. This might correspond to, for example, two separate features
-being developed in parallel, independently from each other. In the future,
-these branches may be merged to create a new snapshot that incorporates both of
-the features, producing a new history that looks like this, with the newly
-created merge commit shown in bold:
+ಮೇಲಿನ ASCII art ನಲ್ಲಿ `o` ಗಳು ಪ್ರತ್ಯೇಕ commits (snapshots) ಗಳಿಗೆ ಹೊಂದುತ್ತವೆ.
+ಬಾಣಗಳು ಪ್ರತಿಯೊಂದು commit ನ parent ಕಡೆ ತೋರಿಸುತ್ತವೆ (ಇದು "comes before" ಸಂಬಂಧ, "comes after" ಅಲ್ಲ). ಮೂರನೇ commit ನಂತರ history ಎರಡು ಪ್ರತ್ಯೇಕ branches ಗಳಾಗಿ ವಿಭಜಿತವಾಗುತ್ತದೆ.
+ಇದು ಉದಾಹರಣೆಗೆ ಪರಸ್ಪರ ಸ್ವತಂತ್ರವಾಗಿ ಸಮಾಂತರವಾಗಿ ಅಭಿವೃದ್ಧಿಪಡಿಸಲಾಗುತ್ತಿರುವ ಎರಡು features ಗಳಿಗೆ ತಕ್ಕಂತೆ ಇರಬಹುದು. ಭವಿಷ್ಯದಲ್ಲಿ ಈ branches ಗಳನ್ನು merge ಮಾಡಿ ಎರಡೂ features ಒಳಗೊಂಡ ಹೊಸ snapshot ರಚಿಸಬಹುದು; ಆಗ history ಈ ಕೆಳಗಿನಂತಾಗುತ್ತದೆ, ಇಲ್ಲಿ ಹೊಸ merge commit ಅನ್ನು bold ನಲ್ಲಿ ತೋರಿಸಲಾಗಿದೆ:
 
 <pre class="highlight">
 <code>
@@ -121,14 +95,11 @@ o <-- o <-- o <-- o <---- <strong>o</strong>
 </code>
 </pre>
 
-Commits in Git are immutable. This doesn't mean that mistakes can't be
-corrected, however; it's just that "edits" to the commit history are actually
-creating entirely new commits, and references (see below) are updated to point
-to the new ones.
+Git ನಲ್ಲಿನ commits immutable. ಇದರಿಂದ ತಪ್ಪುಗಳನ್ನು ಸರಿಪಡಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ ಎಂಬ ಅರ್ಥವಲ್ಲ; commit history ಗೆ ಮಾಡುವ "edits" ಎಂದರೆ ವಾಸ್ತವವಾಗಿ ಸಂಪೂರ್ಣ ಹೊಸ commits ರಚಿಸುವುದು, ಮತ್ತು references (ಕೆಳಗೆ ನೋಡಿ) ಗಳನ್ನು ಹೊಸ commits ಕಡೆ ತೋರಿಸುವಂತೆ ಅಪ್ಡೇಟ್ ಮಾಡುವುದು.
 
-## Data model, as pseudocode
+## Pseudocode ರೂಪದಲ್ಲಿನ data model
 
-It may be instructive to see Git's data model written down in pseudocode:
+Git ನ data model ಅನ್ನು pseudocode ರೂಪದಲ್ಲಿ ನೋಡಿದರೆ ಉಪಯುಕ್ತವಾಗಬಹುದು:
 
 ```
 // a file is a bunch of bytes
@@ -146,18 +117,18 @@ type commit = struct {
 }
 ```
 
-It's a clean, simple model of history.
+ಇದು history ಯ ಸ್ವಚ್ಛ ಮತ್ತು ಸರಳ ಮಾದರಿ.
 
-## Objects and content-addressing
+## Objects ಮತ್ತು content-addressing
 
-An "object" is a blob, tree, or commit:
+"object" ಎಂದರೆ blob, tree, ಅಥವಾ commit:
 
 ```
 type object = blob | tree | commit
 ```
 
-In Git's data store, all objects are content-addressed by their [SHA-1
-hash](https://en.wikipedia.org/wiki/SHA-1).
+Git ನ data store ನಲ್ಲಿ ಎಲ್ಲಾ objects ಗಳಿಗೂ ಅವುಗಳ [SHA-1
+hash](https://en.wikipedia.org/wiki/SHA-1) ಆಧಾರಿತ content-addressing ಮಾಡಲಾಗುತ್ತದೆ.
 
 ```
 objects = map<string, object>
@@ -170,38 +141,32 @@ def load(id):
     return objects[id]
 ```
 
-Blobs, trees, and commits are unified in this way: they are all objects. When
-they reference other objects, they don't actually _contain_ them in their
-on-disk representation, but have a reference to them by their hash.
+Blobs, trees, ಮತ್ತು commits ಗಳನ್ನು ಈ ರೀತಿಯಲ್ಲಿ ಏಕೀಕರಿಸಲಾಗಿದೆ: ಅವೆಲ್ಲವೂ objects.
+ಅವು ಇತರ objects ಗಳನ್ನು ಸೂಚಿಸುವಾಗ, on-disk representation ನಲ್ಲಿ ಅವನ್ನು ನೇರವಾಗಿ _contain_ ಮಾಡುವುದಿಲ್ಲ; ಬದಲಾಗಿ ಅವುಗಳ hash ಮೂಲಕ reference ಇರುತ್ತದೆ.
 
-For example, the tree for the example directory structure [above](#snapshots)
-(visualized using `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`),
-looks like this:
+ಉದಾಹರಣೆಗೆ, ಮೇಲಿನ [example directory structure](#snapshots) ಗೆ ಹೊಂದುವ tree
+(`git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d` ಬಳಸಿ ದೃಶ್ಯೀಕರಿಸಿದರೆ),
+ಇಂತಿದೆ:
 
 ```
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
 
-The tree itself contains pointers to its contents, `baz.txt` (a blob) and `foo`
-(a tree). If we look at the contents addressed by the hash corresponding to
-baz.txt with `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`, we get
-the following:
+tree ಸ್ವತಃ ತನ್ನ ಒಳಪರಿವಿಡಿಗಳಿಗೆ pointers ಇಟ್ಟುಕೊಂಡಿದೆ: `baz.txt` (ಒಂದು blob) ಮತ್ತು `foo`
+(ಒಂದು tree). `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85` ಮೂಲಕ baz.txt ಗೆ ಹೊಂದುವ hash ನ content ನೋಡಿದರೆ, ನಮಗೆ ಈ ಕೆಳಗಿನದು ಸಿಗುತ್ತದೆ:
 
 ```
 git is wonderful
 ```
 
-## References
+## References (ಉಲ್ಲೇಖಗಳು)
 
-Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
-because humans aren't good at remembering strings of 40 hexadecimal characters.
+ಈಗ ಎಲ್ಲ snapshots ಗಳನ್ನೂ ಅವುಗಳ SHA-1 hashes ಮೂಲಕ ಗುರುತಿಸಬಹುದು. ಆದರೆ ಇದು ಅಸೌಕರ್ಯಕರ, ಏಕೆಂದರೆ ಮಾನವರು 40 hexadecimal ಅಕ್ಷರಗಳ ಸರಣಿಯನ್ನು ಸುಲಭವಾಗಿ ನೆನಪಿಡಲಾಗುವುದಿಲ್ಲ.
 
-Git's solution to this problem is human-readable names for SHA-1 hashes, called
-"references". References are pointers to commits. Unlike objects, which are
-immutable, references are mutable (can be updated to point to a new commit).
-For example, the `master` reference usually points to the latest commit in the
-main branch of development.
+ಈ ಸಮಸ್ಯೆಗೆ Git ನೀಡುವ ಪರಿಹಾರ SHA-1 hashes ಗಳಿಗೆ human-readable ಹೆಸರುಗಳು - ಅವನ್ನು
+"references" ಎಂದು ಕರೆಯುತ್ತಾರೆ. References ಗಳು commits ಗೆ pointers.
+immutable ಆಗಿರುವ objects ಗೆ ವಿರುದ್ಧವಾಗಿ references mutable (ಹೊಸ commit ಕಡೆ point ಮಾಡುವಂತೆ ಅಪ್ಡೇಟ್ ಮಾಡಬಹುದು). ಉದಾಹರಣೆಗೆ, `master` reference ಸಾಮಾನ್ಯವಾಗಿ ಮುಖ್ಯ development branch ನ ಇತ್ತೀಚಿನ commit ಕಡೆ ತೋರಿಸುತ್ತದೆ.
 
 ```
 references = map<string, string>
@@ -219,214 +184,155 @@ def load_reference(name_or_id):
         return load(name_or_id)
 ```
 
-With this, Git can use human-readable names like "master" to refer to a
-particular snapshot in the history, instead of a long hexadecimal string.
+ಈ ಮೂಲಕ, Git ಉದ್ದವಾದ hexadecimal string ಬದಲು "master" ಹಾಗಿನ human-readable ಹೆಸರುಗಳನ್ನು ಬಳಸಿ history ಯಲ್ಲಿನ ನಿರ್ದಿಷ್ಟ snapshot ಅನ್ನು ಸೂಚಿಸಬಹುದು.
 
-One detail is that we often want a notion of "where we currently are" in the
-history, so that when we take a new snapshot, we know what it is relative to
-(how we set the `parents` field of the commit). In Git, that "where we
-currently are" is a special reference called "HEAD".
+ಒಂದು ಸೂಕ್ಷ್ಮ ಅಂಶವೇನೆಂದರೆ, history ಯಲ್ಲಿ "ನಾವು ಈಗ ಎಲ್ಲಿದ್ದೇವೆ" ಎಂಬ ಕಲ್ಪನೆ ಬೇಕಾಗುತ್ತದೆ, ಏಕೆಂದರೆ ಹೊಸ snapshot ತೆಗೆದಾಗ ಅದು ಯಾವದಕ್ಕೆ ಸಂಬಂಧಿತ ಎಂಬುದು ತಿಳಿದಿರಬೇಕು
+(commit ನ `parents` field ಹೇಗೆ ಸೆಟ್ ಮಾಡಬೇಕು ಎಂಬ ಅರ್ಥದಲ್ಲಿ). Git ನಲ್ಲಿ ಈ "ನಾವು ಈಗ ಎಲ್ಲಿದ್ದೇವೆ" ಎಂಬುದಕ್ಕೆ "HEAD" ಎಂಬ ವಿಶೇಷ reference ಇದೆ.
 
-## Repositories
+## Repositories (ಸಂಗ್ರಹಣೆಗಳು)
 
-Finally, we can define what (roughly) is a Git _repository_: it is the data
-`objects` and `references`.
+ಕೊನೆಯಲ್ಲಿ, Git _repository_ ಅನ್ನು (ಸರಳವಾಗಿ) ಹೀಗೆ ವ್ಯಾಖ್ಯಾನಿಸಬಹುದು: ಅದು
+`objects` ಮತ್ತು `references` ಎಂಬ data.
 
-On disk, all Git stores are objects and references: that's all there is to Git's
-data model. All `git` commands map to some manipulation of the commit DAG by
-adding objects and adding/updating references.
+ಡಿಸ್ಕ್ ಮೇಲೆ Git ಸಂಗ್ರಹಿಸುವುದೆಲ್ಲ objects ಮತ್ತು references ಮಾತ್ರ: Git ನ data model ಅಷ್ಟೇ. ಎಲ್ಲಾ `git` commands ಗಳು commit DAG ಮೇಲೆ ಯಾವುದೋ ಬದಲಾವಣೆಗೇ ನಕ್ಷೆಯಾಗುತ್ತವೆ - objects ಸೇರಿಸುವುದು ಮತ್ತು references ಸೇರಿಸುವುದು/ಅಪ್ಡೇಟ್ ಮಾಡುವುದು.
 
-Whenever you're typing in any command, think about what manipulation the
-command is making to the underlying graph data structure. Conversely, if you're
-trying to make a particular kind of change to the commit DAG, e.g. "discard
-uncommitted changes and make the 'master' ref point to commit `5d83f9e`", there's
-probably a command to do it (e.g. in this case, `git checkout master; git reset
+ನೀವು ಯಾವ command ಅನ್ನು ಟೈಪ್ ಮಾಡುತ್ತಿದ್ದರೂ, ಅದು underlying graph data structure ಮೇಲೆ ಯಾವ ರೀತಿಯ manipulation ಮಾಡುತ್ತಿದೆ ಎಂದು ಯೋಚಿಸಿ. ಅದೇ ರೀತಿಯಾಗಿ, commit DAG ನಲ್ಲಿ ನಿರ್ದಿಷ್ಟ ಬದಲಾವಣೆ ಮಾಡಲು ನೀವು ಯತ್ನಿಸುತ್ತಿದ್ದರೆ - ಉದಾಹರಣೆಗೆ "uncommitted changes ತಿರಸ್ಕರಿಸಿ 'master' ref ಅನ್ನು `5d83f9e` commit ಕಡೆ ತೋರಿಸುವಂತೆ ಮಾಡು" - ಅದಕ್ಕಾಗಿ command ಇದ್ದೇ ಇರುತ್ತದೆ (ಈ ಪ್ರಕರಣದಲ್ಲಿ `git checkout master; git reset
 --hard 5d83f9e`).
 
-# Staging area
+# Staging area (ಸ್ಥಗಿತ ಪ್ರದೇಶ)
 
-This is another concept that's orthogonal to the data model, but it's a part of
-the interface to create commits.
+ಇದು data model ಗೆ orthogonal ಆಗಿರುವ ಮತ್ತೊಂದು ಕಲ್ಪನೆ, ಆದರೆ commits ರಚಿಸಲು ಬಳಸುವ interface ನ ಮಹತ್ವದ ಭಾಗವಾಗಿದೆ.
 
-One way you might imagine implementing snapshotting as described above is to have
-a "create snapshot" command that creates a new snapshot based on the _current
-state_ of the working directory. Some version control tools work like this, but
-not Git. We want clean snapshots, and it might not always be ideal to make a
-snapshot from the current state. For example, imagine a scenario where you've
-implemented two separate features, and you want to create two separate commits,
-where the first introduces the first feature, and the next introduces the
-second feature. Or imagine a scenario where you have debugging print statements
-added all over your code, along with a bugfix; you want to commit the bugfix
-while discarding all the print statements.
+ಮೇಲೆ ವಿವರಿಸಿದ snapshotting ಅನ್ನು ಜಾರಿಗೆ ತರಲು ನೀವು ಕಲ್ಪಿಸಬಹುದಾದ ಒಂದು ವಿಧಾನ ಎಂದರೆ _current
+state_ of the working directory ಆಧಾರದ ಮೇಲೆ ಹೊಸ snapshot ರಚಿಸುವ "create snapshot" command ಇರುವುದು. ಕೆಲವು version control tools ಹೀಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ, ಆದರೆ Git ಹೀಗೆ ಅಲ್ಲ. ನಮಗೆ clean snapshots ಬೇಕು, ಮತ್ತು ಪ್ರಸ್ತುತ ಸ್ಥಿತಿಯಿಂದ snapshot ತೆಗೆದುದು ಯಾವಾಗಲೂ ಸೂಕ್ತವಾಗದೇ ಇರಬಹುದು. ಉದಾಹರಣೆಗೆ, ನೀವು ಎರಡು ಪ್ರತ್ಯೇಕ features ಜಾರಿಗೆ ತಂದಿದ್ದೀರಿ, ಆದರೆ ಎರಡು ಪ್ರತ್ಯೇಕ commits ರಚಿಸಲು ಬಯಸುತ್ತೀರಿ - ಮೊದಲ commit ಮೊದಲ feature ಅನ್ನು, ಮುಂದಿನ commit ಎರಡನೇ feature ಅನ್ನು ಪರಿಚಯಿಸುವಂತೆ. ಅಥವಾ ನೀವು bugfix ಜೊತೆಗೆ ಕೋಡ್ ತುಂಬೆಲ್ಲ debugging print statements ಸೇರಿಸಿದ್ದೀರಿ ಎಂದು ಕಲ್ಪಿಸಿ; ನೀವು print statements ಗಳನ್ನು ಬಿಟ್ಟು, bugfix ಮಾತ್ರ commit ಮಾಡಲು ಬಯಸಬಹುದು.
 
-Git accommodates such scenarios by allowing you to specify which modifications
-should be included in the next snapshot through a mechanism called the "staging
-area".
+Git ಇಂತಹ ಸಂದರ್ಭಗಳಿಗೆ ಹೊಂದಿಕೊಳ್ಳಲು, "staging
+area" ಎಂಬ ಯಾಂತ್ರಿಕತೆಯ ಮೂಲಕ ಮುಂದಿನ snapshot ನಲ್ಲಿ ಯಾವ modifications ಒಳಗೊಳ್ಳಬೇಕು ಎಂದು ನೀವು ಸ್ಪಷ್ಟವಾಗಿ ಸೂಚಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ.
 
-# Git command-line interface
+# Git command-line interface (ಆಜ್ಞಾ-ಸಾಲು ಅಂತರ್ಮುಖ)
 
-To avoid duplicating information, we're not going to explain the commands below
-in detail in these lecture notes. See the highly recommended [Pro
-Git](https://git-scm.com/book/en/v2) for more information, or watch the lecture
-video.
+ಮಾಹಿತಿಯ ಪುನರಾವರ್ತನೆ ತಪ್ಪಿಸಲು, ಕೆಳಗಿನ commands ಗಳನ್ನು ಈ lecture notes ನಲ್ಲಿ ನಾವು ವಿವರವಾಗಿ ವಿವರಿಸುವುದಿಲ್ಲ. ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಬಲವಾಗಿ ಶಿಫಾರಸು ಮಾಡಲ್ಪಟ್ಟ [Pro
+Git](https://git-scm.com/book/en/v2) ನೋಡಿ, ಅಥವಾ lecture ವಿಡಿಯೋ ವೀಕ್ಷಿಸಿ.
 
-## Basics
+## ಮೂಲಭೂತಾಂಶಗಳು
 
-- `git help <command>`: get help for a git command
-- `git init`: creates a new git repo, with data stored in the `.git` directory
-- `git status`: tells you what's going on
-- `git add <filename>`: adds files to staging area
-- `git commit`: creates a new commit
-    - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
-    - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
-- `git log`: shows a flattened log of history
-- `git log --all --graph --decorate`: visualizes history as a DAG
-- `git diff <filename>`: show changes you made relative to the staging area
-- `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
+- `git help <command>`: git command ಒಂದಕ್ಕೆ ಸಹಾಯ ಪಡೆಯಿರಿ
+- `git init`: ಹೊಸ git repo ರಚಿಸುತ್ತದೆ; data `.git` directory ಯಲ್ಲಿ ಸಂಗ್ರಹವಾಗುತ್ತದೆ
+- `git status`: ಈಗ ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು ತಿಳಿಸುತ್ತದೆ
+- `git add <filename>`: files ಅನ್ನು staging area ಗೆ ಸೇರಿಸುತ್ತದೆ
+- `git commit`: ಹೊಸ commit ರಚಿಸುತ್ತದೆ
+    - [ಉತ್ತಮ commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) ಬರೆಯಿರಿ!
+    - [ಉತ್ತಮ commit messages](https://chris.beams.io/posts/git-commit/) ಬರೆಯಲು ಇನ್ನೂ ಹೆಚ್ಚು ಕಾರಣಗಳು!
+- `git log`: history ಯ flattened log ಅನ್ನು ತೋರಿಸುತ್ತದೆ
+- `git log --all --graph --decorate`: history ಯನ್ನು DAG ರೂಪದಲ್ಲಿ ದೃಶ್ಯೀಕರಿಸುತ್ತದೆ
+- `git diff <filename>`: staging area ಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ನೀವು ಮಾಡಿದ ಬದಲಾವಣೆಗಳನ್ನು ತೋರಿಸುತ್ತದೆ
+- `git diff <revision> <filename>`: snapshots ನಡುವೆ file ನ ವ್ಯತ್ಯಾಸಗಳನ್ನು ತೋರಿಸುತ್ತದೆ
+- `git checkout <revision>`: HEAD ಅನ್ನು ಅಪ್ಡೇಟ್ ಮಾಡುತ್ತದೆ (branch checkout ಮಾಡಿದರೆ current branch ನ್ನೂ)
 
-## Branching and merging
+## Branching ಮತ್ತು merging
 
-- `git branch`: shows branches
-- `git branch <name>`: creates a branch
-- `git switch <name>`: switches to a branch
-- `git checkout -b <name>`: creates a branch and switches to it
-    - same as `git branch <name>; git switch <name>`
-- `git merge <revision>`: merges into current branch
-- `git mergetool`: use a fancy tool to help resolve merge conflicts
-- `git rebase`: rebase set of patches onto a new base
+- `git branch`: branches ತೋರಿಸುತ್ತದೆ
+- `git branch <name>`: branch ರಚಿಸುತ್ತದೆ
+- `git switch <name>`: branch ಗೆ ಸ್ವಿಚ್ ಆಗುತ್ತದೆ
+- `git checkout -b <name>`: branch ರಚಿಸಿ ಅದಕ್ಕೆ ಸ್ವಿಚ್ ಆಗುತ್ತದೆ
+    - `git branch <name>; git switch <name>` ಗೆ ಸಮಾನ
+- `git merge <revision>`: current branch ಗೆ merge ಮಾಡುತ್ತದೆ
+- `git mergetool`: merge conflicts ಪರಿಹರಿಸಲು ಸಹಾಯಕವಾದ advanced tool ಬಳಸುತ್ತದೆ
+- `git rebase`: patches ಗಳ ಸಮೂಹವನ್ನು ಹೊಸ base ಮೇಲೆ rebase ಮಾಡುತ್ತದೆ
 
-## Remotes
+## Remotes (ದೂರದ ಸಂಗ್ರಹಣೆಗಳು)
 
-- `git remote`: list remotes
-- `git remote add <name> <url>`: add a remote
-- `git push <remote> <local branch>:<remote branch>`: send objects to remote, and update remote reference
-- `git branch --set-upstream-to=<remote>/<remote branch>`: set up correspondence between local and remote branch
-- `git fetch`: retrieve objects/references from a remote
-- `git pull`: same as `git fetch; git merge`
-- `git clone`: download repository from remote
+- `git remote`: remotes ಪಟ್ಟಿಮಾಡುತ್ತದೆ
+- `git remote add <name> <url>`: remote ಸೇರಿಸುತ್ತದೆ
+- `git push <remote> <local branch>:<remote branch>`: objects ಅನ್ನು remote ಗೆ ಕಳುಹಿಸಿ, remote reference ಅಪ್ಡೇಟ್ ಮಾಡುತ್ತದೆ
+- `git branch --set-upstream-to=<remote>/<remote branch>`: local ಮತ್ತು remote branch ನಡುವಿನ ಹೊಂದಾಣಿಕೆ ಸೆಟ್ ಮಾಡುತ್ತದೆ
+- `git fetch`: remote ನಿಂದ objects/references ಅನ್ನು ಪಡೆಯುತ್ತದೆ
+- `git pull`: `git fetch; git merge` ಗೆ ಸಮಾನ
+- `git clone`: remote ನಿಂದ repository ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತದೆ
 
-## Undo
+## Undo (ಹಿಂತಿರುಗಿಸುವುದು)
 
-- `git commit --amend`: edit a commit's contents/message
-- `git reset <file>`: unstage a file
-- `git restore`: discard changes
+- `git commit --amend`: commit ನ contents/message ಸಂಪಾದಿಸುತ್ತದೆ
+- `git reset <file>`: file ಅನ್ನು unstage ಮಾಡುತ್ತದೆ
+- `git restore`: ಬದಲಾವಣೆಗಳನ್ನು ತಿರಸ್ಕರಿಸುತ್ತದೆ
 
-# Advanced Git
+# ಉನ್ನತ Git
 
-- `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
-- `git clone --depth=1`: shallow clone, without entire version history
+- `git config`: Git [ಅತ್ಯಂತ ಕಸ್ಟಮೈಸ್ ಮಾಡಬಹುದಾದ](https://git-scm.com/docs/git-config) ವ್ಯವಸ್ಥೆ
+- `git clone --depth=1`: ಸಂಪೂರ್ಣ version history ಇಲ್ಲದೆ shallow clone
 - `git add -p`: interactive staging
 - `git rebase -i`: interactive rebasing
-- `git blame`: show who last edited which line
-- `git stash`: temporarily remove modifications to working directory
-- `git bisect`: binary search history (e.g. for regressions)
-- `git revert`: create a new commit that reverses the effect of an earlier commit
-- `git worktree`: check out multiple branches at the same time
-- `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
+- `git blame`: ಕೊನೆಯಾಗಿ ಯಾವ line ಅನ್ನು ಯಾರು ಸಂಪಾದಿಸಿದ್ದಾರೆ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ
+- `git stash`: working directory ಯಲ್ಲಿನ modifications ಅನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ತೆಗೆದುಹಾಕುತ್ತದೆ
+- `git bisect`: history ಯಲ್ಲಿ binary search (ಉದಾ: regressions ಗಾಗಿ)
+- `git revert`: ಹಿಂದಿನ commit ನ ಪರಿಣಾಮವನ್ನು ಹಿಂದಿರುಗಿಸುವ ಹೊಸ commit ರಚಿಸುತ್ತದೆ
+- `git worktree`: ಒಂದೇ ಸಮಯದಲ್ಲಿ ಅನೇಕ branches checkout ಮಾಡುತ್ತದೆ
+- `.gitignore`: ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ untracked ಆಗಿರುವ ಯಾವ files ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸಬೇಕು ಎಂದು [ನಿರ್ದಿಷ್ಟಪಡಿಸಿ](https://git-scm.com/docs/gitignore)
 
-# Miscellaneous
+# ಇತರೆ ವಿಷಯಗಳು
 
-- **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
-out there for Git. We personally don't use them and use the command-line
-interface instead.
-- **Shell integration**: it's super handy to have a Git status as part of your
-shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
-[bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
-frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: similarly to the above, handy integrations with many
-features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
-one for Vim.
-- **Workflows**: we taught you the data model, plus some basic commands; we
-didn't tell you what practices to follow when working on big projects (and
-there are [many](https://nvie.com/posts/a-successful-git-branching-model/)
-[different](https://www.endoflineblog.com/gitflow-considered-harmful)
-[approaches](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
-- **GitHub**: Git is not GitHub. GitHub has a specific way of contributing code
-to other projects, called [pull
-requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-- **Other Git providers**: GitHub is not special: there are many Git repository
-hosts, like [GitLab](https://about.gitlab.com/) and
-[BitBucket](https://bitbucket.org/).
+- **GUIs**: Git ಗಾಗಿ ಅನೇಕ [GUI clients](https://git-scm.com/downloads/guis)
+ಲಭ್ಯವಿವೆ. ನಾವು ವೈಯಕ್ತಿಕವಾಗಿ ಅವನ್ನು ಬಳಸುವುದಿಲ್ಲ; ಬದಲಿಗೆ command-line
+interface ನ್ನೇ ಬಳಸುತ್ತೇವೆ.
+- **Shell integration**: ನಿಮ್ಮ shell prompt ನಲ್ಲಿ Git status ಕಾಣುವುದು ಬಹಳ ಉಪಯುಕ್ತ ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
+[bash](https://github.com/magicmonty/bash-git-prompt)). ಸಾಮಾನ್ಯವಾಗಿ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) ತರದ frameworks ಗಳಲ್ಲಿ ಒಳಗೊಂಡಿರುತ್ತದೆ.
+- **Editor integration**: ಮೇಲಿನಂತೆಯೇ, ಅನೇಕ ವೈಶಿಷ್ಟ್ಯಗಳೊಂದಿಗೆ ಸುಲಭ integrations ಲಭ್ಯ. Vim ಗಾಗಿ [fugitive.vim](https://github.com/tpope/vim-fugitive) ಮಾನದಂಡದ plugin.
+- **Workflows**: ನಾವು ನಿಮಗೆ data model ಮತ್ತು ಕೆಲವು basic commands ಕಲಿಸಿದ್ದೇವೆ; ಆದರೆ ದೊಡ್ಡ projects ಮೇಲೆ ಕೆಲಸ ಮಾಡುವಾಗ ಯಾವ ಅಭ್ಯಾಸಗಳನ್ನು ಅನುಸರಿಸಬೇಕು ಎಂದು ಹೇಳಿಲ್ಲ (ಮತ್ತು [ಹಲವಾರು](https://nvie.com/posts/a-successful-git-branching-model/)
+[ಬೇರೆ](https://www.endoflineblog.com/gitflow-considered-harmful)
+[ವಿಧಾನಗಳು](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) ಇವೆ).
+- **GitHub**: Git ಅಂದರೆ GitHub ಅಲ್ಲ. GitHub ನಲ್ಲಿ ಇತರ projects ಗೆ code ಕೊಡುಗೆ ನೀಡಲು [pull
+requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) ಎಂಬ ನಿರ್ದಿಷ್ಟ ವಿಧಾನವಿದೆ.
+- **Other Git providers**: GitHub ವಿಶಿಷ್ಟವಲ್ಲ: [GitLab](https://about.gitlab.com/) ಮತ್ತು
+[BitBucket](https://bitbucket.org/) ಮುಂತಾದ ಅನೇಕ Git repository hosts ಇವೆ.
 
-# Resources
+# ಸಂಪನ್ಮೂಲಗಳು
 
-- [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
-Going through Chapters 1--5 should teach you most of what you need to use Git
-proficiently, now that you understand the data model. The later chapters have
-some interesting, advanced material.
-- [Oh Shit, Git!?!](https://ohshitgit.com/) is a short guide on how to recover
-from some common Git mistakes.
+- [Pro Git](https://git-scm.com/book/en/v2) ಓದುವುದು **ಬಲವಾಗಿ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ**.
+Chapters 1--5 ಓದಿದರೆ, ಈಗ ನೀವು data model ಅನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡಿರುವುದರಿಂದ, Git ಅನ್ನು ನಿಪುಣವಾಗಿ ಬಳಸಲು ಅಗತ್ಯವಿರುವ ಬಹುತೇಕ ವಿಷಯ ಕಲಿಯಬಹುದು. ನಂತರದ ಅಧ್ಯಾಯಗಳಲ್ಲಿ ಆಸಕ್ತಿದಾಯಕ advanced ವಿಷಯಗಳಿವೆ.
+- [Oh Shit, Git!?!](https://ohshitgit.com/) ಕೆಲವು ಸಾಮಾನ್ಯ Git ತಪ್ಪುಗಳಿಂದ ಹೇಗೆ ಹೊರಬರಬೇಕು ಎಂಬುದರ ಚಿಕ್ಕ ಮಾರ್ಗದರ್ಶಿ.
 - [Git for Computer
-Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
-short explanation of Git's data model, with less pseudocode and more fancy
-diagrams than these lecture notes.
+Scientists](https://eagain.net/articles/git-for-computer-scientists/) ಈ lecture notes ಗಿಂತ ಕಡಿಮೆ pseudocode ಮತ್ತು ಹೆಚ್ಚು ದೃಶ್ಯಾತ್ಮಕ diagrams ಗಳೊಂದಿಗೆ Git ನ data model ಗೆ ಚಿಕ್ಕ ವಿವರಣೆ ನೀಡುತ್ತದೆ.
 - [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
-is a detailed explanation of Git's implementation details beyond just the data
-model, for the curious.
+data model ಕ್ಕಿಂತ ಮೀರಿ Git implementation ವಿವರಗಳನ್ನು ಕುತೂಹಲವುಳ್ಳವರಿಗಾಗಿ ಸವಿಸ್ತಾರವಾಗಿ ವಿವರಿಸುತ್ತದೆ.
 - [How to explain git in simple
 words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
-- [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
-game that teaches you Git.
+- [Learn Git Branching](https://learngitbranching.js.org/) Git ಕಲಿಸುವ browser ಆಧಾರಿತ game.
 
-# Exercises
+# ಅಭ್ಯಾಸಗಳು
 
-1. If you don't have any past experience with Git, either try reading the first
-   couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
-   tutorial like [Learn Git Branching](https://learngitbranching.js.org/). As
-   you're working through it, relate Git commands to the data model.
-1. Clone the [repository for the
-class website](https://github.com/missing-semester/missing-semester).
-    1. Explore the version history by visualizing it as a graph.
-    1. Who was the last person to modify `README.md`? (Hint: use `git log` with
-       an argument).
-    1. What was the commit message associated with the last modification to the
-       `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
-       show`).
-1. One common mistake when learning Git is to commit large files that should
-   not be managed by Git or adding sensitive information. Try adding a file to
-   a repository, making some commits and then deleting that file from _history_
-   (not just the latest commit). You may want to look at
-   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/).
-1. Clone some repository from GitHub, and modify one of its existing files.
-   What happens when you do `git stash`? What do you see when running `git log
-   --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
-   In what scenario might this be useful?
-1. Like many command line tools, Git provides a configuration file (or dotfile)
-   called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
-   run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`. You can do this by directly
+1. ನಿಮಗೆ Git ಬಗ್ಗೆ ಹಿಂದಿನ ಅನುಭವವಿಲ್ಲದಿದ್ದರೆ, [Pro Git](https://git-scm.com/book/en/v2) ನ ಮೊದಲ ಕೆಲವು ಅಧ್ಯಾಯಗಳನ್ನು ಓದಿ ಅಥವಾ [Learn Git Branching](https://learngitbranching.js.org/) ರೀತಿಯ tutorial ಪೂರ್ಣಗೊಳಿಸಿ. ನೀವು ಮುಂದುವರಿಯುವಂತೆ, Git commands ಗಳನ್ನು data model ಜೊತೆಗೆ ಸಂಬಂಧಿಸಿ ನೋಡಿ.
+1. [ಕ್ಲಾಸ್ ವೆಬ್‌ಸೈಟ್ repository](https://github.com/missing-semester/missing-semester) ಅನ್ನು clone ಮಾಡಿ.
+    1. version history ಅನ್ನು graph ರೂಪದಲ್ಲಿ ದೃಶ್ಯೀಕರಿಸಿ ಅನ್ವೇಷಿಸಿ.
+    1. `README.md` ಅನ್ನು ಕೊನೆಯಾಗಿ ಪರಿಷ್ಕರಿಸಿದ ವ್ಯಕ್ತಿ ಯಾರು? (ಸುಳಿವು: `git log` ಅನ್ನು argument ಜೊತೆಗೆ ಬಳಸಿ).
+    1. `_config.yml` ನ `collections:` line ಗೆ ಸಂಬಂಧಿಸಿದ ಕೊನೆಯ ಬದಲಾವಣೆಯ commit message ಏನು? (ಸುಳಿವು: `git blame` ಮತ್ತು `git
+       show` ಬಳಸಿ).
+1. Git ಕಲಿಯುವಾಗ ಸಾಮಾನ್ಯ ತಪ್ಪೊಂದೇನೆಂದರೆ Git ಮೂಲಕ ನಿರ್ವಹಿಸಬಾರದ ದೊಡ್ಡ files ಅನ್ನು commit ಮಾಡುವುದು ಅಥವಾ sensitive ಮಾಹಿತಿಯನ್ನು ಸೇರಿಸುವುದು. repository ಗೆ ಒಂದು file ಸೇರಿಸಿ, ಕೆಲವು commits ಮಾಡಿ, ನಂತರ ಆ file ಅನ್ನು _history_ ಯಿಂದ ಅಳಿಸಿ (ಇತ್ತೀಚಿನ commit ನಿಂದ ಮಾತ್ರವಲ್ಲ). ನೀವು
+   [ಇದನ್ನು](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) ನೋಡಬಹುದು.
+1. GitHub ನಿಂದ ಯಾವುದಾದರೂ repository clone ಮಾಡಿ, ಅದರಲ್ಲಿನ ಇರುವ file ಒಂದನ್ನು ಪರಿಷ್ಕರಿಸಿ.
+   `git stash` ಮಾಡಿದಾಗ ಏನಾಗುತ್ತದೆ? `git log
+   --all --oneline` ಚಾಲನೆ ಮಾಡಿದಾಗ ಏನು ಕಾಣುತ್ತದೆ? `git stash` ಮೂಲಕ ಮಾಡಿದುದನ್ನು ಹಿಂತಿರುಗಿಸಲು `git stash pop` ಚಾಲನೆ ಮಾಡಿ.
+   ಇದು ಯಾವ ಸಂದರ್ಭದಲ್ಲಿ ಉಪಯುಕ್ತವಾಗಬಹುದು?
+1. ಅನೇಕ command line tools ಗಳಂತೆ, Git ಕೂಡ `~/.gitconfig` ಎಂಬ configuration file (ಅಥವಾ dotfile) ಒದಗಿಸುತ್ತದೆ. `~/.gitconfig` ನಲ್ಲಿ alias ರಚಿಸಿ, ನೀವು `git graph` ಓಡಿಸಿದಾಗ `git log --all --graph --decorate
+   --oneline` ಔಟ್‌ಪುಟ್ ಸಿಗುವಂತೆ ಮಾಡಿ. ಇದನ್ನು ನೇರವಾಗಿ `~/.gitconfig` file ಅನ್ನು
    [editing](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias)
-   the `~/.gitconfig` file, or you can use the `git config` command to add the
-   alias. Information about git aliases can be found
-   [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
-1. You can define global ignore patterns in `~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. This sets the
-   location of the global ignore file that Git will use, but you still need to
-   manually create the file at that path. Set up your global gitignore file to
-   ignore OS-specific or editor-specific temporary files, like `.DS_Store`.
-1. Fork the [repository for the class
-   website](https://github.com/missing-semester/missing-semester), find a typo
-   or some other improvement you can make, and submit a pull request on GitHub
-   (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
-   Please only submit PRs that are useful (don't spam us, please!). If you
-   can't find an improvement to make, you can skip this exercise.
-1. Practice resolving merge conflicts by simulating a collaborative scenario:
-    1. Create a new repository with `git init` and create a file called
-       `recipe.txt` with a few lines (e.g., a simple recipe).
-    1. Commit it, then create two branches: `git branch salty` and `git branch
+   ಮಾಡುವ ಮೂಲಕ ಅಥವಾ alias ಸೇರಿಸಲು `git config` command ಬಳಸಿ ಮಾಡಬಹುದು. git aliases ಬಗ್ಗೆ ಮಾಹಿತಿ
+   [ಇಲ್ಲಿ](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) ಲಭ್ಯ.
+1. `git config --global core.excludesfile ~/.gitignore_global` ಚಾಲನೆ ಮಾಡಿದ ನಂತರ, `~/.gitignore_global` ನಲ್ಲಿ global ignore patterns ವ್ಯಾಖ್ಯಾನಿಸಬಹುದು. ಇದು Git ಬಳಸುವ global ignore file ನ ಸ್ಥಳವನ್ನು ಸೆಟ್ ಮಾಡುತ್ತದೆ, ಆದರೆ ಆ path ನಲ್ಲಿ file ಅನ್ನು ನೀವು ಕೈಯಾರೆ ರಚಿಸಬೇಕು. ನಿಮ್ಮ global gitignore file ಅನ್ನು `.DS_Store` ತರದ OS-specific ಅಥವಾ editor-specific temporary files ಅನ್ನು ignore ಮಾಡುವಂತೆ ಸಿದ್ಧಗೊಳಿಸಿ.
+1. [ಕ್ಲಾಸ್ ವೆಬ್‌ಸೈಟ್ repository](https://github.com/missing-semester/missing-semester) ಅನ್ನು fork ಮಾಡಿ, typo ಅಥವಾ ಇತರ ಸುಧಾರಣೆ ಒಂದನ್ನು ಕಂಡುಹಿಡಿದು, GitHub ನಲ್ಲಿ pull request ಸಲ್ಲಿಸಿ
+   (ನೀವು [ಇದನ್ನು](https://github.com/firstcontributions/first-contributions) ನೋಡಬಹುದು).
+   ದಯವಿಟ್ಟು ಉಪಯುಕ್ತ PRs ಮಾತ್ರ ಸಲ್ಲಿಸಿ (ದಯವಿಟ್ಟು spam ಮಾಡಬೇಡಿ). ಸುಧಾರಣೆ ಕಂಡುಬರದಿದ್ದರೆ ಈ exercise ಅನ್ನು ಬಿಡಬಹುದು.
+1. ಸಹಕಾರಾತ್ಮಕ ಪರಿಸ್ಥಿತಿಯನ್ನು ಅನುಕರಿಸಿ merge conflicts ಪರಿಹರಿಸುವ ಅಭ್ಯಾಸ ಮಾಡಿ:
+    1. `git init` ಮೂಲಕ ಹೊಸ repository ರಚಿಸಿ ಮತ್ತು ಕೆಲವು lines ಹೊಂದಿರುವ `recipe.txt` file ರಚಿಸಿ (ಉದಾ: ಸರಳ recipe).
+    1. ಅದನ್ನು commit ಮಾಡಿ, ನಂತರ ಎರಡು branches ರಚಿಸಿ: `git branch salty` ಮತ್ತು `git branch
        sweet`.
-    1. In the `salty` branch, modify a line (e.g., change "1 cup sugar" to "1
-       cup salt") and commit.
-    1. In the `sweet` branch, modify the same line differently (e.g., change "1
-       cup sugar" to "2 cups sugar") and commit.
-    1. Now switch to `master` and try `git merge salty`, then `git merge
-       sweet`. What happens? Look at the contents of `recipe.txt` - what do the
-       `<<<<<<<`, `=======`, and `>>>>>>>` markers mean?
-    1. Resolve the conflict by editing the file to keep the content you want,
-       removing the conflict markers, and completing the merge with `git add`
-       and `git commit` (or `git merge --continue`). Alternatively, try using
-       `git mergetool` to resolve the conflict with a graphical or
-       terminal-based merge tool.
-    1. Use `git log --graph --oneline` to visualize the merge history you just
-       created.
+    1. `salty` branch ನಲ್ಲಿ ಒಂದು line ಪರಿಷ್ಕರಿಸಿ (ಉದಾ: "1 cup sugar" ಅನ್ನು "1
+       cup salt" ಎಂದು ಬದಲಿಸಿ) ಮತ್ತು commit ಮಾಡಿ.
+    1. `sweet` branch ನಲ್ಲಿ ಅದೇ line ಅನ್ನು ಬೇರೆ ರೀತಿಯಲ್ಲಿ ಪರಿಷ್ಕರಿಸಿ (ಉದಾ: "1
+       cup sugar" ಅನ್ನು "2 cups sugar" ಎಂದು ಬದಲಿಸಿ) ಮತ್ತು commit ಮಾಡಿ.
+    1. ಈಗ `master` ಗೆ switch ಆಗಿ `git merge salty`, ನಂತರ `git merge
+       sweet` ಪ್ರಯತ್ನಿಸಿ. ಏನಾಗುತ್ತದೆ? `recipe.txt` ಯ ವಿಷಯವನ್ನು ನೋಡಿ -
+       `<<<<<<<`, `=======`, ಮತ್ತು `>>>>>>>` markers ಗಳ ಅರ್ಥವೇನು?
+    1. ನೀವು ಬಯಸುವ content ಉಳಿಯುವಂತೆ file ಸಂಪಾದಿಸಿ conflict ಪರಿಹರಿಸಿ,
+       conflict markers ತೆಗೆದುಹಾಕಿ, ಮತ್ತು `git add`
+       ಹಾಗೂ `git commit` (ಅಥವಾ `git merge --continue`) ಮೂಲಕ merge ಪೂರ್ಣಗೊಳಿಸಿ. ಪರ್ಯಾಯವಾಗಿ, graphical ಅಥವಾ terminal-based merge tool ಬಳಸಿಕೊಂಡು conflict ಪರಿಹರಿಸಲು `git mergetool` ಪ್ರಯತ್ನಿಸಿ.
+    1. ನೀವು ಇಷ್ಟೇ ರಚಿಸಿದ merge history ಅನ್ನು ದೃಶ್ಯೀಕರಿಸಲು `git log --graph --oneline` ಬಳಸಿ.

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "2026 Lectures"
+title: "2026 ಉಪನ್ಯಾಸಗಳು"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2026.
+  Missing Semester, MIT IAP 2026 ಗಾಗಿ ಉಪನ್ಯಾಸ ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳು.
 permalink: /2026/
 phony: true
 ---
@@ -16,9 +16,9 @@ phony: true
         {% if lecture.ready %}
           <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% elsif lecture.noclass %}
-          {{ lecture.title }} [no class]
+          {{ lecture.title }} [ತರಗತಿ ಇಲ್ಲ]
         {% else %}
-          {{ lecture.title }} [coming soon]
+          {{ lecture.title }} [ಶೀಘ್ರದಲ್ಲೇ]
         {% endif %}
         {% if lecture.details %}
           <br>

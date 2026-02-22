@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Beyond the Code"
+title: "ಕೋಡ್‌ನಾಚೆ"
 description: >
-  Learn about essential soft skills including documentation, open-source community norms, and AI etiquette.
+  ದಸ್ತಾವೇಜೀಕರಣ, open-source ಸಮುದಾಯದ ನಡವಳಿಕೆ ಮಾನದಂಡಗಳು, ಮತ್ತು AI etiquette ಸೇರಿದಂತೆ ಅಗತ್ಯ soft skills ಕುರಿತು ತಿಳಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
@@ -11,408 +11,361 @@ video:
   id: 2DOEATfXT8k
 ---
 
-Being a good software engineer isn't just about writing code that
-works. It's about writing code that others (including future you) can
-understand, maintain, and build upon. It's about communicating
-clearly, contributing thoughtfully, and being a good citizen in the
-ecosystems you participate in—whether open source or proprietary.
+ಒಬ್ಬ ಉತ್ತಮ software engineer ಆಗಿರುವುದು, ಕೆಲಸ ಮಾಡುವ code ಬರೆಯುವುದರಷ್ಟೇ ಅಲ್ಲ.
+ಇತರರು (ಭವಿಷ್ಯದ ನೀವು ಸಹ) ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು, ನಿರ್ವಹಿಸಲು, ಮತ್ತು ಅದೇ ಮೇಲೇ ನಿರ್ಮಿಸಲು
+ಸಾಧ್ಯವಾಗುವ code ಬರೆಯುವುದೂ ಅದರಲ್ಲಿ ಸೇರಿದೆ. ಸ್ಪಷ್ಟವಾಗಿ ಸಂವಹನ ಮಾಡುವುದು,
+ವಿಚಾರಪೂರ್ವಕವಾಗಿ ಕೊಡುಗೆ ನೀಡುವುದು, ಮತ್ತು ನೀವು ಭಾಗವಹಿಸುವ ecosystem ಗಳಲ್ಲಿ -
+ಅವು open source ಆಗಿರಲಿ ಅಥವಾ proprietary ಆಗಿರಲಿ - ಉತ್ತಮ ನಾಗರಿಕರಂತೆ ನಡೆದುಕೊಳ್ಳುವುದೂ
+ಅಷ್ಟೇ ಮುಖ್ಯ.
 
-# One-way communication
+# ಏಕದಿಶ ಸಂವಹನ
 
-Much of software engineering involves writing for people who lack your
-current context: teammates who join later, maintainers who inherit
-your code, or yourself in six months when you've forgotten why you
-made a particular choice. A key piece of advice for all this kind of
-writing is that your goal is to capture and convey the *why*, not just
-the *what*. The what tends to be self-explanatory, while the *why* is
-hard-earned knowledge that is easily lost to time.
+software engineering ನ ಬಹುಪಾಲು ಕೆಲಸವು ನಿಮ್ಮ ಇಂದಿನ ಸಂದರ್ಭ ತಿಳಿಯದ ಜನರಿಗಾಗಿ
+ಬರೆಯುವುದನ್ನು ಒಳಗೊಂಡಿದೆ: ನಂತರ ಸೇರಿಕೊಳ್ಳುವ teammates, ನಿಮ್ಮ code ಅನ್ನು
+ಪಾರಂಪರ್ಯವಾಗಿ ಸ್ವೀಕರಿಸುವ maintainers, ಅಥವಾ ಆರು ತಿಂಗಳ ನಂತರ ನೀವು ಏಕೆ ಒಂದು
+ನಿರ್ದಿಷ್ಟ ಆಯ್ಕೆಯನ್ನು ಮಾಡಿದ್ದೀರಿ ಎಂಬುದನ್ನೇ ಮರೆತಿರುವ ನಿಮ್ಮದೇ ಸ್ವರೂಪ. ಇಂತಹ ಬರವಣಿಗೆಯ
+ಮುಖ್ಯ ಸಲಹೆ ಏನೆಂದರೆ - ನಿಮ್ಮ ಗುರಿ ಕೇವಲ *what* ಅನ್ನು ದಾಖಲಿಸುವುದಲ್ಲ, *why* ಅನ್ನು ಹಿಡಿದು
+ಸ್ಪಷ್ಟವಾಗಿ ಹಂಚುವುದಾಗಿರಬೇಕು. *what* ಸಾಮಾನ್ಯವಾಗಿ code ನಿಂದಲೇ ಗೊತ್ತಾಗುತ್ತದೆ; *why* ಮಾತ್ರ
+ಕಷ್ಟಪಟ್ಟು ಗಳಿಸಿದ ಜ್ಞಾನವಾಗಿದ್ದು, ಕಾಲಕ್ರಮೇಣ ಸುಲಭವಾಗಿ ಕಳೆದುಹೋಗುತ್ತದೆ.
 
-Perhaps the most common form of engineer-to-engineer communication
-(apart from the code itself) is code comments. I've personally found
-that a lot of code comments are useless. But they don't have to be! Good
-comments explain things that the code itself cannot: *why* something is
-done a particular way, not *how* it works (which is what the code
-shows). They can save hours of confusion, while bad comments add noise
-or, worse, mislead.
+ಬಹುಶಃ engineer-to-engineer ಸಂವಹನದ ಅತ್ಯಂತ ಸಾಮಾನ್ಯ ರೂಪ (code ನ ಹೊರತಾಗಿ)
+code comments ಆಗಿದೆ. ನನ್ನ ಅನುಭವದಲ್ಲಿ ಅನೇಕ code comments ಉಪಯೋಗಕಾರಿಯಾಗಿಲ್ಲ.
+ಆದರೆ ಅದು ಅನಿವಾರ್ಯವಲ್ಲ. ಉತ್ತಮ comments ಗಳು code ತಾನೇ ಹೇಳಲಾರದ ಸಂಗತಿಗಳನ್ನು
+ವಿವರಿಸುತ್ತವೆ: ಯಾವುದನ್ನಾದರೂ ನಿರ್ದಿಷ್ಟ ರೀತಿಯಲ್ಲಿ *ಏಕೆ* ಮಾಡಲಾಗಿದೆ ಎಂಬುದನ್ನು, ಅದು *ಹೇಗೆ*
+ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ಅಲ್ಲ (ಅದನ್ನು code ತೋರಿಸುತ್ತದೆ). ಉತ್ತಮ comments ಗಳು
+ಗಂಟೆಗಳ ಗೊಂದಲ ತಪ್ಪಿಸುತ್ತವೆ; ದುರ್ಬಲ comments ಗಳು ಶಬ್ದ ಮಾತ್ರ ಹೆಚ್ಚಿಸಬಹುದು,
+ಅಥವಾ ಇನ್ನೂ ಕೆಟ್ಟದಾಗಿ ತಪ್ಪುದಾರಿಗೆ ನಡೆಸಬಹುದು.
 
-Types of comments that are nearly always worthwhile:
+ತೀರಾ ಬಹುಶಃ ಯಾವಾಗಲೂ ಉಪಯುಕ್ತವಾಗಿರುವ comment ಪ್ರಕಾರಗಳು:
 
-- **TODOs**: Mark incomplete or unpolished code, but leave enough
-  context for someone else to understand what's outstanding and why it
-  was deferred. "TODO: optimize" is useless; "TODO: this O(n²) loop is
-  fine for `n<100`, but will need indexing if we scale" is actionable.
-- **References**: Link to external sources when code implements an
-  algorithm from a paper, adapts code from elsewhere, or encodes
-  behaviour specified in documentation. Use permalinks. Note any
-  divergences from the reference.
-- **Correctness arguments**: Explain *why* non-trivial code produces
-  correct results. The code shows the steps; a comment explains why
-  those steps work.
-- **Hard-learned lessons**: If you spent 30+ minutes debugging something
-  and the fix is a non-obvious incantation, document it. Your past self
-  didn't realize it was needed; future readers won't either.
-- **Rationale for constants**: Magic numbers deserve explanation. Why
-  1492? Why 16 bits? Was it chosen randomly, derived from testing, or
-  required for correctness? Even "chosen arbitrarily" is useful
-  information.
-- **Load-bearing choices**: If correctness depends on a
-  seemingly-innocent implementation detail (e.g., "must be a BTreeSet
-  because iteration order matters below"), call it out explicitly.
-- **"Why not"s**: When you deliberately avoid the obvious approach,
-  explain why. Otherwise someone will "fix" it later and break things.
+- **TODOs**: ಅಪೂರ್ಣ ಅಥವಾ ಇನ್ನೂ ತಿದ್ದಬೇಕಿರುವ code ಅನ್ನು ಗುರುತಿಸಿ; ಆದರೆ ಉಳಿದಿರುವ
+  ಕೆಲಸ ಏನು ಮತ್ತು ಅದು ಏಕೆ ಮುಂದೂಡಲಾಯಿತು ಎಂಬುದನ್ನು ಮತ್ತೊಬ್ಬರು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವಷ್ಟು
+  ಸಂದರ್ಭವನ್ನು ನೀಡಿ. "TODO: optimize" ಉಪಯೋಗವಿಲ್ಲ; "TODO: this O(n²) loop is
+  fine for `n<100`, but will need indexing if we scale" ಕಾರ್ಯಗತಗೊಳ್ಳುವ ಸೂಚನೆ.
+- **References**: code ಯಾವುದೇ paper ನ algorithm ಅನ್ನು ಜಾರಿಗೊಳಿಸಿದಾಗ, ಬೇರೆಡೆಗಿನ
+  code ಅನ್ನು ಹೊಂದಾಣಿಕೆ ಮಾಡಿದಾಗ, ಅಥವಾ documentation ನಿರ್ದಿಷ್ಟಪಡಿಸಿದ behaviour ಅನ್ನು
+  ಒಳಗೊಂಡಿದ್ದಾಗ, ಹೊರಗಿನ ಮೂಲಗಳಿಗೆ link ನೀಡಿ. permalinks ಬಳಸಿ. reference ನಿಂದ ಇರುವ
+  ಭಿನ್ನತೆಗಳನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ನಮೂದಿಸಿ.
+- **Correctness arguments**: ಸರಳವಲ್ಲದ code ಸರಿಯಾದ ಫಲಿತಾಂಶ ನೀಡುತ್ತದೆ ಎಂಬುದನ್ನು *ಏಕೆ*
+  ಎಂದು ವಿವರಿಸಿ. code ಕ್ರಮಗಳನ್ನು ತೋರಿಸುತ್ತದೆ; comment ಆ ಕ್ರಮಗಳು ಏಕೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ
+  ಎಂಬುದನ್ನು ಹೇಳುತ್ತದೆ.
+- **Hard-learned lessons**: ಯಾವುದನ್ನಾದರೂ debug ಮಾಡಲು 30+ ನಿಮಿಷ ತೆಗೆದುಕೊಂಡು,
+  ಪರಿಹಾರವು ತಕ್ಷಣ ಗೋಚರಿಸದ incantation ಆಗಿದ್ದರೆ, ಅದನ್ನು ದಾಖಲಿಸಿ. ಹಳೆಯ ನಿಮಗೆ ಅದು
+  ಬೇಕೆಂದು ತಿಳಿದಿರಲಿಲ್ಲ; ಭವಿಷ್ಯದ ಓದುಗರಿಗೂ ಹಾಗೆಯೇ ಇರಬಹುದು.
+- **Rationale for constants**: Magic numbers ಗೆ ವಿವರಣೆ ಅಗತ್ಯ. 1492 ಏಕೆ? 16 bits ಏಕೆ?
+  ಅದು ಯಾದೃಚ್ಛಿಕವಾಗಿ ಆಯ್ಕೆ ಮಾಡಲ್ಪಟ್ಟದೇ, testing ನಿಂದ ಬಂದದೇ, ಅಥವಾ correctness ಗೆ ಅವಶ್ಯವೇ?
+  "chosen arbitrarily" ಎಂಬ ಮಾಹಿತಿ ಸಹ ಉಪಯುಕ್ತವೇ.
+- **Load-bearing choices**: correctness ತೋರಿಕೆಗೆ ಸಾಮಾನ್ಯ implementation detail ಮೇಲೆ
+  ಅವಲಂಬಿತವಾಗಿದ್ದರೆ (ಉದಾ., "must be a BTreeSet because iteration order matters below"),
+  ಅದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಹೇಳಿ.
+- **"Why not"s**: ನೀವು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ಸ್ಪಷ್ಟವಾಗಿ ಕಾಣುವ ವಿಧಾನವನ್ನು ತಪ್ಪಿಸಿದರೆ, ಏಕೆ ಎಂದು
+  ವಿವರಿಸಿ. ಇಲ್ಲದಿದ್ದರೆ ನಂತರ ಯಾರಾದರೂ ಅದನ್ನು "ಸರಿಪಡಿಸಲು" ಹೋಗಿ ವ್ಯವಸ್ಥೆ ಹಾಳು ಮಾಡಬಹುದು.
 
-READMEs (you have one, right?) are also a common first touch-point with
-other developers. A good one answers four questions immediately: What
-does this do? Why should I care? How do I use it? How do I install it?
-In that order. Structure it like a funnel: a one-liner and maybe a
-visual demo at the top so someone can decide in seconds if this solves
-their problem, then progressively add depth. Show usage before
-installation — people want to see what they're getting before committing
-to setup steps.
+READMEs (ನಿಮ್ಮದೂ ಇದೆ, ಅಲ್ಲವೇ?) ಕೂಡ ಇತರ developers ಗೆ ಸಾಮಾನ್ಯವಾಗಿ ಮೊದಲ ಸ್ಪರ್ಶಬಿಂದು.
+ಒಂದು ಉತ್ತಮ README ತಕ್ಷಣ ನಾಲ್ಕು ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಿಸಬೇಕು: ಇದು ಏನು ಮಾಡುತ್ತದೆ? ನಾನು
+ಇದನ್ನು ಏಕೆ ಗಮನಿಸಬೇಕು? ಇದನ್ನು ಹೇಗೆ ಬಳಸುವುದು? ಇದನ್ನು ಹೇಗೆ install ಮಾಡುವುದು? ಇದೇ ಕ್ರಮದಲ್ಲಿ.
+ಇದನ್ನು funnel ಮಾದರಿಯಲ್ಲಿ ರೂಪಿಸಿ: ಮೇಲ್ಭಾಗದಲ್ಲಿ ಒಂದು one-liner ಮತ್ತು ಸಾಧ್ಯವಾದರೆ ಒಂದು
+visual demo ಇರಿ, ಇದರಿಂದ ಯಾರಾದರೂ ಕೆಲವೇ ಕ್ಷಣಗಳಲ್ಲಿ ಇದರಿಂದ ತಮ್ಮ ಸಮಸ್ಯೆ ಬಗೆಹರಿಯುತ್ತದೆಯೇ
+ಎಂದು ನಿರ್ಧರಿಸಬಹುದು. ನಂತರ ಹಂತ ಹಂತವಾಗಿ ಆಳವಾದ ವಿವರ ಸೇರಿಸಿ. installation ಗಿಂತ ಮೊದಲು usage
+ತೋರಿಸಿ - setup ಹಂತಗಳಿಗೆ ಬದ್ಧರಾಗುವ ಮೊದಲು ಅವರು ಏನು ಪಡೆಯುತ್ತಿದ್ದಾರೆ ಎಂಬುದು ಜನರಿಗೆ ತಿಳಿಯಬೇಕಿರುತ್ತದೆ.
 
-Commit messages are another kind of "writing for others" that is often
-neglected. They are often written as "fixed blah" or "added foo", and
-while that may be sufficient in some cases, it's easy to forget that
-they form the historical record of *why* the codebase evolved the way it
-did. When someone (including you!) runs `git blame` trying to understand
-a confusing change, good commit messages should give them answers.
+commit messages ಕೂಡ ಬಹುಸಾರಿ ನಿರ್ಲಕ್ಷ್ಯಗೊಳ್ಳುವ "ಇತರರಿಗಾಗಿ ಬರವಣಿಗೆ"ಯ ಪ್ರಮುಖ ರೂಪ.
+ಅವುಗಳನ್ನು ಅನೇಕ ಬಾರಿ "fixed blah" ಅಥವಾ "added foo" ಎಂಬಂತೆ ಬರೆಯಲಾಗುತ್ತದೆ. ಕೆಲ ಸಂದರ್ಭದಲ್ಲಿ
+ಅದು ಸಾಕಾಗಬಹುದು, ಆದರೆ codebase ಏಕೆ ಈ ರೀತಿಯಲ್ಲಿ ಬದಲಾಗಿದೆ ಎಂಬ *ಇತಿಹಾಸದ ದಾಖಲೆಯನ್ನು* ಅವೇ
+ನಿರ್ಮಿಸುತ್ತವೆ ಎಂಬುದನ್ನು ಮರೆತಬಾರದು. ಯಾರಾದರೂ (ನಿಮ್ಮೂ ಸೇರಿ) ಗೊಂದಲಕಾರಿ ಬದಲಾವಣೆಯನ್ನು
+ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು `git blame` ಚಲಾಯಿಸಿದಾಗ, ಉತ್ತಮ commit messages ಉತ್ತರಗಳನ್ನು ನೀಡಬೇಕು.
 
-In general, the body should answer:
-- What problem forced this change?
-- What alternatives did you consider?
-- What are the trade-offs or implications?
-- What might be surprising about this approach?
+ಸಾಮಾನ್ಯವಾಗಿ commit body ಈ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಿಸಬೇಕು:
+- ಈ ಬದಲಾವಣೆಯನ್ನು ಅನಿವಾರ್ಯಗೊಳಿಸಿದ ಸಮಸ್ಯೆ ಯಾವುದು?
+- ನೀವು ಯಾವ ಪರ್ಯಾಯಗಳನ್ನು ಪರಿಗಣಿಸಿದ್ದೀರಿ?
+- trade-offs ಅಥವಾ implications ಯಾವುವು?
+- ಈ ವಿಧಾನದಲ್ಲಿ ಅಚ್ಚರಿಯಾಯಕವೆನಿಸಬಹುದಾದ ಅಂಶ ಏನು?
 
-> Obviously you should scale detail with complexity. A one-line typo fix
-> needs only a subject. A subtle race condition fix that took hours to
-> debug deserves paragraphs explaining the problem and solution.
+> ಸ್ಪಷ್ಟವಾಗಿಯೇ, ವಿವರದ ಪ್ರಮಾಣವನ್ನು complexity ಗೆ ಅನುಗುಣವಾಗಿ ಹೊಂದಿಸಬೇಕು.
+> ಒಂದು ಸಾಲಿನ typo fix ಗೆ subject ಸಾಲು ಸಾಕು. ಹಲವು ಗಂಟೆಗಳ debug ನಂತರ ಸರಿಪಡಿಸಿದ
+> ಸೂಕ್ಷ್ಮ race condition ಗೆ ಸಮಸ್ಯೆ ಮತ್ತು ಪರಿಹಾರವನ್ನು ವಿವರಿಸುವ ಕೆಲವು ಪ್ಯಾರಾಗ್ರಾಫ್‌ಗಳು
+> ಬೇಕಾಗುತ್ತವೆ.
 
-For complex changes, it can be useful to follow a Problem → Solution →
-Implications structure: Start with the forcing function or limitation,
-then explain what changed and the key design decisions, and then list
-noteworthy consequences (positive and negative). That last part is
-particularly important; real engineering involves balancing concerns,
-and documenting that a trade-off was intentional prevents future
-developers from thinking you missed the problem.
+ಸಂಕೀರ್ಣ ಬದಲಾವಣೆಗಳಲ್ಲಿ Problem → Solution → Implications ರಚನೆ ಅನುಸರಿಸುವುದು ಉಪಯುಕ್ತ.
+ಮೊದಲಿಗೆ ಬದಲಾವಣೆಯನ್ನು ಒತ್ತಾಯಿಸಿದ ಕಾರಣ ಅಥವಾ ಮಿತಿ ಏನು ಎಂಬುದರಿಂದ ಪ್ರಾರಂಭಿಸಿ; ನಂತರ ಏನು
+ಬದಲಾಗಿದೆ ಮತ್ತು ಪ್ರಮುಖ design ನಿರ್ಣಯಗಳು ಯಾವುವು ಎಂದು ವಿವರಿಸಿ; ಕೊನೆಯಲ್ಲಿ ಗಮನಾರ್ಹ
+ಪರಿಣಾಮಗಳನ್ನು (ಧನಾತ್ಮಕ ಹಾಗೂ ಋಣಾತ್ಮಕ) ಪಟ್ಟಿ ಮಾಡಿ. ಈ ಕೊನೆಯ ಭಾಗ ಅತ್ಯಂತ ಪ್ರಮುಖ.
+ನಿಜವಾದ engineering ಅನೇಕ ಚಿಂತೆಗಳ ಸಮತೋಲನವಾಗಿದ್ದು, trade-off ಉದ್ದೇಶಿತವಾಗಿತ್ತು ಎಂದು
+ದಾಖಲಿಸಿದರೆ, ಭವಿಷ್ಯದ developers ನೀವು ಸಮಸ್ಯೆಯನ್ನು ಗಮನಿಸದೆ ಬಿಟ್ಟಿದ್ದೀರಿ ಎಂದು ಭಾವಿಸುವುದಿಲ್ಲ.
 
-LLMs _can_ be helpful in writing commit messages. However, if you simply
-point one at your change and ask it to write the commit message for the
-change, the LLM will only have access to the _what_, not the _why_. And
-the resulting commit message will thus be mostly descriptive (the
-opposite of what we want!). If you used an LLM to help you make the
-change in the first place, asking the LLM to write the commit in that
-same session can be a much better option since your conversation with
-the LLM is inherently a rich source of context about the change!
-Otherwise, or in addition, a useful trick is to specifically tell the
-LLM you'd like a commit message focused on the "why" (and other nuances
-from the notes above), and then _tell it to query you for missing
-context_. Essentially, you're acting like a MCP "tool" for the coding
-agent that it can use to "read" context.
+commit messages ಬರೆಯುವಲ್ಲಿ LLMs _ಉಪಯುಕ್ತ_ವಾಗಬಹುದು. ಆದರೆ ನಿಮ್ಮ ಬದಲಾವಣೆಯನ್ನು ಮಾತ್ರ
+ತೋರಿಸಿ commit message ಬರೆಯಲು ಹೇಳಿದರೆ, LLM ಗೆ _what_ ಮಾತ್ರ ಗೋಚರಿಸುತ್ತದೆ, _why_ ಅಲ್ಲ.
+ಫಲವಾಗಿ ಸಿಗುವ commit message ಬಹುತೇಕ ವರ್ಣನಾತ್ಮಕವಾಗಿರುತ್ತದೆ (ನಮಗೆ ಬೇಕಾದುದಕ್ಕೆ ವಿರೋಧವಾಗಿ).
+ಬದಲಾವಣೆಯನ್ನು ಮಾಡಿಸುವಲ್ಲೇ ನೀವು LLM ಸಹಾಯ ಪಡೆದಿದ್ದರೆ, ಅದೇ session ನಲ್ಲಿ commit ಕೂಡ ಅದರಿಂದ
+ಬರೆಯಿಸಿಕೊಳ್ಳುವುದು ಹೆಚ್ಚು ಉತ್ತಮ - ಏಕೆಂದರೆ ನಿಮ್ಮ ಸಂಭಾಷಣೆ ಬದಲಾವಣೆಯ ಕುರಿತ ಸಮೃದ್ಧ context
+ಒದಗಿಸುತ್ತದೆ. ಇದಲ್ಲದೇ, ಅಥವಾ ಇದರ ಜೊತೆಗೆ, "why" ಕೇಂದ್ರಿತ commit message ಬೇಕು (ಮೇಲಿನ
+ಸೂಚನೆಗಳಲ್ಲಿನ ಇತರೆ ಸೂಕ್ಷ್ಮಾಂಶಗಳೂ ಸೇರಿ) ಎಂದು LLM ಗೆ ಸ್ಪಷ್ಟವಾಗಿ ಹೇಳಿ; ನಂತರ _ಕಡಿಮೆಯಿರುವ
+ಸಂದರ್ಭಕ್ಕಾಗಿ ನಿಮಗೇ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಲು ಅದಕ್ಕೆ ಸೂಚಿಸಿ_. ಅರ್ಥಾತ್, coding agent ಗೆ context
+"read" ಮಾಡಲು ಬಳಸಬಹುದಾದ MCP "tool" ಆಗಿ ನೀವು ತಾವೇ ವರ್ತಿಸುತ್ತಿದ್ದೀರಿ.
 
-As your changes get more complex, make sure to also break up commits
-logically (`git add -p` is your friend). Each commit should represent
-one coherent change that could be understood and reviewed independently.
-Don't mix refactoring with new features or combine unrelated bug fixes,
-as this muddies the story for which changes fixed what problem, and will
-almost certainly slow down the eventual review of your changes. It also
-gives you superpowers through `git bisect`, but that's a story for
-another time.
+ನಿಮ್ಮ ಬದಲಾವಣೆಗಳು ಹೆಚ್ಚು ಸಂಕೀರ್ಣವಾಗುತ್ತಾ ಹೋದಂತೆ commits ಅನ್ನು ತಾರ್ಕಿಕವಾಗಿ ವಿಭಜಿಸುತ್ತಿರುವುದನ್ನು
+ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ (`git add -p` ನಿಮಗೆ ಸಹಕಾರಿ). ಪ್ರತಿಯೊಂದು commit ಸ್ವತಂತ್ರವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು
+ಮತ್ತು review ಮಾಡಲು ಸಾಧ್ಯವಾಗುವ ಒಂದು ಸಮ್ಮೇಳಿತ ಬದಲಾವಣೆಯನ್ನು ಪ್ರತಿನಿಧಿಸಬೇಕು. refactoring ಅನ್ನು
+ಹೊಸ features ಜೊತೆ ಮಿಶ್ರಣ ಮಾಡಬೇಡಿ; ಸಂಬಂಧವಿಲ್ಲದ bug fixes ಗಳನ್ನು ಸೇರಿಸಬೇಡಿ. ಹೀಗೆ ಮಾಡಿದರೆ ಯಾವ
+ಬದಲಾವಣೆಯಿಂದ ಯಾವ ಸಮಸ್ಯೆ ಬಗೆಹರಿಯಿತು ಎಂಬ ಕಥನ ಅಸ್ಪಷ್ಟವಾಗುತ್ತದೆ ಮತ್ತು ಅಂತಿಮ review ಬಹುಶಃ ನಿಧಾನಗೊಳ್ಳುತ್ತದೆ.
+ಇದು `git bisect` ಮೂಲಕ ನಿಮಗೆ ವಿಶೇಷ ಶಕ್ತಿ ಕೂಡ ನೀಡುತ್ತದೆ, ಆದರೆ ಅದು ಮತ್ತೊಂದು ಸಂದರ್ಭದ ಕಥೆ.
 
-> One note as you start being more diligent about technical writing, and
-> using it more extensively, make sure you respect the reader. It's easy
-> to end up over-explaining once you start, but you have to resist that
-> urge lest the reader read _none_ of what you've written. Explain the
-> "why" and trust them to figure out the "how" for their situation.
+> technical writing ಬಗ್ಗೆ ನೀವು ಹೆಚ್ಚು ಶ್ರದ್ಧೆ ತೋರಲಾರಂಭಿಸಿದಾಗ, ಮತ್ತು ಅದನ್ನು ಹೆಚ್ಚು
+> ವ್ಯಾಪಕವಾಗಿ ಬಳಸಲು ಪ್ರಾರಂಭಿಸಿದಾಗ, ಓದುಗರಿಗೆ ಗೌರವ ಕೊಡುವುದನ್ನು ಮರೆಯಬೇಡಿ. ಒಮ್ಮೆ ಆರಂಭಿಸಿದ
+> ನಂತರ ಅತಿಯಾಗಿ ವಿವರಿಸುವ ಪ್ರವೃತ್ತಿ ಸುಲಭವಾಗಿ ಬರುತ್ತದೆ. ಆದರೆ ಓದುಗರು ನಿಮ್ಮ ಬರಹವನ್ನೇ
+> _ಓದದೆ_ ಬಿಡುವ ಪರಿಸ್ಥಿತಿ ಬರದಂತೆ ಆ ಪ್ರವೃತ್ತಿಯನ್ನು ನಿಯಂತ್ರಿಸಬೇಕು. "why" ಅನ್ನು ವಿವರಿಸಿ,
+> ಮತ್ತು "how" ಅನ್ನು ತಮ್ಮ ಸಂದರ್ಭಕ್ಕೆ ತಕ್ಕಂತೆ ಅವರು ಕಂಡುಕೊಳ್ಳುತ್ತಾರೆ ಎಂಬ ನಂಬಿಕೆ ಇರಿ.
 
-# Collaboration
+# ಸಹಯೋಗ
 
-As engineers, we may spend a large part of our job coding at our own
-keyboard, but a sizeable chunk of our time is also taken up by
-communicating with others. That time is usually split into collaboration
-and education, and the payoff from investing in getting better at both is
-significant.
+engineers ಆಗಿರುವ ನಾವು ಕೆಲಸದ ಬಹುಭಾಗವನ್ನು ನಮ್ಮದೇ keyboard ಮುಂದೆ coding ಮಾಡುವುದರಲ್ಲಿ
+ಕಳೆಯಬಹುದು. ಆದರೆ ನಮ್ಮ ಸಮಯದ ಮಹತ್ತರ ಭಾಗ ಇತರರೊಂದಿಗೆ ಸಂವಹನದಲ್ಲಿಯೂ ಹೋಗುತ್ತದೆ. ಆ ಸಮಯವು
+ಸಾಮಾನ್ಯವಾಗಿ collaboration ಮತ್ತು education ಗಳಾಗಿ ವಿಭಜಿತವಾಗಿರುತ್ತದೆ; ಇವೆರಡರಲ್ಲೂ ಉತ್ತಮವಾಗಲು
+ಹೂಡಿಕೆ ಮಾಡುವುದರಿಂದ ದೊರೆಯುವ ಪ್ರಯೋಜನ ಗಮನಾರ್ಹವಾಗಿದೆ.
 
-## Contributing
+## ಕೊಡುಗೆ ನೀಡುವುದು
 
-Whether you are submitting a bug report, contributing a simple bug fix,
-or implementing a huge feature, it's worth keeping in mind that there
-are usually orders of magnitude more users than there are contributors,
-and an order of magnitude more contributors than there are maintainers.
-As a result, maintainer time is highly oversubscribed. If you want to
-increase the likelihood that your contribution goes somewhere
-productive, you have to ensure that your contributions carry a high
-signal-to-noise ratio and are worth the maintainers' time.
+ನೀವು bug report ಸಲ್ಲಿಸುತ್ತಿರಲಿ, ಸರಳ bug fix ನೀಡುತ್ತಿರಲಿ, ಅಥವಾ ದೊಡ್ಡ feature ಒಂದನ್ನು
+ಅಮಲುಗೊಳಿಸುತ್ತಿರಲಿ - ಒಂದು ಸಂಗತಿ ನೆನಪಿನಲ್ಲಿ ಇರಲಿ: ಸಾಮಾನ್ಯವಾಗಿ users ಸಂಖ್ಯೆ contributors ಗಿಂತ
+ಅನೇಕ ಪಟ್ಟು ಹೆಚ್ಚು; contributors ಸಂಖ್ಯೆ maintainers ಗಿಂತಲೂ ಒಂದು ಹಂತ ಹೆಚ್ಚು. ಇದರಿಂದ maintainer
+ಸಮಯವು ಬಹಳ ಮಟ್ಟಿಗೆ ಒತ್ತಡದಲ್ಲಿರುತ್ತದೆ. ನಿಮ್ಮ ಕೊಡುಗೆ ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಮುಂದುವರಿಯುವ ಸಾಧ್ಯತೆಯನ್ನು
+ಹೆಚ್ಚಿಸಲು, ನಿಮ್ಮ ಕೊಡುಗೆಗೆ ಹೆಚ್ಚಿನ signal-to-noise ratio ಇರಬೇಕು ಮತ್ತು ಅದು maintainers ಸಮಯಕ್ಕೆ
+ತಕ್ಕ ಮೌಲ್ಯ ಹೊಂದಿರಬೇಕು.
 
-For example, a good bug report respects the maintainer's time by
-providing everything needed to understand and reproduce the problem:
+ಉದಾಹರಣೆಗೆ, ಉತ್ತಮ bug report ಒಂದು maintainer ಸಮಯಕ್ಕೆ ಗೌರವ ತೋರಿಸುವಂತೆ, ಸಮಸ್ಯೆಯನ್ನು
+ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಮತ್ತು ಮರುಉತ್ಪಾದಿಸಲು ಅಗತ್ಯವಿರುವ ಎಲ್ಲ ಮಾಹಿತಿಯನ್ನು ಒದಗಿಸುತ್ತದೆ:
 
-- **Environment**: OS, version numbers, relevant configuration
+- **Environment**: OS, version numbers, ಸಂಬಂಧಿತ configuration
 - **What you expected** vs **what actually happened**
-- **Steps to reproduce**: Be specific. "Click the button" is less useful
-  than "Click the Submit button on the /settings page while logged in as
-  an admin."
-- **What you've already tried**: This prevents duplicate suggestions and
-  shows you've done some investigation
+- **Steps to reproduce**: ಸ್ಪಷ್ಟವಾಗಿರಿ. "Click the button" ಗಿಂತ,
+  "admin ಆಗಿ login ಆಗಿರುವಾಗ /settings page ನಲ್ಲಿ Submit button ಕ್ಲಿಕ್ ಮಾಡಿ."
+  ಹೆಚ್ಚು ಉಪಯುಕ್ತ.
+- **What you've already tried**: ಇದು ಅದೇ ರೀತಿಯ ಪುನರಾವರ್ತಿತ ಸಲಹೆಗಳನ್ನು ತಪ್ಪಿಸುತ್ತದೆ
+  ಮತ್ತು ನೀವು ಕೆಲವು ತನಿಖೆ ನಡೆಸಿದ್ದೀರಿ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ
 
-> If you find a security vulnerability, don't post it publicly. Contact
-> the maintainers privately first and give them reasonable time to fix
-> it before disclosure. Many projects have a SECURITY.md file or
-> similar for this purpose.
+> ನೀವು security vulnerability ಕಂಡುಹಿಡಿದರೆ, ಅದನ್ನು ಸಾರ್ವಜನಿಕವಾಗಿ ಪೋಸ್ಟ್ ಮಾಡಬೇಡಿ.
+> ಮೊದಲು maintainers ಅನ್ನು ಖಾಸಗಿವಾಗಿ ಸಂಪರ್ಕಿಸಿ, ಮತ್ತು ಬಹಿರಂಗಪಡಿಸುವುದಕ್ಕೆ ಮುನ್ನ ಅದನ್ನು
+> ಸರಿಪಡಿಸಲು ಅವರಿಗೆ ಸಮಂಜಸವಾದ ಸಮಯ ನೀಡಿ. ಅನೇಕ projects ಗಳು ಈ ಉದ್ದೇಶಕ್ಕಾಗಿ
+> SECURITY.md ಅಥವಾ ಸಮಾನ ದಾಖಲೆ ಹೊಂದಿರುತ್ತವೆ.
 
-**Make sure you search for existing issues.** Your bug or feature
-request may already be reported, and it's far better to add information
-to existing discussions rather than creating duplicates. Not to mention,
-it reduces noise for the maintainers.
+**ಈಗಾಗಲೇ ಇರುವ issues ಗಳನ್ನು ಹುಡುಕುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.** ನಿಮ್ಮ bug ಅಥವಾ feature
+request ಈಗಾಗಲೇ ವರದಿಯಾಗಿರಬಹುದು; ಅಂಥ ಸಂದರ್ಭದಲ್ಲಿ duplicate issue ತೆರೆವುದಕ್ಕಿಂತ,
+ಇದ್ದ ಚರ್ಚೆಗೆ ಹೊಸ ಮಾಹಿತಿಯನ್ನು ಸೇರಿಸುವುದು ಬಹಳ ಉತ್ತಮ. ಇದರಿಂದ maintainers ಗೆ ಶಬ್ದವೂ ಕಡಿಮೆ.
 
-Minimal reproducible examples are gold, if you can come up with one.
-They save the maintainer a huge amount of time and effort, and
-reliably reproducing the bug is often the hardest part of fixing it. Not
-to mention, the effort you put into isolating the problem often helps
-you understand it better too, and sometimes leads you to find a fix
-yourself.
+minimal reproducible examples ಸಿದ್ಧಪಡಿಸಲು ಸಾಧ್ಯವಾದರೆ ಅದು ಅಮೂಲ್ಯ. ಅವು maintainer ಗೆ
+ಅಪಾರ ಸಮಯ ಮತ್ತು ಪರಿಶ್ರಮ ಉಳಿಸುತ್ತವೆ; bug ಅನ್ನು ವಿಶ್ವಾಸಾರ್ಹವಾಗಿ ಮರುಉತ್ಪಾದಿಸುವುದು ಬಹುಸಾರಿ
+ಅದನ್ನು ಸರಿಪಡಿಸುವಲ್ಲಿ ಅತೀ ಕಠಿಣ ಹಂತವಾಗಿರುತ್ತದೆ. ಜೊತೆಗೆ, ಸಮಸ್ಯೆಯನ್ನು ಪ್ರತ್ಯೇಕಿಸಲು ನೀವು ಮಾಡುವ
+ಪ್ರಯತ್ನದಿಂದ ಅದರ ಕುರಿತು ನಿಮ್ಮ ಅರಿವು ಹೆಚ್ಚುತ್ತದೆ; ಕೆಲವೊಮ್ಮೆ ಪರಿಹಾರವನ್ನೇ ನೀವು ಕಂಡುಕೊಳ್ಳಬಹುದು.
 
-If you don't hear back right away, keep in mind that maintainers are
-often volunteers with limited time. If you're waiting for a reply from
-them, a polite follow-up after a couple weeks is fine; daily pings are
-not. Similarly, "me too" comments, or bug reports that are just a
-copy-paste of some terminal output tend to be a net-negative in terms of
-getting traction for your issue.
+ನಿಮಗೆ ತಕ್ಷಣ ಪ್ರತಿಕ್ರಿಯೆ ಬರದಿದ್ದರೆ, maintainers ಬಹುಸಾರಿ ಸೀಮಿತ ಸಮಯ ಹೊಂದಿರುವ volunteers
+ಎಂಬುದನ್ನು ಮನದಲ್ಲಿಡಿ. ಉತ್ತರಕ್ಕಾಗಿ ಕಾಯುತ್ತಿರುವಾಗ, ಒಂದು-ಎರಡು ವಾರಗಳ ನಂತರ ಸೌಜನ್ಯಪೂರ್ವಕ follow-up
+ಸರಿ; ಪ್ರತಿದಿನ ping ಮಾಡುವುದು ಸೂಕ್ತವಲ್ಲ. ಅದೇ ರೀತಿ, "me too" comments, ಅಥವಾ terminal output ನ
+copy-paste ಮಾತ್ರ ಹೊಂದಿರುವ bug reports - ನಿಮ್ಮ issue ಗೆ ಗಮನ ಸೆಳೆಯುವ ದೃಷ್ಟಿಯಲ್ಲಿ ಸಾಮಾನ್ಯವಾಗಿ
+ಪ್ರತಿಕೂಲ ಪರಿಣಾಮ ಉಂಟುಮಾಡುತ್ತವೆ.
 
-If you're looking to make a code contribution, you'll also want to
-familiarize yourself with the contribution guidelines. Many projects
-have a `CONTRIBUTING.md` — follow it. You'll also usually want to start
-small; a typo fix or documentation improvement is a great first
-contribution as it helps you learn the project's processes without also
-having to go through lots of back and forth on the content.
+code contribution ಮಾಡಲು ಬಯಸುತ್ತಿದ್ದರೆ, contribution guidelines ಅನ್ನು ಪರಿಚಯಿಸಿಕೊಳ್ಳಿ.
+ಅನೇಕ projects ಗಳಲ್ಲಿ `CONTRIBUTING.md` ಇರುತ್ತದೆ - ಅದನ್ನು ಅನುಸರಿಸಿ. ಸಾಮಾನ್ಯವಾಗಿ ಸಣ್ಣದಾಗಿ
+ಆರಂಭಿಸುವುದು ಉತ್ತಮ; typo fix ಅಥವಾ documentation ಸುಧಾರಣೆ ಮೊದಲ ಕೊಡುಗೆಯಾಗಿ ತುಂಬಾ ಚೆನ್ನಾಗಿರುತ್ತದೆ,
+ಏಕೆಂದರೆ ವಿಷಯದ ಕುರಿತು ದೀರ್ಘ back-and-forth ಇಲ್ಲದೆ project ಪ್ರಕ್ರಿಯೆಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಅದು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
-> Check what license the project uses, as any code you contribute will
-> fall under the same license. In particular, look out for copyleft
-> licenses (like GPL), which requires derivatives to also be open source
-> and may have implications for your employer if you touch it!
-> [choosealicense.com](https://choosealicense.com/) has more useful
-> information.
+> project ಯಾವ license ಬಳಕೆ ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಿ, ಏಕೆಂದರೆ ನೀವು ಕೊಡುವ ಯಾವುದೇ
+> code ಅದೇ license ಅಡಿಯಲ್ಲಿ ಬರುತ್ತದೆ. ವಿಶೇಷವಾಗಿ copyleft licenses (ಉದಾ., GPL) ಬಗ್ಗೆ
+> ಎಚ್ಚರಿಕೆಯಾಗಿರಿ - ಅವು derivative works ಕೂಡ open source ಆಗಿರಬೇಕು ಎಂದು ಬೇಡಿಕೆ ಇಡುತ್ತವೆ,
+> ಮತ್ತು ನೀವು ಅದರಲ್ಲಿ ಪಾಲ್ಗೊಂಡರೆ ನಿಮ್ಮ employer ಮೇಲೂ ಅದರ ಪರಿಣಾಮ ಇರಬಹುದು.
+> [choosealicense.com](https://choosealicense.com/) ನಲ್ಲಿ ಹೆಚ್ಚಿನ ಉಪಯುಕ್ತ ಮಾಹಿತಿ ಇದೆ.
 
-When you've decided to open a pull request ("PR"), first make sure you
-isolate the change you actually want to be accepted. If your PR changes
-lots of other unrelated things at the same time, chances are the
-reviewer will send it back to you asking you to clean it up. This is
-similar to how you should break down your git commits into semantically
-related chunks.
+ನೀವು pull request ("PR") ತೆರೆಯಲು ನಿರ್ಧರಿಸಿದಾಗ, ಮೊದಲು ನೀವು ಅಂಗೀಕಾರ ಪಡೆಯಲು ಬಯಸುವ
+ಬದಲಾವಣೆಯನ್ನು ಪ್ರತ್ಯೇಕಿಸಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. ನಿಮ್ಮ PR ಒಂದೇ ವೇಳೆ ಅನೇಕ ಸಂಬಂಧವಿಲ್ಲದ
+ವಿಷಯಗಳನ್ನು ಬದಲಿಸಿದರೆ, reviewer ಅದನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಲು ಹಿಂದಿರುಗಿಸುವ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು. ಇದು ನೀವು
+git commits ಅನ್ನು ಅರ್ಥಪೂರ್ಣ ಸಂಬಂಧಿತ ಭಾಗಗಳಿಗೆ ವಿಭಜಿಸಬೇಕಾದ ವಿಧಾನಕ್ಕೆ ಸಮಾನ.
 
-In some cases, if you have many seemingly-disparate changes but
-they're all needed to enable one feature, it may be okay to open a
-larger PR that captures all the changes. However, in this case, commit
-hygiene is particularly important so that maintainers have the option
-to review the change "commit by commit".
+ಕೆಲ ಸಂದರ್ಭಗಳಲ್ಲಿ, ಬಾಹ್ಯವಾಗಿ ಸಂಬಂಧವಿಲ್ಲದಂತೆ ಕಾಣುವ ಹಲವಾರು ಬದಲಾವಣೆಗಳಿದ್ದರೂ, ಅವೆಲ್ಲವೂ
+ಒಂದು feature ಸಕ್ರಿಯಗೊಳಿಸಲು ಅಗತ್ಯವಾಗಿದ್ದರೆ, ಅವನ್ನೆಲ್ಲ ಒಳಗೊಂಡ ದೊಡ್ಡ PR ತೆరవುವುದು ಸರಿಯಾಗಬಹುದು.
+ಆದರೆ ಅಂಥ ಸಂದರ್ಭಗಳಲ್ಲಿ commit hygiene ವಿಶೇಷವಾಗಿ ಮುಖ್ಯ - maintainers ಗೆ ಬದಲಾವಣೆಯನ್ನು
+"commit by commit" ಆಗಿ review ಮಾಡುವ ಅವಕಾಶ ದೊರಕಬೇಕು.
 
-Next, make sure you explain the "why" behind the change well. Don't just
-describe _what_ changed — explain _why_ the change is needed and _why_
-this is a good way to address the problem. You should also proactively
-call out parts of the change that warrant special attention in the
-review, if any. Depending on `CONTRIBUTING.md` and the nature of your
-change, reviewers may also expect to see additional information like
-trade-offs you made or how to test the change.
+ಮುಂದೆ, ಬದಲಾವಣೆಯ ಹಿಂದಿನ "why" ಯನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.
+_what_ ಮಾತ್ರ ಹೇಳಬೇಡಿ - ಈ ಬದಲಾವಣೆ ಏಕೆ ಅಗತ್ಯ ಮತ್ತು ಸಮಸ್ಯೆಗೆ ಇದು ಏಕೆ ಸೂಕ್ತ ವಿಧಾನ ಎಂಬುದನ್ನು
+ವಿವರಿಸಿ. review ವೇಳೆ ವಿಶೇಷ ಗಮನಕ್ಕೆ ಪಾತ್ರವಾಗುವ ಭಾಗಗಳಿದ್ದರೆ, ಅವನ್ನು ನೀವು ಮುಂಚಿತವಾಗಿಯೇ
+ಸೂಚಿಸಬೇಕು. `CONTRIBUTING.md` ಮತ್ತು ನಿಮ್ಮ ಬದಲಾವಣೆಯ ಸ್ವಭಾವವನ್ನು ಅವಲಂಬಿಸಿ, ನೀವು ಮಾಡಿದ
+trade-offs ಅಥವಾ ಬದಲಾವಣೆಯನ್ನು ಹೇಗೆ test ಮಾಡುವುದು ಇತ್ಯಾದಿ ಹೆಚ್ಚುವರಿ ಮಾಹಿತಿಯನ್ನೂ reviewers ನಿರೀಕ್ಷಿಸಬಹುದು.
 
-> We recommend contributing back to upstream projects rather than
-> "forking" the project, at least as a first approach. Forking (license
-> permitting) should be reserved for when the contributions you want to
-> make are out of scope for the original project. If you do fork, make
-> sure you acknowledge the original project!
+> ಮೊದಲ ವಿಧಾನವಾಗಿ ಕನಿಷ್ಠ upstream projects ಗೆ ಹಿಂದಿರುಗಿ ಕೊಡುಗೆ ನೀಡುವುದನ್ನು ನಾವು
+> ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ; project ಅನ್ನು "fork" ಮಾಡುವುದು ಅಂತಿಮ ಆಯ್ಕೆಯಾಗಿರಲಿ. Forking (license
+> ಅನುಮತಿ ಇದ್ದರೆ) ನೀವು ನೀಡಬಯಸುವ ಕೊಡುಗೆಗಳು ಮೂಲ project ವ್ಯಾಪ್ತಿಗೆ ಹೊರಗಿರುವಾಗ ಮಾತ್ರ
+> ಬಳಸಬೇಕು. fork ಮಾಡಿದರೆ, ಮೂಲ project ಗೆ ಸರಿಯಾದ ಮಾನ್ಯತೆ ನೀಡುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.
 
-AI makes it incredibly easy to generate plausible-looking code and PRs
-quickly, but this doesn't excuse you from understanding what you're
-contributing. Submitting AI-generated code you can't explain burdens
-maintainers with reviewing and potentially maintaining code that even
-its author doesn't understand. It's fine to use AI to help you
-identify issues and produce fixes/features, **so long as you still do
-the due diligence** to polish it into a worthwhile contribution, rather
-than passing that work on to the (already-overloaded) maintainers.
+AI ಬಳಸಿ ದೃಷ್ಟಿಗೆ ನಂಬಬಹುದಾದ code ಮತ್ತು PRs ಅನ್ನು ವೇಗವಾಗಿ ರಚಿಸುವುದು ಅತೀ ಸುಲಭವಾಗಿದೆ.
+ಆದರೂ ನೀವು ಏನು ಕೊಡುಗೆ ನೀಡುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವ ಹೊಣೆಗಾರಿಕೆಯಿಂದ ಅದು ವಿನಾಯಿತಿ
+ಕೊಡುವುದಿಲ್ಲ. ನೀವು ವಿವರಿಸಲಾರದ AI-generated code ಅನ್ನು ಸಲ್ಲಿಸುವುದು, ಅದರ ಲೇಖಕನೇ ಸಂಪೂರ್ಣವಾಗಿ
+ಅರ್ಥಮಾಡಿಕೊಳ್ಳದ code ಅನ್ನು review ಮತ್ತು ನಿರ್ವಹಿಸುವ ಭಾರವನ್ನು maintainers ಮೇಲೆ ಹಾಕುತ್ತದೆ.
+issues ಗುರುತಿಸಲು ಮತ್ತು fixes/features ಸಿದ್ಧಪಡಿಸಲು AI ಬಳಸದರಲ್ಲಿ ತೊಂದರೆಯಿಲ್ಲ - **ಆದರೆ ನೀವು
+ಅಗತ್ಯ due diligence ಮಾಡಿಯೇ** ಅದನ್ನು ಮೌಲ್ಯಯುತ ಕೊಡುಗೆಯಾಗಿ ಮೆರುಗುಗೊಳಿಸಬೇಕು; ಈಗಾಗಲೇ ಒತ್ತಡದಲ್ಲಿರುವ
+maintainers ಮೇಲೆ ಆ ಕೆಲಸವನ್ನು ಹೊರೆ ಹಾಕಬಾರದು.
 
-Remember that for maintainers, accepting a PR means accepting long-term
-responsibility. They will be maintaining this code long after the
-contributor has moved on, and so may decline changes that are
-well-intentioned but don't fit the project's direction, add complexity
-they don't want to maintain, or where the need simply isn't sufficiently
-well-documented. It's on _you_ as the contributor to make the case for
-why the accepting the contribution is worth the maintenance burden.
+maintainers ದೃಷ್ಟಿಯಿಂದ PR ಸ್ವೀಕರಿಸುವುದೆಂದರೆ ದೀರ್ಘಕಾಲಿಕ ಹೊಣೆಗಾರಿಕೆಯನ್ನು ಸ್ವೀಕರಿಸುವುದೇ.
+contributor ಮುಂದೆ ಸಾಗಿದ ನಂತರವೂ ಅವರು ಈ code ಅನ್ನು ನಿರ್ವಹಿಸಬೇಕಾಗುತ್ತದೆ. ಆದ್ದರಿಂದ ಒಳ್ಳೆಯ
+ಉದ್ದೇಶದಿಂದ ಬಂದಿದ್ದರೂ project ದಿಕ್ಕಿಗೆ ಹೊಂದದ, ಅವರು ನಿರ್ವಹಿಸಲು ಬಯಸದ complexity ಸೇರಿಸುವ,
+ಅಥವಾ ಅಗತ್ಯತೆಯ ದಾಖಲೆ ಸಾಕಷ್ಟು ಸ್ಪಷ್ಟವಿಲ್ಲದ ಬದಲಾವಣೆಗಳನ್ನು ಅವರು ತಿರಸ್ಕರಿಸಬಹುದು. ಕೊಡುಗೆಯನ್ನು
+ಸ್ವೀಕರಿಸುವುದು maintenance burden ಗೆ ತಕ್ಕ ಮೌಲ್ಯ ಕೊಡುತ್ತದೆ ಎಂಬ ದೃಢವಾದ ಕಾರಣವನ್ನು ಮಂಡಿಸುವುದು
+contributor ಆಗಿರುವ _ನಿಮ್ಮ_ ಜವಾಬ್ದಾರಿ.
 
-> When receiving feedback on a PR, remember that your code is not you!
-> Reviewers are trying to make the code better, not criticizing you
-> personally. Ask clarifying questions if you disagree — you might learn
-> something, or maybe they will.
+> PR ಬಗ್ಗೆ feedback ಸ್ವೀಕರಿಸುವಾಗ ನಿಮ್ಮ code ಎಂದರೆ ನೀವು ಅಲ್ಲ ಎಂಬುದನ್ನು ನೆನಪಿಡಿ.
+> reviewers code ಉತ್ತಮಗೊಳಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದಾರೆ; ಅವರು ವೈಯಕ್ತಿಕವಾಗಿ ನಿಮ್ಮನ್ನು ಟೀಕಿಸುತ್ತಿಲ್ಲ.
+> ಒಪ್ಪಂದವಿಲ್ಲದಿದ್ದರೆ ಸ್ಪಷ್ಟೀಕರಣ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ - ನಿಮಗೂ ಹೊಸದಾಗಿ ಕಲಿಯಬಹುದು, ಅಥವಾ ಅವರಿಗೆ.
 
-## Reviewing
+## ವಿಮರ್ಶೆ
 
-You might think code review is something senior developers do, but
-you'll likely be asked to review code much earlier than you expect, and
-your perspective is valuable. Fresh eyes catch things that experienced
-developers overlook, and questions from someone less familiar with the
-code often reveal assumptions that should be documented or simplified.
+code review ಎನ್ನುವುದು senior developers ಮಾತ್ರ ಮಾಡುವ ಕೆಲಸ ಎಂದು ನೀವು ಭಾವಿಸಬಹುದು.
+ಆದರೆ ನೀವು ನಿರೀಕ್ಷಿಸುವುದಕ್ಕಿಂತ ಬಹಳ ಬೇಗ ನಿಮಗೆ review ಮಾಡಲು ಕೇಳಲಾಗುವ ಸಾಧ್ಯತೆ ಇದೆ,
+ಮತ್ತು ನಿಮ್ಮ ದೃಷ್ಟಿಕೋನ ಮೌಲ್ಯಯುತ. ಹೊಸ ಕಣ್ಣುಗಳು ಅನುಭವಿಗಳ ಗಮನ ತಪ್ಪಿದ ವಿಷಯಗಳನ್ನು ಹಿಡಿಯುತ್ತವೆ;
+code ಬಗ್ಗೆ ಕಡಿಮೆ ಪರಿಚಯವಿರುವವರ ಪ್ರಶ್ನೆಗಳು ದಾಖಲೆ ಮಾಡಬೇಕಾದ ಅಥವಾ ಸರಳಗೊಳಿಸಬೇಕಾದ ಅಡಗಿದ
+ಅನುಮಾನಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸುತ್ತವೆ.
 
-Review is also one of the fastest ways to learn. You'll see how others
-approach problems, pick up patterns and idioms, and develop intuition
-for what makes code readable. Beyond personal growth, reviews catch bugs
-before they reach production, spread knowledge across the team, and
-improve code quality through collaboration. They are not merely
-bureaucratic overhead.
+review ಕಲಿಯುವ ಅತ್ಯಂತ ವೇಗವಾದ ಮಾರ್ಗಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ. ಇತರರು ಸಮಸ್ಯೆಗಳನ್ನು ಹೇಗೆ ಎದುರಿಸುತ್ತಾರೆ
+ಎಂಬುದನ್ನು ನೀವು ನೋಡುತ್ತೀರಿ; patterns ಮತ್ತು idioms ಗಳನ್ನು ಕಲಿಯುತ್ತೀರಿ; code ಓದಿಸಿಕೊಳ್ಳುವಂತೆ
+ಮಾಡುವುದೇನು ಎಂಬುದರ ಬಗ್ಗೆ ಒಳನೋಟ ಬೆಳೆಸುತ್ತೀರಿ. ವೈಯಕ್ತಿಕ ಬೆಳವಣಿಗೆಯ ಹೊರತಾಗಿ, reviews ಗಳು
+bugs ಅನ್ನು production ತಲುಪುವ ಮುನ್ನ ಹಿಡಿಯುತ್ತವೆ, ತಂಡದೊಳಗಿನ ಜ್ಞಾನ ಹಂಚಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತವೆ,
+ಮತ್ತು collaboration ಮುಖಾಂತರ code ಗುಣಮಟ್ಟವನ್ನು ಉತ್ತಮಗೊಳಿಸುತ್ತವೆ. ಅವು ಕೇವಲ ಆಡಳಿತಾತ್ಮಕ
+ರೂಪರೇಷೆ ಅಲ್ಲ.
 
-Good code review is a skill you need to hone over time, but there are
-some tips that can make them much better much faster:
+ಉತ್ತಮ code review ಎನ್ನುವುದು ಕಾಲಕ್ರಮೇಣ ತಿದ್ದಿಕೊಳ್ಳಬೇಕಾದ ಕೌಶಲ್ಯ. ಆದರೂ ಅದನ್ನು ಬೇಗನೆ
+ಗಣನೀಯವಾಗಿ ಉತ್ತಮಗೊಳಿಸುವ ಕೆಲವು ಸಲಹೆಗಳಿವೆ:
 
-- **Review the code, not the person**:
-  "This function is confusing" vs "You wrote confusing code."
-- **Prefer actionable comments**:
-  "Can you replace these globals with a config dataclass" is an easier
-  comment to address than "Don't use globals here"
-- **Ask questions rather than making demands**:
-  "What happens if X is null here?" invites discussion better than
-  "Handle the null case."
-- **Explain the "why"**:
-  "Consider using a constant here" is less useful than "Consider using a
-  constant here so we can easily adjust the timeout based on
-  environment."
-- **Distinguish blocking issues from suggestions**:
-  Be clear about what must change versus what's a matter of preference.
-- **Acknowledge what's good**:
-  Pointing out clever solutions or clean implementations is encouraging
-  and helps the author know what to continue doing.
-- **Know when to stop**:
-  Contributors only have so much time and patience, and it's not always
-  best spent handling all the nits. Focus on the big things, and
-  consider tidying up nits yourself after the fact.
+- **ವಿಮರ್ಶೆ code ಗೆ ಇರಲಿ, ವ್ಯಕ್ತಿಗೆ ಅಲ್ಲ**:
+  "This function is confusing" ಎಂಬ ಹೇಳಿಕೆ, "You wrote confusing code."
+  ಎನ್ನುವುದಕ್ಕಿಂತ ಉತ್ತಮ.
+- **ಅಮಲುಗೊಳಿಸಬಹುದಾದ comments ನೀಡಿ**:
+  "Don't use globals here" ಎನ್ನುವುದಕ್ಕಿಂತ, "Can you replace these globals
+  with a config dataclass" ಎಂಬುದು ಪರಿಹರಿಸಲು ಸುಲಭ.
+- **ಆಜ್ಞೆಯ ಬದಲು ಪ್ರಶ್ನೆ ಕೇಳಿ**:
+  "Handle the null case." ಎನ್ನುವುದಕ್ಕಿಂತ, "What happens if X is null here?"
+  ಚರ್ಚೆಗೆ ಉತ್ತಮವಾಗಿ ಆಹ್ವಾನಿಸುತ್ತದೆ.
+- **"why" ಅನ್ನು ವಿವರಿಸಿ**:
+  "Consider using a constant here" ಎನ್ನುವುದಕ್ಕಿಂತ, "ಪರಿಸರದ ಆಧಾರದ ಮೇಲೆ
+  timeout ಅನ್ನು ಸುಲಭವಾಗಿ ಬದಲಾಯಿಸಲು ಇಲ್ಲಿ constant ಬಳಸುವುದನ್ನು ಪರಿಗಣಿಸಿ."
+  ಎಂಬುದು ಹೆಚ್ಚು ಉಪಯುಕ್ತ.
+- **blocking issues ಮತ್ತು suggestions ಬೇರ್ಪಡಿಸಿ**:
+  ಕಡ್ಡಾಯವಾಗಿ ಬದಲಿಸಬೇಕಾದದ್ದು ಯಾವುದು, ವೈಯಕ್ತಿಕ ಅಭಿರುಚಿ ಯಾವುದು ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟಪಡಿಸಿ.
+- **ಒಳ್ಳೆಯ ಭಾಗವನ್ನೂ ಗುರುತಿಸಿ**:
+  ಚಾಕಚಕ್ಯ ಪರಿಹಾರಗಳು ಅಥವಾ ಸ್ವಚ್ಛ implementation ಗಳನ್ನು ಸೂಚಿಸುವುದು ಪ್ರೋತ್ಸಾಹಕಾರಿ,
+  ಮತ್ತು ಲೇಖಕರು ಮುಂದುವರಿಸಬೇಕಾದ ಉತ್ತಮ ಕ್ರಮಗಳನ್ನು ತಿಳಿಯಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+- **ಎಲ್ಲಿ ನಿಲ್ಲಬೇಕು ಎಂಬುದನ್ನು ತಿಳಿ**:
+  contributors ಗೆ ಸಮಯ ಮತ್ತು ಸಹನಶೀಲತೆ ಸೀಮಿತ. ಎಲ್ಲಾ nits ಮೇಲೆ ಸಮಯ ವ್ಯಯಿಸುವುದು ಯಾವಾಗಲೂ
+  ಉತ್ತಮವಲ್ಲ. ದೊಡ್ಡ ವಿಷಯಗಳಿಗೆ ಗಮನ ನೀಡಿ; nits ಅನ್ನು ನಂತರ ನೀವು ತಾವೇ ತಿದ್ದುವ ಸಾಧ್ಯತೆಯನ್ನೂ ಪರಿಗಣಿಸಿ.
 
-> AI tools can catch certain issues, but they're not a substitute for
-> human review. They miss context, don't understand product
-> requirements, and can confidently suggest wrong things. They're worth
-> using as a first pass, but not a replacement for thoughtful human
-> review.
+> AI tools ಕೆಲವು issues ಹಿಡಿಯಬಹುದು; ಆದರೆ human review ಗೆ ಅವು ಪರ್ಯಾಯವಲ್ಲ.
+> ಅವುಗಳಿಗೆ context ತಪ್ಪಬಹುದು, product requirements ಸಂಪೂರ್ಣವಾಗಿ ಅರ್ಥವಾಗದೆ ಇರಬಹುದು,
+> ಮತ್ತು ತಪ್ಪಾದ ಸಲಹೆಯನ್ನೇ ವಿಶ್ವಾಸದಿಂದ ನೀಡಬಹುದು. ಮೊದಲ pass ಆಗಿ ಬಳಸುವುದು ಉಪಯುಕ್ತ,
+> ಆದರೆ ಚಿಂತಿತ ಮಾನವೀಯ review ಅನ್ನು ಬದಲಿಸಲು ಅಲ್ಲ.
 
-# Education
+# ಶಿಕ್ಷಣ
 
-A lot of our non-coding time as engineers is spent either asking or
-answering questions, possibly a mixture of both; during collaboration,
-in dialogue with peers, or while trying to learn. Asking good questions
-is a skill that makes you better at learning from anyone, not just
-perfect explainers. Julia Evans has some excellent blog posts on "[How
-to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
-to get useful answers to your
+engineers ಆಗಿರುವ ನಮ್ಮ non-coding ಸಮಯದ ದೊಡ್ಡ ಭಾಗ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳುವುದಲ್ಲ ಅಥವಾ ಉತ್ತರಿಸುವುದಲ್ಲ,
+ಅಥವಾ ಎರಡರ ಮಿಶ್ರಣದಲ್ಲೇ ಕಳೆಯುತ್ತದೆ - collaboration ವೇಳೆ, peers ಜೊತೆ ಸಂವಾದದಲ್ಲಿ, ಅಥವಾ ಕಲಿಯುವ
+ಪ್ರಯತ್ನದಲ್ಲಿ. ಉತ್ತಮ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳುವುದು, ಅತ್ಯುತ್ತಮವಾಗಿ ವಿವರಿಸುವವರಿಂದ ಮಾತ್ರವಲ್ಲ, ಯಾರಿಂದ ಬೇಕಾದರೂ
+ಉತ್ತಮವಾಗಿ ಕಲಿಯಲು ಸಹಾಯ ಮಾಡುವ ಕೌಶಲ್ಯ. Julia Evans ಅವರ "[How to ask good
+questions](https://jvns.ca/blog/good-questions/)" ಮತ್ತು "[How to get useful answers to your
 questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
-that are worth reading.
+ಬ್ಲಾಗ್ ಲೇಖನಗಳು ಓದಲು ಬಹಳ ಉಪಯುಕ್ತ.
 
-Some particularly valuable pieces of advice are:
+ವಿಶೇಷವಾಗಿ ಮೌಲ್ಯಯುತವಾದ ಕೆಲವು ಸಲಹೆಗಳು:
 
-- **State your understanding first**: Say what you think you know and
-  ask "is that right?" This helps the answerer identify your actual
-  knowledge gaps.
-- **Ask yes/no questions**: "Is X true?" prevents tangential
-  explanations and usually prompts useful elaboration anyway.
-- **Be specific**: "How do SQL joins work?" is too vague. "Does a LEFT
-  JOIN include rows where the right table has no match?" is answerable.
-- **Admit when you don't understand**: Interrupt to ask about unfamiliar
-  terms. This reflects confidence, not weakness. Similarly, if they ask
-  questions of you that you do not know the answer to, it's best to say
-  "I don't know", and possibly follow up with "but I think ..." or even
-  "but I can find out".
-- **Don't accept incomplete answers**: Keep asking follow-ups until you
-  actually understand.
-- **Do some research first**: Basic investigation helps you ask more
-  targeted questions (though casual questions among colleagues are
-  fine).
+- **State your understanding first**: ನೀವು ತಿಳಿದಿದ್ದೀರಿ ಎಂದು ಭಾವಿಸುವುದನ್ನು ಮೊದಲು ಹೇಳಿ,
+  ನಂತರ "is that right?" ಎಂದು ಕೇಳಿ. ಇದರಿಂದ ಉತ್ತರಿಸುವವರಿಗೆ ನಿಮ್ಮ ನಿಜವಾದ knowledge gaps
+  ಗುರುತಿಸಲು ಸುಲಭವಾಗುತ್ತದೆ.
+- **Ask yes/no questions**: "Is X true?" ಎಂಬ ಪ್ರಶ್ನೆ ಅನಗತ್ಯ ಬೇರೆ ದಿಕ್ಕಿನ ವಿವರಣೆಗಳನ್ನು
+  ಕಡಿಮೆ ಮಾಡುತ್ತದೆ, ಮತ್ತು ಸಾಮಾನ್ಯವಾಗಿ ಉಪಯುಕ್ತ ವಿಸ್ತೃತ ಉತ್ತರಕ್ಕೂ ದಾರಿಯಿಡುತ್ತದೆ.
+- **Be specific**: "How do SQL joins work?" ಬಹಳ ಅಸ್ಪಷ್ಟ. "Does a LEFT
+  JOIN include rows where the right table has no match?" ಉತ್ತರಿಸಬಹುದಾದ ಪ್ರಶ್ನೆ.
+- **Admit when you don't understand**: ಪರಿಚಯವಿಲ್ಲದ ಪದಗಳು ಬಂದರೆ ಮಧ್ಯೆಯಲ್ಲಿ ಕೇಳಿ.
+  ಇದು ದುರ್ಬಲತೆ ಅಲ್ಲ, ಆತ್ಮವಿಶ್ವಾಸದ ಸೂಚನೆ. ಅದೇ ರೀತಿ, ನಿಮಗೆ ಉತ್ತರ ತಿಳಿಯದ ಪ್ರಶ್ನೆ ಕೇಳಿದರೆ,
+  "I don't know" ಎಂದು ಹೇಳುವುದು ಉತ್ತಮ; ಅಗತ್ಯವಿದ್ದರೆ "but I think ..." ಅಥವಾ
+  "but I can find out" ಎಂದು ಮುಂದುವರಿಯಬಹುದು.
+- **Don't accept incomplete answers**: ನಿಮಗೆ ವಾಸ್ತವವಾಗಿ ಅರ್ಥವಾಗುವವರೆಗೂ follow-up ಪ್ರಶ್ನೆಗಳನ್ನು
+  ಕೇಳುತ್ತಿರಿ.
+- **Do some research first**: ಮೂಲಭೂತ ಹುಡುಕಾಟ ಮಾಡಿದರೆ ಹೆಚ್ಚು targeted ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಬಹುದು
+  (ಆದರೆ ಸಹೋದ್ಯೋಗಿಗಳ ಮಧ್ಯೆ casual ಪ್ರಶ್ನೆಗಳು ಸಹ ಸಮಂಜಸವೇ).
 
-Remember: well-crafted questions benefit entire communities. They
-surface hidden assumptions that others need to understand too.
+ಗಮನದಲ್ಲಿರಲಿ: ಚೆನ್ನಾಗಿ ರೂಪುಗೊಂಡ ಪ್ರಶ್ನೆಗಳು ಸಮಗ್ರ ಸಮುದಾಯಕ್ಕೂ ಉಪಕಾರ. ಇತರರೂ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕಾದ
+ಅಡಗಿದ ಊಹೆಗಳನ್ನು ಅವು ಮೇಲಕ್ಕೆ ತರುತ್ತವೆ.
 
-> Note that this advice applies just as much when communicating with
-> LLMs!
+> ಈ ಸಲಹೆ LLMs ಜೊತೆ ಸಂವಹನ ಮಾಡುವ ಸಂದರ್ಭದಲ್ಲಿಯೂ ಸಮಾನವಾಗಿ ಅನ್ವಯಿಸುತ್ತದೆ.
 
-# AI etiquette
+# AI ಶಿಷ್ಟಾಚಾರ
 
-With the growing use of LLMs and AI across software engineering, the
-social and professional norms around are still in flux. We already
-covered many of the tactical considerations in the [agentic coding
-lecture](/2026/agentic-coding/), but there are also "softer" parts of
-their use that are worth discussing.
+software engineering ಕ್ಷೇತ್ರದಲ್ಲಿ LLMs ಮತ್ತು AI ಬಳಕೆ ಹೆಚ್ಚುತ್ತಿರುವ ಹಿನ್ನೆಲೆ, ಅದರ ಸುತ್ತಲಿನ
+ಸಾಮಾಜಿಕ ಮತ್ತು ವೃತ್ತಿಪರ norms ಇನ್ನೂ ರೂಪುಗೊಳ್ಳುವ ಹಂತದಲ್ಲಿವೆ. [agentic coding
+lecture](/2026/agentic-coding/) ನಲ್ಲಿ tactical ವಿಚಾರಗಳನ್ನು ನಾವು ಈಗಾಗಲೇ ನೋಡಿದ್ದೇವೆ; ಆದರೆ
+ಅವುಗಳ ಬಳಕೆಯ "soft" ಅಂಶಗಳ ಬಗ್ಗೆ ಚರ್ಚಿಸುವುದೂ ಮಹತ್ವದ್ದು.
 
-The first of these is that when AI meaningfully contributed to your
-work, **disclose it**. This isn't about shame — it's about honesty,
-setting appropriate expectations, and ensuring the resulting work gets
-the appropriate level of review. It's also worthwhile to disclose which
-_parts_ you use AI for — there's a meaningful distinction between "this
-whole thing is vibecoded" and "I wrote this backup tool and used an LLM
-to style the web frontend". For example, we've used LLMs to help write
-some of these lecture notes, including proofreading, brainstorming, and
-generating first drafts of code snippets and exercises.
+ಇದಲ್ಲಿನ ಮೊದಲ ವಿಚಾರ: AI ನಿಮ್ಮ ಕೆಲಸಕ್ಕೆ ಅರ್ಥಪೂರ್ಣವಾಗಿ ಕೊಡುಗೆ ನೀಡಿದರೆ, **ಅದನ್ನು ಬಹಿರಂಗಪಡಿಸಿ**.
+ಇದು ಲಜ್ಜೆಯ ವಿಷಯವಲ್ಲ - ಪ್ರಾಮಾಣಿಕತೆ, ಸಮಂಜಸ ನಿರೀಕ್ಷೆ ನಿರ್ಮಾಣ, ಮತ್ತು ಫಲಿತಾಂಶದ ಕೆಲಸಕ್ಕೆ ಸೂಕ್ತ
+ಮಟ್ಟದ review ಸಿಗುವಂತೆ ಮಾಡುವ ವಿಷಯ. AI ಅನ್ನು ಯಾವ _ಭಾಗಗಳ_ಗಾಗಿ ಬಳಸಿದ್ದೀರಿ ಎಂಬುದನ್ನೂ
+ಹೇಳುವುದು ಒಳಿತು - "this whole thing is vibecoded" ಮತ್ತು "I wrote this backup tool and used an LLM
+to style the web frontend" ನಡುವಿನ ವ್ಯತ್ಯಾಸ ಅರ್ಥಪೂರ್ಣ. ಉದಾಹರಣೆಗೆ, ಈ lecture notes ನಲ್ಲಿ
+proofreading, brainstorming, ಮತ್ತು code snippets ಹಾಗೂ exercises ಗಳ first drafts ರಚಿಸಲು ನಾವು
+LLMs ಬಳಸಿದ್ದೇವೆ.
 
-You'll also want to follow the norms of the teams and projects you're
-contributing to here. Some teams have stricter policies around the use
-of AI than others (e.g., for compliance or data residency reasons), and
-you don't want to accidentally run afoul of that. Being open about your
-use helps prevent potentially costly mistakes.
+ನೀವು ಕೊಡುಗೆ ನೀಡುತ್ತಿರುವ teams ಮತ್ತು projects ಗಳ norms ಅನ್ನು ಅನುಸರಿಸುವುದು ಸಹ ಅಗತ್ಯ.
+ಕೆಲವು ತಂಡಗಳಲ್ಲಿ AI ಬಳಕೆಗೆ ಇತರರಿಗಿಂತ ಕಠಿಣ policies ಇರುತ್ತವೆ (ಉದಾ., compliance ಅಥವಾ
+data residency ಕಾರಣಗಳಿಂದ), ಮತ್ತು ತಪ್ಪಾಗಿ ಅವುಗಳಿಗೆ ವಿರುದ್ಧವಾಗಿ ನಡೆದುಕೊಳ್ಳಲು ನೀವು ಬಯಸುವುದಿಲ್ಲ.
+ನಿಮ್ಮ ಬಳಕೆಯ ಬಗ್ಗೆ ಮುಕ್ತವಾಗಿ ಹೇಳುವುದರಿಂದ ದುಬಾರಿ ತಪ್ಪುಗಳನ್ನು ಮುಂಚಿತವಾಗಿ ತಪ್ಪಿಸಬಹುದು.
 
-> If you're aiming to learn as part of the work you're doing, keep in
-> mind that if you have AI do all or most of the work for you can be
-> self-defeating; you're likely to learn more about prompting (and maybe
-> reviewing AI output) than the task itself. Especially when you're
-> learning, the point may be the journey, not the destination, so using
-> AI to "get the solution quickly" is an anti-goal.
+> ನೀವು ಮಾಡುತ್ತಿರುವ ಕೆಲಸದ ಭಾಗವಾಗಿ ಕಲಿಯುವುದು ಗುರಿಯಾಗಿದ್ದರೆ, ಎಲ್ಲಾ ಅಥವಾ ಹೆಚ್ಚಿನ ಕೆಲಸವನ್ನು
+> AI ಮೂಲಕ ಮಾಡಿಸುವುದು ಸ್ವತಃ ವಿಫಲತೆಯತ್ತ ಕೊಂಡೊಯ್ಯಬಹುದು. ಆಗ ನೀವು ಕೆಲಸದ ವಿಷಯಕ್ಕಿಂತ prompting
+> (ಮತ್ತು ಬಹುಶಃ AI output review) ಬಗ್ಗೆ ಹೆಚ್ಚು ಕಲಿಯುವ ಸಾಧ್ಯತೆ ಇದೆ. ವಿಶೇಷವಾಗಿ ಕಲಿಯುವ ಹಂತದಲ್ಲಿ,
+> ಗುರಿ ಅಂತಿಮ ಉತ್ತರಕ್ಕಿಂತ ಪಯಣವೇ ಆಗಿರಬಹುದು; ಆದ್ದರಿಂದ AI ಮೂಲಕ "get the solution quickly"
+> ಮಾಡುವುದು anti-goal ಆಗಬಹುದು.
 
-A related concern comes up in interviews and other assessment
-situations. These are often intended to specifically evaluate _your_
-skills and abilities, not those of an LLM. More companies now allow you
-to use LLMs and other AI-assisted tooling in interviews as long as you
-let them observe those interactions as part of the interview (i.e., they
-are evaluating your skill in making use of those tools too!), but those
-are still in the minority. If you are unsure about whether AI assistance
-is in scope for a particular task, ask!
+ಇದರೊಂದಿಗೆ ಸಂಬಂಧಿತ ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ interviews ಮತ್ತು ಇತರೆ assessment ಸಂದರ್ಭಗಳಲ್ಲಿ ಬರುತ್ತದೆ.
+ಇವು ಸಾಮಾನ್ಯವಾಗಿ _ನಿಮ್ಮ_ ಕೌಶಲ್ಯ ಮತ್ತು ಸಾಮರ್ಥ್ಯವನ್ನು ಅಳೆಯಲು ರೂಪುಗೊಂಡಿರುತ್ತವೆ, LLM ನದು ಅಲ್ಲ.
+ಕೆಲವು ಕಂಪನಿಗಳು ಈಗ interviews ನಲ್ಲಿ LLMs ಮತ್ತು AI-assisted tools ಬಳಕೆಗೆ ಅವಕಾಶ ನೀಡುತ್ತಿವೆ -
+ಆದರೆ ಆ ಸಂವಹನವನ್ನು ಸಂದರ್ಶನದ ಭಾಗವಾಗಿ ಅವಲೋಕಿಸಲು ಅವಕಾಶ ನೀಡಿದಾಗ ಮಾತ್ರ (ಅಂದರೆ, ಆ tools ಅನ್ನು
+ಬಳಸುವ ನಿಮ್ಮ ಕೌಶಲ್ಯವನ್ನೂ ಅವು ಮೌಲ್ಯಮಾಪನ ಮಾಡುತ್ತವೆ). ಆದಾಗ್ಯೂ, ಇವು ಇನ್ನೂ ಅಲ್ಪಸಂಖ್ಯೆಯಲ್ಲಿವೆ.
+ನಿರ್ದಿಷ್ಟ ಕೆಲಸಕ್ಕೆ AI ಸಹಾಯ ವ್ಯಾಪ್ತಿಯಲ್ಲಿದೆಯೇ ಎಂಬ ಅನುಮಾನ ಇದ್ದರೆ, ಕೇಳಿ.
 
-> It should go without saying that if an assessment situation explicitly
-> calls for no external tools, no LLMs, etc., you should not use them.
-> Trying to do so discretely without getting caught **will** come back
-> to bite you.
+> assessment ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ಹೊರಗಿನ tools ಬೇಡ, LLMs ಬೇಡ ಎಂದು ಸ್ಪಷ್ಟವಾಗಿ ಹೇಳಿದ್ದರೆ,
+> ಅವನ್ನು ಬಳಸಬಾರದು ಎಂಬುದು ಸ್ವಯಂಸ್ಪಷ್ಟ. ಹಿಡಿಯಿಸಿಕೊಳ್ಳದೆ ಸದ್ದಿಲ್ಲದೆ ಬಳಸಲು ಪ್ರಯತ್ನಿಸುವುದು
+> **ಖಚಿತವಾಗಿಯೂ** ನಂತರ ನಿಮಗೆ ಪ್ರತಿಕೂಲವಾಗಿ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ.
 
-# Exercises
+# ಅಭ್ಯಾಸಗಳು
 
-1. Browse the source code of a well-known project (e.g.,
-   [Redis](https://github.com/redis/redis) or
-   [curl](https://github.com/curl/curl)). Find examples of some of the
-   comment types mentioned in the lecture: a useful TODO, a reference to
-   external documentation, a "why not" comment explaining an avoided
-   approach, or a hard-learned lesson. What would be lost if that
-   comment was not there?
+1. ಪ್ರಸಿದ್ಧ project ಒಂದರ source code ಅನ್ನು ಪರಿಶೀಲಿಸಿ (ಉದಾ.,
+   [Redis](https://github.com/redis/redis) ಅಥವಾ
+   [curl](https://github.com/curl/curl)). lecture ನಲ್ಲಿ ಉಲ್ಲೇಖಿಸಿದ comment ಪ್ರಕಾರಗಳ
+   ಕೆಲವು ಉದಾಹರಣೆಗಳನ್ನು ಕಂಡುಹಿಡಿಯಿರಿ: ಉಪಯುಕ್ತ TODO, external documentation ಗೆ reference,
+   ತಪ್ಪಿಸಲಾದ ವಿಧಾನವನ್ನು ವಿವರಿಸುವ "why not" comment, ಅಥವಾ hard-learned lesson. ಆ
+   comment ಇಲ್ಲದಿದ್ದರೆ ಯಾವ ಮಾಹಿತಿ ಕಳೆದುಹೋಗುತ್ತಿತ್ತು?
 
-1. Pick an open-source project you're interested in and look at its
-   recent commit history (`git log`). Find one commit with a good
-   message that explains *why* the change was made, and one with a weak
-   message that only describes *what* changed. For the weak one, look at
-   the diff (`git show <hash>`) and try to write a better commit message
-   following the Problem → Solution → Implications structure. Notice how
-   much work is required to reassemble the necessary context after the
-   fact!
+1. ನಿಮಗೆ ಆಸಕ್ತಿಯಿರುವ open-source project ಒಂದನ್ನು ಆಯ್ಕೆ ಮಾಡಿ, ಅದರ ಇತ್ತೀಚಿನ commit
+   history (`git log`) ನೋಡಿ. ಬದಲಾವಣೆ *ಏಕೆ* ಮಾಡಲಾಯಿತು ಎಂಬುದನ್ನು ಹೇಳುವ ಉತ್ತಮ message ಇರುವ
+   ಒಂದು commit ಮತ್ತು *ಏನು* ಬದಲಾಯಿತು ಎಂಬುದಷ್ಟೇ ಹೇಳುವ ದುರ್ಬಲ message ಇರುವ ಮತ್ತೊಂದು commit
+   ಆಯ್ಕೆಮಾಡಿ. ದುರ್ಬಲ message ಇರುವ commit ಗಾಗಿ, diff (`git show <hash>`) ನೋಡಿ,
+   Problem → Solution → Implications ರಚನೆ ಅನುಸರಿಸಿ ಉತ್ತಮ commit message ಬರೆಯಲು ಪ್ರಯತ್ನಿಸಿ.
+   ನಂತರದ ಹಂತದಲ್ಲಿ ಅಗತ್ಯ context ಪುನರ್‌ರಚಿಸಲು ಎಷ್ಟು ಶ್ರಮ ಬೇಕಾಗುತ್ತದೆ ಎಂದು ಗಮನಿಸಿ.
 
-1. Compare the READMEs of three GitHub projects with 1000+ stars. Are
-   all of them equally useful? Look for things that come across mostly
-   as noise to you as a lesson for future READMEs you write yourself.
+1. 1000+ stars ಹೊಂದಿರುವ ಮೂರು GitHub projects ಗಳ READMEs ಹೋಲಿಸಿ. ಅವೆಲ್ಲವೂ ಸಮಾನವಾಗಿ
+   ಉಪಯುಕ್ತವೇ? ಭವಿಷ್ಯದಲ್ಲಿ ನೀವು ಬರೆಯುವ READMEs ಗಾಗಿ ಪಾಠವಾಗಿ, ನಿಮಗೆ ಮುಖ್ಯವಾಗಿ noise ಆಗಿ
+   ಕಾಣುವ ಅಂಶಗಳನ್ನು ಗುರುತಿಸಿ.
 
-1. Find an open issue on a project you use (check the "good first issue"
-   or "help wanted" labels if they have it). Evaluate the issue against
-   the criteria from the lecture: does it seem like it values the
-   maintainer's time and contains all the information necessary to debug
-   it, or do you expect that the maintainer may need to go multiple
-   rounds of questions with the submitter to get to the root problem?
+1. ನೀವು ಬಳಸುವ project ಒಂದರಲ್ಲಿ open issue ಹುಡುಕಿ (ಇದ್ದರೆ "good first issue" ಅಥವಾ
+   "help wanted" labels ಪರಿಶೀಲಿಸಿ). lecture ಮಾನದಂಡಗಳ ವಿರುದ್ಧ issue ಅನ್ನು ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ:
+   ಅದು maintainer ಸಮಯಕ್ಕೆ ಮೌಲ್ಯ ನೀಡುವಂತಿದೆಯೇ ಮತ್ತು debug ಮಾಡಲು ಅಗತ್ಯ ಎಲ್ಲ ಮಾಹಿತಿ ಇದೆಯೇ?
+   ಅಥವಾ ಮೂಲ ಸಮಸ್ಯೆಗೆ ತಲುಪಲು maintainer ಗೆ submitter ಜೊತೆ ಹಲವಾರು ಸುತ್ತಿನ ಪ್ರಶ್ನೋತ್ತರ ಬೇಕಾಗುತ್ತದೆ
+   ಎಂದು ನಿಮಗೆ ಅನಿಸುತ್ತಿದೆಯೇ?
 
-1. Think of a bug you've encountered in software you use (or find one in
-   an issue tracker). Practice creating a minimal reproducible example:
-   strip away everything unrelated to the bug until you have the
-   smallest case that still demonstrates the problem. Write up what you
-   removed and why.
+1. ನೀವು ಬಳಸುವ software ನಲ್ಲಿ ಎದುರಿಸಿದ bug ಒಂದನ್ನು ನೆನಪಿಸಿಕೊಳ್ಳಿ (ಅಥವಾ issue tracker ನಲ್ಲಿ
+  ೊಂದನ್ನು ಕಂಡುಹಿಡಿಯಿರಿ). minimal reproducible example ರಚಿಸುವ ಅಭ್ಯಾಸ ಮಾಡಿ: ಸಮಸ್ಯೆಗೆ ಸಂಬಂಧಿಸದ
+   ಎಲ್ಲವನ್ನೂ ತೆಗೆದುಹಾಕಿ, ಸಮಸ್ಯೆಯನ್ನು ಇನ್ನೂ ತೋರಿಸುವ ಅತಿ ಚಿಕ್ಕ ಪ್ರಕರಣ ಮಾತ್ರ ಉಳಿಯುವವರೆಗೆ ಸರಳಗೊಳಿಸಿ.
+   ನೀವು ಏನು ತೆಗೆದಿರಿ ಮತ್ತು ಏಕೆ ತೆಗೆದಿರಿ ಎಂದು ಬರೆಯಿರಿ.
 
-1. Find a merged pull request on a project you're familiar with that has
-   substantive review comments (not just "LGTM"). Read through the
-   review. Were all the comments equally productive? If you were the PR
-   author, how would you find the experience of getting all those
-   comments?
+1. ನಿಮಗೆ ಪರಿಚಿತವಾದ project ಒಂದರಲ್ಲಿ substantive review comments ಹೊಂದಿರುವ ("LGTM" ಮಾತ್ರವಲ್ಲ)
+   merged pull request ಒಂದನ್ನು ಹುಡುಕಿ. review ಸಂಪೂರ್ಣವಾಗಿ ಓದಿ. ಎಲ್ಲಾ comments ಸಮಾನವಾಗಿ
+   ಉತ್ಪಾದಕವಾಗಿದ್ದವೆಯೇ? ನೀವು PR author ಆಗಿದ್ದರೆ, ಇಷ್ಟು comments ಪಡೆಯುವ ಅನುಭವವನ್ನು ಹೇಗೆ
+   ಅನುಭವಿಸುತ್ತಿದ್ದಿರಿ?
 
-1. Go to Stack Overflow and find a question in a technology you know
-   that has a highly-voted answer. Then find one that was closed or
-   heavily downvoted. Compare them against the advice from the lecture;
-   was it predictable which question would get better answers?
+1. Stack Overflow ಗೆ ಹೋಗಿ, ನಿಮಗೆ ತಿಳಿದಿರುವ technology ಯೊಂದರಲ್ಲಿ highly-voted answer ಹೊಂದಿರುವ
+   ಪ್ರಶ್ನೆ ಒಂದನ್ನು ಹುಡುಕಿ. ನಂತರ closed ಆಗಿರುವ ಅಥವಾ ಹೆಚ್ಚು downvoted ಆಗಿರುವ ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ
+   ಹುಡುಕಿ. lecture ಸಲಹೆಗಳ ದೃಷ್ಟಿಯಲ್ಲಿ ಎರಡನ್ನೂ ಹೋಲಿಸಿ; ಯಾವ ಪ್ರಶ್ನೆಗೆ ಉತ್ತಮ ಉತ್ತರ ಸಿಗಬಹುದು ಎಂಬುದು
+   ಮುಂಚಿತವಾಗಿ ಊಹಿಸಬಹುದಾಗಿತ್ತೇ?

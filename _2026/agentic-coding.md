@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Agentic Coding"
+title: "ಏಜೆಂಟಿಕ್ ಕೋಡಿಂಗ್"
 description: >
-  Learn how to use AI coding agents effectively for software development tasks.
+  ಸಾಫ್ಟ್‌ವೇರ್ ಅಭಿವೃದ್ಧಿ ಕಾರ್ಯಗಳಲ್ಲಿ AI coding agents ಅನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಹೇಗೆ ಬಳಸುವುದು ಎಂಬುದನ್ನು ಕಲಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec7.png
 date: 2026-01-21
 ready: true
@@ -11,9 +11,9 @@ video:
   id: sTdz6PZoAnw
 ---
 
-Coding agents are conversational AI models with access to tools such as reading/writing files, web search, and invoking shell commands. They live either in the IDE or in standalone command-line or GUI tools. Coding agents are highly autonomous and powerful tools, enabling a wide variety of use cases.
+Coding agents ಎಂದರೆ files ಓದುವುದು/ಬರೆಯುವುದು, web search, ಮತ್ತು shell commands ಅನ್ನು ಚಾಲನೆ ಮಾಡುವಂತಹ tools ಗೆ ಪ್ರವೇಶವಿರುವ conversational AI models. ಇವು IDE ಒಳಗೇ ಇರಬಹುದು ಅಥವಾ standalone command-line/GUI tools ರೂಪದಲ್ಲಿರಬಹುದು. Coding agents ಹೆಚ್ಚಿನ ಮಟ್ಟದಲ್ಲಿ autonomous ಮತ್ತು ಶಕ್ತಿಶಾಲಿ ಸಾಧನಗಳಾಗಿದ್ದು, ಬಹು ವಿಧದ ಬಳಕೆ ಸಂದರ್ಭಗಳನ್ನು ಬೆಂಬಲಿಸುತ್ತವೆ.
 
-This lecture builds on the AI-powered development material from the [Development Environment and Tools](/2026/development-environment/) lecture. As a quick demo, let's continue with the example from the [AI-powered development](/2026/development-environment/#ai-powered-development) section:
+ಈ ಉಪನ್ಯಾಸವು [Development Environment and Tools](/2026/development-environment/) ಉಪನ್ಯಾಸದ AI-powered development ವಿಷಯದ ಮೇಲೆ ಮುಂದುವರೆಯುತ್ತದೆ. ತ್ವರಿತ demoಗಾಗಿ, [AI-powered development](/2026/development-environment/#ai-powered-development) ವಿಭಾಗದ ಉದಾಹರಣೆಯನ್ನು ಮುಂದುವರಿಸೋಣ:
 
 ```python
 from urllib.request import urlopen
@@ -30,49 +30,49 @@ def extract(content: str) -> list[str]:
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
 ```
 
-We can try prompting a coding agent with the following task:
+ಈ ಕಾರ್ಯವನ್ನು coding agent ಗೆ prompt ಆಗಿ ಹೀಗೆ ನೀಡಬಹುದು:
 
 ```
 Turn this into a proper command-line program, with argparse for argument parsing. Add type annotations, and make sure the program passes type checking.
 ```
 
-The agent will read the file to understand it, then make some edits, and finally invoke the type checker to make sure the type annotations are correct. If it makes a mistake such that it fails type checking, it will likely iterate, though this is a simple task so that is unlikely to happen. Because coding agents have access to tools that may be harmful, by default, agent harnesses prompt the user to confirm tool calls.
+Agent ಮೊದಲು file ಓದಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತದೆ, ನಂತರ ಅಗತ್ಯ edits ಮಾಡುತ್ತದೆ, ಕೊನೆಯಲ್ಲಿ type annotations ಸರಿಯೇ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಲು type checker ಅನ್ನು ಚಾಲನೆ ಮಾಡುತ್ತದೆ. type checking ವಿಫಲವಾಗುವ ತಪ್ಪು ಮಾಡಿದರೆ, ಸಾಮಾನ್ಯವಾಗಿ ಅದು iterate ಮಾಡುತ್ತದೆ. ಈ task ಸರಳವಾದುದರಿಂದ ಅದು ಸಂಭವಿಸುವ ಸಾಧ್ಯತೆ ಕಡಿಮೆ. Coding agents ಗೆ ಹಾನಿಕಾರಕವಾಗಬಹುದಾದ tools ಗೆ ಪ್ರವೇಶ ಇರುವುದರಿಂದ, default ಆಗಿ agent harnesses tool calls ಗೆ user confirmation ಕೇಳುತ್ತವೆ.
 
-> If the coding agent makes a mistake --- for example, if you have the `mypy` binary available directly on `$PATH` but the agent tries calling `python -m mypy` --- you can give it text feedback to help it course correct.
+> Coding agent ತಪ್ಪು ಮಾಡಿದರೆ - ಉದಾಹರಣೆಗೆ `$PATH` ನಲ್ಲಿ `mypy` binary ನೇರವಾಗಿ ಲಭ್ಯವಾಗಿದ್ದರೂ agent `python -m mypy` ಅನ್ನು ಪ್ರಯತ್ನಿಸಿದರೆ - ನೀವು text feedback ನೀಡಿ ಅದನ್ನು ಸರಿಯಾದ ದಾರಿಗೆ ತಿರುಗಿಸಬಹುದು.
 
-Coding agents support multi-turn interaction, so you can iterate on work over a back-and-forth conversation with the agent. You can even interrupt the agent if it's going down the wrong track. One helpful mental model might be that of a manager of an intern: the intern will do the nitty gritty work, but will require guidance, and will occasionally do the wrong thing and need to be corrected.
+Coding agents multi-turn interaction ಅನ್ನು ಬೆಂಬಲಿಸುತ್ತವೆ. ಹಾಗಾಗಿ agent ಜೊತೆ ಹಿಂತಿರುಗಿ ಮಾತನಾಡುತ್ತಾ ಕೆಲಸವನ್ನು ಹಂತ ಹಂತವಾಗಿ ಮುಂದುವರಿಸಬಹುದು. Agent ತಪ್ಪು ದಿಕ್ಕಿನಲ್ಲಿ ಹೋಗುತ್ತಿದ್ದರೆ ಮಧ್ಯದಲ್ಲೇ interrupt ಕೂಡ ಮಾಡಬಹುದು. ಉಪಯುಕ್ತ mental model ಎಂದರೆ intern ಅನ್ನು ನಿರ್ವಹಿಸುವ manager: intern ಸೂಕ್ಷ್ಮ ಕೆಲಸ ಮಾಡುತ್ತಾನೆ, ಆದರೆ ಮಾರ್ಗದರ್ಶನ ಬೇಕಾಗುತ್ತದೆ, ಕೆಲವೊಮ್ಮೆ ತಪ್ಪು ಮಾಡುತ್ತಾನೆ ಮತ್ತು ತಿದ್ದುವಿಕೆ ಅಗತ್ಯವಾಗುತ್ತದೆ.
 
-> For a more illustrative demo, try asking the agent as a follow-up to run the resulting script. Observe the outputs, and try asking it to make a change (e.g., ask it to include only absolute URLs).
+> ಇನ್ನಷ್ಟು ಸ್ಪಷ್ಟ demoಗಾಗಿ, follow-up ಆಗಿ agent ಗೆ ಫಲಿತ script ಅನ್ನು run ಮಾಡಲು ಹೇಳಿ. outputs ನೋಡಿ, ಬಳಿಕ ಬದಲಾವಣೆ ಕೇಳಿ (ಉದಾ: absolute URLs ಮಾತ್ರ ಸೇರಿಸು ಎಂದು).
 
-# How AI models and agents work
+# AI models ಮತ್ತು agents ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ
 
-Fully explaining the inner workings of modern [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) and infrastructure such as agent harnesses is beyond the scope of this course. However, having a high-level understanding of some of the key ideas is helpful for effectively _using_ this bleeding edge technology and understanding its limitations.
+ಆಧುನಿಕ [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) ಗಳ ಒಳಾಂಗಣ ಕಾರ್ಯವಿಧಾನ ಮತ್ತು agent harnesses ಮೊದಲಾದ infrastructure ಅನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ವಿವರಿಸುವುದು ಈ ಕೋರ್ಸ್ ವ್ಯಾಪ್ತಿಗೆ ಹೊರತಾಗಿದೆ. ಆದರೂ, ಈ cutting-edge ತಂತ್ರಜ್ಞಾನವನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ _ಬಳಸಲು_ ಮತ್ತು ಅದರ ಮಿತಿಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಕೆಲವು ಪ್ರಮುಖ ಕಲ್ಪನೆಗಳ high-level ತಿಳುವಳಿಕೆ ಉಪಯುಕ್ತ.
 
-LLMs can be viewed as modeling the probability distribution of completion strings (outputs) given prompt strings (inputs). LLM inference (what happens when you, e.g., supply a query to a conversational chat app) _samples_ from this probability distribution. LLMs have a fixed _context window_, the maximum length of the input and output strings.
+LLMs ಅನ್ನು prompt strings (inputs) ನೀಡಿದಾಗ completion strings (outputs) ಗಳ probability distribution ಅನ್ನು ಮಾದರಿಪಡಿಸುವ ವ್ಯವಸ್ಥೆಯಾಗಿ ನೋಡಬಹುದು. LLM inference (ಉದಾ: conversational chat app ಗೆ ನೀವು query ಕೊಟ್ಟಾಗ ನಡೆಯುವುದು) ಈ probability distribution ಇಂದ _sample_ ಮಾಡುತ್ತದೆ. LLMs ಗೆ ಸ್ಥಿರ _context window_ ಇರುತ್ತದೆ - input ಮತ್ತು output strings ನ ಗರಿಷ್ಠ ಒಟ್ಟು ಉದ್ದ.
 
 {% comment %}
 > In mathematical notation, the LLM models the probability distribution $\pi_\theta$ of completions $y$ conditioned on prompts $x$, and we sample from this distribution: $\hat{y} \sim \pi_\theta(\cdot \mid x)$.
 {% endcomment %}
 
-AI tools such as conversational chat and coding agents build on top of this primitive. For multi-turn interactions, chat apps and agents use turn markers and supply the entire conversation history as the prompt string every time there is a new user prompt, invoking LLM inference once per user prompt. For tool-calling agents, the harness interprets certain LLM outputs as requests to invoke a tool, and the harness supplies the results of the tool call back to the model as part of the prompt string (so LLM inference runs again every time there is a tool call/response). The core concepts in tool-calling agents can be [implemented in 200 lines of code](https://www.mihaileric.com/The-Emperor-Has-No-Clothes/).
+Conversational chat ಮತ್ತು coding agents ಮೊದಲಾದ AI tools ಈ ಮೂಲ ಘಟಕದ ಮೇಲೆ ನಿರ್ಮಿಸಲ್ಪಟ್ಟಿವೆ. Multi-turn interactions ಗಾಗಿ, chat apps ಮತ್ತು agents turn markers ಬಳಸುತ್ತವೆ ಮತ್ತು ಪ್ರತಿಯೊಂದು ಹೊಸ user prompt ಗೆ ಸಂಪೂರ್ಣ conversation history ನ್ನೇ prompt string ಆಗಿ ಕಳುಹಿಸುತ್ತವೆ; ಅಂದರೆ ಪ್ರತಿ user prompt ಗೆ LLM inference ಒಮ್ಮೆ ನಡೆಯುತ್ತದೆ. Tool-calling agents ನಲ್ಲಿ, harness ಕೆಲವು LLM outputs ಅನ್ನು tool invoke requests ಆಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತದೆ; ನಂತರ tool call ಫಲಿತಾಂಶವನ್ನು prompt string ಭಾಗವಾಗಿ model ಗೆ ಹಿಂತಿರುಗಿಸುತ್ತದೆ (ಹೀಗಾಗಿ ಪ್ರತಿಯೊಂದು tool call/response ಗೆ LLM inference ಮತ್ತೆ ನಡೆಯುತ್ತದೆ). Tool-calling agents ನ ಮೂಲ ಕಲ್ಪನೆಗಳನ್ನು [200 lines of code](https://www.mihaileric.com/The-Emperor-Has-No-Clothes/) ನಲ್ಲಿ implement ಮಾಡಬಹುದು.
 
 ## Privacy
 
-Most AI coding tools in their standard configurations send a lot of your data to the cloud. Sometimes the harness runs locally while LLM inference runs in the cloud, other times even more of the software is running in the cloud (and, e.g., the service provider might effectively get a copy of your entire repository as well as all interactions you have with the AI tool).
+ಬಹುತೇಕ AI coding tools ತಮ್ಮ ಸಾಮಾನ್ಯ configurations ನಲ್ಲಿ ನಿಮ್ಮ data ಯ ದೊಡ್ಡ ಭಾಗವನ್ನು cloud ಗೆ ಕಳುಹಿಸುತ್ತವೆ. ಕೆಲವೊಮ್ಮೆ harness local ನಲ್ಲಿ ನಡೆಯುತ್ತದೆ ಆದರೆ LLM inference cloud ನಲ್ಲಿ ನಡೆಯುತ್ತದೆ. ಇನ್ನು ಕೆಲವೊಮ್ಮೆ software ನ ಇನ್ನಷ್ಟು ಭಾಗ cloud ನಲ್ಲೇ ನಡೆಯಬಹುದು (ಉದಾ: service provider ಗೆ ನಿಮ್ಮ ಸಂಪೂರ್ಣ repository ನ ಪ್ರತಿಯೇ ಸಿಗುವ ಮಟ್ಟಿಗೆ, ಜೊತೆಗೆ AI tool ಜೊತೆಗಿನ interactions ಕೂಡ).
 
-There are open-source AI coding tools and open-source LLMs that are pretty good (though not quite as good as the proprietary models), but at the present, for most users, running bleeding-edge open LLMs locally will be infeasible due to hardware limitations.
+Open-source AI coding tools ಮತ್ತು open-source LLMs ಉತ್ತಮ ಮಟ್ಟದಲ್ಲಿವೆ (proprietary models ಮಟ್ಟಕ್ಕೆ ಇನ್ನೂ ಸಂಪೂರ್ಣವಾಗಿ ಸಮಾನವಲ್ಲ). ಆದರೆ ಪ್ರಸ್ತುತ ಬಹುತೇಕ ಬಳಕೆದಾರರಿಗೆ hardware ಮಿತಿಗಳ ಕಾರಣ bleeding-edge open LLMs ಅನ್ನು local ನಲ್ಲಿ ನಡೆಸುವುದು ಪ್ರಾಯೋಗಿಕವಾಗಿಲ್ಲ.
 
-# Use cases
+# ಬಳಕೆ ಸಂದರ್ಭಗಳು
 
-Coding agents can be helpful for a wide variety of tasks. Some examples:
+Coding agents ವಿವಿಧ ರೀತಿಯ ಕಾರ್ಯಗಳಿಗೆ ಸಹಾಯಕ. ಕೆಲವು ಉದಾಹರಣೆಗಳು:
 
-- **Implementing new features.** As in the example above, you can ask a coding agent to implement a feature. Giving a good specification is more of an art than a science at this point; you want the input to the agent to be descriptive enough so that the agent does what you want it to do (at least heading in the right direction so you can iterate), but not overly descriptive to the point where you're doing too much work yourself. Test-driven development can be particularly effective: write tests (or use the coding agent to help you write tests), audit them to ensure they capture what you want, and then ask the coding agent to implement the feature. Models are continually improving, so you'll have to keep your intuition up-to-date on what the models are capable of.
-    > We used Claude Code to [implement](https://github.com/missing-semester/missing-semester/pull/345) these Tufte-style sidenotes.
+- **ಹೊಸ features ಜಾರಿಗೊಳಿಸುವುದು.** ಮೇಲಿನ ಉದಾಹರಣೆಯಂತೆ coding agent ಗೆ feature implement ಮಾಡಲು ಕೇಳಬಹುದು. ಉತ್ತಮ specification ಬರೆಯುವುದು ಈಗಲೂ ಕಲೆ ಮತ್ತು ವಿಜ್ಞಾನ ಮಿಶ್ರಣದ ವಿಷಯ. Agent ಗೆ ಸಾಕಷ್ಟು ವಿವರಣಾತ್ಮಕ input ನೀಡಬೇಕು, ಆಗ ಅದು ನಿಮ್ಮ ದಿಕ್ಕಿನಲ್ಲಿ ಕೆಲಸ ಆರಂಭಿಸುತ್ತದೆ (ಮುಂದೆ iterate ಮಾಡಬಹುದು). ಆದರೆ ಅತಿಯಾಗಿ ವಿವರಿಸಿದರೆ ನೀವು ಮಾಡಬೇಕಾದ ಕೆಲಸವೇ ಹೆಚ್ಚು ಆಗುತ್ತದೆ. Test-driven development ಇಲ್ಲಿ ಪರಿಣಾಮಕಾರಿ: tests ಬರೆಯಿರಿ (ಅಥವಾ tests ಬರೆಯಲು coding agent ನೆರವು ಬಳಸಿ), ಅವು ನಿಮ್ಮ ನಿರೀಕ್ಷೆಗಳನ್ನು ಹಿಡಿದಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ, ಬಳಿಕ feature implement ಮಾಡಲು agent ಗೆ ಕೇಳಿ. Models ನಿರಂತರವಾಗಿ ಸುಧಾರಿಸುತ್ತಿರುವುದರಿಂದ, ಅವುಗಳ ಸಾಮರ್ಥ್ಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಅಂದಾಜನ್ನು ನಿರಂತರವಾಗಿ ನವೀಕರಿಸಬೇಕು.
+    > ನಾವು Claude Code ಬಳಸಿ ಈ Tufte-ಶೈಲಿಯ sidenotes ಅನ್ನು [implement](https://github.com/missing-semester/missing-semester/pull/345) ಮಾಡಿದ್ದೇವೆ.
 {%- comment %}
 No need to demo this, since the intro of a lecture was a small demo of adding a new feature.
 {% endcomment %}
-- **Fixing errors.** If you have errors from your compiler, linter, type checker, or tests, you can ask your agent to correct them, for example with a prompt like "fix the issues with mypy". Coding models are particularly effective when you can get them in a feedback loop, so try to set things up so that the model can run the failing check directly, which will let it iterate autonomously. If this is impractical, you can give the model feedback manually.
-    > On commit [f552b55](https://github.com/missing-semester/missing-semester/commit/f552b5523462b22b8893a8404d2110c4e59613dd) of the missing-semester repo, we prompted Claude Code with "Review the agentic coding lecture for typos and grammatical issues" and subsequently asked it to fix the issues it found, which were committed in [f1e1c41](https://github.com/missing-semester/missing-semester/commit/f1e1c417adba6b4149f7eef91ff5624de40dc637).
+- **ದೋಷ ಸರಿಪಡಿಸುವುದು.** Compiler, linter, type checker, ಅಥವಾ tests ನಿಂದ errors ಬಂದರೆ agent ಗೆ ಅವನ್ನು ಸರಿಪಡಿಸಲು ಕೇಳಬಹುದು, ಉದಾ: "fix the issues with mypy" ಎಂಬ prompt. Coding models feedback loop ನಲ್ಲಿ ವಿಶೇಷವಾಗಿ ಪರಿಣಾಮಕಾರಿಯಾಗುತ್ತವೆ. ಆದ್ದರಿಂದ ಸಾಧ್ಯವಾದರೆ model ಗೆ failing check ನ್ನೇ ನೇರವಾಗಿ run ಮಾಡಲು ಅವಕಾಶ ಕೊಡಿ, ಆಗ ಅದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ iterate ಮಾಡಬಹುದು. ಅದು ಸಾಧ್ಯವಿಲ್ಲದಿದ್ದರೆ manual feedback ಕೊಡಬಹುದು.
+    > missing-semester repo ಯ [f552b55](https://github.com/missing-semester/missing-semester/commit/f552b5523462b22b8893a8404d2110c4e59613dd) commit ನಲ್ಲಿ ನಾವು Claude Code ಗೆ "Review the agentic coding lecture for typos and grammatical issues" ಎಂದು prompt ನೀಡಿದ್ದೆವು. ನಂತರ ಅದು ಕಂಡುಹಿಡಿದ ಸಮಸ್ಯೆಗಳನ್ನು ಸರಿಪಡಿಸಲು ಕೇಳಿದ್ದೇವೆ. ಅವು [f1e1c41](https://github.com/missing-semester/missing-semester/commit/f1e1c417adba6b4149f7eef91ff5624de40dc637) ನಲ್ಲಿ commit ಆಗಿವೆ.
 {%- comment %}
 Demo a coding agent fixing the bug in https://github.com/anishathalye/dotbot/commit/cef40c902ef0f52f484153413142b5154bbc5e99.
 
@@ -88,18 +88,18 @@ Can prompt coding agent with:
 
 Get it to commit the changes.
 {% endcomment %}
-- **Refactoring.** You can use coding agents to refactor code in various ways, from simple tasks like renaming a method (this kind of refactoring is also supported by [code intelligence](/2026/development-environment/#code-intelligence-and-language-servers)) to more complex tasks like breaking out functionality into a separate module.
-    > We used Claude Code to [split](https://github.com/missing-semester/missing-semester/pull/344) agentic coding into its own lecture.
+- **Refactoring.** Coding agents ಬಳಸಿ ವಿವಿಧ ರೀತಿಯ refactoring ಮಾಡಬಹುದು - method rename ಮಾಡುವ ಸರಳ ಕೆಲಸದಿಂದ (ಇದು [code intelligence](/2026/development-environment/#code-intelligence-and-language-servers) ಮೂಲಕವೂ ಸಾಧ್ಯ) ಹಿಡಿದು, functionality ಅನ್ನು ಪ್ರತ್ಯೇಕ module ಗೆ ಬೇರ್ಪಡಿಸುವಂತಹ ಸಂಕೀರ್ಣ ಕೆಲಸಗಳವರೆಗೆ.
+    > ನಾವು Claude Code ಬಳಸಿ agentic coding ಅನ್ನು ಸ್ವತಂತ್ರ ಉಪನ್ಯಾಸವಾಗಿ [split](https://github.com/missing-semester/missing-semester/pull/344) ಮಾಡಿದ್ದೇವೆ.
 {%- comment %}
 Show usage in Missing Semester, point out that the agent did make some mistakes.
 {% endcomment %}
-- **Code review.** You can ask coding agents to review code. You can give them basic guidance, like "review my latest changes that are not yet committed". If you want to review a pull request and your coding agent supports web fetch, or you have command-line tools like the [GitHub CLI](https://cli.github.com/) installed, you might even be able to ask the coding agent "Review the pull request {link}" and it'll handle it from there.
+- **Code review.** Coding agents ಗೆ code review ಮಾಡಲು ಕೇಳಬಹುದು. ಉದಾ: "review my latest changes that are not yet committed" ಎಂಬ ಸರಳ ಮಾರ್ಗದರ್ಶನ ನೀಡಿ. Pull request review ಮಾಡಲು coding agent ಗೆ web fetch support ಇದ್ದರೆ, ಅಥವಾ [GitHub CLI](https://cli.github.com/) ಮೊದಲಾದ command-line tools ಇದ್ದರೆ, "Review the pull request {link}" ಎಂದು ಕೇಳಿದರೂ ಅದು ಉಳಿದುದನ್ನು ನಿರ್ವಹಿಸಬಹುದು.
 {%- comment %}
 In Porcupine repo, prompt agent with:
 
     Review this PR: https://github.com/anishathalye/porcupine/pull/39
 {% endcomment %}
-- **Code understanding.** You can ask a coding agent questions about a codebase, which can be particularly helpful for onboarding.
+- **Code understanding.** Codebase ಬಗ್ಗೆ coding agent ಗೆ ಪ್ರಶ್ನೆ ಕೇಳಬಹುದು. ಹೊಸ project ಗೆ onboarding ಆಗುವಾಗ ಇದು ವಿಶೇಷವಾಗಿ ಸಹಾಯಕ.
 {%- comment %}
 Some prompts to try in the missing-semester repo:
 
@@ -107,38 +107,38 @@ Some prompts to try in the missing-semester repo:
 
     How are the social preview cards implemented?
 {% endcomment %}
-- **As a shell.** You can ask the coding agent to use a particular tool to solve a task, so you can invoke a shell command using natural language, such as "use the find command to find all files older than 30 days" or "use mogrify to resize all the jpgs to 50% of their original size".
+- **Shell ಆಗಿ ಬಳಸುವುದು.** ನಿರ್ದಿಷ್ಟ task ಗೆ ಒಂದು tool ಬಳಸುವಂತೆ coding agent ಗೆ ಕೇಳಬಹುದು. ಹಾಗಾಗಿ natural language ಬಳಸಿ shell command ಕಾರ್ಯಗತಗೊಳಿಸಬಹುದು, ಉದಾ: "use the find command to find all files older than 30 days" ಅಥವಾ "use mogrify to resize all the jpgs to 50% of their original size".
 {%- comment %}
 In Dotbot repo, prompt agent with:
 
     Use the ag command to find all Python renaming imports
 {% endcomment %}
-- **Vibe coding.** Agents are powerful enough that you can implement some applications without writing a single line of code yourself.
-    > [Here is an example](https://github.com/cleanlab/office-presence-dashboard) of a real-world project that one of the instructors vibe-coded.
+- **Vibe coding.** Agents ಈಗ ಇಷ್ಟು ಶಕ್ತಿಶಾಲಿಯಾಗಿವೆ ಎಂದು ನೀವು ಸ್ವತಃ ಒಂದು ಸಾಲು code ಕೂಡ ಬರೆಯದೇ ಕೆಲವು applications ನಿರ್ಮಿಸಬಹುದು.
+    > instructor ಗಳಲ್ಲಿ ಒಬ್ಬರು vibe-coded ಮಾಡಿದ ನೈಜ project ಉದಾಹರಣೆ [ಇಲ್ಲಿ](https://github.com/cleanlab/office-presence-dashboard).
 {%- comment %}
 In missing-semester repo, prompt agent with:
 
     Make this site look retro.
 {% endcomment %}
 
-# Advanced agents
+# ಮುಂದುವರಿದ agents
 
-Here, we give a brief overview of some more advanced usage patterns and capabilities of coding agents.
+ಇಲ್ಲಿ coding agents ನ ಕೆಲವು ಮುಂದುವರಿದ usage patterns ಮತ್ತು ಸಾಮರ್ಥ್ಯಗಳ ಸಂಕ್ಷಿಪ್ತ ಅವಲೋಕನ:
 
-- **Reusable prompts.** Create reusable prompts or templates. For example, you can write a detailed prompt to do code review in a particular way, and save that as a reusable prompt.
-- **Parallel agents.** Coding agents can be slow: you can prompt the agent, and it can work at a problem for tens of minutes. You can run multiple copies of agents at the same time, either working on the same task (LLMs are stochastic, so it can be helpful to run the same thing multiple times and take the best solution) or different tasks (e.g., implement two non-overlapping features at the same time). To keep the different agents' changes from interfering with each other, you can use [git worktrees](https://git-scm.com/docs/git-worktree), which we cover in the lecture on [version control](/2026/version-control/).
-- **MCPs.** MCP, which stands for _Model Context Protocol_, is an open protocol that you can use to connect your coding agents with tools. For example, this [Notion MCP server](https://github.com/makenotion/notion-mcp-server) can let your agent read/write Notion docs, enabling use cases like "read the spec linked in {Notion doc}, draft an implementation plan as a new page in Notion, and then implement a prototype". For discovering MCPs, you can use directories like [Pulse](https://www.pulsemcp.com/servers) and [Glama](https://glama.ai/mcp/servers).
-- **Context management.** As we noted [above](#how-ai-models-and-agents-work), the LLMs that underlie coding agents have a limited _context window_. Effective use of coding agents necessitates making good use of context. You want to make sure the agent has access to the information it needs, but avoid unnecessary context to avoid overflowing the context window or degrading the performance of the model (which tends to happen as context size grows, even if it doesn't overflow the context window). Agent harnesses automatically supply, and to some degree, manage context, but a lot of control is left to the user.
-    - **Clearing the context window.** The most basic control, coding agents support clearing the context window (starting a new conversation), which you should do for unrelated queries.
-    - **Rewinding the conversation.** Some coding agents support undoing steps in the conversation history. Rather than give a follow-up message steering the agent in a different direction, in situations where an "undo" makes more sense, this more effectively manages context.
+- **Reusable prompts.** ಮರುಬಳಕೆಯ prompts/templates ರಚಿಸಿ. ಉದಾ: ನಿರ್ದಿಷ್ಟ ಶೈಲಿಯಲ್ಲಿ code review ಮಾಡಲು ವಿವರವಾದ prompt ಬರೆದು reuse ಮಾಡಬಹುದು.
+- **Parallel agents.** Coding agents ನಿಧಾನವಾಗಿರಬಹುದು - prompt ಕೊಟ್ಟ ಬಳಿಕ ಕೆಲವೊಮ್ಮೆ ದಶಕ ನಿಮಿಷಗಳವರೆಗೆ ಕೆಲಸ ಮಾಡಬಹುದು. ಒಂದೇ ಸಮಯದಲ್ಲಿ ಹಲವು agent instances ನಡೆಸಬಹುದು: ಒಂದೇ task ಮೇಲೆ (LLMs stochastic ಆದ್ದರಿಂದ ಒಂದೇ task ಹಲವು ಬಾರಿ ನಡೆಸಿ ಉತ್ತಮ ಉತ್ತರ ಆಯ್ಕೆ ಮಾಡಬಹುದು) ಅಥವಾ ಬೇರೆ tasks ಮೇಲೆ (ಉದಾ: ಒಟ್ಟಿಗೆ ಎರಡು non-overlapping features implement ಮಾಡುವುದು). Agents ಒಂದರ ಬದಲಾವಣೆ ಮತ್ತೊಂದಕ್ಕೆ ಅಡ್ಡಿಯಾಗದಂತೆ [git worktrees](https://git-scm.com/docs/git-worktree) ಬಳಸಬಹುದು; ಇದನ್ನು [version control](/2026/version-control/) ಉಪನ್ಯಾಸದಲ್ಲಿ ನೋಡುತ್ತೇವೆ.
+- **MCPs.** MCP ಅಂದರೆ _Model Context Protocol_ - coding agents ಅನ್ನು tools ಜೊತೆ ಸಂಪರ್ಕಿಸಲು open protocol. ಉದಾ: ಈ [Notion MCP server](https://github.com/makenotion/notion-mcp-server) ಮೂಲಕ agent Notion docs ಓದಲು/ಬರೆಯಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ. ಆಗ "{Notion doc} ನಲ್ಲಿ link ಆಗಿರುವ spec ಓದಿ, Notion ನಲ್ಲಿ ಹೊಸ page ಆಗಿ implementation plan draft ಮಾಡಿ, ನಂತರ prototype implement ಮಾಡು" ಎಂಬ use case ಸಾಧ್ಯ. MCPs ಕಂಡುಹಿಡಿಯಲು [Pulse](https://www.pulsemcp.com/servers), [Glama](https://glama.ai/mcp/servers) ಮೊದಲಾದ directories ಉಪಯುಕ್ತ.
+- **Context management.** [ಮೇಲೆ](#ai-models-ಮತ್ತು-agents-ಹೇಗೆ-ಕೆಲಸ-ಮಾಡುತ್ತವೆ) ಹೇಳಿದಂತೆ coding agents ಆಧಾರವಾದ LLMs ಗೆ ಸೀಮಿತ _context window_ ಇದೆ. Coding agents ಅನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಬಳಸಲು context ನ ಸರಿಯಾದ ನಿರ್ವಹಣೆ ಅಗತ್ಯ. Agent ಗೆ ಬೇಕಾದ ಮಾಹಿತಿ ಸಿಗಬೇಕು, ಆದರೆ ಅನಗತ್ಯ context ತಪ್ಪಿಸಬೇಕು - ಇಲ್ಲವಾದರೆ context window overflow ಆಗಬಹುದು ಅಥವಾ model performance ಕುಸಿಯಬಹುದು (window ತುಂಬದಿದ್ದರೂ context ಬೆಳೆಯುತ್ತಲೇ ಹೋದರೆ ಇದು ಸಾಮಾನ್ಯ). Agent harnesses context ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನೀಡುತ್ತವೆ ಮತ್ತು ಕೆಲವು ಮಟ್ಟಿಗೆ ನಿರ್ವಹಿಸುತ್ತವೆ, ಆದರೆ ಬಳಕೆದಾರನ ಕೈಯಲ್ಲಿಯೂ ಸಾಕಷ್ಟು ನಿಯಂತ್ರಣ ಇರುತ್ತದೆ.
+    - **Context window clear ಮಾಡುವುದು.** ಅತ್ಯಂತ ಮೂಲ ನಿಯಂತ್ರಣ - coding agents context window clear ಮಾಡುವುದು (ಹೊಸ conversation ಆರಂಭಿಸುವುದು) ಬೆಂಬಲಿಸುತ್ತವೆ. ಸಂಬಂಧವಿಲ್ಲದ ಹೊಸ ಪ್ರಶ್ನೆಗಳಿಗೆ ಇದು ಉತ್ತಮ.
+    - **Conversation rewind ಮಾಡುವುದು.** ಕೆಲವು coding agents conversation history ಯ ಹಂತಗಳನ್ನು undo ಮಾಡಲು ಅವಕಾಶ ಕೊಡುತ್ತವೆ. Agent ಅನ್ನು ಬೇರೆ ದಾರಿಗೆ ನಡೆಸಲು follow-up message ಕೊಡುವುದಕ್ಕಿಂತ, undo ಸೂಕ್ತವಾಗಿರುವ ಸಂದರ್ಭಗಳಲ್ಲಿ ಇದು context management ಗೆ ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿ.
 {%- comment %}
 Make up a quick demo.
 {% endcomment %}
-    - **Compaction.** To enable conversations of unbounded length, coding agents support context _compaction_: if the conversation history grows too long, they will automatically call an LLM to summarize the prefix of the conversation, and replace the conversation history with the summary. Some agents give control to the user to invoke compaction when desired.
+    - **Compaction.** ಅಸೀಮ ಉದ್ದದ conversations ಗೆ coding agents context _compaction_ ಬೆಂಬಲಿಸುತ್ತವೆ: conversation history ಬಹಳ ಉದ್ದವಾದರೆ prefix ಭಾಗವನ್ನು summarize ಮಾಡಲು ಮತ್ತೊಂದು LLM ಅನ್ನು ಕರೆಯುತ್ತಾರೆ, ನಂತರ ಮೂಲ history ಬದಲು summary ಇಡುತ್ತಾರೆ. ಕೆಲವು agents ಬಳಕೆದಾರರಿಗೆ ಬೇಕಾದಾಗ compaction invoke ಮಾಡಲು ನಿಯಂತ್ರಣ ನೀಡುತ್ತವೆ.
 {%- comment %}
 Show `/compact` in Claude Code, show full summary.
 {% endcomment %}
-    - **llms.txt.** The `/llms.txt` file is a proposed [standard](https://llmstxt.org/) location for a document meant for LLMs to use at inference time. Products (e.g., [cursor.com/llms.txt](https://cursor.com/llms.txt)), software libraries (e.g., [ai.pydantic.dev/llms.txt](https://ai.pydantic.dev/llms.txt)), and APIs (e.g., [apify.com/llms.txt](https://apify.com/llms.txt)) might have `llms.txt` files that are handy for development. Such documents are more information dense per token, and so they are more context-efficient than asking your coding agent to fetch and read an HTML page. External documentation is handy when a coding agent doesn't have built-in knowledge about a dependency you are trying to use (e.g., because it was published after the LLM's knowledge cutoff).
+    - **llms.txt.** `/llms.txt` file ಎಂದರೆ inference ಸಮಯದಲ್ಲಿ LLMs ಬಳಕೆಗಾಗಿ ನಿರ್ದಿಷ್ಟಪಡಿಸಿದ [standard](https://llmstxt.org/) ಸ್ಥಳ. Products (ಉದಾ: [cursor.com/llms.txt](https://cursor.com/llms.txt)), libraries (ಉದಾ: [ai.pydantic.dev/llms.txt](https://ai.pydantic.dev/llms.txt)), APIs (ಉದಾ: [apify.com/llms.txt](https://apify.com/llms.txt)) ಇತ್ಯಾದಿಗಳಲ್ಲಿ `llms.txt` files ಇರಬಹುದು. ಇವು token ಗೆ ಹೆಚ್ಚಿನ ಮಾಹಿತಿ ಸಾಂದ್ರತೆಯನ್ನು ನೀಡುವುದರಿಂದ context-efficient ಆಗಿವೆ; coding agent ಗೆ HTML page fetch/read ಮಾಡಿಸುವುದಕ್ಕಿಂತ ಉತ್ತಮ. External documentation ವಿಶೇಷವಾಗಿ agent ಗೆ dependency ಬಗ್ಗೆ built-in ಜ್ಞಾನ ಇಲ್ಲದಾಗ ಉಪಯುಕ್ತ (ಉದಾ: dependency LLM knowledge cutoff ಬಳಿಕ ಪ್ರಕಟವಾಗಿದ್ದರೆ).
 {%- comment %}
 Side-by-side comparison in an empty repo (on Desktop or some other self-contained place, with `git init` run in it):
 
@@ -148,7 +148,7 @@ Side-by-side comparison in an empty repo (on Desktop or some other self-containe
 
 Not sure why the agent doesn't do this by default. You'd probably put that last sentence in a CLAUDE.md file.
 {% endcomment %}
-    - **AGENTS.md.** Most coding agents support [AGENTS.md](https://agents.md/) or similar (e.g., Claude Code looks for `CLAUDE.md`) as a README for coding agents. When the agent starts, it pre-fills the context with the entire contents of `AGENTS.md`. You can use this to give the agent advice that is common across sessions (e.g., instruct it to always run the type-checker after making code changes, explain how to run unit tests, or provide links to third-party docs that the agent can browse). Some coding agents can auto-generate this file (e.g., the `/init` command in Claude Code). See [here](https://github.com/pydantic/pydantic-ai/blob/main/CLAUDE.md) for a real-world example of an `AGENTS.md`.
+    - **AGENTS.md.** ಹೆಚ್ಚಿನ coding agents [AGENTS.md](https://agents.md/) ಅಥವಾ ಅದರ ಸಮಾನ ಫೈಲ್‌ಗಳನ್ನು (ಉದಾ: Claude Code ನಲ್ಲಿ `CLAUDE.md`) coding agents ಗಾಗಿ README ಆಗಿ ಬೆಂಬಲಿಸುತ್ತವೆ. Agent ಪ್ರಾರಂಭವಾದಾಗ `AGENTS.md` ಸಂಪೂರ್ಣ ವಿಷಯವನ್ನು context ನಲ್ಲಿ ಪೂರ್ವಭರ್ತಿಯಾಗಿ ಸೇರಿಸುತ್ತದೆ. Session ಗಳಾದ್ಯಂತ ಸಾಮಾನ್ಯವಾಗಿರುವ ಮಾರ್ಗದರ್ಶನ ಇಲ್ಲಿ ಕೊಡಬಹುದು (ಉದಾ: code changes ನಂತರ type-checker ಸದಾ run ಮಾಡು, unit tests ಹೇಗೆ run ಮಾಡುವುದು ಹೇಳು, ಅಥವಾ agent browse ಮಾಡಬಹುದಾದ third-party docs links ಕೊಡು). ಕೆಲವು coding agents ಈ file ಅನ್ನು auto-generate ಮಾಡುತ್ತವೆ (ಉದಾ: Claude Code ನ `/init` command). ನೈಜ-world `AGENTS.md` ಉದಾಹರಣೆಗೆ [ಇಲ್ಲಿ](https://github.com/pydantic/pydantic-ai/blob/main/CLAUDE.md) ನೋಡಿ.
 {%- comment %}
 Dotbot example, CLAUDE.md that includes @DEVELOPMENT.md and says to always run the type checker and code formatter after making any changes to Python code.
 
@@ -158,30 +158,30 @@ Example prompt, off of master:
 
 This is something that'll be fast, for demonstration purposes.
 {% endcomment %}
-    - **Skills.** Content in the `AGENTS.md` is always loaded, in its entirety, into the context window of an agent. _Skills_ add one level of indirection to avoid context bloat: you can provide the agent with a list of skills along with descriptions, and the agent can "open" the skill (load it into its context window) as desired.
-    - **Subagents.** Some coding agents let you define subagents, which are agents for task-specific workflows. The top-level coding agent can invoke a sub-agent to complete a particular task, which enables both the top-level agent and subagent to more effectively manage context. The top-level agent's context isn't bloated with everything the subagent sees, and the subagent can get just the context it needs for its task. As one example, some coding agents implement web research as a subagent: the top-level agent will pose a query to the subagent, which will run web search, retrieve individual web pages, analyze them, and provide an answer to the query to the top-level agent. This way, the top-level agent doesn't have its context bloated by the full content of all retrieved web pages, and the subagent doesn't have in its context the rest of the conversation history of the top-level agent.
+    - **Skills.** `AGENTS.md` ನಲ್ಲಿರುವ ವಿಷಯವು ಯಾವಾಗಲೂ ಸಂಪೂರ್ಣವಾಗಿ context window ಗೆ ಲೋಡ್ ಆಗುತ್ತದೆ. _Skills_ ಇದನ್ನು ನಿಯಂತ್ರಿಸಲು ಒಂದು ಹೆಚ್ಚುವರಿ indirection ಕೊಡುತ್ತವೆ: skill descriptions ಜೊತೆ skills ಪಟ್ಟಿ ನೀಡಬಹುದು; ನಂತರ agent ಅಗತ್ಯವಿದ್ದಾಗ ಆಯ್ದ skill ಅನ್ನು "open" ಮಾಡಿ context ಗೆ ಲೋಡ್ ಮಾಡಬಹುದು.
+    - **Subagents.** ಕೆಲವು coding agents task-specific workflows ಗಾಗಿ subagents ವ್ಯಾಖ್ಯಾನಿಸಲು ಅವಕಾಶ ಕೊಡುತ್ತವೆ. Top-level agent ನಿರ್ದಿಷ್ಟ task ಪೂರ್ಣಗೊಳಿಸಲು subagent ಅನ್ನು invoke ಮಾಡಬಹುದು. ಇದರಿಂದ top-level agent ಮತ್ತು subagent ಎರಡೂ context ಅನ್ನು ಉತ್ತಮವಾಗಿ ನಿರ್ವಹಿಸಬಹುದು. Top-level agent context ಗೆ subagent ನೋಡಿದ ಎಲ್ಲವೂ ತುಂಬುವುದಿಲ್ಲ; subagent ಗೆ ಅದರ task ಗೆ ಬೇಕಾದ context ಮಾತ್ರ ಸಿಗುತ್ತದೆ. ಉದಾ: ಕೆಲವು coding agents web research ಅನ್ನು subagent ರೂಪದಲ್ಲಿ ಜಾರಿಗೊಳಿಸುತ್ತವೆ - top-level agent query ಕೇಳುತ್ತದೆ, subagent web search ನಡೆಸಿ, pages ತಂದು, ಅವನ್ನು ವಿಶ್ಲೇಷಿಸಿ, top-level agent ಗೆ ಉತ್ತರ ನೀಡುತ್ತದೆ. ಇದರಿಂದ top-level agent context ಗೆ pages ಗಳ ಸಂಪೂರ್ಣ ವಿಷಯ ತುಂಬುವುದಿಲ್ಲ; ಹಾಗೆಯೇ subagent context ಗೆ top-level agent ನ ಉಳಿದ conversation history ಕೂಡ ತುಂಬುವುದಿಲ್ಲ.
 
-For many of the advanced features that require writing prompts (e.g., skills or subagents), you can use LLMs to get you started. Some coding agents even have built-in support for doing this. For example, Claude Code can generate a subagent from a short prompt (invoke `/agents` and create a new agent). Try creating a subagent with this prompt:
+Prompts ಬರೆಯುವ ಅಗತ್ಯವಿರುವ ಮುಂದುವರಿದ features ಗಳಲ್ಲಿ (ಉದಾ: skills, subagents), LLMs ಅನ್ನು ಆರಂಭಿಕ draft ಗಾಗಿ ಬಳಸಬಹುದು. ಕೆಲವು coding agents ನಲ್ಲಿ ಇದಕ್ಕೆ built-in support ಇರುತ್ತದೆ. ಉದಾ: Claude Code ನಲ್ಲಿ ಚಿಕ್ಕ prompt ನಿಂದ subagent ರಚಿಸಬಹುದು (`/agents` invoke ಮಾಡಿ ಹೊಸ agent ರಚಿಸಿ). ಈ prompt ಪ್ರಯತ್ನಿಸಿ:
 
 ```
 A Python code checking agent that uses `mypy` and `ruff` to type-check, lint, and format *check* any files that have been modified from the last git commit.
 ```
 
-Then, you can use the top-level agent to explicitly invoke the subagent with a message like "use the code checker subagent". You might also be able to get the top-level agent to automatically invoke the subagent when appropriate, for example, after modifying any Python files.
+ನಂತರ top-level agent ಗೆ "use the code checker subagent" ಎಂಬ ಸಂದೇಶ ನೀಡಿ subagent ಅನ್ನು ಸ್ಪಷ್ಟವಾಗಿ invoke ಮಾಡಬಹುದು. Python files ಬದಲಾಯಿಸಿದ ನಂತರ top-level agent ಸ್ವಯಂಚಾಲಿತವಾಗಿ subagent invoke ಮಾಡುವಂತೆ ಕೂಡ ಕೆಲವು ಸಂದರ್ಭಗಳಲ್ಲಿ ಮಾಡಬಹುದು.
 
-# What to watch out for
+# ಗಮನಿಸಬೇಕಾದ ವಿಷಯಗಳು
 
-AI tools can make mistakes. They are built on LLMs, which are just probabilistic next-token-prediction models. They are not "intelligent" in the same way as humans. Review AI output for correctness and security bugs. Sometimes verifying code can be harder than writing the code yourself; for critical code, consider writing it by hand. AI can go down rabbit holes and try to gaslight you; be aware of debugging spirals. Don't use AI as a crutch, and be wary of overreliance or having a shallow understanding. There's still a huge class of programming tasks that AI is still incapable of doing. Computational thinking is still valuable.
+AI tools ತಪ್ಪು ಮಾಡುತ್ತವೆ. ಇವು LLMs ಮೇಲೆ ನಿರ್ಮಿತವಾಗಿವೆ; LLMs ಅಂದರೆ probabilistic next-token-prediction models ಮಾತ್ರ. ಇವು ಮಾನವರಂತೆ "intelligent" ಅಲ್ಲ. AI output ಅನ್ನು correctness ಮತ್ತು security bugs ದೃಷ್ಟಿಯಿಂದ ಪರಿಶೀಲಿಸಿ. ಕೆಲವು ಸಂದರ್ಭಗಳಲ್ಲಿ code verify ಮಾಡುವುದು ಅದನ್ನು ಕೈಯಿಂದ ಬರೆಯುವುದಕ್ಕಿಂತ ಕಷ್ಟವಾಗಬಹುದು. ಅತ್ಯಂತ ಪ್ರಮುಖ code ಗಾಗಿ ಕೈಯಿಂದ ಬರೆಯುವುದನ್ನು ಪರಿಗಣಿಸಿ. AI ಕೆಲವೊಮ್ಮೆ rabbit hole ಗೆ ಹೋಗಬಹುದು ಮತ್ತು ತಪ್ಪು ದಾರಿಗೆಳೆಯುವ ಉತ್ತರ ಕೊಡಬಹುದು - debugging spiral ಗಳ ಬಗ್ಗೆ ಎಚ್ಚರವಾಗಿರಿ. AI ಅನ್ನು crutch ಆಗಿ ಬಳಸಬೇಡಿ; ಅತಿಯಾದ ಅವಲಂಬನೆ ಅಥವಾ ಮೇಲ್ಮೈ ತಿಳುವಳಿಕೆ ಅಪಾಯಕಾರಿ. ಇನ್ನೂ ಅನೇಕ programming tasks ಗಳನ್ನು AI ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ. Computational thinking ಇನ್ನೂ ಅತ್ಯಂತ ಮೌಲ್ಯಯುತ.
 
-# Recommended software
+# ಶಿಫಾರಸು ಮಾಡಿದ software
 
-Many IDEs / AI coding extensions include coding agents (see recommendations from the [development environment lecture](/2026/development-environment/)). Other popular coding agents include Anthropic's [Claude Code](https://www.claude.com/product/claude-code), OpenAI's [Codex](https://openai.com/codex/), and open-source agents like [opencode](https://github.com/anomalyco/opencode).
+ಹಲವಾರು IDEs / AI coding extensions ಗಳಲ್ಲಿ coding agents ಒಳಗೊಂಡಿರುತ್ತವೆ ([development environment lecture](/2026/development-environment/) ಶಿಫಾರಸುಗಳನ್ನು ನೋಡಿ). ಇತರೆ ಜನಪ್ರಿಯ coding agents: Anthropic ನ [Claude Code](https://www.claude.com/product/claude-code), OpenAI ನ [Codex](https://openai.com/codex/), ಮತ್ತು [opencode](https://github.com/anomalyco/opencode) ಮೊದಲಾದ open-source agents.
 
-# Exercises
+# ವ್ಯಾಯಾಮಗಳು
 
-1. Compare the experience of coding by hand, using AI autocomplete, inline chat, and agents by doing the same programming task four times. The best candidate is a small-sized feature from a project you're already working on. If you're looking for other ideas, you could consider completing "good first issue" style tasks in open-source projects on GitHub, or [Advent of Code](https://adventofcode.com/) or [LeetCode](https://leetcode.com/) problems.
-1. Use an AI coding agent to navigate an unfamiliar codebase. This is best done in the context of wanting to debug or add a new feature to a project you actually care about. If you don't have any that come to mind, try using an AI agent to understand how security-related features work in the [opencode](https://github.com/anomalyco/opencode) agent.
-1. Vibe code a small app from scratch. Do not write a single line of code by hand.
-1. For your coding agent of choice, create and test an `AGENTS.md` (or analogous for your agent of choice, such as `CLAUDE.md`), a reusable prompt (e.g., [custom slash command in Claude Code](https://code.claude.com/docs/en/slash-commands) or [custom prompts in Codex](https://developers.openai.com/codex/custom-prompts)), a skill (e.g., [skill in Claude Code](https://code.claude.com/docs/en/skills) or [skill in Codex](https://developers.openai.com/codex/skills/)), and a subagent (e.g., [subagent in Claude Code](https://code.claude.com/docs/en/sub-agents)). Think about when you'd want to use one of these versus another. Note that your coding agent of choice might not support some of these functionalities; you can either skip them, or try a different coding agent that has support.
-1. Use a coding agent to accomplish the same goal as in the Markdown bullet points regex exercise from the [Code Quality lecture](/2026/code-quality/). Does it complete the tasks via direct file edits? What are the downsides and limitations of an agent editing the file directly to complete such a task? Figure out how to prompt the agent such that it doesn't complete the task via direct file edits. Hint: ask the agent to use one of the command-line tools mentioned in the [first lecture](/2026/course-shell/).
-1. Most coding agents support a form of "yolo mode" (e.g., in Claude Code, `--dangerously-skip-permissions`). It is not secure to use this mode directly, but it may be acceptable to run a coding agent in an isolated environment like a virtual machine or container and then enable autonomous operation. Get this setup running on your machine. Documentation such as [Claude Code devcontainers](https://code.claude.com/docs/en/devcontainer) or [Docker Sandboxes / Claude Code](https://docs.docker.com/ai/sandboxes/claude-code/) may come in handy. There is more than one way to set this up.
+1. ಒಂದೇ programming task ಅನ್ನು ನಾಲ್ಕು ಬಾರಿ ಮಾಡಿ - ಕೈಯಿಂದ coding, AI autocomplete, inline chat, ಮತ್ತು agents ಬಳಸಿ - ಅನುಭವವನ್ನು ಹೋಲಿಸಿ. ಉತ್ತಮ ಆಯ್ಕೆ ಎಂದರೆ ನೀವು ಈಗಾಗಲೇ ಕೆಲಸ ಮಾಡುತ್ತಿರುವ project ನ ಒಂದು ಸಣ್ಣ feature. ಇನ್ನಷ್ಟು ಕಲ್ಪನೆಗಳಿಗಾಗಿ GitHub open-source projects ನಲ್ಲಿ "good first issue" ಶೈಲಿಯ tasks, ಅಥವಾ [Advent of Code](https://adventofcode.com/) / [LeetCode](https://leetcode.com/) ಸಮಸ್ಯೆಗಳು ಪ್ರಯತ್ನಿಸಬಹುದು.
+1. ಅಪರಿಚಿತ codebase ಅನ್ವೇಷಿಸಲು AI coding agent ಬಳಸಿ. ಇದು ನೀವು ನಿಜವಾಗಿಯೂ ಕಾಳಜಿ ಇರುವ project ನಲ್ಲಿ bug debug ಮಾಡಬೇಕು ಅಥವಾ ಹೊಸ feature ಸೇರಿಸಬೇಕು ಎಂಬ ಸಂದರ್ಭದಲ್ಲೇ ಉತ್ತಮ. ಅಂತಹ project ನೆನಪಿಗೆ ಬರದಿದ್ದರೆ, [opencode](https://github.com/anomalyco/opencode) agent ನಲ್ಲಿ security-ಸಂಬಂಧಿತ features ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ ಎಂದು AI agent ಮೂಲಕ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ.
+1. ಸಣ್ಣ app ಅನ್ನು ಆರಂಭದಿಂದ vibe code ಮಾಡಿ. ಕೈಯಿಂದ ಒಂದು ಸಾಲು code ಕೂಡ ಬರೆಯಬೇಡಿ.
+1. ನಿಮ್ಮ ಇಷ್ಟದ coding agent ಗಾಗಿ `AGENTS.md` (ಅಥವಾ ಅದರ ಸಮಾನ file, ಉದಾ: `CLAUDE.md`) ರಚಿಸಿ ಮತ್ತು ಪರೀಕ್ಷಿಸಿ; ಜೊತೆಗೆ reusable prompt (ಉದಾ: [custom slash command in Claude Code](https://code.claude.com/docs/en/slash-commands) ಅಥವಾ [custom prompts in Codex](https://developers.openai.com/codex/custom-prompts)), skill (ಉದಾ: [skill in Claude Code](https://code.claude.com/docs/en/skills) ಅಥವಾ [skill in Codex](https://developers.openai.com/codex/skills/)), ಮತ್ತು subagent (ಉದಾ: [subagent in Claude Code](https://code.claude.com/docs/en/sub-agents)) ಪ್ರಯತ್ನಿಸಿ. ಯಾವ ಸಂದರ್ಭದಲ್ಲೇನು ಬಳಸಬೇಕು ಎಂಬುದನ್ನು ಚಿಂತಿಸಿ. ನಿಮ್ಮ ಆಯ್ಕೆ coding agent ಕೆಲವು features ಬೆಂಬಲಿಸದೇ ಇರಬಹುದು; ಅಂಥದ್ದಾದರೆ ಅವನ್ನು ಬಿಟ್ಟುಬಿಡಿ ಅಥವಾ ಬೆಂಬಲವಿರುವ ಬೇರೆ agent ಪ್ರಯತ್ನಿಸಿ.
+1. [Code Quality lecture](/2026/code-quality/) ನ Markdown bullet points regex exercise ನಲ್ಲಿ ಇರುವಂತೆಯೇ coding agent ಬಳಸಿ ಒಂದೇ ಗುರಿ ಸಾಧಿಸಿ. ಅದು task ಅನ್ನು direct file edits ಮೂಲಕ ಪೂರ್ಣಗೊಳಿಸುತ್ತದೆಯೇ? ಆ ರೀತಿಯಲ್ಲಿ agent ನೇರವಾಗಿ file edit ಮಾಡುವುದರ ದೋಷಗಳು ಮತ್ತು ಮಿತಿಗಳು ಯಾವುವು? Direct file edits ಮಾಡದೆ task ಮುಗಿಸುವಂತೆ prompt ಹೇಗೆ ನೀಡಬೇಕು ಎಂದು ಕಂಡುಹಿಡಿಯಿರಿ. ಸೂಚನೆ: [first lecture](/2026/course-shell/) ನಲ್ಲಿ ಹೇಳಿದ command-line tools ಗಳಲ್ಲಿ ಒಂದನ್ನು ಬಳಸುವಂತೆ ಕೇಳಿ.
+1. ಹೆಚ್ಚಿನ coding agents ಗಳಲ್ಲಿ "yolo mode" ಇರುವ ಒಂದು ರೂಪ ಇರುತ್ತದೆ (ಉದಾ: Claude Code ನಲ್ಲಿ `--dangerously-skip-permissions`). ಈ mode ಅನ್ನು ನೇರವಾಗಿ ಬಳಸುವುದು ಸುರಕ್ಷಿತವಲ್ಲ. ಆದರೆ virtual machine ಅಥವಾ container ಮೊದಲಾದ isolated environment ನಲ್ಲಿ coding agent ನಡೆಸಿ autonomous operation ಸಕ್ರಿಯಗೊಳಿಸುವುದು ಒಪ್ಪಿಕೊಳ್ಳಬಹುದಾದ ಮಾರ್ಗವಾಗಬಹುದು. ಈ setup ಅನ್ನು ನಿಮ್ಮ ಯಂತ್ರದಲ್ಲಿ ಚಾಲನೆ ಮಾಡಿ. [Claude Code devcontainers](https://code.claude.com/docs/en/devcontainer) ಅಥವಾ [Docker Sandboxes / Claude Code](https://docs.docker.com/ai/sandboxes/claude-code/) ಮೊದಲಾದ docs ಸಹಾಯಕವಾಗಬಹುದು. ಇದನ್ನು ಹೊಂದಿಸಲು ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ವಿಧಾನಗಳಿವೆ.

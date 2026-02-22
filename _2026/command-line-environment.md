@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "ಕಮಾಂಡ್-ಲೈನ್ ಪರಿಸರ"
 description: >
-  Learn how command-line programs work, including input/output streams, environment variables, and remote machines with SSH.
+  input/output streams, environment variables, ಮತ್ತು SSH ಬಳಸಿ remote machines ಜೊತೆಗೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುವುದು ಎಂಬುದನ್ನು ಕಲಿಯಿರಿ.
 thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true
@@ -11,24 +11,25 @@ video:
   id: ccBGsPedE9Q
 ---
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
-but in practice they provide an entire programming language full of common patterns and abstractions.
-However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
+ಹಿಂದಿನ ಉಪನ್ಯಾಸದಲ್ಲಿ ನೋಡಿದಂತೆ, ಬಹುತೇಕ shells ಗಳು ಇತರೆ programs ಅನ್ನು ಶುರು ಮಾಡುವ launcher ಮಾತ್ರವಲ್ಲ.
+ಪ್ರಯೋಗದಲ್ಲಿ ಅವು ಸಾಮಾನ್ಯ patterns ಮತ್ತು abstractions ಗಳಿಂದ ತುಂಬಿದ ಪೂರ್ಣ programming language ಒದಗಿಸುತ್ತವೆ.
+ಆದರೆ, ಬಹುತೇಕ programming languages ಗಳಿಗಿಂತ ಭಿನ್ನವಾಗಿ, shell scripting ನಲ್ಲಿ ಎಲ್ಲವೂ programs ಅನ್ನು ಓಡಿಸುವುದು ಮತ್ತು ಅವು ಪರಸ್ಪರ ಸರಳವಾಗಿ ಹಾಗೂ ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಸಂವಹನ ಮಾಡುವುದರ ಸುತ್ತ ವಿನ್ಯಾಸಗೊಂಡಿದೆ.
 
-In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
-We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
+ವಿಶೇಷವಾಗಿ, shell scripting ಬಹಳ ಮಟ್ಟಿಗೆ _conventions_ ಗಳ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿದೆ.
+ಒಂದು command line interface (CLI) program ವಿಶಾಲವಾದ shell ಪರಿಸರದಲ್ಲಿ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡಲು, ಅದು ಕೆಲವು ಸಾಮಾನ್ಯ patterns ಅನ್ನು ಅನುಸರಿಸಬೇಕು.
+ಈಗ command line programs ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ ಹಾಗೂ ಅವನ್ನು ಹೇಗೆ ಬಳಸಬೇಕು ಮತ್ತು configure ಮಾಡಬೇಕು ಎಂಬುದಕ್ಕೆ ಅಗತ್ಯವಾದ ಪ್ರಮುಖ ಕಲ್ಪನೆಗಳನ್ನು ನೋಡೋಣ.
 
-# The Command Line Interface
+# ಕಮಾಂಡ್ ಲೈನ್ ಇಂಟರ್ಫೇಸ್
 
-Writing a function in most programming languages looks something like:
+ಹೆಚ್ಚಿನ programming languages ಗಳಲ್ಲಿ function ಬರೆಯುವ ವಿಧಾನ ಹೀಗಿರುತ್ತದೆ:
 
 ```
 def add(x: int, y: int) -> int:
     return x + y
 ```
 
-Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance.
+ಇಲ್ಲಿ program ನ inputs ಮತ್ತು outputs ಅನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ನೋಡಬಹುದು.
+ಇದಕ್ಕೆ ವಿರುದ್ಧವಾಗಿ, shell scripts ಮೊದಲ ನೋಡಿಗೆ ವಿಭಿನ್ನವಾಗಿ ಕಾಣಬಹುದು.
 
 ```shell
 #!/usr/bin/env bash
@@ -46,7 +47,7 @@ else
 fi
 ```
 
-To properly understand what is going in scripts like this one we first need to introduce a few concepts that appear often when shell programs communicate with each other or with the shell environment:
+ಇಂತಹ script ಗಳಲ್ಲಿ ಏನಾಗುತ್ತಿದೆ ಎಂಬುದನ್ನು ಸರಿಯಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು, shell programs ಪರಸ್ಪರ ಅಥವಾ shell ಪರಿಸರದೊಂದಿಗೆ ಸಂವಹನ ಮಾಡುವಾಗ ಮತ್ತೆ ಮತ್ತೆ ಕಾಣಿಸುವ ಕೆಲವು ಕಲ್ಪನೆಗಳನ್ನು ಮೊದಲು ತಿಳಿದುಕೊಳ್ಳಬೇಕು:
 
 - Arguments
 - Streams
@@ -56,29 +57,31 @@ To properly understand what is going in scripts like this one we first need to i
 
 ## Arguments
 
-Shell programs receive a list of arguments when they are executed.
-Arguments are plain strings in shell, and it is up to the program how to interpret them.
-For instance when we do `ls -l folder/`, we are executing the program `/bin/ls` with arguments `['-l', 'folder/']`.
+shell programs execute ಆಗುವಾಗ arguments ಗಳ ಪಟ್ಟಿಯನ್ನು ಸ್ವೀಕರಿಸುತ್ತವೆ.
+Shell ನಲ್ಲಿ arguments ಸಾಮಾನ್ಯ strings ಮಾತ್ರ - ಅವನ್ನು ಹೇಗೆ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕು ಎಂಬುದು program ಮೇಲೇ ಅವಲಂಬಿತವಾಗಿರುತ್ತದೆ.
+ಉದಾಹರಣೆಗೆ `ls -l folder/` ಅನ್ನು ಓಡಿಸಿದಾಗ, ನಾವು `/bin/ls` program ಅನ್ನು `['-l', 'folder/']` arguments ಜೊತೆಗೆ execute ಮಾಡುತ್ತೇವೆ.
 
-From within a shell script we access these via special shell syntax.
-To access the first argument we access the variable `$1`, second argument `$2` and so on and so forth until `$9`. To access all arguments as a list we use `$@` and to retrieve the number of arguments `$#`. Additionally we can also access the name of the program with `$0`.
+ಒಂದು shell script ಒಳಗಿಂದ ಇವುಗಳನ್ನು ವಿಶೇಷ shell syntax ಮೂಲಕ ಪ್ರವೇಶಿಸುತ್ತೇವೆ.
+ಮೊದಲ argument ಗೆ `$1`, ಎರಡನೇ argument ಗೆ `$2`, ಹೀಗೆ `$9` ವರೆಗೆ.
+ಎಲ್ಲ arguments ಅನ್ನು list ಆಗಿ ಪಡೆಯಲು `$@`, ಮತ್ತು arguments ಸಂಖ್ಯೆ ಪಡೆಯಲು `$#` ಬಳಸುತ್ತೇವೆ.
+ಹಾಗೆಯೇ program ಹೆಸರು `$0` ಮೂಲಕ ಲಭ್ಯ.
 
-For most programs the arguments will consist of a mixture of _flags_ and regular strings.
-Flags can be identified because they are preceded by a dash (`-`) or double-dash (`--`).
-Flags are usually optional and their role is to modify the behavior of the program.
-For example `ls -l` changes how `ls` formats its output.
+ಹೆಚ್ಚಿನ programs ನಲ್ಲಿ arguments ಗಳು _flags_ ಮತ್ತು ಸಾಮಾನ್ಯ strings ಮಿಶ್ರಣವಾಗಿರುತ್ತವೆ.
+Flags ಗಳು dash (`-`) ಅಥವಾ double-dash (`--`) ಇಂದ ಆರಂಭವಾಗುವುದರಿಂದ ಗುರುತಿಸಬಹುದು.
+Flags ಸಾಮಾನ್ಯವಾಗಿ optional ಆಗಿದ್ದು program ನ behavior ಅನ್ನು ಬದಲಿಸಲು ಉಪಯೋಗವಾಗುತ್ತವೆ.
+ಉದಾಹರಣೆಗೆ `ls -l` ನಲ್ಲಿ `-l`, `ls` output format ಅನ್ನು ಬದಲಿಸುತ್ತದೆ.
 
-You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
-Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
-The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
-Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
+`--all` ಮೊದಲಾದ long flags ಮತ್ತು `-a` ಮೊದಲಾದ single-letter flags ಎರಡನ್ನೂ ನೋಡುತ್ತೀರಿ.
+ಅದೇ option ಎರಡೂ ರೂಪಗಳಲ್ಲಿ ಬರಬಹುದು - `ls -a` ಮತ್ತು `ls --all` ಸಮಾನ.
+Single dash flags ಅನ್ನು ಸಾಮಾನ್ಯವಾಗಿ ಗುಂಪುಗೊಳಿಸುತ್ತಾರೆ, ಹಾಗಾಗಿ `ls -l -a` ಮತ್ತು `ls -la` ಕೂಡ ಸಮಾನ.
+Flags ಕ್ರಮ ಬಹುಸಾರಿ ಮುಖ್ಯವಾಗುವುದಿಲ್ಲ - `ls -la` ಹಾಗೂ `ls -al` ಒಂದೇ ಫಲಿತಾಂಶ ಕೊಡುತ್ತವೆ.
+ಕೆಲವು flags ಬಹಳ ಸಾಮಾನ್ಯ - ಉದಾ: `--help`, `--verbose`, `--version`.
 
-> Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
-Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
-> In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
+> Flags ಗಳು shell conventions ಗೆ ಉತ್ತಮ ಮೊದಲ ಉದಾಹರಣೆ. Shell ಭಾಷೆ ನಿಮ್ಮ program ಕಡ್ಡಾಯವಾಗಿ `-` ಅಥವಾ `--` ನ್ನೇ ಈ ರೀತಿಯಲ್ಲಿ ಬಳಸಬೇಕು ಎಂದು ಹೇಳುವುದಿಲ್ಲ.
+`myprogram +myoption myfile` ಎಂಬ syntax ಕೂಡ technically ಸಾಧ್ಯ. ಆದರೆ ಜನರ ನಿರೀಕ್ಷೆ dashes ಆಗಿರುವುದರಿಂದ ಅದು ಗೊಂದಲ ಉಂಟುಮಾಡುತ್ತದೆ.
+> ಪ್ರಾಯೋಗಿಕವಾಗಿ, ಹೆಚ್ಚಿನ programming languages CLI flag parsing libraries ಒದಗಿಸುತ್ತವೆ (ಉದಾ. Python ನಲ್ಲಿ `argparse`).
 
-Another common convention in CLI programs is for programs to accept a variable number of arguments of the same type. When given arguments in this way the command performs the same operation on each one of them.
+CLI programs ನಲ್ಲಿ ಇನ್ನೊಂದು ಸಾಮಾನ್ಯ convention ಎಂದರೆ ಒಂದೇ ರೀತಿಯ ಅನೇಕ arguments ಸ್ವೀಕರಿಸುವುದು. ಈ ರೀತಿಯಲ್ಲಿ arguments ಕೊಟ್ಟಾಗ command ಪ್ರತಿಯೊಂದರ ಮೇಲೂ ಅದೇ ಕಾರ್ಯಾಚರಣೆ ನಡೆಸುತ್ತದೆ.
 
 ```shell
 mkdir src
@@ -87,10 +90,10 @@ mkdir docs
 mkdir src docs
 ```
 
-This syntax sugar might seem unnecessary at first, but it becomes really powerful when combined with _globbing_.
-Globbing or globs are special patterns that the shell will expand before calling the program.
+ಮೊದಲಿಗೆ ಈ syntax sugar ಅನಾವಶ್ಯಕವಾಗಿ ಕಾಣಬಹುದು, ಆದರೆ _globbing_ ಜೊತೆಗೆ ಬಳಸಿದಾಗ ಇದು ಬಹಳ ಶಕ್ತಿಶಾಲಿ.
+Globbing ಅಥವಾ globs ಎಂದರೆ shell program ಅನ್ನು ಕರೆಯುವ ಮೊದಲು ವಿಸ್ತರಿಸುವ ವಿಶೇಷ patterns.
 
-Say we wanted to delete all .py files in the current folder nonrecursively. From what we learned in the previous lecture we could achieve this by running
+ಈಗಿರುವ folder ನಲ್ಲಿ non-recursive ಆಗಿ ಎಲ್ಲಾ `.py` files ಅಳಿಸಬೇಕೆಂದು ಕಲ್ಪಿಸೋಣ. ಹಿಂದಿನ ಉಪನ್ಯಾಸದ ಆಧಾರದ ಮೇಲೆ ಹೀಗೆ ಮಾಡಬಹುದು:
 
 ```shell
 for file in $(ls | grep -P '\.py$'); do
@@ -98,16 +101,16 @@ for file in $(ls | grep -P '\.py$'); do
 done
 ```
 
-But we can replace that with just `rm *.py`!
+ಆದರೆ ಇದನ್ನು `rm *.py` ಅಷ್ಟಕ್ಕೆ ಸರಳಗೊಳಿಸಬಹುದು.
 
-When we type `rm *.py` into the terminal, the shell will not call the `/bin/rm` program with arguments `['*.py']`.
-Instead, the shell will search for files in the current folder matching the pattern `*.py` where `*` can match any string of zero or more characters of any type.
-So if our folder has `main.py` and `utils.py` then the `rm` program will receive arguments `['main.py', 'utils.py']`.
+ನಾವು terminal ನಲ್ಲಿ `rm *.py` type ಮಾಡಿದಾಗ, shell `/bin/rm` ಅನ್ನು `['*.py']` arguments ಜೊತೆ ಕರೆಯುವುದಿಲ್ಲ.
+ಅದರ ಬದಲು, shell ಪ್ರಸ್ತುತ folder ನಲ್ಲಿ `*.py` pattern ಗೆ ಹೊಂದುವ files ಹುಡುಕುತ್ತದೆ; ಇಲ್ಲಿ `*` ಎಂದರೆ zero ಅಥವಾ ಹೆಚ್ಚು ಯಾವುದೇ characters.
+ಅದೇ folder ನಲ್ಲಿ `main.py` ಮತ್ತು `utils.py` ಇದ್ದರೆ `rm` program ಗೆ `['main.py', 'utils.py']` arguments ಸಿಗುತ್ತವೆ.
 
-The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
-Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
+ಸಾಮಾನ್ಯ globs: wildcard `*` (ಯಾವುದೇ zero ಅಥವಾ ಹೆಚ್ಚು), `?` (ಯಾವುದೇ ಒಂದು), ಮತ್ತು curly braces.
+Curly braces `{}` comma-separated patterns ಅನ್ನು ಅನೇಕ arguments ಆಗಿ ವಿಸ್ತರಿಸುತ್ತವೆ.
 
-In practice, globs are best understood with motivating examples.
+ಪ್ರಯೋಗದಲ್ಲಿ globs ಅನ್ನು examples ಮೂಲಕ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ಉತ್ತಮ.
 
 ```shell
 touch folder/{a,b,c}.py
@@ -127,25 +130,24 @@ mv *{.py,.sh} folder
 # Will move all *.py and *.sh files
 ```
 
-> Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
-
+> ಕೆಲವು shells (ಉದಾ. zsh) ಇನ್ನಷ್ಟು advanced globbing ರೂಪಗಳನ್ನು support ಮಾಡುತ್ತವೆ - ಉದಾಹರಣೆಗೆ `**` recursive paths ಗೆ ವಿಸ್ತರಿಸುತ್ತದೆ. ಹಾಗಾಗಿ `rm **/*.py` ಎಲ್ಲಾ `.py` files ಅನ್ನು recursive ಆಗಿ ಅಳಿಸುತ್ತದೆ.
 
 ## Streams
 
-Whenever we execute a program pipeline like
+ನಾವು ಈ ರೀತಿಯ program pipeline execute ಮಾಡಿದಾಗ:
 
 ```shell
 cat myfile | grep -P '\d+' | uniq -c
 ```
 
-we see that the `grep` program is communicating with both the `cat` and `uniq` programs.
+`grep` program `cat` ಮತ್ತು `uniq` ಎರಡರೊಂದಿಗೆ ಸಂವಹನ ಮಾಡುತ್ತಿರುವುದನ್ನು ನೋಡುತ್ತೇವೆ.
 
-An important observation here is that all three programs are executing at once.
-Namely, the shell is not first calling cat, then grep, and then uniq.
-Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
-When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
+ಇಲ್ಲಿ ಪ್ರಮುಖ ಗಮನಿಸಬೇಕಾದ ಅಂಶ ಎಂದರೆ ಮೂರೂ programs ಒಂದೇ ಸಮಯದಲ್ಲಿ ನಡೆಯುತ್ತವೆ.
+ಅಂದರೆ shell ಮೊದಲು `cat`, ನಂತರ `grep`, ನಂತರ `uniq` ಅನ್ನು ಕ್ರಮವಾಗಿ ಮುಗಿಸಿ ಕರೆಯುವುದಿಲ್ಲ.
+ಬದಲಾಗಿ ಮೂರನ್ನೂ spawn ಮಾಡಿ, `cat` ನ output ಅನ್ನು `grep` ನ input ಗೆ, `grep` ನ output ಅನ್ನು `uniq` ನ input ಗೆ ಜೋಡಿಸುತ್ತದೆ.
+`|` pipe operator ಬಳಸಿದಾಗ data streams ಒಂದರಿಂದ ಮತ್ತೊಂದಕ್ಕೆ ಹರಿಯುತ್ತವೆ.
 
-We can demonstrate this concurrency, all commands in a pipeline start immediately:
+ಈ concurrency ಅನ್ನು ತೋರಿಸಲು, pipeline ನಲ್ಲಿರುವ commands ಎಲ್ಲವೂ ತಕ್ಷಣ ಶುರುವಾಗುತ್ತವೆ:
 
 ```console
 $ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
@@ -158,9 +160,11 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
   32948 pts/1    00:00:00 grep
 ```
 
-We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
+ಇಲ್ಲಿ `cat` ಹೊರತುಪಡಿಸಿ ಉಳಿದ processes ತಕ್ಷಣ ಆರಂಭವಾಗಿರುವುದನ್ನು ನೋಡಬಹುದು.
+Shell ಎಲ್ಲಾ processes ಅನ್ನು ಮೊದಲು spawn ಮಾಡಿ streams ಅನ್ನು connect ಮಾಡುತ್ತದೆ. `sleep` ಮುಗಿದ ನಂತರವೇ `cat` ಶುರುವಾಗುತ್ತದೆ; ನಂತರ ಅದರ output `grep` ಗೆ ಹೋಗುತ್ತದೆ, ಹೀಗೆ ಮುಂದುವರಿಯುತ್ತದೆ.
 
-Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
+ಪ್ರತಿ program ಗೆ `stdin` (standard input) ಎಂಬ input stream ಇರುತ್ತದೆ. Pipe ಮಾಡಿದಾಗ ಇದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಜೋಡಣೆಯಾಗುತ್ತದೆ.
+Script ಒಳಗೆ ಅನೇಕ programs `-` ಅನ್ನು filename ಆಗಿ ತೆಗೆದುಕೊಂಡು "stdin ನಿಂದ ಓದಿ" ಎಂದು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತವೆ:
 
 ```shell
 # These are equivalent when data comes from a pipe
@@ -168,9 +172,9 @@ echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
 
-Similarly, every program has two output streams: stdout and stderr.
-The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
+ಹಾಗೆಯೇ ಪ್ರತಿಯೊಂದು program ಗೆ ಎರಡು output streams ಇವೆ: `stdout` ಮತ್ತು `stderr`.
+`stdout` ಸಾಮಾನ್ಯ output - pipeline ನಲ್ಲಿ ಮುಂದಿನ command ಗೆ ಇದೇ ಹೋಗುತ್ತದೆ.
+`stderr` warnings ಹಾಗೂ errors ಗಾಗಿ; ಇದರಿಂದ ಆ output ಮುಂದಿನ command ಪಾರ್ಸ್ ಮಾಡುವ data ಯಲ್ಲಿ ಮಿಶ್ರಣವಾಗುವುದಿಲ್ಲ.
 
 ```console
 $ ls /nonexistent
@@ -182,7 +186,7 @@ $ ls /nonexistent 2>/dev/null
 # No output - stderr was redirected to /dev/null
 ```
 
-The shell provides syntax for redirecting these streams. Here are some illustrative examples.
+ಈ streams redirect ಮಾಡಲು shell syntax ಕೊಡುತ್ತದೆ. ಕೆಲವು ಉದಾಹರಣೆಗಳು:
 
 ```shell
 # Redirect stdout to a file (overwrite)
@@ -204,26 +208,27 @@ grep "pattern" < input.txt
 cmd > /dev/null 2>&1
 ```
 
-Another powerful tool that exemplifies the Unix philosophy is [`fzf`](https://github.com/junegunn/fzf), a fuzzy finder. It reads lines from stdin and provides an interactive interface to filter and select:
+Unix philosophy ಯನ್ನು ಚೆನ್ನಾಗಿ ತೋರಿಸುವ ಮತ್ತೊಂದು tool ಎಂದರೆ [`fzf`](https://github.com/junegunn/fzf) - ಒಂದು fuzzy finder.
+ಇದು stdin ನಿಂದ lines ಓದಿ, filter/select ಮಾಡಲು interactive interface ಒದಗಿಸುತ್ತದೆ:
 
 ```console
 $ ls | fzf
 $ cat ~/.bash_history | fzf
 ```
 
-`fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
-
+`fzf` ಅನ್ನು shell operations ಜೊತೆ ಹಲವಾರು ರೀತಿಯಲ್ಲಿ integrate ಮಾಡಬಹುದು. Shell customization ವಿಷಯದಲ್ಲಿ ಇದನ್ನು ಮತ್ತಷ್ಟು ನೋಡೋಣ.
 
 ## Environment variables
 
-To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
-Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
-In shell scripting the role of the space character is to perform argument splitting.
-This behavior can be confusing and tricky to get used to, so keep it in mind.
+bash ನಲ್ಲಿ variables assign ಮಾಡಲು `foo=bar` syntax ಬಳಸುತ್ತೇವೆ; value ಪಡೆಯಲು `$foo` ಬಳಕೆ.
+`foo = bar` invalid syntax - ಏಕೆಂದರೆ shell ಅದನ್ನು `foo` program ಅನ್ನು `['=', 'bar']` arguments ಜೊತೆ ಕರೆಯುವಂತೆ ಪಾರ್ಸ್ ಮಾಡುತ್ತದೆ.
+Shell scripting ನಲ್ಲಿ space character argument splitting ಗಾಗಿ ಬಳಸಲಾಗುತ್ತದೆ.
+ಈ behavior ಆರಂಭದಲ್ಲಿ ಗೊಂದಲಕಾರಿ ಆಗಬಹುದು - ಗಮನದಲ್ಲಿಡಿ.
 
-Shell variables do not have types, they are all strings.
-Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
+Shell variables ಗೆ types ಇರುವುದಿಲ್ಲ - ಎಲ್ಲವೂ strings.
+Shell ನಲ್ಲಿ single quotes ಮತ್ತು double quotes ಪರಸ್ಪರ ಬದಲಾಯಿಸಬಹುದಾದವುಗಳಲ್ಲ ಎಂಬುದನ್ನು ಗಮನಿಸಿ.
+`'` ಒಳಗಿನ strings literal ಆಗಿರುತ್ತವೆ - variable expansion, command substitution, escape processing ಇಲ್ಲ.
+`"` ಒಳಗಿನ strings ನಲ್ಲಿ ಇವು ನಡೆಯುತ್ತವೆ.
 
 ```shell
 foo=bar
@@ -233,32 +238,34 @@ echo '$foo'
 # prints $foo
 ```
 
-To capture the output of a command into a variable we use _command substitution_.
-When we execute
+command output ಅನ್ನು variable ಗೆ ಹಿಡಿಯಲು _command substitution_ ಬಳಸುತ್ತೇವೆ.
+ನಾವು ಹೀಗೆ ಮಾಡಿದಾಗ:
+
 ```shell
 files=$(ls)
 echo "$files" | grep README
 echo "$files" | grep ".py"
 ```
-the output (concretely the stdout) of ls is placed into the variable `$files` which we can access later.
-The content of the `$files` variable does include the newlines from the ls output, which is how programs like `grep` know to operate on each item independently.
 
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name.
-This is useful when commands expect values to be passed by file instead of by STDIN.
-For example, `diff <(ls src) <(ls docs)` will show differences between files in dirs `src` and `docs`.
+`ls` ನ output (`stdout`) `$files` variable ಗೆ ಸೇರುತ್ತದೆ; ನಂತರ ಅದನ್ನು ಬಳಸಬಹುದು.
+`$files` ಒಳಗೆ newline ಗಳು ಉಳಿಯುತ್ತವೆ, ಆದ್ದರಿಂದ `grep` ಹಾಗೆ commands ಪ್ರತಿ item ಮೇಲೆ ಪ್ರತ್ಯೇಕವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸಬಹುದು.
 
-Whenever a shell program calls another program it passes along a set of variables that are often referred to as _environment variables_.
-From within a shell we can find the current environment variables by running `printenv`.
-To pass an environment variable explicitly we can prepend a command with a variable assignment
+ಇದಕ್ಕೆ ಸಂಬಂಧಿಸಿದ ಇನ್ನೊಂದು feature _process substitution_. `<( CMD )` ಅಂದರೆ `CMD` execute ಆಗಿ output temporary file ಗೆ ಹೋಗುತ್ತದೆ; `<()` ಆ file ಹೆಸರಿನಿಂದ substitute ಆಗುತ್ತದೆ.
+STDIN ಬದಲು file path ಬೇಕು ಎನ್ನುವ commands ಗೆ ಇದು ಉಪಯುಕ್ತ.
+ಉದಾ: `diff <(ls src) <(ls docs)` ನಿಂದ `src` ಮತ್ತು `docs` dirs ನಡುವಿನ ವ್ಯತ್ಯಾಸ ನೋಡಬಹುದು.
 
-> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+ಒಂದು shell program ಇನ್ನೊಂದು program ಅನ್ನು ಕರೆಯುವಾಗ, ಕೆಲವು variables ಕೂಡ pass ಮಾಡುತ್ತದೆ; ಇವನ್ನೇ ಸಾಮಾನ್ಯವಾಗಿ _environment variables_ ಎನ್ನುತ್ತೇವೆ.
+ಪ್ರಸ್ತುತ environment variables ನೋಡಲು `printenv` ಬಳಸಬಹುದು.
+ಒಂದು command ಗೆ ಮಾತ್ರ environment variable ಕೊಡುವುದಕ್ಕೆ command ಮುಂದೆ assignment ಮಾಡಬಹುದು.
+
+> Environment variables ಅನ್ನು ಸಾಮಾನ್ಯವಾಗಿ ALL_CAPS ನಲ್ಲಿ ಬರೆಯುತ್ತಾರೆ (ಉದಾ: `HOME`, `PATH`, `DEBUG`). ಇದು technical requirement ಅಲ್ಲ, ಆದರೆ local shell variables (ಸಾಮಾನ್ಯವಾಗಿ lowercase) ಇಂದ ಬೇರ್ಪಡಿಸಲು ಸಹಾಯಕ.
 
 ```shell
 TZ=Asia/Tokyo date  # prints the current time in Tokyo
 echo $TZ  # this will be empty, since TZ was only set for the child command
 ```
 
-Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
+ಅಥವಾ `export` built-in ಬಳಸಿ current environment ಅನ್ನು ಬದಲಿಸಬಹುದು; ಆಗ ಮುಂದಿನ child processes ಎಲ್ಲವೂ ಅದನ್ನು inherit ಮಾಡುತ್ತವೆ:
 
 ```shell
 export DEBUG=1
@@ -267,23 +274,23 @@ bash -c 'echo $DEBUG'
 # prints 1
 ```
 
-To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
+variable ತೆಗೆದುಹಾಕಲು `unset` built-in command - ಉದಾ: `unset DEBUG`.
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
+> Environment variables ಕೂಡ shell convention ಆಗಿವೆ. ಅವುಗಳನ್ನು ಬಳಸಿ ಅನೇಕ programs ನ behavior ಅನ್ನು explicit flags ಇಲ್ಲದೆ implicit ಆಗಿ ಬದಲಿಸಬಹುದು. ಉದಾಹರಣೆಗೆ shell `$HOME` variable ನಲ್ಲಿ current user home path ಇಡುತ್ತದೆ. Programs ಇದನ್ನೇ ಓದಿ ಮಾಹಿತಿ ಪಡೆಯಬಹುದು; `--home /home/alice` ಅಂಥ explicit flag ಬೇಕಾಗುವುದಿಲ್ಲ. ಇದೇ ರೀತಿಯಾಗಿ `$TZ` ಅನ್ನು ಹಲವು programs date/time formatting ಗೆ ಬಳಸುತ್ತವೆ.
 
 ## Return codes
 
-As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
+ಹಿಂದೆ ನೋಡಿದಂತೆ, shell program ನ ಪ್ರಮುಖ output `stdout/stderr` streams ಮತ್ತು filesystem side effects ಮೂಲಕ ವ್ಯಕ್ತವಾಗುತ್ತದೆ.
 
-By default a shell script will return exit code zero.
-The convention is that zero means everything went well whereas nonzero means some issues were encountered.
-To return a nonzero exit code we have to use the `exit NUM` shell built-in.
-We can access the return code of the last command that was run by accessing the special variable `$?`.
+default ಆಗಿ shell script exit code zero ಹಿಂತಿರುಗಿಸುತ್ತದೆ.
+Convention ಪ್ರಕಾರ zero ಅಂದರೆ ಯಶಸ್ಸು, nonzero ಅಂದರೆ ಕೆಲವು ಸಮಸ್ಯೆಗಳು ಎದುರಾದವು.
+nonzero code ಹಿಂತಿರುಗಿಸಲು `exit NUM` built-in ಬಳಕೆ.
+ಕೊನೆಯ command ನ return code ಅನ್ನು `$?` ಮೂಲಕ ಪಡೆಯಬಹುದು.
 
-The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
-Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
-Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
-This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
+shell ನಲ್ಲಿ `&&` ಮತ್ತು `||` boolean operators ಇವೆ.
+ಸಾಮಾನ್ಯ programming languages ಗಿಂತ ವಿಭಿನ್ನವಾಗಿ, shell ನಲ್ಲಿ ಇವು programs return codes ಮೇಲೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ.
+ಇವೆರಡೂ [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
+ಅಂದರೆ ಹಿಂದಿನ command ಯಶಸ್ಸು (exit code 0) ಅಥವಾ ವಿಫಲತೆ ಆಧರಿಸಿ ಮುಂದಿನ command conditionally execute ಮಾಡಬಹುದು.
 
 ```shell
 # echo will only run if grep succeeds (finds a match)
@@ -299,7 +306,7 @@ true && echo "This will always print"
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
+ಈದೇ ತತ್ವ `if` ಮತ್ತು `while` statements ಗಳಿಗೂ ಅನ್ವಯಿಸುತ್ತದೆ - ನಿರ್ಧಾರ return code ಆಧರಿಸಿ ತೆಗೆದುಕೊಳ್ಳಲಾಗುತ್ತದೆ:
 
 ```shell
 # if uses the return code of the condition command (0 = true, nonzero = false)
@@ -315,9 +322,9 @@ done < file.txt
 
 ## Signals
 
-In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
-The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+ಕೆಲವೊಮ್ಮೆ program ನಡೆಯುತ್ತಿರುವಾಗ ಅದನ್ನು interrupt ಮಾಡಬೇಕಾಗುತ್ತದೆ - ಉದಾ: command ಹೆಚ್ಚು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುವುದಾದರೆ.
+ಅತ್ಯಂತ ಸರಳ ವಿಧಾನ `Ctrl-C` ಒತ್ತುವುದು; ಸಾಮಾನ್ಯವಾಗಿ command ನಿಲ್ಲುತ್ತದೆ.
+ಆದರೆ ಇದು ಒಳಗೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ? ಕೆಲವೊಮ್ಮೆ ಏಕೆ ನಿಲ್ಲುವುದಿಲ್ಲ?
 
 ```console
 $ sleep 100
@@ -325,21 +332,21 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl` is displayed when typed in the terminal.
+> ಇಲ್ಲಿ `^C` ಅಂದರೆ terminal ನಲ್ಲಿ `Ctrl` ಕೀ ಹೇಗೆ ತೋರಿಸಲಾಗುತ್ತದೆ ಎಂಬುದು.
 
-Under the hood, what happened here is the following:
+ಇದಕ್ಕೆ ಒಳಗಿನ ಕ್ರಮ ಹೀಗಿದೆ:
 
-1. We pressed `Ctrl-C`
-2. The shell identified the special combination of characters
-3. The shell process sent a SIGINT signal to the `sleep` process
-4. The signal interrupted the execution of the `sleep` process
+1. ನಾವು `Ctrl-C` ಒತ್ತುತ್ತೇವೆ
+2. shell ಆ ವಿಶೇಷ key combination ಅನ್ನು ಗುರುತಿಸುತ್ತದೆ
+3. shell process, `sleep` process ಗೆ `SIGINT` signal ಕಳುಹಿಸುತ್ತದೆ
+4. signal, `sleep` process ನ execution ಅನ್ನು interrupt ಮಾಡುತ್ತದೆ
 
-Signals are a special communication mechanism.
-When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Signals ಒಂದು ವಿಶೇಷ communication mechanism.
+ಒಂದು process signal ಸ್ವೀಕರಿಸಿದಾಗ ಅದು ತನ್ನ execution ನಿಲ್ಲಿಸಿ, signal handle ಮಾಡಿ, ಅದರ ಮಾಹಿತಿಯ ಆಧಾರದ ಮೇಲೆ control flow ಬದಲಿಸಬಹುದು.
+ಈ ಕಾರಣಕ್ಕೆ signals ಅನ್ನು _software interrupts_ ಎಂದು ಕರೆಯುತ್ತಾರೆ.
 
-
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+ನಮ್ಮ ಸಂದರ್ಭದಲ್ಲಿ `Ctrl-C` ಒತ್ತಿದಾಗ shell `SIGINT` ಅನ್ನು process ಗೆ ಕಳುಹಿಸುತ್ತದೆ.
+ಕೆಳಗೆ `SIGINT` ಅನ್ನು ಹಿಡಿದು ignore ಮಾಡುವ Python program ಇದೆ. ಈಗ ಇದನ್ನು ಕೊಲ್ಲಲು `Ctrl-\` ಮೂಲಕ `SIGQUIT` ಕಳುಹಿಸಬೇಕು.
 
 ```python
 #!/usr/bin/env python
@@ -356,7 +363,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+ಈ program ಗೆ ಎರಡು ಸಲ `SIGINT`, ನಂತರ `SIGQUIT` ಕಳಿಸಿದರೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ. `^` ಎಂದರೆ terminal ನಲ್ಲಿ `Ctrl` ಪ್ರದರ್ಶನ:
 
 ```console
 $ python sigint.py
@@ -367,25 +374,27 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+`SIGINT` ಮತ್ತು `SIGQUIT` ಸಾಮಾನ್ಯವಾಗಿ terminal ಸಂಬಂಧಿತವಾದರೂ, process ಅನ್ನು graceful ಆಗಿ ಹೊರಬರಲು ಕೇಳುವ ಸಾಮಾನ್ಯ signal ಎಂದರೆ `SIGTERM`.
+ಇದನ್ನು [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command ಮೂಲಕ `kill -TERM <PID>` syntax ನಲ್ಲಿ ಕಳಿಸಬಹುದು.
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Signals process ಅನ್ನು terminate ಮಾಡುವುದಷ್ಟೇ ಅಲ್ಲ, ಬೇರೆ ಕೆಲಸಗಳೂ ಇವೆ. ಉದಾ: `SIGSTOP` process ಅನ್ನು pause ಮಾಡುತ್ತದೆ.
+terminal ನಲ್ಲಿ `Ctrl-Z` ಒತ್ತಿದರೆ shell `SIGTSTP` (Terminal Stop) signal ಕಳುಹಿಸುತ್ತದೆ.
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+ಅದಾದ ಬಳಿಕ pause ಆದ job ಅನ್ನು foreground ಅಥವಾ background ನಲ್ಲಿ [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) ಅಥವಾ [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html) ಮೂಲಕ ಮುಂದುವರಿಸಬಹುದು.
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+[`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command ಪ್ರಸ್ತುತ terminal session ಗೆ ಸಂಬಂಧಿಸಿದ unfinished jobs ಪಟ್ಟಿಯನ್ನು ತೋರಿಸುತ್ತದೆ.
+ಅವುಗಳನ್ನು pid ಮೂಲಕ (ಅದನ್ನು ಕಂಡುಹಿಡಿಯಲು [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) ಬಳಸಬಹುದು) ಸೂಚಿಸಬಹುದು.
+ಅಥವಾ `jobs` ತೋರಿಸುವ job number ಜೊತೆ `%` ಬಳಸಿ ಸೂಚಿಸಬಹುದು.
+ಕೊನೆಯ background job ಸೂಚಿಸಲು `$!` special parameter ಬಳಸಬಹುದು.
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
+ಇನ್ನೊಂದು ವಿಷಯ: command ಕೊನೆಯಲ್ಲಿ `&` ಹಾಕಿದರೆ ಅದು background ನಲ್ಲಿ run ಆಗಿ prompt ತಕ್ಷಣ ಮರಳುತ್ತದೆ. ಆದರೆ ಅದು shell ನ STDOUT ಬಳಸುತ್ತಲೇ ಇರುತ್ತದೆ (ಅಗತ್ಯವಿದ್ದರೆ redirection ಬಳಸಿ).
+ಇದಕ್ಕೆ ಸಮನಾಗಿ ಈಗಾಗಲೇ run ಆಗಿರುವ program ಅನ್ನು `Ctrl-Z` ನಂತರ `bg` ಮೂಲಕ background ಗೆ ಕಳುಹಿಸಬಹುದು.
 
+background processes ಕೂಡ ನಿಮ್ಮ terminal ನ child processes ಆಗಿರುವುದರಿಂದ terminal ಮುಚ್ಚಿದರೆ ಅವು ಸತ್ತುಹೋಗುತ್ತವೆ (`SIGHUP` signal).
+ಅದನ್ನು ತಪ್ಪಿಸಲು [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) ಬಳಸಿ run ಮಾಡಬಹುದು, ಅಥವಾ ಈಗಾಗಲೇ ಶುರುವಾದ process ಗೆ `disown` ಮಾಡಬಹುದು.
+ಇಲ್ಲದಿದ್ದರೆ ಮುಂದಿನ ಭಾಗದಲ್ಲಿ ನೋಡುವ terminal multiplexer ಬಳಸಬಹುದು.
 
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
-
-Below is a sample session to showcase some of these concepts.
+ಕೆಳಗಿನ sample session ಈ ಕಲ್ಪನೆಗಳಲ್ಲಿ ಕೆಲವು ತೋರಿಸುತ್ತದೆ.
 
 ```
 $ sleep 1000
@@ -412,11 +421,12 @@ $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+`SIGKILL` ಒಂದು ವಿಶೇಷ signal - process ಇದನ್ನು ಹಿಡಿಯಲು ಸಾಧ್ಯವಿಲ್ಲ ಮತ್ತು ಅದು ತಕ್ಷಣ terminate ಆಗುತ್ತದೆ.
+ಆದರೆ ಇದರಿಂದ orphaned child processes ಹಾಗು ಇತರೆ side effects ಉಂಟಾಗುವ ಸಾಧ್ಯತೆ ಇದೆ.
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+Signals ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಲು [ಈ ಲಿಂಕ್](https://en.wikipedia.org/wiki/Signal_(IPC)) ಅಥವಾ [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html), `kill -l` ನೋಡಿ.
 
-Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
+Shell scripts ಒಳಗೆ signals ಬಂದಾಗ commands ನಡೆಸಲು `trap` built-in ಬಳಸಬಹುದು. Cleanup operations ಗೆ ಇದು ಉಪಯುಕ್ತ.
 
 ```shell
 #!/usr/bin/env bash
@@ -490,17 +500,20 @@ So far we've focused on your local machine, but many of these skills become even
 
 {% endcomment %}
 
-# Remote Machines
+# ರಿಮೋಟ್ ಯಂತ್ರಗಳು
 
-It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
+ಇಂದು ಬಹುತೇಕ programmers ತಮ್ಮ ದೈನಂದಿನ ಕೆಲಸದಲ್ಲಿ remote servers ಜೊತೆ ಕೆಲಸ ಮಾಡುತ್ತಾರೆ.
+ಇದಕ್ಕಾಗಿ ಸಾಮಾನ್ಯ tool ಎಂದರೆ SSH (Secure Shell). ಇದು remote server ಗೆ connect ಆಗಲು ಮತ್ತು ಈಗಾಗಲೇ ಪರಿಚಿತ shell interface ಬಳಕೆ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+ಉದಾಹರಣೆಗೆ server ಗೆ ಹೀಗೆ ಸಂಪರ್ಕಿಸಬಹುದು:
 
 ```bash
 ssh alice@server.mit.edu
 ```
 
-Here we are trying to ssh as user `alice` in server `server.mit.edu`.
+ಇಲ್ಲಿ `server.mit.edu` ನಲ್ಲಿ `alice` user ಆಗಿ ssh ಮಾಡಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೇವೆ.
 
-An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
+`ssh` ನ ಪ್ರಮುಖ ಆದರೆ ಕಡಿಮೆ ಗಮನಕ್ಕೆ ಬರುವ feature ಎಂದರೆ non-interactive command execution.
+`ssh` command ನ stdin ಕಳುಹಿಸುವುದು ಮತ್ತು stdout ಸ್ವೀಕರಿಸುವುದನ್ನು ಸರಿಯಾಗಿ ನಿರ್ವಹಿಸುತ್ತದೆ, ಆದ್ದರಿಂದ ಇತರೆ commands ಜೊತೆ ಇದನ್ನು ಸೇರಿಸಬಹುದು:
 
 ```shell
 # here ls runs in the remote, and wc runs locally
@@ -511,22 +524,25 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
+> disconnection, sleep mode, network ಬದಲಾವಣೆ, high-latency links ಇತ್ಯಾದಿಗಳನ್ನು ಉತ್ತಮವಾಗಿ ನಿಭಾಯಿಸುವ SSH ಪರ್ಯಾಯವಾಗಿ [Mosh](https://mosh.org/) ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ.
 
-For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
-We can do this via passwords or ssh keys.
-Key-based authentication utilizes public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
-Key based authentication is both more convenient and more secure, so you should prefer it.
-Note that the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so and never share its contents.
+remote server ನಲ್ಲಿ commands run ಮಾಡಲು `ssh` ನಿಮಗೆ authorization ಇದೆ ಎಂದು ದೃಢೀಕರಿಸಬೇಕು.
+ಇದನ್ನು passwords ಅಥವಾ ssh keys ಮೂಲಕ ಮಾಡಬಹುದು.
+Key-based authentication public-key cryptography ಬಳಸಿಕೊಂಡು client ಬಳಿ secret private key ಇದೆ ಎಂದು ಸರ್ವರ್‌ಗೆ ಸಾಬೀತುಪಡಿಸುತ್ತದೆ - key ನ್ನೇ ಬಹಿರಂಗಪಡಿಸದೆ.
+Key-based authentication ಹೆಚ್ಚು ಸುಲಭ ಮತ್ತು ಹೆಚ್ಚು ಸುರಕ್ಷಿತ; ಆದ್ದರಿಂದ ಅದನ್ನೇ ಆದ್ಯತೆಯಿಂದ ಬಳಸಿ.
+Private key (ಸಾಮಾನ್ಯವಾಗಿ `~/.ssh/id_rsa`, ಇತ್ತೀಚೆಗೆ `~/.ssh/id_ed25519`) ಪ್ರಾಯೋಗಿಕವಾಗಿ password ಸಮಾನ; ಆದ್ದರಿಂದ ಅದನ್ನು ಎಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+Key pair ರಚಿಸಲು [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html) ಬಳಸಬಹುದು.
+
 ```bash
 ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+GitHub ಗೆ SSH keys ಮೂಲಕ push ಮಾಡಲು ನೀವು ಹಿಂದೆ configure ಮಾಡಿದ್ದರೆ, [ಈ ಹಂತಗಳು](https://help.github.com/articles/connecting-to-github-with-ssh/) ಬಹುಶಃ ನೀವು ಮಾಡಿರಬಹುದು ಮತ್ತು ಮಾನ್ಯ key pair ಇರಬಹುದು.
+passphrase ಇದೆವೋ, ಸರಿಯೇ ಎಂದು ಪರಿಶೀಲಿಸಲು `ssh-keygen -y -f /path/to/key` ಬಳಸಬಹುದು.
 
-At the server side `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+server ಭಾಗದಲ್ಲಿ `ssh`, `.ssh/authorized_keys` ನೋಡಿ ಯಾವ clients ಗೆ ಪ್ರವೇಶ ಕೊಡಬೇಕೆಂದು ತೀರ್ಮಾನಿಸುತ್ತದೆ.
+Public key ಕಾಪಿ ಮಾಡಲು:
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
@@ -536,9 +552,14 @@ cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
 
-Beyond running commands, the connection that ssh establishes can be used to transfer files from and to the server securely. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) is the most traditional tool and the syntax is `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+commands ಮಾತ್ರವಲ್ಲ, ssh connection ಬಳಸಿ files ಅನ್ನು secure ಆಗಿ transfer ಕೂಡ ಮಾಡಬಹುದು.
+[`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) ಪರಂಪರೆಯ tool; syntax: `scp path/to/local_file remote_host:path/to/remote_file`.
+[`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html), `scp` ಗಿಂತ ಉತ್ತಮ - local ಮತ್ತು remote ನಲ್ಲಿ ಸಮಾನ files ಮರು-copy ಆಗದಂತೆ ತಡೆಯುತ್ತದೆ.
+ಇದಲ್ಲದೆ symlinks, permissions ಮೇಲೆ ಹೆಚ್ಚುವರಿ ನಿಯಂತ್ರಣ ಮತ್ತು interrupted copy ಮರುಪ್ರಾರಂಭಿಸುವ `--partial` ಹೀಗೆ features ಒದಗಿಸುತ್ತದೆ.
+`rsync` syntax, `scp` ಗೆ ಹೋಲುತ್ತದೆ.
 
-SSH client configuration is located at `~/.ssh/config` and it lets us declare hosts and set default settings for them. This configuration file is not just read by `ssh` but also other programs like `scp`, `rsync`, `mosh`, &c.
+SSH client configuration `~/.ssh/config` ನಲ್ಲಿ ಇರುತ್ತದೆ. ಇಲ್ಲಿ hosts ಮತ್ತು default settings ಘೋಷಿಸಬಹುದು.
+ಈ config file ಅನ್ನು `ssh` ಮಾತ್ರವಲ್ಲ `scp`, `rsync`, `mosh` ಮುಂತಾದ programs ಕೂಡ ಓದುತ್ತವೆ.
 
 ```bash
 Host vm
@@ -552,83 +573,86 @@ Host *.mit.edu
     User alice
 ```
 
+# ಟರ್ಮಿನಲ್ ಮಲ್ಟಿಪ್ಲೆಕ್ಸರ್ಸ್
 
+command line interface ಬಳಸುವಾಗ ನೀವು ಹಲವಾರು ಕೆಲಸಗಳನ್ನು ಒಂದೇ ಸಮಯದಲ್ಲಿ ನಡೆಸಲು ಬಯಸುತ್ತೀರಿ.
+ಉದಾಹರಣೆಗೆ editor ಮತ್ತು program ಅನ್ನು side-by-side ಓಡಿಸುವ ಅಗತ್ಯ ಬರುತ್ತದೆ.
+ಹೊಸ terminal windows ತೆರೆದು ಇದನ್ನು ಮಾಡಬಹುದು, ಆದರೆ terminal multiplexer ಹೆಚ್ಚು ಬಲವಾದ ಪರಿಹಾರ.
 
+[`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) ಮುಂತಾದ terminal multiplexers panes ಮತ್ತು tabs ಬಳಸಿ terminal windows ಅನ್ನು multiplex ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.
+ಇದರಿಂದ ಅನೇಕ shell sessions ಅನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ನಿರ್ವಹಿಸಬಹುದು.
+ಇದಲ್ಲದೆ ಪ್ರಸ್ತುತ terminal session ಅನ್ನು detach ಮಾಡಿ ನಂತರ ಮರು-attach ಮಾಡಬಹುದು.
+ಅದರ ಕಾರಣ remote machines ಜೊತೆ ಕೆಲಸಿಸುವಾಗ terminal multiplexers ಬಹಳ ಉಪಯುಕ್ತ - `nohup` ಮುಂತಾದ workaroundಗಳ ಅವಶ್ಯಕತೆ ಕಡಿಮೆ.
 
-# Terminal Multiplexers
+ಈ ದಿನಗಳಲ್ಲಿ ಅತಿ ಜನಪ್ರಿಯ terminal multiplexer ಎಂದರೆ [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html).
+`tmux` ಬಹಳ configurable; keybindings ಗಳನ್ನು ಬಳಸಿ tabs ಮತ್ತು panes ಸೃಷ್ಟಿಸಿ ವೇಗವಾಗಿ navigate ಮಾಡಬಹುದು.
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+`tmux` keybindings ತಿಳಿದಿರಬೇಕು; ಅವೆಲ್ಲವೂ `<C-b> x` ರೂಪದಲ್ಲಿರುತ್ತವೆ: (1) `Ctrl+b` ಒತ್ತಿ, (2) ಬಿಡಿ, (3) `x` ಒತ್ತಿ.
+`tmux` ನಲ್ಲಿ objects hierarchy ಹೀಗಿದೆ:
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions in an efficient manner.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-Because of this, terminal multiplexers are really convenient when working with remote machines, as it avoids the need to use `nohup` and similar tricks.
+- **Sessions** - ಒಂದು session ಎಂದರೆ ಒಂದು ಅಥವಾ ಹೆಚ್ಚು windows ಇರುವ ಸ್ವತಂತ್ರ workspace
+    + `tmux` ಹೊಸ session ಆರಂಭಿಸುತ್ತದೆ.
+    + `tmux new -s NAME` ಕೊಟ್ಟರೆ ಆ ಹೆಸರಿನ session ಆರಂಭಿಸುತ್ತದೆ.
+    + `tmux ls` ಪ್ರಸ್ತುತ sessions ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ.
+    + `tmux` ಒಳಗೆ `<C-b> d` current session detach ಮಾಡುತ್ತದೆ.
+    + `tmux a` ಕೊನೆಯ session attach ಮಾಡುತ್ತದೆ. `-t` ಮೂಲಕ ನಿರ್ದಿಷ್ಟ session ಸೂಚಿಸಬಹುದು.
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+- **Windows** - editors/browsers ನ tabs ಗೆ ಸಮಾನ; session ಒಳಗಿನ ಪ್ರತ್ಯೇಕ ದೃಶ್ಯ ಭಾಗಗಳು
+    + `<C-b> c` ಹೊಸ window ರಚಿಸುತ್ತದೆ. ಮುಚ್ಚಲು `<C-d>` ಬಳಸಿ shells terminate ಮಾಡಿ.
+    + `<C-b> N` _N_ ನೇ window ಗೆ ಹೋಗುತ್ತದೆ.
+    + `<C-b> p` ಹಿಂದಿನ window ಗೆ ಹೋಗುತ್ತದೆ.
+    + `<C-b> n` ಮುಂದಿನ window ಗೆ ಹೋಗುತ್ತದೆ.
+    + `<C-b> ,` current window rename ಮಾಡುತ್ತದೆ.
+    + `<C-b> w` current windows ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ.
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+- **Panes** - vim splits ಹಾಗೆ, ಒಂದೇ ದೃಶ್ಯದಲ್ಲಿ ಅನೇಕ shells
+    + `<C-b> "` current pane ಅನ್ನು horizontally split ಮಾಡುತ್ತದೆ.
+    + `<C-b> %` current pane ಅನ್ನು vertically split ಮಾಡುತ್ತದೆ.
+    + `<C-b> <direction>` ನೀಡಿದ ದಿಕ್ಕಿನ pane ಗೆ ಹೋಗುತ್ತದೆ (arrow keys).
+    + `<C-b> z` current pane zoom toggle ಮಾಡುತ್ತದೆ.
+    + `<C-b> [` scrollback mode ಆರಂಭಿಸುತ್ತದೆ. ನಂತರ `<space>` selection, `<enter>` copy.
+    + `<C-b> <space>` pane arrangements cycle ಮಾಡುತ್ತದೆ.
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+> `tmux` ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಲು [ಈ quick tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) ಮತ್ತು [ಈ ವಿವರವಾದ ಲೇಖನ](https://linuxcommand.org/lc3_adv_termmux.php) ಓದಿ.
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+tmux ಮತ್ತು SSH ನಿಮ್ಮ toolkit ನಲ್ಲಿ ಸೇರಿದ ಮೇಲೆ, ಯಾವ ಯಂತ್ರದಲ್ಲಾದರೂ ನಿಮ್ಮ ಪರಿಸರ ಮನೆಯಂತಿರಬೇಕು ಎಂಬ ಆಸೆ ಬರುತ್ತದೆ. ಅಲ್ಲಿ shell customization ಬರುತ್ತದೆ.
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+# ಶೆಲ್ ಕಸ್ಟಮೈಸಿಂಗ್
 
-With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
+ಹಲವಾರು command line programs _dotfiles_ ಎಂದು ಕರೆಯುವ plain-text files ಮೂಲಕ configure ಆಗುತ್ತವೆ
+(ಯಾಕೆಂದರೆ ಫೈಲ್ ಹೆಸರು `.` ಇಂದ ಆರಂಭವಾಗುತ್ತದೆ - ಉದಾ. `~/.vimrc`; ಆದ್ದರಿಂದ `ls` ನಲ್ಲಿ default ಆಗಿ hidden ಆಗಿರುತ್ತವೆ).
 
-# Customizing the Shell
+> Dotfiles ಕೂಡ shell convention. ಮುಂದೆ ಇರುವ dot ಅವುಗಳನ್ನು listing ನಲ್ಲಿ ಮರೆಮಾಡಲು ಬಳಸಲಾಗುತ್ತದೆ (ಹೌದು, ಇದೂ ಒಂದು convention).
 
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+shell ಗಳು dotfiles ಬಳಸುವ programs ಗಳ ಉದಾಹರಣೆ.
+startup ಸಮಯದಲ್ಲಿ shell ತನ್ನ configuration ಲೋಡ್ ಮಾಡಲು ಹಲವಾರು files ಓದುತ್ತದೆ.
+shell ಪ್ರಕಾರ, login/interactive session ಪ್ರಕಾರ ಈ ಪ್ರಕ್ರಿಯೆ ಸಂಕೀರ್ಣವಾಗಬಹುದು.
+[ಈ ಸಂಪನ್ಮೂಲ](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) ಅತ್ಯುತ್ತಮ ವಿವರ ನೀಡುತ್ತದೆ.
 
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
-
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
-
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Some other examples of tools that can be configured through dotfiles are:
+`bash` ಗಾಗಿ ಹೆಚ್ಚಿನ systems ನಲ್ಲಿ `.bashrc` ಅಥವಾ `.bash_profile` edit ಮಾಡಿದರೆ ಸಾಕಾಗುತ್ತದೆ.
+ಇದೇ ರೀತಿ dotfiles ಮೂಲಕ configure ಆಗುವ tools ಕೆಲವು:
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` ಮತ್ತು `~/.vim` folder
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
+ಸಾಮಾನ್ಯ customization ಒಂದು: shell programs ಹುಡುಕುವ ಸ್ಥಳಗಳಿಗೆ ಹೊಸ paths ಸೇರಿಸುವುದು. software install ಮಾಡುವಾಗ ಇದು ನಿಮಗೆ ಕಾಣುತ್ತದೆ:
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
 
-Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `path/to/append`.
+ಇಲ್ಲಿ `$PATH` ನ current value ಗೆ ಹೊಸ path ಸೇರಿಸಿ, child processes ಗೆ inherit ಆಗುವಂತೆ ಮಾಡುತ್ತಿದ್ದೇವೆ.
+ಇದರಿಂದ `path/to/append` ಅಡಿಯಲ್ಲಿ ಇರುವ programs ಪತ್ತೆಯಾಗುತ್ತವೆ.
 
+shell customization ನಲ್ಲಿ ಸಾಮಾನ್ಯವಾಗಿ ಹೊಸ command-line tools install ಮಾಡುವುದೂ ಸೇರಿದೆ.
+Package managers ಇದನ್ನು ಸುಲಭಗೊಳಿಸುತ್ತವೆ - download, install, update ಎಲ್ಲವನ್ನೂ ನಿರ್ವಹಿಸುತ್ತವೆ.
+Operating system ಪ್ರಕಾರ package managers ಬದಲಾಗುತ್ತವೆ: macOS ನಲ್ಲಿ [Homebrew](https://brew.sh/), Ubuntu/Debian ನಲ್ಲಿ `apt`, Fedora ನಲ್ಲಿ `dnf`, Arch ನಲ್ಲಿ `pacman`.
+Package managers ಬಗ್ಗೆ shipping code ಉಪನ್ಯಾಸದಲ್ಲಿ ಇನ್ನಷ್ಟು ನೋಡೋಣ.
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
-
-Here's how to install two useful tools using Homebrew on macOS:
+macOS ನಲ್ಲಿ Homebrew ಬಳಸಿ ಉಪಯುಕ್ತವಾದ ಎರಡು tools install ಮಾಡುವ ವಿಧಾನ:
 
 ```shell
 # ripgrep: a faster grep with better defaults
@@ -638,19 +662,22 @@ brew install ripgrep
 brew install fd
 ```
 
-With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+ಇವು install ಆದ ನಂತರ `grep` ಬದಲು `rg`, `find` ಬದಲು `fd` ಬಳಸಬಹುದು.
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **`curl | bash` ಬಗ್ಗೆ ಎಚ್ಚರಿಕೆ**: install ಸೂಚನೆಗಳಲ್ಲಿ `curl -fsSL https://example.com/install.sh | bash` ಆಗಾಗ ಕಾಣಬಹುದು. ಇದು script download ಆಗುತ್ತಿದ್ದಂತೆಯೇ execute ಮಾಡುವ pattern - ಸೌಲಭ್ಯಕರ ಆದರೆ ಅಪಾಯಕಾರಿ, ಏಕೆಂದರೆ ನೀವು ಪರಿಶೀಲಿಸದ code ಅನ್ನು ತಕ್ಷಣ ಓಡಿಸುತ್ತೀರಿ.
+> ಹೆಚ್ಚು ಸುರಕ್ಷಿತ ವಿಧಾನ: ಮೊದಲು download ಮಾಡಿ, ಪರಿಶೀಲಿಸಿ, ನಂತರ execute ಮಾಡಿ.
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
 > less install.sh  # review the script
 > bash install.sh
 > ```
-> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+> ಕೆಲವು installers `/bin/bash -c "$(curl -fsSL https://url)"` ಎಂಬ ಸ್ವಲ್ಪ ಸುರಕ್ಷಿತ ರೂಪ ಬಳಸುತ್ತವೆ - ಕನಿಷ್ಠ script ಅನ್ನು bash interpret ಮಾಡುತ್ತದೆ.
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
+install ಆಗದ command ಓಡಿಸಿದರೆ shell `command not found` ತೋರಿಸುತ್ತದೆ.
+[command-not-found.com](https://command-not-found.com) ವೆಬ್‌ಸೈಟ್ ಯಾವುದೇ command ಹೇಗೆ install ಮಾಡುವುದು ಎಂಬುದನ್ನು ವಿವಿಧ package managers/distributions ಮೇಲೆ ಹುಡುಕಲು ಉಪಯುಕ್ತ.
 
-Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+ಮತ್ತೊಂದು ಉಪಯುಕ್ತ ಸಾಧನ [`tldr`](https://tldr.sh/) - ಸರಳ, example-ಕೇಂದ್ರಿತ man pages ಒದಗಿಸುತ್ತದೆ.
+ದೀರ್ಘ documentation ಓದುವ ಬದಲು ಸಾಮಾನ್ಯ ಬಳಕೆ patterns ವೇಗವಾಗಿ ನೋಡಬಹುದು:
 
 ```console
 $ tldr fd
@@ -667,19 +694,19 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
+ಕೆಲವೊಮ್ಮೆ ಹೊಸ program ಬೇಡ - ನಿರ್ದಿಷ್ಟ flags ಜೊತೆಗೆ ಇರುವ command ಗೆ shorthand ಸಾಕು. ಅಲ್ಲಿ aliases ಉಪಯೋಗಕ್ಕೆ ಬರುತ್ತವೆ.
 
-We can also create our own command aliases using the `alias` shell built-in.
-A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
-For instance, an alias in bash has the following structure:
+ನಮ್ಮದೇ command aliases ಅನ್ನು `alias` built-in ಮೂಲಕ ರಚಿಸಬಹುದು.
+Shell alias ಅಂದರೆ ಬೇರೆ command ಗೆ short form; shell expression evaluate ಮಾಡುವ ಮೊದಲು ಅದನ್ನು substitute ಮಾಡುತ್ತದೆ.
+ಉದಾಹರಣೆಗೆ bash ನಲ್ಲಿ alias ರಚನೆ:
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-> Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+> `=` ಸುತ್ತ space ಇರಬಾರದು; [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) ಒಂದು single argument ತೆಗೆದುಕೊಳ್ಳುವ shell command.
 
-Aliases have many convenient features:
+Aliases ಗಳ ಕೆಲವು ಉಪಯುಕ್ತ ಬಳಕೆಗಳು:
 
 ```bash
 # Make shorthands for common flags
@@ -711,65 +738,61 @@ alias ll
 # Will print ll='ls -lh'
 ```
 
-Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
+Aliases ಗೆ ಮಿತಿಗಳೂ ಇವೆ: command ಮಧ್ಯದಲ್ಲಿ arguments ತೆಗೆದುಕೊಳ್ಳುವ ಸಂಕೀರ್ಣ behavior ಗಳಿಗೆ aliases ಸಾಕಾಗುವುದಿಲ್ಲ. ಅಲ್ಲಿ shell functions ಬಳಸಿ.
 
-Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+ಬಹುತೇಕ shells ನಲ್ಲಿ `Ctrl-R` reverse history search ಕೊಡುತ್ತದೆ.
+`Ctrl-R` ಒತ್ತಿ typing ಶುರು ಮಾಡಿದರೆ ಹಿಂದಿನ commands ಹುಡುಕಬಹುದು.
+ಹಿಂದೆ ಪರಿಚಯಿಸಿದ `fzf` integration configure ಮಾಡಿದರೆ `Ctrl-R` ಇನ್ನಷ್ಟು ಶಕ್ತಿಶಾಲಿ interactive fuzzy history search ಆಗುತ್ತದೆ.
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+Dotfiles ಅನ್ನು ಹೇಗೆ ಸಂಘಟಿಸಬೇಕು?
+ಅವುಗಳನ್ನು ಪ್ರತ್ಯೇಕ folder ನಲ್ಲಿ ಇಟ್ಟು, version control ನಲ್ಲಿ ಇಟ್ಟು, script ಮೂಲಕ **symlink** ಮಾಡಿ ಬಳಸಿ.
+ಇದರಿಂದ ಲಾಭಗಳು:
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **ಸುಲಭ ಸ್ಥಾಪನೆ** - ಹೊಸ ಯಂತ್ರದಲ್ಲಿ login ಆದಾಗ ನಿಮ್ಮ customizations ಅನ್ನು ಕ್ಷಣಗಳಲ್ಲಿ ಅನ್ವಯಿಸಬಹುದು.
+- **Portability** - ನಿಮ್ಮ tools ಎಲ್ಲೆಡೆ ಒಂದೇ ರೀತಿಯಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತವೆ.
+- **Synchronization** - ಎಲ್ಲೆಡೆ dotfiles update ಮಾಡಿ sync ಇಡಬಹುದು.
+- **Change tracking** - programming career മുഴುವರಿಗೂ dotfiles ಇರುತ್ತವೆ; version history ಬಹಳ ಉಪಯುಕ್ತ.
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+Dotfiles ನಲ್ಲಿ ಏನು ಹಾಕಬೇಕು?
+Tool settings ತಿಳಿಯಲು online docs ಅಥವಾ [man pages](https://en.wikipedia.org/wiki/Man_page) ಓದಿ.
+ನಿರ್ದಿಷ್ಟ programs ಕುರಿತು blog posts ಕೂಡ ಉತ್ತಮ ಮಾರ್ಗ.
+ಇನ್ನೊಂದು ಮಾರ್ಗ - ಇತರರ dotfiles ನೋಡುವುದು.
+GitHub ನಲ್ಲಿ ಅನೇಕ [dotfiles repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) ಲಭ್ಯ - ಜನಪ್ರಿಯದೊಂದು [ಇಲ್ಲಿ](https://github.com/mathiasbynens/dotfiles).
+ಆದರೆ configurations ಅನ್ನು ಪರಿಶೀಲನೆ ಇಲ್ಲದೆ copy ಮಾಡಬೇಡಿ.
+[ಈ ಸಂಪನ್ಮೂಲ](https://dotfiles.github.io/) ಕೂಡ ಒಳ್ಳೆಯದು.
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+ಈ ತರಗತಿಯ instructors ಅವರ dotfiles GitHub ನಲ್ಲಿ ಸಾರ್ವಜನಿಕವಾಗಿ ಲಭ್ಯ:
+[Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
-**Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
+**Frameworks ಮತ್ತು plugins** ಕೂಡ shell ಅನುಭವವನ್ನು ಉತ್ತಮಗೊಳಿಸುತ್ತವೆ.
+ಜನಪ್ರಿಯ frameworks: [prezto](https://github.com/sorin-ionescu/prezto), [oh-my-zsh](https://ohmyz.sh/).
+ನಿರ್ದಿಷ್ಟ features ಗಾಗಿ plugins:
 
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - suggests commands from history as you type
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) - additional completion definitions
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-like history search
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - fast, customizable prompt theme
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - typing ಸಮಯದಲ್ಲಿ valid/invalid commands ಗೆ ಬಣ್ಣ
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - history ನಿಂದ command suggestions
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) - ಹೆಚ್ಚುವರಿ completion definitions
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-ಶೈಲಿ history search
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - ವೇಗವಾದ, customizable prompt theme
 
-Shells like [fish](https://fishshell.com/) include many of these features by default.
+[fish](https://fishshell.com/) ಮೊದಲಾದ shells ಈ features ಗಳಲ್ಲಿ ಅನೇಕವನ್ನು default ಆಗಿಯೇ ಕೊಡುತ್ತವೆ.
 
-> You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
+> oh-my-zsh ಹೀಗೆ ದೊಡ್ಡ frameworks ಕಡ್ಡಾಯವಲ್ಲ. ಪ್ರತ್ಯೇಕ plugins install ಮಾಡಿದರೆ ಸಾಮಾನ್ಯವಾಗಿ ವೇಗವಾಗಿ ಹಾಗೂ ಹೆಚ್ಚಿನ ನಿಯಂತ್ರಣದೊಂದಿಗೆ ಇದೇ features ಪಡೆಯಬಹುದು. ದೊಡ್ಡ frameworks shell startup ಸಮಯವನ್ನು ಗಮನಾರ್ಹವಾಗಿ ನಿಧಾನಗೊಳಿಸಬಹುದು.
 
+# ಶೆಲ್‌ನಲ್ಲಿನ AI
 
-# AI in the Shell
+Shell ನಲ್ಲಿ AI tooling ಸೇರಿಸುವ ಹಲವು ಮಾರ್ಗಗಳಿವೆ. integration ಮಟ್ಟದ ಪ್ರಕಾರ ಕೆಲವು ಉದಾಹರಣೆಗಳು ಇಲ್ಲಿವೆ:
 
-There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
-
-**Command generation**: Tools like [`simonw/llm`](https://github.com/simonw/llm) can help generate shell commands from natural language descriptions:
+**Command generation**: [`simonw/llm`](https://github.com/simonw/llm) ಹಾಗೆಯ tools, natural language ವಿವರಣೆಯಿಂದ shell commands ರಚಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.
 
 ```console
 $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
+**Pipeline integration**: data process/transform ಮಾಡಲು LLMs ಅನ್ನು shell pipelines ಗೆ ಸೇರಿಸಬಹುದು.
+formats ಅಸಂಗತವಾಗಿರುವ data ಯಿಂದ ಮಾಹಿತಿ ತೆಗೆಯುವಲ್ಲಿ regex ಕಷ್ಟವಾದಾಗ ಇದು ವಿಶೇಷವಾಗಿ ಉಪಯುಕ್ತ.
 
 ```console
 $ cat users.txt
@@ -789,40 +812,40 @@ mike_wilson
 sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
+ಇಲ್ಲಿ `"$INSTRUCTIONS"` quoted ಆಗಿದೆ, ಏಕೆಂದರೆ variable ನಲ್ಲಿ spaces ಇವೆ.
+`< users.txt` file content ಅನ್ನು stdin ಗೆ redirect ಮಾಡುತ್ತದೆ.
 
-**AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
+**AI shells**: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) ಹಾಗೆಯ tools meta-shell ಆಗಿ ಕೆಲಸ ಮಾಡಿ English commands ಅನ್ನು shell operations, file edits, ಮತ್ತು ಸಂಕೀರ್ಣ multi-step tasks ಗಳಿಗೆ ಅನುವಾದಿಸುತ್ತವೆ.
 
-# Terminal Emulators
+# ಟರ್ಮಿನಲ್ ಎಮ್ಯುಲೇಟರ್ಸ್
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
-A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
-There are many terminal emulators out there.
+shell customization ಜೊತೆಗೆ **terminal emulator** ಆಯ್ಕೆ ಮತ್ತು settings ಗೂ ಸಮಯ ಹೂಡುವುದು ಸೂಕ್ತ.
+Terminal emulator ಅಂದರೆ ನಿಮ್ಮ shell ಓಡುವ text-based interface ನೀಡುವ GUI program.
+ಇಂತಹ terminal emulators ಹಲವಾರು ಲಭ್ಯ.
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+terminal ನಲ್ಲಿ ನೀವು ನೂರಾರು ರಿಂದ ಸಾವಿರಾರು ಗಂಟೆಗಳವರೆಗೆ ಕಳೆಯುವ ಸಾಧ್ಯತೆ ಇರುವುದರಿಂದ ಅದರ settings ಮೇಲೆ ಗಮನ ಕೊಡುವುದು ಪ್ರಯೋಜನಕಾರಿ.
+ಬದಲಾಯಿಸಲು ಪರಿಗಣಿಸಬಹುದಾದ ಅಂಶಗಳು:
 
-- Font choice
-- Color Scheme
+- Font ಆಯ್ಕೆ
+- Color scheme
 - Keyboard shortcuts
 - Tab/Pane support
 - Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/alacritty/alacritty) or [Ghostty](https://ghostty.org/) offer GPU acceleration).
+- Performance (ಉದಾ. [Alacritty](https://github.com/alacritty/alacritty), [Ghostty](https://ghostty.org/) ಇತ್ಯಾದಿ terminals GPU acceleration ಒದಗಿಸುತ್ತವೆ)
 
+# ವ್ಯಾಯಾಮಗಳು
 
+## Arguments ಮತ್ತು Globs
 
-# Exercises
+1. `cmd --flag -- --notaflag` ಹೀಗೆ commands ಕಾಣಬಹುದು. ಇಲ್ಲಿ `--` ಒಂದು ವಿಶೇಷ argument: ಇದರ ನಂತರ flags parsing ನಿಲ್ಲಿಸಬೇಕು ಎಂದು program ಗೆ ಸೂಚಿಸುತ್ತದೆ. `--` ನಂತರ ಇರುವ ಎಲ್ಲವೂ positional arguments ಆಗಿ ಪರಿಗಣಿಸಬೇಕು. ಇದು ಯಾಕೆ ಉಪಯುಕ್ತ? `touch -- -myfile` ಪ್ರಯತ್ನಿಸಿ, ನಂತರ `--` ಬಳಸದೆ ಅದನ್ನು remove ಮಾಡಿ ನೋಡಿ.
 
-## Arguments and Globs
+1. [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) ಓದಿ ಮತ್ತು ಈ ರೀತಿಯಲ್ಲಿ files ಪಟ್ಟಿ ಮಾಡುವ `ls` command ಬರೆಯಿರಿ:
+    - hidden files ಸೇರಿ ಎಲ್ಲಾ files ಕಾಣಬೇಕು
+    - size human-readable ರೂಪದಲ್ಲಿ ತೋರಬೇಕು (ಉದಾ. 454279954 ಬದಲು 454M)
+    - files recency ಆಧಾರದ ಮೇಲೆ ಕ್ರಮದಲ್ಲಿರಬೇಕು
+    - output colorized ಆಗಿರಬೇಕು
 
-1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
-
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
-
-    A sample output would look like this:
+    sample output:
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -836,11 +859,14 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 ls -lath --color=auto
 {% endcomment %}
 
-1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
+1. Process substitution `<(command)` command output ಅನ್ನು file ಆಗಿ ಬಳಸಲು ಅನುಮತಿಸುತ್ತದೆ. `printenv` ಮತ್ತು `export` output ಹೋಲಿಸಲು `diff` ಬಳಸಿರಿ. ಅವು ಏಕೆ ಬೇರೆ? (Hint: `diff <(printenv | sort) <(export | sort)` ಪ್ರಯತ್ನಿಸಿ).
 
 ## Environment Variables
 
-1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. `marco` ಮತ್ತು `polo` ಎಂಬ bash functions ಬರೆಯಿರಿ:
+   - `marco` execute ಮಾಡಿದಾಗ current working directory ಯಾವುದಾದರೂ ರೀತಿಯಲ್ಲಿ save ಆಗಬೇಕು.
+   - ನಂತರ ನೀವು ಯಾವ directory ಯಲ್ಲಿದ್ದರೂ `polo` execute ಮಾಡಿದರೆ, `marco` execute ಮಾಡಿದ directory ಗೆ `cd` ಆಗಬೇಕು.
+   Debug ಮಾಡಲು `marco.sh` ಫೈಲ್‌ನಲ್ಲಿ code ಬರೆಯಿರಿ ಮತ್ತು `source marco.sh` ಮೂಲಕ shell ಗೆ (re)load ಮಾಡಿ.
 
 {% comment %}
 marco() {
@@ -854,7 +880,7 @@ polo() {
 
 ## Return Codes
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
+1. ಅಪರೂಪವಾಗಿ ವಿಫಲವಾಗುವ command ಇದೆ ಎಂದು ಊಹಿಸಿರಿ. Debug ಮಾಡಲು ಅದರ output ಹಿಡಿಯಬೇಕು, ಆದರೆ failure run ಸಿಗಲು ಸಮಯ ಹಿಡಿಯುತ್ತದೆ. ಕೆಳಗಿನ script fail ಆಗುವವರೆಗೆ ಅದನ್ನು ಓಡಿಸಿ, stdout ಮತ್ತು stderr ಅನ್ನು files ಗೆ capture ಮಾಡಿ, ಕೊನೆಯಲ್ಲಿ ಎಲ್ಲವನ್ನೂ print ಮಾಡುವ bash script ಬರೆಯಿರಿ. Bonus: fail ಆಗಲು ಎಷ್ಟು runs ಬೇಕಾಯಿತು ಎಂದು report ಮಾಡಿ.
 
     ```bash
     #!/usr/bin/env bash
@@ -884,47 +910,51 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-## Signals and Job Control
+## Signals ಮತ್ತು Job Control
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+1. terminal ನಲ್ಲಿ `sleep 10000` job ಆರಂಭಿಸಿ, `Ctrl-Z` ಮೂಲಕ background ಗೆ ಕಳುಹಿಸಿ, `bg` ಬಳಸಿ ಮುಂದುವರಿಸಿ. ನಂತರ [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) ಬಳಸಿ ಅದರ pid ಕಂಡುಹಿಡಿದು, pid ಅನ್ನು ನೇರವಾಗಿ type ಮಾಡದೆ [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) ಬಳಸಿ kill ಮಾಡಿ. (Hint: `-af` flags ಬಳಸಿ).
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. ಒಂದು process ಮುಗಿಯುವವರೆಗೆ ಇನ್ನೊಂದು process ಪ್ರಾರಂಭಿಸಬಾರದು ಎಂದು ಹೇಳೋಣ. ಈ exercise ನಲ್ಲಿ limiting process ಎಂದರೆ `sleep 60 &`. ಇದನ್ನು ಸಾಧಿಸಲು [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command ಬಳಸಬಹುದು. `sleep` launch ಮಾಡಿ, `ls` command ಅನ್ನು background process ಮುಗಿಯುವವರೆಗೆ ಕಾಯುವಂತೆ ಮಾಡಿ ನೋಡಿ.
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+   ಆದರೆ ಬೇರೆ bash session ನಲ್ಲಿ ಇದ್ದರೆ ಇದು ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ, ಏಕೆಂದರೆ `wait` child processes ಮೇಲಷ್ಟೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ.
+   ನಾವು notes ನಲ್ಲಿ ಚರ್ಚಿಸದ ಒಂದು ವಿಷಯ: `kill` command ಯಶಸ್ವಿಯಾದರೆ exit status zero, ಇಲ್ಲದಿದ್ದರೆ nonzero.
+   `kill -0` signal ಕಳುಹಿಸುವುದಿಲ್ಲ; process ಇಲ್ಲದಿದ್ದರೆ nonzero return ಕೊಡುತ್ತದೆ.
+   ಕೊಟ್ಟ pid ಮುಗಿಯುವವರೆಗೆ ಕಾಯುವ `pidwait` ಎಂಬ bash function ಬರೆಯಿರಿ. CPU ವ್ಯರ್ಥವಾಗದಂತೆ `sleep` ಬಳಸಬೇಕು.
 
-## Files and Permissions
+## Files ಮತ್ತು Permissions
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (Advanced) ಒಂದು directory ಯಲ್ಲಿರುವ ಅತ್ಯಂತ ಇತ್ತೀಚೆಗೆ modified ಆದ file ಅನ್ನು recursive ಆಗಿ ಕಂಡುಹಿಡಿಯುವ command/script ಬರೆಯಿರಿ. ಹೆಚ್ಚಿನವಾಗಿ, recency ಪ್ರಕಾರ ಎಲ್ಲಾ files ಪಟ್ಟಿ ಮಾಡಬಹುದೇ?
 
 ## Terminal Multiplexers
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. ಈ `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) ಅನುಸರಿಸಿ, ನಂತರ [ಈ ಹಂತಗಳು](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/) ಬಳಸಿ ಕೆಲವು ಮೂಲಭೂತ customizations ಕಲಿಯಿರಿ.
 
-## Aliases and Dotfiles
+## Aliases ಮತ್ತು Dotfiles
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+1. ತಪ್ಪಾಗಿ type ಮಾಡಿದಾಗ ಉಪಯೋಗವಾಗುವಂತೆ `cd` ಗೆ `dc` alias ರಚಿಸಿ.
 
-1. Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1. `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` command ಓಡಿಸಿ top 10 ಹೆಚ್ಚು ಬಳಸುವ commands ನೋಡಿ, ಅವಕ್ಕೆ ಚಿಕ್ಕ aliases ಬರೆಯುವ ಬಗ್ಗೆ ಯೋಚಿಸಿ. Note: ಇದು Bash ಗೆ. ZSH ಬಳಿಸಿದರೆ `history` ಬದಲು `history 1` ಬಳಸಿ.
 
-1. Create a folder for your dotfiles and set up version control.
+1. dotfiles ಗಾಗಿ folder ರಚಿಸಿ, version control ಹೊಂದಿಸಿ.
 
-1. Add a configuration for at least one program, e.g. your shell, with some customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. ಕನಿಷ್ಠ ಒಂದು program (ಉದಾ: shell) ಗೆ configuration ಸೇರಿಸಿ. ಆರಂಭಕ್ಕೆ `$PS1` ಬದಲಿಸಿ prompt customize ಮಾಡುವಷ್ಟು ಸರಳವಾಗಿರಬಹುದು.
 
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
+1. ಹೊಸ machine ನಲ್ಲಿ manual effort ಇಲ್ಲದೆ dotfiles ತ್ವರಿತವಾಗಿ install ಆಗುವ ವಿಧಾನ ಸಿದ್ಧಪಡಿಸಿ. ಸರಳ `ln -s` script ಸಾಕು, ಅಥವಾ [specialized utility](https://dotfiles.github.io/utilities/) ಬಳಸಿ.
 
-1. Test your installation script on a fresh virtual machine.
+1. ನಿಮ್ಮ install script ಅನ್ನು fresh virtual machine ನಲ್ಲಿ ಪರೀಕ್ಷಿಸಿ.
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+1. ನಿಮ್ಮ ಪ್ರಸ್ತುತ tool configurations ಎಲ್ಲವನ್ನೂ dotfiles repository ಗೆ ಸ್ಥಳಾಂತರಿಸಿ.
 
-1. Publish your dotfiles on GitHub.
+1. ನಿಮ್ಮ dotfiles ಅನ್ನು GitHub ನಲ್ಲಿ ಪ್ರಕಟಿಸಿ.
 
 ## Remote Machines (SSH)
 
-Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+ಈ exercises ಗಾಗಿ Linux virtual machine install ಮಾಡಿ (ಅಥವಾ ಈಗಾಗಲೇ ಇರುವುದನ್ನು ಬಳಸಿ).
+Virtual machines ಪರಿಚಯವಿಲ್ಲದಿದ್ದರೆ [ಈ tutorial](https://hibbard.eu/install-ubuntu-virtual-box/) ನೋಡಿ.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
+1. `~/.ssh/` ಗೆ ಹೋಗಿ SSH key pair ಇದೆಯೇ ನೋಡಿ. ಇಲ್ಲದಿದ್ದರೆ `ssh-keygen -a 100 -t ed25519` ಬಳಸಿ generate ಮಾಡಿ. passphrase ಬಳಸುವುದು ಮತ್ತು `ssh-agent` ಬಳಸುವುದು ಶಿಫಾರಸು - ಹೆಚ್ಚಿನ ಮಾಹಿತಿ [ಇಲ್ಲಿ](https://www.ssh.com/ssh/agent).
 
-1. Edit `.ssh/config` to have an entry as follows:
+1. `.ssh/config` ನಲ್ಲಿ ಈ ರೀತಿಯ entry ಸೇರಿಸಿ:
 
     ```bash
     Host vm
@@ -934,12 +964,12 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
         LocalForward 9999 localhost:8888
     ```
 
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. `ssh-copy-id vm` ಬಳಸಿ ನಿಮ್ಮ ssh key server ಗೆ copy ಮಾಡಿ.
 
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. VM ನಲ್ಲಿ `python -m http.server 8888` execute ಮಾಡಿ webserver ಶುರುಮಾಡಿ. ನಿಮ್ಮ machine ನಲ್ಲಿ `http://localhost:9999` ತೆರೆಯಿರಿ.
 
-1. Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. `sudo vim /etc/ssh/sshd_config` ಮೂಲಕ SSH server config edit ಮಾಡಿ. `PasswordAuthentication` value ಬದಲಿಸಿ password authentication disable ಮಾಡಿ. `PermitRootLogin` value ಬದಲಿಸಿ root login disable ಮಾಡಿ. `sudo service sshd restart` ಮೂಲಕ `ssh` service restart ಮಾಡಿ. ಮತ್ತೆ ssh ಮಾಡಿ ಪರೀಕ್ಷಿಸಿ.
 
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (Challenge) VM ನಲ್ಲಿ [`mosh`](https://mosh.org/) install ಮಾಡಿ connection ಸ್ಥಾಪಿಸಿ. ನಂತರ server/VM network adapter disconnect ಮಾಡಿ. mosh ಸರಿಯಾಗಿ recover ಆಗುತ್ತದೆಯೇ ನೋಡಿ.
 
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+1. (Challenge) `ssh` command ನಲ್ಲಿ `-N` ಮತ್ತು `-f` flags ಏನು ಮಾಡುತ್ತವೆ ನೋಡಿ. background port forwarding ಮಾಡಲು ಸರಿಯಾದ command ಕಂಡುಹಿಡಿಯಿರಿ.
