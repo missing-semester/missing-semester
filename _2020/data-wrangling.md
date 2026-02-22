@@ -312,7 +312,7 @@ matches the end). Now, the per-line block just adds the count from the
 first field (although it'll always be 1 in this case), and then we print
 it out at the end. In fact, we _could_ get rid of `grep` and `sed`
 entirely, because `awk` [can do it
-all](https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
+all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
 leave that as an exercise to the reader.
 
 ## Analyzing data
