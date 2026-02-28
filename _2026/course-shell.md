@@ -306,7 +306,7 @@ focus on some of the most important ones here. First, some simple ones:
 
 There's also `grep pattern file`, which finds lines matching `pattern`
 in `file`. This one deserves slightly more attention as it's both _very_
-useful and sports a wider array of features than one may expect.
+useful and supports a wider array of features than one may expect.
 `pattern` is actually a _regular expression_ which can express very
 complex patterns --- we'll [cover
 those](/2026/code-quality/#regular-expressions)
