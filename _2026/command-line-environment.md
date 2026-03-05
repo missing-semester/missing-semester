@@ -325,7 +325,7 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl` is displayed when typed in the terminal.
+> Note, here `^C` is how `Ctrl-C` is displayed when typed in the terminal.
 
 Under the hood, what happened here is the following:
 
