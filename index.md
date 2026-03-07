@@ -110,6 +110,7 @@ benefit from these resources. You can find posts and discussion on
 - [Russian](https://missing-semester-rus.github.io/)
 - [Serbian](https://netboxify.com/missing-semester/)
 - [Spanish](https://missing-semester-esp.github.io/)
+- [Swedish](https://itiquette.github.io/den-saknade-terminen/)
 - [Thai](https://missing-semester-th.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
