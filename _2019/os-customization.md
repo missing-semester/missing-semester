@@ -7,6 +7,7 @@ order: 3
 video:
   aspect: 62.5
   id: epSRVqQzeDo
+special: true
 ---
 
 There is a lot you can do to customize your operating system beyond what is

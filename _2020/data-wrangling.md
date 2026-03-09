@@ -9,6 +9,7 @@ ready: true
 video:
   aspect: 56.25
   id: sz_dsktIjt4
+special: true
 ---
 
 Have you ever wanted to take data in one format and turn it into a

@@ -7,6 +7,7 @@ order: 4
 video:
   aspect: 56.25
   id: eNYT2Oq3PF8
+special: true
 ---
 
 Sometimes, computers misbehave. And very often, you want to know why.

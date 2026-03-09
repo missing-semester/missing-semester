@@ -3,7 +3,8 @@ layout: page
 title: The Missing Semester of Your CS Education
 description: >
   Master powerful tools that will make you a more productive computer scientist and programmer.
-subtitle: IAP 2026
+# subtitle: IAP 2026
+subtitle: "2026"
 nositetitle: true
 ---
 
@@ -37,7 +38,7 @@ Read about the [motivation behind this class](/about/).
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 {% endcomment %}
 
-# Schedule
+# Syllabus
 
 {% comment %}
 **Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
@@ -49,7 +50,7 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 {% for lecture in lectures %}
     {% if lecture.phony != true %}
         <li>
-        <strong>{{ lecture.date | date: '%-m/%d/%y' }}</strong>:
+        <strong>{{ lecture.date | date: '%-m/%-d/%y' }}</strong>:
         {% if lecture.ready %}
             <a href="{{ lecture.url }}">{{ lecture.title }}</a>
         {% else %}
@@ -57,6 +58,29 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
         {% endif %}
         </li>
     {% endif %}
+{% endfor %}
+</ul>
+
+## Special topics from previous years
+
+The topics we cover vary from year to year. For students who are interested in the complete set of topics we have covered over the years, we highlight topics covered in previous years that we did not cover in 2026.
+
+{% comment %} pop to remove default "posts" collection {% endcomment %}
+{% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
+<ul>
+{% for collection in sorted_collections %}
+    {% assign grouped_lectures = site[collection.label] | group_by: 'date' | sort: 'name' %}
+    {% for group in grouped_lectures %}
+        {% assign sorted_lectures = group.items | sort: 'order' %}
+        {% for lecture in sorted_lectures %}
+            {% if lecture.special == true %}
+                <li>
+                    <strong>{{ lecture.date | date: '%-m/%-d/%y' }}</strong>:
+                    <a href="{{ lecture.url }}">{{ lecture.title }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 {% endfor %}
 </ul>
 
@@ -68,14 +92,11 @@ from the [previous offering of the course](/2020/), which covers many of the
 same topics.
 {% endcomment %}
 
-You can view lecture videos on [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L).
-
-You can discuss the course in the [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors).
-
-# About the class
+# General information
 
 **Staff**: This class is co-taught by [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/).<br>
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).<br>
+**Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors).
 
 # Beyond MIT
 

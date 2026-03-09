@@ -9,6 +9,7 @@ ready: true
 video:
   aspect: 56.25
   id: tjwobAmnKTo
+special: true
 ---
 
 Last year's [security and privacy lecture](/2019/security/) focused on how you

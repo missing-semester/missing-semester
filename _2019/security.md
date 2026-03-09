@@ -7,6 +7,7 @@ order: 2
 video:
   aspect: 56.25
   id: OBx_c-i-M8s
+special: true
 ---
 
 The world is a scary place, and everyone's out to get you.

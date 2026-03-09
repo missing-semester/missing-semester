@@ -9,6 +9,7 @@ ready: true
 video:
   aspect: 56.25
   id: Wz50FvGG6xU
+special: true
 ---
 
 For the last lecture, we answered questions that the students submitted:
