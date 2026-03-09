@@ -2,6 +2,8 @@
 layout: lecture
 title: "Course Overview"
 presenter: Anish
+date: 2019-01-15
+order: 1
 video:
   aspect: 56.25
   id: qw2c6ffSVOM

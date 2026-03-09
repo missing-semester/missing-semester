@@ -2,6 +2,8 @@
 layout: lecture
 title: "Editors"
 presenter: Anish
+date: 2019-01-22
+order: 1
 video:
   aspect: 62.5
   id: 1vLcusYSrI4

@@ -2,6 +2,8 @@
 layout: lecture
 title: "Program Introspection"
 presenter: Anish
+date: 2019-01-29
+order: 1
 video:
   aspect: 62.5
   id: 74MhV-7hYzg

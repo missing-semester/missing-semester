@@ -2,6 +2,8 @@
 layout: lecture
 title: "Package Management and Dependency Management"
 presenter: Anish
+date: 2019-01-29
+order: 2
 video:
   aspect: 56.25
   id: tgvt473T8xA

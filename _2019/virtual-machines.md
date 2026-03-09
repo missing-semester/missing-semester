@@ -2,6 +2,8 @@
 layout: lecture
 title: "Virtual Machines and Containers"
 presenter: Anish, Jon
+date: 2019-01-15
+order: 2
 video:
   aspect: 56.25
   id: LJ9ki5zq6Ik

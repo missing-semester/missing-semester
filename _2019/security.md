@@ -2,6 +2,8 @@
 layout: lecture
 title: "Security and Privacy"
 presenter: Jon
+date: 2019-01-31
+order: 2
 video:
   aspect: 56.25
   id: OBx_c-i-M8s

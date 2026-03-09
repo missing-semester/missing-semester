@@ -2,6 +2,8 @@
 layout: lecture
 title: "OS Customization"
 presenter: Anish
+date: 2019-01-29
+order: 3
 video:
   aspect: 62.5
   id: epSRVqQzeDo

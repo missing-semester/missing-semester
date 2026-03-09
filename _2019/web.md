@@ -2,6 +2,8 @@
 layout: lecture
 title: "Web and Browsers"
 presenter: Jose
+date: 2019-01-31
+order: 1
 video:
   aspect: 62.5
   id: XpZO3S8odec

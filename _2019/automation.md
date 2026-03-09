@@ -2,6 +2,8 @@
 layout: lecture
 title: "Automation"
 presenter: Jose
+date: 2019-01-24
+order: 3
 video:
   aspect: 56.25
   id: BaLlAaHz-1k

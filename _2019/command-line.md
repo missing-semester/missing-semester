@@ -2,6 +2,8 @@
 layout: lecture
 title: "Command-line environment"
 presenter: Jose
+date: 2019-01-17
+order: 1
 video:
   aspect: 62.5
   id: i0rf1gpKL1E

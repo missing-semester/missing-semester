@@ -2,6 +2,8 @@
 layout: lecture
 title: "Dotfiles"
 presenter: Anish
+date: 2019-01-24
+order: 1
 video:
   aspect: 62.5
   id: YSZBWWJw3mI

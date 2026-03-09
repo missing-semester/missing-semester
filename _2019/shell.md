@@ -2,6 +2,8 @@
 layout: lecture
 title: "Shell and Scripting"
 presenter: Jon
+date: 2019-01-15
+order: 3
 video:
   aspect: 56.25
   id: dbDRfmH5uSI

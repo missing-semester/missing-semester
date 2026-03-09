@@ -2,6 +2,8 @@
 layout: lecture
 title: "Version Control"
 presenter: Jon
+date: 2019-01-22
+order: 2
 video:
   aspect: 56.25
   id: 3fig2Vz8QXs

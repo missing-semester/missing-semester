@@ -2,6 +2,8 @@
 layout: lecture
 title: "Remote Machines"
 presenter: Jose
+date: 2019-01-29
+order: 4
 video:
   aspect: 62.5
   id: X5c2Y8BCowM

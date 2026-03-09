@@ -2,6 +2,8 @@
 layout: lecture
 title: "Data Wrangling"
 presenter: Jon
+date: 2019-01-17
+order: 2
 video:
   aspect: 56.25
   id: VW2jn9Okjhw

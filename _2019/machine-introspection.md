@@ -2,6 +2,8 @@
 layout: lecture
 title: "Machine Introspection"
 presenter: Jon
+date: 2019-01-24
+order: 4
 video:
   aspect: 56.25
   id: eNYT2Oq3PF8
