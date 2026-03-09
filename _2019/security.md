@@ -205,9 +205,7 @@ data from the others. In Google Chrome, you can use [Chrome
 Profiles](https://support.google.com/chrome/answer/2364824) to achieve
 similar results.
 
-Exercises
-
-TODO
+## Exercises
 
 1. Encrypt a file using PGP
 1. Use veracrypt to create a simple encrypted volume
