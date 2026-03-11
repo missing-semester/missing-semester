@@ -6,6 +6,8 @@ description: >
 thumbnail: /static/assets/thumbnails/2020/lec3.png
 date: 2020-01-15
 ready: true
+previous_lesson: "/2020/shell-tools"
+next_lesson: "/2020/data-wrangling"
 video:
   aspect: 56.25
   id: a6Q8Na575qc
