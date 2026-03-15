@@ -9,7 +9,7 @@ open an issue or submit a pull all request.
 
 ## Development
 
-To build and view the site locally, run:
+To build and view the site is locally, run:
 
 ```bash
 bundle exec jekyll serve -w
