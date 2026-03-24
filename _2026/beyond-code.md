@@ -234,7 +234,7 @@ contributor has moved on, and so may decline changes that are
 well-intentioned but don't fit the project's direction, add complexity
 they don't want to maintain, or where the need simply isn't sufficiently
 well-documented. It's on _you_ as the contributor to make the case for
-why the accepting the contribution is worth the maintenance burden.
+why accepting the contribution is worth the maintenance burden.
 
 > When receiving feedback on a PR, remember that your code is not you!
 > Reviewers are trying to make the code better, not criticizing you
