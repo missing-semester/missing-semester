@@ -33,7 +33,7 @@ In contrast, shell scripts can look quite different at first glance.
 ```shell
 #!/usr/bin/env bash
 
-if [[ -f $1 ]]; then
+if [[ -f "$1" ]]; then
     echo "Target file already exists"
     exit 1
 else
