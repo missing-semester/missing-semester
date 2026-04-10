@@ -6,7 +6,7 @@ description: >
 permalink: /2026/
 phony: true
 ---
-
+   h       hhh   h    
 <ul class="double-spaced">
   {% assign lectures = site['2026'] | sort: 'date' %}
   {% for lecture in lectures %}
