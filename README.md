@@ -19,7 +19,7 @@ If you'd prefer to develop the site in a Docker container (e.g., to avoid
 having to install Ruby and dependencies on your host machine), run:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Then, navigate to <http://localhost:4000> on your host machine to view the
