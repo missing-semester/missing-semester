@@ -123,7 +123,7 @@ Bash splits arguments by whitespace; not always what you want!
    but what if a filename contains a newline?! turns into space!
  - quote all use of variables that you don't want split
  - but how do we fix our script above?
-   what does `for f in "$(ls)"` do do you think?
+   what do you think `for f in "$(ls)"` does?
 
 Globbing is the answer!
 
