@@ -209,7 +209,7 @@ description = "A simple greeting library"
 dependencies = ["typer>=0.9"]
 
 [project.scripts]
-greet = "greeting:main"
+greet = "greeting:cli"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -228,12 +228,12 @@ def greet(name: str) -> str:
     return f"Hello, {name}!"
 
 
-def main(name: str):
-    print(greet(name))
+def cli():
+    typer.run(greet)
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    cli()
 ```
 
 With this file, we can now build the wheel:
