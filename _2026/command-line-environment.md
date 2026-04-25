@@ -605,7 +605,7 @@ hidden in the directory listing `ls` by default).
 
 Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
 Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+[Here](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
 
 For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
 Some other examples of tools that can be configured through dotfiles are:

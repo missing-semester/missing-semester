@@ -141,7 +141,7 @@ fi
 - [GitHub does dotfiles](https://dotfiles.github.io/): dotfile frameworks,
 utilities, examples, and tutorials
 - [Shell startup
-  scripts](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html): an
+  scripts](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html): an
   explanation of the different configuration files used for your shell
 
 # Exercises
