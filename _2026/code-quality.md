@@ -34,7 +34,7 @@ You can set up [IDE integration](/2026/development-environment/#code-intelligenc
 
 # Linting
 
-Linters run static analysis (analyze your code without running it) to find antipatterns and potential issues in your code. These tools go deeper than autoformatters, looking beyond surface syntax. The level of depth of analysis varies by tool.
+Linters run static analysis (analyze your code without running it) to find antipatterns and potential issues in your code. These tools go deeper than autoformatters, looking beyond surface syntax. The depth of analysis varies by tool.
 
 Linters come equipped with lists of _rules_, with presets that can be configured on a project-level basis. Some linter rules produce false positives, so you can disable them on a per-file or per-line basis.
 
