@@ -7,6 +7,8 @@ thumbnail: /static/assets/thumbnails/2020/lec8.png
 details: build systems, dependency management, testing, CI
 date: 2020-01-27
 ready: true
+previous_lesson: "/2020/debugging-profiling"
+next_lesson: "/2020/security"
 video:
   aspect: 56.25
   id: _Ms1Z4xfqv4
