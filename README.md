@@ -4,8 +4,8 @@
 
 Website for [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)!
 
-Contributions are most welcome! If you have edits or new content to add, please
-open an issue or submit a pull request.
+Contributions are welcome! If you have edits, fixes, or new content to add,
+please open an issue or submit a pull request.
 
 ## Development
 
