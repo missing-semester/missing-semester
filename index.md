@@ -126,6 +126,7 @@ benefit from these resources. You can find posts and discussion on
 - [Japanese](https://missing-semester-jp.github.io/)
 - [Kannada](https://missing-semester-kn.github.io/)
 - [Korean](https://missing-semester-kr.github.io/)
+- [Mongolian](https://missing-semester-mn.github.io)
 - [Persian](https://missing-semester-fa.github.io/)
 - [Portuguese](https://missing-semester-pt.github.io/)
 - [Russian](https://missing-semester-rus.github.io/)
@@ -135,7 +136,6 @@ benefit from these resources. You can find posts and discussion on
 - [Thai](https://missing-semester-th.github.io/)
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
-- [Mongolian](https://missing-semester-mn.github.io/)
 
 Note: these are external links to community translations. We have not vetted
 them.
