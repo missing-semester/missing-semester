@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line environment"
+title: "Lingkungan command-line"
 presenter: Jose
 date: 2019-01-17
 order: 1
@@ -9,9 +9,9 @@ video:
   id: i0rf1gpKL1E
 ---
 
-## Aliases & Functions
+## Alias & Fungsi
 
-As you can imagine it can become tiresome typing long commands that involve many flags or verbose options. Nevertheless, most shells support **aliasing**. For instance, an alias in bash has the following structure (note there is no space around the `=` sign):
+Seperti yang dapat Anda bayangkan, mengetik perintah panjang yang melibatkan banyak flag atau opsi verbose bisa menjadi melelahkan. Meskipun demikian, sebagian besar shell mendukung **aliasing**. Sebagai contoh, alias dalam bash memiliki struktur berikut (perhatikan tidak ada spasi di sekitar tanda `=`):
 
 ```bash
 alias alias_name="command_to_alias"
@@ -19,26 +19,26 @@ alias alias_name="command_to_alias"
 
 <!-- We can alias common flags for our commands like `alias ll=ls -ltAh`. Alias can be composed  -->
 
-Alias have many convenient features
+Alias memiliki banyak fitur yang berguna
 
 ```bash
-# Alias can summarize good default flags
+# Alias dapat merangkum flag default yang baik
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# Menghemat banyak pengetikan untuk perintah umum
 alias gc="git commit"
 
-# Alias can overwrite existing commands
+# Alias dapat menimpa perintah yang sudah ada
 alias mv="mv -i"
 alias mkdir="mkdir -p"
 
-# Alias can be composed
+# Alias dapat digabungkan
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# Untuk mengabaikan alias, jalankan dengan awalan \
 \ls
-# Or can be disabled using unalias
+# Atau dapat dinonaktifkan menggunakan unalias
 unalias la
 
 ```
@@ -46,9 +46,9 @@ unalias la
 To get rid of an alias you can run `unalias alias_name` or to ignore alias when running a command you can prepend the command with a backward slash `\alias_name`. This is convenient when an alias is overwriting an existing name. -->
 
 
-However in many scenarios aliases can be limiting, specially when you are trying to write chain commands together that take the same arguments. An alternative exists which is **functions** which are a midpoint between aliases and custom shell scripts.
+Namun dalam banyak skenario, alias bisa terbatas, terutama ketika Anda mencoba menulis rangkaian perintah yang mengambil argumen yang sama. Ada alternatif yaitu **fungsi** yang merupakan titik tengah antara alias dan skrip shell khusus.
 
-Here is an example function that makes a directory and move into it.
+Berikut adalah contoh fungsi yang membuat direktori dan pindah ke dalamnya.
 
 ```bash
 mcd () {
@@ -57,119 +57,119 @@ mcd () {
 }
 ```
 
-Alias and functions will not persist shell sessions by default. To make an alias persistent you need to include it a one the shell startup script files like `.bashrc` or `.zshrc`. My suggestion is to write them separately in a `.alias` and `source` that file from your different shell config files.
+Alias dan fungsi tidak akan bertahan dalam sesi shell secara default. Untuk membuat alias tetap persisten, Anda perlu memasukkannya ke dalam salah satu file skrip startup shell seperti `.bashrc` atau `.zshrc`. Saran saya adalah menulisnya secara terpisah di `.alias` dan melakukan `source` pada file tersebut dari file konfigurasi shell Anda yang berbeda.
 
 <!-- Lastly, if you decide to alias any of these tools with the "improved" version, e.g. `alias bat=cat` it is useful to know that you can tell bash to ignore aliases by doing `\cat` and ignore both aliases and functions by doing `command cat` -->
 
-## Shells & Frameworks
+## Shell & Framework
 
-During shell and scripting we covered the `bash` shell since it is by far the most ubiquitous shell and most systems have it as the default option. Nevertheless, it is not the only option.
+Selama pembahasan shell dan scripting, kita membahas shell `bash` karena ini adalah shell yang paling banyak digunakan dan sebagian besar sistem memilikinya sebagai opsi default. Meskipun demikian, ini bukan satu-satunya opsi.
 
-For example the `zsh` shell is a superset of `bash` and provides many convenient features out of the box such as:
+Sebagai contoh, shell `zsh` adalah superset dari `bash` dan menyediakan banyak fitur berguna secara langsung seperti:
 
-- Smarter globbing, `**`
-- Inline globbing/wildcard expansion
-- Spelling correction
-- Better tab completion/selection
-- Path expansion (`cd /u/lo/b` will expand as `/usr/local/bin`)
+- Globbing yang lebih cerdas, `**`
+- Ekspansi globbing/wildcard inline
+- Koreksi ejaan
+- Tab completion/selection yang lebih baik
+- Ekspansi path (`cd /u/lo/b` akan diperluas menjadi `/usr/local/bin`)
 
-Moreover many shells can be improved with **frameworks**, some popular general frameworks like [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), and smaller ones that focus on specific features like for example [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) or [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Other shells like [fish](https://fishshell.com/) include a lot of these user-friendly features by default. Some of these features include:
+Selain itu, banyak shell dapat ditingkatkan dengan **framework**, beberapa framework umum populer seperti [prezto](https://github.com/sorin-ionescu/prezto) atau [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), dan yang lebih kecil yang berfokus pada fitur tertentu seperti misalnya [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) atau [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shell lain seperti [fish](https://fishshell.com/) menyertakan banyak fitur ramah pengguna ini secara default. Beberapa fitur ini meliputi:
 
 - Right prompt
-- Command syntax highlighting
-- History substring search
-- manpage based flag completions
-- Smarter autocompletion
-- Prompt themes
+- Syntax highlighting perintah
+- Pencarian substring riwayat
+- Completion flag berdasarkan manpage
+- Autocompletion yang lebih cerdas
+- Tema prompt
 
-One thing to note when using these frameworks is that if the code they run is not properly optimized or it is too much code, your shell can start slowing down. You can always profile it and disable the features that you do not use often or value over speed.
+Satu hal yang perlu diperhatikan saat menggunakan framework ini adalah jika kode yang mereka jalankan tidak dioptimalkan dengan baik atau terlalu banyak kode, shell Anda bisa mulai melambat. Anda selalu dapat melakukan profiling dan menonaktifkan fitur yang tidak sering Anda gunakan atau mengutamakan kecepatan.
 
-## Terminal Emulators & Multiplexers
+## Terminal Emulator & Multiplexer
 
-Along with customizing your shell it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
+Selain mengkustomisasi shell Anda, ada baiknya meluangkan waktu untuk mencari pilihan **terminal emulator** Anda dan pengaturannya. Ada banyak terminal emulator di luar sana (berikut adalah [perbandingannya](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+Karena Anda mungkin menghabiskan ratusan hingga ribuan jam di terminal Anda, ada baiknya Anda menyelidiki pengaturannya. Beberapa aspek yang mungkin ingin Anda ubah di terminal Anda meliputi:
 
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/jwilm/alacritty) offer GPU acceleration)
+- Pilihan font
+- Skema Warna
+- Pintasan keyboard
+- Dukungan Tab/Pane
+- Konfigurasi scrollback
+- Performa (beberapa terminal baru seperti [Alacritty](https://github.com/jwilm/alacritty) menawarkan akselerasi GPU)
 
-It is also worth mentioning **terminal multiplexers** like [tmux](https://github.com/tmux/tmux). `tmux` allows you to pane and tab multiple shell sessions. It also supports attaching and detaching which is a very common use-case when you are working on a remote server and want to keep you shell running without having to worry about disowning you current processes (by default when you log out your processes are terminated).  This way, with `tmux` you can jump into and out of complex terminal layouts. Similar to terminal emulators `tmux` supports heavy customization by editing the `~/.tmux.conf` file.
-
-
-## Command-line utilities
-
-The command line utilities that most UNIX based operating systems have by default are more than enough to do 99% of the stuff you usually need to do.
+Perlu juga disebutkan **terminal multiplexer** seperti [tmux](https://github.com/tmux/tmux). `tmux` memungkinkan Anda melakukan pane dan tab pada beberapa sesi shell. Ini juga mendukung attaching dan detaching yang merupakan kasus penggunaan yang sangat umum ketika Anda bekerja di server remote dan ingin menjaga shell Anda tetap berjalan tanpa perlu khawatir tentang proses Anda yang dihentikan (secara default ketika Anda logout, proses Anda dihentikan). Dengan cara ini, dengan `tmux` Anda dapat masuk dan keluar dari tata letak terminal yang kompleks. Sama seperti terminal emulator, `tmux` mendukung kustomisasi berat dengan mengedit file `~/.tmux.conf`.
 
 
-In the next few subsections I will cover alternative tools for extremely common shell operations which are more convenient to use. Some of these tools add new improved functionality to the command whereas others just focus on providing a simpler, more intuitive interface with better defaults.
+## Utilitas command-line
+
+Utilitas command-line yang dimiliki sebagian besar sistem operasi berbasis UNIX secara default lebih dari cukup untuk melakukan 99% hal yang biasanya perlu Anda lakukan.
+
+
+Dalam beberapa subbagian berikutnya, saya akan membahas alat alternatif untuk operasi shell yang sangat umum yang lebih nyaman digunakan. Beberapa alat ini menambahkan fungsionalitas baru yang ditingkatkan pada perintah sedangkan yang lain hanya berfokus pada penyediaan antarmuka yang lebih sederhana dan lebih intuitif dengan default yang lebih baik.
 
 ### `fasd` vs `cd`
 
-Even with improved path expansion and tab autocomplete, changing directories can become quite repetitive. [Fasd](https://github.com/clvv/fasd) (or [autojump](https://github.com/wting/autojump)) solves this issue by keeping track of recent and frequent folders you have been to and performing fuzzy matching.
+Bahkan dengan ekspansi path yang ditingkatkan dan tab autocomplete, mengubah direktori bisa menjadi cukup repetitif. [Fasd](https://github.com/clvv/fasd) (atau [autojump](https://github.com/wting/autojump)) menyelesaikan masalah ini dengan melacak folder baru-baru ini dan yang sering Anda kunjungi serta melakukan pencocokan fuzzy.
 
-Thus if I have visited the path `/home/user/awesome_project/code` running `z code` will `cd` to it. If I have multiple folders called code I can disambiguate by running `z awe code` which will be closer match. Unlike autojump,  fasd also provides commands that instead of performing `cd` just expand frequent and /or recent files,folders or both.
+Jadi jika Anda telah mengunjungi path `/home/user/awesome_project/code`, menjalankan `z code` akan melakukan `cd` ke sana. Jika Anda memiliki beberapa folder bernama code, Anda dapat menghilangkan ambiguitas dengan menjalankan `z awe code` yang akan menjadi pencocokan yang lebih dekat. Berbeda dengan autojump, fasd juga menyediakan perintah yang alih-alih melakukan `cd`, hanya memperluas file/folder yang sering dan/atau baru-baru ini atau keduanya.
 
 
 ### `bat` vs `cat`
 
-Even though `cat` does it job perfectly, [bat](https://github.com/sharkdp/bat) improves it by providing syntax highlighting, paging, line numbers and git integration.
+Meskipun `cat` melakukan tugasnya dengan sempurna, [bat](https://github.com/sharkdp/bat) meningkatkannya dengan menyediakan syntax highlighting, paging, nomor baris, dan integrasi git.
 
 
 ### `exa`/`ranger` vs `ls`
 
-`ls` is a great command but some of the defaults can be annoying such as displaying the size in raw bytes. [exa](https://github.com/ogham/exa) provides better defaults
+`ls` adalah perintah yang hebat tetapi beberapa defaultnya bisa mengganggu seperti menampilkan ukuran dalam byte mentah. [exa](https://github.com/ogham/exa) menyediakan default yang lebih baik
 
-If you are in need of navigating many folders and/or previewing many files, [ranger](https://github.com/ranger/ranger) can be much more efficient than `cd` and `cat` due to its wonderful interface. It is quite customizable and with a correct setup you can even [preview images](https://github.com/ranger/ranger/wiki/Image-Previews) in your terminal
+Jika Anda perlu menavigasi banyak folder dan/atau melihat pratinjau banyak file, [ranger](https://github.com/ranger/ranger) bisa jauh lebih efisien daripada `cd` dan `cat` karena antarmukanya yang luar biasa. Ini cukup dapat dikustomisasi dan dengan pengaturan yang benar Anda bahkan dapat [melihat pratinjau gambar](https://github.com/ranger/ranger/wiki/Image-Previews) di terminal Anda
 
 ### `fd` vs `find`
 
-[fd](https://github.com/sharkdp/fd) is a simple, fast and user-friendly alternative to `find`. `find` defaults like having to use the `--name` flag (which is what you want to do 99% of the time) make it easier to use in an every day basis. It is also `git` aware and will skip files in your `.gitignore` and `.git` folder by default. It also has nice color coding by default.
+[fd](https://github.com/sharkdp/fd) adalah alternatif `find` yang sederhana, cepat, dan ramah pengguna. Default `find` seperti harus menggunakan flag `--name` (yang adalah apa yang ingin Anda lakukan 99% dari waktu) membuatnya lebih mudah digunakan sehari-hari. Ini juga `git` aware dan akan melewatkan file di `.gitignore` dan folder `.git` Anda secara default. Ini juga memiliki pewarnaan yang bagus secara default.
 
 ### `rg/fzf` vs `grep`
 
-`grep` is a great tool but if you want to grep through many files at once, there are better tools for that purpose. [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) & [rg](https://github.com/BurntSushi/ripgrep) recursively search your current directory for a regex pattern while respecting your gitignore rules. They all work pretty similar but I favor `rg` due to how fast it can search my entire home directory.
+`grep` adalah alat yang hebat tetapi jika Anda ingin melakukan grep melalui banyak file sekaligus, ada alat yang lebih baik untuk tujuan tersebut. [ack](https://github.com/beyondgrep/ack3), [ag](https://github.com/ggreer/the_silver_searcher) & [rg](https://github.com/BurntSushi/ripgrep) mencari secara rekursif di direktori Anda saat ini untuk pola regex sambil mematuhi aturan gitignore Anda. Semuanya bekerja cukup mirip tetapi saya lebih memilih `rg` karena seberapa cepat ia dapat mencari seluruh direktori home saya.
 
-Similarly, it can be easy to find yourself doing `CMD | grep PATTERN` over an over again. [fzf](https://github.com/junegunn/fzf) is a command line fuzzy finder that enables you to interactively filter the output of pretty much any command.
+Demikian pula, bisa jadi Anda sering melakukan `CMD | grep PATTERN` berulang-ulang. [fzf](https://github.com/junegunn/fzf) adalah command line fuzzy finder yang memungkinkan Anda memfilter output dari hampir semua perintah secara interaktif.
 
 ### `rsync` vs `cp/scp`
 
-Whereas `mv` and `scp` are perfect for most scenarios, when copying/moving around large amounts of files, large files or when some of the data is already on the destination `rsync` is a huge improvement. `rsync` will skip files that have already been transferred and with the `--partial` flag it can resume from a previously interrupted copy.
+Meskipun `mv` dan `scp` sempurna untuk sebagian besar skenario, ketika menyalin/memindahkan sejumlah besar file, file besar, atau ketika beberapa data sudah ada di tujuan, `rsync` adalah peningkatan yang besar. `rsync` akan melewatkan file yang sudah ditransfer dan dengan flag `--partial` ia dapat melanjutkan dari salinan yang sebelumnya terganggu.
 
 ### `trash` vs `rm`
 
-`rm` is a dangerous command in the sense that once you delete a file there is no turning back. However, modern OS do not behave like that when you delete something in the file explorer, they just move it to the Trash folder which is cleared periodically.
+`rm` adalah perintah yang berbahaya dalam arti bahwa setelah Anda menghapus file, tidak ada jalan kembali. Namun, OS modern tidak berperilaku seperti itu ketika Anda menghapus sesuatu di file explorer, mereka hanya memindahkannya ke folder Trash yang dikosongkan secara berkala.
 
-Since how the trash is managed varies from OS to OS there is not a single CLI utility. In macOS there is [trash](https://hasseg.org/trash/) and in linux there is [trash-cli](https://github.com/andreafrancia/trash-cli/) among others.
+Karena cara trash dikelola berbeda dari satu OS ke OS lainnya, tidak ada utilitas CLI tunggal. Di macOS ada [trash](https://hasseg.org/trash/) dan di linux ada [trash-cli](https://github.com/andreafrancia/trash-cli/) dan lain-lain.
 
 ### `mosh` vs `ssh`
 
-`ssh ` is a very handy tool but if you have a slow connection, the lag can become annoying and if the connection interrupts you have to reconnect. [mosh](https://mosh.org/) is a handy tool that works allows roaming, supports intermittent connectivity, and provides intelligent local echo.
+`ssh` adalah alat yang sangat berguna tetapi jika Anda memiliki koneksi lambat, lag bisa menjadi menjengkelkan dan jika koneksi terputus Anda harus terhubung kembali. [mosh](https://mosh.org/) adalah alat berguna yang bekerja memungkinkan roaming, mendukung konektivitas intermiten, dan menyediakan local echo yang cerdas.
 
 ### `tldr` vs `man`
 
-You can figure out what a commands does and what options it has using `man` and the `-h`/'--help' flag most of the time. However, in some cases it can be a bit daunting navigating these if they are detailed
+Anda dapat mengetahui apa yang dilakukan perintah dan opsi apa yang dimilikinya menggunakan `man` dan flag `-h`/'--help' sebagian besar waktu. Namun, dalam beberapa kasus bisa agak menakutkan menavigasi ini jika mereka detail
 
-The [tldr](https://github.com/tldr-pages/tldr) command is a community driven documentation system that's available from the command line and gives a few simple illustrative examples of what the command does and the most common argument options.
+Perintah [tldr](https://github.com/tldr-pages/tldr) adalah sistem dokumentasi berbasis komunitas yang tersedia dari command line dan memberikan beberapa contoh ilustratif sederhana tentang apa yang dilakukan perintah dan opsi argumen yang paling umum.
 
 
 ### `aunpack` vs `tar/unzip/unrar`
 
-As [this xkcd](https://xkcd.com/1168/) references, it can be quite tricky to remember the options for `tar` and sometimes you need a different tool altogether such as `unrar` for .rar files.
-The [atool](https://www.nongnu.org/atool/) package provides the `aunpack` command which will figure out the correct options and always put the extracted archives in a new folder.
+Seperti yang direferensikan [xkcd ini](https://xkcd.com/1168/), bisa cukup rumit untuk mengingat opsi untuk `tar` dan terkadang Anda memerlukan alat yang sama sekali berbeda seperti `unrar` untuk file .rar.
+Paket [atool](https://www.nongnu.org/atool/) menyediakan perintah `aunpack` yang akan mencari tahu opsi yang benar dan selalu menempatkan arsip yang diekstrak dalam folder baru.
 
 
-## Exercises
+## Latihan
 
-1. Run `cat .bash_history | sort | uniq -c | sort -rn | head -n 10` (or `cat .zhistory | sort | uniq -c | sort -rn | head -n 10` for zsh)  to get top 10 most used commands and consider writing shorter aliases for them
-1. Choose a terminal emulator and figure out how to change the following properties:
-    - Font choice
-    - Color scheme. How many colors does a standard scheme have? why?
-    - Scrollback history size
+1. Jalankan `cat .bash_history | sort | uniq -c | sort -rn | head -n 10` (atau `cat .zhistory | sort | uniq -c | sort -rn | head -n 10` untuk zsh) untuk mendapatkan 10 perintah yang paling sering digunakan dan pertimbangkan untuk menulis alias yang lebih pendek untuk mereka
+1. Pilih terminal emulator dan cari tahu cara mengubah properti berikut:
+    - Pilihan font
+    - Skema warna. Berapa banyak warna yang dimiliki skema standar? mengapa?
+    - Ukuran riwayat scrollback
 
-1. Install `fasd` or some similar software and write a bash/zsh function called `v` that performs fuzzy matching on the passed arguments and opens up the top result in your editor of choice. Then, modify it so that if there are multiple matches you can select them with `fzf`.
-1. Since `fzf` is quite convenient for performing fuzzy searches and the shell history is quite prone to those kind of searches, investigate how to bind `fzf` to `^R`. You can find some info [here](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings)
-1. What does the `--bar` option do in `ack`?
+1. Instal `fasd` atau perangkat lunak serupa dan tulis fungsi bash/zsh bernama `v` yang melakukan pencocokan fuzzy pada argumen yang diberikan dan membuka hasil teratas di editor pilihan Anda. Kemudian, modifikasi sehingga jika ada beberapa kecocokan Anda dapat memilihnya dengan `fzf`.
+1. Karena `fzf` sangat nyaman untuk melakukan pencarian fuzzy dan riwayat shell cukup rentan terhadap jenis pencarian tersebut, selidiki cara mengikat `fzf` ke `^R`. Anda dapat menemukan beberapa info [di sini](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings)
+1. Apa yang dilakukan opsi `--bar` di `ack`?

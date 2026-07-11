@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Course Overview"
+title: "Ikhtisar Kursus"
 presenter: Anish
 date: 2019-01-15
 order: 1
@@ -9,30 +9,30 @@ video:
   id: qw2c6ffSVOM
 ---
 
-# Motivation
+# Motivasi
 
-This class is about [hacker](https://en.wikipedia.org/wiki/Hacker_culture)
-tools, not [hacker](https://en.wikipedia.org/wiki/Security_hacker) tools.
+Kelas ini membahas tentang [hacker](https://en.wikipedia.org/wiki/Hacker_culture)
+tools, bukan [hacker](https://en.wikipedia.org/wiki/Security_hacker) tools.
 
-MIT classes do not cover any of this content in detail. It's hugely beneficial
-to be proficient with your tools: it'll save you a lot of time (and the payoff
-time is very short).
+Kelas-kelas di MIT tidak membahas konten ini secara mendalam. Sangat bermanfaat
+untuk mahir menggunakan tools Anda: ini akan menghemat banyak waktu Anda (dan waktu
+untuk melihat hasilnya sangat singkat).
 
-We want to teach you about new tools, how to make the most of your tools, how
-to customize your tools, and how to extend your tools.
+Kami ingin mengajari Anda tentang tools baru, bagaimana memaksimalkan tools Anda,
+bagaimana menyesuaikan tools Anda, dan bagaimana memperluas capabilities tools Anda.
 
-# Class structure
+# Struktur kelas
 
-We have 6 lectures covering a [variety of topics](/2019/). We have lecture
-notes online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording lectures.
+Kami memiliki 6 kuliah yang mencakup [berbagai topik](/2019/). Kami memiliki catatan
+kuliah secara online, tetapi akan ada banyak konten yang dibahas di kelas (misalnya dalam
+bentuk demo) yang mungkin tidak ada dalam catatan. Kami akan merekam kuliah.
 
-Each class is split into two 50-minute lectures with a 10-minute break in
-between. Lectures are mostly live demonstrations followed by hands-on
-exercises. We might have a short amount of time at the end of each class to get
-started on the exercises in an office-hours-style setting.
+Setiap kelas dibagi menjadi dua kuliah masing-masing 50 menit dengan istirahat 10 menit
+di antaranya. Kuliah sebagian besar adalah demonstrasi langsung diikuti dengan latihan
+praktik. Kami mungkin memiliki sedikit waktu di akhir setiap kelas untuk memulai
+mengerjakan latihan dalam suasana office-hours.
 
-To make the most of the class, you should go through all the exercises on your
-own. We'll inspire you to learn more about your tools, and we'll show you
-what's possible and cover some of the basics in detail, but we can't teach you
-everything in the time we have.
+Untuk memaksimalkan kelas ini, Anda harus mengerjakan semua latihan sendiri. Kami akan
+menginspirasi Anda untuk mempelajari lebih lanjut tentang tools Anda, dan kami akan
+menunjukkan apa yang mungkin dilakukan serta membahas beberapa dasar secara detail,
+tetapi kami tidak dapat mengajari Anda semuanya dalam waktu yang kami miliki.

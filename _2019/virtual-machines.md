@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Virtual Machines and Containers"
+title: "Mesin Virtual dan Container"
 presenter: Anish, Jon
 date: 2019-01-15
 order: 2
@@ -9,125 +9,125 @@ video:
   id: LJ9ki5zq6Ik
 ---
 
-# Virtual Machines
+# Mesin Virtual
 
-Virtual machines are simulated computers. You can configure a guest virtual
-machine with some operating system and configuration and use it without
-affecting your host environment.
+Mesin virtual adalah komputer simulasi. Anda dapat mengkonfigurasi guest virtual
+machine dengan sistem operasi dan konfigurasi tertentu lalu menggunakannya tanpa
+mempengaruhi lingkungan host Anda.
 
-For this class, you can use VMs to experiment with operating systems, software,
-and configurations without risk: you won't affect your primary development
-environment.
+Untuk kelas ini, Anda dapat menggunakan VM untuk bereksperimen dengan sistem operasi, perangkat lunak,
+dan konfigurasi tanpa risiko: Anda tidak akan mempengaruhi lingkungan pengembangan
+utama Anda.
 
-In general, VMs have lots of uses. They are commonly used for running software
-that only runs on a certain operating system (e.g. using a Windows VM on Linux
-to run Windows-specific software). They are often used for experimenting with
-potentially malicious software.
+Secara umum, VM memiliki banyak kegunaan. VM sering digunakan untuk menjalankan perangkat lunak
+yang hanya berjalan pada sistem operasi tertentu (misalnya menggunakan VM Windows di Linux
+untuk menjalankan perangkat lunak khusus Windows). VM juga sering digunakan untuk bereksperimen dengan
+perangkat lunak yang berpotensi berbahaya.
 
-## Useful features
+## Fitur yang Berguna
 
-- **Isolation**: hypervisors do a pretty good job of isolating the guest from
-the host, so you can use VMs to run buggy or untrusted software reasonably
-safely.
+- **Isolasi**: hypervisor melakukan isolasi guest dari
+host dengan cukup baik, sehingga Anda dapat menggunakan VM untuk menjalankan perangkat lunak yang buggy
+atau tidak terpercaya dengan relatif aman.
 
-- **Snapshots**: you can take "snapshots" of your virtual machine, capturing
-the entire machine state (disk, memory, etc.), make changes to your machine,
-and then restore to an earlier state. This is useful for testing out
-potentially destructive actions, among other things.
+- **Snapshot**: Anda dapat mengambil "snapshot" dari virtual machine Anda, menangkap
+seluruh keadaan mesin (disk, memori, dll.), membuat perubahan pada mesin Anda,
+dan kemudian mengembalikan ke keadaan sebelumnya. Ini berguna untuk menguji
+tindakan yang berpotensi merusak, diantara hal lainnya.
 
-## Disadvantages
+## Kekurangan
 
-Virtual machines are generally slower than running on bare metal, so they may
-be unsuitable for certain applications.
+Mesin virtual umumnya lebih lambat dibandingkan berjalan langsung di bare metal, sehingga mungkin
+tidak cocok untuk aplikasi tertentu.
 
-## Setup
+## Pengaturan
 
-- **Resources**: shared with host machine; be aware of this when allocating
-physical resources.
+- **Sumber daya**: dibagi dengan mesin host; perhatikan hal ini saat mengalokasikan
+sumber daya fisik.
 
-- **Networking**: many options, default NAT should work fine for most use
-cases.
+- **Jaringan**: banyak opsi, NAT default seharusnya berfungsi baik untuk sebagian besar kasus
+penggunaan.
 
-- **Guest addons**: many hypervisors can install software in the guest to
-enable nicer integration with host system. You should use this if you can.
+- **Guest addon**: banyak hypervisor dapat menginstal perangkat lunak di guest untuk
+mengaktifkan integrasi yang lebih baik dengan sistem host. Anda harus menggunakan ini jika bisa.
 
-## Resources
+## Sumber Daya
 
-- Hypervisors
+- Hypervisor
     - [VirtualBox](https://www.virtualbox.org/) (open-source)
-    - [Virt-manager](https://virt-manager.org/) (open-source, manages KVM virtual machines and LXC containers)
-    - [VMWare](https://www.vmware.com/) (commercial, available from IS&T [for
-    MIT students](https://ist.mit.edu/vmware-fusion))
+    - [Virt-manager](https://virt-manager.org/) (open-source, mengelola virtual machine KVM dan container LXC)
+    - [VMWare](https://www.vmware.com/) (komersial, tersedia dari IS&T [untuk
+    mahasiswa MIT](https://ist.mit.edu/vmware-fusion))
 
-If you are already familiar with popular hypervisors/VMs you may want to learn more about how to do this from a command line friendly way. One option is the [libvirt](https://wiki.libvirt.org/page/UbuntuKVMWalkthrough) toolkit which allows you to manage multiple different virtualization providers/hypervisors.
+Jika Anda sudah familiar dengan hypervisor/VM populer, Anda mungkin ingin mempelajari lebih lanjut tentang cara melakukan ini melalui command line. Salah satu opsinya adalah toolkit [libvirt](https://wiki.libvirt.org/page/UbuntuKVMWalkthrough) yang memungkinkan Anda mengelola berbagai penyedia virtualisasi/hypervisor yang berbeda.
 
-## Exercises
+## Latihan
 
-1. Download and install a hypervisor.
+1. Unduh dan instal sebuah hypervisor.
 
-1. Create a new virtual machine and install a Linux distribution (e.g.
+1. Buat virtual machine baru dan instal distribusi Linux (misalnya
 [Debian](https://www.debian.org/)).
 
-1. Experiment with snapshots. Try things that you've always wanted to try, like
-   running `sudo rm -rf --no-preserve-root /`, and see if you can recover
-   easily.
+1. Bereksperimenlah dengan snapshot. Cobalah hal-hal yang selalu ingin Anda coba, seperti
+   menjalankan `sudo rm -rf --no-preserve-root /`, dan lihat apakah Anda dapat memulihkan
+   dengan mudah.
 
-1. Read what a [fork-bomb](https://en.wikipedia.org/wiki/Fork_bomb) (`:(){ :|:& };:`) is and run it on the VM to see that the resource isolation (CPU, Memory, &c) works.
+1. Baca apa itu [fork-bomb](https://en.wikipedia.org/wiki/Fork_bomb) (`:(){ :|:& };:`) dan jalankan di VM untuk melihat bahwa isolasi sumber daya (CPU, Memori, dll.) berfungsi.
 
-1. Install guest addons and experiment with different windowing modes, file
-   sharing, and other features.
+1. Instal guest addon dan bereksperimenlah dengan mode windowing yang berbeda,
+   berbagi file, dan fitur lainnya.
 
-# Containers
+# Container
 
-Virtual Machines are relatively heavy-weight; what if you want to spin
-up machines in an automated fashion? Enter containers!
+Mesin Virtual relatif berat; bagaimana jika Anda ingin menjalankan
+mesin secara otomatis? Masuk ke container!
 
  - Amazon Firecracker
  - Docker
  - rkt
  - lxc
 
-Containers are _mostly_ just an assembly of various Linux security
-features, like virtual file system, virtual network interfaces, chroots,
-virtual memory tricks, and the like, that together give the appearance
-of virtualization.
+Container _sebagian besar_ hanyalah kumpulan dari berbagai fitur keamanan Linux,
+seperti virtual file system, virtual network interfaces, chroot,
+trik virtual memory, dan sejenisnya, yang bersama-sama memberikan kesan
+virtualisasi.
 
-Not quite as secure or isolated as a VM, but pretty close and getting
-better. Usually higher performance, and much faster to start, but not
-always.
+Tidak sepenuhnya seaman atau terisolasi seperti VM, tetapi cukup dekat dan semakin
+baik. Biasanya berkinerja lebih tinggi, dan jauh lebih cepat untuk dimulai, tetapi tidak
+selalu.
 
-The performance boost comes from the fact that unlike VMs which run an entire copy of the operating system, containers share the linux kernel with the host. However note that if you are running linux containers on Windows/macOS a Linux VM will need to be active as a middle layer between the two.
+Peningkatan kinerja berasal dari fakta bahwa tidak seperti VM yang menjalankan salinan lengkap sistem operasi, container berbagi kernel Linux dengan host. Namun perhatikan bahwa jika Anda menjalankan container Linux di Windows/macOS, sebuah VM Linux perlu aktif sebagai lapisan tengah di antara keduanya.
 
 ![Docker vs VM](/2019/files/containers-vs-vms.png)
-_Comparison between Docker containers and Virtual Machines. Credit: blog.docker.com_
+_Perbandingan antara container Docker dan Mesin Virtual. Kredit: blog.docker.com_
 
-Containers are handy for when you want to run an automated task in a
-standardized setup:
+Container berguna ketika Anda ingin menjalankan tugas otomatis dalam
+setup yang terstandarisasi:
 
- - Build systems
- - Development environments
- - Pre-packaged servers
- - Running untrusted programs
-   - Grading student submissions
-   - (Some) cloud computing
+ - Build system
+ - Lingkungan pengembangan
+ - Server yang sudah dikemas
+ - Menjalankan program yang tidak terpercaya
+    - Menilai tugas mahasiswa
+    - (Beberapa) komputasi awan
  - Continuous integration
-   - Travis CI
-   - GitHub Actions
+    - Travis CI
+    - GitHub Actions
 
-Moreover, container software like Docker has also been extensively used as a solution for [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). If a machine needs to be running many services with conflicting dependencies they can be isolated using containers.
+Selain itu, perangkat lunak container seperti Docker juga telah digunakan secara luas sebagai solusi untuk [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). Jika sebuah mesin perlu menjalankan banyak layanan dengan dependency yang bertentangan, mereka dapat diisolasi menggunakan container.
 
-Usually, you write a file that defines how to construct your container.
-You start with some minimal _base image_ (like Alpine Linux), and then
-a list of commands to run to set up the environment you want (install
-packages, copy files, build stuff, write config files, etc.). Normally,
-there's also a way to specify any external ports that should be
-available, and an _entrypoint_ that dictates what command should be run
-when the container is started (like a grading script).
+Biasanya, Anda menulis file yang mendefinisikan cara membangun container Anda.
+Anda mulai dengan _base image_ minimal (seperti Alpine Linux), dan kemudian
+daftar perintah untuk dijalankan guna menyiapkan lingkungan yang Anda inginkan (instal
+paket, salin file, bangun proyek, tulis file konfigurasi, dll.). Biasanya,
+ada juga cara untuk menentukan port eksternal yang harus
+tersedia, dan _entrypoint_ yang menentukan perintah apa yang harus dijalankan
+saat container dimulai (seperti script penilaian).
 
-In a similar fashion to code repository websites (like [GitHub](https://github.com/)) there are some container repository websites (like [DockerHub](https://hub.docker.com/))where many software services have prebuilt images that one can easily deploy.
+Dengan cara yang mirip dengan situs web repositori kode (seperti [GitHub](https://github.com/)), ada beberapa situs web repositori container (seperti [DockerHub](https://hub.docker.com/)) di mana banyak layanan perangkat lunak memiliki image yang sudah dibangun sebelumnya yang dapat dengan mudah di-deploy.
 
-## Exercises
+## Latihan
 
-1. Choose a container software (Docker, LXC, …) and install a simple Linux image. Try SSHing into it.
+1. Pilih perangkat lunak container (Docker, LXC, ...) dan instal image Linux sederhana. Coba SSH ke dalamnya.
 
-1. Search and download a prebuilt container image for a popular web server (nginx, apache, …)
+1. Cari dan unduh image container yang sudah dibangun sebelumnya untuk web server populer (nginx, apache, ...)

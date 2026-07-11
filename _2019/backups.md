@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Backups"
+title: "Cadangan"
 presenter: Jose
 date: 2019-01-24
 order: 2
@@ -10,94 +10,94 @@ video:
 special: true
 ---
 
-There are two types of people:
+Ada dua jenis orang:
 
-- Those who do backups
-- Those who will do backups
+- Mereka yang melakukan cadangan
+- Mereka yang akan melakukan cadangan
 
-Any data you own that you haven't backed up is data that could be gone at any moment, forever. Here we will cover some good backup basics and the pitfalls of some approaches.
+Semua data yang Anda miliki yang belum Anda cadangkan adalah data yang bisa hilang kapan saja, selamanya. Di sini kita akan membahas dasar-dasar cadangan yang baik dan jebakan dari beberapa pendekatan.
 
-## 3-2-1 Rule
+## Aturan 3-2-1
 
-The [3-2-1 rule](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf) is a general recommended strategy for backing up your data. It state that you should have:
+[Aturan 3-2-1](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf) adalah strategi umum yang direkomendasikan untuk mencadangkan data Anda. Aturan ini menyatakan bahwa Anda harus memiliki:
 
-- at least **3 copies** of your data
-- **2** copies in **different mediums**
-- **1** of the copies being **offsite**
+- setidaknya **3 salinan** data Anda
+- **2** salinan dalam **media berbeda**
+- **1** salinan berada di **lokasi terpisah (offsite)**
 
-The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you'll lose everything! That's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
+Ide utama di balik rekomendasi ini adalah jangan menaruh semua telur dalam satu keranjang. Memiliki 2 perangkat/disk yang berbeda memastikan bahwa satu kegagalan perangkat keras tidak menghapus semua data Anda. Demikian pula, jika Anda hanya menyimpan cadangan di rumah dan rumah Anda terbakar atau dirampok, Anda akan kehilangan semuanya! Itulah mengapa salinan offsite diperlukan. Cadangan onsite memberikan ketersediaan dan kecepatan, sedangkan offsite memberikan ketahanan jika terjadi bencana.
 
-## Testing your backups
+## Menguji cadangan Anda
 
-A common pitfall when performing backups is blindly trusting whatever the system says it's doing and not verifying that the data can be properly recovered. Toy Story 2 was almost lost and their backups were not working, [luck](https://www.youtube.com/watch?v=8dhp_20j0Ys) ended up saving them.
+Jebakan umum saat melakukan cadangan adalah mempercayai begitu saja apa yang dikatakan sistem dan tidak memverifikasi bahwa data dapat dipulihkan dengan benar. Toy Story 2 hampir hilang dan cadangan mereka tidak berfungsi, [keberuntungan](https://www.youtube.com/watch?v=8dhp_20j0Ys) akhirnya menyelamatkan mereka.
 
 ## Versioning
 
-You should understand that [RAID](https://en.wikipedia.org/wiki/RAID) is not a backup, and in general **mirroring is not a backup solution**. Simply syncing your files somewhere will not help in several scenarios, such as:
+Anda harus memahami bahwa [RAID](https://en.wikipedia.org/wiki/RAID) bukanlah cadangan, dan secara umum **mirroring bukanlah solusi cadangan**. Hanya menyinkronkan file Anda ke suatu tempat tidak akan membantu dalam beberapa skenario, seperti:
 
-- Data corruption
-- Malicious software
-- Deleting files by mistake
+- Kerusakan data
+- Perangkat lunak berbahaya
+- Menghapus file secara tidak sengaja
 
-If the changes on your data propagate to the backup then you won't be able to recover in these scenarios. Note that this is the case for a lot of cloud storage solutions like Dropbox, Google Drive, One Drive, &c. Some of them do keep deleted data around for short amounts of time but usually the interface to recover is not something you want to be using to recover large amounts of files.
+Jika perubahan pada data Anda menyebar ke cadangan, maka Anda tidak akan bisa memulihkannya dalam skenario-skenario tersebut. Perhatikan bahwa ini adalah kasus untuk banyak solusi penyimpanan cloud seperti Dropbox, Google Drive, One Drive, &c. Beberapa di antaranya menyimpan data yang dihapus dalam waktu singkat, tetapi biasanya antarmuka untuk memulihkan bukanlah sesuatu yang ingin Anda gunakan untuk memulihkan file dalam jumlah besar.
 
-A proper backup system should be versioned in order to prevent this failure mode. By providing different snapshots in time one can easily navigate them to restore whatever was lost. The most widely known software of this kind is macOS Time Machine.
+Sistem cadangan yang seharusnya memiliki versioning untuk mencegah mode kegagalan ini. Dengan menyediakan berbagai snapshot dalam waktu, seseorang dapat dengan mudah menavigasinya untuk memulihkan apa pun yang hilang. Perangkat lunak yang paling dikenal untuk jenis ini adalah macOS Time Machine.
 
-## Deduplication
+## Deduplikasi
 
-However, making several copies of your data might be extremely costly in terms of disk space. Nevertheless, from one version to the next, most data will be identical and needs not be transferred again. This is where [data deduplication](https://en.wikipedia.org/wiki/Data_deduplication) comes into play, by keeping track of what has already been stored one can do **incremental backups** where only the changes from one version to the next need to be stored. This significantly reduces the amount of space needed for backups beyond the first copy.
+Namun, membuat beberapa salinan data Anda bisa sangat mahal dalam hal ruang disk. Meskipun demikian, dari satu versi ke versi berikutnya, sebagian besar data akan identik dan tidak perlu ditransfer lagi. Di sinilah [deduplikasi data](https://en.wikipedia.org/wiki/Data_deduplication) berperan, dengan melacak apa yang sudah disimpan, seseorang dapat melakukan **cadangan inkremental** di mana hanya perubahan dari satu versi ke versi berikutnya yang perlu disimpan. Ini secara signifikan mengurangi jumlah ruang yang dibutuhkan untuk cadangan di luar salinan pertama.
 
-## Encryption
+## Enkripsi
 
-Since we might be backing up to untrusted third parties like cloud providers it is worth considering that if you backup your data is copied *as is* then it could potentially be looked by unwanted agents. Documents like your taxes are sensitive information that should not be backed up in plain format. To prevent this, many backup solutions offer **client side encryption** where data is encrypted before being sent to the server. That way the server cannot read the data it is storing but you can decrypt it with your secret key.
+Karena kita mungkin mencadangkan ke pihak ketiga yang tidak tepercaya seperti penyedia cloud, perlu dipertimbangkan bahwa jika data cadangan Anda disalin *apa adanya*, maka data tersebut berpotensi dilihat oleh pihak yang tidak diinginkan. Dokumen seperti pajak Anda adalah informasi sensitif yang tidak boleh dicadangkan dalam format biasa. Untuk mencegah hal ini, banyak solusi cadangan menawarkan **enkripsi sisi klien** di mana data dienkripsi sebelum dikirim ke server. Dengan begitu server tidak dapat membaca data yang disimpannya, tetapi Anda dapat mendekripsinya dengan kunci rahasia Anda.
 
-As a side note, if your disk (or home partition) is not encrypted, then anyone that get hold of your computer can manage to override the user access controls and read your data. Modern hardware supports fast and efficient read and writes of encrypted data so you might want to consider enabling **full disk encryption**.
+Sebagai catatan tambahan, jika disk Anda (atau partisi home) tidak dienkripsi, maka siapa pun yang mendapatkan akses ke komputer Anda dapat melewati kontrol akses pengguna dan membaca data Anda. Perangkat keras modern mendukung pembacaan dan penulisan data terenkripsi yang cepat dan efisien, jadi Anda mungkin ingin mempertimbangkan untuk mengaktifkan **enkripsi disk penuh**.
 
 
 ## Append only
 
-The properties reviewed so far focus on hardware failure or user mistakes but fail to address what happens if a malicious agent wanted to delete your data. Namely, say someone hacks into your system, are they able to wipe all your copies of the data you care about? If you worry about that scenario then you need some sort of append only backup solution. In general, this means having a server that will allow you to send new data but will refuse to delete existing data. Usually users have two keys, an append only key that supports  creating new backups and a full access key that also allows for deleting old backups that are no longer needed. The latter one is stored offline.
+Properti yang telah ditinjau sejauh ini berfokus pada kegagalan perangkat keras atau kesalahan pengguna, tetapi gagal mengatasi apa yang terjadi jika agen berbahaya ingin menghapus data Anda. Misalnya, jika seseorang meretas sistem Anda, apakah mereka mampu menghapus semua salinan data yang Anda pedulikan? Jika Anda khawatir dengan skenario tersebut, maka Anda memerlukan solusi cadangan yang bersifat append only. Secara umum, ini berarti memiliki server yang mengizinkan Anda mengirim data baru tetapi akan menolak untuk menghapus data yang sudah ada. Biasanya pengguna memiliki dua kunci, kunci append only yang mendukung pembuatan cadangan baru dan kunci akses penuh yang juga memungkinkan penghapusan cadangan lama yang tidak diperlukan lagi. Kunci latter disimpan secara offline.
 
-Note that this is a quite challenging scenario since you need the ability to make changes whilst still preventing a malicious user from deleting your data. Existing commercial solutions include [Tarsnap](https://www.tarsnap.com/) and [Borgbase](https://www.borgbase.com/).
-
-
-## Additional considerations
-
-Some other things you may want to look into are:
-
-- **Periodic backups**: outdated backups can become pretty useless. Making backups regularly should be a consideration for your system
-- **Bootable backups**: some programs allow you to clone your entire disk. That way you have an image that contains an entire copy of your system you can boot directly from.
-- **Differential backup strategies**, you may not necessarily care the same about all your data. You can define different backup policies for different types of data.
-- **Append only backups** an additional consideration is to enforce append only operations to your backup repositories in order to prevent malicious agents to delete them if they get hold of your machine.
+Perhatikan bahwa ini adalah skenario yang cukup menantang karena Anda memerlukan kemampuan untuk membuat perubahan sambil tetap mencegah pengguna berbahaya menghapus data Anda. Solusi komersial yang ada termasuk [Tarsnap](https://www.tarsnap.com/) dan [Borgbase](https://www.borgbase.com/).
 
 
-## Webservices
+## Pertimbangan tambahan
 
-Not all the data that you use lives on your hard disk. If you use **webservices**, then it might be the case that some data you care about, such as Google Docs presentations or Spotify playlists, is stored online. Another easy example that is easy to forget is email accounts with web access, such as Gmail. Figuring out a backup solution in these cases is somewhat trickier. However, there are many services that allow you to download your data, either directly or via an API. Tools such as [gmvault](https://github.com/gaubert/gmvault) for Gmail are available to download the email files to your computer.
+Beberapa hal lain yang mungkin ingin Anda telusuri:
+
+- **Cadangan berkala**: cadangan yang usang bisa menjadi sangat tidak berguna. Membuat cadangan secara berkala harus menjadi pertimbangan untuk sistem Anda
+- **Cadangan yang dapat di-boot**: beberapa program memungkinkan Anda mengkloning seluruh disk Anda. Dengan begitu Anda memiliki image yang berisi salinan lengkap sistem Anda yang dapat langsung di-boot.
+- **Strategi cadangan diferensial**, Anda mungkin tidak perlu memperlakukan semua data dengan tingkat kepentingan yang sama. Anda dapat menentukan kebijakan cadangan berbeda untuk berbagai jenis data.
+- **Cadangan append only** - pertimbangan tambahan adalah memberlakukan operasi append only pada repositori cadangan Anda untuk mencegah agen berbahaya menghapusnya jika mereka mendapatkan akses ke mesin Anda.
 
 
-## Webpages
+## Layanan Web
 
-Similarly, some high quality content can be found online in the form of webpages. If said content is static one can easily back it up by just saving the website and all of its attachments. Another alternative is the [Wayback Machine](https://archive.org/web/), a massive digital archive of the World Wide Web managed by the [Internet Archive](https://archive.org/), a non profit organization focused on the preservation of all sorts of media. The Wayback Machine allows you to capture and archive webpages being able to later retrieve all the snapshots that have been archived for that website. If you find it useful, consider [donating](https://archive.org/donate/) to the project.
+Tidak semua data yang Anda gunakan berada di hard disk Anda. Jika Anda menggunakan **layanan web**, maka mungkin ada beberapa data yang Anda pedulikan, seperti presentasi Google Docs atau playlist Spotify, yang disimpan secara online. Contoh lain yang mudah dilupakan adalah akun email dengan akses web, seperti Gmail. Menemukan solusi cadangan untuk kasus-kasus ini agak lebih rumit. Namun, ada banyak layanan yang memungkinkan Anda mengunduh data Anda, baik secara langsung maupun melalui API. Alat seperti [gmvault](https://github.com/gaubert/gmvault) untuk Gmail tersedia untuk mengunduh file email ke komputer Anda.
 
 
-## Resources
+## Halaman Web
 
-Some good backup programs and services we have used and can honestly recommend:
+Demikian pula, beberapa konten berkualitas tinggi dapat ditemukan secara online dalam bentuk halaman web. Jika konten tersebut bersifat statis, seseorang dapat dengan mudah mencadangkannya hanya dengan menyimpan website dan semua lampirannya. Alternatif lain adalah [Wayback Machine](https://archive.org/web/), arsip digital besar dari World Wide Web yang dikelola oleh [Internet Archive](https://archive.org/), organisasi nirlaba yang fokus pada pelestarian berbagai jenis media. Wayback Machine memungkinkan Anda menangkap dan mengarsipkan halaman web, sehingga nanti Anda dapat mengambil semua snapshot yang telah diarsipkan untuk website tersebut. Jika Anda merasa berguna, pertimbangkan untuk [berdonasi](https://archive.org/donate/) ke proyek ini.
 
-- [Tarsnap](https://www.tarsnap.com/) - deduplicated, encrypted online backup service for the truly paranoid.
-- [Borg Backup](https://borgbackup.readthedocs.io) - deduplicated backup program that supports compression and authenticated encryption. If you need a cloud provider [BorgBase](https://www.borgbase.com/) is one popular option.
-- [rsync](https://rsync.samba.org/) is a utility that provides fast incremental file transfer. It is not a full backup solution.
-- [rclone](https://rclone.org/) like rsync but for cloud storage providers such as Amazon S3, Dropbox, Google Drive, rsync.net, &c. Supports client side encryption of remote folders.
 
-## Exercises
+## Sumber Daya
 
-1. Consider how you are (not) backing up your data and look into fixing/improving that.
+Beberapa program dan layanan cadangan bagus yang telah kami gunakan dan dapat kami rekomendasikan dengan jujur:
 
-1. Figure out how to backup your email accounts
+- [Tarsnap](https://www.tarsnap.com/) - layanan cadangan online terdeduplikasi dan terenkripsi untuk yang benar-benar paranoid.
+- [Borg Backup](https://borgbackup.readthedocs.io) - program cadangan terdeduplikasi yang mendukung kompresi dan enkripsi terautentikasi. Jika Anda memerlukan penyedia cloud, [BorgBase](https://www.borgbase.com/) adalah salah satu opsi populer.
+- [rsync](https://rsync.samba.org/) adalah utilitas yang menyediakan transfer file inkremental yang cepat. Ini bukan solusi cadangan lengkap.
+- [rclone](https://rclone.org/) seperti rsync tetapi untuk penyedia penyimpanan cloud seperti Amazon S3, Dropbox, Google Drive, rsync.net, &c. Mendukung enkripsi sisi klien untuk folder remote.
 
-1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solutions based on available APIs.
+## Latihan
 
-1. Think of a website you have visited repeatedly over the years and look it up in [archive.org](https://archive.org/web/), how many versions does it have?
+1. Pertimbangkan bagaimana Anda (tidak) mencadangkan data Anda dan telusuri untuk memperbaiki/meningkatkannya.
 
-1. One way to efficiently implement deduplication is to use hardlinks. Whereas symbolic link (also called a soft link or a symlink) is a file that points to another file or folder, a hardlink is a exact copy of the pointer (it uses the same inode and points to the same place in the disk). Thus if the original file is removed a symlink stops working whereas a hard link doesn't. However, hardlinks only work for files. Try using the command `ln` to create hard links and compare them to symlinks created with `ln -s`. (In macOS you will need to install the gnu coreutils or the hln package).
+1. Cari tahu cara mencadangkan akun email Anda
+
+1. Pilih layanan web yang sering Anda gunakan (Spotify, Google Music, dll.) dan cari tahu opsi apa yang tersedia untuk mencadangkan data Anda. Seringkali orang telah membuat alat (seperti [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solusi berdasarkan API yang tersedia.
+
+1. Pikirkan sebuah website yang telah Anda kunjungi berulang kali selama bertahun-tahun dan cari di [archive.org](https://archive.org/web/), berapa banyak versi yang dimilikinya?
+
+1. Salah satu cara untuk mengimplementasikan deduplikasi secara efisien adalah dengan menggunakan hardlink. Berbeda dengan symbolic link (juga disebut soft link atau symlink) yang merupakan file yang menunjuk ke file atau folder lain, hardlink adalah salinan persis dari pointer tersebut (menggunakan inode yang sama dan menunjuk ke tempat yang sama di disk). Jadi jika file asli dihapus, symlink akan berhenti berfungsi sedangkan hardlink tidak. Namun, hardlink hanya bekerja untuk file. Cobalah menggunakan perintah `ln` untuk membuat hard link dan bandingkan dengan symlink yang dibuat dengan `ln -s`. (Di macOS Anda perlu menginstal gnu coreutils atau paket hln).

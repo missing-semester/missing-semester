@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Program Introspection"
+title: "Introspeksi Program"
 presenter: Anish
 date: 2019-01-29
 order: 1
@@ -11,29 +11,28 @@ video:
 
 # Debugging
 
-When printf-debugging isn't good enough: use a debugger.
+Ketika printf-debugging tidak cukup baik: gunakan debugger.
 
-Debuggers let you interact with the execution of a program, letting you do
-things like:
+Debugger memungkinkan Anda berinteraksi dengan eksekusi program, memungkinkan Anda melakukan hal-hal seperti:
 
-- halt execution of the program when it reaches a certain line
-- single-step through the program
-- inspect values of variables
-- many more advanced features
+- menghentikan eksekusi program ketika mencapai baris tertentu
+- melangkah satu per satu melalui program
+- memeriksa nilai variabel
+- banyak fitur lanjutan lainnya
 
 ## GDB/LLDB
 
-[GDB](https://www.gnu.org/software/gdb/) and [LLDB](https://lldb.llvm.org/).
-Supports many C-like languages.
+[GDB](https://www.gnu.org/software/gdb/) dan [LLDB](https://lldb.llvm.org/).
+Mendukung banyak bahasa mirip-C.
 
-Let's look at [example.c](/2019/files/example.c). Compile with debug flags:
+Mari kita lihat [example.c](/2019/files/example.c). Kompilasi dengan flag debug:
 `gcc -g -o example example.c`.
 
-Open GDB:
+Buka GDB:
 
 `gdb example`
 
-Some commands:
+Beberapa perintah:
 
 - `run`
 - `b {name of function}` - set a breakpoint
@@ -47,39 +46,38 @@ Some commands:
 
 ## PDB
 
-[PDB](https://docs.python.org/3/library/pdb.html) is the Python debugger.
+[PDB](https://docs.python.org/3/library/pdb.html) adalah debugger Python.
 
-Insert `import pdb; pdb.set_trace()` where you want to drop into PDB, basically
-a hybrid of a debugger (like GDB) and a Python shell.
+Sisipkan `import pdb; pdb.set_trace()` di tempat Anda ingin masuk ke PDB, pada dasarnya merupakan hibrida dari debugger (seperti GDB) dan shell Python.
 
-## Web browser Developer Tools
+## Alat Pengembang Web browser
 
-Another example of a debugger, this time with a graphical interface.
+Contoh lain dari debugger, kali ini dengan antarmuka grafis.
 
 # strace
 
-Observe system calls a program makes: `strace {program}`.
+Amati system call yang dibuat program: `strace {program}`.
 
 # Profiling
 
-Types of profiling: CPU, memory, etc.
+Jenis-jenis profiling: CPU, memori, dll.
 
-Simplest profiler: `time`.
+Profiler paling sederhana: `time`.
 
 ## Go
 
-Run test code with CPU profiler: `go test -cpuprofile=cpu.out`
+Jalankan kode tes dengan profiler CPU: `go test -cpuprofile=cpu.out`
 
-Analyze profile: `go tool pprof -web cpu.out`
+Analisis profil: `go tool pprof -web cpu.out`
 
-Run test code with Memory profiler: `go test -memprofile=mem.out`
+Jalankan kode tes dengan profiler Memori: `go test -memprofile=mem.out`
 
-Analyze profile: `go tool pprof -web mem.out`
+Analisis profil: `go tool pprof -web mem.out`
 
 ## Perf
 
-Basic performance stats: `perf stat {command}`
+Statistik performa dasar: `perf stat {command}`
 
-Run a program with the profiler: `perf record {command}`
+Jalankan program dengan profiler: `perf record {command}`
 
-Analyze profile: `perf report`
+Analisis profil: `perf report`
