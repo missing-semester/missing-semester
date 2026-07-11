@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Development Environment and Tools"
+title: "Environment dan Alat Pengembangan"
 description: >
-  Learn about IDEs, Vim, language servers, and AI-powered development tools.
+  Pelajari tentang IDE, Vim, language server, dan alat pengembangan berbasis AI.
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
@@ -11,121 +11,121 @@ video:
   id: QnM1nVzrkx8
 ---
 
-A _development environment_ is a set of tools for developing software. At the heart of a development environment is text editing functionality, along with accompanying features such as syntax highlighting, type checking, code formatting, and autocomplete. _Integrated development environments_ (IDEs) such as [VS Code][vs-code] bring together all of this functionality into a single application. Terminal-based development workflows combine tools such as [tmux](https://github.com/tmux/tmux) (a terminal multiplexer), [Vim](https://www.vim.org/) (a text editor), [Zsh](https://www.zsh.org/) (a shell), and language-specific command-line tools, such as [Ruff](https://docs.astral.sh/ruff/) (a Python linter and code formatter) and [Mypy](https://mypy-lang.org/) (a Python type checker).
+_Environment pengembangan_ (_development environment_) adalah sekumpulan alat untuk mengembangkan perangkat lunak. Di jantung environment pengembangan terdapat fungsionalitas penyuntingan teks, beserta fitur-fitur pendukung seperti penyorotan sintaks, pemeriksaan tipe, pemformatan kode, dan autocomplete. _Integrated development environment_ (IDE) seperti [VS Code][vs-code] menggabungkan semua fungsionalitas ini ke dalam satu aplikasi. Alur kerja pengembangan berbasis terminal menggabungkan alat-alat seperti [tmux](https://github.com/tmux/tmux) (terminal multiplexer), [Vim](https://www.vim.org/) (penyunting teks), [Zsh](https://www.zsh.org/) (shell), dan alat baris perintah khusus bahasa pemrograman, seperti [Ruff](https://docs.astral.sh/ruff/) (linter dan pemformat kode Python) dan [Mypy](https://mypy-lang.org/) (pemeriksa tipe Python).
 
-IDEs and terminal-based workflows each have their strengths and weaknesses. For example, graphical IDEs can be easier to learn, and today's IDEs generally have better out-of-the-box AI integrations like AI autocomplete; on the other hand, terminal-based workflows are lightweight, and they may be your only option in environments where you don't have a GUI or can't install software. We recommend you develop basic familiarity with both and develop mastery of at least one. If you don't already have a preferred IDE, we recommend starting with [VS Code][vs-code].
+IDE dan alur kerja berbasis terminal masing-masing memiliki kelebihan dan kekurangan. Sebagai contoh, IDE grafis mungkin lebih mudah dipelajari, dan IDE saat ini umumnya memiliki integrasi AI bawaan yang lebih baik seperti autocomplete AI; di sisi lain, alur kerja berbasis terminal bersifat ringan, dan mungkin menjadi satu-satunya pilihan Anda di environment yang tidak memiliki GUI atau tidak mengizinkan pemasangan perangkat lunak. Kami menyarankan Anda untuk membangun dasar familiaritas dengan keduanya dan menguasai setidaknya salah satunya. Jika Anda belum memiliki IDE pilihan, kami menyarankan untuk memulai dengan [VS Code][vs-code].
 
-In this lecture, we'll cover:
+Dalam kuliah ini, kita akan membahas:
 
-- [Text editing and Vim](#text-editing-and-vim)
-- [Code intelligence and language servers](#code-intelligence-and-language-servers)
-- [AI-powered development](#ai-powered-development)
-- [Extensions and other IDE functionality](#extensions-and-other-ide-functionality)
+- [Penyuntingan teks dan Vim](#penyuntingan-teks-dan-vim)
+- [Kecerdasan kode dan language server](#kecerdasan-kode-dan-language-server)
+- [Pengembangan berbasis AI](#pengembangan-berbasis-ai)
+- [Ekstensi dan fungsionalitas IDE lainnya](#ekstensi-dan-fungsionalitas-ide-lainnya)
 
 [vs-code]: https://code.visualstudio.com/
 
-# Text editing and Vim
+# Penyuntingan teks dan Vim
 
-When programming, you spend most of your time navigating through code, reading snippets of code, and making edits to code, rather than writing long streams or reading files top-to-bottom. [Vim] is a text editor that is optimized for this distribution of tasks.
+Saat pemrograman, Anda menghabiskan sebagian besar waktu untuk menavigasi kode, membaca potongan kode, dan melakukan perubahan pada kode, daripada menulis aliran kode panjang atau membaca file dari atas ke bawah. [Vim] adalah penyunting teks yang dioptimalkan untuk distribusi tugas ini.
 
-**The philosophy of Vim.** Vim has a beautiful idea as its foundation: its interface is itself a programming language, designed for navigating and editing text. Keystrokes (with mnemonic names) are commands, and these commands are composable. Vim avoids the use of the mouse, because it's too slow; Vim even avoids use of the arrow keys because it requires too much movement. The result: an editor that feels like a brain-computer interface and matches the speed at which you think.
+**Filosofi Vim.** Vim memiliki ide yang indah sebagai fondasinya: antarmukanya sendiri adalah sebuah bahasa pemrograman, yang dirancang untuk menavigasi dan menyunting teks. Tekanan tombol (dengan nama mnemonik) adalah perintah-perintah, dan perintah-perintah ini dapat dikomposisikan. Vim menghindari penggunaan mouse, karena terlalu lambat; Vim bahkan menghindari penggunaan tombol panah karena memerlukan terlalu banyak pergerakan. Hasilnya: sebuah penyunting yang terasa seperti antarmuka otak-komputer dan mengikuti kecepatan berpikir Anda.
 
-**Vim support in other software.** You don't have to use [Vim] itself to benefit from the ideas at its core. Many programs that involve any kind of text editing support "Vim mode", either as built-in functionality or as a plugin. For example, VS Code has the [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin, Zsh has [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) for Vim emulation, and even Claude Code has [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) for Vim editor mode. Chances are that any tool you use that involves text editing supports Vim mode in one way or another.
+**Dukungan Vim di perangkat lunak lain.** Anda tidak harus menggunakan [Vim] itu sendiri untuk memanfaatkan ide-ide intinya. Banyak program yang melibatkan penyuntingan teks mendukung "mode Vim", baik sebagai fungsionalitas bawaan maupun sebagai plugin. Sebagai contoh, VS Code memiliki plugin [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim), Zsh memiliki [dukungan bawaan](https://zsh.sourceforge.io/Guide/zshguide04.html) untuk emulasi Vim, dan bahkan Claude Code memiliki [dukungan bawaan](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) untuk mode penyunting Vim. Kemungkinan besar, alat apa pun yang Anda gunakan yang melibatkan penyuntingan teks mendukung mode Vim dengan satu cara atau lainnya.
 
-## Modal editing
+## Penyuntingan modal
 
-Vim is a _modal editor_: it has different operating modes for different classes of tasks.
+Vim adalah _penyunting modal_: ia memiliki mode operasi yang berbeda untuk kelas tugas yang berbeda.
 
-- **Normal**: for moving around a file and making edits
-- **Insert**: for inserting text
-- **Replace**: for replacing text
-- **Visual** (plain, line, or block): for selecting blocks of text
-- **Command-line**: for running a command
+- **Normal**: untuk berpindah-pindah dalam file dan melakukan perubahan
+- **Insert**: untuk menyisipkan teks
+- **Replace**: untuk mengganti teks
+- **Visual** (biasa, baris, atau blok): untuk memilih blok teks
+- **Command-line**: untuk menjalankan perintah
 
-Keystrokes have different meanings in different operating modes. For example, the letter `x` in Insert mode will just insert a literal character "x", but in Normal mode, it will delete the character under the cursor, and in Visual mode, it will delete the selection.
+Tekanan tombol memiliki arti yang berbeda di mode operasi yang berbeda. Sebagai contoh, huruf `x` di mode Insert hanya akan menyisipkan karakter literal "x", tetapi di mode Normal, ia akan menghapus karakter di bawah kursor, dan di mode Visual, ia akan menghapus seleksi.
 
-In its default configuration, Vim shows the current mode in the bottom left. The initial/default mode is Normal mode. You'll generally spend most of your time between Normal mode and Insert mode.
+Dalam konfigurasi default, Vim menampilkan mode saat ini di kiri bawah. Mode awal/default adalah mode Normal. Anda umumnya akan menghabiskan sebagian besar waktu antara mode Normal dan mode Insert.
 
-You change modes by pressing `<ESC>` (the escape key) to switch from any mode back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with `:`.
+Anda berpindah mode dengan menekan `<ESC>` (tombol escape) untuk beralih dari mode mana pun kembali ke mode Normal. Dari mode Normal, masuk ke mode Insert dengan `i`, mode Replace dengan `R`, mode Visual dengan `v`, mode Visual Line dengan `V`, mode Visual Block dengan `<C-v>` (Ctrl-V, terkadang juga ditulis `^V`), dan mode Command-line dengan `:`.
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to Escape ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) or create an [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` with a simple key sequence.
+Anda banyak menggunakan tombol `<ESC>` saat menggunakan Vim: pertimbangkan untuk memetakan ulang Caps Lock ke Escape ([instruksi macOS](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) atau buat [pemetaan alternatif](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) untuk `<ESC>` dengan urutan tombol sederhana.
 
-## Basics: inserting text
+## Dasar-dasar: menyisipkan teks
 
-From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any other text editor, until you press `<ESC>` to return to Normal mode. This, along with the basics explained above, are all you need to start editing files using Vim (though not particularly efficiently, if you're spending all your time editing from Insert mode).
+Dari mode Normal, tekan `i` untuk masuk ke mode Insert. Sekarang, Vim berperilaku seperti penyunting teks lainnya, sampai Anda menekan `<ESC>` untuk kembali ke mode Normal. Ini, bersama dengan dasar-dasar yang dijelaskan di atas, adalah semua yang Anda butuhkan untuk mulai menyunting file menggunakan Vim (meskipun tidak terlalu efisien, jika Anda menghabiskan seluruh waktu menyunting dari mode Insert).
 
-## Vim's interface is a programming language
+## Antarmuka Vim adalah bahasa pemrograman
 
-Vim's interface is a programming language. Keystrokes (with mnemonic names) are commands, and these commands _compose_. This enables efficient movement and edits, especially once the commands become muscle memory, just like typing becomes super efficient once you've learned your keyboard layout.
+Antarmuka Vim adalah bahasa pemrograman. Tekanan tombol (dengan nama mnemonik) adalah perintah-perintah, dan perintah-perintah ini dapat _dikomposisikan_. Hal ini memungkinkan pergerakan dan penyuntingan yang efisien, terutama setelah perintah-perintah tersebut menjadi memori otot, sama seperti mengetik menjadi sangat efisien setelah Anda menguasai tata letak keyboard.
 
-### Movement
+### Pergerakan
 
-You should spend most of your time in Normal mode, using movement commands to navigate the file. Movements in Vim are also called "nouns", because they refer to chunks of text.
+Anda harus menghabiskan sebagian besar waktu di mode Normal, menggunakan perintah pergerakan untuk menavigasi file. Pergerakan di Vim juga disebut "kata benda" (_nouns_), karena merujuk pada bagian-bagian teks.
 
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- Scroll: `Ctrl-u` (up), `Ctrl-d` (down)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-    - `<CR>` refers to the carriage return / enter key
-- Misc: `%` (matching item, like parenthesis or brace)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-    - `,` / `;` for navigating matches
-- Search: `/{regex}`, `n` / `N` for navigating matches
+- Pergerakan dasar: `hjkl` (kiri, bawah, atas, kanan)
+- Kata: `w` (kata berikutnya), `b` (awal kata), `e` (akhir kata)
+- Baris: `0` (awal baris), `^` (karakter non-kosong pertama), `$` (akhir baris)
+- Layar: `H` (atas layar), `M` (tengah layar), `L` (bawah layar)
+- Gulir: `Ctrl-u` (atas), `Ctrl-d` (bawah)
+- File: `gg` (awal file), `G` (akhir file)
+- Nomor baris: `:{number}<CR>` atau `{number}G` (baris ke-{number})
+    - `<CR>` merujuk pada carriage return / tombol enter
+- Lain-lain: `%` (item yang cocok, seperti tanda kurung atau kurung kurawal)
+- Cari: `f{character}`, `t{character}`, `F{character}`, `T{character}`
+    - cari/menuju maju/mundur {character} pada baris saat ini
+    - `,` / `;` untuk menavigasi hasil pencarian
+- Pencarian: `/{regex}`, `n` / `N` untuk menavigasi hasil pencarian
 
-### Selection
+### Seleksi
 
-Visual modes:
+Mode Visual:
 
 - Visual: `v`
 - Visual Line: `V`
 - Visual Block: `Ctrl-v`
 
-Can use movement keys to make selection.
+Dapat menggunakan tombol pergerakan untuk membuat seleksi.
 
-### Edits
+### Penyuntingan
 
-Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here's where Vim's interface starts to look like a programming language. Vim's editing commands are also called "verbs", because verbs act on nouns.
+Semua yang sebelumnya Anda lakukan dengan mouse, sekarang Anda lakukan dengan keyboard menggunakan perintah penyuntingan yang dapat dikomposisikan dengan perintah pergerakan. Di sinilah antarmuka Vim mulai terlihat seperti bahasa pemrograman. Perintah penyuntingan Vim juga disebut "kata kerja" (_verbs_), karena kata kerja bekerja pada kata benda.
 
-- `i` enter Insert mode
-    - but for manipulating/deleting text, want to use something more than backspace
-- `o` / `O` insert line below / above
-- `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete to beginning of line
-- `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equivalent to `dl`)
-- `s` substitute character (equivalent to `cl`)
-- Visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- `y` to copy / "yank" (some other commands like `d` also copy)
-- `p` to paste
-- Lots more to learn: for example, `~` flips the case of a character, and `J` joins together lines
+- `i` masuk mode Insert
+    - tetapi untuk memanipulasi/menghapus teks, Anda ingin menggunakan sesuatu selain backspace
+- `o` / `O` sisipkan baris di bawah / di atas
+- `d{motion}` hapus {motion}
+    - contoh: `dw` adalah hapus kata, `d$` adalah hapus sampai akhir baris, `d0` adalah hapus sampai awal baris
+- `c{motion}` ubah {motion}
+    - contoh: `cw` adalah ubah kata
+    - seperti `d{motion}` diikuti oleh `i`
+- `x` hapus karakter (setara dengan `dl`)
+- `s` ganti karakter (setara dengan `cl`)
+- Mode Visual + manipulasi
+    - pilih teks, `d` untuk menghapusnya atau `c` untuk mengubahnya
+- `u` untuk undo, `<C-r>` untuk redo
+- `y` untuk menyalin / "yank" (beberapa perintah lain seperti `d` juga menyalin)
+- `p` untuk menempel (paste)
+- Masih banyak yang bisa dipelajari: sebagai contoh, `~` membalik huruf besar/kecil karakter, dan `J` menggabungkan baris-baris
 
-### Counts
+### Jumlah (_Counts_)
 
-You can combine nouns and verbs with a count, which will perform a given action a number of times.
+Anda dapat menggabungkan kata benda dan kata kerja dengan jumlah, yang akan melakukan tindakan tertentu sebanyak beberapa kali.
 
-- `3w` move 3 words forward
-- `5j` move 5 lines down
-- `7dw` delete 7 words
+- `3w` pindah 3 kata ke depan
+- `5j` pindah 5 baris ke bawah
+- `7dw` hapus 7 kata
 
-### Modifiers
+### Modifier
 
-You can use modifiers to change the meaning of a noun. Some modifiers are `i`, which means "inner" or "inside", and `a`, which means "around".
+Anda dapat menggunakan modifier untuk mengubah arti dari kata benda. Beberapa modifier adalah `i`, yang berarti "inner" atau "di dalam", dan `a`, yang berarti "around" atau "di sekitar".
 
-- `ci(` change the contents inside the current pair of parentheses
-- `ci[` change the contents inside the current pair of square brackets
-- `da'` delete a single-quoted string, including the surrounding single quotes
+- `ci(` ubah konten di dalam tanda kurung saat ini
+- `ci[` ubah konten di dalam tanda kurung siku saat ini
+- `da'` hapus string bertanda kutip tunggal, termasuk tanda kutip tunggal di sekitarnya
 
-## Putting it all together
+## Menggabungkan semuanya
 
-Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation:
+Berikut adalah implementasi [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) yang salah:
 
 ```python
 def fizz_buzz(limit):
@@ -142,73 +142,73 @@ def main():
     fizz_buzz(20)
 ```
 
-We use the following sequence of commands to fix the issues, beginning in Normal mode:
+Kita menggunakan urutan perintah berikut untuk memperbaiki masalah-masalahnya, dimulai dari mode Normal:
 
-- Main is never called
-    - `G` to jump to the end of the file
-    - `o` to **o**pen a new line below
-    - Type in `if __name__ == "__main__": main()`
-        - If your editor has Python language support, it might do some auto-indentation for you in Insert mode
-    - `<ESC>` to go back to Normal mode
-- Starts at 0 instead of 1
-    - `/` followed by `range` and `<CR>` to search for "range"
-    - `ww` to move forward two **w**ords (you could also use `2w`, but in practice, for small counts it's common to repeat the key instead of using the count functionality)
-    - `i` to switch to **i**nsert mode, and add `1,`
-    - `<ESC>` to go back to Normal mode
-    - `e` to jump to the **e**nd of the next word
-    - `a` to start **a**ppending text, and add `+ 1`
-    - `<ESC>` to go back to Normal mode
-- Prints "fizz" for multiples of 5
-    - `:6<CR>` to go to line 6
-    - `ci"` to **c**hange **i**nside the '**"**', change to `"buzz"`
-    - `<ESC>` to go back to Normal mode
+- Main tidak pernah dipanggil
+    - `G` untuk melompat ke akhir file
+    - `o` untuk memb**o**ka baris baru di bawah
+    - Ketik `if __name__ == "__main__": main()`
+        - Jika penyunting Anda memiliki dukungan bahasa Python, ia mungkin melakukan indentasi otomatis untuk Anda di mode Insert
+    - `<ESC>` untuk kembali ke mode Normal
+- Dimulai dari 0, bukan 1
+    - `/` diikuti oleh `range` dan `<CR>` untuk mencari "range"
+    - `ww` untuk maju dua **w** kata (Anda juga bisa menggunakan `2w`, tetapi dalam praktiknya, untuk jumlah kecil lebih umum mengulang tombol daripada menggunakan fungsionalitas jumlah)
+    - `i` untuk beralih ke mode **i**nsert, dan tambahkan `1,`
+    - `<ESC>` untuk kembali ke mode Normal
+    - `e` untuk melompat ke **e**nd (akhir) kata berikutnya
+    - `a` untuk mulai **a**ppend (menambahkan) teks, dan tambahkan `+ 1`
+    - `<ESC>` untuk kembali ke mode Normal
+- Mencetak "fizz" untuk kelipatan 5
+    - `:6<CR>` untuk pergi ke baris 6
+    - `ci"` untuk **c**hange **i**nside '**"**', ubah menjadi `"buzz"`
+    - `<ESC>` untuk kembali ke mode Normal
 
-## Learning Vim
+## Belajar Vim
 
-The best way to learn Vim is to learn the fundamentals (what we've covered so far) and then just enable Vim mode in all your software and start using it in practice. Avoid the temptation to use the mouse or the arrow keys; in some editors, you can unbind the arrow keys to force yourself to build good habits.
+Cara terbaik belajar Vim adalah mempelajari dasar-dasarnya (apa yang telah kita bahas sejauh ini) dan kemudian mengaktifkan mode Vim di semua perangkat lunak Anda dan mulai menggunakannya dalam praktik. Hindari godaan untuk menggunakan mouse atau tombol panah; di beberapa penyunting, Anda dapat melepas pemetaan tombol panah untuk memaksa diri Anda membangun kebiasaan yang baik.
 
-### Additional resources
+### Sumber daya tambahan
 
-- The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
-- `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
-- [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
+- [Kuliah Vim](/2020/editors/) dari iterasi sebelumnya kelas ini --- kita telah membahas Vim lebih mendalam di sana
+- `vimtutor` adalah tutorial yang sudah terpasang bersama Vim --- jika Vim sudah terinstal, Anda seharusnya bisa menjalankan `vimtutor` dari shell
+- [Vim Adventures](https://vim-adventures.com/) adalah permainan untuk belajar Vim
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [VimGolf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Advent Calendar](https://vimways.org/2019/) memiliki berbagai tips Vim
+- [VimGolf](https://www.vimgolf.com/) adalah [code golf](https://en.wikipedia.org/wiki/Code_golf), tetapi di mana bahasa pemrogramannya adalah UI Vim
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (buku)
 
 [Vim]: https://www.vim.org/
 
-# Code intelligence and language servers
+# Kecerdasan kode dan language server
 
-IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
+IDE umumnya menawarkan dukungan khusus bahasa yang memerlukan pemahaman semantik dari kode melalui ekstensi IDE yang terhubung ke _language server_ yang mengimplementasikan [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). Sebagai contoh, [ekstensi Python untuk VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) bergantung pada [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), dan [ekstensi Go untuk VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) bergantung pada [gopls](https://go.dev/gopls/) buatan pengembang pertama. Dengan memasang ekstensi dan language server untuk bahasa yang Anda gunakan, Anda dapat mengaktifkan banyak fitur khusus bahasa di IDE Anda, seperti:
 
-- **Code completion.** Better autocomplete and autosuggest, such as being able to see an object's fields and methods after typing `object.`.
-- **Inline documentation.** Seeing documentation on hover and autosuggest.
-- **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
-- **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
-- **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
-- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
+- **Pelengkapan kode.** Autocomplete dan autosuggest yang lebih baik, seperti kemampuan melihat field dan method sebuah objek setelah mengetik `object.`.
+- **Dokumentasi inline.** Melihat dokumentasi saat hover dan autosuggest.
+- **Lompat ke definisi.** Melompat dari tempat penggunaan ke definisi, seperti dapat pergi dari referensi field `object.field` ke definisi field tersebut.
+- **Cari referensi.** Kebalikan dari di atas, cari semua tempat di mana item tertentu seperti field atau tipe direferensikan.
+- **Bantuan impor.** Mengorganisir impor, menghapus impor yang tidak digunakan, menandai impor yang hilang.
+- **Kualitas kode.** Alat-alat ini dapat digunakan secara mandiri, tetapi fungsionalitas ini sering juga disediakan oleh language server. Pemformatan kode melakukan indentasi otomatis dan pemformatan otomatis kode, dan pemeriksa tipe serta linter menemukan kesalahan dalam kode Anda, saat Anda mengetik. Kita akan membahas kelas fungsionalitas ini lebih mendalam di [kuliah tentang kualitas kode](/2026/code-quality/).
 
-## Configuring language servers
+## Mengonfigurasi language server
 
-For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
+Untuk beberapa bahasa, yang perlu Anda lakukan hanyalah memasang ekstensi dan language server, dan Anda siap menggunakannya. Untuk bahasa lain, untuk mendapatkan manfaat maksimal dari language server, Anda perlu memberi tahu IDE tentang environment Anda. Sebagai contoh, menunjuk VS Code ke [environment Python](https://code.visualstudio.com/docs/python/environments) Anda akan memungkinkan language server melihat paket-paket yang telah Anda instal. Environment dibahas lebih mendalam di [kuliah tentang pengemasan dan pendistribusian kode](/2026/shipping-code/).
 
-Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
+Tergantung pada bahasanya, mungkin ada beberapa pengaturan yang dapat Anda konfigurasikan untuk language server. Sebagai contoh, menggunakan dukungan Python di VS Code, Anda dapat menonaktifkan pemeriksaan tipe statis untuk proyek yang tidak menggunakan anotasi tipe opsional Python.
 
-# AI-powered development
+# Pengembangan berbasis AI
 
-Since the introduction of [GitHub Copilot][github-copilot] using OpenAI's [Codex model](https://openai.com/index/openai-codex/) in mid 2021, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) have become widely adopted in software engineering. There are three main form factors in use right now: autocomplete, inline chat, and coding agents.
+Sejak diperkenalkannya [GitHub Copilot][github-copilot] menggunakan [model Codex](https://openai.com/index/openai-codex/) dari OpenAI pada pertengahan 2021, [LLM](https://en.wikipedia.org/wiki/Large_language_model) telah banyak diadopsi dalam rekayasa perangkat lunak. Ada tiga bentuk utama yang digunakan saat ini: autocomplete, chat inline, dan agen coding.
 
 [github-copilot]: https://github.com/features/copilot/ai-code-editor
 
 ## Autocomplete
 
-AI-powered autocomplete has the same form factor as traditional autocomplete in your IDE, suggesting completions at your cursor position as you type. Sometimes, it's used as a passive feature that "just works". Beyond that, AI autocomplete is generally [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) using code comments.
+Autocomplete berbasis AI memiliki bentuk yang sama dengan autocomplete tradisional di IDE Anda, mengusulkan pelengkapan di posisi kursor saat Anda mengetik. Terkadang, ia digunakan sebagai fitur pasif yang "langsung berfungsi". Selain itu, autocomplete AI umumnya diberi [prompt](https://en.wikipedia.org/wiki/Prompt_engineering) menggunakan komentar kode.
 
-For example, let's write a script to download the contents of these lecture notes and extract all the links. We can start with:
+Sebagai contoh, mari tulis skrip untuk mengunduh isi catatan kuliah ini dan mengekstrak semua tautan. Kita bisa mulai dengan:
 
 ```python
 import requests
@@ -216,34 +216,34 @@ import requests
 def download_contents(url: str) -> str:
 ```
 
-The model will autocomplete the body of the function:
+Model akan melengkapi isi fungsi tersebut:
 
 ```python
     response = requests.get(url)
     return response.text
 ```
 
-We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but it doesn't have a particularly descriptive name:
+Kita dapat lebih mengarahkan pelengkapan menggunakan komentar. Sebagai contoh, jika kita mulai menulis fungsi untuk mengekstrak semua tautan Markdown, tetapi namanya tidak terlalu deskriptif:
 
 ```python
 def extract(contents: str) -> list[str]:
 ```
 
-The model will autocomplete something like this:
+Model akan melengkapi sesuatu seperti ini:
 
 ```python
     lines = contents.splitlines()
     return [line for line in lines if line.strip()]
 ```
 
-We can guide the completion through code comments:
+Kita dapat mengarahkan pelengkapan melalui komentar kode:
 
 ```python
 def extract(content: str) -> list[str]:
     # extract all Markdown links from the content
 ```
 
-This time, the model gives a better completion:
+Kali ini, model memberikan pelengkapan yang lebih baik:
 
 ```python
     import re
@@ -251,27 +251,27 @@ This time, the model gives a better completion:
     return re.findall(pattern, content)
 ```
 
-Here, we see one downside of this AI coding tool: it can only provide completions at the cursor. In this case, it would be better practice to put the `import re` at the module level, rather than inside the function.
+Di sini, kita melihat salah satu kekurangan alat coding AI ini: ia hanya dapat memberikan pelengkapan di kursor. Dalam kasus ini, akan lebih baik menempatkan `import re` di level modul, bukan di dalam fungsi.
 
-The example above used a poorly-named function to demonstrate how code completion can be steered using comments; in practice, you'd want to write code with functions named more descriptively, like `extract_links`, and you'd want to write docstrings (and based on this, the model should generate a completion analogous to the one above).
+Contoh di atas menggunakan fungsi dengan nama yang kurang baik untuk mendemonstrasikan bagaimana pelengkapan kode dapat diarahkan menggunakan komentar; dalam praktik, Anda ingin menulis kode dengan fungsi yang dinamai lebih deskriptif, seperti `extract_links`, dan Anda ingin menulis docstring (dan berdasarkan ini, model seharusnya menghasilkan pelengkapan yang serupa dengan yang di atas).
 
-For demonstration purposes, we can complete the script:
+Untuk tujuan demonstrasi, kita dapat melengkapi skripnya:
 
 ```python
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
 ```
 
-## Inline chat
+## Chat inline
 
-Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
+Chat inline memungkinkan Anda memilih satu baris atau blok dan kemudian langsung memberi prompt ke model AI untuk mengusulkan perubahan. Dalam mode interaksi ini, model dapat membuat perubahan pada kode yang sudah ada (berbeda dengan autocomplete yang hanya melengkapi kode setelah kursor).
 
-Continuing the example from above, suppose we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+Melanjutkan contoh dari atas, misalkan kita memutuskan untuk tidak menggunakan library `requests` dari pihak ketiga. Kita bisa memilih tiga baris kode yang relevan, memanggil chat inline, dan mengatakan sesuatu seperti:
 
 ```
 use built-in libraries instead
 ```
 
-The model proposes:
+Model mengusulkan:
 
 ```python
 from urllib.request import urlopen
@@ -281,25 +281,25 @@ def download_contents(url: str) -> str:
         return response.read().decode('utf-8')
 ```
 
-## Coding agents
+## Agen coding
 
-Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
+Agen coding dibahas secara mendalam di kuliah [Pemrograman Agentik](/2026/agentic-coding/).
 
-## Recommended software
+## Perangkat lunak yang direkomendasikan
 
-Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-copilot] extension and [Cursor](https://cursor.com/). GitHub Copilot is currently available [for free for students](https://github.com/education/students), teachers, and maintainers of popular open source projects. This is a rapidly evolving space. Many of the leading products have roughly equivalent functionality.
+Beberapa IDE AI yang populer adalah [VS Code][vs-code] dengan ekstensi [GitHub Copilot][github-copilot] dan [Cursor](https://cursor.com/). GitHub Copilot saat ini tersedia [gratis untuk pelajar](https://github.com/education/students), pengajar, dan pengelola proyek open source populer. Ini adalah ruang yang berkembang pesat. Banyak produk terkemuka memiliki fungsionalitas yang kurang lebih setara.
 
-# Extensions and other IDE functionality
+# Ekstensi dan fungsionalitas IDE lainnya
 
-IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
+IDE adalah alat yang powerful, dan menjadi lebih powerful lagi dengan _ekstensi_. Kita tidak dapat membahas semua fitur ini dalam satu kuliah, tetapi di sini kami memberikan beberapa petunjuk ke beberapa ekstensi populer. Kami mendorong Anda untuk menjelajahi ruang ini sendiri; ada banyak daftar ekstensi IDE populer yang tersedia secara online, seperti [Vim Awesome](https://vimawesome.com/) untuk plugin Vim dan [ekstensi VS Code diurutkan berdasarkan popularitas](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
-- Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
-- Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
+- [Development containers](https://containers.dev/): didukung oleh IDE populer (misalnya, [didukung oleh VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev container memungkinkan Anda menggunakan container untuk menjalankan alat pengembangan. Ini bisa membantu untuk portabilitas atau isolasi. [Kuliah tentang pengemasan dan pendistribusian kode](/2026/shipping-code/) membahas container lebih mendalam.
+- Pengembangan jarak jauh: lakukan pengembangan di mesin jarak jauh menggunakan SSH (misalnya, dengan [plugin Remote SSH untuk VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). Ini bisa berguna, misalnya, jika Anda ingin mengembangkan dan menjalankan kode di mesin GPU yang kuat di cloud.
+- Penyuntingan kolaboratif: sunting file yang sama, seperti Google Docs (misalnya, dengan [plugin Live Share untuk VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
 
-# Exercises
+# Latihan
 
-1. Enable Vim mode in all the software you use that supports it, such as your editor and your shell, and use Vim mode for all your text editing for the next month. Whenever something seems inefficient, or when you think "there must be a better way", try Googling it, there probably is a better way.
-1. Complete a challenge from [VimGolf](https://www.vimgolf.com/).
-1. Configure an IDE extension and language server for a project that you're working on. Ensure that all the expected functionality, such as jump-to-definition for library dependencies, works as expected. If you don't have code that you can use for this exercise, you can use some open-source project from GitHub (such as [this one](https://github.com/spf13/cobra)).
-1. Browse a list of IDE extensions and install one that seems useful to you.
+1. Aktifkan mode Vim di semua perangkat lunak yang Anda gunakan yang mendukungnya, seperti penyunting dan shell Anda, dan gunakan mode Vim untuk semua penyuntingan teks Anda selama sebulan ke depan. Setiap kali ada yang terasa tidak efisien, atau ketika Anda berpikir "pasti ada cara yang lebih baik", coba cari di Google, kemungkinan besar ada cara yang lebih baik.
+1. Selesaikan sebuah tantangan dari [VimGolf](https://www.vimgolf.com/).
+1. Konfigurasikan ekstensi IDE dan language server untuk proyek yang sedang Anda kerjakan. Pastikan semua fungsionalitas yang diharapkan, seperti lompat ke definisi untuk dependensi library, berfungsi sebagaimana mestinya. Jika Anda tidak memiliki kode yang bisa digunakan untuk latihan ini, Anda bisa menggunakan beberapa proyek open-source dari GitHub (seperti [yang ini](https://github.com/spf13/cobra)).
+1. Jelajahi daftar ekstensi IDE dan pasang satu yang tampaknya berguna bagi Anda.
