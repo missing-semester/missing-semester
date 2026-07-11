@@ -2,35 +2,36 @@
 layout: page
 title: The Missing Semester of Your CS Education
 description: >
-  Master powerful tools that will make you a more productive computer scientist and programmer.
+  Kuasai alat-alat canggih yang akan membuat Anda menjadi ilmuwan komputer dan programmer yang lebih produktif.
 # subtitle: IAP 2026
 subtitle: "2026"
 nositetitle: true
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there's one critical subject that's rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We'll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
+Kuliah mengajarkan Anda semua tentang topik-topik lanjutan dalam ilmu komputer, dari sistem operasi
+hingga machine learning, tetapi ada satu subjek penting yang jarang dibahas,
+dan dibiarkan untuk dipelajari sendiri oleh para mahasiswa: kemahiran menggunakan
+alat-alat mereka. Kami akan mengajarkan Anda cara menguasai command-line, menggunakan
+text editor yang canggih, menggunakan fitur-fitur menarik dari sistem version control,
+dan masih banyak lagi!
 
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
+Mahasiswa menghabiskan ratusan jam menggunakan alat-alat ini selama
+pendidikan mereka (dan ribuan jam selama karier mereka), jadi masuk akal untuk membuat
+pengalaman tersebut selancar dan seefisien mungkin. Menguasai alat-alat ini tidak
+hanya memungkinkan Anda menghabiskan lebih sedikit waktu untuk mencari cara menggunakan alat sesuai
+keinginan Anda, tetapi juga memungkinkan Anda menyelesaikan masalah yang sebelumnya tampak
+sangat kompleks.
 
-These days, many aspects of software engineering are also in flux
-through the introduction of AI-enabled and AI-enhanced tools and
-workflows. When used appropriately and with awareness of their
-shortcomings, these can often provide significant benefits to
-CS practitioners and are thus worth developing working knowledge of.
-Since AI is a cross-functional enabling technology, there is not a
-standalone AI lecture; we've instead folded the use of the latest
-applicable AI tools and techniques into each lecture directly.
+Saat ini, banyak aspek software engineering juga mengalami perubahan
+dengan diperkenalkannya alat dan workflow berbasis AI.
+Ketika digunakan dengan tepat dan dengan kesadaran akan
+keterbatasannya, alat-alat ini sering kali dapat memberikan manfaat signifikan bagi
+praktisi ilmu komputer dan karenanya layak untuk dipelajari.
+Karena AI adalah teknologi yang bersifat lintas fungsi, tidak ada
+kuliah khusus AI; sebaliknya, kami telah mengintegrasikan penggunaan
+alat dan teknik AI terkini ke dalam setiap kuliah secara langsung.
 
-Read about the [motivation behind this class](/about/).
+Baca tentang [motivasi di balik kelas ini](/about/).
 
 {% comment %}
 # Registration
@@ -38,7 +39,7 @@ Read about the [motivation behind this class](/about/).
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 {% endcomment %}
 
-# Syllabus
+# Silabus
 
 {% comment %}
 **Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
@@ -61,9 +62,9 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-## Special topics from previous years
+## Topik khusus dari tahun-tahun sebelumnya
 
-The topics we cover vary from year to year. For students who are interested in the complete set of topics we have covered over the years, we highlight topics covered in previous years that we did not cover in 2026.
+Topik yang kami bahas bervariasi dari tahun ke tahun. Untuk mahasiswa yang tertarik pada kumpulan topik lengkap yang telah kami bahas selama bertahun-tahun, kami menyoroti topik-topik yang dibahas pada tahun-tahun sebelumnya yang tidak kami bahas di tahun 2026.
 
 {% comment %} pop to remove default "posts" collection {% endcomment %}
 {% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
@@ -92,16 +93,16 @@ from the [previous offering of the course](/2020/), which covers many of the
 same topics.
 {% endcomment %}
 
-# General information
+# Informasi Umum
 
-**Staff**: This class is co-taught by [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/).<br>
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).<br>
-**Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors).
+**Pengajar**: Kelas ini diajarkan bersama oleh [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), dan [Jose](https://josejg.com/).<br>
+**Pertanyaan**: Email kami di [missing-semester@mit.edu](mailto:missing-semester@mit.edu).<br>
+**Diskusi**: [OSSU Discord](https://ossu.dev/#community) (gunakan `#missing-semester-forum` seperti Anda menggunakan Piazza, dan `#missing-semester` untuk mengobrol dengan kelas/pengajar).
 
-# Beyond MIT
+# Di Luar MIT
 
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+Kami juga telah membagikan kelas ini di luar MIT dengan harapan orang lain dapat
+memanfaat dari sumber daya ini. Anda dapat menemukan posting dan diskusi di
 
  - Hacker News ([2026](https://news.ycombinator.com/item?id=47124171), [2020](https://news.ycombinator.com/item?id=22226380), [2019](https://news.ycombinator.com/item?id=19078281))
  - Lobsters ([2026](https://lobste.rs/s/q4ykw7/missing_semester_your_cs_education_2026), [2020](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit), [2019](https://lobste.rs/s/h6157x/mit_hacker_tools_lecture_series_on))
@@ -113,49 +114,49 @@ benefit from these resources. You can find posts and discussion on
  - LinkedIn ([2026](https://www.linkedin.com/posts/anishathalye_i-returned-to-mit-during-iap-january-term-activity-7430285026933522433-Ehr9))
  - YouTube ([2026](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L), [2020](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J), [2019](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuiujH1lpn8cA9dsyulbYRv))
 
-# Translations
+# Terjemahan
 
 {% comment %} keep these in alphabetical order {% endcomment %}
 
-- [Arabic](https://missing-semester-ar.github.io/)
+- [Arab](https://missing-semester-ar.github.io/)
 - [Bengali](https://missing-semester-bn.github.io/)
-- [Chinese (Simplified)](https://missing-semester-cn.github.io/)
-- [Chinese (Traditional, Taiwan)](https://missing-semester-tw.github.io/)
-- [German](https://missing-semester-de.github.io/)
-- [Italian](https://missing-semester-it.github.io/)
-- [Japanese](https://missing-semester-jp.github.io/)
+- [Cina (Sederhana)](https://missing-semester-cn.github.io/)
+- [Cina (Tradisional, Taiwan)](https://missing-semester-tw.github.io/)
+- [Jerman](https://missing-semester-de.github.io/)
+- [Italia](https://missing-semester-it.github.io/)
+- [Jepang](https://missing-semester-jp.github.io/)
 - [Kannada](https://missing-semester-kn.github.io/)
-- [Korean](https://missing-semester-kr.github.io/)
-- [Mongolian](https://missing-semester-mn.github.io)
-- [Persian](https://missing-semester-fa.github.io/)
-- [Portuguese](https://missing-semester-pt.github.io/)
-- [Russian](https://missing-semester-rus.github.io/)
-- [Serbian](https://netboxify.com/missing-semester/)
-- [Spanish](https://missing-semester-esp.github.io/)
-- [Swedish](https://den-saknade-terminen.l10n.se/)
-- [Thai](https://missing-semester-th.github.io/)
-- [Turkish](https://missing-semester-tr.github.io/)
-- [Vietnamese](https://missing-semester-vn.github.io/)
+- [Korea](https://missing-semester-kr.github.io/)
+- [Mongolia](https://missing-semester-mn.github.io)
+- [Persia](https://missing-semester-fa.github.io/)
+- [Portugis](https://missing-semester-pt.github.io/)
+- [Rusia](https://missing-semester-rus.github.io/)
+- [Serbia](https://netboxify.com/missing-semester/)
+- [Spanyol](https://missing-semester-esp.github.io/)
+- [Swedia](https://den-saknade-terminen.l10n.se/)
+- [Thailand](https://missing-semester-th.github.io/)
+- [Turki](https://missing-semester-tr.github.io/)
+- [Vietnam](https://missing-semester-vn.github.io/)
 
-Note: these are external links to community translations. We have not vetted
-them.
+Catatan: ini adalah tautan eksternal ke terjemahan komunitas. Kami belum memverifikasi
+isinya.
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+Apakah Anda telah membuat terjemahan catatan kuliah dari kelas ini? Kirimkan
+[pull request](https://github.com/missing-semester/missing-semester/pulls) agar
+kami dapat menambahkannya ke daftar!
 
-## Acknowledgments
+## Ucapan Terima Kasih
 
 {% comment %}
 2026 acks; previous years' acks are on their respective pages
 {% endcomment %}
 
-We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
+Kami mengucapkan terima kasih kepada Elaine Mello dan [MIT Open Learning](https://openlearning.mit.edu/) yang telah memungkinkan kami merekam video kuliah. Kami juga berterima kasih kepada Luis Turino / [SIPB](https://sipb.mit.edu/) yang telah mendukung kelas ini sebagai bagian dari [SIPB IAP 2026](https://sipb.mit.edu/iap/).
 
 ---
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester">Source code</a>.</p>
-<p>Licensed under CC BY-NC-SA.</p>
-<p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
+<p><a href="https://github.com/missing-semester/missing-semester">Kode sumber</a>.</p>
+<p>Dilisensikan di bawah CC BY-NC-SA.</p>
+<p>Lihat <a href="/license/">di sini</a> untuk panduan kontribusi &amp; terjemahan.</p>
 </div>

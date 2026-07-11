@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "OS Customization"
+title: "Kustomisasi OS"
 presenter: Anish
 date: 2019-01-29
 order: 3
@@ -10,81 +10,60 @@ video:
 special: true
 ---
 
-There is a lot you can do to customize your operating system beyond what is
-available in the settings menus.
+Ada banyak hal yang bisa Anda lakukan untuk menyesuaikan sistem operasi Anda di luar apa yang tersedia di menu pengaturan.
 
-# Keyboard remapping
+# Pemetaan ulang keyboard
 
-Your keyboard probably has keys that you aren't using very much. Instead of
-having useless keys, you can remap them to do useful things.
+Keyboard Anda mungkin memiliki tombol-tombol yang jarang Anda gunakan. Alih-alih membiarkan tombol-tombol tersebut tidak berguna, Anda bisa memetakannya ulang untuk melakukan hal-hal yang lebih bermanfaat.
 
-## Remapping to other keys
+## Memetakan ulang ke tombol lain
 
-The simplest thing is to remap keys to other keys. For example, if you don't
-use the caps lock key very much, then you can remap it to something more
-useful. If you are a Vim user, for example, you might want to remap caps lock
-to escape.
+Hal paling sederhana adalah memetakan ulang tombol ke tombol lain. Misalnya, jika Anda jarang menggunakan tombol caps lock, Anda bisa memetakannya ulang ke sesuatu yang lebih berguna. Jika Anda adalah pengguna Vim, misalnya, Anda mungkin ingin memetakan caps lock ke escape.
 
-On macOS, you can do some remappings through Keyboard settings in System
-Preferences; for more complicated mappings, you need special software.
+Di macOS, Anda bisa melakukan beberapa pemetaan ulang melalui pengaturan Keyboard di System Preferences; untuk pemetaan yang lebih rumit, Anda memerlukan perangkat lunak khusus.
 
-## Remapping to arbitrary commands
+## Memetakan ulang ke perintah sembarang
 
-You don't just have to remap keys to other keys: there are tools that will let
-you remap keys (or combinations of keys) to arbitrary commands. For example,
-you could make command-shift-t open a new terminal window.
+Anda tidak hanya bisa memetakan ulang tombol ke tombol lain: ada perangkat lunak yang memungkinkan Anda memetakan ulang tombol (atau kombinasi tombol) ke perintah sembarang. Misalnya, Anda bisa membuat command-shift-t membuka jendela terminal baru.
 
-# Customizing hidden OS settings
+# Menyesuaikan pengaturan OS yang tersembunyi
 
 ## macOS
 
-macOS exposes a lot of useful settings through the `defaults` command. For
-example, you can make Dock icons of hidden applications translucent:
+macOS menyediakan banyak pengaturan berguna melalui perintah `defaults`. Misalnya, Anda bisa membuat ikon Dock dari aplikasi yang tersembunyi menjadi transparan:
 
 ```shell
 defaults write com.apple.dock showhidden -bool true
 ```
 
-There is no single list of all possible settings, but you can find lists of
-specific customizations online, such as Mathias Bynens'
-[.macos](https://github.com/mathiasbynens/dotfiles/blob/master/.macos).
+Tidak ada satu daftar lengkap untuk semua pengaturan yang memungkinkan, tetapi Anda bisa menemukan daftar kustomisasi spesifik secara online, seperti [.macos](https://github.com/mathiasbynens/dotfiles/blob/master/.macos) milik Mathias Bynens.
 
-# Window management
+# Manajemen jendela
 
-## Tiling window management
+## Manajemen jendela tiling
 
-[Tiling window management](https://en.wikipedia.org/wiki/Tiling_window_manager)
-is one approach to window management, where you organize windows into
-non-overlapping frames. If you're using a Unix-based operating system, you can
-install a tiling window manager; if you're using something like Windows or
-macOS, you can install applications that let you approximate this behavior.
+[Manajemen jendela tiling](https://en.wikipedia.org/wiki/Tiling_window_manager) adalah salah satu pendekatan dalam manajemen jendela, di mana Anda mengatur jendela-jendela ke dalam bingkai yang tidak saling tumpang tindih. Jika Anda menggunakan sistem operasi berbasis Unix, Anda bisa menginstal tiling window manager; jika Anda menggunakan sesuatu seperti Windows atau macOS, Anda bisa menginstal aplikasi yang memungkinkan Anda meniru perilaku ini.
 
-## Screen management
+## Manajemen layar
 
-You can set up keyboard shortcuts to help you manipulate windows across
-screens.
+Anda bisa mengatur pintasan keyboard untuk membantu Anda memanipulasi jendela di berbagai layar.
 
-## Layouts
+## Tata letak
 
-If there are specific ways you lay out windows on a screen, rather than
-"executing" that layout manually, you can script it, making instantiating a
-layout trivial.
+Jika ada cara-cara tertentu Anda menata jendela di layar, alih-alih "menjalankan" tata letak tersebut secara manual, Anda bisa membuatnya sebagai skrip, sehingga membuat pembuatan tata letak menjadi sangat mudah.
 
-# Resources
+# Sumber Daya
 
-- [Hammerspoon](https://www.hammerspoon.org/) - macOS desktop automation
-- [Rectangle](https://rectangleapp.com/) - macOS window manager
-- [Karabiner](https://karabiner-elements.pqrs.org/) - sophisticated macOS keyboard remapping
-- [r/unixporn](https://www.reddit.com/r/unixporn/) - screenshots and
-documentation of people's fancy configurations
+- [Hammerspoon](https://www.hammerspoon.org/) - Otomasi desktop macOS
+- [Rectangle](https://rectangleapp.com/) - Window manager macOS
+- [Karabiner](https://karabiner-elements.pqrs.org/) - Pemetaan ulang keyboard macOS yang canggih
+- [r/unixporn](https://www.reddit.com/r/unixporn/) - Tangkapan layar dan dokumentasi konfigurasi mewah milik orang-orang
 
-# Exercises
+# Latihan
 
-1. Figure out how to remap your Caps Lock key to something you use more often
-   (such as Escape or Ctrl or Backspace).
+1. Cari tahu cara memetakan ulang tombol Caps Lock Anda ke sesuatu yang lebih sering Anda gunakan (seperti Escape, Ctrl, atau Backspace).
 
-1. Make a custom global keyboard shortcut to open a new terminal window or a
-   new browser window.
+1. Buat pintasan keyboard global kustom untuk membuka jendela terminal baru atau jendela browser baru.
 
 {% comment %}
 

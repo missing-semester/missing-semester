@@ -10,13 +10,13 @@ layout: default
     <iframe src="https://www.youtube.com/embed/{{ page.video.id }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 {% elsif page.panopto %}
-  <p class="center padded bordered"><strong><a href="{{ page.panopto }}">Click here to view the raw lecture video on Panopto (MIT Kerberos login required).</a></strong><br>
-  An edited version of this video will be posted after the course is over. Edited lecture videos will be posted to YouTube shortly after the conclusion of the course.</p>
+  <p class="center padded bordered"><strong><a href="{{ page.panopto }}">Klik di sini untuk melihat video kuliah mentah di Panopto (diperlukan login Kerberos MIT).</a></strong><br>
+  Versi suntingan dari video ini akan diposting setelah kursus selesai. Video kuliah yang telah disunting akan diposting ke YouTube segera setelah kursus berakhir.</p>
 {% elsif page.last_year %}
-  <p class="center padded bordered"><strong><a href="{{ page.last_year }}">Click here to view last year's lecture video.</a></strong><br>
-  This year's lecture video is coming soon.</p>
+  <p class="center padded bordered"><strong><a href="{{ page.last_year }}">Klik di sini untuk melihat video kuliah tahun lalu.</a></strong><br>
+  Video kuliah tahun ini akan segera tersedia.</p>
 {% elsif page.video %}
-  <p class="center padded bordered"><strong>Lecture video coming soon!</strong></p>
+  <p class="center padded bordered"><strong>Video kuliah akan segera tersedia!</strong></p>
 {% endif %}
 
 {{ content }}
@@ -24,6 +24,6 @@ layout: default
 <hr>
 
 <div class="small center">
-<p><a href="https://github.com/missing-semester/missing-semester/blob/master/{{ page.path }}">Edit this page</a>.</p>
-<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a>.</p>
+<p><a href="https://github.com/missing-semester/missing-semester/blob/master/{{ page.path }}">Sunting halaman ini</a>.</p>
+<p>Dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA</a>.</p>
 </div>

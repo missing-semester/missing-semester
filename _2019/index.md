@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "2019 Lectures"
+title: "Kuliah 2019"
 description: >
   Catatan kuliah dan video untuk Missing Semester, MIT IAP 2019.
 permalink: /2019/
@@ -23,9 +23,9 @@ phony: true
   </ul>
 {% endfor %}
 
-# Beyond MIT
+# Di Luar MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+Kami juga telah membagikan kelas ini di luar MIT dengan harapan orang lain dapat memperoleh manfaat dari sumber daya ini. Anda dapat menemukan postingan dan diskusi di
 
 - [Hacker News](https://news.ycombinator.com/item?id=19078281)
 - [Lobsters](https://lobste.rs/s/h6157x/mit_hacker_tools_lecture_series_on)
@@ -34,6 +34,6 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 - [Twitter](https://twitter.com/Jonhoo/status/1091896192332693504)
 - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuiujH1lpn8cA9dsyulbYRv)
 
-# Acknowledgments
+# Ucapan Terima Kasih
 
-This class was taught as part of [SIPB IAP 2019](https://sipb.mit.edu/iap/2019/) and co-sponsored by [SIPB](https://sipb.mit.edu/) and [MIT EECS](https://www.eecs.mit.edu/).
+Kelas ini diajarkan sebagai bagian dari [SIPB IAP 2019](https://sipb.mit.edu/iap/2019/) dan bersama-sama disponsori oleh [SIPB](https://sipb.mit.edu/) dan [MIT EECS](https://www.eecs.mit.edu/).

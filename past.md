@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Past Offerings
+title: Penawaran Sebelumnya
 description: >
-  Find all past offerings of Missing Semester.
+  Temukan semua penawaran sebelumnya dari Missing Semester.
 ---
 
 {% comment %} pop to remove default "posts" collection {% endcomment %}
@@ -13,4 +13,4 @@ description: >
 {% endfor %}
 </ul>
 
-Each year's lectures are fully self-contained. We recommend starting with the most recent version of the material. There is variation in the topics covered year to year, so we continue to host notes and videos for earlier versions of this course.
+Kuliah setiap tahun sepenuhnya mandiri. Kami merekomendasikan untuk memulai dengan versi materi terbaru. Ada variasi dalam topik yang dibahas dari tahun ke tahun, jadi kami terus menyediakan catatan dan video untuk versi kursus sebelumnya.
