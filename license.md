@@ -1,33 +1,33 @@
 ---
 layout: default
-title: "License"
+title: "Lisensi"
 permalink: /license/
 ---
 
-# License
+# Lisensi
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Semua konten dalam kursus ini, termasuk kode sumber website, catatan kuliah, latihan, dan video kuliah dilisensikan di bawah [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-This means that you are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+Ini berarti Anda bebas untuk:
+- **Berbagi** — menyalin dan mendistribusikan kembali materi dalam media atau format apa pun
+- **Mengadaptasi** — menggubah, mengubah, dan membangun dari materi tersebut
 
-Under the following terms:
+Dengan ketentuan berikut:
 
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+- **Atribusi** — Anda harus memberikan kredit yang sesuai, menyertakan tautan ke lisensi, dan menunjukkan apakah ada perubahan yang dibuat. Anda dapat melakukannya dengan cara yang wajar, tetapi tidak dengan cara yang menunjukkan bahwa pemberi lisensi mendukung Anda atau penggunaan Anda.
+- **NonKomersial** — Anda tidak boleh menggunakan materi tersebut untuk tujuan komersial.
+- **BerbagiSerupa** — Jika Anda menggubah, mengubah, atau membangun dari materi tersebut, Anda harus mendistribusikan kontribusi Anda di bawah lisensi yang sama dengan aslinya.
 
-This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Ini adalah ringkasan yang dapat dibaca manusia (dan bukan pengganti) dari [lisensi](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
-## Contribution guidelines
+## Panduan kontribusi
 
-You can submit corrections and suggestions to the course material by submitting issues and pull requests on our GitHub [repo](https://github.com/missing-semester/missing-semester). This includes the captions for the video lectures which are also in the repo (see [here](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
+Anda dapat mengirimkan koreksi dan saran untuk materi kursus dengan mengirimkan issue dan pull request di [repo](https://github.com/missing-semester/missing-semester) GitHub kami. Ini termasuk subtitle untuk video kuliah yang juga ada di repo (lihat [di sini](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
 
-## Translation guidelines
+## Panduan terjemahan
 
-You are free to translate the lecture notes and exercises as long as you follow the license terms.
-If your translation mirrors the course structure, please contact us so we can link your translated version from our page.
+Anda bebas menerjemahkan catatan kuliah dan latihan selama Anda mengikuti ketentuan lisensi.
+Jika terjemahan Anda mengikuti struktur kursus, silakan hubungi kami sehingga kami dapat menautkan versi terjemahan Anda dari halaman kami.
 
-For translating the video captions, please submit your translations as community contributions in YouTube.
+Untuk menerjemahkan subtitle video, silakan kirimkan terjemahan Anda sebagai kontribusi komunitas di YouTube.
 
