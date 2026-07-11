@@ -2,7 +2,7 @@
 layout: lecture
 title: "Editors (Vim)"
 description: >
-  Learn how to use Vim, a powerful text editor designed for efficient code editing.
+  Pelajari cara menggunakan Vim, editor teks yang dirancang untuk pengeditan kode yang efisien.
 thumbnail: /static/assets/thumbnails/2020/lec3.png
 date: 2020-01-15
 ready: true

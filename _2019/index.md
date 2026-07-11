@@ -2,7 +2,7 @@
 layout: page
 title: "2019 Lectures"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2019.
+  Catatan kuliah dan video untuk Missing Semester, MIT IAP 2019.
 permalink: /2019/
 phony: true
 ---

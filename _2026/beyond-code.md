@@ -2,7 +2,7 @@
 layout: lecture
 title: "Beyond the Code"
 description: >
-  Learn about essential soft skills including documentation, open-source community norms, and AI etiquette.
+  Pelajari soft skills penting termasuk dokumentasi, norma komunitas open-source, dan etika AI.
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true

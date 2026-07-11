@@ -2,7 +2,7 @@
 layout: lecture
 title: "Potpourri"
 description: >
-  Learn about a variety of useful topics including keyboard remapping, daemons, backups, APIs, and more.
+  Pelajari berbagai topik berguna termasuk keyboard remapping, daemon, backup, API, dan lainnya.
 thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true

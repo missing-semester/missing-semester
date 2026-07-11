@@ -2,7 +2,7 @@
 layout: lecture
 title: "Command-line Environment"
 description: >
-  Learn about job control, terminal multiplexers, dotfiles, and remote machines with SSH.
+  Pelajari tentang job control, terminal multiplexer, dotfiles, dan mesin remote dengan SSH.
 thumbnail: /static/assets/thumbnails/2020/lec5.png
 date: 2020-01-21
 ready: true

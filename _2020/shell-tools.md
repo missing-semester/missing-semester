@@ -2,7 +2,7 @@
 layout: lecture
 title: "Shell Tools and Scripting"
 description: >
-  Learn how to write shell scripts and use powerful command-line tools.
+  Pelajari cara menulis shell script dan menggunakan tools command-line yang powerful.
 thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true

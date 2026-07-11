@@ -2,7 +2,7 @@
 layout: lecture
 title: "Code Quality"
 description: >
-  Learn about formatting, linting, testing, continuous integration, and more.
+  Pelajari tentang formatting, linting, pengujian, continuous integration, dan lainnya.
 thumbnail: /static/assets/thumbnails/2026/lec9.png
 date: 2026-01-23
 ready: true

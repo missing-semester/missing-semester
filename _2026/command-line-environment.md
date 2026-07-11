@@ -2,7 +2,7 @@
 layout: lecture
 title: "Command-line Environment"
 description: >
-  Learn how command-line programs work, including input/output streams, environment variables, and remote machines with SSH.
+  Pelajari cara kerja program command-line, termasuk input/output streams, environment variables, dan mesin remote dengan SSH.
 thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true

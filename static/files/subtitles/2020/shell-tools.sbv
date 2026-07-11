@@ -1,2625 +1,2625 @@
 0:00:00.400,0:00:02.860
-Okay, welcome back.
+Oke, selamat datang kembali.
 
 0:00:02.860,0:00:05.920
-Today we're gonna cover a couple separate
+Hari ini kita akan membahas dua
 
 0:00:05.920,0:00:07.620
-two main topics related to the shell.
+topik utama yang berkaitan dengan shell.
 
 0:00:07.620,0:00:11.240
-First, we're gonna do some kind of shell
-scripting, mainly related to bash,
+Pertama, kita akan melakukan beberapa shell
+scripting, terutama terkait bash,
 
 0:00:11.240,0:00:14.160
-which is the shell that most of you will start
+yaitu shell yang akan digunakan sebagian besar dari kalian
 
 0:00:14.160,0:00:18.520
-in Mac, or like in most Linux systems,
-that's the default shell.
+di Mac, atau di sebagian besar sistem Linux,
+sebagai shell default.
 
 0:00:18.520,0:00:22.720
-And it's also kind of backward compatible through
-other shells like zsh, it's pretty nice.
+Dan juga cukup kompatibel ke belakang melalui
+shell lain seperti zsh, cukup bagus.
 
 0:00:22.740,0:00:25.940
-And then we're gonna cover some other shell
-tools that are really convenient,
+Kemudian kita akan membahas beberapa tool shell
+lainnya yang sangat berguna,
 
 0:00:26.060,0:00:29.320
-so you avoid doing really repetitive tasks,
+sehingga kalian bisa menghindari tugas yang sangat repetitif,
 
 0:00:29.320,0:00:31.580
-like looking for some piece of code
+seperti mencari potongan kode
 
 0:00:31.580,0:00:33.420
-or for some elusive file.
+atau file yang sulit ditemukan.
 
 0:00:33.420,0:00:36.160
-And there are already really
-nice built-in commands
+Dan sudah ada
+perintah bawaan yang sangat bagus
 
 0:00:36.160,0:00:40.960
-that will really help you to do those things.
+yang akan sangat membantu kalian melakukan hal-hal tersebut.
 
 0:00:40.960,0:00:43.260
-So yesterday we already kind of introduced
+Jadi kemarin kita sudah sedikit memperkenalkan
 
 0:00:43.260,0:00:46.160
-you to the shell and some of it's quirks,
+kalian pada shell dan beberapa keunikannya,
 
 0:00:46.160,0:00:48.720
-and like how you start executing commands,
+dan cara mengeksekusi perintah,
 
 0:00:48.720,0:00:50.600
-redirecting them.
+serta melakukan redirect.
 
 0:00:50.600,0:00:52.400
-Today, we're going to kind of cover more about
+Hari ini, kita akan membahas lebih lanjut tentang
 
 0:00:52.460,0:00:56.120
-the syntax of the variables, the control flow,
+sintaks variabel, control flow,
 
 0:00:56.120,0:00:57.720
-functions of the shell.
+dan fungsi-fungsi dalam shell.
 
 0:00:57.720,0:01:02.700
-So for example, once you drop
-into a shell, say you want to
+Jadi misalnya, setelah masuk
+ke shell, kalian ingin
 
 0:01:02.760,0:01:06.360
-define a variable, which is
-one of the first things you
+mendefinisikan variabel, yang merupakan
+salah satu hal pertama yang kalian
 
 0:01:06.360,0:01:09.340
-learn to do in a programming language.
+pelajari dalam bahasa pemrograman.
 
 0:01:09.340,0:01:12.740
-Here you could do something like foo equals bar.
+Di sini kalian bisa melakukan sesuatu seperti foo sama dengan bar.
 
 0:01:12.860,0:01:18.400
-And now we can access the value
-of foo by doing "$foo".
+Dan sekarang kita bisa mengakses nilai
+foo dengan melakukan "$foo".
 
 0:01:18.460,0:01:21.400
-And that's bar, perfect.
+Dan hasilnya bar, sempurna.
 
 0:01:21.400,0:01:24.480
-One quirk that you need to be aware of is that
+Satu hal yang perlu kalian perhatikan adalah
 
 0:01:24.480,0:01:27.900
-spaces are really critical when
-you're dealing with bash.
+spasi sangat penting saat
+berurusan dengan bash.
 
 0:01:27.900,0:01:33.380
-Mainly because spaces are reserved, and
-that will be for separating arguments.
+Terutama karena spasi digunakan untuk
+memisahkan argumen.
 
 0:01:33.380,0:01:36.700
-So, for example, something like foo equals bar
+Jadi, misalnya, sesuatu seperti foo sama dengan bar
 
 0:01:36.700,0:01:42.000
-won't work, and the shell is gonna
-tell you why it's not working.
+tidak akan berfungsi, dan shell akan
+memberitahu kalian alasannya.
 
 0:01:42.000,0:01:46.280
-It's because the foo command is not
-working, like foo is non-existent.
+Karena perintah foo tidak
+ditemukan, foo tidak ada.
 
 0:01:46.280,0:01:47.780
-And here what is actually happening,
-we're not assigning foo to bar,
+Dan yang sebenarnya terjadi di sini,
+kita tidak menetapkan foo ke bar,
 
 0:01:47.780,0:01:52.260
-what is happening is we're
-calling the foo program
+yang terjadi adalah kita
+memanggil program foo
 
 0:01:52.260,0:01:57.520
-with the first argument "=" and
-the second argument "bar".
+dengan argumen pertama "=" dan
+argumen kedua "bar".
 
 0:01:57.520,0:02:03.880
-And in general, whenever you are having
-some issues, like some files with spaces
+Dan secara umum, kapan pun kalian mengalami
+masalah, seperti file dengan spasi
 
 0:02:03.880,0:02:06.160
-you will need to be careful about that.
+kalian harus berhati-hati.
 
 0:02:06.160,0:02:10.620
-You need to be careful about quoting strings.
+Kalian harus berhati-hati dalam memberikan quote pada string.
 
 0:02:10.640,0:02:16.480
-So, going into that, how you do strings in bash.
-There are two ways that you can define a string:
+Jadi, bagaimana cara membuat string di bash.
+Ada dua cara mendefinisikan string:
 
 0:02:16.540,0:02:24.720
-You can define strings using double quotes
-and you can define strings using single,
+Kalian bisa mendefinisikan string menggunakan double quote
+dan kalian bisa menggunakan single quote,
 
 0:02:24.720,0:02:26.540
-sorry,
+maaf,
 
 0:02:26.540,0:02:28.880
-using single quotes.
+menggunakan single quote.
 
 0:02:29.140,0:02:32.760
-However, for literal strings they are equivalent,
+Namun, untuk string literal keduanya setara,
 
 0:02:32.760,0:02:35.460
-but for the rest they are not equivalent.
+tetapi untuk lainnya tidak setara.
 
 0:02:35.460,0:02:42.980
-So, for example, if we do value is $foo,
+Jadi, misalnya, jika kita melakukan value is $foo,
 
 0:02:43.440,0:02:48.480
-the $foo has been expanded like
-a string, substituted to the
+$foo telah di-expand seperti
+string, disubstitusi dengan
 
 0:02:48.480,0:02:50.820
-value of the foo variable in the shell.
+nilai variabel foo di shell.
 
 0:02:50.960,0:02:58.940
-Whereas if we do this with a simple quote,
-we are just getting the $foo as it is
+Sedangkan jika kita menggunakan single quote,
+kita hanya mendapatkan $foo apa adanya
 
 0:02:58.940,0:03:02.280
-and single quotes won't be replacing. Again,
+dan single quote tidak akan melakukan substitusi. Lagi,
 
 0:03:02.280,0:03:07.290
-it's really easy to write a script, assume that
-this is kind of like Python, that you might be
+sangat mudah menulis script dan mengira
+ini seperti Python, yang mungkin lebih
 
 0:03:07.290,0:03:10.860
-more familiar with, and not realize all that.
+kalian kuasai, dan tidak menyadari semua itu.
 
 0:03:10.860,0:03:14.180
-And this is the way you will assign variables.
+Dan ini adalah cara kalian menetapkan variabel.
 
 0:03:14.180,0:03:17.849
-Then bash also has control flow
-techniques that we'll see later,
+Kemudian bash juga memiliki teknik control flow
+yang akan kita lihat nanti,
 
 0:03:17.849,0:03:24.440
-like for loops, while loops, and one main
-thing is you can define functions.
+seperti for loop, while loop, dan satu hal utama
+adalah kalian bisa mendefinisikan fungsi.
 
 0:03:24.440,0:03:27.820
-We can access a function I have defined here.
+Kita bisa mengakses fungsi yang telah saya definisikan di sini.
 
 0:03:28.220,0:03:34.220
-Here we have the MCD function, that
-has been defined, and the thing is
+Di sini kita memiliki fungsi MCD yang
+telah didefinisikan, dan
 
 0:03:34.220,0:03:38.400
-so far, we have just kind of seen how
-to execute several commands by piping
+sejauh ini, kita baru melihat cara
+mengeksekusi beberapa perintah dengan piping
 
 0:03:38.400,0:03:40.720
-into them, kind of saw that briefly yesterday.
+ke dalamnya, yang sedikit kita bahas kemarin.
 
 0:03:40.940,0:03:44.980
-But a lot of times you want to do first
-one thing and then another thing.
+Tapi seringkali kalian ingin melakukan satu hal
+terlebih dahulu lalu hal lainnya.
 
 0:03:44.980,0:03:47.580
-And that's kind of like the
+Dan itu adalah
 
 0:03:47.740,0:03:50.880
-sequential execution that we get here.
+eksekusi berurutan yang kita dapatkan di sini.
 
 0:03:50.880,0:03:54.260
-Here, for example, we're
-calling the MCD function.
+Di sini, misalnya, kita
+memanggil fungsi MCD.
 
 0:03:56.860,0:03:57.800
-We, first,
+Kita, pertama,
 
 0:03:57.800,0:04:02.960
-are calling the makedir command,
-which is creating this directory.
+memanggil perintah makedir,
+yang membuat direktori ini.
 
 0:04:02.960,0:04:05.600
-Here, $1 is like a special variable.
+Di sini, $1 adalah variabel khusus.
 
 0:04:05.600,0:04:07.440
-This is the way that bash works,
+Beginilah cara bash bekerja,
 
 0:04:07.440,0:04:12.160
-whereas in other scripting languages
-there will be like argv,
+sedangkan di bahasa scripting lain
+akan ada argv,
 
 0:04:12.160,0:04:16.620
-the first item of the array argv
-will contain the argument.
+item pertama dari array argv
+akan berisi argumen.
 
 0:04:16.620,0:04:19.160
-In bash it's $1. And in general, a lot
+Di bash, itu adalah $1. Dan secara umum, banyak
 
 0:04:19.160,0:04:21.640
-of things in bash will be dollar something
+hal di bash akan berupa dollar sesuatu
 
 0:04:21.640,0:04:26.680
-and will be reserved, we will
-be seeing more examples later.
+dan akan menjadi reserved, kita akan
+melihat lebih banyak contoh nanti.
 
 0:04:26.680,0:04:30.290
-And once we have created the folder,
-we CD into that folder,
+Dan setelah kita membuat folder,
+kita CD ke folder tersebut,
 
 0:04:30.290,0:04:34.687
-which is kind of a fairly common
-pattern that you will see.
+yang merupakan pola yang cukup umum
+yang akan kalian lihat.
 
 0:04:34.687,0:04:39.060
-We will actually type this directly
-into our shell, and it will work and
+Kita sebenarnya bisa mengetik ini langsung
+ke shell kita, dan akan berfungsi
 
 0:04:39.120,0:04:45.260
-it will define this function. But sometimes
-it's nicer to write things in a file.
+serta mendefinisikan fungsi ini. Tapi terkadang
+lebih baik menulisnya dalam file.
 
 0:04:45.260,0:04:50.040
-What we can do is we can source
-this. And that will
+Yang bisa kita lakukan adalah source
+file ini. Dan itu akan
 
 0:04:50.080,0:04:53.960
-execute this script in our shell and load it.
+mengeksekusi script ini di shell kita dan memuatnya.
 
 0:04:53.960,0:04:59.340
-So now it looks like nothing happened,
-but now the MCD function has
+Jadi sepertinya tidak ada yang terjadi,
+tapi sekarang fungsi MCD telah
 
 0:04:59.340,0:05:03.460
-been defined in our shell. So
-we can now for example do
+didefinisikan di shell kita. Jadi
+kita sekarang bisa melakukan
 
 0:05:03.463,0:05:09.150
-MCD test, and now we move from
-the tools directory to the test
+MCD test, dan sekarang kita pindah dari
+direktori tools ke direktori
 
 0:05:09.160,0:05:14.200
-directory. We both created the
-folder and we moved into it.
+test. Kita membuat folder
+dan pindah ke dalamnya.
 
 0:05:15.760,0:05:18.820
-What else. So a result is...
+Apa lagi. Jadi hasilnya...
 
 0:05:18.820,0:05:22.160
-We can access the first argument with $1.
+Kita bisa mengakses argumen pertama dengan $1.
 
 0:05:22.160,0:05:26.100
-There's a lot more reserved commands,
+Ada banyak reserved command lainnya,
 
 0:05:26.100,0:05:30.020
-for example $0 will be the name of the script,
+misalnya $0 akan menjadi nama script,
 
 0:05:30.020,0:05:35.260
-$2 through $9 will be the second
-through the ninth arguments
+$2 hingga $9 akan menjadi argumen kedua
+hingga kesembilan
 
 0:05:35.260,0:05:38.070
-that the bash script takes.
-Some of these reserved
+yang diterima bash script.
+Beberapa reserved
 
 0:05:38.070,0:05:43.080
-keywords can be directly used
-in the shell, so for example
+keyword ini bisa langsung digunakan
+di shell, jadi misalnya
 
 0:05:43.420,0:05:50.300
-$? will get you the error code
-from the previous command,
+$? akan memberikan kalian error code
+dari perintah sebelumnya,
 
 0:05:50.300,0:05:53.580
-which I'll also explain briefly.
+yang juga akan saya jelaskan secara singkat.
 
 0:05:53.580,0:05:58.320
-But for example, $_ will get
-you the last argument of the
+Tapi misalnya, $_ akan memberikan
+argumen terakhir dari
 
 0:05:58.320,0:06:03.460
-previous command. So another way
-we could have done this is
+perintah sebelumnya. Jadi cara lain
+yang bisa kita lakukan adalah
 
 0:06:03.460,0:06:07.380
-we could have said like "mkdir test"
+kita bisa bilang "mkdir test"
 
 0:06:07.380,0:06:12.020
-and instead of rewriting test, we
-can access that last argument
+dan alih-alih menulis ulang test, kita
+bisa mengakses argumen terakhir
 
 0:06:12.020,0:06:18.400
-as part of the (previous command), using $_
+tersebut menggunakan $_
 
 0:06:18.400,0:06:23.160
-like, that will be replaced with
-test and now we go into test.
+yang akan digantikan dengan
+test dan sekarang kita masuk ke test.
 
 0:06:25.040,0:06:27.480
-There are a lot of them, you
-should familiarize with them.
+Ada banyak dari mereka, kalian
+harus familiar dengan mereka.
 
 0:06:27.480,0:06:32.900
-Another one I often use is called "bang
-bang" ("!!"), you will run into this
+Satu lagi yang sering saya gunakan disebut "bang
+bang" ("!!"), kalian akan menemuinya
 
 0:06:32.910,0:06:37.300
-whenever you, for example, are trying
-to create something and you don't have
+kapan pun, misalnya, kalian mencoba
+membuat sesuatu tapi tidak memiliki
 
 0:06:37.320,0:06:41.000
-enough permissions. Then, you can do "sudo !!"
+izin yang cukup. Kemudian, kalian bisa melakukan "sudo !!"
 
 0:06:41.010,0:06:43.400
-and then that will replace the command in
+dan itu akan menggantikan perintah
 
 0:06:43.470,0:06:46.400
-there and now you can just try doing
+di sana dan sekarang kalian bisa mencoba
 
 0:06:46.440,0:06:48.380
-that. And now it will prompt you for a password,
+melakukannya. Dan sekarang akan meminta password,
 
 0:06:48.380,0:06:50.080
-because you have sudo permissions.
+karena kalian memiliki izin sudo.
 
 0:06:53.800,0:06:57.180
-Before, I mentioned the, kind
-of the error command.
+Sebelumnya, saya menyebutkan
+error command.
 
 0:06:57.180,0:06:59.400
-Yesterday we saw that, in general, there are
+Kemarin kita melihat bahwa, secara umum, ada
 
 0:06:59.400,0:07:02.400
-different ways a process can communicate
+berbagai cara sebuah proses bisa berkomunikasi
 
 0:07:02.400,0:07:05.091
-with other processes or commands.
+dengan proses atau perintah lain.
 
 0:07:05.100,0:07:08.420
-We mentioned the standard
-input, which also was like
+Kita menyebutkan standard
+input, yang juga seperti
 
 0:07:09.160,0:07:11.380
-getting stuff through the standard input,
+memasukkan sesuatu melalui standard input,
 
 0:07:11.640,0:07:13.840
-putting stuff into the standard output.
+mengeluarkan sesuatu melalui standard output.
 
 0:07:13.840,0:07:16.830
-There are a couple more interesting
-things, there's also like a
+Ada beberapa hal menarik lainnya,
+ada juga seperti
 
 0:07:16.830,0:07:19.837
-standard error, a stream where you write errors
+standard error, stream tempat kalian menulis error
 
 0:07:19.837,0:07:23.900
-that happen with your program and you don't
-want to pollute the standard output.
+yang terjadi pada program kalian dan kalian tidak
+ingin mencemari standard output.
 
 0:07:23.900,0:07:27.420
-There's also the error code,
-which is like a general
+Ada juga error code,
+yang seperti hal umum
 
 0:07:27.420,0:07:29.520
-thing in a lot of programming languages,
+di banyak bahasa pemrograman,
 
 0:07:29.520,0:07:34.460
-some way of reporting how the
-entire run of something went.
+suatu cara melaporkan bagaimana
+keseluruhan jalannya sesuatu.
 
 0:07:34.460,0:07:36.060
-So if we do
+Jadi jika kita melakukan
 
 0:07:36.060,0:07:41.020
-something like echo hello and we
+sesuatu seperti echo hello dan kita
 
 0:07:41.580,0:07:43.920
-query for the value, it's zero. And it's zero
+tanya nilainya, hasilnya nol. Dan nol
 
 0:07:43.920,0:07:45.840
-because everything went okay and there
+karena semuanya berjalan baik dan tidak
 
 0:07:45.840,0:07:49.170
-weren't any issues. And a zero exit code is
+ada masalah. Dan exit code nol adalah
 
 0:07:49.170,0:07:50.940
-the same as you will get in a language
+sama seperti yang akan kalian dapatkan di bahasa
 
 0:07:50.940,0:07:54.980
-like C, like 0 means everything
-went fine, there were no errors.
+seperti C, yaitu 0 berarti semuanya
+baik-baik saja, tidak ada error.
 
 0:07:54.980,0:07:57.600
-However, sometimes things won't work.
+Namun, terkadang ada yang tidak berhasil.
 
 0:07:57.600,0:08:04.600
-Sometimes, like if we try to grep
-for foobar in our MCD script,
+Terkadang, misalnya jika kita mencoba grep
+untuk foobar di script MCD kita,
 
 0:08:04.600,0:08:08.130
-and now we check for that
-value, it's 1. And that's
+dan sekarang kita cek nilainya,
+hasilnya 1. Dan itu
 
 0:08:08.130,0:08:10.770
-because we tried to search for the foobar
+karena kita mencoba mencari string foobar
 
 0:08:10.770,0:08:13.620
-string in the MCD script and it wasn't there.
+di script MCD dan tidak menemukannya.
 
 0:08:13.620,0:08:17.190
-So grep doesn't print anything, but
+Jadi grep tidak mencetak apa-apa, tapi
 
 0:08:17.190,0:08:19.950
-let us know that things didn't work by
+memberi tahu kita bahwa ada yang tidak berhasil dengan
 
 0:08:19.950,0:08:22.260
-giving us a 1 error code.
+memberikan error code 1.
 
 0:08:22.260,0:08:24.420
-There are some interesting commands like
+Ada beberapa perintah menarik seperti
 
 0:08:24.420,0:08:29.160
-"true", for example, will always have a zero
+"true", misalnya, akan selalu memiliki error code
 
 0:08:29.160,0:08:35.060
-error code, and false will always
-have a one error code.
+nol, dan false akan selalu
+memiliki error code satu.
 
 0:08:35.060,0:08:37.919
-Then there are like
+Kemudian ada
 
 0:08:37.919,0:08:40.080
-these logical operators that you can use
+operator logika yang bisa kalian gunakan
 
 0:08:40.080,0:08:43.808
-to do some sort of conditionals.
-For example, one way...
+untuk melakukan beberapa kondisional.
+Misalnya, satu cara...
 
 0:08:43.808,0:08:47.160
-you also have IF's and ELSE's, that
-we will see later, but you can do
+kalian juga punya IF dan ELSE, yang
+akan kita lihat nanti, tapi kalian bisa melakukan
 
 0:08:47.160,0:08:51.920
-something like "false", and echo "Oops fail".
+sesuatu seperti "false", dan echo "Oops fail".
 
 0:08:51.920,0:08:56.300
-So here we have two commands connected
-by this OR operator.
+Jadi di sini kita memiliki dua perintah yang dihubungkan
+oleh operator OR ini.
 
 0:08:56.300,0:09:00.250
-What bash is gonna do here, it's
-gonna execute the first one
+Yang akan dilakukan bash di sini adalah
+mengeksekusi yang pertama
 
 0:09:00.250,0:09:04.450
-and if the first one didn't work, then it's
+dan jika yang pertama tidak berhasil, maka
 
 0:09:04.450,0:09:07.380
-gonna execute the second one. So here we get it,
+akan mengeksekusi yang kedua. Jadi di sini kita mendapatkannya,
 
 0:09:07.380,0:09:12.000
-because it's gonna try to do a logical
-OR. If the first one didn't have
+karena akan mencoba melakukan OR logika.
+Jika yang pertama tidak memiliki
 
 0:09:12.000,0:09:15.960
-a zero error code, it's gonna try to
-do the second one. Similarly, if we
+error code nol, akan mencoba
+yang kedua. Begitu juga, jika kita
 
 0:09:15.960,0:09:19.580
-instead of use "false", we
-use something like "true",
+alih-alih menggunakan "false", kita
+menggunakan sesuatu seperti "true",
 
 0:09:19.580,0:09:22.180
-since true will have a zero error code, then the
+karena true akan memiliki error code nol, maka
 
 0:09:22.180,0:09:24.700
-second one will be short-circuited and
+yang kedua akan di-short-circuit dan
 
 0:09:24.700,0:09:27.500
-it won't be printed.
+tidak akan dicetak.
 
 0:09:32.560,0:09:36.970
-Similarly, we have an AND
-operator which will only
+Demikian juga, kita memiliki operator
+AND yang hanya akan
 
 0:09:36.970,0:09:39.430
-execute the second part if the first one
+mengeksekusi bagian kedua jika yang pertama
 
 0:09:39.430,0:09:41.440
-ran without errors.
+berjalan tanpa error.
 
 0:09:41.440,0:09:44.820
-And the same thing will happen.
+Dan hal yang sama akan terjadi.
 
 0:09:44.820,0:09:50.340
-If the first one fails, then the second
-part of this thing won't be executed.
+Jika yang pertama gagal, maka bagian kedua
+tidak akan dieksekusi.
 
 0:09:50.340,0:09:57.280
-Kind of not exactly related to that, but
-another thing that you will see is
+Yang agak tidak terkait dengan itu, tapi
+hal lain yang akan kalian lihat adalah
 
 0:10:00.020,0:10:04.120
-that no matter what you execute,
-then you can concatenate
+bahwa apa pun yang kalian eksekusi,
+kalian bisa menggabungkan
 
 0:10:04.120,0:10:07.120
-commands using a semicolon in the same line,
+perintah menggunakan titik koma di baris yang sama,
 
 0:10:07.120,0:10:10.300
-and that will always print.
+dan itu akan selalu dicetak.
 
 0:10:10.300,0:10:13.630
-Beyond that, what we haven't
-seen, for example, is how
+Selain itu, yang belum kita
+lihat, misalnya, adalah bagaimana
 
 0:10:13.630,0:10:19.460
-you go about getting the output
-of a command into a variable.
+kalian menyimpan output
+perintah ke dalam variabel.
 
 0:10:19.630,0:10:24.120
-And the way we can do that is
-doing something like this.
+Dan cara melakukannya adalah
+dengan melakukan sesuatu seperti ini.
 
 0:10:24.120,0:10:29.480
-What we're doing here is we're getting
-the output of the PWD command,
+Yang kita lakukan di sini adalah mendapatkan
+output dari perintah PWD,
 
 0:10:29.480,0:10:32.720
-which is just printing the
+yang mencetak
 present working directory
 
 0:10:32.720,0:10:33.740
-where we are right now.
+tempat kita berada sekarang.
 
 0:10:33.740,0:10:37.220
-And then we're storing that
-into the foo variable.
+Kemudian kita menyimpannya
+ke variabel foo.
 
 0:10:37.220,0:10:42.279
-So we do that and then we ask
-for foo, we view our string.
+Jadi kita lakukan itu dan kemudian kita minta
+foo, kita melihat string kita.
 
 0:10:42.280,0:10:48.460
-More generally, we can do this thing
-called command substitution
+Secara lebih umum, kita bisa melakukan hal
+yang disebut command substitution
 
 0:10:50.110,0:10:51.500
-by putting it into any string.
+dengan memasukkannya ke string mana pun.
 
 0:10:51.500,0:10:55.162
-And since we're using double quotes
-instead of single quotes
+Dan karena kita menggunakan double quote
+alih-alih single quote
 
 0:10:55.162,0:10:57.440
-that thing will be expanded and
+hal tersebut akan di-expand dan
 
 0:10:57.440,0:11:02.740
-it will tell us that we are
-in this working folder.
+memberi tahu kita bahwa kita
+berada di folder kerja ini.
 
 0:11:02.740,0:11:09.240
-Another interesting thing is, right now,
-what this is expanding to is a string
+Hal menarik lainnya adalah, saat ini,
+yang di-expand ini adalah string
 
 0:11:09.400,0:11:10.300
-instead of
+alih-alih
 
 0:11:11.920,0:11:13.320
-It's just expanding as a string.
+Hanya mengembang sebagai string.
 
 0:11:13.460,0:11:17.640
-Another nifty and lesser known tool
-is called process substitution,
+Tool lain yang berguna dan kurang dikenal
+disebut process substitution,
 
 0:11:17.640,0:11:20.540
-which is kind of similar. What it will do...
+yang agak mirip. Yang akan dilakukan...
 
 0:11:24.360,0:11:30.041
-it will, here for example, the "<(",
-some command and another parenthesis,
+di sini misalnya, "<(",
+suatu perintah dan tanda kurung lainnya,
 
 0:11:30.041,0:11:34.840
-what that will do is: that will execute,
-that will get the output to
+yang akan dilakukan adalah: itu akan mengeksekusi,
+akan mendapatkan output ke
 
 0:11:34.840,0:11:39.120
-kind of like a temporary file and it will
-give the file handle to the command.
+semacam file sementara dan akan
+memberikan file handle ke perintah.
 
 0:11:39.120,0:11:42.020
-So here what we're doing is we're getting...
+Jadi di sini yang kita lakukan adalah mendapatkan...
 
 0:11:42.020,0:11:45.760
-we're LS'ing the directory, putting
-it into a temporary file,
+kita melakukan LS pada direktori, memasukkannya
+ke file sementara,
 
 0:11:45.760,0:11:48.040
-doing the same thing for the
-parent folder and then
+melakukan hal yang sama untuk
+folder induk dan kemudian
 
 0:11:48.040,0:11:51.310
-we're concatenating both files. And this
+menggabungkan kedua file. Ini
 
 0:11:51.310,0:11:55.520
-will, may be really handy, because
-some commands instead of expecting
+bisa sangat berguna, karena
+beberapa perintah alih-alih mengharapkan
 
 0:11:55.520,0:11:59.500
-the input coming from the stdin,
-they are expecting things to
+input dari stdin,
+mereka mengharapkan sesuatu dari
 
 0:11:59.500,0:12:03.560
-come from some file that is giving
-some of the arguments.
+file yang menjadi salah satu
+argumen.
 
 0:12:04.700,0:12:07.620
-So we get both things concatenated.
+Jadi kita mendapatkan kedua hal tersebut digabungkan.
 
 0:12:12.880,0:12:17.040
-I think so far there's been a lot of
-information, let's see a simple,
+Saya pikir sejauh ini sudah banyak
+informasi, mari kita lihat contoh sederhana,
 
 0:12:17.040,0:12:22.920
-an example script where we
-see a few of these things.
+contoh script yang
+memperlihatkan beberapa hal ini.
 
 0:12:23.200,0:12:27.220
-So for example here we have a string and we
+Jadi misalnya di sini kita punya string dan
 
 0:12:27.220,0:12:30.327
-have this $date. So $date is a program.
+ada $date. Jadi $date adalah program.
 
 0:12:30.327,0:12:34.540
-Again there's a lot of programs
-in UNIX you will kind of slowly
+Lagi, ada banyak program
+di UNIX yang perlahan-lahan
 
 0:12:34.540,0:12:36.120
-familiarize with a lot of them.
+akan kalian kenal.
 
 0:12:36.120,0:12:42.820
-Date just prints what the current date is
-and you can specify different formats.
+Date hanya mencetak tanggal saat ini
+dan kalian bisa menentukan format yang berbeda.
 
 0:12:43.800,0:12:48.700
-Then, we have these $0 here. $0 is the name
+Kemudian, kita punya $0 di sini. $0 adalah nama
 
 0:12:48.700,0:12:50.540
-of the script that we're running.
+script yang sedang kita jalankan.
 
 0:12:50.550,0:12:56.590
-Then we have $#, that's the number
-of arguments that we are giving
+Kemudian kita punya $#, itu adalah jumlah
+argumen yang kita berikan
 
 0:12:56.590,0:13:01.920
-to the command, and then $$ is the process
-ID of this command that is running.
+ke perintah, dan $$ adalah process
+ID dari perintah yang sedang berjalan.
 
 0:13:01.920,0:13:06.160
-Again, there's a lot of these dollar
-things, they're not intuitive
+Lagi, ada banyak dollar
+berbagai macam, tidak intuitif
 
 0:13:06.160,0:13:07.690
-because they don't have like a mnemonic
+karena tidak ada cara mnemonik
 
 0:13:07.690,0:13:10.450
-way of remembering, maybe, $#. But
+untuk mengingatnya, mungkin, $#. Tapi
 
 0:13:10.450,0:13:12.880
-it can be... you will just be
+kalian akan semakin
 
 0:13:12.880,0:13:14.660
-seeing them and getting familiar with them.
+familiar dengan mereka.
 
 0:13:14.660,0:13:19.200
-Here we have this $@, and that will
-expand to all the arguments.
+Di sini kita punya $@, dan itu akan
+mengembang menjadi semua argumen.
 
 0:13:19.200,0:13:21.480
-So, instead of having to assume that,
+Jadi, alih-alih harus mengasumsikan,
 
 0:13:21.490,0:13:25.840
-maybe say, we have three arguments
-and writing $1, $2, $3,
+misalnya, kita punya tiga argumen
+dan menulis $1, $2, $3,
 
 0:13:25.840,0:13:29.760
-if we don't know how many arguments we
-can put all those arguments there.
+jika kita tidak tahu berapa banyak argumen, kita
+bisa menaruh semua argumen di sana.
 
 0:13:29.760,0:13:33.670
-And that has been given to a
-for loop. And the for loop
+Dan itu diberikan ke
+for loop. Dan for loop
 
 0:13:33.670,0:13:39.020
-will, in time, get the file variable
+akan, pada setiap iterasi, mendapatkan variabel file
 
 0:13:39.020,0:13:43.880
-and it will be giving each one of the arguments.
+dan akan memberikan masing-masing argumen.
 
 0:13:43.880,0:13:47.529
-So what we're doing is, for every
-one of the arguments we're giving.
+Jadi yang kita lakukan adalah, untuk setiap
+argumen yang kita berikan.
 
 0:13:47.529,0:13:51.699
-Then, in the next line we're running the
+Kemudian, di baris berikutnya kita menjalankan
 
 0:13:51.699,0:13:56.920
-grep command which is just search for
-a substring in some file and we're
+perintah grep yang hanya mencari
+substring dalam suatu file dan kita
 
 0:13:56.920,0:14:01.380
-searching for the string foobar in the file.
+mencari string foobar dalam file.
 
 0:14:01.380,0:14:06.490
-Here, we have put the variable
-that the file took, to expand.
+Di sini, kita telah membuat variabel
+yang diambil file untuk mengembang.
 
 0:14:06.490,0:14:11.559
-And yesterday we saw that if we care
-about the output of a program, we can
+Dan kemarin kita melihat bahwa jika kita peduli
+pada output program, kita bisa
 
 0:14:11.560,0:14:15.680
-redirect it to somewhere, to save it
-or to connect it to some other file.
+me-redirect-nya ke suatu tempat, untuk menyimpannya
+atau menghubungkannya ke file lain.
 
 0:14:15.680,0:14:18.939
-But sometimes you want the opposite.
+Tapi terkadang kalian menginginkan kebalikannya.
 
 0:14:18.939,0:14:21.260
-Sometimes, here for example, we care...
+Terkadang, di sini misalnya, kita peduli...
 
 0:14:21.260,0:14:25.119
-we're gonna care about the error code. About
-this script, we're gonna care whether the
+kita akan peduli pada error code. Tentang
+script ini, kita akan peduli apakah
 
 0:14:25.120,0:14:28.440
-grep ran successfully or it didn't.
+grep berhasil dijalankan atau tidak.
 
 0:14:28.440,0:14:33.220
-So we can actually discard
-entirely what the output...
+Jadi kita sebenarnya bisa mengabaikan
+seluruh output...
 
 0:14:33.220,0:14:37.480
-like both the standard output and the
-standard error of the grep command.
+baik standard output maupun
+standard error dari perintah grep.
 
 0:14:37.480,0:14:39.970
-And what we're doing is we're
+Dan yang kita lakukan adalah
 
 0:14:39.970,0:14:43.029
-redirecting the output to /dev/null which
+me-redirect output ke /dev/null yang
 
 0:14:43.029,0:14:46.540
-is kind of like a special device in UNIX
+merupakan semacam device khusus di sistem
 
 0:14:46.540,0:14:49.119
-systems where you can like write and
+UNIX tempat kalian bisa menulis dan
 
 0:14:49.119,0:14:51.129
-it will be discarded. Like you can
+akan dibuang. Kalian bisa
 
 0:14:51.129,0:14:52.869
-write no matter how much you want,
+menulis sebanyak apa pun
 
 0:14:52.869,0:14:57.730
-there, and it will be discarded.
-And here's the ">" symbol
+di sana, dan akan dibuang.
+Dan di sini simbol ">"
 
 0:14:57.730,0:15:02.199
-that we saw yesterday for redirecting
-output. Here you have a "2>"
+yang kita lihat kemarin untuk me-redirect
+output. Di sini kalian punya "2>"
 
 0:15:02.199,0:15:04.689
-and, as some of you might have
+dan, seperti yang mungkin beberapa dari kalian
 
 0:15:04.689,0:15:06.519
-guessed by now, this is for redirecting the
+sudah duga, ini untuk me-redirect
 
 0:15:06.519,0:15:08.589
-standard error, because those those two
+standard error, karena kedua
 
 0:15:08.589,0:15:11.709
-streams are separate, and you kind of have to
+stream tersebut terpisah, dan kalian harus
 
 0:15:11.709,0:15:14.639
-tell bash what to do with each one of them.
+memberi tahu bash apa yang harus dilakukan dengan masing-masing.
 
 0:15:14.639,0:15:17.529
-So here, we run, we check if the file has
+Jadi di sini, kita menjalankan, kita cek apakah file memiliki
 
 0:15:17.529,0:15:20.649
-foobar, and if the file has foobar then it's
+foobar, dan jika file memiliki foobar maka
 
 0:15:20.649,0:15:22.959
-going to have a zero code. If it
+akan memiliki code nol. Jika tidak
 
 0:15:22.959,0:15:24.369
-doesn't have foobar, it's gonna have a
+memiliki foobar, akan memiliki
 
 0:15:24.369,0:15:26.980
-nonzero error code. So that's exactly what we
+error code bukan nol. Jadi itulah yang kita
 
 0:15:26.980,0:15:31.120
-check. In this if part of the command we
+cek. Di bagian if dari perintah ini kita
 
 0:15:31.120,0:15:34.840
-say "get me the error code". Again, this $?
+bilang "beri saya error code". Lagi, $? ini
 
 0:15:34.840,0:15:37.240
-And then we have a comparison operator
+Dan kemudian kita punya operator perbandingan
 
 0:15:37.240,0:15:41.590
-which is "-ne", for "non equal". And some
+yaitu "-ne", untuk "tidak sama". Dan beberapa
 
 0:15:41.590,0:15:47.650
-other programming languages
-will have "==", "!=", these
+bahasa pemrograman lain
+akan memiliki "==", "!=", simbol-simbol
 
 0:15:47.650,0:15:51.070
-symbols. In bash there's
+ini. Di bash ada
 
 0:15:51.070,0:15:53.650
-like a reserved set of comparisons and
+sekumpulan reserved comparison
 
 0:15:53.650,0:15:54.970
-it's mainly because there's a lot of
+dan itu terutama karena ada banyak
 
 0:15:54.970,0:15:57.520
-things you might want to test for when
+hal yang mungkin ingin kalian uji saat
 
 0:15:57.520,0:15:59.080
-you're in the shell. Here for example
+berada di shell. Di sini misalnya
 
 0:15:59.080,0:16:03.970
-we're just checking for two values, two
-integer values, being the same. Or for
+kita hanya mengecek dua nilai, dua
+nilai integer, apakah sama. Atau
 
 0:16:03.970,0:16:08.380
-example here, the "-F" check will let
+misalnya di sini, cek "-F" akan memberi
 
 0:16:08.380,0:16:10.420
-us know if a file exists, which is
+tahu kita apakah file ada, yang
 
 0:16:10.420,0:16:12.220
-something that you will run into very,
+merupakan sesuatu yang akan sering
 
 0:16:12.220,0:16:17.530
-very commonly. I'm going back to the
+kalian temui. Saya kembali ke
 
 0:16:17.530,0:16:23.020
-example. Then, what happens when we
+contoh. Kemudian, apa yang terjadi ketika
 
 0:16:24.400,0:16:28.600
-if the file did not have
-foobar, like there was a
+jika file tidak memiliki
+foobar, yaitu ada
 
 0:16:28.600,0:16:31.990
-nonzero error code, then we print
+error code bukan nol, maka kita cetak
 
 0:16:31.990,0:16:33.400
-"this file doesn't have any foobar,
+"file ini tidak memiliki foobar,
 
 0:16:33.400,0:16:36.400
-we're going to add one". And what we do is
+kita akan menambahkan satu". Dan yang kita lakukan adalah
 
 0:16:36.400,0:16:40.750
-we echo this "# foobar", hoping this
+kita echo "# foobar" ini, dengan harapan ini
 
 0:16:40.750,0:16:43.200
-is a comment to the file and then we're
+adalah komentar ke file dan kemudian kita
 
 0:16:43.200,0:16:47.620
-using the operator ">>" to append at the end of
+menggunakan operator ">>" untuk menambahkan di akhir
 
 0:16:47.620,0:16:50.800
-the file. Here since the file has
+file. Di sini karena file telah
 
 0:16:50.800,0:16:54.490
-been fed through the script, and we don't
-know it beforehand, we have to substitute
+diberikan melalui script, dan kita tidak
+tahu sebelumnya, kita harus mensubstitusi
 
 0:16:54.490,0:17:03.430
-the variable of the filename. We can
-actually run this. We already have
+variabel nama file. Kita
+bisa benar-benar menjalankan ini. Kita sudah memiliki
 
 0:17:03.430,0:17:05.260
-correct permissions in this script and
+izin yang benar dalam script ini dan
 
 0:17:05.260,0:17:10.540
-we can give a few examples. We have a
-few files in this folder, "mcd" is the
+kita bisa memberikan beberapa contoh. Kita punya beberapa
+file di folder ini, "mcd" adalah
 
 0:17:10.540,0:17:12.760
-one we saw at the beginning for the MCD
+yang kita lihat di awal untuk fungsi
 
 0:17:12.760,0:17:15.040
-function, some other "script" function and
+MCD, beberapa fungsi "script" lainnya dan
 
 0:17:15.040,0:17:21.700
-we can even feed the own script to itself
-to check if it has foobar in it.
+kita bahkan bisa memasukkan script itu sendiri
+untuk mengecek apakah ada foobar di dalamnya.
 
 0:17:21.700,0:17:26.680
-And we run it and first we can
-see that there's different
+Dan kita jalankan dan pertama kita bisa
+melihat bahwa ada berbagai
 
 0:17:26.680,0:17:29.460
-variables that we saw, that have been
+variabel yang kita lihat, yang telah
 
 0:17:29.460,0:17:33.400
-successfully expanded. We have the date, that has
+berhasil di-expand. Kita punya date, yang telah
 
 0:17:33.400,0:17:36.700
-been replaced to the current time, then
+diganti dengan waktu saat ini, kemudian
 
 0:17:36.700,0:17:39.100
-we're running this program, with three
+kita menjalankan program ini, dengan tiga
 
 0:17:39.100,0:17:44.560
-arguments, this randomized PID, and then
+argumen, PID yang di-randomize, dan kemudian
 
 0:17:44.560,0:17:46.510
-it's telling us MCD doesn't have any
+memberi tahu kita bahwa MCD tidak memiliki
 
 0:17:46.510,0:17:48.169
-foobar, so we are adding a new one,
+foobar, jadi kita menambahkan yang baru,
 
 0:17:48.169,0:17:50.450
-and this script file doesn't
+dan file script ini tidak
 
 0:17:50.450,0:17:52.970
-have one. So now for example let's look at MCD
+memilikinya. Jadi sekarang misalnya mari kita lihat MCD
 
 0:17:52.970,0:17:55.820
-and it has the comment that we were looking for.
+dan ia memiliki komentar yang kita cari.
 
 0:17:59.000,0:18:05.619
-One other thing to know when you're
-executing scripts is that
+Satu hal lagi yang perlu diketahui saat
+mengeksekusi script adalah bahwa
 
 0:18:05.619,0:18:07.759
-here we have like three completely
+di sini kita punya tiga argumen yang benar-benar
 
 0:18:07.759,0:18:10.279
-different arguments but very commonly
+berbeda tapi sangat sering
 
 0:18:10.279,0:18:12.889
-you will be giving arguments that
+kalian akan memberikan argumen yang
 
 0:18:12.889,0:18:16.100
-can be more succinctly given in some way.
+bisa diberikan dengan lebih ringkas.
 
 0:18:16.100,0:18:20.179
-So for example here if we wanted to
+Jadi misalnya di sini jika kita ingin
 
 0:18:20.179,0:18:25.429
-refer to all the ".sh" scripts we
+merujuk ke semua script ".sh" kita
 
 0:18:25.429,0:18:31.120
-could just do something like "ls *.sh"
+bisa melakukan sesuatu seperti "ls *.sh"
 
 0:18:31.120,0:18:36.120
-and this is a way of filename expansion
-that most shells have
+dan ini adalah cara filename expansion
+yang dimiliki sebagian besar shell
 
 0:18:36.120,0:18:38.450
-that's called "globbing". Here, as you
+yang disebut "globbing". Di sini, seperti yang
 
 0:18:38.450,0:18:39.919
-might expect, this is gonna say
+kalian duga, ini akan mengatakan
 
 0:18:39.919,0:18:42.559
-anything that has any kind of sort of
+apa pun yang memiliki jenis karakter apa pun
 
 0:18:42.559,0:18:45.940
-characters and ends up with "sh".
+dan diakhiri dengan "sh".
 
 0:18:45.940,0:18:52.159
-Unsurprisingly, we get "example.sh"
-and "mcd.sh". We also have these
+Seperti yang diharapkan, kita mendapatkan "example.sh"
+dan "mcd.sh". Kita juga punya
 
 0:18:52.159,0:18:54.769
-"project1" and "project2", and if there
+"project1" dan "project2" ini, dan jika ada
 
 0:18:54.769,0:19:00.100
-were like a... we can do a
-"project42", for example
+misalnya... kita bisa membuat
+"project42", misalnya
 
 0:19:00.620,0:19:04.220
-And now if we just want to refer
-to the projects that have
+Dan sekarang jika kita hanya ingin merujuk
+ke project yang memiliki
 
 0:19:04.220,0:19:07.279
-a single character, but not two characters
+satu karakter, tapi bukan dua karakter
 
 0:19:07.279,0:19:08.720
-afterwards, like any other characters,
+setelahnya, seperti karakter lainnya,
 
 0:19:08.720,0:19:13.879
-we can use the question mark. So "?"
-will expand to only a single one.
+kita bisa menggunakan tanda tanya. Jadi "?"
+akan mengembang hanya untuk satu karakter.
 
 0:19:13.880,0:19:17.360
-And we get, LS'ing, first
+Dan kita mendapatkan, dengan LS, pertama
 
 0:19:17.360,0:19:21.049
-"project1" and then "project2".
+"project1" lalu "project2".
 
 0:19:21.049,0:19:27.580
-In general, globbing can be very powerful.
-You can also combine it.
+Secara umum, globbing bisa sangat kuat.
+Kalian juga bisa menggabungkannya.
 
 0:19:31.880,0:19:35.480
-A common pattern is to use what
-is called curly braces.
+Pola yang umum adalah menggunakan apa
+yang disebut curly braces.
 
 0:19:35.480,0:19:39.320
-So let's say we have an image,
-that we have in this folder
+Jadi misalnya kita punya gambar,
+yang ada di folder ini
 
 0:19:39.320,0:19:43.620
-and we want to convert this image from PNG to JPG
+dan kita ingin mengonversi gambar ini dari PNG ke JPG
 
 0:19:43.620,0:19:46.320
-or we could maybe copy it, or...
+atau kita mungkin menyalinnya, atau...
 
 0:19:46.320,0:19:49.609
-it's a really common pattern, to have
-two or more arguments that are
+itu adalah pola yang sangat umum, memiliki
+dua argumen atau lebih yang cukup
 
 0:19:49.609,0:19:55.240
-fairly similar and you want to do something
-with them as arguments to some command.
+mirip dan kalian ingin melakukan sesuatu
+dengan mereka sebagai argumen ke suatu perintah.
 
 0:19:55.240,0:20:01.290
-You could do it this way, or more
-succinctly, you can just do
+Kalian bisa melakukannya dengan cara ini, atau lebih
+ringkas, kalian bisa melakukan
 
 0:20:01.290,0:20:08.880
 "image.{png,jpg}"
 
 0:20:09.410,0:20:13.590
-And here, I'm getting some color feedback,
-but what this will do, is
+Dan di sini, saya mendapat beberapa feedback warna,
+tapi yang akan dilakukan ini adalah
 
 0:20:13.590,0:20:17.610
-it'll expand into the line above.
+akan mengembang menjadi baris di atas.
 
 0:20:17.610,0:20:23.990
-Actually, I can ask zsh to do that for
-me. And that what's happening here.
+Sebenarnya, saya bisa meminta zsh melakukan itu untuk
+saya. Dan itulah yang terjadi di sini.
 
 0:20:23.990,0:20:26.550
-This is really powerful. So for example
+Ini sangat kuat. Jadi misalnya
 
 0:20:26.550,0:20:29.220
-you can do something like... we could do...
+kalian bisa melakukan sesuatu seperti... kita bisa melakukan...
 
 0:20:29.220,0:20:34.220
-"touch" on a bunch of foo's, and
-all of this will be expanded.
+"touch" pada banyak foo, dan
+semua ini akan di-expand.
 
 0:20:35.520,0:20:41.880
-You can also do it at several levels
-and you will do the Cartesian...
+Kalian juga bisa melakukannya di beberapa level
+dan kalian akan melakukan Cartesian...
 
 0:20:41.880,0:20:49.980
-if we have something like this,
-we have one group here, "{1,2}"
+jika kita punya sesuatu seperti ini,
+kita punya satu grup di sini, "{1,2}"
 
 0:20:49.980,0:20:53.310
-and then here there's "{1,2,3}",
-and this is going to do
+dan kemudian di sini ada "{1,2,3}",
+dan ini akan melakukan
 
 0:20:53.310,0:20:54.990
-the Cartesian product of these
+produk Cartesian dari kedua
 
 0:20:54.990,0:20:59.920
-two expansions and it will expand
-into all these things,
+expansi ini dan akan mengembang
+menjadi semua hal ini,
 
 0:20:59.960,0:21:03.540
-that we can quickly "touch".
+yang bisa kita "touch" dengan cepat.
 
 0:21:03.540,0:21:10.520
-You can also combine the asterisk
-glob with the curly braces glob.
+Kalian juga bisa menggabungkan glob asterisk
+dengan glob curly braces.
 
 0:21:10.520,0:21:16.840
-You can even use kind of ranges.
-Like, we can do "mkdir"
+Kalian bahkan bisa menggunakan semacam range.
+Seperti, kita bisa melakukan "mkdir"
 
 0:21:16.840,0:21:21.420
-and we create the "foo" and the
-"bar" directories, and then we
+dan kita membuat direktori "foo" dan
+"bar", lalu kita
 
 0:21:21.420,0:21:25.680
-can do something along these lines. This
+bisa melakukan sesuatu seperti ini. Ini
 
 0:21:25.680,0:21:28.890
-is going to expand to "fooa", "foob"...
+akan mengembang menjadi "fooa", "foob"...
 
 0:21:28.890,0:21:31.430
-like all these combinations, through "j", and
+seperti semua kombinasi ini, sampai "j", dan
 
 0:21:31.430,0:21:35.250
-then the same for "bar". I haven't
+kemudian sama untuk "bar". Saya belum
 
 0:21:35.250,0:21:38.610
-really tested it... but yeah, we're getting
-all these combinations that we
+benar-benar mengujinya... tapi ya, kita mendapatkan
+semua kombinasi ini yang bisa
 
 0:21:38.610,0:21:41.850
-can "touch". And now, if we touch something
+kita "touch". Dan sekarang, jika kita touch sesuatu
 
 0:21:41.850,0:21:47.970
-that is different between these
-two [directories], we
+yang berbeda antara kedua
+[direktori] ini, kita
 
 0:21:47.970,0:21:55.890
-can again showcase the process
-substitution that we saw
+bisa lagi menunjukkan process
+substitution yang kita lihat
 
 0:21:55.890,0:21:59.610
-earlier. Say we want to check what
-files are different between these
+sebelumnya. Katakanlah kita ingin mengecek file apa
+yang berbeda antara kedua
 
 0:21:59.610,0:22:03.400
-two folders. For us it's obvious,
-we just saw it, it's X and Y,
+folder ini. Bagi kita jelas,
+kita baru saja melihatnya, yaitu X dan Y,
 
 0:22:03.400,0:22:07.410
-but we can ask the shell to do
-this "diff" for us between the
+tapi kita bisa meminta shell melakukan
+"diff" ini untuk kita antara
 
 0:22:07.410,0:22:10.200
-output of one LS and the other LS.
+output dari satu LS dan LS lainnya.
 
 0:22:10.200,0:22:12.810
-Unsurprisingly we're getting: X is
+Seperti yang diharapkan kita mendapat: X hanya
 
 0:22:12.810,0:22:14.700
-only in the first folder and Y is
+ada di folder pertama dan Y hanya
 
 0:22:14.700,0:22:20.970
-only in the second folder. What is more
+ada di folder kedua. Yang lebih
 
 0:22:20.970,0:22:26.519
-is, right now, we have only seen
-bash scripts. If you like other
+lanjut, saat ini, kita baru hanya melihat
+bash script. Jika kalian lebih suka script
 
 0:22:26.520,0:22:30.260
-scripts, like for some tasks bash
-is probably not the best,
+lain, karena untuk beberapa tugas bash
+mungkin bukan yang terbaik,
 
 0:22:30.260,0:22:33.119
-it can be tricky. You can actually
-write scripts that
+bisa jadi rumit. Kalian sebenarnya bisa
+menulis script yang
 
 0:22:33.119,0:22:35.700
-interact with the shell implemented in a lot
+berinteraksi dengan shell yang diimplementasikan dalam banyak
 
 0:22:35.700,0:22:39.710
-of different languages. So for
-example, let's see here a
+bahasa yang berbeda. Jadi misalnya,
+mari kita lihat
 
 0:22:39.710,0:22:43.139
-Python script that has a magic line at the
+script Python yang memiliki baris ajaib di
 
 0:22:43.139,0:22:45.539
-beginning that I'm not explaining for now.
+awal yang belum saya jelaskan untuk saat ini.
 
 0:22:45.540,0:22:48.330
-Then we have "import sys",
+Kemudian kita punya "import sys",
 
 0:22:48.330,0:22:53.629
-it's kind of like... Python is not,
-by default, trying to interact
+ini agak seperti... Python tidak,
+secara default, mencoba berinteraksi
 
 0:22:53.629,0:22:56.999
-with the shell so you will have to import
+dengan shell jadi kalian harus mengimpor
 
 0:22:56.999,0:22:58.799
-some library. And then we're doing a
+beberapa library. Dan kemudian kita melakukan
 
 0:22:58.799,0:23:01.529
-really silly thing of just iterating
+hal yang sangat sederhana yaitu hanya melakukan iterasi
 
 0:23:01.529,0:23:06.440
-over "sys.argv[1:]".
+melalui "sys.argv[1:]".
 
 0:23:06.440,0:23:12.809
-"sys.argv" is kind of similar to what
-in bash we're getting as $0, $1, &c.
+"sys.argv" agak mirip dengan apa
+yang di bash kita dapatkan sebagai $0, $1, dst.
 
 0:23:12.809,0:23:16.649
-Like the vector of the arguments, we're
-printing it in the reversed order.
+Seperti vektor argumen, kita
+mencetaknya dalam urutan terbalik.
 
 0:23:16.649,0:23:21.179
-And the magic line at the beginning is
+Dan baris ajaib di awal
 
 0:23:21.179,0:23:23.999
-called a shebang and is the way that the
+disebut shebang dan merupakan cara shell
 
 0:23:23.999,0:23:26.159
-shell will know how to run this program.
+akan tahu cara menjalankan program ini.
 
 0:23:26.159,0:23:30.509
-You can always do something like
+Kalian selalu bisa melakukan sesuatu seperti
 
 0:23:30.509,0:23:34.379
-"python script.py", and then "a b c" and that
+"python script.py", lalu "a b c" dan itu
 
 0:23:34.379,0:23:36.659
-will work, always, like that. But
+akan selalu berhasil, seperti itu. Tapi
 
 0:23:36.659,0:23:39.119
-what if we want to make this to be
+bagaimana jika kita ingin membuat ini bisa
 
 0:23:39.119,0:23:41.309
-executable from the shell? The way the
+dieksekusi dari shell? Cara
 
 0:23:41.309,0:23:44.190
-shell knows that it has to use python as the
+shell tahu bahwa ia harus menggunakan python sebagai
 
 0:23:44.190,0:23:48.450
-interpreter to run this file is using
+interpreter untuk menjalankan file ini adalah menggunakan
 
 0:23:48.450,0:23:52.440
-that first line. And that first line is
+baris pertama. Dan baris pertama itu
 
 0:23:52.440,0:23:56.620
-giving it the path to where that thing lives.
+memberikan path ke tempat program itu berada.
 
 0:23:58.500,0:23:59.600
-However, you might not know.
+Namun, kalian mungkin tidak tahu.
 
 0:23:59.609,0:24:01.830
-Like, different machines will have probably
+Seperti, mesin yang berbeda mungkin memiliki
 
 0:24:01.830,0:24:04.049
-different places where they put python
+tempat yang berbeda untuk menyimpan python
 
 0:24:04.049,0:24:06.090
-and you might not want to assume where
+dan kalian mungkin tidak ingin mengasumsikan di mana
 
 0:24:06.090,0:24:08.789
-python is installed, or any other interpreter.
+python diinstal, atau interpreter lainnya.
 
 0:24:08.789,0:24:16.379
-So one thing that you can do is use the
+Jadi satu hal yang bisa kalian lakukan adalah menggunakan
 
 0:24:16.380,0:24:17.720
-"env" command.
+perintah "env".
 
 0:24:18.280,0:24:21.560
-You can also give arguments in the shebang, so
+Kalian juga bisa memberikan argumen di shebang, jadi
 
 0:24:21.570,0:24:23.940
-what we're doing here is specifying
+yang kita lakukan di sini adalah menentukan
 
 0:24:23.940,0:24:29.720
-run the "env" command, that is for pretty much every
-system, there are some exceptions, but like for
+jalankan perintah "env", yang ada di hampir setiap
+sistem, ada beberapa pengecualian, tapi untuk
 
 0:24:29.720,0:24:31.550
-pretty much every system it's is in
+hampir setiap sistem ada di
 
 0:24:31.550,0:24:33.620
-"usr/bin", where a lot of binaries live,
+"usr/bin", tempat banyak binary berada,
 
 0:24:33.620,0:24:36.200
-and then we're calling it with the
+dan kemudian kita memanggilnya dengan
 
 0:24:36.200,0:24:38.570
-argument "python". And then that will make
+argumen "python". Dan kemudian itu akan
 
 0:24:38.570,0:24:42.020
-use of the path environment variable
+menggunakan variabel environment path
 
 0:24:42.020,0:24:43.580
-that we saw in the first lecture. It's
+yang kita lihat di kuliah pertama. Itu
 
 0:24:43.580,0:24:45.680
-gonna search in that path for the Python
+akan mencari di path tersebut untuk binary
 
 0:24:45.680,0:24:48.620
-binary and then it's gonna use that to
+Python dan kemudian akan menggunakannya untuk
 
 0:24:48.620,0:24:50.480
-interpret this file. And that will make
+menginterpretasikan file ini. Dan itu akan membuat
 
 0:24:50.480,0:24:52.490
-this more portable so it can be run in
+ini lebih portabel sehingga bisa dijalankan di
 
 0:24:52.490,0:24:57.520
-my machine, and your machine
-and some other machine.
+mesin saya, dan mesin kalian
+dan mesin lainnya.
 
 0:25:08.020,0:25:12.140
-Another thing is that the bash is not
+Hal lain adalah bahwa bash tidak
 
 0:25:12.140,0:25:14.300
-really like modern, it was
+benar-benar modern, dikembangkan
 
 0:25:14.300,0:25:16.340
-developed a while ago. And sometimes
+sudah lama. Dan terkadang
 
 0:25:16.340,0:25:18.890
-it can be tricky to debug. By
+bisa rumit untuk di-debug. Secara
 
 0:25:18.890,0:25:21.980
-default, and the ways it will fail
+default, dan cara ia gagal
 
 0:25:21.980,0:25:24.020
-sometimes are intuitive like the way we
+kadang-kadang intuitif seperti cara yang kita
 
 0:25:24.020,0:25:26.180
-saw before of like foo command not
+lihat sebelumnya yaitu perintah foo tidak
 
 0:25:26.180,0:25:28.610
-existing, sometimes it's not. So there's
+ada, terkadang tidak. Jadi ada
 
 0:25:28.610,0:25:31.280
-like a really nifty tool that we have
+tool yang sangat berguna yang telah kami
 
 0:25:31.280,0:25:34.310
-linked in the lecture notes, which is called
+tautkan di catatan kuliah, yang disebut
 
 0:25:34.310,0:25:37.580
-"shellcheck", that will kind of give you
+"shellcheck", yang akan memberikan
 
 0:25:37.580,0:25:40.010
-both warnings and syntactic errors
+peringatan dan error sintaks
 
 0:25:40.010,0:25:43.250
-and other things that you might
-not have quoted properly,
+dan hal-hal lain yang mungkin
+belum kalian quote dengan benar,
 
 0:25:43.250,0:25:46.040
-or you might have misplaced spaces in
+atau kalian mungkin salah menempatkan spasi di
 
 0:25:46.040,0:25:50.060
-your files. So for example for
-extremely simple "mcd.sh"
+file kalian. Jadi misalnya untuk
+file "mcd.sh" yang sangat sederhana
 
 0:25:50.060,0:25:51.980
-file we're getting a couple
+kita mendapat beberapa
 
 0:25:51.980,0:25:54.800
-of errors saying hey, surprisingly,
+error yang mengatakan, secara mengejutkan,
 
 0:25:54.800,0:25:56.090
-we're missing a shebang, like this
+kita kehilangan shebang, seperti ini
 
 0:25:56.090,0:25:59.060
-might not interpret it correctly if you're
+mungkin tidak menginterpretasikannya dengan benar jika kalian
 
 0:25:59.060,0:26:02.000
-it at a different system. Also, this
+menjalankannya di sistem yang berbeda. Juga,
 
 0:26:02.000,0:26:05.620
-CD is taking a command and it might not
+CD ini mengambil perintah dan mungkin tidak
 
 0:26:05.620,0:26:08.960
-expand properly so instead of using CD
+mengembang dengan benar jadi alih-alih menggunakan CD
 
 0:26:08.960,0:26:11.300
-you might want to use something like CD
+kalian mungkin ingin menggunakan sesuatu seperti CD
 
 0:26:11.300,0:26:14.540
-and then an OR and then an "exit". We go
+lalu OR lalu "exit". Kita kembali
 
 0:26:14.540,0:26:16.490
-back to what we explained earlier, what
+ke apa yang kita jelaskan sebelumnya, apa
 
 0:26:16.490,0:26:18.920
-this will do is like if the
+yang akan dilakukan ini adalah jika
 
 0:26:18.920,0:26:21.860
-CD doesn't end correctly, you cannot CD
+CD tidak berakhir dengan benar, kalian tidak bisa CD
 
 0:26:21.860,0:26:23.720
-into the folder because either you
+ke folder karena kalian
 
 0:26:23.720,0:26:25.250
-don't have permissions, it doesn't exist...
+tidak punya izin, tidak ada...
 
 0:26:25.250,0:26:28.780
-That will give a nonzero error
+Itu akan memberikan error bukan nol
 
 0:26:28.780,0:26:32.420
-command, so you will execute exit
+sehingga kalian akan mengeksekusi exit
 
 0:26:32.420,0:26:33.920
-and that will stop the script
+dan itu akan menghentikan script
 
 0:26:33.920,0:26:35.810
-instead of continue executing as if
+alih-alih melanjutkan eksekusi seolah-olah
 
 0:26:35.810,0:26:37.240
-you were in a place that you are
+kalian berada di tempat yang sebenarnya
 
 0:26:37.240,0:26:42.900
-actually not in. And actually
-I haven't tested, but I
+tidak kalian tempati. Dan sebenarnya
+saya belum menguji, tapi saya
 
 0:26:42.920,0:26:47.179
-think we can check for "example.sh"
+pikir kita bisa mengecek "example.sh"
 
 0:26:47.179,0:26:50.809
-and here we're getting that we should be
+dan di sini kita mendapat bahwa kita seharusnya
 
 0:26:50.809,0:26:55.070
-checking the exit code in a
-different way, because it's
+mengecek exit code dengan cara
+yang berbeda, karena mungkin bukan
 
 0:26:55.070,0:26:57.710
-probably not the best way, doing it this
+cara terbaik, melakukannya seperti
 
 0:26:57.710,0:27:01.580
-way. One last remark I want to make
+ini. Satu hal terakhir yang ingin saya sampaikan
 
 0:27:01.580,0:27:05.090
-is that when you're writing bash scripts
+adalah bahwa ketika kalian menulis bash script
 
 0:27:05.090,0:27:07.159
-or functions for that matter,
+atau fungsi,
 
 0:27:07.159,0:27:09.080
-there's kind of a difference between
+ada semacam perbedaan antara
 
 0:27:09.080,0:27:12.590
-writing bash scripts in isolation like a
+menulis bash script secara terisolasi seperti
 
 0:27:12.590,0:27:14.149
-thing that you're gonna run, and a thing
+sesuatu yang akan kalian jalankan, dan sesuatu
 
 0:27:14.149,0:27:16.100
-that you're gonna load into your shell.
+yang akan kalian muat ke shell kalian.
 
 0:27:16.100,0:27:19.850
-We will see some of this in the command
+Kita akan melihat beberapa hal ini di kuliah
 
 0:27:19.850,0:27:23.090
-line environment lecture, where we will kind of
+command line environment, di mana kita akan
 
 0:27:23.090,0:27:29.059
-be tooling with the bashrc and the
-sshrc. But in general, if you make
+bermain dengan bashrc dan
+sshrc. Tapi secara umum, jika kalian membuat
 
 0:27:29.059,0:27:31.370
-changes to for example where you are,
+perubahan misalnya pada posisi kalian,
 
 0:27:31.370,0:27:34.009
-like if you CD into a bash script and you
+seperti jika kalian CD ke bash script dan kalian
 
 0:27:34.009,0:27:36.919
-just execute that bash script, it won't CD
+hanya mengeksekusi bash script itu, tidak akan CD
 
 0:27:36.919,0:27:39.980
-into the shell are right now. But if you
+ke shell tempat kalian berada sekarang. Tapi jika kalian
 
 0:27:39.980,0:27:42.980
-have loaded the code directly into
+telah memuat kode langsung ke
 
 0:27:42.980,0:27:45.559
-your shell, for example you load...
+shell kalian, misalnya kalian me-load...
 
 0:27:45.559,0:27:48.440
-you source the function and then you execute
+kalian source fungsi tersebut lalu mengeksekusi
 
 0:27:48.440,0:27:50.269
-the function then you will get those
+fungsi tersebut maka kalian akan mendapatkan
 
 0:27:50.269,0:27:52.000
-side effects. And the same goes for
+efek samping tersebut. Dan hal yang sama berlaku untuk
 
 0:27:52.000,0:27:57.220
-defining variables into the shell.
+mendefinisikan variabel ke shell.
 
 0:27:57.220,0:28:03.950
-Now I'm going to talk about some
-tools that I think are nifty when
+Sekarang saya akan membahas beberapa
+tool yang saya pikir berguna saat
 
 0:28:03.950,0:28:07.580
-working with the shell. The first was
+bekerja dengan shell. Yang pertama juga
 
 0:28:07.580,0:28:09.799
-also briefly introduced yesterday.
+sedikit diperkenalkan kemarin.
 
 0:28:09.799,0:28:13.309
-How do you know what flags, or like
+Bagaimana kalian tahu flag apa, atau
 
 0:28:13.309,0:28:15.320
-what exact commands are. Like how I am
+perintah persis apa. Seperti bagaimana saya
 
 0:28:15.320,0:28:21.889
-supposed to know that LS minus L will list
-the files in a list format, or that
+tahu bahwa LS minus L akan mendaftar
+file dalam format daftar, atau bahwa
 
 0:28:21.889,0:28:25.789
-if I do "move - i", it's gonna like prom me
+jika saya melakukan "move -i", akan meminta
 
 0:28:25.789,0:28:28.639
-for stuff. For that what you have is the "man"
+sesuatu. Untuk itu kalian punya perintah "man"
 
 0:28:28.639,0:28:30.730
-command. And the man command will kind of
+perintah. Dan perintah man akan
 
 0:28:30.730,0:28:33.590
-have like a lot of information of how
+memiliki banyak informasi tentang bagaimana
 
 0:28:33.590,0:28:35.809
-will you go about... so for example here it
+kalian akan... jadi misalnya di sini akan
 
 0:28:35.809,0:28:40.340
-will explain for the "-i" flag, there are
+menjelaskan untuk flag "-i", ada
 
 0:28:40.340,0:28:43.970
-all these options you can do. That's
+semua opsi yang bisa kalian lakukan. Itu
 
 0:28:43.970,0:28:45.620
-actually pretty useful and it will work
+sangat berguna dan akan berfungsi
 
 0:28:45.620,0:28:51.540
-not only for really simple commands
-that come packaged with your OS
+tidak hanya untuk perintah sederhana
+yang datang bersama OS kalian
 
 0:28:51.540,0:28:55.809
-but will also work with some tools
-that you install from the internet
+tapi juga akan berfungsi dengan beberapa tool
+yang kalian instal dari internet
 
 0:28:55.809,0:28:58.240
-for example, if the person that did the
+misalnya, jika orang yang membuat
 
 0:28:58.240,0:29:01.390
-installation made it so that the man
+instalasi membuatnya sehingga paket man
 
 0:29:01.390,0:29:03.399
-package were also installed. So for example
+juga terinstal. Jadi misalnya
 
 0:29:03.399,0:29:06.490
-a tool that we're gonna cover in a bit
+tool yang akan kita bahas sebentar lagi
 
 0:29:06.490,0:29:12.370
-which is called "ripgrep" and
-is called with RG, this didn't
+yang disebut "ripgrep" dan
+dipanggil dengan RG, ini tidak
 
 0:29:12.370,0:29:14.980
-come with my system but it has installed
+datang dengan sistem saya tapi telah menginstal
 
 0:29:14.980,0:29:17.230
-its own man page and I have it here and
+halaman man-nya sendiri dan saya memilikinya di sini dan
 
 0:29:17.230,0:29:21.700
-I can access it. For some commands the
+saya bisa mengaksesnya. Untuk beberapa perintah
 
 0:29:21.700,0:29:25.029
-man page is useful but sometimes it can be
+halaman man berguna tapi terkadang bisa
 
 0:29:25.029,0:29:28.270
-tricky to decipher because it's more
+sulit diurai karena lebih
 
 0:29:28.270,0:29:30.399
-kind of a documentation and a
+merupakan dokumentasi dan
 
 0:29:30.399,0:29:32.679
-description of all the things the tool
+deskripsi semua hal yang bisa dilakukan tool
 
 0:29:32.679,0:29:35.860
-can do. Sometimes it will have
+tersebut. Terkadang akan ada
 
 0:29:35.860,0:29:37.720
-examples but sometimes not, and sometimes
+contoh tapi terkadang tidak, dan terkadang
 
 0:29:37.720,0:29:41.620
-the tool can do a lot of things so a
+tool bisa melakukan banyak hal jadi beberapa
 
 0:29:41.620,0:29:45.250
-couple of good tools that I use commonly
+tool bagus yang sering saya gunakan
 
 0:29:45.250,0:29:50.289
-are "convert" or "ffmpeg", which deal
-with images and video respectively and
+adalah "convert" atau "ffmpeg", yang menangani
+gambar dan video masing-masing dan
 
 0:29:50.289,0:29:52.419
-the man pages are like enormous. So there's
+halaman man-nya sangat besar. Jadi ada
 
 0:29:52.419,0:29:54.850
-one neat tool called "tldr" that
+satu tool rapi yang disebut "tldr" yang
 
 0:29:54.850,0:29:58.240
-you can install and you will have like
+bisa kalian instal dan kalian akan memiliki
 
 0:29:58.240,0:30:02.710
-some nice kind of explanatory examples
+beberapa contoh penjelasan yang bagus
 
 0:30:02.710,0:30:05.470
-of how you want to use this command. And you
+tentang bagaimana kalian ingin menggunakan perintah ini. Dan kalian
 
 0:30:05.470,0:30:07.840
-can always Google for this, but I find
+bisa selalu mencari di Google, tapi saya merasa
 
 0:30:07.840,0:30:10.120
-myself saving going into the
+menghemat waktu untuk masuk ke
 
 0:30:10.120,0:30:12.640
-browser, looking about some examples and
+browser, mencari contoh dan
 
 0:30:12.640,0:30:14.919
-coming back, whereas "tldr" are
+kembali, sedangkan "tldr" adalah
 
 0:30:14.919,0:30:16.870
-community contributed and
+kontribusi komunitas dan
 
 0:30:16.870,0:30:19.210
-they're fairly useful. Then,
+cukup berguna. Kemudian,
 
 0:30:19.210,0:30:23.020
-the one for "ffmpeg" has a lot of
+yang untuk "ffmpeg" memiliki banyak
 
 0:30:23.020,0:30:24.940
-useful examples that are more nicely
+contoh berguna yang lebih rapi
 
 0:30:24.940,0:30:26.799
-formatted (if you don't have a huge
+formatnya (jika kalian tidak memiliki ukuran font
 
 0:30:26.799,0:30:30.820
-font size for recording). Or even
+yang besar untuk merekam). Atau bahkan
 
 0:30:30.820,0:30:33.250
-simple commands like "tar", that have a lot
+perintah sederhana seperti "tar", yang memiliki banyak
 
 0:30:33.250,0:30:35.470
-of options that you are combining. So for
+opsi yang kalian gabungkan. Jadi misalnya
 
 0:30:35.470,0:30:37.840
-example, here you can be combining 2, 3...
+di sini kalian bisa menggabungkan 2, 3...
 
 0:30:37.840,0:30:41.710
-different flags and it can not be
+flag yang berbeda dan mungkin tidak
 
 0:30:41.710,0:30:43.419
-obvious, when you want to combine
+jelas, ketika kalian ingin menggabungkan
 
 0:30:43.419,0:30:48.429
-different ones. That's how you
+yang berbeda. Begitulah cara kalian
 
 0:30:48.429,0:30:54.850
-would go about finding more about these tools.
-On the topic of finding, let's try
+mencari lebih lanjut tentang tool-tool ini.
+Dalam topik mencari, mari kita coba
 
 0:30:54.850,0:30:58.690
-learning how to find files. You can
+belajar cara mencari file. Kalian bisa
 
 0:30:58.690,0:31:03.100
-always go "ls", and like you can go like
+selalu melakukan "ls", dan kalian bisa melakukan
 
 0:31:03.100,0:31:05.950
-"ls project1", and
+"ls project1", dan
 
 0:31:05.950,0:31:08.559
-keep LS'ing all the way through. But
+terus melakukan LS sepanjang jalan. Tapi
 
 0:31:08.559,0:31:11.740
-maybe, if we already know that we want
+mungkin, jika kita sudah tahu bahwa kita ingin
 
 0:31:11.740,0:31:15.450
-to look for all the folders called
+mencari semua folder yang disebut
 
 0:31:15.450,0:31:19.000
-"src", then there's probably a better command
+"src", maka mungkin ada perintah yang lebih baik
 
 0:31:19.000,0:31:21.400
-for doing that. And that's "find".
+untuk melakukannya. Dan itu adalah "find".
 
 0:31:21.460,0:31:26.679
-Find is the tool that, pretty much comes
-with every UNIX system. And find,
+Find adalah tool yang, kurang lebih datang
+dengan setiap sistem UNIX. Dan find,
 
 0:31:26.679,0:31:35.230
-we're gonna give it... here we're
-saying we want to call find in the
+kita akan memberinya... di sini kita
+bilang kita ingin memanggil find di
 
 0:31:35.230,0:31:37.510
-current folder, remember that "." stands
+folder saat ini, ingat bahwa "." adalah
 
 0:31:37.510,0:31:40.149
-for the current folder, and we want the
+folder saat ini, dan kita ingin
 
 0:31:40.149,0:31:46.539
-name to be "src" and we want the type to
-be a directory. And by typing that it's
+namanya "src" dan kita ingin tipenya
+direktori. Dan dengan mengetik itu akan
 
 0:31:46.539,0:31:49.870
-gonna recursively go through the current
+secara rekursif melewati direktori saat ini
 
 0:31:49.870,0:31:52.330
-directory and look for all these files,
+dan mencari semua file ini,
 
 0:31:52.330,0:31:58.659
-or folders in this case, that match this
-pattern. Find has a lot of useful
+atau folder dalam kasus ini, yang cocok dengan pola
+ini. Find memiliki banyak
 
 0:31:58.659,0:32:01.840
-flags. So for example, you can even test
+flag berguna. Jadi misalnya, kalian bahkan bisa menguji
 
 0:32:01.840,0:32:05.440
-for the path to be in a way. Here we're
+apakah path berada dalam cara tertentu. Di sini kita
 
 0:32:05.440,0:32:08.230
-saying we want some number of folders,
+bilang kita ingin beberapa jumlah folder,
 
 0:32:08.230,0:32:09.909
-we don't really care how many folders,
+kita tidak peduli berapa banyak folder,
 
 0:32:09.909,0:32:13.179
-and then we care about all the Python
+dan kemudian kita peduli pada semua script
 
 0:32:13.179,0:32:17.830
-scripts, all the things with the extension
-".py", that are within a
+Python, semua yang memiliki ekstensi
+".py", yang berada dalam
 
 0:32:17.830,0:32:19.899
-test folder. And we're also checking, just in
+folder test. Dan kita juga mengecek, hanya untuk
 
 0:32:19.899,0:32:21.519
-cases really but we're checking just
+berjaga-jaga tapi kita mengecek bahwa
 
 0:32:21.519,0:32:24.460
-that it's also a type F, which stands for
+itu juga tipe F, yang berarti
 
 0:32:24.460,0:32:28.710
-file. We're getting all these files.
+file. Kita mendapatkan semua file ini.
 
 0:32:28.710,0:32:32.169
-You can also use different flags for things
+Kalian juga bisa menggunakan flag berbeda untuk hal-hal
 
 0:32:32.169,0:32:34.000
-that are not the path or the name.
+yang bukan path atau nama.
 
 0:32:34.000,0:32:38.160
-You could check things that have been
+Kalian bisa mengecek hal-hal yang telah
 
 0:32:38.160,0:32:42.060
-modified ("-mtime" is for the modification
-time), things that have been
+dimodifikasi ("-mtime" adalah untuk waktu
+modifikasi), hal-hal yang telah
 
 0:32:42.070,0:32:44.540
-modified in the last day, which is gonna
+dimodifikasi dalam sehari terakhir, yang akan
 
 0:32:44.559,0:32:46.659
-be pretty much everything. So this is gonna print
+menjadi hampir semuanya. Jadi ini akan mencetak
 
 0:32:46.659,0:32:49.029
-a lot of the files we created and files
+banyak file yang kita buat dan file
 
 0:32:49.029,0:32:51.850
-that were already there. You can even
+yang sudah ada. Kalian bahkan bisa
 
 0:32:51.850,0:32:54.960
-use other things like size, the owner,
+menggunakan hal lain seperti ukuran, pemilik,
 
 0:32:54.960,0:32:59.080
-permissions, you name it. What is even more
+izin, apa pun. Yang lebih
 
 0:32:59.080,0:33:01.870
-powerful is, "find" can find stuff
+kuat adalah, "find" bisa menemukan sesuatu
 
 0:33:01.870,0:33:04.269
-but it also can do stuff when you
+tapi juga bisa melakukan sesuatu ketika kalian
 
 0:33:04.269,0:33:10.690
-find those files. So we could look for all
+menemukan file tersebut. Jadi kita bisa mencari semua
 
 0:33:10.690,0:33:14.080
-the files that have a TMP
+file yang memiliki ekstensi
 
 0:33:14.080,0:33:18.160
-extension, which is a temporary extension, and
+TMP, yang merupakan ekstensi sementara, dan
 
 0:33:18.160,0:33:22.720
-then, we can tell "find" that
-for every one of those files,
+kemudian, kita bisa memberi tahu "find" bahwa
+untuk setiap file tersebut,
 
 0:33:22.720,0:33:26.350
-just execute the "rm" command for them. And
+jalankan saja perintah "rm" untuk mereka. Dan
 
 0:33:26.350,0:33:29.050
-that will just be calling "rm" with all
+itu hanya akan memanggil "rm" dengan semua
 
 0:33:29.050,0:33:32.350
-these files. So let's first execute it
+file ini. Jadi mari kita jalankan dulu
 
 0:33:32.350,0:33:35.760
-without, and then we execute it with it.
+tanpa, lalu kita jalankan dengannya.
 
 0:33:35.760,0:33:38.950
-Again, as with the command line
+Lagi, seperti filosofi command line,
 
 0:33:38.950,0:33:41.470
-philosophy, it looks like nothing
+sepertinya tidak ada yang terjadi.
 
 0:33:41.470,0:33:48.070
-happened. But since we have
-a zero error code, something
+Tapi karena kita memiliki
+error code nol, sesuatu
 
 0:33:48.070,0:33:49.540
-happened - just that everything went
+telah terjadi - hanya saja semuanya berjalan
 
 0:33:49.540,0:33:51.490
-correct and everything is fine. And now,
+benar dan semuanya baik-baik saja. Dan sekarang,
 
 0:33:51.490,0:33:57.810
-if we look for these files,
-they aren't there anymore.
+jika kita mencari file-file ini,
+mereka tidak ada lagi.
 
 0:33:57.810,0:34:02.950
-Another nice thing about the shell
-in general is that there are
+Hal bagus lainnya tentang shell
+secara umum adalah ada
 
 0:34:02.950,0:34:05.890
-these tools, but people will keep
+tool-tool ini, tapi orang akan terus
 
 0:34:05.890,0:34:08.230
-finding new ways, so alternative
+menemukan cara baru, jadi alternatif
 
 0:34:08.230,0:34:12.220
-ways of writing these tools. It's
-nice to know about it. So, for
+cara menulis tool-tool ini. Bagus
+untuk mengetahuinya. Jadi, misalnya
 
 0:34:12.220,0:34:20.020
-example find if you just want to match
-the things that end in "tmp"
+find jika kalian hanya ingin mencocokkan
+hal-hal yang diakhiri dengan "tmp"
 
 0:34:20.020,0:34:24.190
-it can be sometimes weird to do this
-thing, it has a long command.
+kadang-kadang bisa aneh melakukan hal
+ini, memiliki perintah yang panjang.
 
 0:34:24.190,0:34:27.760
-There's things like "fd",
+Ada hal-hal seperti "fd",
 
 0:34:27.760,0:34:32.320
-for example, that is a shorter command
-that by default will use regex
+misalnya, yang merupakan perintah lebih pendek
+yang secara default akan menggunakan regex
 
 0:34:32.320,0:34:34.899
-and will ignore your gitfiles, so you
+dan akan mengabaikan file git kalian, sehingga kalian
 
 0:34:34.899,0:34:38.020
-don't even search for them. It
+bahkan tidak mencarinya. Ini
 
 0:34:38.020,0:34:42.879
-will color-code, it will have better
-Unicode support... It's nice to
+akan memberi kode warna, akan memiliki dukungan
+Unicode yang lebih baik... Bagus untuk
 
 0:34:42.879,0:34:45.040
-know about some of these tools. But, again,
+mengetahui beberapa tool ini. Tapi, lagi,
 
 0:34:45.040,0:34:52.149
-the main idea is that if you are aware
-that these tools exist, you can
+ide utamanya adalah jika kalian sadar
+bahwa tool-tool ini ada, kalian bisa
 
 0:34:52.149,0:34:53.740
-save yourself a lot of time from doing
+menghemat banyak waktu dari melakukan
 
 0:34:53.740,0:34:57.660
-kind of menial and repetitive tasks.
+tugas-tugas yang sepele dan repetitif.
 
 0:34:57.660,0:35:00.010
-Another command to bear in mind is like
+Perintah lain yang perlu diingat adalah seperti
 
 0:35:00.010,0:35:01.990
-"find". Some of you may be
+"find". Beberapa dari kalian mungkin
 
 0:35:01.990,0:35:04.300
-wondering, "find" is probably just
+bertanya-tanya, "find" mungkin hanya
 
 0:35:04.300,0:35:06.520
-actually going through a directory
+melalui struktur direktori
 
 0:35:06.520,0:35:09.580
-structure and looking for things but
+dan mencari sesuatu tapi
 
 0:35:09.580,0:35:11.260
-what if I'm doing a lot of "finds" a day?
+bagaimana jika saya melakukan banyak "find" sehari?
 
 0:35:11.260,0:35:12.850
-Wouldn't it be better, doing kind of
+Bukankah lebih baik, melakukan semacam
 
 0:35:12.850,0:35:18.790
-a database approach and build an index
-first, and then use that index
+pendekatan database dan membangun indeks
+terlebih dahulu, lalu menggunakan indeks itu
 
 0:35:18.790,0:35:21.520
-and update it in some way. Well, actually
+dan memperbaruinya dengan beberapa cara. Sebenarnya
 
 0:35:21.520,0:35:23.380
-most Unix systems already do it and
+sebagian besar sistem UNIX sudah melakukannya dan
 
 0:35:23.380,0:35:28.170
-this is through the "locate" command and
+ini melalui perintah "locate" dan
 
 0:35:28.170,0:35:31.690
-the way that the locate will
+cara locate
 
 0:35:31.690,0:35:35.470
-be used... it will just look for paths in
+digunakan... hanya akan mencari path di
 
 0:35:35.470,0:35:38.680
-your file system that have the substring
+sistem file kalian yang memiliki substring
 
 0:35:38.680,0:35:44.710
-that you want. I actually don't know if it
-will work... Okay, it worked. Let me try to
+yang kalian inginkan. Saya sebenarnya tidak tahu apakah
+akan berfungsi... Oke, berhasil. Mari saya coba
 
 0:35:44.710,0:35:49.840
-do something like "missing-semester".
+melakukan sesuatu seperti "missing-semester".
 
 0:35:51.840,0:35:53.950
-You're gonna take a while but
+Ini akan memakan waktu sebentar tapi
 
 0:35:53.950,0:35:56.109
-it found all these files that are somewhere
+menemukan semua file ini yang ada di suatu tempat
 
 0:35:56.109,0:35:57.730
-in my file system and since it has
+di sistem file saya dan karena telah
 
 0:35:57.730,0:36:01.750
-built an index already on them, it's much
+membangun indeks untuk mereka, ini jauh
 
 0:36:01.750,0:36:05.680
-faster. And then, to keep it updated,
+lebih cepat. Dan kemudian, untuk menjaganya tetap terbaru,
 
 0:36:05.680,0:36:11.980
-using the "updatedb" command
-that is running through cron,
+menggunakan perintah "updatedb"
+yang berjalan melalui cron,
 
 0:36:13.840,0:36:18.490
-to update this database. Finding files, again, is
+untuk memperbarui database ini. Mencari file, lagi,
 
 0:36:18.490,0:36:23.230
-really useful. Sometimes you're actually concerned
-about, not the files themselves,
+sangat berguna. Terkadang kalian sebenarnya peduli
+bukan pada file itu sendiri,
 
 0:36:23.230,0:36:26.740
-but the content of the files. For that
+tapi pada konten file. Untuk itu
 
 0:36:26.740,0:36:31.420
-you can use the grep command that we
+kalian bisa menggunakan perintah grep yang telah
 
 0:36:31.420,0:36:33.880
-have seen so far. So you could do
+kita lihat sejauh ini. Jadi kalian bisa melakukan
 
 0:36:33.880,0:36:37.740
-something like grep foobar in MCD, it's there.
+sesuatu seperti grep foobar di MCD, ada di sana.
 
 0:36:37.740,0:36:43.690
-What if you want to, again, recursively
-search through the current
+Bagaimana jika kalian ingin, lagi, secara rekursif
+mencari melalui struktur
 
 0:36:43.690,0:36:45.760
-structure and look for more files, right?
+saat ini dan mencari lebih banyak file, kan?
 
 0:36:45.760,0:36:48.700
-We don't want to do this manually.
+Kita tidak ingin melakukan ini secara manual.
 
 0:36:48.700,0:36:51.220
-We could use "find", and the "-exec", but
+Kita bisa menggunakan "find", dan "-exec", tapi
 
 0:36:51.220,0:36:58.920
-actually "grep" has the "-R" flag
-that will go through the entire
+sebenarnya "grep" memiliki flag "-R"
+yang akan melewati seluruh
 
 0:36:58.920,0:37:03.609
-directory, here. And it's telling us
+direktori, di sini. Dan memberi tahu kita
 
 0:37:03.609,0:37:06.579
-that oh we have the foobar line in example.sh
+bahwa oh kita punya baris foobar di example.sh
 
 0:37:06.579,0:37:09.279
-at these three places and in
+di tiga tempat ini dan di
 
 0:37:09.279,0:37:14.589
-this other two places in foobar. This can be
+dua tempat lain di foobar. Ini bisa
 
 0:37:14.589,0:37:16.900
-really convenient. Mainly, the
+sangat berguna. Terutama,
 
 0:37:16.900,0:37:18.940
-use case for this is you know you have
+kasus penggunaan untuk ini adalah kalian tahu kalian telah
 
 0:37:18.940,0:37:21.910
-written some code in some programming
+menulis beberapa kode dalam beberapa bahasa
 
 0:37:21.910,0:37:23.859
-language, and you know it's somewhere in
+pemrograman, dan kalian tahu itu ada di suatu tempat di
 
 0:37:23.859,0:37:26.200
-your file system but you actually don't
+sistem file kalian tapi kalian sebenarnya tidak
 
 0:37:26.200,0:37:28.599
-know. But you can actually quickly search.
+tahu. Tapi kalian bisa dengan cepat mencari.
 
 0:37:28.600,0:37:32.980
-So for example, I can quickly search
+Jadi misalnya, saya bisa dengan cepat mencari
 
 0:37:35.660,0:37:40.320
-for all the Python files that I have in my
+semua file Python yang saya miliki di folder
 
 0:37:40.329,0:37:45.460
-scratch folder where I used the request library.
+scratch saya tempat saya menggunakan library request.
 
 0:37:45.460,0:37:47.589
-And if I run this, it's giving me
+Dan jika saya menjalankan ini, memberi saya
 
 0:37:47.589,0:37:50.890
-through all these files, exactly in
+melalui semua file ini, tepatnya di
 
 0:37:50.890,0:37:53.650
-what line it has been found. And here
+baris mana ditemukan. Dan di sini
 
 0:37:53.650,0:37:56.260
-instead of using grep, which is fine,
+alih-alih menggunakan grep, yang baik-baik saja,
 
 0:37:56.260,0:37:58.930
-you could also do this, I'm using "ripgrep",
+kalian juga bisa melakukan ini, saya menggunakan "ripgrep",
 
 0:37:58.930,0:38:05.260
-which is kind of the same idea but
-again trying to bring some more
+yang merupakan ide yang sama tapi
+lagi mencoba membawa beberapa
 
 0:38:05.260,0:38:09.730
-niceties like color coding or file
+kelebihan seperti kode warna atau pemrosesan
 
 0:38:09.730,0:38:16.480
-processing and other things. It think it has,
-also, unicode support. It's also pretty
+file dan hal-hal lain. Saya pikir ini memiliki,
+juga, dukungan unicode. Ini juga cukup
 
 0:38:16.480,0:38:22.829
-fast so you are not paying like a
-trade-off on this being slower and
+cepat sehingga kalian tidak membayar trade-off
+karena lebih lambat dan
 
 0:38:22.829,0:38:25.420
-there's a lot of useful flags. You
+ada banyak flag berguna. Kalian
 
 0:38:25.420,0:38:27.670
-can say, oh, I actually want to get some
+bisa bilang, oh, saya sebenarnya ingin mendapatkan beberapa
 
 0:38:27.670,0:38:30.460
-context around those results.
+konteks di sekitar hasil tersebut.
 
 0:38:33.040,0:38:36.400
-So I want to get like five
-lines of context around
+Jadi saya ingin mendapatkan seperti lima
+baris konteks di sekitar
 
 0:38:36.400,0:38:42.819
-that, so you can see where that import
-lives and see code around it.
+itu, sehingga kalian bisa melihat di mana import
+itu berada dan melihat kode di sekitarnya.
 
 0:38:42.819,0:38:44.170
-Here in the import it's not really useful
+Di sini pada import tidak terlalu berguna
 
 0:38:44.170,0:38:45.819
-but like if you're looking for where you
+tapi seperti jika kalian mencari di mana kalian
 
 0:38:45.819,0:38:49.720
-use the function, for example, it will
+menggunakan fungsi, misalnya, akan
 
 0:38:49.720,0:38:54.010
-be very handy. We can also do things like
+sangat berguna. Kita juga bisa melakukan hal-hal seperti
 
 0:38:54.010,0:38:59.170
-we can search, for example here,.
+kita bisa mencari, misalnya di sini.
 
 0:38:59.170,0:39:04.839
-A more advanced use, we can say,
+Penggunaan yang lebih lanjut, kita bisa bilang,
 
 0:39:04.840,0:39:11.580
-"-u" is for don't ignore hidden files, sometimes
+"-u" adalah untuk tidak mengabaikan file tersembunyi, terkadang
 
 0:39:12.520,0:39:16.359
-you want to be ignoring hidden
-files, except if you want to
+kalian ingin mengabaikan file
+tersembunyi, kecuali jika kalian ingin
 
 0:39:16.359,0:39:23.500
-search config files, that are by default
-hidden. Then, instead of printing
+mencari file config, yang secara default
+tersembunyi. Kemudian, alih-alih mencetak
 
 0:39:23.500,0:39:28.400
-the matches, we're asking to do something
-that would be kind of hard, I think,
+yang cocok, kita meminta untuk melakukan sesuatu
+yang menurut saya agak sulit,
 
 0:39:28.400,0:39:31.380
-to do with grep, out of my head, which is
+yang
 
 0:39:31.390,0:39:34.569
-"I want you to print all the files that
+"saya ingin kalian mencetak semua file yang
 
 0:39:34.569,0:39:37.750
-don't match the pattern I'm giving you", which
+tidak cocok dengan pola yang kalian berikan", yang
 
 0:39:37.750,0:39:40.030
-may be a weird thing to ask here but
+mungkin permintaan aneh di sini tapi
 
 0:39:40.030,0:39:42.940
-then we keep going... And this pattern here
+kemudian kita lanjutkan... Dan pola di sini
 
 0:39:42.940,0:39:45.790
-is a small regex which is saying
+adalah regex kecil yang mengatakan
 
 0:39:45.790,0:39:48.099
-at the beginning of the line I have a
+di awal baris saya punya
 
 0:39:48.099,0:39:51.190
-"#" and a "!", and that's a shebang.
+"#" dan "!", dan itu adalah shebang.
 
 0:39:51.190,0:39:53.470
-Like that, we're searching here for all
+Seperti itu, kita mencari di sini untuk semua
 
 0:39:53.470,0:39:56.650
-the files that don't have a shebang
+file yang tidak memiliki shebang
 
 0:39:56.650,0:39:59.369
-and then we're giving it, here,
+dan kemudian kita memberinya, di sini,
 
 0:39:59.369,0:40:02.470
-a "-t sh" to only look for "sh"
+"-t sh" untuk hanya mencari file
 
 0:40:02.470,0:40:07.660
-files, because maybe all your
-Python or text files are fine
+"sh", karena mungkin semua file
+Python atau teks kalian baik-baik saja
 
 0:40:07.660,0:40:10.000
-without a shebang. And here it's telling us
+tanpa shebang. Dan di sini memberi tahu kita
 
 0:40:10.000,0:40:13.020
-"oh, MCD is obviously missing a shebang"
+"oh, MCD jelas kehilangan shebang"
 
 0:40:14.760,0:40:16.660
-We can even... It has like some
+Kita bahkan bisa... Ini memiliki beberapa
 
 0:40:16.660,0:40:19.119
-nice flags, so for example if we
+flag bagus, jadi misalnya jika kita
 
 0:40:19.120,0:40:21.360
-include the "stats" flag
+menyertakan flag "stats"
 
 0:40:28.700,0:40:34.119
-it will get all these results but it will
-also tell us information about all
+akan mendapatkan semua hasil ini tapi juga
+akan memberi tahu kita informasi tentang semua
 
 0:40:34.119,0:40:35.410
-the things that it searched. For example,
+hal yang dicarinya. Misalnya,
 
 0:40:35.410,0:40:40.390
-the number of matches that it found,
-the lines, the file searched,
+jumlah match yang ditemukan,
+baris, file yang dicari,
 
 0:40:40.390,0:40:44.040
-the bytes that it printed, &c.
+byte yang dicetak, dst.
 
 0:40:44.040,0:40:47.160
-Similar as with "fd", sometimes
-it's not as useful
+Sama seperti dengan "fd", terkadang
+tidak terlalu berguna
 
 0:40:48.400,0:40:50.619
-using one specific tool or another and
+menggunakan satu tool tertentu atau yang lain dan
 
 0:40:50.620,0:40:55.780
-in fact, as ripgrep, there are several
-other tools. Like "ack",
+faktanya, seperti ripgrep, ada beberapa
+tool lain. Seperti "ack",
 
 0:40:55.780,0:40:57.700
-is the original grep alternative that was
+adalah alternatif grep asli yang
 
 0:40:57.700,0:41:00.670
-written. Then the silver searcher,
+ditulis. Kemudian the silver searcher,
 
 0:41:00.670,0:41:04.089
-"ag", was another one... and they're all
+"ag", adalah yang lain... dan semuanya
 
 0:41:04.089,0:41:05.589
-pretty much interchangeable so
+kurang lebih dapat dipertukarkan sehingga
 
 0:41:05.589,0:41:07.630
-maybe you're at a system that has one and
+mungkin kalian berada di sistem yang memiliki satu dan
 
 0:41:07.630,0:41:09.670
-not the other, just knowing that you can
+bukan yang lain, hanya mengetahui bahwa kalian bisa
 
 0:41:09.670,0:41:12.040
-use these things with these tools can be
+menggunakan hal-hal ini dengan tool-tool ini bisa
 
 0:41:12.040,0:41:15.549
-fairly useful. Lastly, I want to cover
+sangat berguna. Terakhir, saya ingin membahas
 
 0:41:15.549,0:41:19.780
-how you go about, not finding files
-or code, but how you go about
+bagaimana kalian mencari, bukan file
+atau kode, tapi bagaimana kalian mencari
 
 0:41:19.780,0:41:22.540
-finding commands that you already
+perintah yang sudah pernah
 
 0:41:22.540,0:41:30.160
-some time figured out. The first, obvious
-way is just using the up arrow,
+kalian temukan sebelumnya. Yang pertama, jelas
+cara adalah hanya menggunakan panah atas,
 
 0:41:30.160,0:41:34.540
-and slowly going through all your history,
-looking for these matches.
+dan perlahan melewati semua history kalian,
+mencari kecocokan ini.
 
 0:41:34.540,0:41:36.490
-This is actually not very efficient, as
+Ini sebenarnya tidak sangat efisien, seperti
 
 0:41:36.490,0:41:42.579
-you probably guessed. So the bash
-has ways to do this more easily.
+yang mungkin kalian duga. Jadi bash
+memiliki cara untuk melakukan ini dengan lebih mudah.
 
 0:41:42.579,0:41:44.619
-There is the "history" command, that will
+Ada perintah "history", yang akan
 
 0:41:44.619,0:41:49.180
-print your history. Here I'm in zsh and
-it only prints some of my history, but
+mencetak history kalian. Di sini saya di zsh dan
+hanya mencetak beberapa history saya, tapi
 
 0:41:49.180,0:41:54.069
-if I say, I want you to print everything
-from the beginning of time, it will print
+jika saya bilang, saya ingin kalian mencetak semuanya
+dari awal waktu, akan mencetak
 
 0:41:54.069,0:41:58.220
-everything from the beginning
-of whatever this history is.
+semuanya dari awal
+apa pun history ini.
 
 0:41:58.220,0:42:00.700
-And since this is a lot of results,
+Dan karena ini banyak hasil,
 
 0:42:00.700,0:42:02.589
-maybe we care about the ones where we
+mungkin kita peduli pada yang kita
 
 0:42:02.589,0:42:08.490
-use the "convert" command to go from some
-type of file to some other type of file.
+gunakan perintah "convert" untuk pergi dari beberapa
+jenis file ke jenis file lain.
 
 0:42:08.490,0:42:12.940
-Some image, sorry. Then, we're getting all
+Beberapa gambar, maaf. Kemudian, kita mendapatkan semua
 
 0:42:12.940,0:42:15.849
-these results here, about all the ones
+hasil ini di sini, tentang semua yang
 
 0:42:15.849,0:42:18.120
-that match this substring.
+cocok dengan substring ini.
 
 0:42:21.280,0:42:24.609
-Even more, pretty much all shells by default will
+Lebih lanjut, hampir semua shell secara default akan
 
 0:42:24.609,0:42:27.130
-link "Ctrl+R", the keybinding,
+menautkan "Ctrl+R", keybinding,
 
 0:42:27.130,0:42:29.680
-to do backward search. Here we
+untuk melakukan pencarian mundur. Di sini kita
 
 0:42:29.680,0:42:31.569
-have backward search, where we can
+memiliki pencarian mundur, di mana kita bisa
 
 0:42:31.569,0:42:34.750
-type "convert" and it's finding the
+mengetik "convert" dan menemukan
 
 0:42:34.750,0:42:36.609
-command that we just typed. And if we just
+perintah yang baru saja kita ketik. Dan jika kita hanya
 
 0:42:36.609,0:42:38.619
-keep hitting "Ctrl+R", it will
+terus menekan "Ctrl+R", akan
 
 0:42:38.619,0:42:41.740
-kind of go through these matches and
+melewati kecocokan-kecocokan ini dan
 
 0:42:41.740,0:42:44.260
-it will let re-execute it
+akan membiarkan kita mengeksekusi ulang
 
 0:42:44.260,0:42:49.240
-in place. Another thing that you can do,
+di tempat. Hal lain yang bisa kalian lakukan,
 
 0:42:49.240,0:42:51.069
-related to that, is you can use this
+terkait dengan itu, adalah kalian bisa menggunakan
 
 0:42:51.069,0:42:53.829
-really nifty tool called "fzf", which is
+tool yang sangat rapi ini disebut "fzf", yang
 
 0:42:53.829,0:42:56.280
-like a fuzzy finder, like it will...
+seperti fuzzy finder, yang akan...
 
 0:42:57.100,0:42:58.480
-It will let you do kind of
+Ini akan membiarkan kalian melakukan semacam
 
 0:42:58.480,0:43:02.200
-like an interactive grep. We could do
+grep interaktif. Kita bisa melakukan
 
 0:43:02.200,0:43:06.369
-for example this, where we can cat our
+misalnya ini, di mana kita bisa cat
 
 0:43:06.369,0:43:10.030
-example.sh command, that will print
+perintah example.sh kita, yang akan mencetak
 
 0:43:10.030,0:43:11.680
-print to the standard output, and then we
+ke standard output, dan kemudian kita
 
 0:43:11.680,0:43:14.290
-can pipe it through fzf. It's just getting
+bisa pipe melalui fzf. Hanya mendapatkan
 
 0:43:14.290,0:43:18.490
-all the lines and then we can
-interactively look for the
+semua baris dan kemudian kita bisa
+secara interaktif mencari
 
 0:43:18.490,0:43:21.849
-string that we care about. And the nice
+string yang kita pedulikan. Dan hal bagus
 
 0:43:21.849,0:43:26.349
-thing about fzf is that, if you enable
-the default bindings, it will bind to
+tentang fzf adalah, jika kalian mengaktifkan
+binding default, akan mengikat ke
 
 0:43:26.349,0:43:33.670
-your "Ctrl+R" shell execution and now
+eksekusi shell "Ctrl+R" kalian dan sekarang
 
 0:43:33.670,0:43:36.490
-you can quickly and dynamically like
+kalian bisa dengan cepat dan dinamis
 
 0:43:36.490,0:43:41.700
-look for all the times you try to
-convert a favicon in your history.
+mencari semua kali kalian mencoba
+mengonversi favicon di history kalian.
 
 0:43:42.020,0:43:46.375
-And it's also like fuzzy matching,
-whereas like by default in grep
+Dan juga seperti fuzzy matching,
+sedangkan secara default di grep
 
 0:43:46.375,0:43:49.420
-or these things you have to write a regex or some
+atau hal-hal ini kalian harus menulis regex atau beberapa
 
 0:43:49.420,0:43:52.360
-expression that will match within here.
+ekspresi yang akan cocok di sini.
 
 0:43:52.360,0:43:54.609
-Here I'm just typing "convert" and "favicon" and
+Di sini saya hanya mengetik "convert" dan "favicon" dan
 
 0:43:54.609,0:43:57.369
-it's just trying to do the best scan,
+hanya mencoba melakukan pemindaian terbaik,
 
 0:43:57.369,0:44:01.349
-doing the match in the lines it has.
+mencocokkan di baris yang dimilikinya.
 
 0:44:01.349,0:44:06.190
-Lastly, a tool that probably you have
-already seen, that I've been using
+Terakhir, tool yang mungkin sudah kalian
+lihat, yang telah saya gunakan
 
 0:44:06.190,0:44:08.410
-for not retyping these extremely long
+untuk tidak mengetik ulang perintah yang sangat panjang
 
 0:44:08.410,0:44:13.080
-commands is this "history
-substring search", where
+ini adalah "history
+substring search", di mana
 
 0:44:13.940,0:44:15.660
-as I type in my shell,
+saat saya mengetik di shell saya,
 
 0:44:15.670,0:44:19.630
-and both F fail to mention but both face
+(dan kedua F gagal menyebutkan tapi kedua face
 
 0:44:19.630,0:44:22.760
-which I think was originally introduced,
-this concept, and then
+yang saya pikir awalnya memperkenalkan
+konsep ini, dan kemudian
 
 0:44:22.760,0:44:25.760
-zsh has a really nice implementation)
+zsh memiliki implementasi yang sangat bagus)
 
 0:44:25.760,0:44:26.800
-what it'll let you do is
+yang akan membiarkan kalian melakukan adalah
 
 0:44:26.800,0:44:31.300
-as you type the command, it will
-dynamically search back in your
+saat kalian mengetik perintah, akan
+secara dinamis mencari kembali di
 
 0:44:31.300,0:44:34.420
-history to the same command
-that has a common prefix,
+history kalian ke perintah yang sama
+yang memiliki prefiks umum,
 
 0:44:34.980,0:44:36.900
-and then, if you...
+dan kemudian, jika kalian...
 
 0:44:39.100,0:44:42.100
-it will change as the match list stops
+akan berubah saat daftar kecocokan berhenti
 
 0:44:42.100,0:44:44.110
-working and then as you do the
+berfungsi dan kemudian saat kalian melakukan
 
 0:44:44.120,0:44:49.760
-right arrow you can select that
-command and then re-execute it.
+panah kanan kalian bisa memilih
+perintah itu dan kemudian mengeksekusi ulang.
 
 0:45:05.800,0:45:09.920
-We've seen a bunch of stuff... I think I have
+Kita telah melihat banyak hal... saya pikir saya punya
 
 0:45:09.940,0:45:16.180
-a few minutes left so I'm going
-to cover a couple of tools to do
+beberapa menit tersisa jadi saya akan
+membahas beberapa tool untuk melakukan
 
 0:45:16.180,0:45:20.060
-really quick directory listing
-and directory navigation.
+daftar direktori dan navigasi direktori
+dengan sangat cepat.
 
 0:45:20.060,0:45:30.020
-So you can always use the "-R" to recursively
-list some directory structure,
+Jadi kalian bisa selalu menggunakan "-R" untuk secara rekursif
+mendaftar beberapa struktur direktori,
 
 0:45:30.020,0:45:35.160
-but that can be suboptimal, I cannot
-really make sense of this easily.
+tapi itu bisa suboptimal, saya tidak bisa
+benar-benar memahami ini dengan mudah.
 
 0:45:36.340,0:45:44.460
-There's tool called "tree" that will
-be the much more friendly form of
+Ada tool yang disebut "tree" yang akan
+menjadi cara yang jauh lebih ramah untuk
 
 0:45:44.460,0:45:47.500
-printing all the stuff, it will
-also color code based on...
+mencetak semua hal, juga akan
+memberi kode warna berdasarkan...
 
 0:45:47.500,0:45:50.680
-here for example "foo" is blue
-because it's a directory and
+di sini misalnya "foo" berwarna biru
+karena itu adalah direktori dan
 
 0:45:50.680,0:45:55.100
-this is red because it has execute permissions.
+ini merah karena memiliki izin eksekusi.
 
 0:45:55.100,0:46:00.220
-But we can go even further than
-that. There's really nice tools
+Tapi kita bisa melangkah lebih jauh dari
+itu. Ada tool yang sangat bagus
 
 0:46:00.220,0:46:04.580
-like a recent one called "broot" that
-will do the same thing but here
+seperti yang baru-baru ini disebut "broot" yang
+akan melakukan hal yang sama tapi di sini
 
 0:46:04.580,0:46:07.300
-for example instead of doing
-this thing of listing
+misalnya alih-alih melakukan
+hal mendaftar
 
 0:46:07.300,0:46:09.160
-every single file, for example in bar
+setiap file, misalnya di bar
 
 0:46:09.160,0:46:11.400
-we have these "a" through "j" files,
+kita punya file "a" sampai "j",
 
 0:46:11.400,0:46:14.260
-it will say "oh there are more, unlisted here".
+akan bilang "oh ada lebih banyak, tidak tercantum di sini".
 
 0:46:15.080,0:46:18.200
-I can actually start typing and it will again
+Saya sebenarnya bisa mulai mengetik dan akan lagi
 
 0:46:18.200,0:46:21.540
-again facily match to the files that are there
+secara fuzzy mencocokkan ke file yang ada
 
 0:46:21.540,0:46:24.800
-and I can quickly select them
-and navigate through them.
+dan saya bisa dengan cepat memilih mereka
+dan menavigasi melalui mereka.
 
 0:46:24.800,0:46:28.380
-So, again, it's good to know that
+Jadi, lagi, bagus untuk mengetahui bahwa
 
 0:46:28.380,0:46:33.340
-these things exist so you don't
-lose a large amount of time
+hal-hal ini ada sehingga kalian tidak
+kehilangan banyak waktu
 
 0:46:34.240,0:46:36.180
-going for these files.
+untuk mencari file-file ini.
 
 0:46:37.880,0:46:40.500
-There are also, I think I have it installed
+Ada juga, saya pikir saya punya terinstal
 
 0:46:40.500,0:46:44.829
-also something more similar to what
-you would expect your OS to have,
+juga sesuatu yang lebih mirip dengan apa
+yang kalian harapkan dari OS kalian,
 
 0:46:44.829,0:46:49.960
-like Nautilus or one of the Mac
-finders that have like an
+seperti Nautilus atau salah satu finder Mac
+yang memiliki
 
 0:46:49.960,0:46:59.260
-interactive input where you can just use your
-navigation arrows and quickly explore.
+input interaktif di mana kalian bisa hanya menggunakan
+panah navigasi kalian dan menjelajah dengan cepat.
 
 0:46:59.260,0:47:03.849
-It might be overkill but you'll
-be surprised how quickly you can
+Mungkin berlebihan tapi kalian akan
+terkejut betapa cepatnya kalian bisa
 
 0:47:03.849,0:47:07.839
-make sense of some directory structure
-by just navigating through it.
+memahami beberapa struktur direktori
+hanya dengan menavigasi melaluinya.
 
 0:47:07.840,0:47:12.780
-And pretty much all of these tools
-will let you edit, copy files...
+Dan hampir semua tool ini
+akan membiarkan kalian mengedit, menyalin file...
 
 0:47:12.780,0:47:16.880
-if you just look for the options for them.
+jika kalian hanya mencari opsi untuk mereka.
 
 0:47:17.600,0:47:20.100
-The last addendum is kind of going places.
+Tambahan terakhir adalah tentang berpindah tempat.
 
 0:47:20.100,0:47:24.480
-We have "cd", and "cd" is nice, it will get you
+Kita punya "cd", dan "cd" bagus, akan membawa kalian
 
 0:47:26.120,0:47:30.060
-to a lot of places. But it's pretty handy if
+ke banyak tempat. Tapi cukup berguna jika
 
 0:47:30.069,0:47:33.190
-you can like quickly go places,
+kalian bisa dengan cepat pergi ke tempat,
 
 0:47:33.190,0:47:36.730
-either you have been to recently or that
+baik yang baru-baru ini kalian kunjungi atau yang
 
 0:47:36.730,0:47:40.599
-you go frequently. And you can do this in
+sering kalian kunjungi. Dan kalian bisa melakukan ini dalam
 
 0:47:40.599,0:47:42.520
-many ways there's probably... you can start
+banyak cara mungkin... kalian bisa mulai
 
 0:47:42.520,0:47:44.319
-thinking, oh I can make bookmarks, I can
+berpikir, oh saya bisa membuat bookmark, saya bisa
 
 0:47:44.319,0:47:46.660
-make... I can make aliases in the shell,
+membuat... saya bisa membuat alias di shell,
 
 0:47:46.660,0:47:49.020
-that we will cover at some point,
+yang akan kita bahas nanti,
 
 0:47:49.020,0:47:53.020
-symlinks... But at this point,
+symlink... Tapi pada titik ini,
 
 0:47:53.020,0:47:54.910
-programmers have like built all these
+programmer telah membangun semua tool ini,
 
 0:47:54.910,0:47:56.799
-tools, so programmers have already figured
+jadi programmer sudah menemukan
 
 0:47:56.799,0:47:59.520
-out a really nice way of doing this.
+cara yang sangat bagus untuk melakukan ini.
 
 0:47:59.520,0:48:01.930
-One way of doing this is using what is
+Salah satu cara melakukan ini adalah menggunakan apa yang
 
 0:48:01.930,0:48:05.760
-called "auto jump", which I
-think is not loaded here...
+disebut "auto jump", yang saya
+pikir tidak dimuat di sini...
 
 0:48:14.140,0:48:20.100
-Okay, don't worry. I will cover it
-in the command line environment.
+Oke, tidak apa-apa. Saya akan membahasnya
+di command line environment.
 
 0:48:21.960,0:48:25.579
-I think it's because I disabled
-the "Ctrl+R" and that also
+Saya pikir itu karena saya menonaktifkan
+"Ctrl+R" dan itu juga
 
 0:48:25.579,0:48:31.309
-affected other parts of the script.
-I think at this point if anyone has
+mempengaruhi bagian lain dari script.
+Saya pikir pada titik ini jika ada yang memiliki
 
 0:48:31.309,0:48:35.480
-any questions that are related to this,
-I'll be more than happy to answer
+pertanyaan yang terkait dengan ini,
+saya akan dengan senang hati menjawab
 
 0:48:35.480,0:48:37.509
-them, if anything was left unclear.
+mereka, jika ada yang masih belum jelas.
 
 0:48:37.509,0:48:42.859
-Otherwise, a there's a bunch of
-exercises that we wrote, kind of
+Jika tidak, ada banyak
+latihan yang kami tulis, yang
 
 0:48:42.859,0:48:46.549
-touching on these topics and we
-encourage you to try them and
+menyinggung topik-topik ini dan kami
+mendorong kalian untuk mencobanya dan
 
 0:48:46.549,0:48:48.559
-come to office hours, where we can help
+datang ke jam kantor, di mana kami bisa membantu
 
 0:48:48.559,0:48:54.569
-you figure out how to do them, or some
-bash quirks that are not clear.
+kalian mencari tahu cara melakukannya, atau beberapa
+keunikan bash yang tidak jelas.
 

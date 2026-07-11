@@ -2,7 +2,7 @@
 layout: lecture
 title: "Packaging and Shipping Code"
 description: >
-  Learn about project packaging, environments, versioning, and deploying libraries, applications, and services.
+  Pelajari tentang packaging proyek, environment, versioning, dan deployment library, aplikasi, dan layanan.
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true

@@ -2,7 +2,7 @@
 layout: page
 title: "2026 Lectures"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2026.
+  Catatan kuliah dan video untuk Missing Semester, MIT IAP 2026.
 permalink: /2026/
 phony: true
 ---

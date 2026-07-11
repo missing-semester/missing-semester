@@ -2,7 +2,7 @@
 layout: lecture
 title: "Debugging and Profiling"
 description: >
-  Learn how to debug programs using logging and debuggers, and how to profile code for performance.
+  Pelajari cara men-debug program menggunakan logging dan debugger, serta cara melakukan profiling kode untuk performa.
 thumbnail: /static/assets/thumbnails/2026/lec4.png
 date: 2026-01-15
 ready: true

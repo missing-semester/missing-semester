@@ -2,7 +2,7 @@
 layout: lecture
 title: "Data Wrangling"
 description: >
-  Learn how to manipulate and transform data using command-line tools like sed, awk, and regular expressions.
+  Pelajari cara memanipulasi dan mentransformasi data menggunakan tools command-line seperti sed, awk, dan regular expressions.
 thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true

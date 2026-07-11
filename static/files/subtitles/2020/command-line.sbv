@@ -1,2846 +1,2841 @@
 0:00:00.480,0:00:02.480
-Okay, can everyone hear me okay?
+Oke, bisa semua dengar saya dengan baik?
 
 0:00:03.720,0:00:06.160
-Okay, so welcome back.
+Oke, jadi selamat datang kembali.
 
 0:00:06.160,0:00:10.320
-I'm gonna address a couple of items
-in kind of the administratrivia.
+Saya akan membahas beberapa hal
+sekitar administrasi.
 
 0:00:10.640,0:00:13.080
-With the end of the first week,
+Dengan berakhirnya minggu pertama,
 
 0:00:13.179,0:00:16.349
-we sent an email, noticing you that
+kami mengirim email, memberi tahu bahwa
 
 0:00:16.600,0:00:20.219
-we have uploaded the videos for the first
-week, so you can now find them online.
+kami telah mengunggah video untuk minggu pertama,
+jadi kalian bisa menemukannya secara online.
 
 0:00:20.470,0:00:26.670
-They have all the screen recordings for the things
-that we were doing, so you can go back to them.
+Semua rekaman layar untuk hal-hal
+yang kita lakukan sudah tersedia, jadi kalian bisa kembali melihatnya.
 
 0:00:26.830,0:00:31.439
-Look if you're were confused about if
-we did something quick and, again,
+Lihat jika kalian bingung tentang sesuatu
+yang kita lakukan terlalu cepat, dan sekali lagi,
 
 0:00:31.440,0:00:37.560
-feel free to ask us any questions if anything in the
-lecture notes is not clear. We also sent you a
+jangan ragu untuk bertanya jika ada yang tidak jelas
+dari catatan kuliah. Kami juga mengirim
 
 0:00:37.880,0:00:42.360
-survey so you can give us feedback
-about what was not clear,
+survei agar kalian bisa memberi masukan
+tentang apa yang belum jelas,
 
 0:00:42.360,0:00:46.280
-what items you would want a
-more thorough explanation or
+hal apa yang kalian ingin penjelasan
+lebih mendalam, atau
 
 0:00:47.110,0:00:51.749
-just any other item, if you're finding
-the exercises too hard, too easy,
+hal lainnya, jika kalian merasa
+latihannya terlalu sulit, terlalu mudah,
 
 0:00:52.239,0:00:55.288
-go into that URL and we'll really
+masuk ke URL tersebut dan kami sangat
 
 0:00:55.960,0:01:00.040
-appreciate getting that feedback, because
-that will make the course better
+menghargai masukan tersebut, karena
+itu akan membuat kuliah ini lebih baik
 
 0:01:00.480,0:01:03.800
-for the remaining lectures and for
-future iterations of the course.
+untuk kuliah-kuliah berikutnya dan untuk
+iterasi kuliah di masa depan.
 
 0:01:05.080,0:01:07.080
-With that out of the way
+Dengan itu selesai
 
 0:01:07.080,0:01:10.840
-Oh, and we're gonna try to upload the
-videos in a more timely manner.
+Oh, dan kami akan mencoba mengunggah video
+dengan lebih tepat waktu.
 
 0:01:11.200,0:01:16.040
-We don't want to kind of wait until the end of
-the week for that. So keep tuned for that.
+Kami tidak ingin menunggu sampai akhir
+minggu untuk itu. Jadi pantau terus.
 
 0:01:18.760,0:01:19.840
-That out of the way,
+Dengan itu selesai,
 
 0:01:19.920,0:01:20.800
-now I'm gonna
+sekarang saya akan
 
 0:01:21.120,0:01:24.960
-This lecture's called command-line
-environment and we're
+Kuliah ini berjudul command-line
+environment dan kita akan
 
 0:01:25.160,0:01:28.440
-going to cover a few different topics. So the
+membahas beberapa topik berbeda. Jadi
 
 0:01:28.990,0:01:30.990
-main topics we're gonna
+topik utama yang akan kita
 
 0:01:32.040,0:01:34.520
-cover, so you can keep track,
+bahas, supaya kalian bisa mengikuti,
 
 0:01:34.680,0:01:36.400
-it's probably better here,
+lebih baik di sini,
 
 0:01:36.400,0:01:37.720
-keep track of what I'm talking.
+ikuti apa yang saya bicarakan.
 
 0:01:37.920,0:01:41.560
-The first is gonna be job control.
+Yang pertama adalah job control.
 
 0:01:42.040,0:01:44.280
-The second one is going to be
+Yang kedua adalah
 
 0:01:44.600,0:01:46.600
-terminal multiplexers.
+terminal multiplexer.
 
 0:01:51.720,0:01:57.360
-Then I'm going to explain what dotfiles
-are and how to configure your shell.
+Kemudian saya akan menjelaskan apa itu dotfiles
+dan cara mengonfigurasi shell kalian.
 
 0:01:57.360,0:02:03.240
-And lastly, how to efficiently work with
-remote machines. So if things are not
+Dan terakhir, cara bekerja secara efisien dengan
+mesin remote. Jadi jika ada yang belum
 
 0:02:05.110,0:02:07.589
-fully clear, kind of keep the structure.
+sepenuhnya jelas, ikuti strukturnya.
 
 0:02:08.200,0:02:12.320
-They all kind of interact in some
-way, of how you use your terminal,
+Semuanya saling berinteraksi dalam beberapa
+cara, tentang bagaimana kalian menggunakan terminal,
 
 0:02:12.880,0:02:17.280
-but they are somewhat separate
-topics, so keep that in mind.
+tapi mereka adalah topik yang agak terpisah,
+jadi ingat itu.
 
 0:02:17.600,0:02:23.800
-So let's go with job control. So far we have
-been using the shell in a very, kind of
+Jadi mari kita mulai dengan job control. Sejauh ini kita
+telah menggunakan shell dengan cara yang sangat
 
 0:02:24.800,0:02:27.720
-mono-command way. Like, you
-execute a command and then
+satu perintah. Seperti, kalian
+menjalankan perintah lalu
 
 0:02:27.840,0:02:31.800
-the command executes, then you get some output,
-and that's all about what you can do.
+perintah itu berjalan, kalian mendapat output,
+dan itu semua yang bisa kalian lakukan.
 
 0:02:32.200,0:02:36.520
-And if you want to run several
-things, it's not clear
+Dan jika kalian ingin menjalankan beberapa
+hal, tidak jelas
 
 0:02:36.540,0:02:41.099
-how you will do it. Or if you want to stop
-the execution of a program, it's again,
+bagaimana kalian akan melakukannya. Atau jika kalian ingin menghentikan
+eksekusi program, sekali lagi,
 
 0:02:41.099,0:02:43.768
-like how do I know how to stop a program?
+bagaimana saya tahu cara menghentikan program?
 
 0:02:44.650,0:02:47.940
-Let's showcase this with a command called sleep.
+Mari kita tunjukkan dengan perintah bernama sleep.
 
 0:02:48.160,0:02:50.320
-Sleep is a command that takes an argument,
+Sleep adalah perintah yang menerima argumen,
 
 0:02:50.320,0:02:54.360
-and that argument is going to be an
-integer number, and it will sleep.
+dan argumen itu adalah bilangan
+bulat, dan ia akan tidur.
 
 0:02:54.360,0:02:58.440
-It will just kind of be there, on the
-background, for that many seconds.
+Ia hanya akan diam di
+latar belakang, selama detik yang ditentukan.
 
 0:02:58.440,0:03:03.539
-So if we do something like sleep 20, this process
-is gonna be sleeping for 20 seconds.
+Jadi jika kita melakukan sleep 20, proses ini
+akan tidur selama 20 detik.
 
 0:03:03.539,0:03:07.720
-But we don't want to wait 20 seconds
-for the command to complete.
+Tapi kita tidak ingin menunggu 20 detik
+agar perintah selesai.
 
 0:03:08.040,0:03:10.800
-So what we can do is type "Ctrl+C".
+Jadi yang bisa kita lakukan adalah menekan "Ctrl+C".
 
 0:03:10.840,0:03:12.580
-By typing "Ctrl+C"
+Dengan menekan "Ctrl+C"
 
 0:03:12.580,0:03:17.840
-We can see that, here, the terminal let us know,
+Kita bisa melihat bahwa, di sini, terminal memberi tahu kita,
 
 0:03:18.880,0:03:22.840
-and it's part of the syntax that we covered
-in the editors / Vim lecture,
+dan itu bagian dari sintaks yang kita bahas
+di kuliah editor / Vim,
 
 0:03:23.000,0:03:27.200
-that we typed "Ctrl+C" and it stopped
-the execution of the process.
+bahwa kita menekan "Ctrl+C" dan itu menghentikan
+eksekusi proses.
 
 0:03:27.640,0:03:29.640
-What is actually going on here
+Yang sebenarnya terjadi di sini
 
 0:03:29.880,0:03:34.840
-is that this is using a UNIX communication
-mechanism called signals.
+adalah ini menggunakan mekanisme komunikasi UNIX
+yang disebut signals.
 
 0:03:35.120,0:03:37.360
-When we type "Ctrl+C",
+Ketika kita menekan "Ctrl+C",
 
 0:03:37.800,0:03:42.080
-what the terminal did for us,
-or the shell did for us,
+yang dilakukan terminal untuk kita,
+atau shell untuk kita,
 
 0:03:42.160,0:03:45.960
-is send a signal called SIGINT,
+adalah mengirim signal bernama SIGINT,
 
 0:03:45.960,0:03:51.320
-that stands for SIGnal INTerrupt, that
-tells the program to stop itself.
+singkatan dari SIGnal INTerrupt, yang
+memberitahu program untuk menghentikan dirinya.
 
 0:03:51.680,0:03:57.520
-And there are many, many, many signals
-of this kind. If you do man signal,
+Dan ada banyak, banyak signal
+seperti ini. Jika kalian melakukan man signal,
 
 0:03:58.880,0:04:05.060
-and just go down a little bit,
-here you have a list of them.
+dan turun sedikit,
+di sini kalian punya daftar mereka.
 
 0:04:05.060,0:04:07.040
-They all have number identifiers,
+Mereka semua punya pengenal nomor,
 
 0:04:07.520,0:04:10.640
-they have kind of a short name
-and you can find a description.
+mereka punya nama singkat
+dan kalian bisa menemukan deskripsinya.
 
 0:04:10.960,0:04:16.400
-So for example, the one I have just
-described is here, number 2, SIGINT.
+Jadi misalnya, yang baru saya
+jelaskan ada di sini, nomor 2, SIGINT.
 
 0:04:16.520,0:04:22.200
-This is the signal that a terminal will send to a
-program when it wants to interrupt its execution.
+Ini adalah signal yang akan dikirim terminal ke
+program ketika ingin menghentikan eksekusinya.
 
 0:04:22.520,0:04:25.840
-A few more to be familiar with
+Beberapa lagi yang perlu dikenal
 
 0:04:26.460,0:04:28.530
-is SIGQUIT, this is
+adalah SIGQUIT, ini
 
 0:04:29.229,0:04:34.409
-again, if you work from a terminal and you
-want to quit the execution of a program.
+sekali lagi, jika kalian bekerja dari terminal dan
+ingin keluar dari eksekusi program.
 
 0:04:34.409,0:04:37.720
-For most programs it will do the same thing,
+Untuk sebagian besar program akan melakukan hal yang sama,
 
 0:04:37.720,0:04:41.120
-but we're gonna showcase now a program
-which will be different,
+tapi kita akan tunjukkan sekarang sebuah program
+yang akan berbeda,
 
 0:04:41.440,0:04:43.760
-and this is the signal that will be sent.
+dan ini adalah signal yang akan dikirim.
 
 0:04:44.680,0:04:49.229
-It can be confusing sometimes. Looking at
-these signals, for example, the SIGTERM is
+Terkadang bisa membingungkan. Melihat
+signal-signal ini, misalnya SIGTERM adalah
 
 0:04:50.080,0:04:54.100
-for most cases equivalent to SIGINT and SIGQUIT
+untuk sebagian besar kasus setara dengan SIGINT dan SIGQUIT
 
 0:04:54.480,0:04:58.380
-but it's just when it's not
-sent through a terminal.
+tapi hanya ketika tidak
+dikirim melalui terminal.
 
 0:04:59.680,0:05:01.680
-A few more that we're gonna
+Beberapa lagi yang akan kita
 
 0:05:01.900,0:05:06.209
-cover is SIGHUP, it's when there's
-like a hang-up in the terminal.
+bahas adalah SIGHUP, ini ketika ada
+hang-up di terminal.
 
 0:05:06.210,0:05:10.199
-So for example, when you are in your
-terminal, if you close your terminal
+Jadi misalnya, ketika kalian di
+terminal, jika kalian menutup terminal
 
 0:05:10.199,0:05:13.348
-and there are still things
-running in the terminal,
+dan masih ada yang
+berjalan di terminal,
 
 0:05:13.480,0:05:17.000
-that's the signal that the program is gonna send
+itu adalah signal yang akan dikirim program
 
 0:05:17.000,0:05:19.960
-to all the processes to tell
-that they should close,
+ke semua proses untuk memberi tahu
+bahwa mereka harus menutup,
 
 0:05:19.960,0:05:25.080
-like there was a hang-up in the
-command line communication
+seperti ada hang-up dalam
+komunikasi command line
 
 0:05:25.080,0:05:26.800
-and they should close now.
+dan mereka harus menutup sekarang.
 
 0:05:28.400,0:05:34.260
-Signals can do more things than just stopping, interrupting
-programs and asking them to finish.
+Signal bisa melakukan lebih dari sekadar menghentikan, menginterupsi
+program dan meminta mereka selesai.
 
 0:05:34.260,0:05:36.840
-You can for example use the
+Kalian bisa misalnya menggunakan
 
 0:05:37.520,0:05:43.840
-SIGSTOP to pause the execution of the
-program, and then you can use the
+SIGSTOP untuk menjeda eksekusi
+program, dan kemudian kalian bisa menggunakan
 
 0:05:44.480,0:05:50.160
-SIGCONT command for continuing, to continue the execution
-of the program at a point later in time.
+perintah SIGCONT untuk melanjutkan, melanjutkan eksekusi
+program di waktu kemudian.
 
 0:05:51.160,0:05:55.440
-Since all of this might be slightly too
-abstract, let's see a few examples.
+Karena semua ini mungkin agak terlalu
+abstrak, mari lihat beberapa contoh.
 
 0:05:58.040,0:06:00.560
-First, let's showcase a
+Pertama, mari tunjukkan
 
 0:06:01.960,0:06:06.240
-Python program. I'm going to very
-quickly go through the program.
+program Python. Saya akan dengan cepat
+melewati programnya.
 
 0:06:06.440,0:06:08.360
-This is a Python program,
+Ini adalah program Python,
 
 0:06:08.720,0:06:10.760
-that like most python programs,
+yang seperti kebanyakan program python,
 
 0:06:11.520,0:06:13.960
-is importing this signal library and
+mengimpor library signal ini dan
 
 0:06:14.960,0:06:20.400
-is defining this handler here.
-And this handler is writing,
+mendefinisikan handler ini di sini.
+Dan handler ini menulis,
 
 0:06:20.440,0:06:23.040
-"Oh, I got a SIGINT, but
-I'm not gonna stop here".
+"Oh, saya dapat SIGINT, tapi
+saya tidak akan berhenti di sini".
 
 0:06:23.480,0:06:24.960
-And after that,
+Dan setelah itu,
 
 0:06:24.960,0:06:30.720
-we tell Python that we want this program,
-when it gets a SIGINT, to stop.
+kita beri tahu Python bahwa kita ingin program ini,
+ketika mendapat SIGINT, untuk berhenti.
 
 0:06:31.120,0:06:34.880
-The rest of the program is a very silly program
-that is just going to be printing numbers.
+Sisa programnya adalah program sangat sederhana
+yang hanya akan mencetak angka.
 
 0:06:35.060,0:06:37.540
-So let's see this in action.
+Jadi mari lihat ini beraksi.
 
 0:06:37.560,0:06:39.560
-We do Python SIGINT.
+Kita lakukan Python SIGINT.
 
 0:06:39.880,0:06:44.970
-And it's counting. We try doing
-"Ctrl+C", this sends a SIGINT,
+Dan ia menghitung. Kita coba melakukan
+"Ctrl+C", ini mengirim SIGINT,
 
 0:06:44.970,0:06:50.000
-but the program didn't actually stop. This
-is because we have a way in the program of
+tapi programnya tidak benar-benar berhenti. Ini
+karena kita punya cara dalam program untuk
 
 0:06:50.400,0:06:54.600
-dealing with this exception,
-and we didn't want to exit.
+menangani exception ini,
+dan kita tidak ingin keluar.
 
 0:06:54.760,0:06:57.600
-If we send a SIGQUIT, which is done through
+Jika kita mengirim SIGQUIT, yang dilakukan melalui
 
 0:06:57.800,0:07:03.680
-"Ctrl+\", here, we can see that since the program
-doesn't have a way of dealing with SIGQUIT,
+"Ctrl+\", di sini, kita bisa melihat bahwa karena program
+tidak punya cara menangani SIGQUIT,
 
 0:07:03.730,0:07:06.269
-it does the default operation, which is
+ia melakukan operasi default, yaitu
 
 0:07:06.820,0:07:08.800
-terminate the program.
+menghentikan program.
 
 0:07:09.080,0:07:11.460
-And you could use this, for example,
+Dan kalian bisa menggunakan ini, misalnya,
 
 0:07:11.880,0:07:15.880
-if someone Ctrl+C's your program, and your
-program is supposed to do something,
+jika seseorang melakukan Ctrl+C pada program kalian, dan program
+kalian seharusnya melakukan sesuatu,
 
 0:07:16.040,0:07:19.320
-like you maybe want to save the intermediate
-state of your program
+mungkin kalian ingin menyimpan state
+program kalian
 
 0:07:19.320,0:07:21.520
-to a file, so you can recover it for later.
+ke file, supaya bisa memulihkannya nanti.
 
 0:07:21.600,0:07:25.640
-This is how you could write a handler like this.
+Begini cara kalian bisa menulis handler seperti ini.
 
 0:07:29.520,0:07:30.720
-Can you repeat the question?
+Bisa ulangi pertanyaannya?
 
 0:07:30.880,0:07:32.280
-What did you type right now, when it stopped?
+Apa yang baru saja kamu ketik, saat berhenti?
 
 0:07:32.480,0:07:34.480
-So I...
+Jadi saya...
 
 0:07:34.630,0:07:38.880
-So what I typed is, I type
-"Ctrl+C" to try to stop it
+Jadi yang saya ketik adalah, saya mengetik
+"Ctrl+C" untuk mencoba menghentikannya
 
 0:07:38.880,0:07:42.869
-but it didn't, because SIGINT is captured
-by the program. Then I type
+tapi tidak berhasil, karena SIGINT ditangkap
+oleh program. Kemudian saya ketik
 
 0:07:43.120,0:07:48.040
-"Ctrl+\", which sends a SIGQUIT,
-which is a different signal,
+"Ctrl+\", yang mengirim SIGQUIT,
+yang merupakan signal berbeda,
 
 0:07:49.000,0:07:51.720
-and this signal is not captured by the program.
+dan signal ini tidak ditangkap oleh program.
 
 0:07:52.090,0:07:54.869
-It's also worth mentioning
-that there is a couple of
+Penting juga disebutkan
+bahwa ada beberapa
 
 0:07:54.970,0:07:59.970
-signals that cannot be captured by software.
-There is a couple of signals
+signal yang tidak bisa ditangkap oleh software.
+Ada beberapa signal
 
 0:08:00.820,0:08:02.820
-like SIGKILL
+seperti SIGKILL
 
 0:08:03.940,0:08:06.600
-that cannot be captured. Like that, it will
+yang tidak bisa ditangkap. Seperti itu, ia akan
 
 0:08:06.660,0:08:09.300
-terminate the execution of the
-process, no matter what.
+menghentikan eksekusi
+proses, tidak peduli apa pun.
 
 0:08:09.300,0:08:12.000
-And it can be sometimes harmful.
-You do not want to be using it by
+Dan terkadang bisa berbahaya.
+Kalian tidak ingin menggunakannya secara
 
 0:08:12.000,0:08:16.460
-default, because this can leave for example an
-orphan child, orphaned children processes.
+default, karena ini bisa meninggalkan misalnya
+proses anak yang yatim.
 
 0:08:16.470,0:08:20.940
-Like if a process has other small children
-processes that it started, and you
+Seperti jika sebuah proses punya proses anak kecil
+yang dimulainya, dan kalian
 
 0:08:21.400,0:08:25.470
-SIGKILL it, all of those will
-keep running in there,
+melakukan SIGKILL padanya, semua itu akan
+terus berjalan di sana,
 
 0:08:25.760,0:08:30.800
-but they won't have a parent, and you can maybe
-have a really weird behavior going on.
+tapi mereka tidak punya induk, dan kalian mungkin
+mengalami perilaku yang sangat aneh.
 
 0:08:32.040,0:08:35.680
-What signal is given to the
-program if we log off?
+Signal apa yang diberikan ke
+program jika kita log out?
 
 0:08:35.800,0:08:37.440
-If you log off?
+Jika kalian log out?
 
 0:08:37.920,0:08:41.920
-That would be... so for example, if you're in an
-SSH connection and you close the connection,
+Itu akan menjadi... jadi misalnya, jika kalian dalam
+koneksi SSH dan menutup koneksi,
 
 0:08:41.920,0:08:45.600
-that is the hang-up signal,
+itu adalah signal hang-up,
 
 0:08:45.600,0:08:51.200
-SIGHUP, which I'm gonna cover in an example.
-So this is what would be sent up.
+SIGHUP, yang akan saya bahas dalam contoh.
+Jadi ini yang akan dikirim.
 
 0:08:51.560,0:08:56.360
-And you could write for example, if you want
-the process to keep working even if you close
+Dan kalian bisa menulis misalnya, jika ingin
+proses tetap bekerja bahkan jika kalian menutup
 
 0:08:56.960,0:09:02.560
-that, you can write a wrapper around
-that to ignore that signal.
+itu, kalian bisa menulis wrapper di sekitarnya
+untuk mengabaikan signal itu.
 
 0:09:04.720,0:09:09.760
-Let's display what we could do
-with the stop and continue.
+Mari tunjukkan apa yang bisa kita lakukan
+dengan stop dan continue.
 
 0:09:09.980,0:09:16.389
-So, for example, we can start a really long process.
-Let's sleep a thousand, we're gonna take forever.
+Jadi, misalnya, kita bisa memulai proses yang sangat panjang.
+Mari sleep seribu, ini akan lama sekali.
 
 0:09:16.960,0:09:18.920
-We can control-c,
+Kita bisa control-c,
 
 0:09:18.920,0:09:20.360
-"Ctrl+Z", sorry,
+"Ctrl+Z", maaf,
 
 0:09:20.360,0:09:25.280
-and if we do "Ctrl+Z" we can see that the
-terminal is saying "it's suspended".
+dan jika kita melakukan "Ctrl+Z" kita bisa melihat bahwa
+terminal mengatakan "it's suspended".
 
 0:09:25.400,0:09:31.520
-What this actually meant is that this process
-was sent a SIGSTOP signal and now is
+Yang sebenarnya dimaksud adalah proses ini
+dikirim signal SIGSTOP dan sekarang
 
 0:09:31.900,0:09:36.900
-still there, you could continue its execution, but right
-now it's completely stopped and in the background
+masih ada, kalian bisa melanjutkan eksekusinya, tapi saat
+ini benar-benar berhenti dan di latar belakang
 
 0:09:38.580,0:09:41.720
-and we can launch a different program.
+dan kita bisa meluncurkan program berbeda.
 
 0:09:41.720,0:09:43.680
-When we try to run this program,
+Ketika kita mencoba menjalankan program ini,
 
 0:09:43.680,0:09:46.620
-please notice that I have included
-an "&" at the end.
+tolong perhatikan bahwa saya telah menyertakan
+"&" di akhir.
 
 0:09:46.820,0:09:52.380
-This tells bash that I want this program
-to start running in the background.
+Ini memberi tahu bash bahwa saya ingin program ini
+mulai berjalan di latar belakang.
 
 0:09:52.560,0:09:55.660
-This is kind of related to all these
+Ini agak terkait dengan semua konsep
 
 0:09:55.660,0:09:59.720
-concepts of running programs in
-the shell, but backgrounded.
+menjalankan program di
+shell, tapi di latar belakang.
 
 0:10:00.350,0:10:04.359
-And what is gonna happen is
-the program is gonna start
+Dan yang akan terjadi adalah
+program akan mulai
 
 0:10:04.720,0:10:07.580
-but it's not gonna take over my prompt.
+tapi tidak akan mengambil alih prompt saya.
 
 0:10:07.580,0:10:11.540
-If I just ran this command without
-this, I could not do anything.
+Jika saya hanya menjalankan perintah ini tanpa
+ini, saya tidak bisa melakukan apa-apa.
 
 0:10:11.540,0:10:15.820
-I would have no access to the prompt
-until the command either finished
+Saya tidak punya akses ke prompt
+sampai perintah selesai
 
 0:10:16.060,0:10:19.380
-or I ended it abruptly. But if I do this,
+atau saya menghentikannya secara paksa. Tapi jika saya lakukan ini,
 
 0:10:19.520,0:10:23.080
-it's saying "there's a new
-process which is this".
+ia mengatakan "ada proses baru
+yaitu ini".
 
 0:10:23.080,0:10:25.180
-This is the process identifying number,
+Ini adalah nomor identifikasi proses,
 
 0:10:25.180,0:10:26.940
-we can ignore this for now.
+kita bisa abaikan ini untuk sekarang.
 
 0:10:27.800,0:10:32.919
-If I type the command "jobs", I get the
-output that I have a suspended job
+Jika saya ketik perintah "jobs", saya mendapat
+output bahwa saya punya job yang ditangguhkan
 
 0:10:32.920,0:10:35.800
-that is the "sleep 1000" job.
+yaitu job "sleep 1000".
 
 0:10:36.040,0:10:38.100
-And then I have another running job,
+Dan kemudian saya punya job lain yang berjalan,
 
 0:10:38.120,0:10:42.200
-which is this "NOHUP sleep 2000".
+yaitu "NOHUP sleep 2000" ini.
 
 0:10:42.640,0:10:45.660
-Say I want to continue the first job.
+Katakan saya ingin melanjutkan job pertama.
 
 0:10:45.660,0:10:48.520
-The first job is suspended,
-it's not executing anymore.
+Job pertama ditangguhkan,
+tidak berjalan lagi.
 
 0:10:48.640,0:10:52.600
-I can continue that doing "BG %1"
+Saya bisa melanjutkannya dengan melakukan "BG %1"
 
 0:10:53.870,0:10:58.359
-That "%" is referring to the fact that
-I want to refer to this specific
+"%" itu mengacu pada fakta bahwa
+saya ingin merujuk ke proses
 
 0:11:00.280,0:11:04.280
-process. And now, if I do that
-and I look at the jobs,
+spesifik ini. Dan sekarang, jika saya lakukan itu
+dan melihat jobs,
 
 0:11:04.300,0:11:06.460
-now this job is running again. Now
+sekarang job ini berjalan lagi. Sekarang
 
 0:11:06.460,0:11:08.940
-both of them are running.
+keduanya berjalan.
 
 0:11:09.300,0:11:13.820
-If I wanted to stop these all,
-I can use the kill command.
+Jika saya ingin menghentikan semuanya,
+saya bisa menggunakan perintah kill.
 
 0:11:14.040,0:11:16.060
-The kill command
+Perintah kill
 
 0:11:16.220,0:11:18.620
-is for killing jobs,
+adalah untuk membunuh jobs,
 
 0:11:19.180,0:11:22.080
-which is just stopping them, intuitively,
+yang hanya menghentikannya, secara intuitif,
 
 0:11:22.120,0:11:23.760
-but actually it's really useful.
+tapi sebenarnya sangat berguna.
 
 0:11:23.860,0:11:28.200
-The kill command just allows you
-to send any sort of Unix signal.
+Perintah kill hanya mengizinkan kalian
+mengirim semua jenis signal Unix.
 
 0:11:28.360,0:11:32.220
-So here for example, instead
-of killing it completely,
+Jadi di sini misalnya, alih-alih
+membunuhnya sepenuhnya,
 
 0:11:32.220,0:11:34.640
-we just send a stop signal.
+kita hanya mengirim signal stop.
 
 0:11:34.640,0:11:39.160
-Here I'm gonna send a stop signal, which
-is gonna pause the process again.
+Di sini saya akan mengirim signal stop, yang
+akan menjeda proses lagi.
 
 0:11:39.160,0:11:41.280
-I still have to include the identifier,
+Saya masih harus menyertakan pengenal,
 
 0:11:41.600,0:11:46.480
-because without the identifier the shell wouldn't know
-whether to stop the first one or the second one.
+karena tanpa pengenal shell tidak akan tahu
+apakah menghentikan yang pertama atau yang kedua.
 
 0:11:47.480,0:11:52.480
-Now it's said this has been suspended,
-because there was a signal sent.
+Sekarang dikatakan ini telah ditangguhkan,
+karena ada signal yang dikirim.
 
 0:11:52.620,0:11:57.360
-If I do "jobs", again, we can see
-that the second one is running
+Jika saya lakukan "jobs", lagi, kita bisa melihat
+bahwa yang kedua berjalan
 
 0:11:57.460,0:12:00.740
-and the first one has been stopped.
+dan yang pertama telah dihentikan.
 
 0:12:01.420,0:12:04.300
-Going back to one of the questions,
+Kembali ke salah satu pertanyaan,
 
 0:12:04.300,0:12:06.980
-what happens when you close
-the cell, for example,
+apa yang terjadi ketika kalian menutup
+shell, misalnya,
 
 0:12:06.980,0:12:12.860
-and why sometimes people will say that
-you should use this NOHUP command
+dan mengapa terkadang orang mengatakan bahwa
+kalian harus menggunakan perintah NOHUP ini
 
 0:12:12.860,0:12:15.960
-before your run jobs in a remote session.
+sebelum menjalankan jobs di sesi remote.
 
 0:12:16.220,0:12:23.120
-This is because if we try to send
-a hung up command to the first job
+Ini karena jika kita mencoba mengirim
+perintah hung up ke job pertama
 
 0:12:23.560,0:12:27.820
-it's gonna, in a similar fashion
-as the other signals,
+ia akan, dengan cara yang mirip
+seperti signal lainnya,
 
 0:12:27.820,0:12:32.280
-it's gonna hang it up and that's
-gonna terminate the job.
+ia akan meng-hang-up dan itu
+akan menghentikan job.
 
 0:12:32.800,0:12:35.960
-And the first job isn't there anymore
+Dan job pertama tidak ada lagi
 
 0:12:36.320,0:12:39.140
-whereas we have still the second job running.
+sedangkan kita masih punya job kedua yang berjalan.
 
 0:12:39.400,0:12:42.920
-However, if we try to send the
-signal to the second job
+Namun, jika kita mencoba mengirim
+signal ke job kedua
 
 0:12:42.920,0:12:46.060
-what will happen if we close
-our terminal right now
+yang akan terjadi jika kita menutup
+terminal kita sekarang
 
 0:12:47.040,0:12:48.660
-is it's still running.
+adalah ia masih berjalan.
 
 0:12:48.660,0:12:52.480
-Like NOHUP, what it's doing
-is kind of encapsulating
+Seperti NOHUP, yang dilakukannya
+adalah semacam mengenkapsulasi
 
 0:12:52.480,0:12:54.480
-whatever command you're executing and
+perintah apa pun yang kalian jalankan dan
 
 0:12:54.740,0:12:58.720
-ignoring wherever you get a hang up signal,
+mengabaikan di mana pun kalian mendapat signal hang up,
 
 0:12:58.900,0:13:03.680
-and just ignoring that so it can keep running.
+dan mengabaikannya sehingga bisa terus berjalan.
 
 0:13:05.060,0:13:08.500
-And if we send the "kill"
-signal to the second job,
+Dan jika kita mengirim signal "kill"
+ke job kedua,
 
 0:13:08.500,0:13:12.820
-that one can't be ignored and that
-will kill the job, no matter what.
+itu tidak bisa diabaikan dan itu
+akan membunuh job, tidak peduli apa pun.
 
 0:13:13.280,0:13:15.780
-And we don't have any jobs anymore.
+Dan kita tidak punya job lagi.
 
 0:13:17.000,0:13:22.540
-That kind of completes the
-section on job control.
+Itu cukup menyelesaikan
+bagian tentang job control.
 
 0:13:22.740,0:13:27.100
-Any questions so far? Anything
-that wasn't fully clear?
+Ada pertanyaan sejauh ini? Ada yang
+belum sepenuhnya jelas?
 
 0:13:29.040,0:13:30.400
-What does BG do?
+Apa yang dilakukan BG?
 
 0:13:30.960,0:13:31.800
-So BG...
+Jadi BG...
 
 0:13:31.800,0:13:36.860
-There are like two commands. Whenever you
-have a command that has been backgrounded
+Ada seperti dua perintah. Setiap kali kalian
+punya perintah yang telah dilatarbelakangkan
 
 0:13:37.200,0:13:41.820
-and is stopped you can use
-BG (short for background)
+dan dihentikan kalian bisa menggunakan
+BG (singkatan dari background)
 
 0:13:41.820,0:13:44.180
-to continue that process running
-on the background.
+untuk melanjutkan proses itu berjalan
+di latar belakang.
 
 0:13:44.440,0:13:47.400
-That's equivalent of just kind of sending it
+Itu setara dengan hanya mengirimnya
 
 0:13:47.680,0:13:50.820
-a continue signal, so it keeps running.
+signal continue, sehingga terus berjalan.
 
 0:13:50.820,0:13:54.820
-And then there's another one which
-is called FG, if you want to
+Dan kemudian ada lagi yang
+disebut FG, jika kalian ingin
 
 0:13:54.860,0:13:59.580
-recover it to the foreground and you want
-to reattach your standard output.
+mengembalikannya ke foreground dan kalian ingin
+menempelkan kembali standard output kalian.
 
 0:14:04.760,0:14:06.760
-Okay, good.
+Oke, bagus.
 
 0:14:07.120,0:14:11.420
-Jobs are useful and in general, I
-think knowing about signals can be
+Jobs berguna dan secara umum, saya
+berpikir mengetahui tentang signal bisa
 
 0:14:11.420,0:14:14.360
-really beneficial when dealing
-with some part of Unix
+sangat bermanfaat saat berurusan
+dengan beberapa bagian Unix
 
 0:14:14.360,0:14:19.420
-but most of the time what you actually want
-to do is something along the lines of
+tapi sebagian besar waktu yang sebenarnya ingin
+kalian lakukan adalah sesuatu seperti
 
 0:14:19.670,0:14:24.099
-having your editor in one side and then
-the program in another, and maybe
+memiliki editor kalian di satu sisi dan kemudian
+program di sisi lain, dan mungkin
 
 0:14:24.720,0:14:28.280
-monitoring what the resource
-consumption is in our tab.
+memantau konsumsi
+sumber daya di tab lain.
 
 0:14:28.680,0:14:33.640
-We could achieve this using probably
-what you have seen a lot of the time,
+Kita bisa mencapai ini mungkin menggunakan
+apa yang sudah sering kalian lihat,
 
 0:14:33.640,0:14:35.200
-which is just opening more windows.
+yaitu hanya membuka lebih banyak jendela.
 
 0:14:35.200,0:14:37.200
-We can keep opening terminal windows.
+Kita bisa terus membuka jendela terminal.
 
 0:14:37.320,0:14:41.280
-But the fact is there are kind of more
-convenient solutions to this and
+Tapi faktanya ada solusi yang lebih
+nyaman untuk ini dan
 
 0:14:41.280,0:14:43.800
-this is what a terminal multiplexer does.
+inilah yang dilakukan terminal multiplexer.
 
 0:14:44.080,0:14:48.520
-A terminal multiplexer like tmux
+Terminal multiplexer seperti tmux
 
 0:14:48.840,0:14:52.160
-will let you create different workspaces
-that you can work in,
+akan membiarkan kalian membuat workspace berbeda
+yang bisa kalian gunakan,
 
 0:14:52.640,0:14:54.280
-and quickly kind of,
+dan dengan cepat,
 
 0:14:54.280,0:14:56.960
-this has a huge variety of functionality,
+ini punya banyak variasi fungsionalitas,
 
 0:14:57.320,0:15:02.760
-It will let you rearrange the environment and
-it will let you have different sessions.
+Ini akan membiarkan kalian menata ulang lingkungan dan
+memiliki sesi berbeda.
 
 0:15:03.400,0:15:05.400
-There's another more...
+Ada lagi yang lebih...
 
 0:15:05.600,0:15:07.640
-older command, which is called "screen",
+perintah lama, yang disebut "screen",
 
 0:15:07.640,0:15:09.360
-that might be more readily available.
+yang mungkin lebih readily tersedia.
 
 0:15:09.360,0:15:12.200
-But I think the concept kind
-of extrapolates to both.
+Tapi saya pikir konsepnya
+berlaku untuk keduanya.
 
 0:15:12.600,0:15:15.400
-We recommend tmux, that you go and learn it.
+Kami merekomendasikan tmux, supaya kalian mempelajarinya.
 
 0:15:15.400,0:15:17.480
-And in fact, we have exercises on it.
+Dan faktanya, kami punya latihan tentang itu.
 
 0:15:17.480,0:15:20.240
-I'm gonna showcase a different
-scenario right now.
+Saya akan menunjukkan skenario berbeda
+sekarang.
 
 0:15:20.320,0:15:22.000
-So whenever I talked...
+Jadi setiap kali saya bicara...
 
 0:15:22.320,0:15:24.880
-Oh, let me make a quick note.
+Oh, biarkan saya membuat catatan cepat.
 
 0:15:25.200,0:15:28.800
-There are kind of three core concepts
-in tmux, that I'm gonna go through and
+Ada tiga konsep inti
+di tmux, yang akan saya bahas dan
 
 0:15:30.110,0:15:33.130
-the main idea is that there are what is called
+ide utamanya adalah ada yang disebut
 
 0:15:35.180,0:15:37.180
 "sessions".
 
 0:15:37.760,0:15:40.510
-Sessions have "windows" and
+Sessions punya "windows" dan
 
 0:15:42.019,0:15:44.019
-windows have "panes".
+windows punya "panes".
 
 0:15:45.709,0:15:49.539
-It's gonna be kind of useful to
-keep this hierarchy in mind.
+Ini akan berguna untuk
+mengingat hierarki ini.
 
 0:15:50.760,0:15:57.280
-You can pretty much equate "windows" to what
-"tabs" are in other editors and others,
+Kalian bisa hampir menyamakan "windows" dengan apa
+yang "tabs" di editor lain dan lainnya,
 
 0:15:57.280,0:16:00.720
-like for example your web browser.
+seperti misalnya web browser kalian.
 
 0:16:01.280,0:16:06.440
-I'm gonna go through the features, mainly
-what you can do at the different levels.
+Saya akan melalui fitur-fiturnya, terutama
+apa yang bisa kalian lakukan di level berbeda.
 
 0:16:07.000,0:16:10.480
-So first, when we do tmux, that starts a session.
+Jadi pertama, ketika kita melakukan tmux, itu memulai sesi.
 
 0:16:11.360,0:16:14.960
-And here right now it seems like nothing changed
+Dan di sini sekarang sepertinya tidak ada yang berubah
 
 0:16:14.960,0:16:20.360
-but what's happening right now is we're within a shell
-that is different from the one we started before.
+tapi yang terjadi sekarang adalah kita berada dalam shell
+yang berbeda dari yang kita mulai sebelumnya.
 
 0:16:20.640,0:16:24.840
-So in our shell we started
-a process, that is tmux
+Jadi di shell kita kita memulai
+proses, yaitu tmux
 
 0:16:24.840,0:16:28.840
-and that tmux started a different process,
-which is the shell we're currently in.
+dan tmux itu memulai proses berbeda,
+yaitu shell yang sedang kita gunakan sekarang.
 
 0:16:28.980,0:16:30.400
-And the nice thing about this is that
+Dan hal baiknya tentang ini adalah
 
 0:16:30.580,0:16:34.740
-that tmux process is separate from
-the original shell process.
+proses tmux itu terpisah dari
+proses shell asli.
 
 0:16:34.860,0:16:36.860
-So
+Jadi
 
 0:16:40.580,0:16:44.460
-here, we can do things.
+di sini, kita bisa melakukan sesuatu.
 
 0:16:44.480,0:16:48.600
-We can do "ls -la", for example, to
-tell us what is going on in here.
+Kita bisa melakukan "ls -la", misalnya, untuk
+memberi tahu apa yang terjadi di sini.
 
 0:16:48.920,0:16:53.960
-And then we can start running our program,
-and it will start running in there
+Dan kemudian kita bisa mulai menjalankan program kita,
+dan ia akan mulai berjalan di sana
 
 0:16:54.160,0:16:57.880
-and we can do "Ctrl+A d", for example, to detach
+dan kita bisa melakukan "Ctrl+A d", misalnya, untuk detach
 
 0:17:12.760,0:17:15.960
-to detach from the session.
+untuk detach dari sesi.
 
 0:17:16.140,0:17:19.120
-And if we do "tmux a"
+Dan jika kita melakukan "tmux a"
 
 0:17:19.160,0:17:21.560
-that's gonna reattach us to the session.
+itu akan mengaitkan kembali kita ke sesi.
 
 0:17:21.560,0:17:22.300
-So the process,
+Jadi prosesnya,
 
 0:17:22.300,0:17:25.180
-we abandon the process counting numbers.
+kita tinggalkan proses penghitungan angka.
 
 0:17:25.180,0:17:28.300
-This really silly Python program
-that was just counting numbers,
+Program Python yang sangat sederhana
+yang hanya menghitung angka,
 
 0:17:28.340,0:17:30.160
-we left it running there.
+kita tinggalkan berjalan di sana.
 
 0:17:30.200,0:17:31.720
-And if we tmux...
+Dan jika kita tmux...
 
 0:17:31.720,0:17:33.760
-Hey, the process is still running there.
+Hei, prosesnya masih berjalan di sana.
 
 0:17:33.780,0:17:37.820
-And we could close this entire
-terminal and open a new one and
+Dan kita bisa menutup seluruh
+terminal ini dan membuka yang baru dan
 
 0:17:37.880,0:17:41.860
-we could still reattach because this
-tmux session is still running.
+kita masih bisa mengaitkan kembali karena sesi tmux
+ini masih berjalan.
 
 0:17:43.340,0:17:45.340
-Again, we can...
+Sekali lagi, kita bisa...
 
 0:17:46.640,0:17:48.640
-Before I go any further.
+Sebelum saya melangkah lebih jauh.
 
 0:17:48.920,0:17:53.740
-Pretty much... Unlike Vim, where
-you have this notion of modes,
+Hampir... Berbeda dengan Vim, di mana
+kalian punya notions modes,
 
 0:17:53.960,0:17:58.180
-tmux will work in a more emacsy way, which is
+tmux akan bekerja dengan cara yang lebih emacsy, yaitu
 
 0:17:58.180,0:18:04.140
-every command, pretty much every command in tmux,
+setiap perintah, hampir setiap perintah di tmux,
 
 0:18:04.220,0:18:06.020
-you could enter it through the...
+kalian bisa memasukkannya melalui...
 
 0:18:06.020,0:18:08.160
-it has a command line, that we could use.
+ia punya command line, yang bisa kita gunakan.
 
 0:18:08.240,0:18:11.320
-But I recommend you to get familiar
-with the key bindings.
+Tapi saya merekomendasikan kalian untuk familiar
+dengan key bindings.
 
 0:18:11.880,0:18:15.080
-It can be somehow non intuitive at first,
+Ini bisa agak tidak intuitif pada awalnya,
 
 0:18:15.300,0:18:17.880
-but once you get used to them...
+tapi setelah kalian terbiasa...
 
 0:18:22.140,0:18:23.020
-"Ctrl+C", yeah
+"Ctrl+C", ya
 
 0:18:24.440,0:18:30.760
-When you get familiar with them, you will be much faster
-just using the key bindings than using the commands.
+Ketika kalian familiar dengan mereka, kalian akan jauh lebih cepat
+hanya menggunakan key bindings daripada menggunakan perintah.
 
 0:18:31.280,0:18:35.980
-One note about the key bindings: all the
-key bindings have a form that is like
+Satu catatan tentang key bindings: semua
+key bindings punya bentuk seperti
 
 0:18:36.140,0:18:39.840
-you type a prefix and then some key.
+kalian mengetik prefix dan kemudian beberapa key.
 
 0:18:40.060,0:18:44.000
-So for example, to detach we
-do "Ctrl+A" and then "D".
+Jadi misalnya, untuk detach kita
+lakukan "Ctrl+A" lalu "D".
 
 0:18:44.160,0:18:50.140
-This means you press "Ctrl+A" first, you release
-that, and then press "D" to detach.
+Ini berarti kalian tekan "Ctrl+A" dulu, lepaskan
+itu, lalu tekan "D" untuk detach.
 
 0:18:50.380,0:18:54.200
-On default tmux, the prefix is "Ctrl+B",
+Di tmux default, prefixnya adalah "Ctrl+B",
 
 0:18:54.200,0:18:58.780
-but you will find that most people
-will have this remapped to "Ctrl+A"
+tapi kalian akan menemukan bahwa kebanyakan orang
+akan memetakan ulang ini ke "Ctrl+A"
 
 0:18:58.780,0:19:02.680
-because it's a much more ergonomic
-type on the keyboard.
+karena itu jauh lebih ergonomis
+di keyboard.
 
 0:19:02.700,0:19:06.420
-You can find more about how to do these
-things in one of the exercises,
+Kalian bisa menemukan lebih banyak tentang cara melakukan ini
+di salah satu latihan,
 
 0:19:06.960,0:19:12.780
-where we link you to the basics and how to do some
-kind of quality of life modifications to tmux.
+di mana kami menautkan kalian ke dasar-dasar dan cara melakukan beberapa
+modifikasi quality of life ke tmux.
 
 0:19:13.380,0:19:16.720
-Going back to the concept of sessions,
+Kembali ke konsep sessions,
 
 0:19:16.960,0:19:22.120
-we can create a new session just
-doing something like tmux new
+kita bisa membuat sesi baru hanya
+dengan melakukan sesuatu seperti tmux new
 
 0:19:22.320,0:19:24.540
-and we can give sessions names.
+dan kita bisa memberi nama pada sesi.
 
 0:19:24.760,0:19:27.220
-So we can do like "tmux new -t foobar"
+Jadi kita bisa melakukan seperti "tmux new -t foobar"
 
 0:19:27.220,0:19:30.900
-and this is a completely different
-session, that we have started.
+dan ini adalah sesi yang benar-benar berbeda,
+yang telah kita mulai.
 
 0:19:32.240,0:19:36.360
-We can work here, we can detach from it.
+Kita bisa bekerja di sini, kita bisa detach darinya.
 
 0:19:36.360,0:19:40.000
-"tmux ls" will tell us that we
-have two different sessions:
+"tmux ls" akan memberi tahu bahwa kita
+punya dua sesi berbeda:
 
 0:19:40.000,0:19:43.460
-the first one is named "0", because
-I didn't give it a name,
+yang pertama bernama "0", karena
+saya tidak memberinya nama,
 
 0:19:43.500,0:19:45.820
-and the second one is called "foobar".
+dan yang kedua disebut "foobar".
 
 0:19:46.580,0:19:51.020
-I can attach the foobar session
+Saya bisa mengaitkan sesi foobar
 
 0:19:51.020,0:19:53.700
-and I can end it.
+dan saya bisa mengakhirinya.
 
 0:19:54.680,0:19:56.340
-And it's really nice because
+Dan ini sangat bagus karena
 
 0:19:56.340,0:20:00.139
-having this you can kind of work
-in completely different projects.
+dengan ini kalian bisa bekerja
+di proyek yang benar-benar berbeda.
 
 0:20:00.140,0:20:04.340
-For example, having two different
-tmux sessions and different
+Misalnya, memiliki dua sesi tmux berbeda dan
 
 0:20:04.480,0:20:08.440
-editor sessions, different processes running...
+sesi editor berbeda, proses berbeda yang berjalan...
 
 0:20:10.160,0:20:15.100
-When you are within a session, we
-start with the concept of windows.
+Ketika kalian berada dalam sesi, kita
+mulai dengan konsep windows.
 
 0:20:15.100,0:20:21.160
-Here we have a single window, but we
-can use "Ctrl+A c" (for "create")
+Di sini kita punya satu window, tapi kita
+bisa menggunakan "Ctrl+A c" (untuk "create")
 
 0:20:21.160,0:20:23.720
-to open a new window.
+untuk membuka window baru.
 
 0:20:24.000,0:20:26.340
-And here nothing is executing.
+Dan di sini tidak ada yang berjalan.
 
 0:20:26.380,0:20:29.420
-What it's doing is, tmux has
-opened a new shell for us
+Yang dilakukannya adalah, tmux telah
+membuka shell baru untuk kita
 
 0:20:30.360,0:20:34.840
-and we can start running another
-one of these programs here.
+dan kita bisa mulai menjalankan
+program lain di sini.
 
 0:20:35.460,0:20:42.460
-And to quickly jump between the tabs,
-we can do "Ctrl+A" and "previous",
+Dan untuk berpindah dengan cepat antar tab,
+kita bisa lakukan "Ctrl+A" dan "previous",
 
 0:20:42.460,0:20:44.520
-"p" for "previous",
+"p" untuk "previous",
 
 0:20:45.220,0:20:48.020
-and that will go up to the previous window.
+dan itu akan kembali ke window sebelumnya.
 
 0:20:48.020,0:20:50.920
-"Ctrl+A" "next", to go to the next window.
+"Ctrl+A" "next", untuk pergi ke window berikutnya.
 
 0:20:51.260,0:20:56.060
-You can also use the numbers. So if we
-start opening a lot of these tabs,
+Kalian juga bisa menggunakan angka. Jadi jika kita
+mulai membuka banyak tab ini,
 
 0:20:56.200,0:21:00.160
-we could use "Ctrl+A 1", to
-specifically jump to the
+kita bisa menggunakan "Ctrl+A 1", untuk
+khususnya melompat ke
 
 0:21:00.240,0:21:04.400
-to the window that is number "1".
+window yang bernomor "1".
 
 0:21:04.780,0:21:08.620
-And, lastly, it's also pretty
-useful to know sometimes
+Dan, terakhir, juga cukup
+berguna untuk diketahui terkadang
 
 0:21:08.660,0:21:10.400
-that you can rename them.
+bahwa kalian bisa mengubah namanya.
 
 0:21:10.400,0:21:13.380
-For example here I'm executing
-this Python process,
+Misalnya di sini saya menjalankan
+proses Python ini,
 
 0:21:13.580,0:21:16.800
-but that might not be really
-informative and I want...
+tapi itu mungkin tidak terlalu
+informatif dan saya ingin...
 
 0:21:16.880,0:21:21.160
-I maybe want to have something like
-execution or something like that and
+saya mungkin ingin memiliki sesuatu seperti
+execution atau semacam itu dan
 
 0:21:21.740,0:21:26.840
-that will rename the name of that window so
-you can have this really neatly organized.
+itu akan mengubah nama window itu sehingga
+kalian bisa menatanya dengan sangat rapi.
 
 0:21:27.080,0:21:33.500
-This still doesn't solve the need when you want to
-have two things at the same time in your terminal,
+Ini masih belum menyelesaikan kebutuhan ketika kalian ingin
+memiliki dua hal sekaligus di terminal kalian,
 
 0:21:33.680,0:21:35.740
-like in the same display.
+seperti di tampilan yang sama.
 
 0:21:35.740,0:21:38.320
-This is what panes are for. Right now, here
+Inilah fungsi panes. Sekarang, di sini
 
 0:21:38.420,0:21:40.420
-we have a window with a single pane
+kita punya window dengan satu pane
 
 0:21:40.420,0:21:43.540
-(all the windows that we have opened
-so far have a single pane).
+(semua window yang telah kita buka
+sejauh ini punya satu pane).
 
 0:21:43.640,0:21:50.800
-But if we do 'Ctrl+A "'
+Tapi jika kita lakukan 'Ctrl+A "'
 
 0:21:51.040,0:21:56.540
-this will split the current display
-into two different panes.
+ini akan membagi tampilan saat ini
+menjadi dua pane berbeda.
 
 0:21:56.540,0:22:01.400
-So, you see, the one we open below is a different
-shell from the one we have above,
+Jadi, kalian lihat, yang kita buka di bawah adalah shell berbeda
+dari yang kita punya di atas,
 
 0:22:01.640,0:22:05.440
-and we can run any process that we want here.
+dan kita bisa menjalankan proses apa pun yang kita inginkan di sini.
 
 0:22:05.620,0:22:09.900
-We can keep splitting this, if we do "Ctrl+A %"
+Kita bisa terus membagi ini, jika kita lakukan "Ctrl+A %"
 
 0:22:10.080,0:22:15.000
-that will split vertically. And you can kind of
+itu akan membagi secara vertikal. Dan kalian bisa
 
 0:22:15.000,0:22:18.220
-rearrange these tabs using a
-lot of different commands.
+menata ulang ini menggunakan
+banyak perintah berbeda.
 
 0:22:18.220,0:22:22.620
-One that I find very useful, when you are
-starting and it's kind of frustrating,
+Satu yang saya temukan sangat berguna, ketika kalian
+memulai dan agak frustrasi,
 
 0:22:23.540,0:22:26.000
-rearranging them.
+menata ulang mereka.
 
 0:22:26.160,0:22:30.160
-Before I explain that, to move
-through these panes, which is
+Sebelum saya menjelaskan itu, untuk berpindah
+antar pane ini, yang merupakan
 
 0:22:30.300,0:22:32.280
-something you want to be doing all the time
+sesuatu yang akan sering kalian lakukan
 
 0:22:32.460,0:22:37.060
-You just do "Ctrl+A" and the arrow
-keys, and that will let you quickly
+Kalian hanya lakukan "Ctrl+A" dan tombol
+panah, dan itu akan membiarkan kalian dengan cepat
 
 0:22:37.460,0:22:43.960
-navigate through the different
-windows, and execute again...
+berpindah antar
+window, dan menjalankan lagi...
 
 0:22:44.340,0:22:46.300
-I'm doing a lot of "ls -a"
+Saya melakukan banyak "ls -a"
 
 0:22:47.340,0:22:52.780
-I can do "HTOP", that we'll explain in
-the debugging and profiling lecture.
+Saya bisa lakukan "HTOP", yang akan dijelaskan di
+kuliah debugging dan profiling.
 
 0:22:53.540,0:22:55.920
-And we can just navigate through them, again
+Dan kita bisa berpindah antar mereka, lagi
 
 0:22:55.920,0:22:59.040
-like to rearrange there's
-another slew of commands,
+seperti untuk menata ulang ada
+banyak perintah lain,
 
 0:22:59.080,0:23:01.080
-you will go through some in the Exercises
+kalian akan melalui beberapa di Latihan
 
 0:23:02.400,0:23:07.160
-"Ctrl+A" space is pretty neat, because it
-will kind of equispace the current ones
+"Ctrl+A" spasi cukup rapi, karena itu
+akan membagi ruang secara merata untuk yang sekarang
 
 0:23:07.160,0:23:10.260
-and let you through different layouts.
+dan membiarkan kalian melalui tata letak berbeda.
 
 0:23:11.480,0:23:14.260
-Some of them are too small for my current
+Beberapa terlalu kecil untuk konfigurasi
 
 0:23:14.840,0:23:19.220
-terminal config, but that covers,
-I think, most of it.
+terminal saya saat ini, tapi itu mencakup,
+saya pikir, sebagian besarnya.
 
 0:23:19.440,0:23:21.440
-Oh, there's also,
+Oh, ada juga,
 
 0:23:22.660,0:23:29.200
-here, for example, this Vim execution
-that we have started,
+di sini, misalnya, eksekusi Vim ini
+yang telah kita mulai,
 
 0:23:29.200,0:23:33.380
-is too small for what the current tmux pane is.
+terlalu kecil untuk pane tmux saat ini.
 
 0:23:33.720,0:23:38.240
-So one of the things that really is
-much more convenient to do in tmux,
+Jadi salah satu hal yang benar-benar
+lebih nyaman dilakukan di tmux,
 
 0:23:39.180,0:23:42.500
-in contrast to having multiple
-terminal windows, is that
+dibandingkan memiliki beberapa
+jendela terminal, adalah bahwa
 
 0:23:42.560,0:23:48.400
-you can zoom into this, you can ask
-by doing "Ctrl+A z", for "zoom".
+kalian bisa zoom ke sini, kalian bisa meminta
+dengan melakukan "Ctrl+A z", untuk "zoom".
 
 0:23:48.400,0:23:52.960
-It will expand the pane to
-take over all the space,
+Itu akan memperluas pane untuk
+mengambil alih semua ruang,
 
 0:23:52.960,0:23:56.660
-and then "Ctrl+A z", again will go back to it.
+dan kemudian "Ctrl+A z", lagi akan kembali ke semula.
 
 0:24:02.760,0:24:08.080
-Any questions for terminal multiplexers,
-or like, tmux concretely?
+Ada pertanyaan untuk terminal multiplexer,
+atau seperti, tmux secara konkret?
 
 0:24:14.140,0:24:16.780
-Is it running all the same thing?
+Apakah semuanya menjalankan hal yang sama?
 
 0:24:18.680,0:24:22.700
-Like, is there any difference in execution
-between running it in different windows?
+Seperti, apakah ada perbedaan eksekusi
+antara menjalankannya di window berbeda?
 
 0:24:24.880,0:24:28.640
-Is it really just doing it all the
-same, so that you can see it?
+Apakah benar-benar melakukan semuanya
+sama, sehingga kalian bisa melihatnya?
 
 0:24:28.800,0:24:34.900
-Yeah, it wouldn't be any different from having
-two terminal windows open in your computer.
+Ya, itu tidak akan berbeda dari memiliki
+dua jendela terminal terbuka di komputer kalian.
 
 0:24:34.920,0:24:39.220
-Like both of them are gonna be running.
-Of course, when it gets to the CPU,
+Keduanya akan berjalan. Tentu saja, ketika sampai ke CPU,
 
 0:24:39.220,0:24:41.400
-this is gonna be multiplexed again.
+ini akan dimultiplex lagi.
 
 0:24:41.460,0:24:44.400
-Like there's like a timesharing
-mechanism going there
+Seperti ada mekanisme timesharing
+yang terjadi di sana
 
 0:24:44.480,0:24:45.920
-but there's no difference.
+tapi tidak ada perbedaan.
 
 0:24:46.040,0:24:52.260
-tmux is just making this much more convenient
-to use by giving you this visual layout
+tmux hanya membuat ini jauh lebih nyaman
+untuk digunakan dengan memberi kalian tata letak visual ini
 
 0:24:52.560,0:24:55.020
-that you can quickly manipulate through.
+yang bisa kalian manipulasi dengan cepat.
 
 0:24:55.020,0:24:59.860
-And one of the main advantages will come
-when we reach the remote machines
+Dan salah satu keuntungan utama akan datang
+ketika kita mencapai mesin remote
 
 0:24:59.860,0:25:05.300
-because you can leave one of these, we can
-detach from one of these tmux systems,
+karena kalian bisa meninggalkan salah satu ini, kita bisa
+detach dari salah satu sistem tmux ini,
 
 0:25:05.300,0:25:09.120
-close the connection and even
-if we close the connection and
+menutup koneksi dan bahkan
+jika kita menutup koneksi dan
 
 0:25:09.120,0:25:11.640
-and the terminal is gonna send a hang-up signal,
+terminal akan mengirim signal hang-up,
 
 0:25:11.680,0:25:15.420
-that's not gonna close all the
-tmux's that have been started.
+itu tidak akan menutup semua
+tmux yang telah dimulai.
 
 0:25:17.110,0:25:19.110
-Any other questions?
+Ada pertanyaan lain?
 
 0:25:23.620,0:25:27.980
-Let me disable the key-caster.
+Biarkan saya menonaktifkan key-caster.
 
 0:25:33.580,0:25:38.040
-So now we're gonna move into the topic
-of dotfiles and, in general,
+Jadi sekarang kita akan pindah ke topik
+dotfiles dan, secara umum,
 
 0:25:38.040,0:25:42.460
-how to kind of configure your shell
-to do the things you want to do
+bagaimana mengonfigurasi shell kalian
+untuk melakukan hal-hal yang ingin kalian lakukan
 
 0:25:42.460,0:25:45.580
-and mainly how to do them quicker
-and in a more convenient way.
+dan terutama cara melakukannya lebih cepat
+dan lebih nyaman.
 
 0:25:46.360,0:25:49.260
-I'm gonna motivate this using aliases first.
+Saya akan memotivasi ini menggunakan aliases terlebih dahulu.
 
 0:25:49.380,0:25:51.060
-So what an alias is,
+Jadi apa itu alias,
 
 0:25:51.060,0:25:54.260
-is that by now, you might be
-starting to do something like
+adalah bahwa sekarang, kalian mungkin
+mulai melakukan sesuatu seperti
 
 0:25:54.920,0:26:01.680
-a lot of the time, I just want to LS a directory and
-I want to display all the contents into a list format
+sering, saya hanya ingin LS direktori dan
+saya ingin menampilkan semua konten dalam format daftar
 
 0:26:02.180,0:26:05.040
-and in a human readable thing.
+dan dalam format yang mudah dibaca manusia.
 
 0:26:05.260,0:26:07.400
-And it's fine. Like it's not
-that long of a command.
+Dan itu tidak masalah. Seperti itu bukan
+perintah yang terlalu panjang.
 
 0:26:07.400,0:26:10.300
-But as you start building longer
-and longer commands,
+Tapi saat kalian mulai membangun perintah yang lebih
+dan lebih panjang,
 
 0:26:10.320,0:26:14.440
-it can become kind of bothersome having
-to retype them again and again.
+ini bisa menjadi agak merepotkan harus
+mengetik ulang mereka berulang kali.
 
 0:26:14.440,0:26:17.540
-This is one of the reasons
-why aliases are useful.
+Ini adalah salah satu alasan
+mengapa aliases berguna.
 
 0:26:17.540,0:26:21.740
-Alias is a command that will
-be a built-in in your shell,
+Alias adalah perintah yang akan
+menjadi built-in di shell kalian,
 
 0:26:21.960,0:26:23.680
-and what it will do is
+dan yang akan dilakukannya adalah
 
 0:26:23.680,0:26:27.540
-it will remap a short sequence of
-characters to a longer sequence.
+ia akan memetakan ulang urutan karakter pendek
+ke urutan yang lebih panjang.
 
 0:26:27.780,0:26:31.500
-So if I do, for example, here
+Jadi jika saya lakukan, misalnya, di sini
 
 0:26:31.500,0:26:36.840
 alias ll="ls -lah"
 
 0:26:37.440,0:26:42.520
-If I execute this command, this is gonna call
-the "alias" command with this argument
+Jika saya menjalankan perintah ini, ini akan memanggil
+perintah "alias" dengan argumen ini
 
 0:26:42.520,0:26:44.320
-and the LS is going to update
+dan LS akan memperbarui
 
 0:26:44.540,0:26:49.040
-the environment in my shell
-to be aware of this mapping.
+lingkungan di shell saya
+untuk menyadari pemetaan ini.
 
 0:26:49.320,0:26:52.920
-So if I now do LL,
+Jadi jika sekarang saya lakukan LL,
 
 0:26:52.920,0:26:57.520
-it's executing that command without me
-having to type the entire command.
+ia menjalankan perintah itu tanpa saya
+harus mengetik seluruh perintah.
 
 0:26:57.720,0:27:01.180
-It can be really handy for many, many reasons.
+Ini bisa sangat berguna karena banyak alasan.
 
 0:27:01.180,0:27:04.740
-One thing to note before I go any further is that
+Satu hal yang perlu dicatat sebelum saya melangkah lebih jauh adalah bahwa
 
 0:27:05.000,0:27:09.960
-here, alias is not anything special
-compared to other commands,
+di sini, alias bukan apa-apa yang istimewa
+dibandingkan dengan perintah lain,
 
 0:27:09.960,0:27:11.400
-it's just taking a single argument.
+ia hanya mengambil satu argumen.
 
 0:27:11.680,0:27:15.600
-And there is no space around
-this equals and that's
+Dan tidak ada spasi di sekitar
+sama dengan ini dan itu
 
 0:27:16.020,0:27:18.720
-because alias takes a single argument
+karena alias mengambil satu argumen
 
 0:27:18.720,0:27:21.640
-and if you try doing
+dan jika kalian mencoba melakukan
 
 0:27:21.960,0:27:25.120
-something like this, that's giving
-it more than one argument
+sesuatu seperti ini, itu memberinya
+lebih dari satu argumen
 
 0:27:25.120,0:27:28.360
-and that's not gonna work because
-that's not the format it expects.
+dan itu tidak akan berhasil karena
+itu bukan format yang diharapkan.
 
 0:27:29.520,0:27:33.680
-So other use cases that work for aliases,
+Jadi kasus penggunaan lain yang berfungsi untuk alias,
 
 0:27:34.720,0:27:36.549
-as I was saying,
+seperti yang saya katakan,
 
 0:27:36.549,0:27:39.920
-for some things it may be much more convenient,
+untuk beberapa hal mungkin jauh lebih nyaman,
 
 0:27:40.040,0:27:41.020
-like
+seperti
 
 0:27:41.020,0:27:43.200
-one of my favorites is git status.
+salah satu favorit saya adalah git status.
 
 0:27:43.200,0:27:47.500
-It's extremely long, and I don't like typing
-that long of a command every so often,
+Ini sangat panjang, dan saya tidak suka mengetik
+perintah sepanjang itu terlalu sering,
 
 0:27:47.560,0:27:48.960
-because you end up taking a lot of time.
+karena kalian akhirnya menghabiskan banyak waktu.
 
 0:27:49.120,0:27:53.000
-So GS will replace for doing the git status
+Jadi GS akan menggantikan melakukan git status
 
 0:27:53.820,0:27:58.620
-You can also use them to alias
-things that you mistype often,
+Kalian juga bisa menggunakannya untuk meng-alias
+hal-hal yang sering kalian salah ketik,
 
 0:27:58.620,0:28:01.160
-so you can do "sl=ls",
+jadi kalian bisa lakukan "sl=ls",
 
 0:28:01.160,0:28:02.540
-that will work.
+itu akan berhasil.
 
 0:28:05.800,0:28:10.620
-Other useful mappings are,
+Pemetaan berguna lainnya adalah,
 
 0:28:10.680,0:28:15.460
-you might want to alias a command to itself
+kalian mungkin ingin meng-alias perintah ke dirinya sendiri
 
 0:28:15.740,0:28:17.520
-but with a default flag.
+tapi dengan flag default.
 
 0:28:17.520,0:28:21.100
-So here what is going on is I'm creating an alias
+Jadi di sini yang terjadi adalah saya membuat alias
 
 0:28:21.100,0:28:23.100
-which is an alias for the move command,
+yang merupakan alias untuk perintah move,
 
 0:28:23.300,0:28:29.780
-which is MV and I'm aliasing it to the
-same command but adding the "-i" flag.
+yaitu MV dan saya meng-aliasnya ke
+perintah yang sama tapi menambahkan flag "-i".
 
 0:28:29.980,0:28:34.460
-And this "-i" flag, if you go through the man page
-and look at it, it stands for "interactive".
+Dan flag "-i" ini, jika kalian melalui man page
+dan melihatnya, singkatan dari "interactive".
 
 0:28:34.780,0:28:39.880
-And what it will do is it will prompt
-me before I do an overwrite.
+Dan yang akan dilakukannya adalah akan memberi saya prompt
+sebelum saya melakukan overwrite.
 
 0:28:39.880,0:28:44.420
-So once I have executed this,
-I can do something like
+Jadi setelah saya menjalankan ini,
+saya bisa melakukan sesuatu seperti
 
 0:28:44.700,0:28:47.360
-I want to move "aliases" into "case".
+saya ingin memindahkan "aliases" ke "case".
 
 0:28:47.700,0:28:53.140
-By default "move" won't ask, and if "case"
-already exists, it will be over.
+Secara default "move" tidak akan bertanya, dan jika "case"
+sudah ada, itu akan tertimpa.
 
 0:28:53.160,0:28:55.780
-That's fine, I'm going to overwrite
-whatever that's there.
+Tidak apa-apa, saya akan menimpa
+apa pun yang ada di sana.
 
 0:28:56.020,0:28:58.580
-But here it's now expanded,
+Tapi di sini sekarang diperluas,
 
 0:28:58.580,0:29:01.660
-"move" has been expanded into this "move -i"
+"move" telah diperluas menjadi "move -i" ini
 
 0:29:01.660,0:29:03.540
-and it's using that to ask me
+dan ia menggunakan itu untuk bertanya kepada saya
 
 0:29:03.540,0:29:07.400
-"Oh, are you sure you want to overwrite this?"
+"Oh, apakah kalian yakin ingin menimpa ini?"
 
 0:29:07.700,0:29:11.780
-And I can say no, I don't want to lose that file.
+Dan saya bisa bilang tidak, saya tidak ingin kehilangan file itu.
 
 0:29:12.180,0:29:15.820
-Lastly, you can use "alias move"
+Terakhir, kalian bisa menggunakan "alias move"
 
 0:29:15.820,0:29:18.520
-to ask for what this alias stands for.
+untuk menanyakan apa arti alias ini.
 
 0:29:19.100,0:29:22.060
-So it will tell you so you can quickly make sure
+Jadi ia akan memberi tahu kalian sehingga kalian bisa dengan cepat memastikan
 
 0:29:22.080,0:29:25.400
-what the command that you
-are executing actually is.
+apa perintah yang sebenarnya
+kalian jalankan.
 
 0:29:27.040,0:29:31.400
-One inconvenient part about, for example,
-having aliases is how will you go about
+Satu bagian yang tidak nyaman tentang, misalnya,
+memiliki alias adalah bagaimana kalian akan
 
 0:29:31.760,0:29:35.340
-persisting them into your current environment?
+mempertahankannya di lingkungan kalian saat ini?
 
 0:29:35.500,0:29:38.120
-Like, if I were to close this terminal now,
+Seperti, jika saya menutup terminal ini sekarang,
 
 0:29:38.280,0:29:40.160
-all these aliases will go away.
+semua alias ini akan hilang.
 
 0:29:40.160,0:29:43.020
-And you don't want to be kind
-of retyping these commands
+Dan kalian tidak ingin
+mengetik ulang perintah-perintah ini
 
 0:29:43.020,0:29:46.760
-and more generally, if you start configuring
-your shell more and more,
+dan lebih umum, jika kalian mulai mengonfigurasi
+shell kalian semakin banyak,
 
 0:29:46.860,0:29:50.880
-you want some way of bootstrapping
-all this configuration.
+kalian ingin beberapa cara untuk mem-bootstrap
+semua konfigurasi ini.
 
 0:29:51.380,0:29:56.780
-You will find that most shell command programs
+Kalian akan menemukan bahwa kebanyakan program perintah shell
 
 0:29:56.880,0:30:01.440
-will use some sort of text
-based configuration file.
+akan menggunakan semacam konfigurasi
+berbasis teks.
 
 0:30:01.440,0:30:06.740
-And this is what we usually call "dotfiles", because
-they start with a dot for historical reasons.
+Dan ini yang biasanya kita sebut "dotfiles", karena
+mereka dimulai dengan titik untuk alasan historis.
 
 0:30:07.060,0:30:13.160
-So for bash in our case, which is a shell,
+Jadi untuk bash dalam kasus kita, yang merupakan shell,
 
 0:30:13.160,0:30:15.560
-we can look at the bashrc.
+kita bisa melihat bashrc.
 
 0:30:16.180,0:30:19.840
-For demonstration purposes,
-here I have been using ZSH,
+Untuk tujuan demonstrasi,
+di sini saya telah menggunakan ZSH,
 
 0:30:19.900,0:30:24.460
-which is a different shell, and I'm going
-to be configuring bash, and starting bash.
+yang merupakan shell berbeda, dan saya akan
+mengonfigurasi bash, dan memulai bash.
 
 0:30:24.640,0:30:29.640
-So if I create an entry here and I say
+Jadi jika saya membuat entri di sini dan saya katakan
 
 0:30:29.940,0:30:31.960
-SL maps to LS
+SL dipetakan ke LS
 
 0:30:32.600,0:30:36.020
-And I have modified that, and now I start bash.
+Dan saya telah memodifikasi itu, dan sekarang saya memulai bash.
 
 0:30:36.540,0:30:40.660
-Bash is kind of completely unconfigured,
-but now if I do SL...
+Bash sepenuhnya tidak terkonfigurasi,
+tapi sekarang jika saya lakukan SL...
 
 0:30:41.360,0:30:44.040
-Hm, that's unexpected.
+Hm, itu tidak terduga.
 
 0:30:46.280,0:30:48.000
-Oh, good. Good getting that.
+Oh, bagus. Bagus menangkap itu.
 
 0:30:48.300,0:30:52.200
-So it matters where you config file is,
+Jadi penting di mana file config kalian berada,
 
 0:30:52.200,0:30:55.260
-your config file needs to be in your home folder.
+file config kalian harus berada di folder home kalian.
 
 0:30:55.640,0:31:00.940
-So your configuration file for
-bash will live in that "~",
+Jadi file konfigurasi kalian untuk
+bash akan tinggal di "~" itu,
 
 0:31:00.940,0:31:03.940
-which will expand to your home directory,
+yang akan diperluas ke direktori home kalian,
 
 0:31:03.940,0:31:05.560
-and then bashrc.
+lalu bashrc.
 
 0:31:06.160,0:31:08.840
-And here we can create the alias
+Dan di sini kita bisa membuat alias
 
 0:31:12.040,0:31:15.840
-and now we start a bash session and we do SL.
+dan sekarang kita memulai sesi bash dan kita lakukan SL.
 
 0:31:15.840,0:31:21.500
-Now it has been loaded, and this is
-loaded at the beginning when this
+Sekarang telah dimuat, dan ini
+dimuat di awal ketika program
 
 0:31:22.300,0:31:24.300
-bash program is started.
+bash ini dimulai.
 
 0:31:24.700,0:31:31.200
-All this configuration is loaded and you can, not only use
-aliases, they can have a lot of parts of configuration.
+Semua konfigurasi ini dimuat dan kalian bisa, tidak hanya menggunakan
+alias, mereka bisa memiliki banyak bagian konfigurasi.
 
 0:31:31.390,0:31:35.729
-So for example here, I have a prompt
-which is fairly useless.
+Jadi misalnya di sini, saya punya prompt
+yang cukup tidak berguna.
 
 0:31:35.730,0:31:38.429
-It has just given me the name
-of the shell, which is bash,
+Ini hanya memberi saya nama
+shell, yaitu bash,
 
 0:31:38.640,0:31:43.820
-and the version, which is 5.0. I don't
-want this to be displayed and
+dan versinya, yaitu 5.0. Saya tidak
+ingin ini ditampilkan dan
 
 0:31:44.360,0:31:48.540
-as with many things in your shell, this
-is just an environment variable.
+seperti banyak hal di shell kalian, ini
+hanya variabel lingkungan.
 
 0:31:48.600,0:31:53.120
-So the "PS1" is just the prompt string
+Jadi "PS1" hanyalah prompt string
 
 0:31:53.710,0:31:55.480
-for your prompt and
+untuk prompt kalian dan
 
 0:31:55.480,0:32:02.520
-we can actually modify this
-to just be a "> " symbol.
+kita sebenarnya bisa memodifikasi ini
+menjadi hanya simbol "> ".
 
 0:32:02.520,0:32:08.280
-and now that has been modified, and we have
-that. But if we exit and call bash again,
+dan sekarang itu telah dimodifikasi, dan kita punya
+itu. Tapi jika kita keluar dan memanggil bash lagi,
 
 0:32:08.620,0:32:15.059
-that was lost. However, if we add this
-entry and say, oh we want "PS1"
+itu hilang. Namun, jika kita menambahkan entri ini dan katakan, oh kita ingin "PS1"
 
 0:32:15.760,0:32:17.230
-to be
+menjadi
 
 0:32:17.230,0:32:19.179
-this and
+ini dan
 
 0:32:19.179,0:32:24.689
-we call bash again, this has been persisted.
-And we can keep modifying this configuration.
+kita memanggil bash lagi, ini telah dipertahankan. Dan kita bisa terus memodifikasi konfigurasi ini.
 
 0:32:25.090,0:32:27.209
-So maybe we want to include
+Jadi mungkin kita ingin menyertakan
 
 0:32:27.880,0:32:29.880
-where the
+di mana
 
 0:32:30.370,0:32:32.939
-working directory that we are is in, and
+direktori kerja yang kita berada, dan
 
 0:32:34.140,0:32:37.380
-that's telling us the same information
-that we had in the other shell.
+itu memberi kita informasi yang sama
+yang kita punya di shell lain.
 
 0:32:37.380,0:32:40.480
-And there are many, many options,
+Dan ada banyak, banyak opsi,
 
 0:32:40.780,0:32:45.060
-shells are highly, highly configurable, and
+shell sangat, sangat dapat dikonfigurasi, dan
 
 0:32:45.700,0:32:49.920
-it's not only cells that are configured
-through these files,
+bukan hanya shell yang dikonfigurasi
+melalui file-file ini,
 
 0:32:50.590,0:32:55.740
-there are many other programs. As we saw for
-example in the editors lecture, Vim is also
+ada banyak program lain. Seperti yang kita lihat misalnya
+di kuliah editor, Vim juga
 
 0:32:55.840,0:33:02.900
-configured this way. We gave you this vimrc
-file and told you to put it under your
+dikonfigurasi dengan cara ini. Kami memberi kalian file vimrc ini
+dan menyuruh kalian menempatkannya di
 
 0:33:03.460,0:33:06.380
 home/.vimrc
 
 0:33:06.380,0:33:11.800
-and this is the same concept, but just
-for Vim. It's just giving it a set of
+dan ini konsep yang sama, tapi hanya
+untuk Vim. Ini hanya memberi set
 
 0:33:12.160,0:33:18.340
-instructions that it should load when it's started,
-so you can keep a configuration that you want.
+instruksi yang harus dimuat saat dimulai,
+sehingga kalian bisa mempertahankan konfigurasi yang kalian inginkan.
 
 0:33:19.140,0:33:21.240
-And even non...
+Dan bahkan non...
 
 0:33:21.580,0:33:27.140
-kind of a lot of programs will support this. For instance,
-my terminal emulator, which is another concept,
+banyak program akan mendukung ini. Misalnya,
+emulator terminal saya, yang merupakan konsep lain,
 
 0:33:27.260,0:33:30.159
-which is the program that is
+yang merupakan program yang
 
 0:33:30.159,0:33:35.459
-running the shell, in a way, and displaying
-this into the screen in my computer.
+menjalankan shell, dalam beberapa cara, dan menampilkan
+ini ke layar di komputer saya.
 
 0:33:35.950,0:33:38.610
-It can also be configured this way, so
+Ini juga bisa dikonfigurasi dengan cara ini, jadi
 
 0:33:39.940,0:33:43.620
-if I modify this I can
+jika saya memodifikasi ini saya bisa
 
 0:33:46.510,0:33:53.279
-change the size of the font. Like right now, for
-example, I have increased the font size a lot
+mengubah ukuran font. Seperti sekarang, misalnya,
+saya telah meningkatkan ukuran font banyak
 
 0:33:53.279,0:33:55.768
-for demonstration purposes, but
+untuk tujuan demonstrasi, tapi
 
 0:33:56.440,0:34:00.360
-if I change this entry and make it for example
+jika saya mengubah entri ini dan membuatnya misalnya
 
 0:34:01.320,0:34:06.820
-28 and write this value, you see that
-the size of the font has changed,
+28 dan menulis nilai ini, kalian lihat bahwa
+ukuran font telah berubah,
 
 0:34:06.820,0:34:12.920
-because I edited this text file that specifies
-how my terminal emulator should work.
+karena saya mengedit file teks ini yang menentukan
+bagaimana emulator terminal saya harus bekerja.
 
 0:34:19.480,0:34:20.900
-Any questions so far?
+Ada pertanyaan sejauh ini?
 
 0:34:20.900,0:34:22.280
-With dotfiles.
+Dengan dotfiles.
 
 0:34:28.040,0:34:35.940
-Okay, it can be a bit daunting knowing that there
-is like this endless wall of configurations,
+Oke, bisa agak menakutkan mengetahui bahwa ada
+seperti dinding konfigurasi yang tak ada habisnya,
 
 0:34:35.940,0:34:40.600
-and how do you go about learning
-about what can be configured?
+dan bagaimana kalian belajar
+tentang apa yang bisa dikonfigurasi?
 
 0:34:42.020,0:34:44.300
-The good news is that
+Kabar baiknya adalah bahwa
 
 0:34:44.640,0:34:48.900
-we have linked you to really good
-resources in the lecture notes.
+kami telah menautkan kalian ke sumber daya yang sangat bagus
+di catatan kuliah.
 
 0:34:48.960,0:34:56.440
-But the main idea is that a lot of people really like
-just configuring these tools and have uploaded
+Tapi ide utamanya adalah bahwa banyak orang benar-benar suka
+mengonfigurasi alat-alat ini dan telah mengunggah
 
 0:34:56.640,0:35:01.140
-their configuration files to GitHub, another
-different kind of repositories online.
+file konfigurasi mereka ke GitHub, repositori
+berbeda lainnya secara online.
 
 0:35:01.140,0:35:03.300
-So for example, here we are on GitHub,
+Jadi misalnya, di sini kita di GitHub,
 
 0:35:03.300,0:35:06.640
-we search for dotfiles, and
-can see that there are like
+kita mencari dotfiles, dan
+bisa melihat bahwa ada seperti
 
 0:35:06.780,0:35:12.540
-thousands of repositories of people sharing
-their configuration files. We have also...
+ribuan repositori orang yang berbagi
+file konfigurasi mereka. Kami juga...
 
 0:35:12.540,0:35:15.460
-Like, the class instructors
-have linked our dotfiles.
+Seperti, instruktur kelas
+telah menautkan dotfiles kami.
 
 0:35:15.460,0:35:19.420
-So if you really want to know how
-any part of our setup is working
+Jadi jika kalian benar-benar ingin tahu bagaimana
+bagian dari setup kami bekerja
 
 0:35:19.420,0:35:22.220
-you can go through it and try to figure it out.
+kalian bisa memeriksanya dan mencoba memahaminya.
 
 0:35:22.220,0:35:24.220
-You can also feel free to ask us.
+Kalian juga bebas bertanya kepada kami.
 
 0:35:24.380,0:35:27.060
-If we go for example to this repository here
+Jika kita pergi misalnya ke repositori ini di sini
 
 0:35:27.210,0:35:30.649
-we can see that there's many, many
-files that you can configure.
+kita bisa melihat bahwa ada banyak, banyak
+file yang bisa kalian konfigurasikan.
 
 0:35:30.650,0:35:37.520
-For example, there is one for bash, the first couple of ones
-are for git, that will be probably be covered in the
+Misalnya, ada satu untuk bash, beberapa pertama
+adalah untuk git, yang mungkin akan dibahas di
 
 0:35:38.610,0:35:40.819
-version control lecture tomorrow.
+kuliah version control besok.
 
 0:35:41.400,0:35:48.500
-If we go for example to the bash profile, which is
-a different form of what we saw in the bashrc,
+Jika kita pergi misalnya ke bash profile, yang merupakan
+bentuk berbeda dari apa yang kita lihat di bashrc,
 
 0:35:49.400,0:35:52.900
-it can be really useful because
-you can learn through
+ini bisa sangat berguna karena
+kalian bisa belajar melalui
 
 0:35:53.940,0:35:58.320
-just looking at the manual page, but the
-manual pages is, a lot of the time
+hanya melihat halaman manual, tapi
+halaman manual, sering kali
 
 0:35:58.480,0:36:03.520
-just kind of like a descriptive explanation
-of all the different options
+hanya seperti penjelasan deskriptif
+dari semua opsi berbeda
 
 0:36:03.520,0:36:04.880
-and sometimes it's more helpful
+dan terkadang lebih membantu
 
 0:36:04.880,0:36:09.600
-going through examples of what people have done
-and trying to understand why they did it
+melalui contoh apa yang telah dilakukan orang
+dan mencoba memahami mengapa mereka melakukannya
 
 0:36:09.600,0:36:12.200
-and how it's helping their workflow.
+dan bagaimana itu membantu workflow mereka.
 
 0:36:12.960,0:36:17.300
-We can say here that this person has
-done case-insensitive globbing.
+Kita bisa bilang di sini bahwa orang ini telah
+melakukan globbing case-insensitive.
 
 0:36:17.320,0:36:21.220
-We covered globbing as this
-kind of filename expansion
+Kita telah membahas globbing sebagai
+ekspansi nama file semacam ini
 
 0:36:22.100,0:36:25.760
-trick in the shell scripting and tools.
+trik di shell scripting dan tools.
 
 0:36:25.900,0:36:28.800
-And here you say no, I don't want this to matter,
+Dan di sini kalian bilang tidak, saya tidak ingin ini penting,
 
 0:36:28.800,0:36:30.760
-whether using uppercase and lowercase,
+apakah menggunakan huruf besar dan kecil,
 
 0:36:30.760,0:36:32.760
-and just setting this option in the shell
-for these things to work this way
+dan hanya mengatur opsi ini di shell
+untuk hal-hal ini bekerja dengan cara ini
 
 0:36:35.360,0:36:38.140
-Similarly, there is for example aliases.
+Demikian pula, ada misalnya aliases.
 
 0:36:38.140,0:36:42.220
-Here you can see a lot of aliases that this
-person is doing. For example, "d" for
+Di sini kalian bisa melihat banyak alias yang dilakukan
+orang ini. Misalnya, "d" untuk
 
 0:36:44.200,0:36:47.400
-"d" for "Dropbox", sorry, because
-that's just much shorter.
+"d" untuk "Dropbox", maaf, karena
+itu jauh lebih pendek.
 
 0:36:47.400,0:36:49.200
-"g" for "git"...
+"g" untuk "git"...
 
 0:36:49.740,0:36:54.560
-Say we go, for example, with vimrc. It
-can be actually very, very informative,
+Katakan kita pergi, misalnya, dengan vimrc. Ini
+bisa sangat, sangat informatif,
 
 0:36:54.560,0:36:58.860
-going through this and trying
-to extract useful information.
+melalui ini dan mencoba
+mengekstrak informasi berguna.
 
 0:36:59.000,0:37:06.420
-We do not recommend just kind of getting one huge blob
-of this and copying this into your config files,
+Kami tidak merekomendasikan hanya mengambil satu blob besar
+dari ini dan menyalinnya ke file config kalian,
 
 0:37:07.110,0:37:12.439
-because maybe things are prettier, but you might
-not really understand what is going on.
+karena mungkin hal-halnya lebih cantik, tapi kalian mungkin
+tidak benar-benar memahami apa yang terjadi.
 
 0:37:15.150,0:37:19.579
-Lastly one thing I want to mention
-about dotfiles is that
+Terakhir satu hal yang ingin saya sebutkan
+tentang dotfiles adalah bahwa
 
 0:37:20.460,0:37:23.390
-people not only try to push these
+orang tidak hanya mencoba mendorong ini
 
 0:37:24.660,0:37:28.849
-files into GitHub just so other
-people can read it, that's
+file ke GitHub hanya supaya orang lain
+bisa membacanya, itu
 
 0:37:29.400,0:37:33.319
-one reason. They also make really sure they can
+salah satu alasan. Mereka juga memastikan mereka bisa
 
 0:37:34.140,0:37:39.440
-reproduce their setup. And to do that
-they use a slew of different tools.
+mereproduksi setup mereka. Dan untuk melakukannya
+mereka menggunakan banyak alat berbeda.
 
 0:37:39.440,0:37:41.280
-Oops, went a little too far.
+Ups, pergi terlalu jauh.
 
 0:37:41.280,0:37:44.840
-So GNU Stow is, for example, one of them
+Jadi GNU Stow adalah, misalnya, salah satunya
 
 0:37:45.720,0:37:49.060
-and the trick that they are doing is
+dan trik yang mereka lakukan adalah
 
 0:37:50.280,0:37:54.520
-they are kind of putting all their
-dotfiles in a folder and they are
+mereka menempatkan semua
+dotfiles mereka di folder dan mereka
 
 0:37:55.200,0:37:59.520
-faking to the system, using
-a tool called symlinks,
+memalsukan ke sistem, menggunakan
+alat yang disebut symlinks,
 
 0:37:59.520,0:38:02.440
-that they are actually what
-they're not. I'm gonna
+bahwa mereka sebenarnya bukan apa
+yang mereka. Saya akan
 
 0:38:03.150,0:38:05.150
-draw really quick what I mean by that.
+menggambar dengan cepat apa yang saya maksud.
 
 0:38:05.790,0:38:10.939
-So a common folder structure might look
-like you have your home folder and
+Jadi struktur folder umum mungkin terlihat
+seperti kalian punya folder home dan
 
 0:38:11.670,0:38:14.300
-in this home folder you might have your
+di folder home ini kalian mungkin punya
 
 0:38:16.050,0:38:21.380
-bashrc, that contains your bash configuration,
-you might have your vimrc and
+bashrc kalian, yang berisi konfigurasi bash kalian,
+kalian mungkin punya vimrc kalian dan
 
 0:38:22.500,0:38:25.760
-it would be really great if you could
-keep this under version control.
+akan sangat bagus jika kalian bisa
+menjaga ini di bawah version control.
 
 0:38:26.580,0:38:29.300
-But the thing is, you might not
-want to have a git repository,
+Tapi masalahnya, kalian mungkin tidak
+ingin memiliki repositori git,
 
 0:38:29.300,0:38:31.300
-which will be covered tomorrow,
+yang akan dibahas besok,
 
 0:38:31.300,0:38:32.300
-in your home folder.
+di folder home kalian.
 
 0:38:32.300,0:38:37.360
-So what people usually do is they
-create a dotfiles repository,
+Jadi yang biasanya dilakukan orang adalah mereka
+membuat repositori dotfiles,
 
 0:38:38.280,0:38:42.160
-and then they have entries here for their
+dan kemudian mereka punya entri di sini untuk
 
 0:38:43.050,0:38:47.239
-bashrc and their vimrc. And
-this is where actually
+bashrc dan vimrc mereka. Dan
+di sinilah sebenarnya
 
 0:38:47.820,0:38:49.820
-the files are
+file-file itu berada
 
 0:38:50.100,0:38:52.400
-and what they are doing is they're just
+dan yang mereka lakukan adalah hanya
 
 0:38:53.460,0:38:56.510
-telling the OS to forward, whenever anyone
+memberi tahu OS untuk meneruskan, setiap kali siapa pun
 
 0:38:56.760,0:39:01.849
-wants to read this file or write to this file,
-just forward this to this other file.
+ingin membaca file ini atau menulis ke file ini,
+hanya teruskan ini ke file lain ini.
 
 0:39:03.000,0:39:05.719
-This is a concept called symlinks
+Ini adalah konsep yang disebut symlinks
 
 0:39:06.690,0:39:08.630
-and it's useful in this scenario,
+dan ini berguna dalam skenario ini,
 
 0:39:08.630,0:39:12.600
-but it in general it's a really
-useful tool in UNIX
+tapi secara umum ini adalah alat yang sangat
+berguna di UNIX
 
 0:39:12.700,0:39:14.700
-that we haven't covered so far in the lectures
+yang belum kita bahas sejauh ini di kuliah
 
 0:39:14.960,0:39:16.740
-but you might be...
+tapi kalian mungkin...
 
 0:39:16.740,0:39:18.740
-that you should be familiar with.
+bahwa kalian harus familiar dengannya.
 
 0:39:19.100,0:39:22.840
-And in general, the syntax will be "ln -s"
+Dan secara umum, sintaksnya akan menjadi "ln -s"
 
 0:39:22.840,0:39:29.980
-for specifying a symbolic link and then
-you will put the path to the file
+untuk menentukan symbolic link dan kemudian
+kalian akan menaruh path ke file
 
 0:39:30.570,0:39:33.049
-that you want to create and then the
+yang ingin kalian buat dan kemudian
 
 0:39:33.780,0:39:35.780
-symlink that you want to create.
+symlink yang ingin kalian buat.
 
 0:39:39.390,0:39:41.390
-And
+Dan
 
 0:39:41.880,0:39:45.619
-All these all these kind of fancy tools
-that we're seeing here listed,
+Semua semua alat mewah ini
+yang kita lihat terdaftar di sini,
 
 0:39:45.810,0:39:52.159
-they all amount to doing some sort of this trick, so
-that you can have all your dotfiles neat and tidy
+semuanya berjumlah melakukan semacam trik ini, sehingga
+kalian bisa memiliki semua dotfiles kalian rapi dan teratur
 
 0:39:52.680,0:39:57.829
-into a folder, and then they can be
-version-controlled, and they can be
+di folder, dan kemudian mereka bisa di-
+version-control, dan mereka bisa di-
 
 0:39:58.349,0:40:02.689
-symlinked so the rest of the programs can
-find them in their default locations.
+symlink sehingga program lain bisa
+menemukan mereka di lokasi default mereka.
 
 0:40:06.720,0:40:09.020
-Any questions regarding dotfiles?
+Ada pertanyaan tentang dotfiles?
 
 0:40:13.200,0:40:20.200
-Do you need to have the dotfiles in your home folder,
-and then also dotfiles in the version control folder?
+Apakah kalian perlu memiliki dotfiles di folder home kalian,
+dan juga dotfiles di folder version control?
 
 0:40:20.780,0:40:24.640
-So what you will have is,
-pretty much every program,
+Jadi yang akan kalian miliki adalah,
+hampir setiap program,
 
 0:40:24.640,0:40:26.180
-for example bash,
+misalnya bash,
 
 0:40:26.180,0:40:29.560
-will always look for "home/.bashrc".
+akan selalu mencari "home/.bashrc".
 
 0:40:29.560,0:40:33.480
-That's where the program is going to look for.
+Di situlah program akan mencari.
 
 0:40:33.820,0:40:40.200
-What you do when you do a symlink
-is, you place your "home/.bashrc"
+Yang kalian lakukan ketika kalian melakukan symlink
+adalah, kalian menempatkan "home/.bashrc" kalian
 
 0:40:40.200,0:40:44.900
-it's just a file that is kind
-of a special file in UNIX,
+itu hanya file yang merupakan
+file khusus di UNIX,
 
 0:40:45.150,0:40:49.609
-that says oh, whenever you want to read
-this file go to this other file.
+yang mengatakan oh, setiap kali kalian ingin membaca
+file ini pergi ke file lain ini.
 
 0:40:51.500,0:40:53.440
-There's no content, like there is no...
+Tidak ada konten, seperti tidak ada...
 
 0:40:53.600,0:40:58.099
-your aliases are not part of this dotfile. That file
-is just kind of like a pointer, saying now you should
+alias kalian bukan bagian dari dotfile ini. File itu
+hanya seperti pointer, mengatakan sekarang kalian harus
 
 0:40:58.100,0:40:59.400
-go that other way.
+pergi ke arah lain itu.
 
 0:40:59.400,0:41:02.600
-And by doing that you can have your other file
+Dan dengan melakukan itu kalian bisa memiliki file lain kalian
 
 0:41:02.600,0:41:04.400
-in that other folder.
+di folder lain itu.
 
 0:41:04.560,0:41:06.360
-If version controlling is not useful, think about
+Jika version controlling tidak berguna, pikirkan tentang
 
 0:41:06.360,0:41:10.740
-what if you want to have them in your Dropbox
-folder, so they're synced to the cloud,
+bagaimana jika kalian ingin memiliki mereka di folder Dropbox
+kalian, sehingga mereka disinkronkan ke cloud,
 
 0:41:10.759,0:41:15.019
-for example. That's kind of another use case
-where like symlinks could be really useful
+misalnya. Itu semacam kasus penggunaan lain
+di mana symlinks bisa sangat berguna
 
 0:41:16.240,0:41:21.040
-So you don't need the folder dotfiles
-to be in the home directory, right?
+Jadi kalian tidak perlu folder dotfiles
+berada di direktori home, kan?
 
 0:41:21.040,0:41:23.820
-Because you can just use the symlink,
-that points somewhere else.
+Karena kalian bisa hanya menggunakan symlink,
+yang menunjuk ke tempat lain.
 
 0:41:23.960,0:41:29.760
-As long as you have a way for the default path
-to resolve wherever you have it, yeah.
+Selama kalian punya cara untuk path default
+menyelesaikan di mana pun kalian memilikinya, ya.
 
 0:41:35.100,0:41:38.000
-Last thing I want to cover in the lecture...
+Hal terakhir yang ingin saya bahas di kuliah...
 
 0:41:38.000,0:41:40.380
-Oh, sorry, any other questions about dotfiles?
+Oh, maaf, ada pertanyaan lain tentang dotfiles?
 
 0:41:49.200,0:41:52.580
-Last thing I want to cover in the lecture
-is working with remote machines,
+Hal terakhir yang ingin saya bahas di kuliah
+adalah bekerja dengan mesin remote,
 
 0:41:52.580,0:41:55.549
-which is a thing that you will run into,
+yang merupakan hal yang akan kalian temui,
 
 0:41:55.559,0:41:56.900
-sooner or later.
+cepat atau lambat.
 
 0:41:56.900,0:42:02.238
-And there are a few things that will make your life
-much easier when dealing with remote machines
+Dan ada beberapa hal yang akan membuat hidup kalian
+jauh lebih mudah saat berurusan dengan mesin remote
 
 0:42:03.180,0:42:05.180
-if you know about them.
+jika kalian tahu tentang mereka.
 
 0:42:05.220,0:42:08.380
-Right now maybe because you are
-using the Athena cluster,
+Sekarang mungkin karena kalian
+menggunakan kluster Athena,
 
 0:42:08.380,0:42:10.740
-but later on, during your programming career,
+tapi nanti, selama karir pemrograman kalian,
 
 0:42:10.740,0:42:11.960
-it's pretty sure that
+sangat pasti bahwa
 
 0:42:11.960,0:42:15.400
-there is a fairly ubiquitous
-concept of having your
+ada konsep yang cukup ada di mana-mana
+yaitu memiliki
 
 0:42:15.400,0:42:20.380
-local working environment and then having some
-production server that is actually running the
+lingkungan kerja lokal kalian dan kemudian memiliki
+server produksi yang sebenarnya menjalankan
 
 0:42:20.970,0:42:23.239
-code, so it is really good to get familiar
+kode, jadi sangat bagus untuk familiar
 
 0:42:24.480,0:42:26.749
-about how to work in/with remote machines.
+tentang cara bekerja dengan mesin remote.
 
 0:42:27.420,0:42:35.180
-So the main command for working
-with remote machines is SSH.
+Jadi perintah utama untuk bekerja
+dengan mesin remote adalah SSH.
 
 0:42:37.760,0:42:43.900
-SSH is just like a secure shell, it's
-just gonna take the responsibility for
+SSH hanyalah secure shell, ia hanya
+akan mengambil tanggung jawab untuk
 
 0:42:43.900,0:42:46.540
-reaching wherever we want or tell it to go
+mencapai di mana pun kita ingin atau menyuruhnya pergi
 
 0:42:47.560,0:42:50.700
-and trying to open a session there.
+dan mencoba membuka sesi di sana.
 
 0:42:50.700,0:42:52.400
-So here the syntax is:
+Jadi di sini sintaksnya adalah:
 
 0:42:53.130,0:42:56.660
-"JJGO" is the user that I want
-to use in the remote machine,
+"JJGO" adalah user yang ingin saya
+gunakan di mesin remote,
 
 0:42:56.660,0:42:58.430
-and this is because the user is
+dan ini karena user
 
 0:42:58.529,0:43:03.460
-different from the one I have my local machine,
-which will be the case a lot of the time,
+berbeda dari yang saya punya di mesin lokal saya,
+yang akan sering terjadi,
 
 0:43:03.460,0:43:07.400
-then the "@" is telling the
-terminal that this separates
+kemudian "@" memberi tahu
+terminal bahwa ini memisahkan
 
 0:43:07.400,0:43:12.540
-what the user is from what the address is.
+apa user dari apa address.
 
 0:43:12.540,0:43:16.540
-And here I'm using an IP address because
-what I'm actually doing is
+Dan di sini saya menggunakan alamat IP karena
+yang sebenarnya saya lakukan adalah
 
 0:43:16.540,0:43:20.500
-I have a virtual machine in my computer,
+saya punya mesin virtual di komputer saya,
 
 0:43:20.500,0:43:23.240
-that is the one that is remote right now.
+yang merupakan yang remote sekarang.
 
 0:43:23.240,0:43:26.400
-And I'm gonna be SSH'ing into it. This is the
+Dan saya akan SSH ke sana. Ini adalah
 
 0:43:26.580,0:43:27.880
-URL that I'm using,
+URL yang saya gunakan,
 
 0:43:27.880,0:43:29.860
-sorry, the IP that I'm using,
+maaf, IP yang saya gunakan,
 
 0:43:29.860,0:43:32.280
-but you might also see things like
+tapi kalian mungkin juga melihat hal-hal seperti
 
 0:43:32.360,0:43:36.820
-oh I want to SSH as "JJGO"
+oh saya ingin SSH sebagai "JJGO"
 
 0:43:36.820,0:43:39.840
-at "foobar.mit.edu"
+di "foobar.mit.edu"
 
 0:43:39.840,0:43:42.960
-That's probably something more
-common, if you are using some
+Itu mungkin sesuatu yang lebih
+umum, jika kalian menggunakan beberapa
 
 0:43:42.960,0:43:47.260
-remote server that has a DNS name.
+server remote yang punya nama DNS.
 
 0:43:48.180,0:43:51.860
-So going back to a regular command,
+Jadi kembali ke perintah biasa,
 
 0:43:53.220,0:43:56.580
-we try to SSH, it asks us for a password,
+kita coba SSH, ia meminta kita password,
 
 0:43:56.580,0:43:58.180
-really common thing.
+hal yang sangat umum.
 
 0:43:58.190,0:43:59.480
-And now we're there. We have...
+Dan sekarang kita di sana. Kita punya...
 
 0:43:59.480,0:44:02.629
-we're still in our same terminal emulator
+kita masih di emulator terminal yang sama
 
 0:44:02.630,0:44:09.529
-but right now SSH is kind of forwarding the
-entire virtual display to display what the
+tapi sekarang SSH semacam meneruskan
+seluruh tampilan virtual untuk menampilkan apa yang
 
 0:44:09.869,0:44:14.358
-remote shell is displaying. And
-we can execute commands here and
+shell remote tampilkan. Dan
+kita bisa menjalankan perintah di sini dan
 
 0:44:15.630,0:44:17.630
-we'll see the remote files
+kita akan melihat file remote
 
 0:44:18.390,0:44:22.819
-A couple of handy things to know about
-SSH, that were briefly covered in the
+Beberapa hal berguna yang perlu diketahui tentang
+SSH, yang briefly dibahas di
 
 0:44:23.220,0:44:27.080
-data wrangling lecture, is that
-SSH is not only good for just
+kuliah data wrangling, adalah bahwa
+SSH tidak hanya bagus untuk hanya
 
 0:44:28.280,0:44:33.760
-opening connections. It will also let
-you just execute commands remotely.
+membuka koneksi. Ini juga akan membiarkan
+kalian menjalankan perintah dari jarak jauh.
 
 0:44:33.770,0:44:36.979
-So for example, if I do that, it's gonna ask me
+Jadi misalnya, jika saya melakukan itu, ia akan meminta saya
 
 0:44:37.710,0:44:39.020
-what is my password?, again.
+apa password saya?, lagi.
 
 0:44:39.020,0:44:41.059
-And it's executing this command
+Dan ia menjalankan perintah ini
 
 0:44:41.279,0:44:43.420
-then coming back to my terminal
+lalu kembali ke terminal saya
 
 0:44:43.420,0:44:47.420
-and piping the output of what that
-command was, in the remote machine,
+dan menyalurkan output dari apa yang
+perintah itu lakukan, di mesin remote,
 
 0:44:47.420,0:44:50.480
-through the standard output in my current cell.
+melalui standard output di shell saya saat ini.
 
 0:44:50.480,0:44:53.940
-And I could have this in...
+Dan saya bisa memiliki ini di...
 
 0:44:58.100,0:45:00.480
-I could have this in a pipe, and
+Saya bisa memiliki ini di pipe, dan
 
 0:45:00.980,0:45:03.580
-this will work and we'll just
+ini akan berhasil dan kita hanya akan
 
 0:45:03.600,0:45:06.100
-drop all this output and then have a local pipe
+menghapus semua output ini dan kemudian memiliki pipe lokal
 
 0:45:06.100,0:45:07.879
-where I can keep working.
+di mana saya bisa terus bekerja.
 
 0:45:08.640,0:45:12.140
-So far, it has been kind of inconvenient,
-having to type our password.
+Sejauh ini, agak tidak nyaman,
+harus mengetik password kita.
 
 0:45:12.630,0:45:14.820
-There's one really good trick for this.
+Ada satu trik sangat bagus untuk ini.
 
 0:45:14.820,0:45:16.880
-It's we can use something called "SSH keys".
+Yaitu kita bisa menggunakan sesuatu yang disebut "SSH keys".
 
 0:45:17.140,0:45:20.660
-SSH keys just use public key encryption
+SSH keys hanya menggunakan enkripsi kunci publik
 
 0:45:20.660,0:45:24.980
-to create a pair of SSH keys, a public
-key and a private key, and then
+untuk membuat sepasang kunci SSH, kunci
+publik dan kunci privat, dan kemudian
 
 0:45:25.170,0:45:29.320
-you can give the server the
-public part of the key.
+kalian bisa memberi server bagian
+publik dari kunci itu.
 
 0:45:29.320,0:45:32.810
-So you copy the public key and
-then whenever you try to
+Jadi kalian menyalin kunci publik dan
+kemudian setiap kali kalian mencoba
 
 0:45:33.390,0:45:37.129
-authenticate instead of using your password,
-it's gonna use the private key to
+autentikasi alih-alih menggunakan password kalian,
+ia akan menggunakan kunci privat untuk
 
 0:45:37.820,0:45:40.800
-prove to the server that you are
-actually who you say you are.
+membuktikan ke server bahwa kalian adalah
+benar-benar siapa yang kalian katakan.
 
 0:45:43.860,0:45:48.020
-We can quickly showcase how you will go
+Kita bisa dengan cepat menunjukkan bagaimana kalian akan
 
 0:45:48.020,0:45:49.400
-about doing this.
+melakukan ini.
 
 0:45:49.400,0:45:53.180
-Right now I don't have any SSH keys,
-so I'm gonna create a couple of them.
+Sekarang saya tidak punya kunci SSH,
+jadi saya akan membuat beberapa.
 
 0:45:53.940,0:45:58.250
-First thing, it's just gonna ask
-me where I want this key to live.
+Hal pertama, ia hanya akan bertanya
+di mana saya ingin kunci ini tinggal.
 
 0:45:58.980,0:46:00.640
-Unsurprisingly, it's doing this.
+Tidak mengherankan, ia melakukan ini.
 
 0:46:00.640,0:46:04.820
-This is my home folder and then
-it's using this ".ssh" path,
+Ini folder home saya dan kemudian
+ia menggunakan path ".ssh" ini,
 
 0:46:05.460,0:46:08.750
-which refers back to the same concept
-that we covered earlier about having
+yang mengacu kembali ke konsep yang sama
+yang kita bahas sebelumnya tentang memiliki
 
 0:46:08.850,0:46:12.439
-dotfiles. Like ".ssh" is a folder
-that contains a lot of the
+dotfiles. Seperti ".ssh" adalah folder
+yang berisi banyak
 
 0:46:13.320,0:46:16.540
-configuration files for how
-you want SSH to behave.
+file konfigurasi untuk bagaimana
+kalian ingin SSH berperilaku.
 
 0:46:17.060,0:46:19.420
-So it will ask us a passphrase.
+Jadi ia akan meminta kita passphrase.
 
 0:46:19.680,0:46:23.120
-The passphrase is to encrypt
-the private part of the key
+Passphrase adalah untuk mengenkripsi
+bagian privat dari kunci
 
 0:46:23.120,0:46:27.160
-because if someone gets your private key,
-if you don't have a password protected
+karena jika seseorang mendapat kunci privat kalian,
+jika kalian tidak punya password yang melindungi
 
 0:46:27.920,0:46:29.580
-private key, if they get that key
+kunci privat, jika mereka mendapat kunci itu
 
 0:46:29.580,0:46:32.240
-they can use that key to impersonate
-you in any server.
+mereka bisa menggunakan kunci itu untuk menyamar
+sebagai kalian di server mana pun.
 
 0:46:32.310,0:46:34.360
-Whereas if you add a passphrase,
+Sedangkan jika kalian menambahkan passphrase,
 
 0:46:34.360,0:46:37.640
-they will have to know what the passphrase
-is to actually use the key.
+mereka harus tahu apa passphrase-nya
+untuk benar-benar menggunakan kunci itu.
 
 0:46:40.800,0:46:51.740
-It has created a keeper. We can check that
-these two files are now under ssh.
+Ini telah membuat key. Kita bisa memeriksa bahwa
+dua file ini sekarang ada di ssh.
 
 0:46:51.740,0:46:53.920
-And we can see...
+Dan kita bisa melihat...
 
 0:46:57.720,0:47:02.960
-We have these two files: we have
-the 25519 and the public key.
+Kita punya dua file ini: kita punya
+25519 dan kunci publik.
 
 0:47:03.320,0:47:06.300
-And if we "cat" through the output,
+Dan jika kita "cat" melalui output,
 
 0:47:06.300,0:47:09.760
-that key is actually not like
-any fancy binary file, it's
+kunci itu sebenarnya bukan seperti
+file biner yang mewah, itu
 
 0:47:15.430,0:47:20.760
-just a text file that has the contents
-of the public key and some
+hanya file teks yang punya konten
+dari kunci publik dan beberapa
 
 0:47:23.050,0:47:26.729
-alias name for it, so we can
-know what this public key is.
+nama alias untuk itu, sehingga kita bisa
+tahu apa kunci publik ini.
 
 0:47:26.950,0:47:32.220
-The way we can tell the server that
-we're authorized to SSH there
+Cara kita bisa memberi tahu server bahwa
+kita diotorisasi untuk SSH ke sana
 
 0:47:32.260,0:47:38.400
-is by just actually copying this file,
-like copying this string into a file,
+adalah dengan hanya benar-benar menyalin file ini,
+seperti menyalin string ini ke file,
 
 0:47:38.400,0:47:41.540
-that is ".ssh/authorized_keys".
+yaitu ".ssh/authorized_keys".
 
 0:47:42.100,0:47:46.160
-So here what I'm doing is I'm
+Jadi di sini yang saya lakukan adalah saya
 
 0:47:46.960,0:47:49.770
-catting the output of this file
+melakukan cat output dari file ini
 
 0:47:49.800,0:47:53.920
-which is just this line of
-text that we want to copy
+yang hanya baris teks
+ini yang ingin kita salin
 
 0:47:53.920,0:47:57.440
-and I'm piping that into SSH and then remotely
+dan saya menyalurkannya ke SSH dan kemudian dari jarak jauh
 
 0:47:57.960,0:48:02.080
-I'm asking "tee" to dump the contents
-of the standard input
+saya meminta "tee" untuk membuang konten
+dari standard input
 
 0:48:02.080,0:48:05.220
-into ".ssh/authorized_keys".
+ke ".ssh/authorized_keys".
 
 0:48:05.440,0:48:10.360
-And if we do that, obviously it's
-gonna ask us for a password.
+Dan jika kita melakukan itu, jelas ia akan
+meminta kita password.
 
 0:48:14.800,0:48:18.740
-It was copied, and now we
-can check that if we try
+Ini telah disalin, dan sekarang kita
+bisa memeriksa bahwa jika kita mencoba
 
 0:48:19.690,0:48:21.690
-to SSH again,
+untuk SSH lagi,
 
 0:48:21.960,0:48:24.840
-It's going to first ask us for a passphrase
+Ia akan pertama meminta kita passphrase
 
 0:48:24.840,0:48:29.100
-but you can arrange that so that
-it's saved in the session
+tapi kalian bisa mengatur sehingga
+itu disimpan di sesi
 
 0:48:29.460,0:48:34.840
-and we didn't actually have to
-type the key for the server.
+dan kita sebenarnya tidak harus
+mengetik kunci untuk server.
 
 0:48:34.840,0:48:36.840
-And I can kind of show that again.
+Dan saya bisa menunjukkan itu lagi.
 
 0:48:45.820,0:48:47.540
-More things that are useful.
+Lebih banyak hal yang berguna.
 
 0:48:47.540,0:48:49.040
-Oh, we can do...
+Oh, kita bisa melakukan...
 
 0:48:49.220,0:48:51.880
-If that command seemed a little bit janky,
+Jika perintah itu tampak agak janky,
 
 0:48:51.980,0:48:55.000
-you can actually use this command
-that is built for this,
+kalian sebenarnya bisa menggunakan perintah ini
+yang dibangun untuk ini,
 
 0:48:55.000,0:49:00.640
-so you don't have to kind of
-craft this "ssh t" command.
+sehingga kalian tidak harus
+merakit perintah "ssh t" ini.
 
 0:49:00.640,0:49:03.800
-That is just called "ssh-copy-id".
+Itu hanya disebut "ssh-copy-id".
 
 0:49:05.000,0:49:08.080
-And we can do the same
+Dan kita bisa melakukan hal yang sama
 
 0:49:08.080,0:49:09.660
-and it's gonna copy the key.
+dan ia akan menyalin kunci.
 
 0:49:09.660,0:49:14.280
-And now, if we try to SSH,
+Dan sekarang, jika kita mencoba SSH,
 
 0:49:14.500,0:49:18.320
-we can SSH without actually
-typing any key at all,
+kita bisa SSH tanpa benar-benar
+mengetik kunci apa pun,
 
 0:49:18.860,0:49:20.320
-or any password.
+atau password apa pun.
 
 0:49:20.660,0:49:21.520
-More things.
+Lebih banyak hal.
 
 0:49:21.520,0:49:23.520
-We will probably want to copy files.
+Kita mungkin ingin menyalin file.
 
 0:49:23.740,0:49:25.310
-You cannot use "CP"
+Kalian tidak bisa menggunakan "CP"
 
 0:49:25.310,0:49:29.720
-but you can use "SCP", for "SSH copy".
+tapi kalian bisa menggunakan "SCP", untuk "SSH copy".
 
 0:49:29.720,0:49:34.500
-And here we can specify that we want
-to copy this local file called notes
+Dan di sini kita bisa menentukan bahwa kita ingin
+menyalin file lokal ini yang disebut notes
 
 0:49:34.500,0:49:36.880
-and the syntax is kind of similar.
+dan sintaksnya agak mirip.
 
 0:49:36.880,0:49:39.760
-We want to copy to this remote and
+Kita ingin menyalin ke remote ini dan
 
 0:49:39.920,0:49:44.020
-then we have a semicolon to separate
-what the path is going to be.
+kemudian kita punya titik koma untuk memisahkan
+apa path yang akan menjadi.
 
 0:49:44.020,0:49:45.040
-And then we have
+Dan kemudian kita punya
 
 0:49:45.040,0:49:46.620
-oh, we want to copy this as notes
+oh, kita ingin menyalin ini sebagai notes
 
 0:49:46.620,0:49:51.000
-but we could also copy this as foobar.
+tapi kita juga bisa menyalin ini sebagai foobar.
 
 0:49:51.740,0:49:55.600
-And if we do that, it has been executed
+Dan jika kita melakukan itu, itu telah dijalankan
 
 0:49:55.780,0:49:59.280
-and it's telling us that all the
-contents have been copied there.
+dan ia memberi tahu kita bahwa semua
+konten telah disalin ke sana.
 
 0:49:59.540,0:50:02.200
-If you're gonna be copying a lot of files,
+Jika kalian akan menyalin banyak file,
 
 0:50:02.200,0:50:05.100
-there is a better command
-that you should be using
+ada perintah yang lebih baik
+yang harus kalian gunakan
 
 0:50:05.100,0:50:07.740
-that is called "RSYNC". For example, here
+yaitu disebut "RSYNC". Misalnya, di sini
 
 0:50:07.900,0:50:10.780
-just by specifying these three flags,
+hanya dengan menentukan tiga flag ini,
 
 0:50:10.820,0:50:15.960
-I'm telling RSYNC to kind of preserve
-all the permissions whenever possible
+saya memberi tahu RSYNC untuk mempertahankan
+semua izin kapan pun memungkinkan
 
 0:50:16.240,0:50:19.740
-to try to check if the file
-has already been copied.
+untuk mencoba memeriksa apakah file
+telah disalin.
 
 0:50:19.740,0:50:24.100
-For example, SCP will try to copy
-files that are already there.
+Misalnya, SCP akan mencoba menyalin
+file yang sudah ada di sana.
 
 0:50:24.200,0:50:26.440
-This will happen for example
-if you are trying to copy
+Ini akan terjadi misalnya
+jika kalian mencoba menyalin
 
 0:50:26.440,0:50:29.060
-and the connection interrupts
-in the middle of it.
+dan koneksi terputus
+di tengahnya.
 
 0:50:29.120,0:50:32.060
-SCP will start from the very beginning,
-trying to copy every file,
+SCP akan mulai dari awal,
+mencoba menyalin setiap file,
 
 0:50:32.080,0:50:36.600
-whereas RSYNC will continue
-from where it stopped.
+sedangkan RSYNC akan melanjutkan
+dari tempat ia berhenti.
 
 0:50:37.240,0:50:38.440
-And here,
+Dan di sini,
 
 0:50:39.060,0:50:42.760
-we ask it to copy the entire folder and
+kita memintanya untuk menyalin seluruh folder dan
 
 0:50:43.780,0:50:46.560
-it's just really quickly
-copied the entire folder.
+ia hanya dengan cepat
+menyalin seluruh folder.
 
 0:50:48.080,0:50:54.100
-One of the other things to know about SSH is that
+Salah satu hal lain yang perlu diketahui tentang SSH adalah bahwa
 
 0:50:54.320,0:50:59.860
-the equivalent of the dot file
-for SSH is the "SSH config".
+setara dari dot file
+untuk SSH adalah "SSH config".
 
 0:50:59.860,0:51:06.340
-So if we edit the SSH config to be
+Jadi jika kita mengedit SSH config menjadi
 
 0:51:13.120,0:51:17.940
-If I edit the SSH config to
-look something like this,
+Jika saya mengedit SSH config untuk
+terlihat seperti ini,
 
 0:51:17.940,0:51:22.900
-instead of having to, every
-time, type "ssh jjgo",
+alih-alih harus, setiap
+kali, mengetik "ssh jjgo",
 
 0:51:23.040,0:51:27.760
-having this really long string so I can
-like refer to this specific remote,
+memiliki string yang sangat panjang ini sehingga saya bisa
+merujuk ke remote spesifik ini,
 
 0:51:27.760,0:51:30.140
-I want to refer, with the specific user name,
+saya ingin merujuk, dengan nama user spesifik,
 
 0:51:30.140,0:51:32.760
-I can have something here that says
+saya bisa punya sesuatu di sini yang mengatakan
 
 0:51:33.160,0:51:35.680
-this is the username, this
-is the host name, that this
+ini adalah username, ini
+adalah hostname, bahwa host
 
 0:51:36.860,0:51:40.540
-host is referring to and you should
-use this identity file.
+ini merujuk dan kalian harus
+menggunakan identity file ini.
 
 0:51:41.460,0:51:43.960
-And if I copy this,
+Dan jika saya menyalin ini,
 
 0:51:43.960,0:51:46.100
-this is right now in my local folder,
+ini sekarang di folder lokal saya,
 
 0:51:46.100,0:51:49.000
-I can copy this into ssh.
+saya bisa menyalin ini ke ssh.
 
 0:51:49.600,0:51:53.520
-Now, instead of having to do this really
-long command, I can just say
+Sekarang, alih-alih harus melakukan perintah yang sangat
+panjang ini, saya bisa hanya mengatakan
 
 0:51:53.520,0:51:57.100
-I just want to SSH into the host called VM.
+saya hanya ingin SSH ke host yang disebut VM.
 
 0:51:58.260,0:52:03.220
-And by doing that, it's grabbing all that
-configuration from the SSH config
+Dan dengan melakukan itu, ia mengambil semua
+konfigurasi itu dari SSH config
 
 0:52:03.220,0:52:05.220
-and applying it here.
+dan menerapkannya di sini.
 
 0:52:05.240,0:52:10.060
-This solution is much better than something
-like creating an alias for SSH,
+Solusi ini jauh lebih baik daripada sesuatu
+seperti membuat alias untuk SSH,
 
 0:52:10.360,0:52:13.360
-because other programs like SCP and RSYNC
+karena program lain seperti SCP dan RSYNC
 
 0:52:13.360,0:52:19.440
-also know about the dotfiles for SSH and
-will use them whenever they are there.
+juga tahu tentang dotfiles untuk SSH dan
+akan menggunakannya kapan pun ada.
 
 0:52:22.820,0:52:30.400
-Last thing I want to cover about remote machines is
-that here, for example, we'll have tmux and we can,
+Hal terakhir yang ingin saya bahas tentang mesin remote adalah
+bahwa di sini, misalnya, kita akan punya tmux dan kita bisa,
 
 0:52:31.760,0:52:35.780
-like I was saying before, we
-can start editing some file
+seperti yang saya katakan sebelumnya, kita
+bisa mulai mengedit beberapa file
 
 0:52:39.160,0:52:44.500
-and we can start running some job.
+dan kita bisa mulai menjalankan beberapa job.
 
 0:52:54.200,0:52:56.180
-For example, something like HTOP.
+Misalnya, sesuatu seperti HTOP.
 
 0:52:56.180,0:52:58.720
-And this is running here, we can
+Dan ini berjalan di sini, kita bisa
 
 0:52:59.320,0:53:01.320
-detach from it,
+detach darinya,
 
 0:53:01.430,0:53:03.430
-close the connection and
+menutup koneksi dan
 
 0:53:03.740,0:53:07.780
-then SSH back. And then, if you do "tmux a",
+kemudian SSH kembali. Dan kemudian, jika kalian lakukan "tmux a",
 
 0:53:07.780,0:53:11.340
-everything is as you left it, like
-nothing has really changed.
+semuanya seperti yang kalian tinggalkan, seperti
+tidak ada yang benar-benar berubah.
 
 0:53:11.340,0:53:15.220
-And if you have things executing there in
-the background, they will keep executing.
+Dan jika kalian punya hal-hal yang berjalan di sana di
+latar belakang, mereka akan terus berjalan.
 
 0:53:17.500,0:53:23.300
-I think that, pretty much, ends
-all I have to say for this tool.
+Saya pikir itu, cukup, mengakhiri
+semua yang harus saya katakan untuk alat ini.
 
 0:53:23.300,0:53:26.420
-Any questions related to remote machines?
+Ada pertanyaan terkait mesin remote?
 
 0:53:32.860,0:53:36.780
-That's a really good question.
-So what I do for that,
+Itu pertanyaan yang sangat bagus.
+Jadi apa yang saya lakukan untuk itu,
 
 0:53:38.700,0:53:39.460
-Oh, yes, sorry.
+Oh, ya, maaf.
 
 0:53:39.460,0:53:44.880
-So the question is, how do you deal with
-trying to use tmux in your local machine,
+Jadi pertanyaannya adalah, bagaimana kalian menangani
+mencoba menggunakan tmux di mesin lokal kalian,
 
 0:53:44.880,0:53:47.640
-and also trying to use tmux
-in the remote machine?
+dan juga mencoba menggunakan tmux
+di mesin remote?
 
 0:53:48.400,0:53:50.760
-There are a couple of tricks
-for dealing with that.
+Ada beberapa trik
+untuk menangani itu.
 
 0:53:50.760,0:53:53.220
-The first one is changing the prefix.
+Yang pertama adalah mengubah prefix.
 
 0:53:53.360,0:53:55.340
-So what I do, for example, is
+Jadi apa yang saya lakukan, misalnya, adalah
 
 0:53:55.340,0:54:00.020
-in my local machine the prefix I have
-changed from "Ctrl+B" to "Ctrl+A" and
+di mesin lokal saya prefix yang saya
+ubah dari "Ctrl+B" ke "Ctrl+A" dan
 
 0:54:00.220,0:54:02.580
-then in remove machines this is still "Ctrl+B".
+kemudian di mesin remote ini masih "Ctrl+B".
 
 0:54:02.800,0:54:05.580
-So I can kind of swap between,
+Jadi saya bisa bertukar di antara,
 
 0:54:05.580,0:54:09.840
-if I want to do things to the
-local tmux I will do "Ctrl+A"
+jika saya ingin melakukan sesuatu ke
+tmux lokal saya akan lakukan "Ctrl+A"
 
 0:54:09.840,0:54:13.460
-and if I want to do things to the
-remote tmux I would do "Ctrl+B".
+dan jika saya ingin melakukan sesuatu ke
+tmux remote saya akan lakukan "Ctrl+B".
 
 0:54:15.080,0:54:19.900
-Another thing is that you
-can have separate configs,
+Hal lain adalah bahwa kalian
+bisa memiliki config terpisah,
 
 0:54:20.080,0:54:24.100
-so I can do something like this, and then...
+jadi saya bisa melakukan sesuatu seperti ini, dan kemudian...
 
 0:54:27.260,0:54:31.040
-Ah, because I don't have my own ssh config, yeah.
+Ah, karena saya tidak punya config ssh saya sendiri, ya.
 
 0:54:32.240,0:54:33.000
-But if you...
+Tapi jika kalian...
 
 0:54:33.000,0:54:34.420
-Um, I can SSH "VM".
+Um, saya bisa SSH "VM".
 
 0:54:36.820,0:54:38.900
-Here, what you see,
+Di sini, apa yang kalian lihat,
 
 0:54:38.900,0:54:41.000
-the difference between these
-two bars, for example,
+perbedaan antara dua
+bar ini, misalnya,
 
 0:54:41.000,0:54:43.680
-is because the tmux config is different.
+adalah karena config tmux berbeda.
 
 0:54:44.380,0:54:48.500
-As you will see in the exercises,
-the tmux configuration is in
+Seperti yang akan kalian lihat di latihan,
+konfigurasi tmux ada di
 
 0:54:50.320,0:54:53.780
-the tmux.conf
+tmux.conf
 
 0:54:56.720,0:54:58.140
-And in tmux.conf,
+Dan di tmux.conf,
 
 0:54:58.140,0:55:02.020
-here you can do a lot of things like changing
-the color depending on the host you are
+di sini kalian bisa melakukan banyak hal seperti mengubah
+warna tergantung pada host yang kalian gunakan
 
 0:55:02.210,0:55:06.879
-so you can get like quick visual
-feedback about where you are, or
+sehingga kalian bisa mendapat
+umpan balik visual cepat tentang di mana kalian berada, atau
 
 0:55:06.880,0:55:10.240
-if you have a nested session. Also, tmux will,
+jika kalian punya sesi bersarang. Juga, tmux akan,
 
 0:55:10.520,0:55:15.280
-if you're in the same host and you
-try to tmux within a tmux session,
+jika kalian di host yang sama dan kalian
+mencoba tmux dalam sesi tmux,
 
 0:55:15.290,0:55:18.759
-it will kind of prevent you from doing
-it so you don't run into issues.
+ia akan mencegah kalian melakukannya
+sehingga kalian tidak menemui masalah.
 
 0:55:21.700,0:55:25.400
-Any other questions related, to kind
-of all the topics we have covered.
+Ada pertanyaan lain terkait, tentang
+semua topik yang telah kita bahas.
 
 0:55:29.100,0:55:32.720
-Another answer to that question is
-also, if you type the prefix twice,
+Jawaban lain untuk pertanyaan itu adalah
+juga, jika kalian mengetik prefix dua kali,
 
 0:55:32.880,0:55:35.760
-it sends it once to the underlying shell.
+ia mengirimnya sekali ke shell yang mendasarinya.
 
 0:55:35.920,0:55:40.100
-So the local binding is "Ctrl+A" and
-the remote binding is "Ctrl+A",
+Jadi binding lokal adalah "Ctrl+A" dan
+binding remote adalah "Ctrl+A",
 
 0:55:40.100,0:55:45.260
-You could type "Ctrl+A", "Ctrl+A" and then "D", for
-example, detaches from the remote, basically.
+Kalian bisa mengetik "Ctrl+A", "Ctrl+A" lalu "D", misalnya,
+melepaskan dari remote, pada dasarnya.
 
 0:55:52.480,0:55:59.660
-I think that ends the class for today, there's a bunch
-of exercises related to all these main topics and
+Saya pikir itu mengakhiri kelas untuk hari ini, ada banyak
+latihan terkait semua topik utama ini dan
 
 0:56:00.380,0:56:05.410
-we're gonna be holding office hours today, too.
-So feel free to come and ask us any questions.
-
+kami akan mengadakan office hours hari ini juga.
+Jadi jangan ragu untuk datang dan bertanya.
