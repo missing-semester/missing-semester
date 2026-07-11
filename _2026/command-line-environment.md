@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Lingkungan Command-line"
 description: >
   Pelajari cara kerja program command-line, termasuk input/output streams, environment variables, dan mesin remote dengan SSH.
 thumbnail: /static/assets/thumbnails/2026/lec2.png
@@ -11,24 +11,24 @@ video:
   id: ccBGsPedE9Q
 ---
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
-but in practice they provide an entire programming language full of common patterns and abstractions.
-However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
+Seperti yang telah kita bahas di kuliah sebelumnya, sebagian besar shell bukan sekadar launcher untuk menjalankan program lain,
+melainkan dalam praktiknya mereka menyediakan seluruh bahasa pemrograman yang penuh dengan pola-pola umum dan abstraksi.
+Namun, berbeda dengan mayoritas bahasa pemrograman, dalam shell scripting semuanya dirancang untuk menjalankan program dan membuat mereka berkomunikasi satu sama lain secara sederhana dan efisien.
 
-In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
-We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
+Secara khusus, shell scripting sangat terikat oleh _konvensi_. Agar sebuah program command-line interface (CLI) dapat bekerja dengan baik dalam lingkungan shell yang lebih luas, ada beberapa pola umum yang perlu diikuti.
+Sekarang kita akan membahas banyak konsep yang diperlukan untuk memahami cara kerja program command-line serta konvensi yang ada di mana-mana tentang cara menggunakan dan mengonfigurasinya.
 
-# The Command Line Interface
+# Command-line Interface
 
-Writing a function in most programming languages looks something like:
+Menulis sebuah fungsi dalam sebagian besar bahasa pemrograman terlihat seperti:
 
 ```
 def add(x: int, y: int) -> int:
     return x + y
 ```
 
-Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance.
+Di sini kita dapat melihat secara eksplisit input dan output dari program.
+Sebaliknya, shell script bisa terlihat sangat berbeda pada pandangan pertama.
 
 ```shell
 #!/usr/bin/env bash
@@ -46,7 +46,7 @@ else
 fi
 ```
 
-To properly understand what is going in scripts like this one we first need to introduce a few concepts that appear often when shell programs communicate with each other or with the shell environment:
+Untuk memahami secara benar apa yang terjadi dalam script seperti ini, pertama-tama kita perlu memperkenalkan beberapa konsep yang sering muncul ketika program shell berkomunikasi satu sama lain atau dengan lingkungan shell:
 
 - Arguments
 - Streams
@@ -56,29 +56,29 @@ To properly understand what is going in scripts like this one we first need to i
 
 ## Arguments
 
-Shell programs receive a list of arguments when they are executed.
-Arguments are plain strings in shell, and it is up to the program how to interpret them.
-For instance when we do `ls -l folder/`, we are executing the program `/bin/ls` with arguments `['-l', 'folder/']`.
+Program shell menerima daftar arguments ketika dijalankan.
+Arguments adalah string biasa dalam shell, dan terserah program bagaimana menafsirkannya.
+Misalnya ketika kita melakukan `ls -l folder/`, kita menjalankan program `/bin/ls` dengan arguments `['-l', 'folder/']`.
 
-From within a shell script we access these via special shell syntax.
-To access the first argument we access the variable `$1`, second argument `$2` and so on and so forth until `$9`. To access all arguments as a list we use `$@` and to retrieve the number of arguments `$#`. Additionally we can also access the name of the program with `$0`.
+Dari dalam shell script, kita mengaksesnya melalui sintaks shell khusus.
+Untuk mengakses argument pertama kita mengakses variabel `$1`, argument kedua `$2` dan seterusnya hingga `$9`. Untuk mengakses semua arguments sebagai daftar kita gunakan `$@` dan untuk mendapatkan jumlah arguments kita gunakan `$#`. Selain itu, kita juga dapat mengakses nama program dengan `$0`.
 
-For most programs the arguments will consist of a mixture of _flags_ and regular strings.
-Flags can be identified because they are preceded by a dash (`-`) or double-dash (`--`).
-Flags are usually optional and their role is to modify the behavior of the program.
-For example `ls -l` changes how `ls` formats its output.
+Untuk sebagian besar program, arguments akan terdiri dari campuran _flags_ dan string biasa.
+Flags dapat diidentifikasi karena didahului oleh dash (`-`) atau double-dash (`--`).
+Flags biasanya bersifat opsional dan perannya adalah untuk memodifikasi perilaku program.
+Sebagai contoh, `ls -l` mengubah cara `ls` memformat outputnya.
 
-You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
-Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
-The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
-Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
+Anda akan melihat flags double-dash dengan nama panjang seperti `--all`, dan flags single-dash seperti `-a`, yang paling sering diikuti oleh satu huruf.
+Opsi yang sama dapat ditentukan dalam kedua format, `ls -a` dan `ls --all` adalah setara.
+Flags single-dash sering digabungkan, sehingga `ls -l -a` dan `ls -la` juga setara.
+Urutan flags biasanya juga tidak masalah, `ls -la` dan `ls -al` menghasilkan output yang sama.
+Beberapa flags cukup umum digunakan dan seiring Anda semakin familiar dengan lingkungan shell, Anda akan secara intuitif menggunakannya, misalnya (`--help`, `--verbose`, `--version`).
 
-> Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
-Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
-> In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
+> Flags adalah contoh pertama yang baik dari konvensi shell. Bahasa shell tidak mengharuskan program Anda menggunakan `-` atau `--` dengan cara tertentu ini.
+Tidak ada yang mencegah kita menulis program dengan sintaks `myprogram +myoption myfile`, tetapi hal itu akan menyebabkan kebingungan karena ekspektasinya adalah kita menggunakan dashes.
+> Dalam praktiknya, sebagian besar bahasa pemrograman menyediakan library parsing flag CLI (misalnya `argparse` di python untuk mengurai arguments dengan sintaks dash).
 
-Another common convention in CLI programs is for programs to accept a variable number of arguments of the same type. When given arguments in this way the command performs the same operation on each one of them.
+Konvensi umum lainnya dalam program CLI adalah program menerima sejumlah arguments variabel dengan tipe yang sama. Ketika diberikan arguments dengan cara ini, perintah melakukan operasi yang sama pada masing-masing argument.
 
 ```shell
 mkdir src
@@ -87,10 +87,10 @@ mkdir docs
 mkdir src docs
 ```
 
-This syntax sugar might seem unnecessary at first, but it becomes really powerful when combined with _globbing_.
-Globbing or globs are special patterns that the shell will expand before calling the program.
+Syntax sugar ini mungkin tampak tidak perlu pada awalnya, tetapi menjadi sangat kuat ketika dikombinasikan dengan _globbing_.
+Globbing atau globs adalah pola-pola khusus yang akan diekspansi oleh shell sebelum memanggil program.
 
-Say we wanted to delete all .py files in the current folder nonrecursively. From what we learned in the previous lecture we could achieve this by running
+Misalnya kita ingin menghapus semua file .py di folder saat ini secara non-rekursif. Dari apa yang kita pelajari di kuliah sebelumnya, kita dapat mencapainya dengan menjalankan
 
 ```shell
 for file in $(ls | grep -P '\.py$'); do
@@ -98,16 +98,16 @@ for file in $(ls | grep -P '\.py$'); do
 done
 ```
 
-But we can replace that with just `rm *.py`!
+Tapi kita bisa menggantinya dengan hanya `rm *.py`!
 
-When we type `rm *.py` into the terminal, the shell will not call the `/bin/rm` program with arguments `['*.py']`.
-Instead, the shell will search for files in the current folder matching the pattern `*.py` where `*` can match any string of zero or more characters of any type.
-So if our folder has `main.py` and `utils.py` then the `rm` program will receive arguments `['main.py', 'utils.py']`.
+Ketika kita mengetik `rm *.py` ke terminal, shell tidak akan memanggil program `/bin/rm` dengan arguments `['*.py']`.
+Sebaliknya, shell akan mencari file di folder saat ini yang cocok dengan pola `*.py` di mana `*` dapat mencocokkan string apa pun dengan nol atau lebih karakter tipe apa pun.
+Jadi jika folder kita memiliki `main.py` dan `utils.py` maka program `rm` akan menerima arguments `['main.py', 'utils.py']`.
 
-The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
-Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
+Globs yang paling umum Anda temukan adalah wildcard `*` (nol atau lebih dari apa pun), `?` (tepat satu dari apa pun) dan curly braces.
+Curly braces `{}` mengekspansi daftar pola yang dipisahkan koma menjadi beberapa arguments.
 
-In practice, globs are best understood with motivating examples.
+Dalam praktiknya, globs paling baik dipahami dengan contoh-contoh yang motivatif.
 
 ```shell
 touch folder/{a,b,c}.py
@@ -127,25 +127,25 @@ mv *{.py,.sh} folder
 # Will move all *.py and *.sh files
 ```
 
-> Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
+> Beberapa shell (misalnya zsh) mendukung bentuk globbing yang bahkan lebih canggih seperti `**` yang akan diekspansi untuk menyertakan path rekursif. Jadi `rm **/*.py` akan menghapus semua file .py secara rekursif.
 
 
 ## Streams
 
-Whenever we execute a program pipeline like
+Setiap kali kita menjalankan pipeline program seperti
 
 ```shell
 cat myfile | grep -P '\d+' | uniq -c
 ```
 
-we see that the `grep` program is communicating with both the `cat` and `uniq` programs.
+kita melihat bahwa program `grep` berkomunikasi dengan kedua program `cat` dan `uniq`.
 
-An important observation here is that all three programs are executing at once.
-Namely, the shell is not first calling cat, then grep, and then uniq.
-Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
-When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
+Pengamatan penting di sini adalah bahwa ketiga program tersebut dijalankan secara bersamaan.
+Artinya, shell tidak pertama-tama memanggil cat, lalu grep, lalu uniq.
+Sebaliknya, ketiga program dijalankan dan shell menghubungkan output cat ke input grep dan output grep ke input uniq.
+Ketika menggunakan operator pipe `|`, shell beroperasi pada stream data yang mengalir dari satu program ke program berikutnya dalam rantai.
 
-We can demonstrate this concurrency, all commands in a pipeline start immediately:
+Kita dapat mendemonstrasikan konkurensi ini, semua perintah dalam pipeline dimulai secara langsung:
 
 ```console
 $ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
@@ -158,9 +158,9 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
   32948 pts/1    00:00:00 grep
 ```
 
-We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
+Kita dapat melihat bahwa semua proses kecuali `cat` berjalan langsung. Shell menjalankan semua proses dan menghubungkan stream mereka sebelum ada yang selesai. `cat` baru akan dimulai setelah sleep selesai, dan output dari `cat` akan dikirim ke grep dan seterusnya.
 
-Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
+Setiap program memiliki input stream, yang diberi label stdin (untuk standard input). Ketika melakukan piping, stdin terhubung secara otomatis. Dalam script, banyak program menerima `-` sebagai nama file yang berarti "baca dari stdin":
 
 ```shell
 # These are equivalent when data comes from a pipe
@@ -168,9 +168,9 @@ echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
 
-Similarly, every program has two output streams: stdout and stderr.
-The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
+Demikian pula, setiap program memiliki dua output stream: stdout dan stderr.
+Standard output adalah yang paling umum ditemui dan merupakan yang digunakan untuk piping output program ke perintah berikutnya dalam pipeline.
+Standard error adalah stream alternatif yang ditujukan bagi program untuk melaporkan peringatan dan jenis masalah lainnya, tanpa output tersebut diurai oleh perintah berikutnya dalam rantai.
 
 ```console
 $ ls /nonexistent
@@ -182,7 +182,7 @@ $ ls /nonexistent 2>/dev/null
 # No output - stderr was redirected to /dev/null
 ```
 
-The shell provides syntax for redirecting these streams. Here are some illustrative examples.
+Shell menyediakan sintaks untuk me-redirect stream ini. Berikut beberapa contoh ilustratif.
 
 ```shell
 # Redirect stdout to a file (overwrite)
@@ -204,26 +204,26 @@ grep "pattern" < input.txt
 cmd > /dev/null 2>&1
 ```
 
-Another powerful tool that exemplifies the Unix philosophy is [`fzf`](https://github.com/junegunn/fzf), a fuzzy finder. It reads lines from stdin and provides an interactive interface to filter and select:
+Alat lain yang kuat yang mencerminkan filosofi Unix adalah [`fzf`](https://github.com/junegunn/fzf), sebuah fuzzy finder. Alat ini membaca baris dari stdin dan menyediakan antarmuka interaktif untuk memfilter dan memilih:
 
 ```console
 $ ls | fzf
 $ cat ~/.bash_history | fzf
 ```
 
-`fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
+`fzf` dapat diintegrasikan dengan banyak operasi shell. Kita akan melihat lebih banyak penggunaannya ketika kita membahas kustomisasi shell.
 
 
 ## Environment variables
 
-To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
-Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
-In shell scripting the role of the space character is to perform argument splitting.
-This behavior can be confusing and tricky to get used to, so keep it in mind.
+Untuk menetapkan variabel dalam bash kita menggunakan sintaks `foo=bar`, dan kemudian mengakses nilai variabel tersebut dengan sintaks `$foo`.
+Perhatikan bahwa `foo = bar` adalah sintaks yang tidak valid karena shell akan mengurainya sebagai memanggil program `foo` dengan arguments `['=', 'bar']`.
+Dalam shell scripting, peran karakter spasi adalah untuk melakukan pemisahan arguments.
+Perilaku ini bisa membingungkan dan butuh waktu untuk membiasakan diri, jadi ingatlah hal ini.
 
-Shell variables do not have types, they are all strings.
-Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
+Variabel shell tidak memiliki tipe, semuanya adalah string.
+Perhatikan bahwa ketika menulis ekspresi string dalam shell, tanda kutip tunggal dan tanda kutip ganda tidak dapat dipertukarkan.
+String yang dibatasi dengan `'` adalah string literal dan tidak akan mengekspansi variabel, melakukan substitusi perintah, atau memproses escape sequence, sedangkan string yang dibatasi dengan `"` akan melakukannya.
 
 ```shell
 foo=bar
@@ -233,32 +233,32 @@ echo '$foo'
 # prints $foo
 ```
 
-To capture the output of a command into a variable we use _command substitution_.
-When we execute
+Untuk menangkap output dari sebuah perintah ke dalam variabel kita menggunakan _command substitution_.
+Ketika kita menjalankan
 ```shell
 files=$(ls)
 echo "$files" | grep README
 echo "$files" | grep ".py"
 ```
-the output (concretely the stdout) of ls is placed into the variable `$files` which we can access later.
-The content of the `$files` variable does include the newlines from the ls output, which is how programs like `grep` know to operate on each item independently.
+output (secara konkret stdout) dari ls ditempatkan ke dalam variabel `$files` yang dapat kita akses nanti.
+Isi dari variabel `$files` memang menyertakan newline dari output ls, yang merupakan cara program seperti `grep` mengetahui untuk beroperasi pada setiap item secara independen.
 
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name.
-This is useful when commands expect values to be passed by file instead of by STDIN.
-For example, `diff <(ls src) <(ls docs)` will show differences between files in dirs `src` and `docs`.
+Fitur serupa yang kurang dikenal adalah _process substitution_, `<( CMD )` akan menjalankan `CMD` dan menempatkan output dalam file sementara dan mensubstitusi `<()` dengan nama file tersebut.
+Ini berguna ketika perintah mengharapkan nilai diberikan melalui file bukan melalui STDIN.
+Sebagai contoh, `diff <(ls src) <(ls docs)` akan menunjukkan perbedaan antara file-file di direktori `src` dan `docs`.
 
-Whenever a shell program calls another program it passes along a set of variables that are often referred to as _environment variables_.
-From within a shell we can find the current environment variables by running `printenv`.
-To pass an environment variable explicitly we can prepend a command with a variable assignment
+Setiap kali program shell memanggil program lain, ia mengirimkan seperangkat variabel yang sering disebut sebagai _environment variables_.
+Dari dalam shell kita dapat menemukan environment variables saat ini dengan menjalankan `printenv`.
+Untuk memberikan environment variable secara eksplisit kita dapat mendahului perintah dengan penetapan variabel
 
-> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+> Environment variables secara konvensi ditulis dalam ALL_CAPS (misalnya, `HOME`, `PATH`, `DEBUG`). Ini adalah konvensi, bukan persyaratan teknis, tetapi mengikutinya membantu membedakan environment variables dari variabel shell lokal yang biasanya menggunakan huruf kecil.
 
 ```shell
 TZ=Asia/Tokyo date  # prints the current time in Tokyo
 echo $TZ  # this will be empty, since TZ was only set for the child command
 ```
 
-Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
+Sebagai alternatif, kita dapat menggunakan fungsi built-in `export` yang akan memodifikasi environment saat ini sehingga semua child process akan mewarisi variabel tersebut:
 
 ```shell
 export DEBUG=1
@@ -267,23 +267,23 @@ bash -c 'echo $DEBUG'
 # prints 1
 ```
 
-To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
+Untuk menghapus variabel gunakan perintah built-in `unset`, misalnya `unset DEBUG`.
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
+> Environment variables adalah konvensi shell lainnya. Mereka dapat digunakan untuk memodifikasi perilaku banyak program secara implisit daripada eksplisit. Sebagai contoh, shell menetapkan environment variable `$HOME` dengan path folder home pengguna saat ini. Kemudian program dapat mengakses variabel ini untuk mendapatkan informasi tersebut daripada memerlukan `--home /home/alice` secara eksplisit. Contoh umum lainnya adalah `$TZ`, yang digunakan banyak program untuk memformat tanggal dan waktu sesuai zona waktu yang ditentukan.
 
 ## Return codes
 
-As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
+Seperti yang kita lihat sebelumnya, output utama dari program shell disampaikan melalui stream stdout/stderr dan efek samping filesystem.
 
-By default a shell script will return exit code zero.
-The convention is that zero means everything went well whereas nonzero means some issues were encountered.
-To return a nonzero exit code we have to use the `exit NUM` shell built-in.
-We can access the return code of the last command that was run by accessing the special variable `$?`.
+Secara default, shell script akan mengembalikan exit code nol.
+Konvensinya adalah nol berarti semuanya berjalan dengan baik sedangkan bukan-nol berarti ada beberapa masalah yang ditemui.
+Untuk mengembalikan exit code bukan-nol kita harus menggunakan built-in shell `exit NUM`.
+Kita dapat mengakses return code dari perintah terakhir yang dijalankan dengan mengakses variabel khusus `$?`.
 
-The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
-Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
-Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
-This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
+Shell memiliki operator boolean `&&` dan `||` untuk melakukan operasi AND dan OR masing-masing.
+Berbeda dengan yang ditemui dalam bahasa pemrograman biasa, yang di shell beroperasi pada return code program.
+Keduanya adalah operator [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation).
+Ini berarti keduanya dapat digunakan untuk menjalankan perintah secara kondisional berdasarkan keberhasilan atau kegagalan perintah sebelumnya, di mana keberhasilan ditentukan berdasarkan apakah return code-nya nol atau bukan. Beberapa contoh:
 
 ```shell
 # echo will only run if grep succeeds (finds a match)
@@ -299,7 +299,7 @@ true && echo "This will always print"
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
+Prinsip yang sama berlaku untuk pernyataan `if` dan `while`, keduanya menggunakan return code untuk membuat keputusan:
 
 ```shell
 # if uses the return code of the condition command (0 = true, nonzero = false)
@@ -315,9 +315,9 @@ done < file.txt
 
 ## Signals
 
-In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
-The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+Dalam beberapa kasus Anda perlu menginterupsi program saat sedang berjalan, misalnya jika sebuah perintah memakan waktu terlalu lama untuk selesai.
+Cara termudah untuk menginterupsi program adalah dengan menekan `Ctrl-C` dan perintah tersebut mungkin akan berhenti.
+Tetapi bagaimana cara kerja sebenarnya dan mengapa terkadang gagal menghentikan proses?
 
 ```console
 $ sleep 100
@@ -325,21 +325,21 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl-C` is displayed when typed in the terminal.
+> Perhatikan, di sini `^C` adalah cara `Ctrl-C` ditampilkan ketika diketik di terminal.
 
-Under the hood, what happened here is the following:
+Di balik layar, yang terjadi adalah sebagai berikut:
 
-1. We pressed `Ctrl-C`
-2. The shell identified the special combination of characters
-3. The shell process sent a SIGINT signal to the `sleep` process
-4. The signal interrupted the execution of the `sleep` process
+1. Kita menekan `Ctrl-C`
+2. Shell mengidentifikasi kombinasi karakter khusus
+3. Proses shell mengirimkan sinyal SIGINT ke proses `sleep`
+4. Sinyal tersebut menginterupsi eksekusi proses `sleep`
 
-Signals are a special communication mechanism.
-When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Signals adalah mekanisme komunikasi khusus.
+Ketika sebuah proses menerima sinyal, ia menghentikan eksekusinya, menangani sinyal tersebut dan mungkin mengubah alur eksekusi berdasarkan informasi yang disampaikan oleh sinyal tersebut. Karena alasan ini, signals adalah _software interrupts_.
 
 
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+Dalam kasus kita, ketika mengetik `Ctrl-C` ini memicu shell untuk mengirimkan sinyal `SIGINT` ke proses.
+Berikut adalah contoh minimal program Python yang menangkap `SIGINT` dan mengabaikannya, sehingga tidak lagi berhenti. Untuk menghentikan program ini sekarang kita dapat menggunakan sinyal `SIGQUIT` sebagai gantinya, dengan mengetik `Ctrl-\`.
 
 ```python
 #!/usr/bin/env python
@@ -356,7 +356,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+Berikut yang terjadi jika kita mengirimkan `SIGINT` dua kali ke program ini, diikuti oleh `SIGQUIT`. Perhatikan bahwa `^` adalah cara `Ctrl` ditampilkan ketika diketik di terminal.
 
 ```console
 $ python sigint.py
@@ -367,25 +367,25 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+Meskipun `SIGINT` dan `SIGQUIT` keduanya biasanya terkait dengan permintaan terminal, sinyal yang lebih umum untuk meminta proses keluar dengan baik adalah sinyal `SIGTERM`.
+Untuk mengirimkan sinyal ini kita dapat menggunakan perintah [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html), dengan sintaks `kill -TERM <PID>`.
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Signals dapat melakukan hal lain selain menghentikan proses. Misalnya, `SIGSTOP` menjeda proses. Di terminal, mengetik `Ctrl-Z` akan memicu shell untuk mengirimkan sinyal `SIGTSTP`, singkatan dari Terminal Stop (yaitu versi `SIGSTOP` dari terminal).
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+Kita kemudian dapat melanjutkan pekerjaan yang dijeda di foreground atau di background menggunakan [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) atau [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), masing-masing.
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+Perintah [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) mencantumkan pekerjaan yang belum selesai yang terkait dengan sesi terminal saat ini.
+Anda dapat merujuk ke pekerjaan tersebut menggunakan pid mereka (Anda dapat menggunakan [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) untuk mengetahuinya).
+Secara lebih intuitif, Anda juga dapat merujuk ke proses menggunakan simbol persen diikuti dengan nomor pekerjaan mereka (ditampilkan oleh `jobs`). Untuk merujuk ke pekerjaan terakhir yang di-background Anda dapat menggunakan parameter khusus `$!`.
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
+Satu hal lagi yang perlu diketahui adalah bahwa suffix `&` dalam perintah akan menjalankan perintah di background, memberikan Anda prompt kembali, meskipun tetap menggunakan STDOUT shell yang bisa mengganggu (gunakan shell redirections dalam kasus tersebut). Setara dengan itu, untuk mem-background program yang sedang berjalan Anda dapat melakukan `Ctrl-Z` diikuti dengan `bg`.
 
 
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
+Perhatikan bahwa proses yang di-background masih merupakan child process dari terminal Anda dan akan mati jika Anda menutup terminal (ini akan mengirimkan sinyal lain, `SIGHUP`).
+Untuk mencegah hal itu terjadi Anda dapat menjalankan program dengan [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (wrapper untuk mengabaikan `SIGHUP`), atau gunakan `disown` jika proses sudah dimulai.
+Sebagai alternatif, Anda dapat menggunakan terminal multiplexer seperti yang akan kita lihat di bagian berikutnya.
 
-Below is a sample session to showcase some of these concepts.
+Berikut adalah contoh sesi untuk memperlihatkan beberapa konsep ini.
 
 ```
 $ sleep 1000
@@ -412,11 +412,11 @@ $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+Sinyal khusus adalah `SIGKILL` karena tidak dapat ditangkap oleh proses dan akan selalu menghentikannya secara langsung. Namun, ini bisa memiliki efek samping yang buruk seperti meninggalkan child process yatim piatu.
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+Anda dapat mempelajari lebih lanjut tentang sinyal-sinyal ini dan sinyal lainnya [di sini](https://en.wikipedia.org/wiki/Signal_(IPC)) atau dengan mengetik [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) atau `kill -l`.
 
-Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
+Dalam shell script, Anda dapat menggunakan built-in `trap` untuk menjalankan perintah ketika sinyal diterima. Ini berguna untuk operasi pembersihan:
 
 ```shell
 #!/usr/bin/env bash
@@ -490,17 +490,17 @@ So far we've focused on your local machine, but many of these skills become even
 
 {% endcomment %}
 
-# Remote Machines
+# Mesin Remote
 
-It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
+Semakin umum bagi programmer untuk bekerja dengan server remote dalam pekerjaan sehari-hari mereka. Alat yang paling umum untuk tugas ini adalah SSH (Secure Shell) yang akan membantu kita terhubung ke server remote dan menyediakan antarmuka shell yang sekarang sudah familiar. Kita terhubung ke server dengan perintah seperti:
 
 ```bash
 ssh alice@server.mit.edu
 ```
 
-Here we are trying to ssh as user `alice` in server `server.mit.edu`.
+Di sini kita mencoba ssh sebagai user `alice` di server `server.mit.edu`.
 
-An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
+Fitur `ssh` yang sering terlewatkan adalah kemampuan untuk menjalankan perintah secara non-interaktif. `ssh` menangani pengiriman stdin dan penerimaan stdout dari perintah dengan benar, sehingga kita dapat menggabungkannya dengan perintah lain
 
 ```shell
 # here ls runs in the remote, and wc runs locally
@@ -511,22 +511,22 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
+> Cobalah menginstal [Mosh](https://mosh.org/) sebagai pengganti SSH yang dapat menangani diskoneksi, masuk/keluar sleep, berpindah jaringan dan menangani link dengan latensi tinggi.
 
-For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
-We can do this via passwords or ssh keys.
-Key-based authentication utilizes public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
-Key based authentication is both more convenient and more secure, so you should prefer it.
-Note that the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so and never share its contents.
+Agar `ssh` mengizinkan kita menjalankan perintah di server remote, kita perlu membuktikan bahwa kita berwenang untuk melakukannya.
+Kita dapat melakukannya melalui password atau ssh key.
+Autentikasi berbasis key menggunakan public-key cryptography untuk membuktikan kepada server bahwa klien memiliki secret private key tanpa mengungkapkan key tersebut.
+Autentikasi berbasis key lebih nyaman dan lebih aman, jadi Anda sebaiknya lebih memilihnya.
+Perhatikan bahwa private key (sering `~/.ssh/id_rsa` dan yang lebih baru `~/.ssh/id_ed25519`) secara efektif adalah password Anda, jadi perlakukan seperti itu dan jangan pernah membagikan isinya.
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+Untuk menghasilkan pair Anda dapat menjalankan [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
 ```bash
 ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+Jika Anda pernah mengonfigurasi push ke GitHub menggunakan SSH key, maka Anda mungkin sudah melakukan langkah-langkah yang diuraikan [di sini](https://help.github.com/articles/connecting-to-github-with-ssh/) dan sudah memiliki pasangan key yang valid. Untuk memeriksa apakah Anda memiliki passphrase dan memvalidasinya Anda dapat menjalankan `ssh-keygen -y -f /path/to/key`.
 
-At the server side `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+Di sisi server `ssh` akan melihat `.ssh/authorized_keys` untuk menentukan klien mana yang seharusnya diizinkan masuk. Untuk menyalin public key Anda dapat menggunakan:
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
@@ -536,9 +536,9 @@ cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
 
-Beyond running commands, the connection that ssh establishes can be used to transfer files from and to the server securely. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) is the most traditional tool and the syntax is `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+Selain menjalankan perintah, koneksi yang dibentuk ssh dapat digunakan untuk mentransfer file dari dan ke server secara aman. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) adalah alat yang paling tradisional dan sintaksnya adalah `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) meningkatkan `scp` dengan mendeteksi file yang identik di lokal dan remote, dan mencegah penyalinan ulang. Ini juga menyediakan kontrol yang lebih terperinci atas symlink, permission, dan memiliki fitur tambahan seperti flag `--partial` yang dapat melanjutkan salinan yang sebelumnya terinterupsi. `rsync` memiliki sintaks yang mirip dengan `scp`.
 
-SSH client configuration is located at `~/.ssh/config` and it lets us declare hosts and set default settings for them. This configuration file is not just read by `ssh` but also other programs like `scp`, `rsync`, `mosh`, &c.
+Konfigurasi klien SSH terletak di `~/.ssh/config` dan memungkinkan kita mendeklarasikan host dan menetapkan pengaturan default untuk mereka. File konfigurasi ini tidak hanya dibaca oleh `ssh` tetapi juga program lain seperti `scp`, `rsync`, `mosh`, &c.
 
 ```bash
 Host vm
@@ -555,80 +555,80 @@ Host *.mit.edu
 
 
 
-# Terminal Multiplexers
+# Terminal Multiplexer
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+Ketika menggunakan command-line interface Anda sering ingin menjalankan lebih dari satu hal sekaligus.
+Misalnya, Anda mungkin ingin menjalankan editor dan program Anda secara berdampingan.
+Meskipun ini dapat dicapai dengan membuka jendela terminal baru, menggunakan terminal multiplexer adalah solusi yang lebih fleksibel.
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions in an efficient manner.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-Because of this, terminal multiplexers are really convenient when working with remote machines, as it avoids the need to use `nohup` and similar tricks.
+Terminal multiplexer seperti [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) memungkinkan Anda melakukan multiplex jendela terminal menggunakan pane dan tab sehingga Anda dapat berinteraksi dengan beberapa sesi shell secara efisien.
+Selain itu, terminal multiplexer memungkinkan Anda melepas sesi terminal saat ini dan menghubungkannya kembali di kemudian waktu.
+Karena ini, terminal multiplexer sangat nyaman ketika bekerja dengan mesin remote, karena menghindari kebutuhan untuk menggunakan `nohup` dan trik-trik serupa.
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+Terminal multiplexer yang paling populer saat ini adalah [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` sangat dapat dikonfigurasi dan dengan menggunakan keybinding yang terkait Anda dapat membuat beberapa tab dan pane serta menavigasi dengan cepat.
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+`tmux` mengharapkan Anda mengetahui keybinding-nya, dan semuanya memiliki bentuk `<C-b> x` yang berarti (1) tekan `Ctrl+b`, (2) lepaskan `Ctrl+b`, lalu (3) tekan `x`. `tmux` memiliki hierarki objek berikut:
+- **Sessions** - sebuah session adalah workspace independen dengan satu atau lebih window
+    + `tmux` memulai session baru.
+    + `tmux new -s NAME` memulainya dengan nama tersebut.
+    + `tmux ls` mencantumkan session saat ini
+    + Dalam `tmux` mengetik `<C-b> d`  melepas session saat ini
+    + `tmux a` menghubungkan session terakhir. Anda dapat menggunakan flag `-t` untuk menentukan yang mana
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **Windows** - Setara dengan tab di editor atau browser, mereka adalah bagian visual yang terpisah dari session yang sama
+    + `<C-b> c` Membuat window baru. Untuk menutupnya Anda cukup menghentikan shell dengan `<C-d>`
+    + `<C-b> N` Pergi ke window ke-_N_. Perhatikan mereka diberi nomor
+    + `<C-b> p` Pergi ke window sebelumnya
+    + `<C-b> n` Pergi ke window berikutnya
+    + `<C-b> ,` Mengubah nama window saat ini
+    + `<C-b> w` Mencantumkan window saat ini
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Panes** - Seperti vim splits, pane memungkinkan Anda memiliki beberapa shell dalam tampilan visual yang sama.
+    + `<C-b> "` Membelah pane saat ini secara horizontal
+    + `<C-b> %` Membelah pane saat ini secara vertikal
+    + `<C-b> <direction>` Pindah ke pane di _arah_ yang ditentukan. Direction di sini berarti tombol panah.
+    + `<C-b> z` Toggle zoom untuk pane saat ini
+    + `<C-b> [` Memulai scrollback. Anda kemudian dapat menekan `<space>` untuk memulai seleksi dan `<enter>` untuk menyalin seleksi tersebut.
+    + `<C-b> <space>` Berpindah melalui susunan pane.
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> Untuk mempelajari lebih lanjut tentang tmux, pertimbangkan untuk membaca tutorial singkat [ini](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) dan penjelasan yang lebih detail [ini](https://linuxcommand.org/lc3_adv_termmux.php).
 
-With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
+Dengan tmux dan SSH dalam toolkit Anda, Anda ingin membuat lingkungan Anda terasa seperti di rumah di mesin mana pun. Di situlah kustomisasi shell berperan.
 
-# Customizing the Shell
+# Kustomisasi Shell
 
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+Berbagai macam program command-line dikonfigurasi menggunakan file teks biasa yang dikenal sebagai _dotfiles_
+(karena nama file dimulai dengan `.`, misalnya `~/.vimrc`, sehingga mereka
+tersembunyi dalam daftar direktori `ls` secara default).
 
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
+> Dotfiles adalah konvensi shell lainnya. Titik di depan adalah untuk "menyembunyikan" mereka saat melakukan daftar (ya, konvensi lainnya).
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Shell adalah salah satu contoh program yang dikonfigurasi dengan file seperti ini. Saat startup, shell Anda akan membaca banyak file untuk memuat konfigurasinya.
+Tergantung pada shell dan apakah Anda memulai sesi login dan/atau interaktif, keseluruhan proses bisa cukup kompleks.
+[Di sini](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) adalah sumber daya yang sangat baik tentang topik ini.
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Some other examples of tools that can be configured through dotfiles are:
+Untuk `bash`, mengedit `.bashrc` atau `.bash_profile` Anda akan berfungsi di sebagian besar sistem.
+Beberapa contoh lain alat yang dapat dikonfigurasi melalui dotfiles adalah:
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` dan folder `~/.vim`
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
+Perubahan konfigurasi yang umum adalah menambahkan lokasi baru untuk shell menemukan program. Anda akan menemui pola ini saat menginstal perangkat lunak:
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
 
-Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `path/to/append`.
+Di sini, kita memberitahu shell untuk menetapkan nilai variabel $PATH ke nilai saat ini ditambah path baru, dan membuat semua child process mewarisi nilai baru untuk PATH ini.
+Ini akan memungkinkan child process untuk menemukan program yang terletak di bawah `path/to/append`.
 
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
+Kustomisasi shell sering berarti menginstal alat command-line baru. Package manager memudahkan hal ini. Mereka menangani pengunduhan, pemasangan, dan pembaruan perangkat lunak. Sistem operasi yang berbeda memiliki package manager yang berbeda: macOS menggunakan [Homebrew](https://brew.sh/), Ubuntu/Debian menggunakan `apt`, Fedora menggunakan `dnf`, dan Arch menggunakan `pacman`. Kita akan membahas package manager lebih mendalam di kuliah shipping code.
 
-Here's how to install two useful tools using Homebrew on macOS:
+Berikut cara menginstal dua alat yang berguna menggunakan Homebrew di macOS:
 
 ```shell
 # ripgrep: a faster grep with better defaults
@@ -638,19 +638,19 @@ brew install ripgrep
 brew install fd
 ```
 
-With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+Dengan ini terinstal, Anda dapat menggunakan `rg` sebagai pengganti `grep` dan `fd` sebagai pengganti `find`.
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **Peringatan tentang `curl | bash`**: Anda sering akan melihat instruksi instalasi seperti `curl -fsSL https://example.com/install.sh | bash`. Pola ini mengunduh script dan segera mengeksekusinya, yang nyaman tetapi berisiko; Anda menjalankan kode yang belum Anda periksa. Pendekatan yang lebih aman adalah mengunduh terlebih dahulu, meninjau, lalu mengeksekusi:
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
 > less install.sh  # review the script
 > bash install.sh
 > ```
-> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+> Beberapa installer menggunakan varian yang sedikit lebih aman: `/bin/bash -c "$(curl -fsSL https://url)"` yang setidaknya memastikan bash menafsirkan script tersebut daripada shell Anda saat ini.
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
+Ketika Anda mencoba menjalankan perintah yang belum terinstal, shell Anda akan menampilkan `command not found`. Situs web [command-not-found.com](https://command-not-found.com) adalah sumber daya bermanfaat yang dapat Anda gunakan untuk mencari perintah apa pun dan mengetahui cara menginstalnya di berbagai package manager dan distribusi.
 
-Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+Alat lain yang berguna adalah [`tldr`](https://tldr.sh/), yang menyediakan halaman man yang disederhanakan dan berfokus pada contoh. Alih-alih membaca dokumentasi yang panjang, Anda dapat dengan cepat melihat pola penggunaan umum:
 
 ```console
 $ tldr fd
@@ -667,19 +667,19 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
+Terkadang Anda tidak membutuhkan program baru sepenuhnya, melainkan hanya pintasan untuk perintah yang sudah ada dengan flag tertentu. Di situlah alias berperan.
 
-We can also create our own command aliases using the `alias` shell built-in.
-A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
-For instance, an alias in bash has the following structure:
+Kita juga dapat membuat alias perintah kita sendiri menggunakan built-in shell `alias`.
+Alias shell adalah bentuk pendek untuk perintah lain yang akan diganti oleh shell secara otomatis sebelum mengevaluasi ekspresi.
+Misalnya, alias dalam bash memiliki struktur berikut:
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-> Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+> Perhatikan bahwa tidak ada spasi di sekitar tanda sama dengan `=`, karena [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) adalah perintah shell yang menerima satu argument.
 
-Aliases have many convenient features:
+Alias memiliki banyak fitur yang nyaman:
 
 ```bash
 # Make shorthands for common flags
@@ -711,65 +711,65 @@ alias ll
 # Will print ll='ls -lh'
 ```
 
-Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
+Alias memiliki keterbatasan: mereka tidak dapat mengambil arguments di tengah perintah. Untuk perilaku yang lebih kompleks, Anda sebaiknya menggunakan fungsi shell.
 
-Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+Sebagian besar shell mendukung `Ctrl-R` untuk pencarian history terbalik. Ketik `Ctrl-R` dan mulai mengetik untuk mencari melalui perintah sebelumnya. Sebelumnya kita memperkenalkan `fzf` sebagai fuzzy finder; dengan integrasi shell fzf yang dikonfigurasi, `Ctrl-R` menjadi pencarian fuzzy interaktif melalui seluruh history Anda, jauh lebih kuat dari default.
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+Bagaimana sebaiknya Anda mengatur dotfiles Anda? Mereka harus berada di folder mereka sendiri,
+di bawah version control, dan **di-symlink** ke tempatnya menggunakan script. Ini memiliki
+keuntungan:
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **Instalasi mudah**: jika Anda login ke mesin baru, menerapkan
+kustomisasi Anda hanya akan memakan waktu satu menit.
+- **Portabilitas**: alat Anda akan bekerja dengan cara yang sama di mana saja.
+- **Sinkronisasi**: Anda dapat memperbarui dotfiles Anda di mana saja dan menjaga semuanya
+tetap sinkron.
+- **Pelacakan perubahan**: Anda mungkin akan memelihara dotfiles Anda
+selama seluruh karir pemrograman Anda, dan riwayat versi berguna untuk
+proyek jangka panjang.
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+Apa yang harus Anda masukkan ke dotfiles Anda?
+Anda dapat mempelajari tentang pengaturan alat Anda dengan membaca dokumentasi online atau
+[man pages](https://en.wikipedia.org/wiki/Man_page). Cara hebat lainnya adalah
+mencari di internet untuk posting blog tentang program tertentu, di mana penulis akan
+memberitahu Anda tentang kustomisasi pilihan mereka. Cara lain untuk mempelajari
+kustomisasi adalah dengan melihat dotfiles orang lain: Anda dapat menemukan banyak
+[repository
+dotfiles](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
+di GitHub --- lihat yang paling populer
+[di sini](https://github.com/mathiasbynens/dotfiles) (kami menyarankan Anda untuk tidak
+menyalin konfigurasi secara membabi buta).
+[Di sini](https://dotfiles.github.io/) adalah sumber daya bagus lainnya tentang topik ini.
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
+Semua instruktur kelas memiliki dotfiles mereka yang dapat diakses secara publik di GitHub: [Anish](https://github.com/anishathalye/dotfiles),
 [Jon](https://github.com/jonhoo/configs),
 [Jose](https://github.com/jjgo/dotfiles).
 
-**Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
+**Framework dan plugin** juga dapat meningkatkan shell Anda. Beberapa framework umum yang populer adalah [prezto](https://github.com/sorin-ionescu/prezto) atau [oh-my-zsh](https://ohmyz.sh/), dan plugin yang lebih kecil yang berfokus pada fitur tertentu:
 
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - suggests commands from history as you type
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) - additional completion definitions
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-like history search
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - fast, customizable prompt theme
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - mewarnai perintah valid/invalid saat Anda mengetik
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - menyarankan perintah dari history saat Anda mengetik
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) - definisi completion tambahan
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - pencarian history seperti fish
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - tema prompt yang cepat dan dapat dikustomisasi
 
-Shells like [fish](https://fishshell.com/) include many of these features by default.
+Shell seperti [fish](https://fishshell.com/) menyertakan banyak fitur ini secara default.
 
-> You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
+> Anda tidak memerlukan framework besar seperti oh-my-zsh untuk mendapatkan fitur-fitur ini. Menginstal plugin individual sering kali lebih cepat dan memberi Anda lebih banyak kontrol. Framework besar dapat secara signifikan memperlambat waktu startup shell, jadi pertimbangkan untuk menginstal hanya yang benar-benar Anda gunakan.
 
 
-# AI in the Shell
+# AI di Shell
 
-There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
+Ada banyak cara untuk mengintegrasikan alat AI di shell. Berikut beberapa contoh pada tingkat integrasi yang berbeda:
 
-**Command generation**: Tools like [`simonw/llm`](https://github.com/simonw/llm) can help generate shell commands from natural language descriptions:
+**Pembuatan perintah**: Alat seperti [`simonw/llm`](https://github.com/simonw/llm) dapat membantu menghasilkan perintah shell dari deskripsi bahasa alami:
 
 ```console
 $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
+**Integrasi pipeline**: LLM dapat diintegrasikan ke dalam pipeline shell untuk memproses dan mengubah data. Mereka sangat berguna ketika Anda perlu mengekstrak informasi dari format yang tidak konsisten di mana regex akan menyakitkan:
 
 ```console
 $ cat users.txt
@@ -789,40 +789,40 @@ mike_wilson
 sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
+Perhatikan bagaimana kita menggunakan `"$INSTRUCTIONS"` (dengan tanda kutip) karena variabel berisi spasi, dan `< users.txt` untuk me-redirect konten file ke stdin.
 
-**AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
+**Shell AI**: Alat seperti [Claude Code](https://docs.anthropic.com/en/docs/claude-code) bertindak sebagai meta-shell yang menerima perintah bahasa Inggris dan menerjemahkannya menjadi operasi shell, edit file, dan tugas multi-langkah yang lebih kompleks.
 
-# Terminal Emulators
+# Terminal Emulator
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
-A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
-There are many terminal emulators out there.
+Bersamaan dengan mengkustomisasi shell Anda, ada baiknya meluangkan waktu untuk memilih **terminal emulator** dan pengaturannya.
+Terminal emulator adalah program GUI yang menyediakan antarmuka berbasis teks tempat shell Anda berjalan.
+Ada banyak terminal emulator di luar sana.
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+Karena Anda mungkin menghabiskan ratusan hingga ribuan jam di terminal Anda, ada baiknya untuk menyelidiki pengaturannya. Beberapa aspek yang mungkin ingin Anda modifikasi di terminal Anda meliputi:
 
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/alacritty/alacritty) or [Ghostty](https://ghostty.org/) offer GPU acceleration).
+- Pilihan font
+- Skema warna
+- Pintasan keyboard
+- Dukungan tab/pane
+- Konfigurasi scrollback
+- Performa (beberapa terminal yang lebih baru seperti [Alacritty](https://github.com/alacritty/alacritty) atau [Ghostty](https://ghostty.org/) menawarkan akselerasi GPU).
 
 
 
-# Exercises
+# Latihan
 
-## Arguments and Globs
+## Arguments dan Globs
 
-1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
+1. Anda mungkin melihat perintah seperti `cmd --flag -- --notaflag`. `--` adalah argument khusus yang memberitahu program untuk berhenti mem-parsing flag. Semua yang setelah `--` diperlakukan sebagai argument posisional. Mengapa ini berguna? Cobalah menjalankan `touch -- -myfile` dan kemudian menghapusnya tanpa `--`.
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+1. Baca [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) dan tulis perintah `ls` yang mencantumkan file dengan cara berikut:
+    - Menyertakan semua file, termasuk file tersembunyi
+    - Ukuran ditampilkan dalam format yang mudah dibaca (misalnya 454M bukan 454279954)
+    - File diurutkan berdasarkan yang paling baru
+    - Output diberi warna
 
-    A sample output would look like this:
+    Contoh output akan terlihat seperti ini:
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -836,11 +836,11 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 ls -lath --color=auto
 {% endcomment %}
 
-1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
+1. Process substitution `<(command)` memungkinkan Anda menggunakan output perintah seolah-olah itu adalah file. Gunakan `diff` dengan process substitution untuk membandingkan output `printenv` dan `export`. Mengapa mereka berbeda? (Petunjuk: coba `diff <(printenv | sort) <(export | sort)`).
 
-## Environment Variables
+## Variabel Lingkungan
 
-1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. Tulis fungsi bash `marco` dan `polo` yang melakukan hal berikut: setiap kali Anda menjalankan `marco` direktori kerja saat ini harus disimpan dengan cara tertentu, kemudian ketika Anda menjalankan `polo`, tidak peduli di direktori mana Anda berada, `polo` harus melakukan `cd` mengembalikan Anda ke direktori tempat Anda menjalankan `marco`. Untuk memudahkan debugging Anda dapat menulis kode dalam file `marco.sh` dan (re)load definisi ke shell Anda dengan menjalankan `source marco.sh`.
 
 {% comment %}
 marco() {
@@ -854,7 +854,7 @@ polo() {
 
 ## Return Codes
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
+1. Katakan Anda memiliki perintah yang jarang gagal. Untuk men-debug-nya Anda perlu menangkap outputnya tetapi bisa memakan waktu lama untuk mendapatkan hasil yang gagal. Tulis script bash yang menjalankan script berikut sampai gagal dan menangkap standard output dan error stream ke file dan mencetak semuanya di akhir. Nilai tambah jika Anda juga dapat melaporkan berapa kali percobaan yang diperlukan sampai script gagal.
 
     ```bash
     #!/usr/bin/env bash
@@ -884,47 +884,47 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-## Signals and Job Control
+## Signals dan Job Control
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-lf` flags).
+1. Jalankan pekerjaan `sleep 10000` di terminal, background-kan dengan `Ctrl-Z` dan lanjutkan eksekusinya dengan `bg`. Sekarang gunakan [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) untuk menemukan pid-nya dan [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) untuk menghentikannya tanpa pernah mengetik pid itu sendiri. (Petunjuk: gunakan flag `-lf`).
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. Katakan Anda tidak ingin memulai sebuah proses sampai proses lain selesai. Bagaimana cara Anda melakukannya? Dalam latihan ini, proses pembatas kita akan selalu menjadi `sleep 60 &`. Salah satu cara untuk mencapainya adalah dengan menggunakan perintah [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html). Cobalah meluncurkan perintah sleep dan membuat `ls` menunggu sampai proses background selesai.
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+    Namun, strategi ini akan gagal jika kita memulai di sesi bash yang berbeda, karena `wait` hanya berfungsi untuk child process. Satu fitur yang tidak kita bahas dalam catatan adalah bahwa exit status perintah `kill` akan nol jika berhasil dan bukan-nol jika gagal. `kill -0` tidak mengirimkan sinyal tetapi akan memberikan exit status bukan-nol jika proses tidak ada. Tulis fungsi bash yang disebut `pidwait` yang menerima pid dan menunggu sampai proses yang diberikan selesai. Anda sebaiknya menggunakan `sleep` untuk menghindari pemborosan CPU secara tidak perlu.
 
-## Files and Permissions
+## File dan Permissions
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (Lanjutan) Tulis perintah atau script untuk menemukan file yang paling baru dimodifikasi secara rekursif di dalam direktori. Lebih umumnya, dapatkah Anda mencantumkan semua file berdasarkan kebaruannya?
 
-## Terminal Multiplexers
+## Terminal Multiplexer
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. Ikuti [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) `tmux` ini dan kemudian pelajari cara melakukan beberapa kustomisasi dasar dengan mengikuti [langkah-langkah ini](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 
-## Aliases and Dotfiles
+## Alias dan Dotfiles
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+1. Buat alias `dc` yang mengarah ke `cd` untuk ketika Anda salah mengetiknya.
 
-1. Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1. Jalankan `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` untuk mendapatkan 10 perintah yang paling sering Anda gunakan dan pertimbangkan untuk menulis alias yang lebih pendek untuk mereka. Catatan: ini berfungsi untuk Bash; jika Anda menggunakan ZSH, gunakan `history 1` bukan hanya `history`.
 
-1. Create a folder for your dotfiles and set up version control.
+1. Buat folder untuk dotfiles Anda dan atur version control.
 
-1. Add a configuration for at least one program, e.g. your shell, with some customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. Tambahkan konfigurasi untuk setidaknya satu program, misalnya shell Anda, dengan beberapa kustomisasi (untuk memulai, bisa sesederhana mengkustomisasi prompt shell Anda dengan menetapkan `$PS1`).
 
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
+1. Siapkan metode untuk menginstal dotfiles Anda dengan cepat (dan tanpa usaha manual) di mesin baru. Ini bisa sesederhana script shell yang memanggil `ln -s` untuk setiap file, atau Anda bisa menggunakan [utilitas khusus](https://dotfiles.github.io/utilities/).
 
-1. Test your installation script on a fresh virtual machine.
+1. Uji script instalasi Anda di virtual machine yang masih segar.
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+1. Migrasikan semua konfigurasi alat Anda saat ini ke repository dotfiles Anda.
 
-1. Publish your dotfiles on GitHub.
+1. Publikasikan dotfiles Anda di GitHub.
 
-## Remote Machines (SSH)
+## Mesin Remote (SSH)
 
-Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+Instal virtual machine Linux (atau gunakan yang sudah ada) untuk latihan ini. Jika Anda tidak familiar dengan virtual machine, lihat [tutorial](https://hibbard.eu/install-ubuntu-virtual-box/) ini untuk menginstal satu.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
+1. Pergi ke `~/.ssh/` dan periksa apakah Anda memiliki pasangan SSH key di sana. Jika tidak, buat dengan `ssh-keygen -a 100 -t ed25519`. Disarankan bahwa Anda menggunakan password dan menggunakan `ssh-agent`, info lebih lanjut [di sini](https://www.ssh.com/ssh/agent).
 
-1. Edit `.ssh/config` to have an entry as follows:
+1. Edit `.ssh/config` untuk memiliki entri seperti berikut:
 
     ```bash
     Host vm
@@ -934,12 +934,12 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
         LocalForward 9999 localhost:8888
     ```
 
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. Gunakan `ssh-copy-id vm` untuk menyalin SSH key Anda ke server.
 
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. Jalankan webserver di VM Anda dengan menjalankan `python -m http.server 8888`. Akses webserver VM dengan menavigasi ke `http://localhost:9999` di mesin Anda.
 
-1. Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. Edit konfigurasi server SSH Anda dengan melakukan `sudo vim /etc/ssh/sshd_config` dan nonaktifkan autentikasi password dengan mengedit nilai `PasswordAuthentication`. Nonaktifkan login root dengan mengedit nilai `PermitRootLogin`. Restart layanan `ssh` dengan `sudo service sshd restart`. Cobalah ssh lagi.
 
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (Tantangan) Instal [`mosh`](https://mosh.org/) di VM dan buat koneksi. Kemudian putuskan adapter jaringan server/VM. Dapatkah mosh pulih dengan baik dari hal tersebut?
 
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+1. (Tantangan) Cari tahu apa yang dilakukan flag `-N` dan `-f` di `ssh` dan temukan perintah untuk melakukan background port forwarding.

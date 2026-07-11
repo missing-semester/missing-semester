@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Course Overview + Introduction to the Shell"
+title: "Ikhtisar Kursus + Pengantar Shell"
 description: >
   Pelajari motivasi kelas ini, dan mulai menggunakan shell.
 thumbnail: /static/assets/thumbnails/2026/lec1.png
@@ -11,156 +11,154 @@ video:
   id: MSgoeuMqUmU
 ---
 
-# Who are we?
+# Siapa kami?
 
-This class is co-taught by [Anish](https://anish.io/),
-[Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
-are all ex-MIT students who started this MIT IAP class back when we were
-students. You can reach us collectively at
+Kelas ini diajarkan bersama oleh [Anish](https://anish.io/),
+[Jon](https://thesquareplanet.com/), dan [Jose](http://josejg.com/). Kami
+semuanya mantan mahasiswa MIT yang memulai kelas MIT IAP ini sejak kami masih
+menjadi mahasiswa. Anda dapat menghubungi kami secara kolektif di
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-We are not paid to teach this class, and do not monetize the class in
-any way. We make all the [course
-materials](https://missing.csail.mit.edu/) and [recordings of the
-lectures](https://www.youtube.com/@MissingSemester) freely available
-online. If you want to support our work, the best way to do so is to
-simply spread the word about the class. If you're a company, university,
-or other organization that runs this content past larger cohorts, please
-send us experience reports/testimonials by email so we get to hear about
-it :)
+Kami tidak dibayar untuk mengajar kelas ini, dan tidak memonetisasi kelas ini
+dengan cara apa pun. Kami menyediakan semua [materi
+kuliah](https://missing.csail.mit.edu/) dan [rekaman
+kuliah](https://www.youtube.com/@MissingSemester) secara gratis
+di internet. Jika Anda ingin mendukung pekerjaan kami, cara terbaik adalah
+dengan menyebarkan informasi tentang kelas ini. Jika Anda adalah perusahaan,
+universitas, atau organisasi lain yang menjalankan konten ini untuk kelompok
+yang lebih besar, silakan kirimkan laporan pengalaman/testimoni melalui email
+agar kami bisa mendengarnya :)
 
-# Motivation
+# Motivasi
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools available
-at our fingertips that enable us to be more productive and solve more
-complex problems when working on any computer-related problem. Yet many
-of us utilize only a small fraction of those tools; we only know enough
-magical incantations by rote to get by, and blindly copy-paste commands
-from the internet when we get stuck.
+Sebagai ilmuwan komputer, kita tahu bahwa komputer sangat handal dalam membantu
+tugas-tugas berulang. Namun, terlalu sering kita lupa bahwa hal ini juga berlaku
+untuk _penggunaan_ komputer kita, bukan hanya komputasi yang ingin kita lakukan
+melalui program. Kita memiliki berbagai macam alat yang tersedia di ujung jari
+yang memungkinkan kita untuk lebih produktif dan menyelesaikan masalah yang lebih
+kompleks saat mengerjakan tugas apa pun yang berkaitan dengan komputer. Namun
+banyak dari kita hanya menggunakan sebagian kecil dari alat-alat tersebut; kita
+hanya tahu beberapa perintah ajaib secara hafalan untuk bertahan, dan
+copy-paste perintah dari internet secara membabi-buta ketika kita terjebak.
 
-This class is an attempt to [address this](/about/).
+Kelas ini adalah upaya untuk [mengatasi hal ini](/about/).
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Kami ingin mengajarkan Anda cara memaksimalkan alat-alat yang Anda ketahui,
+memperkenalkan alat-alat baru untuk ditambahkan ke kotak peralatan Anda, dan
+semoga menanamkan semangat untuk menjelajahi (dan mungkin membangun) lebih
+banyak alat sendiri. Inilah yang kami yakini sebagai semester yang hilang dari
+sebagian besar kurikulum Ilmu Komputer.
 
-# Class structure
+# Struktur kelas
 
-The not-for-credit class consists of nine 1-hour lectures, each one
-centering on a [particular topic](/2026/). The lectures are largely
-independent, though as the semester goes on we will presume that you are
-familiar with the content from the earlier lectures. We have lecture
-notes online, but there may be content covered in class (e.g. in the
-form of demos) that may not be in the notes. As for past years, we will
-be recording lectures and posting the recordings
-[online](https://www.youtube.com/@MissingSemester).
+Kelas tanpa kredit ini terdiri dari sembilan kuliah masing-masing 1 jam, setiap
+kuliah berfokus pada [topik tertentu](/2026/). Kuliah-kuliah ini sebagian besar
+berdiri sendiri, meskipun seiring berjalannya semester kami akan berasumsi bahwa
+Anda sudah familiar dengan materi dari kuliah-kuliah sebelumnya. Kami memiliki
+catatan kuliah di internet, tetapi mungkin ada konten yang dibahas di kelas
+(misalnya dalam bentuk demo) yang mungkin tidak ada di catatan. Seperti tahun-tahun
+sebelumnya, kami akan merekam kuliah dan mengunggah rekamannya
+[di internet](https://www.youtube.com/@MissingSemester).
 
-We are trying to cover a lot of ground over the course of just a few
-1-hour lectures, so the lectures are fairly dense. To allow you some
-time to get familiar with the content at your own pace, each lecture
-includes a set of exercises that guide you through the lecture's key
-points. We will not be running dedicated office hours, but we encourage
-you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
-in `#missing-semester-forum`, or email us at
+Kami berusaha membahas banyak hal dalam waktu hanya beberapa kuliah 1 jam,
+sehingga kuliah-kuliah ini cukup padat. Untuk memberi Anda waktu mengenal
+kontennya dengan kecepatan Anda sendiri, setiap kuliah dilengkapi serangkaian
+latihan yang memandu Anda melalui poin-poin kunci kuliah. Kami tidak akan
+menjalankan jam kantor khusus, tetapi kami mendorong Anda untuk bertanya di
+[OSSU Discord](https://ossu.dev/#community),
+di `#missing-semester-forum`, atau kirim email kepada kami di
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+Karena waktu yang terbatas, kami tidak akan bisa membahas semua alat dengan
+tingkat detail yang sama seperti kelas berskala penuh. Jika memungkinkan, kami
+akan mengarahkan Anda ke sumber daya untuk menggali lebih dalam tentang suatu
+alat atau topik, tetapi jika ada yang menarik perhatian Anda, jangan ragu untuk
+menghubungi kami dan meminta petunjuk!
 
-Finally, if you have feedback about the class, please send it to us by
-email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Terakhir, jika Anda memiliki umpan balik tentang kelas ini, silakan kirimkan
+kepada kami melalui email di [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-# Topic 1: The Shell
+# Topik 1: Shell
 
 {% comment %}
 lecturer: Jon
 {% endcomment %}
 
-## What is the shell?
+## Apa itu shell?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, AR/VR,
-and more recently: LLMs. These are great for 80% of use-cases, but they
-are often fundamentally restricted in what they allow you to do — you
-cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Komputer saat ini memiliki berbagai macam antarmuka untuk memberikan perintah;
+antarmuka grafis yang mewah, antarmuka suara, AR/VR, dan baru-baru ini: LLM.
+Semua ini bagus untuk 80% kasus penggunaan, tetapi seringkali memiliki batasan
+mendasar dalam hal yang mereka izinkan — Anda tidak dapat menekan tombol yang
+tidak ada atau memberikan perintah suara yang belum diprogram. Untuk memanfaatkan
+secara penuh alat-alat yang disediakan komputer Anda, kita harus kembali ke cara
+lama dan beralih ke antarmuka tekstual: Shell.
 
-Nearly all platforms you can get your hands on have a shell in one form
-or another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Hampir semua platform yang bisa Anda gunakan memiliki shell dalam satu bentuk
+atau lainnya, dan banyak di antaranya memiliki beberapa shell untuk Anda pilih.
+Meskipun mungkin berbeda dalam detailnya, pada intinya semuanya kurang lebih
+sama: mereka memungkinkan Anda menjalankan program, memberikan input, dan
+memeriksa output mereka secara semi-terstruktur.
 
-To open a shell _prompt_ (where you can type commands), you first need a
-_terminal_, which is the visual interface to a shell. Your device
-probably shipped with one installed, or you can install one fairly
-easily:
+Untuk membuka _prompt_ shell (tempat Anda bisa mengetik perintah), Anda
+membutuhkan _terminal_, yaitu antarmuka visual ke shell. Perangkat Anda
+kemungkinan sudah terinstal salah satunya, atau Anda bisa menginstal dengan
+mudah:
 
 - **Linux:**
-  Press `Ctrl + Alt + T` (works on most distributions). Or search for
-  "Terminal" in your applications menu.
+  Tekan `Ctrl + Alt + T` (berfungsi di sebagian besar distribusi). Atau cari
+  "Terminal" di menu aplikasi Anda.
 - **Windows:**
-  Press `Win + R`, type `cmd` or `powershell`, and press Enter.
-  Alternatively, search "Terminal" or "Command Prompt" in the Start menu.
+  Tekan `Win + R`, ketik `cmd` atau `powershell`, lalu tekan Enter.
+  Atau cari "Terminal" atau "Command Prompt" di menu Start.
 - **macOS:**
-  Press `Cmd + Space` to open Spotlight, type "Terminal", and press Enter.
-  Or find it in Applications → Utilities → Terminal.
+  Tekan `Cmd + Space` untuk membuka Spotlight, ketik "Terminal", lalu tekan Enter.
+  Atau temukan di Applications → Utilities → Terminal.
 
-On Linux and macOS, this will usually open the Bourne Again SHell, or
-"bash" for short. This is one of the most widely used shells, and its
-syntax is similar to what you will see in many other shells. On Windows,
-you'll be greeted by the "batch" or "powershell" shells, depending on
-which command you ran. These are Windows-specific, and not what we'll be
-focusing on in this class, although it has analogues for most of what
-we'll be teaching. You'll instead want the [Windows Subsystem for
-Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-machine.
+Pada Linux dan macOS, ini biasanya akan membuka Bourne Again SHell, atau
+"bash" singkatnya. Ini adalah salah satu shell yang paling banyak digunakan,
+dan sintaksnya mirip dengan yang akan Anda lihat di banyak shell lainnya.
+Di Windows, Anda akan disambut oleh shell "batch" atau "powershell", tergantung
+pada perintah yang Anda jalankan. Keduanya spesifik untuk Windows, dan bukan
+yang akan kita fokuskan di kelas ini, meskipun keduanya memiliki analogi untuk
+sebagian besar yang akan kita ajarkan. Anda sebaiknya menggunakan [Windows
+Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) atau
+mesin virtual Linux.
 
-Other shells exist, often with many ergonomic improvements over bash
-(fish and zsh are among the most common). While these are very popular
-(all the instructors use one), they're nowhere near as ubiquitous as
-bash, and lean on many of the same concepts, so we won't be focusing on
-those in this lecture.
+Shell lain juga ada, seringkali dengan banyak peningkatan ergonomis dibanding
+bash (fish dan zsh adalah yang paling umum). Meskipun sangat populer (semua
+instruktur menggunakannya), mereka tidak sebanyak bash, dan mengandalkan banyak
+konsep yang sama, jadi kita tidak akan fokus pada mereka di kuliah ini.
 
-## Why should you care about it?
+## Mengapa Anda perlu mempedulikannya?
 
-The shell is not just (usually) much faster than "clicking around", it
-also comes with expressive power you can't easily find in any one
-graphical program. As we'll see, the shell gives you the ability to
-_combine_ programs in creative ways to automate nearly any task.
+Shell bukan hanya (biasanya) jauh lebih cepat daripada "mengklik-klik", shell
+juga hadir dengan kekuatan ekspresif yang tidak mudah ditemukan di satu program
+grafis mana pun. Seperti yang akan kita lihat, shell memberi Anda kemampuan untuk
+_menggabungkan_ program secara kreatif untuk mengotomatisasi hampir semua tugas.
 
-Knowing your way around a shell is also very useful to navigate the
-world of open-source software (which often come with install
-instructions that require the shell), building continuous integration
-for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality/)), and debugging errors when other programs
-fail.
+Mengetahui cara menggunakan shell juga sangat berguna untuk menavigasi dunia
+perangkat lunak open-source (yang seringkali datang dengan instruksi instalasi
+yang membutuhkan shell), membangun integrasi berkelanjutan untuk proyek
+perangkat lunak Anda (seperti dijelaskan di [kuliah Code
+Quality](/2026/code-quality/)), dan men-debug kesalahan ketika program lain
+gagal.
 
-## Navigating in the shell
+## Navigasi di shell
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Ketika Anda membuka terminal, Anda akan melihat _prompt_ yang biasanya terlihat
+seperti ini:
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Ini adalah antarmuka tekstual utama ke shell. Ini memberi tahu Anda bahwa Anda
+berada di mesin `missing` dan "direktori kerja saat ini" Anda, atau tempat Anda
+berada sekarang, adalah `~` (singkatan dari "home"). Tanda `$` memberi tahu Anda
+bahwa Anda bukan pengguna root (lebih lanjut tentang itu nanti). Di prompt ini
+Anda bisa mengetik _perintah_, yang kemudian akan diinterpretasikan oleh shell.
+Perintah paling dasar adalah menjalankan sebuah program:
 
 ```console
 missing:~$ date
@@ -168,43 +166,43 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Di sini, kita menjalankan program `date`, yang (mungkin tidak mengejutkan)
+mencetak tanggal dan waktu saat ini. Shell kemudian meminta kita perintah lain
+untuk dijalankan. Kita juga bisa menjalankan perintah dengan _argumen_:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Dalam kasus ini, kita menyuruh shell untuk menjalankan program `echo` dengan
+argumen `hello`. Program `echo` cukup mencetak argumennya. Shell mengurai
+perintah dengan memisahkannya berdasarkan spasi, lalu menjalankan program yang
+ditunjukkan oleh kata pertama, menyediakan setiap kata berikutnya sebagai
+argumen yang bisa diakses oleh program. Jika Anda ingin memberikan argumen yang
+mengandung spasi atau karakter khusus lainnya (misalnya, direktori bernama
+"My Photos"), Anda bisa mengutip argumen dengan `'` atau `"` (`"My Photos"`),
+atau meng-escape hanya karakter yang relevan dengan `\` (`My\ Photos`).
 
-Perhaps the most important command when you're starting out is `man`,
-short for "manual". The `man` program, among other things, lets you look
-up more information about any command on your system. For example, if
-you run `man date`, it'll explain what `date` is, and all of the various
-arguments you can pass it to alter its behavior. You can also usually
-get a short version of the help by passing `--help` as an argument to
-most commands.
+Mungkin perintah paling penting ketika Anda baru memulai adalah `man`,
+singkatan dari "manual". Program `man`, antara lain, memungkinkan Anda mencari
+informasi lebih lanjut tentang perintah apa pun di sistem Anda. Misalnya, jika
+Anda menjalankan `man date`, ini akan menjelaskan apa itu `date`, dan semua
+berbagai argumen yang bisa Anda berikan untuk mengubah perilakunya. Anda juga
+biasanya bisa mendapatkan versi singkat bantuan dengan memberikan `--help`
+sebagai argumen ke sebagian besar perintah.
 
-> Consider installing and using [`tldr`](https://tldr.sh/) in addition
-> to `man`, as it shows you common usage examples right there in the
-> terminal. LLMs are also usually very good at explaining how commands
-> work and how you can call them to achieve what you want to accomplish.
+> Pertimbangkan untuk menginstal dan menggunakan [`tldr`](https://tldr.sh/)
+> selain `man`, karena ini menampilkan contoh penggunaan umum langsung di
+> terminal. LLM juga biasanya sangat baik dalam menjelaskan cara kerja perintah
+> dan bagaimana Anda bisa menggunakannya untuk mencapai apa yang ingin Anda
+> lakukan.
 
-After `man`, the most important command to learn is `cd`, or "change
-directory". This command is actually built into the shell, and isn't a
-separate program (i.e., `which cd` will say "no cd found"). You pass it
-a path, and that path becomes your current working directory. You'll
-also see the working directory reflected in the shell prompt:
+Setelah `man`, perintah paling penting untuk dipelajari adalah `cd`, atau "change
+directory". Perintah ini sebenarnya sudah tertanam di dalam shell, dan bukan
+program terpisah (yaitu, `which cd` akan menampilkan "no cd found"). Anda
+memberikannya sebuah path, dan path tersebut menjadi direktori kerja saat ini
+Anda. Anda juga akan melihat direktori kerja tercermin di prompt shell:
 
 ```console
 missing:~$ cd /bin
@@ -213,23 +211,22 @@ missing:/$ cd ~
 missing:~$
 ```
 
-> Note that the shell comes with auto-completion, so you can often
-> complete paths faster by pressing `<TAB>`!
+> Perhatikan bahwa shell dilengkapi dengan auto-completion, sehingga Anda sering
+> bisa melengkapi path lebih cepat dengan menekan `<TAB>`!
 
-A lot of commands operate on the current working directory if nothing
-else is specified. If you're ever unsure where you are, you can run
-`pwd` or print the `$PWD` environment variable (with `echo $PWD`), both
-of which produce the current working directory.
+Banyak perintah beroperasi pada direktori kerja saat ini jika tidak ada yang
+dispesifikasikan. Jika Anda tidak yakin di mana Anda berada, Anda bisa
+menjalankan `pwd` atau mencetak variabel lingkungan `$PWD` (dengan `echo $PWD`),
+keduanya menghasilkan direktori kerja saat ini.
 
-The current working directory also comes in handy in that it allows us to
-use _relative_ paths. All the paths we've seen so far have been
-_absolute_ --- they start with `/` and give the full set of directories
-needed to navigate to some location from the root of the file system
-(`/`). In practice, you'll more commonly work with relative paths; so
-called because they are relative to the current working directory. In a
-relative path (anything _not_ starting with `/`), the first path
-component is looked up in the current working directory, and subsequent
-components traverse as usual. For example:
+Direktori kerja saat ini juga berguna karena memungkinkan kita menggunakan path
+_relatif_. Semua path yang telah kita lihat sejauh ini adalah _absolut_ ---
+mereka dimulai dengan `/` dan memberikan seluruh kumpulan direktori yang
+dibutuhkan untuk menavigasi ke suatu lokasi dari root sistem file (`/`). Dalam
+praktiknya, Anda lebih sering bekerja dengan path relatif; disebut demikian
+karena relatif terhadap direktori kerja saat ini. Dalam path relatif (apa pun
+yang _tidak_ dimulai dengan `/`), komponen path pertama dicari di direktori
+kerja saat ini, dan komponen berikutnya menelusuri seperti biasa. Misalnya:
 
 ```console
 missing:~$ cd /
@@ -237,9 +234,8 @@ missing:/$ cd bin
 missing:/bin$
 ```
 
-There are also two "special" components that exist in every directory:
-`.` and `..`. `.` is "this directory", and `..` is "the parent
-directory". So:
+Ada juga dua komponen "khusus" yang ada di setiap direktori: `.` dan `..`. `.`
+adalah "direktori ini", dan `..` adalah "direktori induk". Jadi:
 
 ```console
 missing:~$ cd /
@@ -247,21 +243,21 @@ missing:/$ cd bin/../bin/../bin/././../bin/..
 missing:/$
 ```
 
-You can usually use absolute and relative paths interchangeably for any
-command argument, just keep in mind what your current working directory
-is when using a relative one!
+Anda biasanya bisa menggunakan path absolut dan relatif secara bergantian untuk
+argumen perintah apa pun, cukup ingat apa direktori kerja saat ini Anda saat
+menggunakan path relatif!
 
-> Consider installing and using
-> [`zoxide`](https://github.com/ajeetdsouza/zoxide) to speed up your
-> `cd`ing --- `z` will remember the paths you frequently visit and let
-> you access with less typing.
+> Pertimbangkan untuk menginstal dan menggunakan
+> [`zoxide`](https://github.com/ajeetdsouza/zoxide) untuk mempercepat `cd`
+> Anda --- `z` akan mengingat path yang sering Anda kunjungi dan memungkinkan
+> Anda mengaksesnya dengan lebih sedikit pengetikan.
 
-## What is available in the shell?
+## Apa yang tersedia di shell?
 
-But how does the shell know how to find programs like `date` or `echo`?
-If the shell is asked to execute a command, it consults an _environment
-variable_ called `$PATH` that lists which directories the shell should
-search for programs when it is given a command:
+Tapi bagaimana shell tahu cara menemukan program seperti `date` atau `echo`?
+Jika shell diminta menjalankan perintah, ia melihat _variabel lingkungan_
+bernama `$PATH` yang mencantumkan direktori mana yang harus dicari shell untuk
+program ketika diberikan perintah:
 
 ```console
 missing:~$ echo $PATH
@@ -272,122 +268,122 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Ketika kita menjalankan perintah `echo`, shell melihat bahwa ia harus
+menjalankan program `echo`, lalu mencari melalui daftar direktori yang dipisahkan
+`:` di `$PATH` untuk file dengan nama tersebut. Ketika menemukannya, ia
+menjalankannya (dengan asumsi file tersebut _dapat dieksekusi_; lebih lanjut
+tentang itu nanti). Kita bisa mengetahui file mana yang dijalankan untuk nama
+program tertentu menggunakan program `which`. Kita juga bisa melewati `$PATH`
+sepenuhnya dengan memberikan _path_ ke file yang ingin kita eksekusi.
 
-This also gives a clue for how we can determine _all_ the programs we're
-able to execute in the shell: by listing the contents of all the
-directories on `$PATH`. We can do this by passing a given directory path
-to the `ls` program, which lists files:
+Ini juga memberikan petunjuk tentang bagaimana kita bisa menentukan _semua_
+program yang bisa kita jalankan di shell: dengan mendaftar isi dari semua
+direktori di `$PATH`. Kita bisa melakukan ini dengan memberikan path direktori
+tertentu ke program `ls`, yang mendaftar file:
 
 ```console
 missing:~$ ls /bin
 ```
 
-> Consider installing and using [`eza`](https://eza.rocks/) for a more
-> human-friendly `ls`.
+> Pertimbangkan untuk menginstal dan menggunakan [`eza`](https://eza.rocks/)
+> sebagai pengganti `ls` yang lebih ramah pengguna.
 
-This will, on most computers, print a _lot_ of programs, but we'll only
-focus on some of the most important ones here. First, some simple ones:
+Ini akan, di sebagian besar komputer, mencetak _sangat banyak_ program, tetapi
+kita hanya akan fokus pada beberapa yang paling penting di sini. Pertama,
+beberapa yang sederhana:
 
-- `cat file`, which prints the contents of `file`.
-- `sort file`, which prints out the lines of `file` in sorted order.
-- `uniq file`, which eliminates consecutive duplicate lines from `file`.
-- `head file` and `tail file`, which respectively print the first and
-  last few lines of `file`.
+- `cat file`, yang mencetak isi dari `file`.
+- `sort file`, yang mencetak baris-baris `file` dalam urutan terurut.
+- `uniq file`, yang menghilangkan baris duplikat yang berurutan dari `file`.
+- `head file` dan `tail file`, yang masing-masing mencetak beberapa baris
+  pertama dan terakhir dari `file`.
 
-> Consider installing and using [`bat`](https://github.com/sharkdp/bat)
-> over `cat` for syntax highlighting and scrolling.
+> Pertimbangkan untuk menginstal dan menggunakan
+> [`bat`](https://github.com/sharkdp/bat) sebagai pengganti `cat` untuk
+> syntax highlighting dan scrolling.
 
-There's also `grep pattern file`, which finds lines matching `pattern`
-in `file`. This one deserves slightly more attention as it's both _very_
-useful and sports a wider array of features than one may expect.
-`pattern` is actually a _regular expression_ which can express very
-complex patterns --- we'll [cover
-those](/2026/code-quality/#regular-expressions)
-in the code quality lecture. You can also specify a directory instead of a
-file (or leave it off for `.`) and pass `-r` to recursively search all
-the files in a directory.
+Ada juga `grep pattern file`, yang mencari baris yang cocok dengan `pattern`
+di `file`. Yang satu ini patut mendapat perhatian lebih karena _sangat_ berguna
+dan memiliki berbagai fitur yang lebih luas dari yang mungkin diharapkan.
+`pattern` sebenarnya adalah _regular expression_ yang bisa mengekspresikan pola
+yang sangat kompleks --- kita akan [membahasnya](/2026/code-quality/#regular-expressions)
+di kuliah code quality. Anda juga bisa menentukan direktori sebagai ganti file
+(atau membiarkannya kosong untuk `.`) dan memberikan `-r` untuk mencari secara
+rekursif di semua file dalam direktori.
 
-> Consider installing and using
-> [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
-> faster and more human-friendly (but less portable) alternative.
-> `ripgrep` will also recursively search the current working directory
-> by default!
+> Pertimbangkan untuk menginstal dan menggunakan
+> [`ripgrep`](https://github.com/BurntSushi/ripgrep) sebagai pengganti `grep`
+> untuk alternatif yang lebih cepat dan lebih ramah pengguna (tetapi kurang
+> portabel). `ripgrep` juga akan mencari secara rekursif di direktori kerja
+> saat ini secara default!
 
-There are also some very useful tools with a slightly more complicated
-interface. First among those is `sed`, which is a programmatic file
-editor. It has its own programming language for making automated edits
-to files, but the most common use of it is:
+Ada juga beberapa alat yang sangat berguna dengan antarmuka yang sedikit lebih
+kompleks. Yang pertama adalah `sed`, yang merupakan editor file terprogram. Ia
+memiliki bahasa pemrograman sendiri untuk melakukan pengeditan otomatis pada
+file, tetapi penggunaan yang paling umum adalah:
 
 ```console
 missing:~$ sed -i 's/pattern/replacement/g' file
 ```
 
-This replaces all instances of `pattern` with `replacement` in `file`.
-The `-i` indicates that we want the substitutions to happen inline (as
-opposed to leaving `file` unmodified and printing the substituted
-contents). The `s/` is the way to express in the sed programming
-language that we want to do a substitution. The `/` separates the
-pattern from the replacement. And the trailing `/g` indicates that we
-want to replace _all_ occurrences on each line rather than just the
-first. As with `grep`, `pattern` here is a regular expression, which
-gives you significant expressive power. Regular expression substitutions
-also allow `replacement` to refer back to parts of the matched pattern;
-we'll see an example of that in a second.
+Ini mengganti semua kemunculan `pattern` dengan `replacement` di `file`.
+`-i` menunjukkan bahwa kita ingin substitusi terjadi secara inline (bukan
+membiarkan `file` tidak termodifikasi dan mencetak isi yang telah disubstitusi).
+`s/` adalah cara mengekspresikan dalam bahasa pemrograman sed bahwa kita ingin
+melakukan substitusi. `/` memisahkan pattern dari replacement. Dan `/g` di akhir
+menunjukkan bahwa kita ingin mengganti _semua_ kemunculan di setiap baris, bukan
+hanya yang pertama. Seperti `grep`, `pattern` di sini adalah regular expression,
+yang memberi Anda kekuatan ekspresif yang signifikan. Substitusi regular
+expression juga memungkinkan `replacement` merujuk kembali ke bagian-bagian dari
+pola yang dicocokkan; kita akan melihat contohnya sebentar lagi.
 
-Next, we have `find`, which lets you find files (recursively) that match
-certain conditions. For example:
+Selanjutnya, kita punya `find`, yang memungkinkan Anda mencari file (secara
+rekursif) yang cocok dengan kondisi tertentu. Misalnya:
 
 ```console
 missing:~$ find ~/Downloads -type f -name "*.zip" -mtime +30
 ```
 
-Finds ZIP files in the download directory that are older than 30 days.
+Mencari file ZIP di direktori unduhan yang lebih lama dari 30 hari.
 
 ```console
 missing:~$ find ~ -type f -size +100M -exec ls -lh {} \;
 ```
 
-Finds files larger than 100M in your home directory and lists them. Note
-that `-exec` takes a _command_ terminated with a stand-alone `;` (which
-we need to escape much like a space) where `{}` is replaced with each
-matching file path by `find`.
+Mencari file yang lebih besar dari 100M di direktori home Anda dan mendaftarkannya.
+Perhatikan bahwa `-exec` menerima _perintah_ yang diakhiri dengan `;` yang berdiri
+sendiri (yang perlu kita escape seperti spasi) di mana `{}` diganti dengan setiap
+path file yang cocok oleh `find`.
 
 ```console
 missing:~$ find . -name "*.py" -exec grep -l "TODO" {} \;
 ```
 
-Finds any `.py` files with TODO items in them.
+Mencari file `.py` apa pun yang memiliki item TODO di dalamnya.
 
-The syntax of `find` can be a little daunting, but hopefully this gives
-you a sense of how useful it can be!
+Sintaks `find` bisa sedikit menakutkan, tetapi semoga ini memberi Anda gambaran
+tentang betapa bergunanya alat ini!
 
-> Consider installing and using [`fd`](https://github.com/sharkdp/fd)
-> instead of `find` for a more human-friendly (but less portable!)
-> experience.
+> Pertimbangkan untuk menginstal dan menggunakan [`fd`](https://github.com/sharkdp/fd)
+> sebagai pengganti `find` untuk pengalaman yang lebih ramah pengguna (tetapi
+> kurang portabel!).
 
-Next on the docket is `awk`, which, like `sed`, has its own programming
-language. Where `sed` is built for editing files, `awk` is built for
-parsing them. By far the most common use of `awk` is for data files with
-a regular syntax (like CSV files) where you want to extract only certain
-parts of every record (i.e., line):
+Selanjutnya adalah `awk`, yang, seperti `sed`, memiliki bahasa pemrograman
+sendiri. Jika `sed` dibangun untuk mengedit file, `awk` dibangun untuk mengurai
+file. Penggunaan `awk` yang paling umum adalah untuk file data dengan sintaks
+reguler (seperti file CSV) di mana Anda hanya ingin mengekstrak bagian tertentu
+dari setiap record (yaitu, baris):
 
 ```console
 missing:~$ awk '{print $2}' file
 ```
 
-Prints the second whitespace-separated column of every line of `file`.
-If you add `-F,`, it'll print the second comma-separated column of every
-line. `awk` can do much more --- filtering rows, computing aggregates,
-and more --- see the exercises for a taste.
+Mencetak kolom kedua yang dipisahkan spasi dari setiap baris `file`. Jika Anda
+menambahkan `-F,`, ini akan mencetak kolom kedua yang dipisahkan koma dari setiap
+baris. `awk` bisa melakukan banyak hal --- memfilter baris, menghitung agregat,
+dan lainnya --- lihat latihan untuk contohnya.
 
-Putting these tools together, we can do fancy things like:
+Dengan menggabungkan alat-alat ini, kita bisa melakukan hal-hal canggih seperti:
 
 ```console
 missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
@@ -398,76 +394,75 @@ missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
 postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 ```
 
-This grabs SSH logs from a remote server (we'll talk more about `ssh` in
-the next lecture), searches for disconnect messages, extracts the
-username from each such message, and prints the top 10 usernames
-comma-separated. All in one command! We'll leave dissecting each step as
-an exercise.
+Ini mengambil log SSH dari server remote (kita akan membahas lebih lanjut tentang
+`ssh` di kuliah berikutnya), mencari pesan disconnect, mengekstrak nama pengguna
+dari setiap pesan tersebut, dan mencetak 10 nama pengguna teratas yang dipisahkan
+koma. Semua dalam satu perintah! Kita serahkan penguraian setiap langkah sebagai
+latihan.
 
-## The shell language (bash)
+## Bahasa shell (bash)
 
-The previous example introduced a new concept: pipes (`|`). These let
-you string together the output of one program with the input of another.
-This works because most command-line programs will operate on their
-"standard input" (where your keystrokes normally go) if no `file`
-argument is given. `|` takes the "standard output" (what normally gets
-printed to your terminal) of the program before the `|` and makes it be
-the standard input of the program after the `|`. This allows you to
-_compose_ shell programs, and it's part of what makes the shell such a
-productive environment to work in!
+Contoh sebelumnya memperkenalkan konsep baru: pipe (`|`). Ini memungkinkan Anda
+menghubungkan output dari satu program dengan input program lainnya. Ini berfungsi
+karena sebagian besar program baris perintah akan beroperasi pada "standard input"
+mereka (tempat ketukan keyboard Anda biasanya masuk) jika tidak ada argumen `file`
+yang diberikan. `|` mengambil "standard output" (yang biasanya dicetak ke terminal
+Anda) dari program sebelum `|` dan menjadikannya standard input dari program setelah
+`|`. Ini memungkinkan Anda _menggabungkan_ program shell, dan ini adalah bagian dari
+apa yang membuat shell menjadi lingkungan yang sangat produktif untuk bekerja!
 
-In fact, most shells implement a full programming language (like bash),
-just like Python or Ruby. It has variables, conditionals, loops, and
-functions. When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. We won't teach you all of
-bash today, but there are some bits you'll find particularly useful:
+Faktanya, sebagian besar shell mengimplementasikan bahasa pemrograman lengkap
+(sperti bash), seperti Python atau Ruby. Ia memiliki variabel, kondisional, loop,
+dan fungsi. Ketika Anda menjalankan perintah di shell, Anda sebenarnya menulis
+sedikit kode yang diinterpretasikan oleh shell Anda. Kami tidak akan mengajari
+Anda semua tentang bash hari ini, tetapi ada beberapa bagian yang akan Anda
+anggap sangat berguna:
 
-First, redirects: `>file` lets you take the standard output of a program
-and write it to `file` instead of to your terminal. This makes it easier
-to analyze after the fact. `>>file` will append to `file` rather than
-overwrite it. There's also `<file` which tells the shell to read from
-`file` instead of from your keyboard as the standard input to a program.
+Pertama, redirect: `>file` memungkinkan Anda mengambil standard output dari
+sebuah program dan menulisnya ke `file` alih-alih ke terminal Anda. Ini
+memudahkan analisis setelahnya. `>>file` akan menambahkan ke `file` alih-alih
+menimpanya. Ada juga `<file` yang menyuruh shell untuk membaca dari `file`
+alih-alih dari keyboard Anda sebagai standard input ke sebuah program.
 
-> This is a good time to mention the `tee` program. `tee` will print
-> standard input to standard output (just like `cat`!), but will _also_
-> write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
-> will preserve the full verbose log to a file while keeping your
-> terminal clean!
+> Ini saat yang tepat untuk menyebutkan program `tee`. `tee` akan mencetak
+> standard input ke standard output (seperti `cat`!), tetapi _juga_ akan
+> menulisnya ke file. Jadi `verbose cmd | tee verbose.log | grep CRITICAL`
+> akan menyimpan log verbose lengkap ke file sambil menjaga terminal Anda tetap
+> bersih!
 
-Next, conditionals: `if command1; then command2; command3; fi` will
-execute `command1`, and if it doesn't result in an error, will run
-`command2` and `command3`. You can also have an `else` branch if you
-wish. The most common command to use as `command1` is the `test`
-command, often abbreviated simply as `[`, which lets you evaluate
-conditions like "does a file exist" (`test -f file` / `[ -f file ]`) or
-"does a string equal another" (`[ "$var" = "string" ]`). In bash,
-there's also `[[ ]]`, which is a "safer" built-in version of `test` that
-has fewer odd behaviours around quoting.
+Selanjutnya, kondisional: `if command1; then command2; command3; fi` akan
+menjalankan `command1`, dan jika tidak menghasilkan error, akan menjalankan
+`command2` dan `command3`. Anda juga bisa memiliki cabang `else` jika Anda
+menginginkannya. Perintah yang paling umum digunakan sebagai `command1` adalah
+perintah `test`, sering disingkat hanya sebagai `[`, yang memungkinkan Anda
+mengevaluasi kondisi seperti "apakah file ada" (`test -f file` / `[ -f file ]`)
+atau "apakah string sama dengan yang lain" (`[ "$var" = "string" ]`). Dalam
+bash, ada juga `[[ ]]`, yang merupakan versi built-in `test` yang "lebih aman"
+dan memiliki lebih sedikit perilaku aneh seputar quoting.
 
-Bash also has two forms of loops, `while` and `for`. `while command1; do
-command2; command3; done` functions just like the equivalent `if`
-command, except that it will re-execute the whole thing over and over
-for as long as `command1` does not error. `for varname in a b c d; do
-command; done` executes `command` four times, each time with `$varname`
-set to one of `a`, `b`, `c`, and `d`. Instead of listing the items
-explicitly, you'll often use "command substitution", such as:
+Bash juga memiliki dua bentuk loop, `while` dan `for`. `while command1; do
+command2; command3; done` berfungsi persis seperti perintah `if` yang setara,
+kecuali ia akan mengeksekusi semuanya berulang-ulang selama `command1` tidak
+menghasilkan error. `for varname in a b c d; do command; done` menjalankan
+`command` empat kali, setiap kali dengan `$varname` diatur ke salah satu dari
+`a`, `b`, `c`, dan `d`. Alih-alih mendaftar item secara eksplisit, Anda sering
+akan menggunakan "command substitution", seperti:
 
 ```bash
 for i in $(seq 1 10); do
 ```
 
-This executes the command `seq 1 10` (which prints the numbers from 1 to
-10 inclusive) and then replaces the whole `$()` with that command's
-output, giving you a 10-iteration for loop. In older code you'll
-sometimes see literal backticks (like ``for i in `seq 1 10`; do``)
-instead of `$()`, but you should strongly prefer the `$()` form as it
-can be nested.
+Ini menjalankan perintah `seq 1 10` (yang mencetak angka dari 1 sampai 10
+inklusif) dan kemudian mengganti seluruh `$()` dengan output perintah tersebut,
+memberikan Anda loop for 10 iterasi. Di kode lama Anda terkadang akan melihat
+backtick literal (seperti ``for i in `seq 1 10`; do``) alih-alih `$()`, tetapi
+Anda sebaiknya lebih memilih bentuk `$()` karena bisa di-nest.
 
-While you _can_ write long shell scripts directly in your prompt, you'll
-usually want to write them into a `.sh` file instead. For example,
-here's a script that will run a program in a loop until it fails,
-printing the output only of the failed run, while stressing your CPU in
-the background (useful to reproduce flaky tests for example):
+Meskipun Anda _bisa_ menulis skrip shell panjang langsung di prompt Anda, Anda
+biasanya akan ingin menulisnya ke file `.sh` sebagai gantinya. Misalnya, berikut
+adalah skrip yang akan menjalankan program dalam loop sampai gagal, mencetak
+output hanya dari run yang gagal, sambil membebani CPU di latar belakang
+(berguna misalnya untuk mereproduksi tes yang tidak stabil):
 
 ```bash
 #!/bin/bash
@@ -496,161 +491,158 @@ tail -n 20 "$LOGFILE"
 echo "Full log: $LOGFILE"
 ```
 
-This has a number of new things in it that I recommend you spend some
-time diving into, as they're very useful in crafting useful shell
-invocations like background jobs (`&`) to run programs concurrently,
-trickier [shell
-redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html),
-and [arithmetic
+Ini memiliki beberapa hal baru yang saya sarankan Anda luangkan waktu untuk
+mempelajarinya, karena mereka sangat berguna dalam membuat pemanggilan shell
+yang berguna seperti background job (`&`) untuk menjalankan program secara
+bersamaan, [shell
+redirection](https://www.gnu.org/software/bash/manual/html_node/Redirections.html)
+yang lebih rumit, dan [arithmetic
 expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html).
 
-It's worth spending a second on the first two lines of the program
-though. The first is the "shebang" -- you'll see this at the top of
-other files than shell scripts too. When a file that starts with the
-magic incantation `#!/path` is executed, the shell will start the
-program at `/path`, and pass it the contents of the file as input. In
-the case of a shell script, this means passing the contents of the shell
-script to `/bin/bash`, but you can also write Python scripts with a
-shebang line of `/usr/bin/python`!
+Perlu diperhatikan dua baris pertama program. Yang pertama adalah "shebang" --
+Anda akan melihat ini di bagian atas file selain skrip shell juga. Ketika file
+yang dimulai dengan mantra ajaib `#!/path` dieksekusi, shell akan memulai
+program di `/path`, dan memberikan isi file sebagai input. Dalam kasus skrip
+shell, ini berarti memberikan isi skrip shell ke `/bin/bash`, tetapi Anda juga
+bisa menulis skrip Python dengan baris shebang `/usr/bin/python`!
 
-The second line is a way to make bash "stricter", and mitigate a number
-of footguns when writing shell scripts. `set` can take a whole lot of
-arguments, but briefly: `-e` makes it so that if any command fails, the
-script exits early; `-u` makes it so that use of undefined variables
-crashes the script rather than just using an empty string; and `-o
-pipefail` makes it so that if programs in a `|` sequence fail, the
-shell script as a whole also exits early.
+Baris kedua adalah cara membuat bash "lebih ketat", dan mengurangi sejumlah
+masalah umum saat menulis skrip shell. `set` bisa menerima banyak argumen,
+tetapi secara singkat: `-e` membuatnya sehingga jika perintah mana pun gagal,
+skrip keluar lebih awal; `-u` membuatnya sehingga penggunaan variabel yang tidak
+terdefinisi membuat skrip crash alih-alih hanya menggunakan string kosong; dan
+`-o pipefail` membuatnya sehingga jika program dalam urutan `|` gagal, skrip
+shell secara keseluruhan juga keluar lebih awal.
 
-> Shell programming is a deep topic, just as any programming language
-> is, but be warned: bash has an unusual number of gotchas, to the point
-> that there are [multiple](https://tldp.org/LDP/abs/html/gotchas.html)
-> websites dedicated to [listing them](https://mywiki.wooledge.org/BashPitfalls).
-> I highly recommend making heavy use of
-> [shellcheck](https://www.shellcheck.net/) when writing them. LLMs are
-> also great at writing and debugging shell scripts, as well as
-> translating them to a "real" programming language (like Python) when
-> they've grown too unwieldy for bash (100+ lines).
+> Pemrograman shell adalah topik yang dalam, seperti bahasa pemrograman apa pun,
+> tetapi perlu diingat: bash memiliki jumlah gotcha yang tidak biasa, sampai-sampai
+> ada [beberapa](https://tldp.org/LDP/abs/html/gotchas.html) situs web yang
+> didedikasikan untuk [mendaftarkannya](https://mywiki.wooledge.org/BashPitfalls).
+> Saya sangat menyarankan untuk banyak menggunakan
+> [shellcheck](https://www.shellcheck.net/) saat menulisnya. LLM juga sangat
+> bagus dalam menulis dan men-debug skrip shell, serta menerjemahkannya ke bahasa
+> pemrograman "nyata" (seperti Python) ketika sudah terlalu rumit untuk bash
+> (100+ baris).
 
-# Next steps
+# Langkah selanjutnya
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+Pada titik ini Anda sudah cukup mengenal shell untuk menyelesaikan tugas-tugas
+dasar. Anda seharusnya bisa menavigasi untuk menemukan file yang menarik dan
+menggunakan fungsionalitas dasar sebagian besar program. Di kuliah berikutnya,
+kita akan membahas cara melakukan dan mengotomatisasi tugas yang lebih kompleks
+menggunakan shell dan banyak program baris perintah yang berguna.
 
-# Exercises
+# Latihan
 
-All classes in this course are accompanied by a series of exercises.
-Some give you a specific task to do, while others are open-ended, like
-"try using X and Y programs". We highly encourage you to try them out.
+Semua kelas dalam kursus ini disertai serangkaian latihan. Beberapa memberi Anda
+tugas spesifik untuk dilakukan, sementara yang lain bersifat terbuka, seperti
+"coba gunakan program X dan Y". Kami sangat mendorong Anda untuk mencobanya.
 
-We have not written solutions for the exercises. If you are stuck on
-anything in particular, feel free to post in `#missing-semester-forum`
-on [Discord](https://ossu.dev/#community) or send us an email describing
-what you've tried so far, and we will try to help you out. These
-exercises will also likely work well as initial prompts in a
-conversation with an LLM where you can interactively dive into the
-topic. The real value in these exercises is the journey of discovering
-the answers, not the answer itself. We encourage you to follow tangents
-and ask "why" as you work through them, rather than just looking for the
-shortest path to the solution.
+Kami belum menulis solusi untuk latihan. Jika Anda terjebak pada sesuatu, jangan
+ragu untuk posting di `#missing-semester-forum` di
+[Discord](https://ossu.dev/#community) atau kirim email kepada kami yang
+menjelaskan apa yang sudah Anda coba, dan kami akan mencoba membantu Anda.
+Latihan ini juga kemungkinan besar akan berfungsi dengan baik sebagai prompt
+awal dalam percakapan dengan LLM di mana Anda bisa secara interaktif mendalami
+topiknya. Nilai nyata dari latihan ini adalah perjalanan menemukan jawaban,
+bukan jawabannya itu sendiri. Kami mendorong Anda untuk mengikuti alur yang
+berbeda dan bertanya "mengapa" saat Anda mengerjakannya, alih-alih hanya
+mencari jalan terpendek ke solusi.
 
-1. For this course, you need to be using a Unix shell like Bash or ZSH. If
-   you are on Linux or macOS, you don't have to do anything special. If you
-   are on Windows, you need to make sure you are not running cmd.exe or
-   PowerShell; you can use [Windows Subsystem for
-   Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-   machine to use Unix-style command-line tools. To make sure you're running
-   an appropriate shell, you can try the command `echo $SHELL`. If it says
-   something like `/bin/bash` or `/usr/bin/zsh`, that means you're running
-   the right program.
+1. Untuk kursus ini, Anda perlu menggunakan shell Unix seperti Bash atau ZSH. Jika
+   Anda berada di Linux atau macOS, Anda tidak perlu melakukan apa-apa. Jika Anda
+   berada di Windows, Anda perlu memastikan Anda tidak menjalankan cmd.exe atau
+   PowerShell; Anda bisa menggunakan [Windows Subsystem for
+   Linux](https://docs.microsoft.com/en-us/windows/wsl/) atau mesin virtual Linux
+   untuk menggunakan alat baris perintah bergaya Unix. Untuk memastikan Anda
+   menjalankan shell yang sesuai, Anda bisa mencoba perintah `echo $SHELL`. Jika
+   menampilkan sesuatu seperti `/bin/bash` atau `/usr/bin/zsh`, itu berarti Anda
+   menjalankan program yang benar.
 
-1. What does the `-l` flag to `ls` do? Run `ls -l /` and examine the output.
-   What do the first 10 characters of each line mean? (Hint: `man ls`)
+1. Apa yang dilakukan flag `-l` pada `ls`? Jalankan `ls -l /` dan periksa
+   outputnya. Apa arti 10 karakter pertama dari setiap baris? (Petunjuk: `man ls`)
 
-1. In the command `find ~/Downloads -type f -name "*.zip" -mtime +30`, the
-   `*.zip` is a "glob". What is a glob? Create a test directory with some
-   files and experiment with patterns like `ls *.txt`, `ls file?.txt`, and
-   `ls {a,b,c}.txt`. See [Pattern
+1. Dalam perintah `find ~/Downloads -type f -name "*.zip" -mtime +30`,
+   `*.zip` adalah "glob". Apa itu glob? Buat direktori uji dengan beberapa file
+   dan bereksperimenlah dengan pola seperti `ls *.txt`, `ls file?.txt`, dan
+   `ls {a,b,c}.txt`. Lihat [Pattern
    Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html)
-   in the Bash manual.
+   di manual Bash.
 
-1. What's the difference between `'single quotes'`, `"double quotes"`, and
-   `$'ANSI quotes'`? Write a command that echoes a string containing a
-   literal `$`, a `!`, and a newline character. See
+1. Apa perbedaan antara `'single quotes'`, `"double quotes"`, dan
+   `$'ANSI quotes'`? Tulis perintah yang meng-echo string yang mengandung
+   literal `$`, `!`, dan karakter newline. Lihat
    [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html).
 
-1. The shell has three standard streams: stdin (0), stdout (1), and stderr
-   (2). Run `ls /nonexistent /tmp` and redirect stdout to one file and
-   stderr to another. How would you redirect both to the same file? See
+1. Shell memiliki tiga stream standar: stdin (0), stdout (1), dan stderr
+   (2). Jalankan `ls /nonexistent /tmp` dan redirect stdout ke satu file dan
+   stderr ke file lainnya. Bagaimana Anda akan redirect keduanya ke file yang
+   sama? Lihat
    [Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html).
 
-1. `$?` holds the exit status of the last command (0 = success). `&&` runs
-   the next command only if the previous succeeded; `||` runs it only if
-   the previous failed. Write a one-liner that creates `/tmp/mydir` only if
-   it doesn't already exist. See [Exit
+1. `$?` menyimpan status exit dari perintah terakhir (0 = sukses). `&&` menjalankan
+   perintah berikutnya hanya jika yang sebelumnya sukses; `||` menjalankannya hanya
+   jika yang sebelumnya gagal. Tulis satu baris perintah yang membuat `/tmp/mydir`
+   hanya jika belum ada. Lihat [Exit
    Status](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html).
 
-1. Why does `cd` have to be built into the shell itself rather than a
-   standalone program? (Hint: think about what a child process can and
-   cannot affect in its parent.)
+1. Mengapa `cd` harus tertanam di dalam shell itu sendiri alih-alih menjadi program
+   terpisah? (Petunjuk: pikirkan apa yang bisa dan tidak bisa dipengaruhi oleh
+   proses anak pada induknya.)
 
-1. Write a script that takes a filename as an argument (`$1`) and checks
-   whether the file exists using `test -f` or `[ -f ... ]`. It should print
-   different messages depending on whether the file exists. See [Bash
+1. Tulis skrip yang menerima nama file sebagai argumen (`$1`) dan memeriksa
+   apakah file tersebut ada menggunakan `test -f` atau `[ -f ... ]`. Skrip harus
+   mencetak pesan berbeda tergantung pada apakah file tersebut ada. Lihat [Bash
    Conditional
    Expressions](https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html).
 
-1. Save the script from the previous exercise to a file (e.g., `check.sh`).
-   Try running it with `./check.sh somefile`. What happens? Now run
-   `chmod +x check.sh` and try again. Why is this step necessary? (Hint:
-   look at `ls -l check.sh` before and after the `chmod`.)
+1. Simpan skrip dari latihan sebelumnya ke file (misalnya, `check.sh`).
+   Coba jalankan dengan `./check.sh somefile`. Apa yang terjadi? Sekarang jalankan
+   `chmod +x check.sh` dan coba lagi. Mengapa langkah ini diperlukan? (Petunjuk:
+   lihat `ls -l check.sh` sebelum dan sesudah `chmod`.)
 
-1. What happens if you add `-x` to the `set` flags in a script? Try it with
-    a simple script and observe the output. See [The Set
+1. Apa yang terjadi jika Anda menambahkan `-x` ke flag `set` dalam skrip? Cobalah
+    dengan skrip sederhana dan amati outputnya. Lihat [The Set
     Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
-1. Write a command that copies a file to a backup with today's date in the
-    filename (e.g., `notes.txt` → `notes_2026-01-12.txt`). (Hint: `$(date
-    +%Y-%m-%d)`). See [Command
+1. Tulis perintah yang menyalin file ke cadangan dengan tanggal hari ini di nama
+    file (misalnya, `notes.txt` → `notes_2026-01-12.txt`). (Petunjuk: `$(date
+    +%Y-%m-%d)`). Lihat [Command
     Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html).
 
-1. Modify the flaky test script from the lecture to accept the test command
-    as an argument instead of hardcoding `cargo test my_test`. (Hint: `$1`
-    or `$@`). See [Special
+1. Modifikasi skrip tes tidak stabil dari kuliah untuk menerima perintah tes
+    sebagai argumen alih-alih menggunakan `cargo test my_test` secara langsung.
+    (Petunjuk: `$1` atau `$@`). Lihat [Special
     Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
 
-1. Use pipes to find the 5 most common file extensions in your home
-    directory. (Hint: combine `find`, `grep` or `sed` or `awk`, `sort`,
-    `uniq -c`, and `head`.)
+1. Gunakan pipe untuk menemukan 5 ekstensi file paling umum di direktori home
+    Anda. (Petunjuk: gabungkan `find`, `grep` atau `sed` atau `awk`, `sort`,
+    `uniq -c`, dan `head`.)
 
-1. `xargs` converts lines from stdin into command arguments. Use `find` and
-    `xargs` together (not `find -exec`) to find all `.sh` files in a
-    directory and count the lines in each with `wc -l`. Bonus: make it
-    handle filenames with spaces. (Hint: `-print0` and `-0`). See `man
+1. `xargs` mengubah baris dari stdin menjadi argumen perintah. Gunakan `find` dan
+    `xargs` bersama-sama (bukan `find -exec`) untuk mencari semua file `.sh` dalam
+    direktori dan hitung baris di masing-masing dengan `wc -l`. Bonus: buat agar
+    bisa menangani nama file dengan spasi. (Petunjuk: `-print0` dan `-0`). Lihat `man
     xargs`.
 
-1. Use `curl` to fetch the HTML of the course website
-    (`https://missing.csail.mit.edu/`) and pipe it to `grep` to count how
-    many lectures are listed. (Hint: look for a pattern that appears once
-    per lecture; use `curl -s` to silence the progress output.)
+1. Gunakan `curl` untuk mengambil HTML dari situs web kursus
+    (`https://missing.csail.mit.edu/`) dan pipe ke `grep` untuk menghitung berapa
+    banyak kuliah yang terdaftar. (Petunjuk: cari pola yang muncul sekali per
+    kuliah; gunakan `curl -s` untuk menghilangkan output progress.)
 
-1. [`jq`](https://jqlang.github.io/jq/) is a powerful tool for processing
-    JSON data. Fetch the sample data at
-    `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` with
-    `curl` and use `jq` to extract just the names of people whose version
-    is greater than 6. (Hint: pipe to `jq .` first to see the structure;
-    then try `jq '.[] | select(...) | .name'`)
+1. [`jq`](https://jqlang.github.io/jq/) adalah alat yang kuat untuk memproses
+    data JSON. Ambil data contoh di
+    `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` dengan
+    `curl` dan gunakan `jq` untuk mengekstrak hanya nama-nama orang yang
+    versinya lebih besar dari 6. (Petunjuk: pipe ke `jq .` terlebih dahulu untuk
+    melihat strukturnya; lalu coba `jq '.[] | select(...) | .name'`)
 
-1. `awk` can filter lines based on column values and manipulate output.
-    For example, `awk '$3 ~ /pattern/ {$4=""; print}'` prints only lines
-    where the third column matches `pattern`, while omitting the fourth
-    column. Write an `awk` command that prints only lines where the second
-    column is greater than 100, and swaps the first and third columns. Test
-    with: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
+1. `awk` bisa memfilter baris berdasarkan nilai kolom dan memanipulasi output.
+    Misalnya, `awk '$3 ~ /pattern/ {$4=""; print}'` mencetak hanya baris di mana
+    kolom ketiga cocok dengan `pattern`, sambil menghilangkan kolom keempat. Tulis
+    perintah `awk` yang mencetak hanya baris di mana kolom kedua lebih besar dari
+    100, dan menukar kolom pertama dan ketiga. Uji dengan: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
 
-1. Dissect the SSH log pipeline from the lecture: what does each step do?
-    Then build something similar to find your most-used shell commands from
-    `~/.bash_history` (or `~/.zsh_history`).
+1. Bedah pipeline log SSH dari kuliah: apa yang dilakukan setiap langkah?
+    Kemudian buat sesuatu yang serupa untuk menemukan perintah shell yang paling
+    sering Anda gunakan dari `~/.bash_history` (atau `~/.zsh_history`).

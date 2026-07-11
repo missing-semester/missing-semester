@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Security and Cryptography"
+title: "Keamanan dan Kriptografi"
 description: >
   Pelajari primitif kriptografi seperti hash dan key derivation functions, serta pahami bagaimana tools seperti Git dan SSH menggunakannya.
 thumbnail: /static/assets/thumbnails/2020/lec9.png
@@ -12,68 +12,35 @@ video:
 special: true
 ---
 
-Last year's [security and privacy lecture](/2019/security/) focused on how you
-can be more secure as a computer _user_. This year, we will focus on security
-and cryptography concepts that are relevant in understanding tools covered
-earlier in this class, such as the use of hash functions in Git or key
-derivation functions and symmetric/asymmetric cryptosystems in SSH.
+[Ceramah keamanan dan privasi tahun lalu](/2019/security/) berfokus pada bagaimana Anda bisa lebih aman sebagai _pengguna_ komputer. Tahun ini, kita akan berfokus pada konsep keamanan dan kriptografi yang relevan untuk memahami tools yang telah dibahas sebelumnya di kelas ini, seperti penggunaan hash functions di Git atau key derivation functions dan symmetric/asymmetric cryptosystems di SSH.
 
-This lecture is not a substitute for a more rigorous and complete course on
-computer systems security ([6.858](https://css.csail.mit.edu/6.858/)) or
-cryptography ([6.857](https://courses.csail.mit.edu/6.857/) and 6.875). Don't
-do security work without formal training in security. Unless you're an expert,
-don't [roll your own
-crypto](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html).
-The same principle applies to systems security.
+Ceramah ini bukan pengganti untuk kursus yang lebih ketat dan lengkap tentang keamanan sistem komputer ([6.858](https://css.csail.mit.edu/6.858/)) atau kriptografi ([6.857](https://courses.csail.mit.edu/6.857/) dan 6.875). Jangan melakukan pekerjaan keamanan tanpa pelatihan formal di bidang keamanan. Kecuali Anda seorang ahli, jangan [membuat kriptografi sendiri](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html). Prinsip yang sama berlaku untuk keamanan sistem.
 
-This lecture has a very informal (but we think practical) treatment of basic
-cryptography concepts. This lecture won't be enough to teach you how to
-_design_ secure systems or cryptographic protocols, but we hope it will be
-enough to give you a general understanding of the programs and protocols you
-already use.
+Ceramah ini memberikan perlakuan yang sangat informal (tetapi menurut kami praktis) terhadap konsep-konsep dasar kriptografi. Ceramah ini tidak akan cukup untuk mengajari Anda cara _merancang_ sistem yang aman atau protokol kriptografi, tetapi kami harap ini akan cukup untuk memberi Anda pemahaman umum tentang program dan protokol yang sudah Anda gunakan.
 
 # Entropy
 
-[Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) is a
-measure of randomness. This is useful, for example, when determining the
-strength of a password.
+[Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) adalah ukuran keacakan. Ini berguna, misalnya, saat menentukan kekuatan sebuah password.
 
 ![XKCD 936: Password Strength](https://imgs.xkcd.com/comics/password_strength.png)
 
-As the above [XKCD comic](https://xkcd.com/936/) illustrates, a password like
-"correcthorsebatterystaple" is more secure than one like "Tr0ub4dor&3". But how
-do you quantify something like this?
+Seperti yang diilustrasikan oleh [komik XKCD](https://xkcd.com/936/) di atas, password seperti "correcthorsebatterystaple" lebih aman daripada yang seperti "Tr0ub4dor&3". Tetapi bagaimana Anda mengukur sesuatu seperti ini?
 
-Entropy is measured in _bits_, and when selecting uniformly at random from a
-set of possible outcomes, the entropy is equal to `log_2(# of possibilities)`.
-A fair coin flip gives 1 bit of entropy. A dice roll (of a 6-sided die) has
-\~2.58 bits of entropy.
+Entropy diukur dalam _bit_, dan saat memilih secara seragam dan acak dari sekumpulan kemungkinan hasil, entropy sama dengan `log_2(# of possibilities)`. Lemparan koin yang adil menghasilkan 1 bit entropy. Lemparan dadu (dadu 6 sisi) memiliki \~2.58 bit entropy.
 
-You should consider that the attacker knows the _model_ of the password, but
-not the randomness (e.g. from [dice
-rolls](https://en.wikipedia.org/wiki/Diceware)) used to select a particular
-password.
+Anda harus menganggap bahwa penyerang mengetahui _model_ dari password tersebut, tetapi bukan keacakannya (misalnya dari [lemparan dadu](https://en.wikipedia.org/wiki/Diceware)) yang digunakan untuk memilih password tertentu.
 
-How many bits of entropy is enough? It depends on your threat model. For online
-guessing, as the XKCD comic points out, \~40 bits of entropy is pretty good. To
-be resistant to offline guessing, a stronger password would be necessary (e.g.
-80 bits, or more).
+Berapa banyak bit entropy yang cukup? Tergantung pada model ancaman Anda. Untuk penebakan online, seperti yang ditunjukkan oleh komik XKCD, \~40 bit entropy sudah cukup bagus. Untuk tahan terhadap penebakan offline, password yang lebih kuat akan diperlukan (misalnya 80 bit, atau lebih).
 
 # Hash functions
 
-A [cryptographic hash
-function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) maps data
-of arbitrary size to a fixed size, and has some special properties. A rough
-specification of a hash function is as follows:
+Sebuah [cryptographic hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) memetakan data berukuran sembarang ke ukuran yang tetap, dan memiliki beberapa properti khusus. Spesifikasi kasar dari sebuah hash function adalah sebagai berikut:
 
 ```
 hash(value: array<byte>) -> vector<byte, N>  (for some fixed N)
 ```
 
-An example of a hash function is [SHA1](https://en.wikipedia.org/wiki/SHA-1),
-which is used in Git. It maps arbitrary-sized inputs to 160-bit outputs (which
-can be represented as 40 hexadecimal characters). We can try out the SHA1 hash
-on an input using the `sha1sum` command:
+Contoh dari hash function adalah [SHA1](https://en.wikipedia.org/wiki/SHA-1), yang digunakan di Git. Ia memetakan input berukuran sembarang ke output 160-bit (yang dapat direpresentasikan sebagai 40 karakter heksadesimal). Kita bisa mencoba hash SHA1 pada sebuah input menggunakan perintah `sha1sum`:
 
 ```console
 $ printf 'hello' | sha1sum
@@ -84,71 +51,33 @@ $ printf 'Hello' | sha1sum
 f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0
 ```
 
-At a high level, a hash function can be thought of as a hard-to-invert
-random-looking (but deterministic) function (and this is the [ideal model of a
-hash function](https://en.wikipedia.org/wiki/Random_oracle)). A hash function
-has the following properties:
+Pada tingkat tinggi, sebuah hash function dapat dianggap sebagai fungsi yang sulit dibalik, terlihat acak (tetapi deterministik) (dan ini adalah [model ideal dari hash function](https://en.wikipedia.org/wiki/Random_oracle)). Sebuah hash function memiliki properti-properti berikut:
 
-- Deterministic: the same input always generates the same output.
-- Non-invertible: it is hard to find an input `m` such that `hash(m) = h` for
-some desired output `h`.
-- Target collision resistant: given an input `m_1`, it's hard to find a
-different input `m_2` such that `hash(m_1) = hash(m_2)`.
-- Collision resistant: it's hard to find two inputs `m_1` and `m_2` such that
-`hash(m_1) = hash(m_2)` (note that this is a strictly stronger property than
-target collision resistance).
+- Deterministik: input yang sama selalu menghasilkan output yang sama.
+- Non-invertible: sulit untuk menemukan sebuah input `m` sedemikian sehingga `hash(m) = h` untuk output yang diinginkan `h`.
+- Target collision resistant: diberikan sebuah input `m_1`, sulit untuk menemukan input yang berbeda `m_2` sedemikian sehingga `hash(m_1) = hash(m_2)`.
+- Collision resistant: sulit untuk menemukan dua input `m_1` dan `m_2` sedemikian sehingga `hash(m_1) = hash(m_2)` (perhatikan bahwa ini adalah properti yang secara ketat lebih kuat daripada target collision resistance).
 
-Note: while it may work for certain purposes, SHA-1 is [no
-longer](https://web.archive.org/web/20260207211148/https://shattered.io/) considered a strong cryptographic hash function.
-You might find this table of [lifetimes of cryptographic hash
-functions](https://valerieaurora.org/hash.html) interesting. However, note that
-recommending specific hash functions is beyond the scope of this lecture. If you
-are doing work where this matters, you need formal training in
-security/cryptography.
+Catatan: meskipun mungkin berfungsi untuk tujuan tertentu, SHA-1 [tidak lagi](https://web.archive.org/web/20260207211148/https://shattered.io/) dianggap sebagai cryptographic hash function yang kuat. Anda mungkin menemukan tabel [umur dari cryptographic hash functions](https://valerieaurora.org/hash.html) ini menarik. Namun, perhatikan bahwa merekomendasikan hash function tertentu berada di luar cakupan ceramah ini. Jika Anda melakukan pekerjaan di mana hal ini penting, Anda memerlukan pelatihan formal di bidang keamanan/kriptografi.
 
-## Applications
+## Aplikasi
 
-- Git, for content-addressed storage. The idea of a [hash
-function](https://en.wikipedia.org/wiki/Hash_function) is a more general
-concept (there are non-cryptographic hash functions). Why does Git use a
-cryptographic hash function?
-- A short summary of the contents of a file. Software can often be downloaded
-from (potentially less trustworthy) mirrors, e.g. Linux ISOs, and it would be
-nice to not have to trust them. The official sites usually post hashes
-alongside the download links (that point to third-party mirrors), so that the
-hash can be checked after downloading a file.
-- [Commitment schemes](https://en.wikipedia.org/wiki/Commitment_scheme).
-Suppose you want to commit to a particular value, but reveal the value itself
-later. For example, I want to do a fair coin toss "in my head", without a
-trusted shared coin that two parties can see. I could choose a value `r =
-random()`, and then share `h = sha256(r)`. Then, you could call heads or tails
-(we'll agree that even `r` means heads, and odd `r` means tails). After you
-call, I can reveal my value `r`, and you can confirm that I haven't cheated by
-checking `sha256(r)` matches the hash I shared earlier.
+- Git, untuk penyimpanan yang di-address oleh konten. Gagasan dari sebuah [hash function](https://en.wikipedia.org/wiki/Hash_function) adalah konsep yang lebih umum (ada hash functions yang non-kriptografis). Mengapa Git menggunakan cryptographic hash function?
+- Ringkasan singkat dari isi sebuah file. Perangkat lunak sering kali dapat diunduh dari mirror (yang mungkin kurang tepercaya), misalnya ISO Linux, dan akan sangat bagus jika tidak perlu mempercayai mereka. Situs-situs resmi biasanya memposting hash di samping tautan unduhan (yang menunjuk ke mirror pihak ketiga), sehingga hash dapat diperiksa setelah mengunduh sebuah file.
+- [Commitment schemes](https://en.wikipedia.org/wiki/Commitment_scheme). Misalkan Anda ingin melakukan commitment pada nilai tertentu, tetapi mengungkapkan nilai itu sendiri nanti. Misalnya, saya ingin melakukan lemparan koin yang adil "di kepala saya", tanpa koin bersama yang tepercaya yang dapat dilihat oleh dua pihak. Saya bisa memilih sebuah nilai `r = random()`, dan kemudian membagikan `h = sha256(r)`. Kemudian, Anda bisa memilih heads atau tails (kita sepakat bahwa `r` genap berarti heads, dan `r` ganjil berarti tails). Setelah Anda memilih, saya bisa mengungkapkan nilai saya `r`, dan Anda bisa memastikan bahwa saya tidak curang dengan memeriksa `sha256(r)` cocok dengan hash yang saya bagikan sebelumnya.
 
 # Key derivation functions
 
-A related concept to cryptographic hashes, [key derivation
-functions](https://en.wikipedia.org/wiki/Key_derivation_function) (KDFs) are
-used for a number of applications, including producing fixed-length output for
-use as keys in other cryptographic algorithms. Usually, KDFs are deliberately
-slow, in order to slow down offline brute-force attacks.
+Konsep yang terkait dengan cryptographic hashes, [key derivation functions](https://en.wikipedia.org/wiki/Key_derivation_function) (KDFs) digunakan untuk sejumlah aplikasi, termasuk menghasilkan output dengan panjang tetap untuk digunakan sebagai key di algoritma kriptografi lainnya. Biasanya, KDFs sengaja dibuat lambat, untuk memperlambat serangan brute-force secara offline.
 
-## Applications
+## Aplikasi
 
-- Producing keys from passphrases for use in other cryptographic algorithms
-(e.g. symmetric cryptography, see below).
-- Storing login credentials. Storing plaintext passwords is bad; the right
-approach is to generate and store a random
-[salt](https://en.wikipedia.org/wiki/Salt_(cryptography)) `salt = random()` for
-each user, store `KDF(password + salt)`, and verify login attempts by
-re-computing the KDF given the entered password and the stored salt.
+- Menghasilkan key dari passphrase untuk digunakan di algoritma kriptografi lainnya (misalnya symmetric cryptography, lihat di bawah).
+- Menyimpan kredensial login. Menyimpan password dalam plaintext sangat buruk; pendekatan yang benar adalah menghasilkan dan menyimpan [salt](https://en.wikipedia.org/wiki/Salt_(cryptography)) acak `salt = random()` untuk setiap pengguna, menyimpan `KDF(password + salt)`, dan memverifikasi upaya login dengan menghitung ulang KDF berdasarkan password yang dimasukkan dan salt yang disimpan.
 
 # Symmetric cryptography
 
-Hiding message contents is probably the first concept you think about when you
-think about cryptography. Symmetric cryptography accomplishes this with the
-following set of functionality:
+Menyembunyikan isi pesan mungkin adalah konsep pertama yang Anda pikirkan ketika memikirkan kriptografi. Symmetric cryptography mencapai ini dengan kumpulan fungsionalitas berikut:
 
 ```
 keygen() -> key  (this function is randomized)
@@ -157,26 +86,17 @@ encrypt(plaintext: array<byte>, key) -> array<byte>  (the ciphertext)
 decrypt(ciphertext: array<byte>, key) -> array<byte>  (the plaintext)
 ```
 
-The encrypt function has the property that given the output (ciphertext), it's
-hard to determine the input (plaintext) without the key. The decrypt function
-has the obvious correctness property, that `decrypt(encrypt(m, k), k) = m`.
+Fungsi encrypt memiliki properti bahwa diberikan output (ciphertext), sulit untuk menentukan input (plaintext) tanpa key. Fungsi decrypt memiliki properti kebenaran yang jelas, yaitu `decrypt(encrypt(m, k), k) = m`.
 
-An example of a symmetric cryptosystem in wide use today is
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+Contoh dari symmetric cryptosystem yang banyak digunakan saat ini adalah [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 
-## Applications
+## Aplikasi
 
-- Encrypting files for storage in an untrusted cloud service. This can be
-combined with KDFs, so you can encrypt a file with a passphrase. Generate `key
-= KDF(passphrase)`, and then store `encrypt(file, key)`.
+- Mengenkripsi file untuk penyimpanan di layanan cloud yang tidak tepercaya. Ini dapat dikombinasikan dengan KDFs, sehingga Anda dapat mengenkripsi file dengan passphrase. Hasilkan `key = KDF(passphrase)`, dan kemudian simpan `encrypt(file, key)`.
 
 # Asymmetric cryptography
 
-The term "asymmetric" refers to there being two keys, with two different roles.
-A private key, as its name implies, is meant to be kept private, while the
-public key can be publicly shared and it won't affect security (unlike sharing
-the key in a symmetric cryptosystem). Asymmetric cryptosystems provide the
-following set of functionality, to encrypt/decrypt and to sign/verify:
+Istilah "asymmetric" mengacu pada adanya dua key, dengan dua peran yang berbeda. Private key, sesuai namanya, dimaksudkan untuk dijaga kerahasiaannya, sedangkan public key dapat dibagikan secara publik dan tidak akan memengaruhi keamanan (berbeda dengan berbagi key dalam symmetric cryptosystem). Asymmetric cryptosystems menyediakan kumpulan fungsionalitas berikut, untuk mengenkripsi/dekripsi dan menandatangani/memverifikasi:
 
 ```
 keygen() -> (public key, private key)  (this function is randomized)
@@ -188,118 +108,49 @@ sign(message: array<byte>, private key) -> array<byte>  (the signature)
 verify(message: array<byte>, signature: array<byte>, public key) -> bool  (whether or not the signature is valid)
 ```
 
-The encrypt/decrypt functions have properties similar to their analogs from
-symmetric cryptosystems. A message can be encrypted using the _public_ key.
-Given the output (ciphertext), it's hard to determine the input (plaintext)
-without the _private_ key. The decrypt function has the obvious correctness
-property, that `decrypt(encrypt(m, public key), private key) = m`.
+Fungsi encrypt/decrypt memiliki properti yang mirip dengan analognya dari symmetric cryptosystems. Sebuah pesan dapat dienkripsi menggunakan _public_ key. Diberikan output (ciphertext), sulit untuk menentukan input (plaintext) tanpa _private_ key. Fungsi decrypt memiliki properti kebenaran yang jelas, yaitu `decrypt(encrypt(m, public key), private key) = m`.
 
-Symmetric and asymmetric encryption can be compared to physical locks. A
-symmetric cryptosystem is like a door lock: anyone with the key can lock and
-unlock it. Asymmetric encryption is like a padlock with a key. You could give
-the unlocked lock to someone (the public key), they could put a message in a
-box and then put the lock on, and after that, only you could open the lock
-because you kept the key (the private key).
+Symmetric dan asymmetric encryption dapat dibandingkan dengan kunci fisik. Sebuah symmetric cryptosystem seperti kunci pintu: siapa pun yang memiliki key dapat mengunci dan membukanya. Asymmetric encryption seperti gembok dengan kunci. Anda bisa memberikan gembok yang tidak terkunci kepada seseorang (public key), mereka bisa menaruh pesan di dalam kotak dan kemudian memasang gemboknya, dan setelah itu, hanya Anda yang bisa membuka gembok tersebut karena Anda menyimpan kuncinya (private key).
 
-The sign/verify functions have the same properties that you would hope physical
-signatures would have, in that it's hard to forge a signature. No matter the
-message, without the _private_ key, it's hard to produce a signature such that
-`verify(message, signature, public key)` returns true. And of course, the
-verify function has the obvious correctness property that `verify(message,
-sign(message, private key), public key) = true`.
+Fungsi sign/verify memiliki properti yang sama yang Anda harapkan dari tanda tangan fisik, yaitu sulit untuk memalsukan tanda tangan. Tidak peduli pesannya, tanpa _private_ key, sulit untuk menghasilkan tanda tangan sedemikian sehingga `verify(message, signature, public key)` mengembalikan true. Dan tentu saja, fungsi verify memiliki properti kebenaran yang jelas yaitu `verify(message, sign(message, private key), public key) = true`.
 
-## Applications
+## Aplikasi
 
-- [PGP email encryption](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
-People can have their public keys posted online (e.g. in a PGP keyserver, or on
-[Keybase](https://keybase.io/)). Anyone can send them encrypted email.
-- Private messaging. Apps like [Signal](https://signal.org/) and
-[Keybase](https://keybase.io/) use asymmetric keys to establish private
-communication channels.
-- Signing software. Git can have GPG-signed commits and tags. With a posted
-public key, anyone can verify the authenticity of downloaded software.
+- [Enkripsi email PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). Orang-orang dapat memposting public key mereka secara online (misalnya di PGP keyserver, atau di [Keybase](https://keybase.io/)). Siapa pun dapat mengirimi mereka email terenkripsi.
+- Pesan pribadi. Aplikasi seperti [Signal](https://signal.org/) dan [Keybase](https://keybase.io/) menggunakan asymmetric keys untuk mendirikan saluran komunikasi pribadi.
+- Menandatangani perangkat lunak. Git dapat memiliki commit dan tag yang ditandatangani GPG. Dengan public key yang diposting, siapa pun dapat memverifikasi keaslian perangkat lunak yang diunduh.
 
-## Key distribution
+## Distribusi key
 
-Asymmetric-key cryptography is wonderful, but it has a big challenge of
-distributing public keys / mapping public keys to real-world identities. There
-are many solutions to this problem. Signal has one simple solution: trust on
-first use, and support out-of-band public key exchange (you verify your
-friends' "safety numbers" in person). PGP has a different solution, which is
-[web of trust](https://en.wikipedia.org/wiki/Web_of_trust). Keybase has yet
-another solution of [social
-proof](https://keybase.io/blog/chat-apps-softer-than-tofu) (along with other
-neat ideas). Each model has its merits; we (the instructors) like Keybase's
-model.
+Asymmetric-key cryptography sangat luar biasa, tetapi memiliki tantangan besar dalam mendistribusikan public key / memetakan public key ke identitas dunia nyata. Ada banyak solusi untuk masalah ini. Signal memiliki satu solusi sederhana: trust on first use, dan mendukung pertukaran public key secara out-of-band (Anda memverifikasi "safety numbers" teman-teman Anda secara langsung). PGP memiliki solusi yang berbeda, yaitu [web of trust](https://en.wikipedia.org/wiki/Web_of_trust). Keybase memiliki solusi lain lagi yaitu [social proof](https://keybase.io/blog/chat-apps-softer-than-tofu) (bersama dengan ide-ide menarik lainnya). Setiap model memiliki kelebihannya masing-masing; kami (para instruktur) menyukai model Keybase.
 
-# Case studies
+# Studi kasus
 
-## Password managers
+## Password manager
 
-This is an essential tool that everyone should try to use (e.g.
-[KeePassXC](https://keepassxc.org/), [pass](https://git.zx2c4.com/password-store/about/),
-and [1Password](https://1password.com)). Password managers make it convenient to use unique,
-randomly generated high-entropy passwords for all your logins, and they save
-all your passwords in one place, encrypted with a symmetric cipher with a key
-produced from a passphrase using a KDF.
+Ini adalah tool esensial yang seharusnya dicoba digunakan oleh semua orang (misalnya [KeePassXC](https://keepassxc.org/), [pass](https://git.zx2c4.com/password-store/about/), dan [1Password](https://1password.com)). Password manager memudahkan penggunaan password yang unik, dihasilkan secara acak dengan entropy tinggi untuk semua login Anda, dan mereka menyimpan semua password Anda di satu tempat, dienkripsi dengan symmetric cipher dengan key yang dihasilkan dari passphrase menggunakan KDF.
 
-Using a password manager lets you avoid password reuse (so you're less impacted
-when websites get compromised), use high-entropy passwords (so you're less likely to
-get compromised), and only need to remember a single high-entropy password.
+Menggunakan password manager memungkinkan Anda menghindari penggunaan ulang password (sehingga Anda lebih tidak terdampak ketika situs web diretas), menggunakan password dengan entropy tinggi (sehingga Anda lebih kecil kemungkinannya untuk diretas), dan hanya perlu mengingat satu password dengan entropy tinggi.
 
-## Two-factor authentication
+## Autentikasi dua faktor
 
-[Two-factor
-authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication)
-(2FA) requires you to use a passphrase ("something you know") along with a 2FA
-authenticator (like a [YubiKey](https://www.yubico.com/), "something you have")
-in order to protect against stolen passwords and
-[phishing](https://en.wikipedia.org/wiki/Phishing) attacks.
+[Two-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication) (2FA) mengharuskan Anda menggunakan passphrase ("something you know") bersama dengan authenticator 2FA (seperti [YubiKey](https://www.yubico.com/), "something you have") untuk melindungi dari pencurian password dan serangan [phishing](https://en.wikipedia.org/wiki/Phishing).
 
-## Full disk encryption
+## Enkripsi disk penuh
 
-Keeping your laptop's entire disk encrypted is an easy way to protect your data
-in the case that your laptop is stolen. You can use [cryptsetup +
-LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system)
-on Linux,
-[BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/) on
-Windows, or [FileVault](https://support.apple.com/en-us/HT204837) on macOS.
-This encrypts the entire disk with a symmetric cipher, with a key protected by
-a passphrase.
+Menjaga seluruh disk laptop Anda terenkripsi adalah cara mudah untuk melindungi data Anda jika laptop Anda dicuri. Anda dapat menggunakan [cryptsetup + LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system) di Linux, [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/) di Windows, atau [FileVault](https://support.apple.com/en-us/HT204837) di macOS. Ini mengenkripsi seluruh disk dengan symmetric cipher, dengan key yang dilindungi oleh passphrase.
 
-## Private messaging
+## Pesan pribadi
 
-Use [Signal](https://signal.org/) or [Keybase](https://keybase.io/). End-to-end
-security is bootstrapped from asymmetric-key encryption. Obtaining your
-contacts' public keys is the critical step here. If you want good security, you
-need to authenticate public keys out-of-band (with Signal or Keybase), or trust
-social proofs (with Keybase).
+Gunakan [Signal](https://signal.org/) atau [Keybase](https://keybase.io/). Keamanan end-to-end dimulai dari asymmetric-key encryption. Mendapatkan public key kontak Anda adalah langkah kritis di sini. Jika Anda menginginkan keamanan yang baik, Anda perlu mengautentikasi public key secara out-of-band (dengan Signal atau Keybase), atau mempercayai social proofs (dengan Keybase).
 
 ## SSH
 
-We've covered the use of SSH and SSH keys in an [earlier
-lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
-aspects of this.
+Kita telah membahas penggunaan SSH dan SSH keys di [ceramah sebelumnya](/2020/command-line/#remote-machines). Mari kita lihat aspek kriptografi dari hal ini.
 
-When you run `ssh-keygen`, it generates an asymmetric key pair, `public_key,
-private_key`. This is generated randomly, using entropy provided by the
-operating system (collected from hardware events, etc.). The public key is
-stored as-is (it's public, so keeping it a secret is not important), but at
-rest, the private key should be encrypted on disk. The `ssh-keygen` program
-prompts the user for a passphrase, and this is fed through a key derivation
-function to produce a key, which is then used to encrypt the private key with a
-symmetric cipher.
+Ketika Anda menjalankan `ssh-keygen`, ia menghasilkan asymmetric key pair, `public_key, private_key`. Ini dihasilkan secara acak, menggunakan entropy yang disediakan oleh sistem operasi (dikumpulkan dari event hardware, dll.). Public key disimpan apa adanya (ini publik, jadi menjaganya tetap rahasia tidak penting), tetapi saat disimpan, private key harus dienkripsi di disk. Program `ssh-keygen` meminta passphrase kepada pengguna, dan ini dimasukkan melalui key derivation function untuk menghasilkan key, yang kemudian digunakan untuk mengenkripsi private key dengan symmetric cipher.
 
-In use, once the server knows the client's public key (stored in the
-`.ssh/authorized_keys` file), a connecting client can prove its identity using
-asymmetric signatures. This is done through
-[challenge-response](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication).
-At a high level, the server picks a random number and sends it to the client.
-The client then signs this message and sends the signature back to the server,
-which checks the signature against the public key on record. This effectively
-proves that the client is in possession of the private key corresponding to the
-public key that's in the server's `.ssh/authorized_keys` file, so the server
-can allow the client to log in.
+Dalam penggunaan, setelah server mengetahui public key klien (disimpan di file `.ssh/authorized_keys`), klien yang terhubung dapat membuktikan identitasnya menggunakan asymmetric signatures. Ini dilakukan melalui [challenge-response](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication). Pada tingkat tinggi, server memilih angka acak dan mengirimkannya ke klien. Klien kemudian menandatangani pesan ini dan mengirim tanda tangan kembali ke server, yang memeriksa tanda tangan terhadap public key yang tercatat. Ini secara efektif membuktikan bahwa klien memiliki private key yang sesuai dengan public key yang ada di file `.ssh/authorized_keys` server, sehingga server dapat mengizinkan klien untuk login.
 
 {% comment %}
 extra topics, if there's time
@@ -309,48 +160,22 @@ security concepts, tips
 - HTTPS
 {% endcomment %}
 
-# Resources
+# Sumber daya
 
-- [Last year's notes](/2019/security/): from when this lecture was more focused on security and privacy as a computer user
-- [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): answers "what crypto should I use for X?" for many common X.
+- [Catatan tahun lalu](/2019/security/): dari ketika ceramah ini lebih berfokus pada keamanan dan privasi sebagai pengguna komputer
+- [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): menjawab "kriptografi apa yang harus saya gunakan untuk X?" untuk banyak X yang umum.
 
-# Exercises
+# Latihan
 
 1. **Entropy.**
-    1. Suppose a password is chosen as a concatenation of four lower-case
-       dictionary words, where each word is selected uniformly at random from a
-       dictionary of size 100,000. An example of such a password is
-       `correcthorsebatterystaple`. How many bits of entropy does this have?
-    1. Consider an alternative scheme where a password is chosen as a sequence
-       of 8 random alphanumeric characters (including both lower-case and
-       upper-case letters). An example is `rg8Ql34g`. How many bits of entropy
-       does this have?
-    1. Which is the stronger password?
-    1. Suppose an attacker can try guessing 10,000 passwords per second. On
-       average, how long will it take to break each of the passwords?
-1. **Cryptographic hash functions.** Download a Debian image from a
-   [mirror](https://www.debian.org/CD/http-ftp/) (e.g. [from this Argentinean
-   mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)).
-   Cross-check the hash (e.g. using the `sha256sum` command) with the hash
-   retrieved from the official Debian site (e.g. [this
-   file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS)
-   hosted at `debian.org`, if you've downloaded the linked file from the
-   Argentinean mirror).
-1. **Symmetric cryptography.** Encrypt a file with AES encryption, using
-   [OpenSSL](https://www.openssl.org/): `openssl aes-256-cbc -salt -in {input
-   filename} -out {output filename}`. Look at the contents using `cat` or
-   `hexdump`. Decrypt it with `openssl aes-256-cbc -d -in {input filename} -out
-   {output filename}` and confirm that the contents match the original using
-   `cmp`.
+    1. Misalkan sebuah password dipilih sebagai gabungan dari empat kata kamus huruf kecil, di mana setiap kata dipilih secara seragam dan acak dari kamus berukuran 100.000. Contoh password seperti ini adalah `correcthorsebatterystaple`. Berapa banyak bit entropy yang dimilikinya?
+    1. Pertimbangkan skema alternatif di mana password dipilih sebagai urutan 8 karakter alfanumerik acak (termasuk huruf kecil dan huruf besar). Contohnya adalah `rg8Ql34g`. Berapa banyak bit entropy yang dimilikinya?
+    1. Mana yang merupakan password lebih kuat?
+    1. Misalkan seorang penyerang dapat mencoba menebak 10.000 password per detik. Secara rata-rata, berapa lama waktu yang dibutuhkan untuk memecahkan masing-masing password?
+1. **Cryptographic hash functions.** Unduh sebuah image Debian dari [mirror](https://www.debian.org/CD/http-ftp/) (misalnya [dari mirror Argentina ini](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)). Periksa silang hash-nya (misalnya menggunakan perintah `sha256sum`) dengan hash yang diambil dari situs resmi Debian (misalnya [file ini](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) yang di-host di `debian.org`, jika Anda telah mengunduh file yang ditautkan dari mirror Argentina).
+1. **Symmetric cryptography.** Enkripsi sebuah file dengan enkripsi AES, menggunakan [OpenSSL](https://www.openssl.org/): `openssl aes-256-cbc -salt -in {input filename} -out {output filename}`. Lihat isinya menggunakan `cat` atau `hexdump`. Dekripsi dengan `openssl aes-256-cbc -d -in {input filename} -out {output filename}` dan konfirmasi bahwa isinya cocok dengan yang asli menggunakan `cmp`.
 1. **Asymmetric cryptography.**
-    1. Set up [SSH
-       keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
-       on a computer you have access to (not Athena, because Kerberos interacts
-       weirdly with SSH keys). Make sure
-       your private key is encrypted with a passphrase, so it is protected at
-       rest.
-    1. [Set up GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
-    1. Send Anish an encrypted email ([public key](https://keybase.io/anish)).
-    1. Sign a Git commit with `git commit -S` or create a signed Git tag with
-       `git tag -s`. Verify the signature on the commit with `git show
-       --show-signature` or on the tag with `git tag -v`.
+    1. Siapkan [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) pada komputer yang Anda miliki aksesnya (bukan Athena, karena Kerberos berinteraksi secara aneh dengan SSH keys). Pastikan private key Anda dienkripsi dengan passphrase, sehingga terlindungi saat disimpan.
+    1. [Siapkan GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
+    1. Kirim email terenkripsi ke Anish ([public key](https://keybase.io/anish)).
+    1. Tandatangani sebuah Git commit dengan `git commit -S` atau buat Git tag yang ditandatangani dengan `git tag -s`. Verifikasi tanda tangan pada commit dengan `git show --show-signature` atau pada tag dengan `git tag -v`.

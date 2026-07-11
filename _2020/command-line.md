@@ -16,7 +16,7 @@ Dalam kuliah ini kita akan membahas beberapa cara untuk meningkatkan alur kerja 
 Kita juga akan mempelajari berbagai cara untuk meningkatkan shell dan alat-alat lainnya, dengan mendefinisikan alias dan mengonfigurasinya menggunakan dotfiles. Keduanya dapat membantu Anda menghemat waktu, misalnya dengan menggunakan konfigurasi yang sama di semua mesin Anda tanpa harus mengetik perintah panjang. Kita akan melihat cara bekerja dengan mesin remote menggunakan SSH.
 
 
-# Job Control
+# Kendali Tugas
 
 Dalam beberapa kasus Anda perlu menghentikan pekerjaan saat sedang berjalan, misalnya jika suatu perintah membutuhkan waktu terlalu lama untuk selesai (seperti `find` dengan struktur direktori yang sangat besar untuk dicari).
 Sebagian besar waktu, Anda bisa melakukan `Ctrl-C` dan perintah akan berhenti.
@@ -128,7 +128,7 @@ Sinyal khusus adalah `SIGKILL` karena tidak dapat ditangkap oleh proses dan akan
 Anda dapat mempelajari lebih lanjut tentang sinyal-sinyal ini dan sinyal lainnya [di sini](https://en.wikipedia.org/wiki/Signal_(IPC)) atau dengan mengetik [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) atau `kill -l`.
 
 
-# Terminal Multiplexer
+# Multiplexer Terminal
 
 Saat menggunakan command-line interface, Anda sering kali ingin menjalankan lebih dari satu hal sekaligus.
 Misalnya, Anda mungkin ingin menjalankan editor dan program Anda secara berdampingan.
@@ -366,7 +366,7 @@ Ada banyak cara untuk menyalin file melalui ssh:
 - [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) saat menyalin banyak file/direktori, perintah secure copy `scp` lebih nyaman karena dapat dengan mudah melakukan rekursi melalui path. Sintaksnya adalah `scp path/to/local_file remote_host:path/to/remote_file`
 - [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) meningkatkan `scp` dengan mendeteksi file identik di lokal dan remote, dan mencegah penyalinan ulang. Ini juga memberikan kontrol yang lebih halus atas symlink, permission, dan memiliki fitur tambahan seperti flag `--partial` yang dapat melanjutkan salinan yang sebelumnya terganggu. `rsync` memiliki sintaks yang mirip dengan `scp`.
 
-## Port Forwarding
+## Penerusan Port
 
 Dalam banyak skenario, Anda akan menemukan perangkat lunak yang mendengarkan port tertentu di mesin. Ketika ini terjadi di mesin lokal Anda, Anda dapat mengetik `localhost:PORT` atau `127.0.0.1:PORT`, tetapi apa yang Anda lakukan dengan server remote yang port-nya tidak tersedia secara langsung melalui jaringan/internet?
 
@@ -411,7 +411,7 @@ Perhatikan bahwa file `~/.ssh/config` dapat dianggap sebagai dotfile, dan secara
 
 Konfigurasi sisi server biasanya ditentukan di `/etc/ssh/sshd_config`. Di sini Anda dapat membuat perubahan seperti menonaktifkan autentikasi password, mengubah port ssh, mengaktifkan X11 forwarding, dll. Anda dapat menentukan pengaturan konfigurasi per user.
 
-## Lain-lain
+## Lainnya
 
 Masalah umum saat menghubungkan ke server remote adalah pemutusan karena komputer Anda mati, tidur, atau berpindah jaringan. Selain itu, jika seseorang memiliki koneksi dengan lag yang signifikan, menggunakan ssh bisa menjadi sangat frustrasi. [Mosh](https://mosh.org/), the mobile shell, meningkatkan ssh, memungkinkan koneksi roaming, konektivitas terputus-putus, dan menyediakan echo lokal yang cerdas.
 
@@ -442,7 +442,7 @@ Sebagai contoh, shell `zsh` adalah superset dari `bash` dan menyediakan banyak f
 
 Satu hal yang perlu diperhatikan saat menggunakan framework ini adalah mereka mungkin memperlambat shell Anda, terutama jika kode yang mereka jalankan tidak dioptimalkan dengan baik atau terlalu banyak kode. Anda selalu dapat melakukan profiling dan menonaktifkan fitur yang tidak sering Anda gunakan atau mengutamakan kecepatan.
 
-# Terminal Emulator
+# Emulator Terminal
 
 Selain mengkustomisasi shell Anda, ada baiknya meluangkan waktu untuk mencari tahu pilihan **terminal emulator** Anda dan pengaturannya. Ada banyak terminal emulator di luar sana (berikut adalah [perbandingan](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
 
@@ -457,7 +457,7 @@ Karena Anda mungkin menghabiskan ratusan hingga ribuan jam di terminal Anda, ada
 
 # Latihan
 
-## Job control
+## Kendali tugas
 
 1. Dari apa yang telah kita lihat, kita dapat menggunakan beberapa perintah `ps aux | grep` untuk mendapatkan pid pekerjaan kita dan kemudian membunuhnya, tetapi ada cara yang lebih baik. Mulai pekerjaan `sleep 10000` di terminal, pindahkan ke latar belakang dengan `Ctrl-Z` dan lanjutkan eksekusinya dengan `bg`. Sekarang gunakan [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) untuk menemukan pid-nya dan [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) untuk membunuhnya tanpa pernah mengetik pid itu sendiri. (Petunjuk: gunakan flag `-af`).
 
@@ -467,7 +467,7 @@ Salah satu cara untuk mencapainya adalah dengan menggunakan perintah [`wait`](ht
     Namun, strategi ini akan gagal jika kita mulai di sesi bash yang berbeda, karena `wait` hanya bekerja untuk proses anak. Satu fitur yang tidak kita bahas dalam catatan adalah bahwa status keluar perintah `kill` akan bernilai nol jika berhasil dan bukan nol jika gagal. `kill -0` tidak mengirim sinyal tetapi akan memberikan status keluar bukan nol jika proses tidak ada.
     Tulis fungsi bash yang disebut `pidwait` yang mengambil pid dan menunggu sampai proses yang diberikan selesai. Anda harus menggunakan `sleep` untuk menghindari penggunaan CPU secara tidak perlu.
 
-## Terminal multiplexer
+## Multiplexer terminal
 
 1. Ikuti [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) `tmux` ini dan kemudian pelajari cara melakukan beberapa kustomisasi dasar dengan mengikuti [langkah-langkah ini](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
 

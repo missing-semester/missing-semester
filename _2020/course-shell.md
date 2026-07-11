@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Course Overview + The Shell"
+title: "Ikhtisar Kursus + Shell"
 description: >
   Pelajari motivasi kelas ini, dan mulai menggunakan shell.
 thumbnail: /static/assets/thumbnails/2020/lec1.png
@@ -11,92 +11,92 @@ video:
   id: Z56Jmr9Z34Q
 ---
 
-# Motivation
+# Motivasi
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+Sebagai ilmuwan komputer, kita tahu bahwa komputer sangat handal dalam membantu
+tugas-tugas berulang. Namun, terlalu sering kita lupa bahwa hal ini juga berlaku
+untuk _penggunaan_ komputer kita, bukan hanya komputasi yang ingin program kita
+lakukan. Kita memiliki berbagai macam alat yang siap di ujung jari yang
+memungkinkan kita untuk lebih produktif dan menyelesaikan masalah yang lebih
+kompleks ketika mengerjakan masalah terkait komputer apa pun. Namun banyak dari
+kita hanya menggunakan sebagian kecil dari alat-alat tersebut; kita hanya
+menghafal beberapa mantra ajaib secukupnya untuk bertahan, dan membabi-buta
+menyalin-tempel perintah dari internet ketika kita mengalami kebuntuan.
 
-This class is an attempt to address this.
+Kelas ini adalah upaya untuk mengatasi hal tersebut.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Kami ingin mengajarkan Anda cara memaksimalkan alat yang Anda ketahui,
+memperkenalkan alat-alat baru untuk ditambahkan ke kotak perkakas Anda, dan
+mudah-mudahan menanamkan antusiasme bagi Anda untuk menjelajahi (dan mungkin
+membangun) lebih banyak alat sendiri. Inilah yang kami yakini sebagai semester
+yang hilang dari sebagian besar kurikulum Ilmu Komputer.
 
-# Class structure
+# Struktur kelas
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+Kelas ini terdiri dari 11 kuliah masing-masing 1 jam, setiap kuliah berpusat
+pada [topik tertentu](/2020/). Kuliah-kuliah ini sebagian besar saling bebas,
+namun seiring berjalannya semester kami akan berasumsi bahwa Anda sudah terbiasa
+dengan materi dari kuliah-kuliah sebelumnya. Kami memiliki catatan kuliah secara
+online, tetapi akan ada banyak materi yang dibahas di kelas (misalnya dalam
+bentuk demo) yang mungkin tidak ada di catatan. Kami akan merekam kuliah dan
+mengunggah rekamannya secara online.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
+Kami berusaha mencakup banyak hal dalam 11 kuliah masing-masing 1 jam, sehingga
+kuliah-kuliah ini cukup padat. Untuk memberi Anda waktu mengenal materi
+dengan kecepatan Anda sendiri, setiap kuliah dilengkapi serangkaian latihan yang
+membimbing Anda melalui poin-poin kunci kuliah tersebut. Setelah setiap kuliah,
+kami mengadakan jam kantor di mana kami akan hadir untuk membantu menjawab
+pertanyaan apa pun yang mungkin Anda miliki. Jika Anda mengikuti kelas ini
+secara online, Anda dapat mengirimkan pertanyaan kepada kami di
 [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+Karena waktu yang terbatas, kami tidak akan dapat mencakup semua alat dengan
+tingkat detail yang sama seperti kelas skala penuh. Jika memungkinkan, kami
+akan mencoba mengarahkan Anda ke sumber daya untuk menggali lebih dalam tentang
+suatu alat atau topik, tetapi jika ada yang menarik perhatian Anda, jangan ragu
+untuk menghubungi kami dan meminta petunjuk!
 
-# Topic 1: The Shell
+# Topik 1: Shell
 
-## What is the shell?
+## Apa itu shell?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Komputer saat ini memiliki berbagai macam antarmuka untuk memberi mereka
+perintah; antarmuka grafis yang mewah, antarmuka suara, dan bahkan AR/VR ada di
+mana-mana. Ini sangat bagus untuk 80% kasus penggunaan, tetapi seringkali
+secara mendasar terbatas dalam apa yang mereka izinkan untuk Anda lakukan — Anda
+tidak dapat menekan tombol yang tidak ada atau memberi perintah suara yang belum
+diprogram. Untuk memanfaatkan sepenuhnya alat-alat yang disediakan komputer
+Anda, kita harus kembali ke cara lama dan beralih ke antarmuka tekstual: Shell.
 
-Nearly all platforms you can get your hands on have a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Hampir semua platform yang bisa Anda gunakan memiliki shell dalam satu bentuk
+atau lainnya, dan banyak di antaranya memiliki beberapa shell untuk Anda pilih.
+Meskipun mungkin berbeda dalam detailnya, pada intinya semuanya kurang lebih
+sama: mereka memungkinkan Anda menjalankan program, memberi mereka masukan, dan
+memeriksa keluaran mereka secara semi-terstruktur.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+Dalam kuliah ini, kita akan fokus pada Bourne Again SHell, atau singkatnya
+"bash". Ini adalah salah satu shell yang paling banyak digunakan, dan sintaksnya
+mirip dengan apa yang akan Anda temui di banyak shell lainnya. Untuk membuka
+_prompt_ shell (tempat Anda bisa mengetik perintah), Anda pertama-tama
+membutuhkan sebuah _terminal_. Perangkat Anda mungkin sudah terpasang satu, atau
+Anda bisa memasangnya dengan cukup mudah.
 
-## Using the shell
+## Menggunakan shell
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Ketika Anda meluncurkan terminal, Anda akan melihat sebuah _prompt_ yang
+seringkali terlihat seperti ini:
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Ini adalah antarmuka tekstual utama ke shell. Ini memberi tahu Anda bahwa Anda
+berada di mesin `missing` dan "current working directory" Anda, atau di mana
+Anda berada saat ini, adalah `~` (singkatan dari "home"). Tanda `$` memberi
+tahu bahwa Anda bukan pengguna root (lebih lanjut tentang itu nanti). Pada
+prompt ini Anda bisa mengetik sebuah _perintah_, yang kemudian akan
+diterjemahkan oleh shell. Perintah paling dasar adalah menjalankan sebuah
+program:
 
 ```console
 missing:~$ date
@@ -104,65 +104,36 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Di sini, kita menjalankan program `date`, yang (mungkin tidak mengejutkan)
+mencetak tanggal dan waktu saat ini. Shell kemudian meminta kita perintah lain
+untuk dijalankan. Kita juga bisa menjalankan perintah dengan _argumen_:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Dalam kasus ini, kita menyuruh shell untuk menjalankan program `echo` dengan
+argumen `hello`. Program `echo` cukup mencetak keluaran argumen-argumennya.
+Shell mengurai perintah dengan memisahnya berdasarkan spasi, kemudian
+menjalankan program yang ditunjukkan oleh kata pertama, menyediakan setiap kata
+selanjutnya sebagai argumen yang bisa diakses oleh program. Jika Anda ingin
+memberikan argumen yang mengandung spasi atau karakter spesial lainnya
+(misalnya, direktori bernama "My Photos"), Anda bisa mengutip argumen tersebut
+dengan `'` atau `"` (`"My Photos"`), atau meng-escape hanya karakter yang relevan
+dengan `\` (`My\ Photos`).
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+## Menavigasi shell
 
-
-```console
-missing:~$ echo $PATH
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-missing:~$ which echo
-/bin/echo
-missing:~$ /bin/echo $PATH
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-```
-
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
-
-## Navigating in the shell
-
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Sebuah path pada shell adalah daftar direktori yang dipisahkan; dengan `/` pada
+Linux dan macOS dan `\` pada Windows. Pada Linux dan macOS, path `/` adalah
+"root" dari sistem file, di mana semua direktori dan file berada, sedangkan pada
+Windows terdapat satu root untuk setiap partisi disk (misalnya, `C:\`). Kita
+secara umum akan berasumsi bahwa Anda menggunakan sistem file Linux di kelas
+ini. Path yang dimulai dengan `/` disebut path _absolut_. Path lainnya adalah
+path _relatif_. Path relatif terhadap current working directory, yang bisa kita
+lihat dengan perintah `pwd` dan ubah dengan perintah `cd`. Dalam sebuah path,
+`.` merujuk ke direktori saat ini, dan `..` ke direktori induknya:
 
 ```console
 missing:~$ pwd
@@ -183,15 +154,16 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
+Perhatikan bahwa prompt shell kita terus memberi informasi tentang direktori
+kerja kita saat ini. Anda bisa mengonfigurasi prompt Anda untuk menampilkan
+semua sorts informasi berguna, yang akan kita bahas di kuliah berikutnya.
 
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
+Secara umum, ketika kita menjalankan sebuah program, program tersebut akan
+beroperasi di direktori saat ini kecuali kita menyuruhnya sebaliknya. Misalnya,
+program biasanya akan mencari file di sana, dan membuat file baru di sana jika
+diperlukan.
 
-To see what lives in a given directory, we use the `ls` command:
+Untuk melihat apa yang ada di direktori tertentu, kita gunakan perintah `ls`:
 
 ```console
 missing:~$ ls
@@ -208,12 +180,12 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+Kecuali direktori diberikan sebagai argumen pertamanya, `ls` akan mencetak isi
+dari direktori saat ini. Sebagian besar perintah menerima flag dan opsi (flag
+dengan nilai) yang diawali dengan `-` untuk mengubah perilakunya. Biasanya,
+menjalankan program dengan flag `-h` atau `--help` akan mencetak teks bantuan
+yang memberi tahu Anda flag dan opsi apa saja yang tersedia. Misalnya,
+`ls --help` memberi tahu kita:
 
 ```
   -l                         use a long listing format
@@ -224,45 +196,47 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+Ini memberi kita banyak informasi tambahan tentang setiap file atau direktori
+yang ada. Pertama, `d` di awal baris memberi tahu kita bahwa `missing` adalah
+sebuah direktori. Kemudian diikuti tiga kelompok berisi tiga karakter (`rwx`).
+Ini menunjukkan hak akses pemilik file (`missing`), grup pemilik (`users`), dan
+semua orang lainnya secara berturut-turut pada item yang relevan. Tanda `-`
+menunjukkan bahwa prinsipal yang diberikan tidak memiliki izin yang diberikan.
+Di atas, hanya pemilik yang diizinkan untuk memodifikasi (`w`) direktori
+`missing` (yaitu, menambah/menghapus file di dalamnya). Untuk memasuki sebuah
+direktori, pengguna harus memiliki izin "search" (direpresentasikan oleh
+"execute": `x`) pada direktori tersebut (dan induknya). Untuk menampilkan
+isinya, pengguna harus memiliki izin baca (`r`) pada direktori tersebut. Untuk
+file, izin-izin tersebut sesuai dengan yang Anda harapkan. Perhatikan bahwa
+hampir semua file di `/bin` memiliki izin `x` yang disetel untuk grup terakhir,
+"semua orang lainnya", sehingga siapa pun bisa menjalankan program-program
+tersebut.
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+Beberapa program berguna lainnya yang perlu diketahui pada titik ini adalah
+`mv` (untuk mengubah nama/memindahkan file), `cp` (untuk menyalin file), dan
+`mkdir` (untuk membuat direktori baru).
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+Jika Anda membutuhkan informasi _lebih lanjut_ tentang argumen, masukan,
+keluaran, atau cara kerja suatu program secara umum, cobalah program `man`.
+Program ini menerima argumen berupa nama program, dan menampilkan _halaman
+manual_-nya. Tekan `q` untuk keluar.
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Menghubungkan program
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Di shell, program memiliki dua "aliran" utama yang terkait dengannya: aliran
+masukan dan aliran keluaran. Ketika program mencoba membaca masukan, ia membaca
+dari aliran masukan, dan ketika mencetak sesuatu, ia mencetak ke aliran
+keluarannya. Biasanya, masukan dan keluaran program keduanya adalah terminal
+Anda. Artinya, keyboard Anda sebagai masukan dan layar Anda sebagai keluaran.
+Namun, kita juga bisa mengalihkan aliran-aliran tersebut!
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+Bentuk paling sederhana dari pengalihan adalah `< file` dan `> file`. Ini
+memungkinkan Anda mengalihkan aliran masukan dan keluaran program ke sebuah
+file masing-masingnya:
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -275,16 +249,16 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates
-files. When given file names as arguments, it prints the contents of each of
-the files in sequence to its output stream. But when `cat` is not given any
-arguments, it prints contents from its input stream to its output stream (like
-in the third example above).
+Seperti yang ditunjukkan dalam contoh di atas, `cat` adalah program yang
+menyambung`kan` file. Ketika diberi nama file sebagai argumen, ia mencetak isi
+masing-masing file secara berurutan ke aliran keluarannya. Tetapi ketika `cat`
+tidak diberi argumen apa pun, ia mencetak isi dari aliran masukannya ke aliran
+keluarannya (seperti pada contoh ketiga di atas).
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+Anda juga bisa menggunakan `>>` untuk menambahkan ke file. Di mana pengalihan
+masukan/keluaran ini benar-benar bersinar adalah dalam penggunaan _pipe_.
+Operator `|` memungkinkan Anda "merantai" program sedemikian rupa sehingga
+keluaran satu program menjadi masukan program lainnya:
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -293,36 +267,38 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+Kita akan membahas lebih detail tentang cara memanfaatkan pipe di kuliah tentang
+data wrangling.
 
-## A versatile and powerful tool
+## Alat yang serbaguna dan kuat
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
+Pada sebagian besar sistem mirip-Unix, satu pengguna bersifat spesial: pengguna
+"root". Anda mungkin telah melihatnya dalam daftar file di atas. Pengguna root
+berada di atas (hampir) semua batasan akses, dan bisa membuat, membaca,
+memperbarui, dan menghapus file apa pun di sistem. Namun Anda biasanya tidak
+akan masuk ke sistem Anda sebagai pengguna root, karena terlalu mudah untuk
+secara tidak sengaja merusak sesuatu. Sebagai gantinya, Anda akan menggunakan
+perintah `sudo`. Seperti namanya, ini memungkinkan Anda "melakukan" sesuatu
+"sebagai su" (singkatan dari "super user", atau "root"). Ketika Anda
+mendapatkan error izin ditolak, biasanya karena Anda perlu melakukan sesuatu
+sebagai root. Meskipun pastikan Anda pertama-tama memeriksa ulang bahwa Anda
+benar-benar ingin melakukannya dengan cara itu!
 
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+Salah satu hal yang mengharuskan Anda menjadi root adalah menulis ke sistem file
+`sysfs` yang di-mount di bawah `/sys`. `sysfs` menampilkan sejumlah parameter
+kernel sebagai file, sehingga Anda bisa dengan mudah mengonfigurasi ulang kernel
+secara langsung tanpa alat khusus. **Perhatikan bahwa sysfs tidak ada di Windows
+atau macOS.**
 
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
+Misalnya, kecerahan layar laptop Anda ditampilkan melalui sebuah file bernama
+`brightness` di bawah
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
+Dengan menulis nilai ke file tersebut, kita bisa mengubah kecerahan layar.
+Firasat pertama Anda mungkin melakukan sesuatu seperti:
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -333,87 +309,85 @@ An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
 
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+Error ini mungkin mengejutkan. Lagipula, kita menjalankan perintah dengan
+`sudo`! Ini adalah hal penting yang perlu diketahui tentang shell. Operasi
+seperti `|`, `>`, dan `<` dilakukan _oleh shell_, bukan oleh program individual.
+`echo` dan teman-temannya tidak "tahu" tentang `|`. Mereka hanya membaca dari
+masukan dan menulis ke keluaran mereka, apa pun itu. Dalam kasus di atas,
+_shell_ (yang diautentikasi sebagai pengguna Anda) mencoba membuka file
+brightness untuk ditulis, sebelum menjadikannya sebagai keluaran `sudo echo`,
+tetapi dicegah karena shell tidak berjalan sebagai root. Dengan pengetahuan ini,
+kita bisa mengatasinya:
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+Karena program `tee` adalah yang membuka file `/sys` untuk ditulis, dan _ia_
+berjalan sebagai `root`, semua izin berfungsi dengan benar. Anda bisa
+mengendalikan berbagai hal yang menarik dan berguna melalui `/sys`, seperti
+status berbagai LED sistem (path Anda mungkin berbeda):
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Langkah selanjutnya
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+Pada titik ini Anda sudah cukup mengenal shell untuk menyelesaikan tugas-tugas
+dasar. Anda seharusnya bisa menavigasi untuk menemukan file yang menarik dan
+menggunakan fungsionalitas dasar sebagian besar program. Di kuliah berikutnya,
+kita akan membahas tentang cara melakukan dan mengotomatisasi tugas-tugas yang
+lebih kompleks menggunakan shell dan banyak program baris perintah yang berguna.
 
-# Exercises
+# Latihan
 
-All classes in this course are accompanied by a series of exercises. Some give
-you a specific task to do, while others are open-ended, like "try using X and Y
-programs". We highly encourage you to try them out.
+Semua kelas dalam kursus ini disertai serangkaian latihan. Beberapa memberi Anda
+tugas spesifik untuk dilakukan, sementara lainnya bersifat terbuka, seperti
+"coba gunakan program X dan Y". Kami sangat mendorong Anda untuk mencobanya.
 
-We have not written solutions for the exercises. If you are stuck on anything
-in particular, feel free to send us an email describing what you've tried so
-far, and we will try to help you out.
+Kami belum menulis solusi untuk latihan-latihan ini. Jika Anda mengalami
+kebuntuan pada hal tertentu, jangan ragu untuk mengirimkan email kepada kami
+yang menjelaskan apa yang sudah Anda coba sejauh ini, dan kami akan mencoba
+membantu Anda.
 
- 1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
-    are on Linux or macOS, you don't have to do anything special. If you are on
-    Windows, you need to make sure you are not running cmd.exe or PowerShell;
-    you can use [Windows Subsystem for
-    Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-    machine to use Unix-style command-line tools. To make sure you're running
-    an appropriate shell, you can try the command `echo $SHELL`. If it says
-    something like `/bin/bash` or `/usr/bin/zsh`, that means you're running the
-    right program.
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
+ 1. Untuk kursus ini, Anda perlu menggunakan shell Unix seperti Bash atau ZSH.
+    Jika Anda menggunakan Linux atau macOS, Anda tidak perlu melakukan apa-apa
+    yang khusus. Jika Anda menggunakan Windows, Anda perlu memastikan Anda tidak
+    menjalankan cmd.exe atau PowerShell; Anda bisa menggunakan [Windows
+    Subsystem for
+    Linux](https://docs.microsoft.com/en-us/windows/wsl/) atau mesin virtual
+    Linux untuk menggunakan alat baris perintah bergaya Unix. Untuk memastikan
+    Anda menjalankan shell yang sesuai, Anda bisa mencoba perintah `echo
+    $SHELL`. Jika hasilnya sesuatu seperti `/bin/bash` atau `/usr/bin/zsh`, itu
+    berarti Anda menjalankan program yang benar.
+ 1. Buat direktori baru bernama `missing` di bawah `/tmp`.
+ 1. Cari tahu tentang program `touch`. Program `man` adalah teman Anda.
+ 1. Gunakan `touch` untuk membuat file baru bernama `semester` di `missing`.
+ 1. Tulis yang berikut ke dalam file tersebut, satu baris pada satu waktu:
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu
     ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
-    [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+    Baris pertama mungkin agak rumit untuk dibuat berfungsi. Membantu untuk
+    diketahui bahwa `#` memulai komentar di Bash, dan `!` memiliki arti khusus
+    bahkan di dalam string bertanda kutip ganda (`"`). Bash memperlakukan string
+    bertanda kutip tunggal (`'`) secara berbeda: mereka akan berhasil dalam
+    kasus ini. Lihat halaman manual [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) Bash untuk informasi lebih lanjut.
+ 1. Coba jalankan file tersebut, yaitu ketik path ke skrip (`./semester`) ke
+    dalam shell Anda dan tekan enter. Pahami mengapa tidak berhasil dengan
+    melihat keluaran `ls` (petunjuk: perhatikan bit izin file tersebut).
+ 1. Jalankan perintah dengan secara eksplisit memulai interpreter `sh`, dan
+    memberinya file `semester` sebagai argumen pertama, yaitu `sh semester`.
+    Mengapa ini berhasil, sedangkan `./semester` tidak?
+ 1. Cari tahu tentang program `chmod` (misalnya gunakan `man chmod`).
+ 1. Gunakan `chmod` untuk memungkinkan menjalankan perintah `./semester` tanpa
+    harus mengetik `sh semester`. Bagaimana shell Anda tahu bahwa file tersebut
+    seharusnya diinterpretasikan menggunakan `sh`? Lihat halaman ini tentang
+    baris [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) untuk
+    informasi lebih lanjut.
+ 1. Gunakan `|` dan `>` untuk menulis keluaran tanggal "terakhir diubah" oleh
+    `semester` ke dalam file bernama `last-modified.txt` di direktori home Anda.
+ 1. Tulis perintah yang membaca level daya baterai laptop Anda atau suhu CPU
+    mesin desktop Anda dari `/sys`. Catatan: jika Anda pengguna macOS, OS Anda
+    tidak memiliki sysfs, jadi Anda bisa melewati latihan ini.
