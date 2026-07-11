@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "2020 Lectures"
+title: "Kuliah 2020"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2020.
+  Catatan kuliah dan video untuk Missing Semester, MIT IAP 2020.
 permalink: /2020/
 phony: true
 ---
@@ -29,11 +29,11 @@ phony: true
   {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+Rekaman video kuliah tersedia [di YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
 
-# Beyond MIT
+# Di Luar MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+Kami juga telah membagikan kelas ini di luar MIT dengan harapan orang lain dapat memperoleh manfaat dari sumber daya ini. Anda dapat menemukan postingan dan diskusi di
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -55,6 +55,6 @@ Some more URLs:
 - https://twitter.com/MIT_CSAIL/status/1581313961093484545
 {% endcomment %}
 
-# Acknowledgments
+# Ucapan Terima Kasih
 
-We thank Elaine Mello, Jim Cain, and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and [MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+Kami mengucapkan terima kasih kepada Elaine Mello, Jim Cain, dan [MIT Open Learning](https://openlearning.mit.edu/) yang telah memungkinkan kami merekam video kuliah; Anthony Zolnik dan [MIT AeroAstro](https://aeroastro.mit.edu/) untuk peralatan A/V; serta Brandi Adams dan [MIT EECS](https://www.eecs.mit.edu/) yang telah mendukung kelas ini.
