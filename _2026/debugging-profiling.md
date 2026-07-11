@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "Debugging dan Profiling"
 description: >
-  Learn how to debug programs using logging and debuggers, and how to profile code for performance.
+  Pelajari cara men-debug program menggunakan logging dan debugger, serta cara melakukan profiling kode untuk performa.
 thumbnail: /static/assets/thumbnails/2026/lec4.png
 date: 2026-01-15
 ready: true
@@ -12,69 +12,68 @@ video:
   id: 8VYT9TcUmKs
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do. Bridging that gap can sometimes be a quite difficult feat. In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+Sebuah aturan emas dalam pemrograman adalah bahwa kode tidak melakukan apa yang Anda harapkan, melainkan apa yang Anda perintahkan. Menjembatani kesenjangan tersebut terkadang bisa menjadi hal yang cukup sulit. Dalam kuliah ini kita akan membahas teknik-teknik berguna untuk menangani kode yang bermasalah dan rakus sumber daya: debugging dan profiling.
 
 # Debugging
 
-## Printf Debugging and Logging
+## Printf Debugging dan Logging
 
-> "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+> "Alat debugging yang paling efektif tetaplah pemikiran yang hati-hati, dipadukan dengan pernyataan print yang ditempatkan secara bijaksana" — Brian Kernighan, _Unix for Beginners_.
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+Pendekatan pertama untuk men-debug sebuah program adalah dengan menambahkan pernyataan print di sekitar area yang terdeteksi bermasalah, lalu terus beriterasi hingga Anda berhasil mengekstrak cukup informasi untuk memahami apa yang menyebabkan masalah tersebut.
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is essentially "printing with more care", and is usually done through a logging framework that includes built-in support for things like:
+Pendekatan kedua adalah menggunakan logging dalam program Anda, alih-alih pernyataan print yang bersifat ad hoc. Logging pada dasarnya adalah "mencetak dengan lebih terarah", dan biasanya dilakukan melalui framework logging yang memiliki dukungan bawaan untuk hal-hal seperti:
 
-- the ability to direct the logs (or subsets of the logs) to other output locations;
-- setting severity levels (such as INFO, DEBUG, WARN, ERROR, etc.) and allow you to filter the output according to those; and
-- support for structured logging of data related to the log entries, which can then be extracted more easily after the fact.
+- kemampuan untuk mengarahkan log (atau subset dari log) ke lokasi output lain;
+- pengaturan level keparahan (seperti INFO, DEBUG, WARN, ERROR, dll.) dan memungkinkan Anda memfilter output berdasarkan level tersebut; dan
+- dukungan untuk logging terstruktur dari data yang terkait dengan entri log, yang kemudian dapat diekstrak lebih mudah setelahnya.
 
-Logging statements you'll also usually proactively put in while
-programming so that the data you need to debug may already be there!
-And indeed, once you've found and fixed a problem using print
-statements, it's often worthwhile to convert those prints into proper
-log statements before removing them. This way, if similar bugs occur
-in the future, you'll already have the diagnostic information you need
-without modifying the code.
+Pernyataan logging juga biasanya akan Anda proaktif tambahkan saat
+pemrograman sehingga data yang Anda butuhkan untuk debugging mungkin sudah tersedia! Dan memang, setelah Anda menemukan dan memperbaiki masalah menggunakan pernyataan
+print, seringkali bermanfaat untuk mengonversi print tersebut menjadi
+pernyataan log yang proper sebelum menghapusnya. Dengan cara ini, jika bug serupa terjadi
+di masa depan, Anda sudah memiliki informasi diagnostik yang Anda butuhkan
+tanpa perlu memodifikasi kode.
 
-> **Third-party logs**: Many programs support the `-v` or `--verbose` flag to print more information when they run. This can be useful for discovering why a given command fails. Some even allow repeating the flag for more details. When debugging issues with services (databases, web servers, etc.), check their logs—often in `/var/log/` on Linux. Use `journalctl -u <service>` to view logs for systemd services. For third-party libraries, check if they support debug logging via environment variables or configuration.
+> **Log pihak ketiga**: Banyak program mendukung flag `-v` atau `--verbose` untuk mencetak lebih banyak informasi saat dijalankan. Ini bisa berguna untuk mengetahui mengapa suatu perintah gagal. Beberapa bahkan memungkinkan pengulangan flag untuk detail lebih lanjut. Saat men-debug masalah dengan layanan (database, web server, dll.), periksa log mereka—seringkali di `/var/log/` pada Linux. Gunakan `journalctl -u <service>` untuk melihat log layanan systemd. Untuk pustaka pihak ketiga, periksa apakah mereka mendukung debug logging melalui variabel lingkungan atau konfigurasi.
 
-## Debuggers
+## Debugger
 
-Print debugging works well when you know what to print and can easily modify and re-run your code. Debuggers become valuable when you're not sure what information you need, when the bug only manifests in hard-to-reproduce conditions, or when modifying and restarting the program is expensive (long startup times, complex state to recreate, etc.).
+Print debugging bekerja dengan baik ketika Anda tahu apa yang harus dicetak dan dapat dengan mudah memodifikasi serta menjalankan ulang kode Anda. Debugger menjadi berharga ketika Anda tidak yakin informasi apa yang Anda butuhkan, ketika bug hanya muncul dalam kondisi yang sulit direproduksi, atau ketika memodifikasi dan memulai ulang program membutuhkan biaya tinggi (waktu startup yang lama, state yang kompleks untuk dibuat ulang, dll.).
 
-Debuggers are programs that let you interact with the execution of a program as it happens, allowing you to:
+Debugger adalah program yang memungkinkan Anda berinteraksi dengan eksekusi suatu program saat terjadi, memungkinkan Anda untuk:
 
-- Halt execution when it reaches a certain line.
-- Step through one instruction at a time.
-- Inspect values of variables after a crash.
-- Conditionally halt execution when a given condition is met.
-- And many more advanced features.
+- Menghentikan eksekusi ketika mencapai baris tertentu.
+- Melangkah melalui satu instruksi pada satu waktu.
+- Memeriksa nilai variabel setelah crash.
+- Menghentikan eksekusi secara kondisional ketika suatu kondisi terpenuhi.
+- Dan banyak fitur lanjutan lainnya.
 
-Most programming languages support (or come with) some form of debugger. The most versatile are **general-purpose debuggers** like [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) and [`lldb`](https://lldb.llvm.org/) (LLVM Debugger), which can debug any native binary. Many languages also have **language-specific debuggers** that integrate more tightly with the runtime (like Python's pdb or Java's jdb).
+Sebagian besar bahasa pemrograman mendukung (atau menyediakan) beberapa bentuk debugger. Yang paling serbaguna adalah **debugger serbaguna** seperti [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) dan [`lldb`](https://lldb.llvm.org/) (LLVM Debugger), yang dapat men-debug binary native apa pun. Banyak bahasa juga memiliki **debugger khusus bahasa** yang terintegrasi lebih erat dengan runtime (seperti pdb milik Python atau jdb milik Java).
 
-`gdb` is the de-facto standard debugger for C, C++, Rust, and other compiled languages. It lets you probe pretty much any process and get its current machine state: registers, stack, program counter, and more.
+`gdb` adalah debugger standar de-facto untuk C, C++, Rust, dan bahasa terkompilasi lainnya. Debugger ini memungkinkan Anda memeriksa hampir semua proses dan mendapatkan state mesin saat ini: register, stack, program counter, dan lainnya.
 
-Some useful GDB commands:
+Beberapa perintah GDB yang berguna:
 
-- `run` - Start the program
-- `b {function}` or `b {file}:{line}` - Set a breakpoint
-- `c` - Continue execution
+- `run` - Memulai program
+- `b {function}` atau `b {file}:{line}` - Mengatur breakpoint
+- `c` - Melanjutkan eksekusi
 - `step` / `next` / `finish` - Step in / step over / step out
-- `p {variable}` - Print value of variable
-- `bt` - Show backtrace (call stack)
-- `watch {expression}` - Break when the value changes
+- `p {variable}` - Mencetak nilai variabel
+- `bt` - Menampilkan backtrace (call stack)
+- `watch {expression}` - Break ketika nilai berubah
 
-> Consider using GDB's TUI mode (`gdb -tui` or press `Ctrl-x a` inside GDB) for a split-screen view showing source code alongside the command prompt.
+> Pertimbangkan untuk menggunakan mode TUI GDB (`gdb -tui` atau tekan `Ctrl-x a` di dalam GDB) untuk tampilan split-screen yang menampilkan source code di samping command prompt.
 
 ### Record-Replay Debugging
 
-Some of the most frustrating bugs are _Heisenbugs_: bugs that seem to disappear or change behavior when you try to observe them. Race conditions, timing-dependent bugs, and issues that only appear under certain system conditions fall into this category. Traditional debugging is often useless here because running the program again produces different behavior (e.g., print statements may slow down the code sufficiently that the race no longer happens).
+Beberapa bug yang paling membuat frustrasi adalah _Heisenbug_: bug yang sepertinya menghilang atau berubah perilaku ketika Anda mencoba mengamatinya. Race condition, bug yang bergantung pada timing, dan masalah yang hanya muncul di bawah kondisi sistem tertentu termasuk dalam kategori ini. Debugging tradisional seringkali tidak berguna di sini karena menjalankan program lagi menghasilkan perilaku yang berbeda (misalnya, pernyataan print mungkin memperlambat kode cukup sehingga race tidak lagi terjadi).
 
-**Record-replay debugging** solves this by recording a program's execution and allowing you to replay it deterministically as many times as you need. Even better, you can _reverse_ through the execution to find exactly where things went wrong.
+**Record-replay debugging** menyelesaikan ini dengan merekam eksekusi program dan memungkinkan Anda memutar ulangnya secara deterministik sebanyak yang Anda butuhkan. Lebih baik lagi, Anda dapat _mundur_ melalui eksekusi untuk menemukan secara tepat di mana segala sesuatunya menjadi salah.
 
-[rr](https://rr-project.org/) is a powerful tool for Linux that records program execution and allows deterministic replay with full debugging capabilities. It works with GDB, so you already know the interface.
+[rr](https://rr-project.org/) adalah alat yang powerful untuk Linux yang merekam eksekusi program dan memungkinkan replay deterministik dengan kemampuan debugging penuh. Alat ini bekerja dengan GDB, jadi Anda sudah familiar dengan antarmukanya.
 
-Basic usage:
+Penggunaan dasar:
 
 ```bash
 # Record a program execution
@@ -84,37 +83,37 @@ rr record ./my_program
 rr replay
 ```
 
-The magic happens during replay. Because the execution is deterministic, you can use **reverse debugging** commands:
+Keajaiban terjadi saat replay. Karena eksekusinya deterministik, Anda dapat menggunakan perintah **reverse debugging**:
 
-- `reverse-continue` (`rc`) - Run backwards until hitting a breakpoint
-- `reverse-step` (`rs`) - Step backwards one line
-- `reverse-next` (`rn`) - Step backwards, skipping function calls
-- `reverse-finish` - Run backwards until entering the current function
+- `reverse-continue` (`rc`) - Jalankan mundur hingga mencapai breakpoint
+- `reverse-step` (`rs`) - Mundur satu baris
+- `reverse-next` (`rn`) - Mundur, melewati function call
+- `reverse-finish` - Jalankan mundur hingga memasuki fungsi saat ini
 
-This is incredibly powerful for debugging. Say you have a crash—instead of guessing where the bug is and setting breakpoints, you can:
+Ini sangat powerful untuk debugging. Misalkan Anda memiliki crash—alih-alih menebak di mana bug berada dan mengatur breakpoint, Anda dapat:
 
-1. Run to the crash
-2. Inspect the corrupted state
-3. Set a watchpoint on the corrupted variable
-4. `reverse-continue` to find exactly where it was corrupted
+1. Jalankan hingga crash
+2. Periksa state yang rusak
+3. Atur watchpoint pada variabel yang rusak
+4. `reverse-continue` untuk menemukan secara tepat di mana kerusakan terjadi
 
-**When to use rr:**
-- Flaky tests that fail intermittently
-- Race conditions and threading bugs
-- Crashes that are hard to reproduce
-- Any bug where you wish you could "go back in time"
+**Kapan menggunakan rr:**
+- Test yang flaky yang gagal secara intermiten
+- Race condition dan bug threading
+- Crash yang sulit direproduksi
+- Bug apa pun di mana Anda berharap bisa "mundur ke masa lalu"
 
-> Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instances, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
+> Catatan: rr hanya bekerja di Linux dan memerlukan hardware performance counter. Tidak bekerja di VM yang tidak mengekspos counter ini, seperti pada sebagian besar instance AWS EC2, dan tidak mendukung akses GPU. Untuk macOS, lihat [Warpspeed](https://warpspeed.dev/).
 
-> **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
+> **rr dan konkurensi**: Karena rr merekam eksekusi secara deterministik, rr menserialisasi penjadwalan thread. Ini berarti beberapa race condition mungkin tidak muncul di bawah rr jika mereka bergantung pada timing tertentu. rr tetap berguna untuk men-debug race—setelah Anda menangkap run yang gagal, Anda dapat memutar ulangnya secara andal—tetapi Anda mungkin memerlukan beberapa kali percobaan perekaman untuk menangkap bug intermiten. Untuk bug yang tidak melibatkan konkurensi, rr bersinar paling terang: Anda selalu dapat mereproduksi eksekusi yang persis sama dan menggunakan reverse debugging untuk melacak kerusakan.
 
 ## System Call Tracing
 
-Sometimes you need to understand how your program interacts with the operating system. Programs make [system calls](https://en.wikipedia.org/wiki/System_call) to request services from the kernel—opening files, allocating memory, creating processes, and more. Tracing these calls can reveal why a program is hanging, what files it's trying to access, or where it's spending time waiting.
+Terkadang Anda perlu memahami bagaimana program Anda berinteraksi dengan sistem operasi. Program membuat [system call](https://en.wikipedia.org/wiki/System_call) untuk meminta layanan dari kernel—membuka file, mengalokasikan memori, membuat proses, dan lainnya. Melacak panggilan ini dapat mengungkap mengapa program hang, file apa yang coba diakses, atau di mana program menghabiskan waktu menunggu.
 
-### strace (Linux) and dtruss (macOS)
+### strace (Linux) dan dtruss (macOS)
 
-[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) lets you observe every system call a program makes:
+[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) memungkinkan Anda mengamati setiap system call yang dibuat oleh sebuah program:
 
 ```bash
 # Trace all system calls
@@ -133,13 +132,13 @@ strace -p <PID>
 strace -T ./my_program
 ```
 
-> On macOS and BSD, use [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (which wraps `dtrace`) for similar functionality:
+> Di macOS dan BSD, gunakan [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (yang membungkus `dtrace`) untuk fungsionalitas serupa:
 
-> For deeper dives into `strace`, check out Julia Evans' excellent [strace zine](https://jvns.ca/strace-zine-unfolded.pdf).
+> Untuk pembahasan lebih mendalam tentang `strace`, lihat [strace zine](https://jvns.ca/strace-zine-unfolded.pdf) yang luar biasa dari Julia Evans.
 
-### bpftrace and eBPF
+### bpftrace dan eBPF
 
-[eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) is a powerful Linux technology that allows running sandboxed programs in the kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) provides a high-level syntax for writing eBPF programs. These are arbitrary programs running in the kernel, and thus have huge expressive power (though also a somewhat clumsy awk-like syntax). The most common use-case for them is to investigate what system calls are being invoked, including aggregations (like counts or latency statistics) or introspecting (or even filtering on) system call arguments.
+[eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) adalah teknologi Linux yang powerful yang memungkinkan menjalankan program yang di-sandbox di dalam kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) menyediakan sintaks tingkat tinggi untuk menulis program eBPF. Ini adalah program arbitrer yang berjalan di kernel, dan dengan demikian memiliki kekuatan ekspresif yang besar (meskipun juga memiliki sintaks yang agak canggung mirip awk). Kasus penggunaan yang paling umum adalah untuk menyelidiki system call apa yang dipanggil, termasuk agregasi (seperti hitungan atau statistik latensi) atau introspeksi (atau bahkan memfilter) argumen system call.
 
 ```bash
 # Trace file opens system-wide (prints immediately)
@@ -149,9 +148,9 @@ sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm,
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
 ```
 
-However, you can also write eBPF programs directly in C using a toolchain like [`bcc`](https://github.com/iovisor/bcc), which also ships with [many handy tools](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) like `biosnoop` for printing latency distributions for disk operations or `opensnoop` for printing all open files.
+Namun, Anda juga dapat menulis program eBPF langsung dalam C menggunakan toolchain seperti [`bcc`](https://github.com/iovisor/bcc), yang juga dilengkapi dengan [banyak alat yang berguna](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) seperti `biosnoop` untuk mencetak distribusi latensi untuk operasi disk atau `opensnoop` untuk mencetak semua file yang dibuka.
 
-Where `strace` is useful because it's easy to "just get up and running", `bpftrace` is what you should reach for when you need lower overhead, want to trace through kernel functions, need to do any kind of aggregation, etc. Note that `bpftrace` has to run as `root` though, and that it generally monitors the entire kernel, not just a particular process. To target a specific program, you can filter by command name or PID:
+Jika `strace` berguna karena mudah untuk "langsung dijalankan", `bpftrace` adalah yang harus Anda gunakan ketika Anda membutuhkan overhead yang lebih rendah, ingin men-trace melalui fungsi kernel, perlu melakukan agregasi, dll. Perhatikan bahwa `bpftrace` harus dijalankan sebagai `root`, dan secara umum memonitor seluruh kernel, bukan hanya proses tertentu. Untuk menargetkan program spesifik, Anda dapat memfilter berdasarkan nama perintah atau PID:
 
 ```bash
 # Filter by command name (prints summary on Ctrl-C)
@@ -161,11 +160,11 @@ sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "bash"/ { @[probe] = 
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == cpid/ { @[probe] = count(); }' -c 'ls -la'
 ```
 
-The `-c` flag runs the specified command and sets `cpid` to its PID, which is useful for tracing a program from the moment it starts. When the traced command exits, bpftrace prints the aggregated results.
+Flag `-c` menjalankan perintah yang ditentukan dan mengatur `cpid` ke PID-nya, yang berguna untuk men-trace program sejak awal dimulai. Ketika perintah yang di-trace keluar, bpftrace mencetak hasil agregat.
 
 ### Network Debugging
 
-For network issues, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) let you capture and analyze network packets:
+Untuk masalah jaringan, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) dan [Wireshark](https://www.wireshark.org/) memungkinkan Anda menangkap dan menganalisis paket jaringan:
 
 ```bash
 # Capture packets on port 80
@@ -175,19 +174,19 @@ sudo tcpdump -i any port 80
 sudo tcpdump -i any -w capture.pcap
 ```
 
-For HTTPS traffic, the encryption makes tcpdump less useful. Tools like [mitmproxy](https://mitmproxy.org/) can act as an intercepting proxy to inspect encrypted traffic. Browser developer tools (Network tab) are often the easiest way to debug HTTPS requests from web applications—they show decrypted request/response data, headers, and timing.
+Untuk traffic HTTPS, enkripsi membuat tcpdump kurang berguna. Alat seperti [mitmproxy](https://mitmproxy.org/) dapat bertindak sebagai intercepting proxy untuk memeriksa traffic terenkripsi. Browser developer tools (tab Network) seringkali merupakan cara termudah untuk men-debug permintaan HTTPS dari aplikasi web—mereka menampilkan data request/response yang didekripsi, header, dan timing.
 
 ## Memory Debugging
 
-Memory bugs—buffer overflows, use-after-free, memory leaks—are among the most dangerous and difficult to debug. They often don't crash immediately but corrupt memory in ways that cause problems much later.
+Bug memori—buffer overflow, use-after-free, memory leak—termasuk yang paling berbahaya dan sulit untuk di-debug. Seringkali mereka tidak langsung crash tetapi merusak memori dengan cara yang menyebabkan masalah jauh di kemudian hari.
 
-### Sanitizers
+### Sanitizer
 
-One approach to finding memory bugs is to use **sanitizers**, which are compiler features that instrument your code to detect errors at runtime. For example, the widely used **AddressSanitizer (ASan)** detects:
-- Buffer overflows (stack, heap, and global)
+Salah satu pendekatan untuk menemukan bug memori adalah menggunakan **sanitizer**, yang merupakan fitur compiler yang menginstrumen kode Anda untuk mendeteksi error saat runtime. Misalnya, **AddressSanitizer (ASan)** yang banyak digunakan mendeteksi:
+- Buffer overflow (stack, heap, dan global)
 - Use-after-free
 - Use-after-return
-- Memory leaks
+- Memory leak
 
 ```bash
 # Compile with AddressSanitizer
@@ -195,66 +194,66 @@ gcc -fsanitize=address -g program.c -o program
 ./program
 ```
 
-There are a variety of useful sanitizers:
+Terdapat berbagai sanitizer yang berguna:
 
-- **ThreadSanitizer (TSan)**: Detects data races in multithreaded code (`-fsanitize=thread`)
-- **MemorySanitizer (MSan)**: Detects reads of uninitialized memory (`-fsanitize=memory`)
-- **UndefinedBehaviorSanitizer (UBSan)**: Detects undefined behavior like integer overflow (`-fsanitize=undefined`)
+- **ThreadSanitizer (TSan)**: Mendeteksi data race di kode multithreaded (`-fsanitize=thread`)
+- **MemorySanitizer (MSan)**: Mendeteksi pembacaan memori yang belum diinisialisasi (`-fsanitize=memory`)
+- **UndefinedBehaviorSanitizer (UBSan)**: Mendeteksi perilaku undefined seperti integer overflow (`-fsanitize=undefined`)
 
-Sanitizers require recompilation but are fast enough to use in CI pipelines and during regular development.
+Sanitizer memerlukan kompilasi ulang tetapi cukup cepat untuk digunakan di pipeline CI dan selama pengembangan reguler.
 
-### Valgrind: When You Can't Recompile
+### Valgrind: Ketika Anda Tidak Bisa Mengkompilasi Ulang
 
-[Valgrind](https://valgrind.org/) instead runs your program in something akin to a virtual machine to detect memory errors. It's slower than sanitizers but doesn't require recompilation:
+[Valgrind](https://valgrind.org/) sebaliknya menjalankan program Anda di semacam mesin virtual untuk mendeteksi error memori. Lebih lambat daripada sanitizer tetapi tidak memerlukan kompilasi ulang:
 
 ```bash
 valgrind --leak-check=full ./my_program
 ```
 
-Use Valgrind when:
-- You don't have source code
-- You can't recompile (third-party libraries)
-- You need specific tools not available as sanitizers
+Gunakan Valgrind ketika:
+- Anda tidak memiliki source code
+- Anda tidak bisa mengkompilasi ulang (pustaka pihak ketiga)
+- Anda membutuhkan alat spesifik yang tidak tersedia sebagai sanitizer
 
-Valgrind is actually a really powerful controlled execution environment, and we'll see more of it later when we get to profiling!
+Valgrind sebenarnya adalah lingkungan eksekusi terkontrol yang sangat powerful, dan kita akan melihat lebih banyak tentang ini nanti saat masuk ke profiling!
 
-## AI for Debugging
+## AI untuk Debugging
 
-Large language models have become surprisingly useful debugging assistants. They excel at certain debugging tasks that complement traditional tools.
+Model bahasa besar telah menjadi asisten debugging yang secara mengejutkan berguna. Mereka unggul dalam tugas-tugas debugging tertentu yang melengkapi alat tradisional.
 
-**Where LLMs shine:**
+**Di mana LLM bersinar:**
 
-- **Explaining cryptic error messages**: Compiler errors, especially from C++ templates or Rust's borrow checker, can be notoriously cryptic. LLMs can translate them into plain English and suggest fixes.
+- **Menjelaskan pesan error yang misterius**: Error compiler, terutama dari template C++ atau borrow checker Rust, bisa sangat misterius. LLM dapat menerjemahkannya ke bahasa Inggris yang sederhana dan menyarankan perbaikan.
 
-- **Traversing language and abstraction boundaries**: If you're debugging a problem that spans multiple languages (say, a bug in a C library that manifests through a Python binding), LLMs can help navigate the different layers. They're particularly good at understanding FFI boundaries, build system issues, and cross-language debugging (e.g., my program errors, but I believe it is because of a bug in one of my dependencies).
+- **Menelusuri batas bahasa dan abstraksi**: Jika Anda men-debug masalah yang mencakup beberapa bahasa (misalnya, bug di pustaka C yang muncul melalui binding Python), LLM dapat membantu menavigasi lapisan-lapisan yang berbeda. Mereka sangat baik dalam memahami batas FFI, masalah build system, dan debugging lintas bahasa (misalnya, program saya error, tetapi saya percaya itu karena bug di salah satu dependensi saya).
 
-- **Correlating symptoms with root causes**: "My program works fine but uses 10x more memory than expected" is the kind of vague symptom that LLMs can help investigate, suggesting likely causes and what to look for.
+- **Mengorelasikan gejala dengan akar penyebab**: "Program saya berjalan baik tetapi menggunakan memori 10x lebih banyak dari yang diharapkan" adalah jenis gejala samar yang dapat dibantu investigasi oleh LLM, dengan menyarankan penyebab yang mungkin dan apa yang harus dicari.
 
-- **Analyzing crash dumps and stack traces**: Paste a stack trace and ask what might have caused it.
+- **Menganalisis crash dump dan stack trace**: Tempelkan stack trace dan tanyakan apa yang mungkin menyebabkannya.
 
-> **Note on debug symbols**: For meaningful stack traces and debugging, ensure your binaries (and any linked libraries) are compiled with debug symbols (`-g` flag). Debug information is typically stored in DWARF format. Additionally, compiling with frame pointers (`-fno-omit-frame-pointer`) makes stack traces more reliable, especially for profiling tools. Without these, stack traces may show only memory addresses or be incomplete. This matters more for natively compiled programs (C++, Rust) than Python or Java.
+> **Catatan tentang debug symbol**: Untuk stack trace dan debugging yang bermakna, pastikan binary Anda (dan pustaka yang ditautkan) dikompilasi dengan debug symbol (flag `-g`). Informasi debug biasanya disimpan dalam format DWARF. Selain itu, kompilasi dengan frame pointer (`-fno-omit-frame-pointer`) membuat stack trace lebih andal, terutama untuk alat profiling. Tanpa ini, stack trace mungkin hanya menampilkan alamat memori atau tidak lengkap. Ini lebih penting untuk program yang dikompilasi secara native (C++, Rust) daripada Python atau Java.
 
-**Limitations to keep in mind:**
-- LLMs can hallucinate plausible-sounding but wrong explanations
-- They may suggest fixes that mask the bug rather than fix it
-- Always verify suggestions with actual debugging tools
-- They work best as a complement to, not replacement for, understanding your code
+**Keterbatasan yang perlu diingat:**
+- LLM dapat berhalusinasi dengan penjelasan yang terdengar masuk akal tetapi salah
+- Mereka mungkin menyarankan perbaikan yang menutupi bug alih-alih memperbaikinya
+- Selalu verifikasi saran dengan alat debugging yang sebenarnya
+- Mereka bekerja paling baik sebagai pelengkap, bukan pengganti, untuk memahami kode Anda
 
-> This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
+> Ini berbeda dari [kemampuan coding AI umum](/2026/development-environment/#ai-powered-development) yang dibahas dalam kuliah Development Environment. Di sini kita secara khusus berbicara tentang menggunakan LLM sebagai bantuan debugging.
 
 # Profiling
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+Bahkan jika kode Anda secara fungsional berperilaku seperti yang Anda harapkan, itu mungkin tidak cukup baik jika membutuhkan semua CPU atau memori Anda dalam prosesnya. Kelas algoritma sering mengajarkan notasi big _O_ tetapi tidak cara menemukan titik panas dalam program Anda. Karena [optimasi prematur adalah akar dari segala kejahatan](https://wiki.c2.com/?PrematureOptimization), Anda harus mempelajari profiler dan alat monitoring. Mereka akan membantu Anda memahami bagian mana dari program Anda yang menghabiskan sebagian besar waktu dan/atau sumber daya sehingga Anda dapat fokus mengoptimalkan bagian-bagian tersebut.
 
 ## Timing
 
-The simplest way to measure performance is to time things. In many scenarios it can be enough to just print the time it took your code between two points.
+Cara paling sederhana untuk mengukur performa adalah dengan mengukur waktu. Dalam banyak skenario, cukup dengan mencetak waktu yang dibutuhkan kode Anda antara dua titik.
 
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. The `time` command distinguishes between _Real_, _User_, and _Sys_ time:
+Namun, waktu wall clock bisa menyesatkan karena komputer Anda mungkin menjalankan proses lain pada saat yang sama atau menunggu peristiwa terjadi. Perintah `time` membedakan antara waktu _Real_, _User_, dan _Sys_:
 
-- **Real** - Wall clock time from start to finish, including time spent waiting
-- **User** - Time spent in the CPU running user code
-- **Sys** - Time spent in the CPU running kernel code
+- **Real** - Waktu wall clock dari awal hingga akhir, termasuk waktu yang dihabiskan untuk menunggu
+- **User** - Waktu yang dihabiskan di CPU untuk menjalankan kode user
+- **Sys** - Waktu yang dihabiskan di CPU untuk menjalankan kode kernel
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -263,58 +262,58 @@ user	0m0.079s
 sys	    0m0.028s
 ```
 
-Here the request took nearly 300 milliseconds (real time) but only 107ms of CPU time (user + sys). The rest was waiting for the network.
+Di sini permintaan membutuhkan hampir 300 milidetik (waktu real) tetapi hanya 107ms waktu CPU (user + sys). Sisanya adalah menunggu jaringan.
 
 ## Resource Monitoring
 
-Sometimes the first step towards analyzing the performance of your program is to understand what its actual resource consumption is. Programs often run slowly when they are resource constrained.
+Terkadang langkah pertama menuju menganalisis performa program Anda adalah memahami konsumsi sumber daya aktualnya. Program sering berjalan lambat ketika mereka dibatasi sumber dayanya.
 
-- **General Monitoring**: [`htop`](https://htop.dev/) is an improved version of `top` that presents various statistics for currently running processes. Useful keybinds: `<F6>` to sort processes, `t` to show tree hierarchy, `h` to toggle threads. There's also [`btop`](https://github.com/aristocratos/btop) which monitors _way_ more things.
+- **Monitoring Umum**: [`htop`](https://htop.dev/) adalah versi peningkatan dari `top` yang menyajikan berbagai statistik untuk proses yang sedang berjalan. Keybind yang berguna: `<F6>` untuk mengurutkan proses, `t` untuk menampilkan hierarki tree, `h` untuk menampilkan thread. Ada juga [`btop`](https://github.com/aristocratos/btop) yang memonitor _jauh_ lebih banyak hal.
 
-- **I/O Operations**: [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information.
+- **Operasi I/O**: [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) menampilkan informasi penggunaan I/O secara langsung.
 
-- **Memory Usage**: [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays total free and used memory.
+- **Penggunaan Memori**: [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) menampilkan total memori yang bebas dan yang digunakan.
 
-- **Open Files**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) lists file information about files opened by processes. Useful for checking which process has opened a specific file.
+- **File Terbuka**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) mencantumkan informasi tentang file yang dibuka oleh proses. Berguna untuk memeriksa proses mana yang telah membuka file tertentu.
 
-- **Network Connections**: [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor network connections. A common use case is figuring out what process is using a given port: `ss -tlnp | grep :8080`.
+- **Koneksi Jaringan**: [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) memungkinkan Anda memonitor koneksi jaringan. Kasus penggunaan yang umum adalah mencari tahu proses mana yang menggunakan port tertentu: `ss -tlnp | grep :8080`.
 
-- **Network Usage**: [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage per process.
+- **Penggunaan Jaringan**: [`nethogs`](https://github.com/raboof/nethogs) dan [`iftop`](https://pdw.ex-parrot.com/iftop/) adalah alat CLI interaktif yang baik untuk memonitor penggunaan jaringan per proses.
 
-## Visualizing Performance Data
+## Visualisasi Data Performa
 
-Humans spot patterns in graphs much faster than in tables of numbers. When analyzing performance, plotting your data often reveals trends, spikes, and anomalies that would be invisible in raw numbers.
+Manusia lebih cepat menemukan pola dalam grafik daripada dalam tabel angka. Saat menganalisis performa, memplot data Anda sering mengungkap tren, lonjakan, dan anomali yang tidak terlihat dalam angka mentah.
 
-**Making data plottable**: When adding print or log statements for debugging, consider formatting the output so it can be easily graphed later. A simple timestamp and value in CSV format (`1705012345,42.5`) is much easier to plot than a prose sentence. JSON-structured logs can also be parsed and plotted with minimal effort. In other words, log your data [in a tidy way](https://vita.had.co.nz/papers/tidy-data.pdf).
+**Membuat data dapat diplot**: Saat menambahkan pernyataan print atau log untuk debugging, pertimbangkan untuk memformat output sehingga dapat dengan mudah dibuat grafiknya nanti. Timestamp dan nilai sederhana dalam format CSV (`1705012345,42.5`) jauh lebih mudah diplot daripada kalimat prosa. Log terstruktur JSON juga dapat diurai dan diplot dengan usaha minimal. Dengan kata lain, log data Anda [dengan cara yang rapi](https://vita.had.co.nz/papers/tidy-data.pdf).
 
-**Quick plotting with gnuplot**: For simple command-line plotting, [`gnuplot`](http://www.gnuplot.info/) can generate graphs directly from data files:
+**Plot cepat dengan gnuplot**: Untuk plotting command-line sederhana, [`gnuplot`](http://www.gnuplot.info/) dapat menghasilkan grafik langsung dari file data:
 
 ```bash
 # Plot a simple CSV with timestamp,value
 gnuplot -e "set datafile separator ','; plot 'latency.csv' using 1:2 with lines"
 ```
 
-**Iterative exploration with matplotlib and ggplot2**: For deeper analysis, Python's [`matplotlib`](https://matplotlib.org/) and R's [`ggplot2`](https://ggplot2.tidyverse.org/) enable iterative exploration. Unlike one-off plotting, these tools let you quickly slice and transform data to investigate hypotheses. ggplot2's facet plots are particularly powerful—you can split a single dataset across multiple subplots by category (e.g., faceting request latency by endpoint or time-of-day) to tease out patterns that would otherwise be hidden.
+**Eksplorasi iteratif dengan matplotlib dan ggplot2**: Untuk analisis yang lebih mendalam, [`matplotlib`](https://matplotlib.org/) milik Python dan [`ggplot2`](https://ggplot2.tidyverse.org/) milik R memungkinkan eksplorasi iteratif. Berbeda dengan plotting sekali pakai, alat ini memungkinkan Anda dengan cepat memotong dan mentransformasi data untuk menyelidiki hipotesis. Facet plot ggplot2 sangat powerful—Anda dapat membagi satu dataset menjadi beberapa subplot berdasarkan kategori (misalnya, memfaset latensi permintaan berdasarkan endpoint atau waktu dalam sehari) untuk mengungkap pola yang jika tidak akan tersembunyi.
 
-**Example use cases:**
-- Plotting request latency over time reveals periodic slowdowns (garbage collection, cron jobs, traffic patterns) that raw percentiles obscure
-- Visualizing insert times for a growing data structure can expose algorithmic complexity issues—a plot of vector insertions will show characteristic spikes when the backing array doubles in size
-- Faceting metrics by different dimensions (request type, user cohort, server) often reveals that a "system-wide" problem is actually isolated to one category
+**Contoh kasus penggunaan:**
+- Memplot latensi permintaan dari waktu ke waktu mengungkap perlambatan periodik (garbage collection, cron job, pola traffic) yang disembunyikan oleh persentil mentah
+- Memvisualisasikan waktu insert untuk struktur data yang berkembang dapat mengungkap masalah kompleksitas algoritmik—plot insert vektor akan menunjukkan lonjakan khas ketika array pendukungnya bertambah dua kali lipat ukurannya
+- Memfaset metrik berdasarkan dimensi berbeda (jenis permintaan, kohort pengguna, server) sering mengungkap bahwa masalah "seluruh sistem" sebenarnya terisolasi pada satu kategori
 
-## CPU Profilers
+## CPU Profiler
 
-Most of the time when people refer to _profilers_ they mean _CPU profilers_. There are two main types:
+Sebagian besar waktu ketika orang merujuk ke _profiler_ mereka berarti _CPU profiler_. Ada dua jenis utama:
 
-- **Tracing profilers** keep a record of every function call your program makes
-- **Sampling profilers** probe your program periodically (commonly every millisecond) and record the program's stack
+- **Tracing profiler** menyimpan catatan dari setiap pemanggilan fungsi yang dibuat program Anda
+- **Sampling profiler** memeriksa program Anda secara berkala (biasanya setiap milidetik) dan merekam stack program
 
-Sampling profilers have lower overhead and are generally preferred for production use.
+Sampling profiler memiliki overhead yang lebih rendah dan umumnya lebih disukai untuk penggunaan produksi.
 
-### perf: the sampling profiler
+### perf: sampling profiler
 
-[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) is the standard Linux profiler. It can profile any program without recompilation:
+[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) adalah profiler Linux standar. Dapat memprofilkan program apa pun tanpa kompilasi ulang:
 
-`perf stat` gives you a quick overview of where time is spent:
+`perf stat` memberi Anda gambaran singkat tentang di mana waktu dihabiskan:
 
 ```bash
 $ perf stat ./slow_program
@@ -331,13 +330,13 @@ $ perf stat ./slow_program
        12,345,678      branch-misses             #    1.00% of all branches
 ```
 
-Profiler output for real world programs will contain large amounts of information. Humans are visual creatures and are quite terrible at reading large amounts of numbers. [Flame graphs](https://www.brendangregg.com/flamegraphs.html) are a visualization that makes profiling data much easier to understand.
+Output profiler untuk program dunia nyata akan berisi sejumlah besar informasi. Manusia adalah makhluk visual dan cukup buruk dalam membaca sejumlah besar angka. [Flame graph](https://www.brendangregg.com/flamegraphs.html) adalah visualisasi yang membuat data profiling jauh lebih mudah dipahami.
 
-A flame graph displays a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They're interactive—you can click to zoom into specific parts of the program.
+Flame graph menampilkan hierarki pemanggilan fungsi pada sumbu Y dan waktu yang dihabiskan sebanding dengan sumbu X. Mereka interaktif—Anda dapat mengklik untuk memperbesar bagian tertentu dari program.
 
 [![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-To generate a flame graph from `perf` data:
+Untuk menghasilkan flame graph dari data `perf`:
 
 ```bash
 # Record profile
@@ -347,11 +346,11 @@ perf record -g ./my_program
 perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
 ```
 
-> Consider using [Speedscope](https://www.speedscope.app/) for an interactive web-based flame graph viewer, or [Perfetto](https://perfetto.dev/) for comprehensive system-level analysis.
+> Pertimbangkan untuk menggunakan [Speedscope](https://www.speedscope.app/) untuk penampil flame graph berbasis web interaktif, atau [Perfetto](https://perfetto.dev/) untuk analisis komprehensif tingkat sistem.
 
-### Valgrind's Callgrind: the tracing profiler
+### Callgrind milik Valgrind: tracing profiler
 
-[`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) is a profiling tool that records the call history and instruction counts of your program. Unlike sampling profilers, it provides exact call counts and can show the relationship between callers and callees:
+[`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) adalah alat profiling yang merekam riwayat panggilan dan hitungan instruksi program Anda. Berbeda dengan sampling profiler, alat ini memberikan hitungan panggilan yang tepat dan dapat menunjukkan hubungan antara pemanggil dan yang dipanggil:
 
 ```bash
 # Run with callgrind
@@ -362,30 +361,30 @@ callgrind_annotate callgrind.out.<pid>
 kcachegrind callgrind.out.<pid>
 ```
 
-Callgrind is slower than sampling profilers but provides precise call counts and can optionally simulate cache behavior (with `--cache-sim=yes`) if you need that information.
+Callgrind lebih lambat daripada sampling profiler tetapi memberikan hitungan panggilan yang tepat dan secara opsional dapat mensimulasikan perilaku cache (dengan `--cache-sim=yes`) jika Anda membutuhkan informasi tersebut.
 
-> If you're using a particular language, there may be more specialized profilers. For example, Python has [`cProfile`](https://docs.python.org/3/library/profile.html) and [`py-spy`](https://github.com/benfred/py-spy), Go has [`go tool pprof`](https://pkg.go.dev/cmd/pprof), and Rust has [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) (which actually works for any compiled program!).
+> Jika Anda menggunakan bahasa tertentu, mungkin ada profiler yang lebih khusus. Misalnya, Python memiliki [`cProfile`](https://docs.python.org/3/library/profile.html) dan [`py-spy`](https://github.com/benfred/py-spy), Go memiliki [`go tool pprof`](https://pkg.go.dev/cmd/pprof), dan Rust memiliki [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) (yang sebenarnya bekerja untuk program terkompilasi apa pun!).
 
-## Memory Profilers
+## Memory Profiler
 
-Memory profilers help you understand how your program uses memory over time and find memory leaks.
+Memory profiler membantu Anda memahami bagaimana program Anda menggunakan memori dari waktu ke waktu dan menemukan memory leak.
 
-### Valgrind's Massif
+### Massif milik Valgrind
 
-[`massif`](https://valgrind.org/docs/manual/ms-manual.html) profiles heap memory usage:
+[`massif`](https://valgrind.org/docs/manual/ms-manual.html) memprofilkan penggunaan heap memory:
 
 ```bash
 valgrind --tool=massif ./my_program
 ms_print massif.out.<pid>
 ```
 
-This shows you heap usage over time, helping identify memory leaks and excessive allocation.
+Ini menampilkan penggunaan heap dari waktu ke waktu, membantu mengidentifikasi memory leak dan alokasi yang berlebihan.
 
-> For Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) provides line-by-line memory usage information.
+> Untuk Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) menyediakan informasi penggunaan memori baris per baris.
 
 ## Benchmarking
 
-When you need to compare the performance of different implementations or tools, [`hyperfine`](https://github.com/sharkdp/hyperfine) is excellent for benchmarking command-line programs:
+Ketika Anda perlu membandingkan performa dari implementasi atau alat yang berbeda, [`hyperfine`](https://github.com/sharkdp/hyperfine) sangat baik untuk benchmarking program command-line:
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -402,13 +401,13 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-> For web development, browser developer tools include excellent profilers. See the [Firefox Profiler](https://profiler.firefox.com/docs/) and [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation.
+> Untuk pengembangan web, browser developer tools menyertakan profiler yang sangat baik. Lihat dokumentasi [Firefox Profiler](https://profiler.firefox.com/docs/) dan [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
 
-# Exercises
+# Latihan
 
 ## Debugging
 
-1. **Debug a sorting algorithm**: The following pseudocode implements merge sort but contains a bug. Implement it in a language of your choice, then use a debugger (gdb, lldb, pdb, or your IDE's debugger) to find and fix the bug.
+1. **Debug algoritma sorting**: Pseudocode berikut mengimplementasikan merge sort tetapi mengandung bug. Implementasikan dalam bahasa pilihan Anda, lalu gunakan debugger (gdb, lldb, pdb, atau debugger IDE Anda) untuk menemukan dan memperbaiki bug tersebut.
 
    ```
    function merge_sort(arr):
@@ -433,9 +432,9 @@ Summary
        return result
    ```
 
-   Test vector: `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` should return `[1, 1, 2, 3, 4, 5, 6, 9]`. Use breakpoints and step through the merge function to find where the incorrect element is being selected.
+   Test vector: `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` seharusnya mengembalikan `[1, 1, 2, 3, 4, 5, 6, 9]`. Gunakan breakpoint dan telusuri fungsi merge untuk menemukan di mana elemen yang salah dipilih.
 
-1. Install [`rr`](https://rr-project.org/) and use reverse debugging to find a corruption bug. Save this program as `corruption.c`:
+1. Install [`rr`](https://rr-project.org/) dan gunakan reverse debugging untuk menemukan bug korupsi. Simpan program ini sebagai `corruption.c`:
 
    ```c
    #include <stdio.h>
@@ -486,9 +485,9 @@ Summary
    }
    ```
 
-   Compile with `gcc -g corruption.c -o corruption` and run it. Student 1's ID gets corrupted, but the corruption happens in a function that only touches student 0. Use `rr record ./corruption` and `rr replay` to find the culprit. Set a watchpoint on `students[1].id` and use `reverse-continue` after the corruption to find exactly which line of code overwrote it.
+   Kompilasi dengan `gcc -g corruption.c -o corruption` dan jalankan. ID Student 1 menjadi rusak, tetapi korupsi terjadi di fungsi yang hanya menyentuh student 0. Gunakan `rr record ./corruption` dan `rr replay` untuk menemukan pelakunya. Atur watchpoint pada `students[1].id` dan gunakan `reverse-continue` setelah korupsi untuk menemukan secara tepat baris kode mana yang menimpanya.
 
-1. Debug a memory error with AddressSanitizer. Save this as `uaf.c`:
+1. Debug error memori dengan AddressSanitizer. Simpan ini sebagai `uaf.c`:
 
    ```c
    #include <stdlib.h>
@@ -509,17 +508,17 @@ Summary
    }
    ```
 
-   First compile and run without sanitizers: `gcc uaf.c -o uaf && ./uaf`. It may appear to work. Now compile with AddressSanitizer: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Read the error report. What bug does ASan find? Fix the issue it identifies.
+   Pertama kompilasi dan jalankan tanpa sanitizer: `gcc uaf.c -o uaf && ./uaf`. Mungkin terlihat berfungsi. Sekarang kompilasi dengan AddressSanitizer: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Baca laporan error. Bug apa yang ditemukan ASan? Perbaiki masalah yang diidentifikasinya.
 
-1. Use `strace` (Linux) or `dtruss` (macOS) to trace the system calls made by a command like `ls -l`. What system calls is it making? Try tracing a more complex program and see what files it opens.
+1. Gunakan `strace` (Linux) atau `dtruss` (macOS) untuk men-trace system call yang dibuat oleh perintah seperti `ls -l`. System call apa saja yang dibuatnya? Coba trace program yang lebih kompleks dan lihat file apa yang dibukanya.
 
-1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix. Try putting some of the output from `strace` or the address sanitizer into it.
+1. Gunakan LLM untuk membantu men-debug pesan error yang misterius. Coba salin error compiler (terutama dari template C++ atau Rust) dan minta penjelasan serta perbaikan. Coba masukkan beberapa output dari `strace` atau address sanitizer ke dalamnya.
 
 ## Profiling
 
-1. Use `perf stat` to get basic performance statistics for a program of your choice. What do the different counters mean?
+1. Gunakan `perf stat` untuk mendapatkan statistik performa dasar untuk program pilihan Anda. Apa arti dari masing-masing counter?
 
-1. Profile with `perf record`. Save this as `slow.c`:
+1. Profil dengan `perf record`. Simpan ini sebagai `slow.c`:
 
    ```c
    #include <math.h>
@@ -545,10 +544,10 @@ Summary
    }
    ```
 
-   Compile with debug symbols: `gcc -g -O2 slow.c -o slow -lm`. Run `perf record -g ./slow`, then `perf report` to see where time is spent. Try generating a flame graph using the flamegraph scripts.
+   Kompilasi dengan debug symbol: `gcc -g -O2 slow.c -o slow -lm`. Jalankan `perf record -g ./slow`, lalu `perf report` untuk melihat di mana waktu dihabiskan. Coba hasilkan flame graph menggunakan skrip flamegraph.
 
-1. Use `hyperfine` to benchmark two different implementations of the same task (e.g., `find` vs `fd`, `grep` vs `ripgrep`, or two versions of your own code).
+1. Gunakan `hyperfine` untuk membenchmark dua implementasi berbeda dari tugas yang sama (misalnya, `find` vs `fd`, `grep` vs `ripgrep`, atau dua versi kode Anda sendiri).
 
-1. Use `htop` to monitor your system while running a resource-intensive program. Try using `taskset` to limit which CPUs a process can use: `taskset --cpu-list 0,2 stress -c 3`. Why doesn't `stress` use three CPUs?
+1. Gunakan `htop` untuk memonitor sistem Anda saat menjalankan program yang intensif sumber daya. Coba gunakan `taskset` untuk membatasi CPU mana yang dapat digunakan oleh suatu proses: `taskset --cpu-list 0,2 stress -c 3`. Mengapa `stress` tidak menggunakan tiga CPU?
 
-1. A common issue is that a port you want to listen on is already taken by another process. Learn how to discover that process: First execute `python -m http.server 4444` to start a minimal web server on port 4444. On a separate terminal run `ss -tlnp | grep 4444` to find the process. Terminate it with `kill <PID>`.
+1. Masalah umum adalah port yang ingin Anda gunakan untuk mendengarkan sudah diambil oleh proses lain. Pelajari cara menemukan proses tersebut: Pertama jalankan `python -m http.server 4444` untuk memulai web server minimal di port 4444. Di terminal terpisah jalankan `ss -tlnp | grep 4444` untuk menemukan prosesnya. Hentikan dengan `kill <PID>`.
