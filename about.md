@@ -1,53 +1,52 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Mengapa kami mengajarkan kelas ini"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+Dalam pendidikan Ilmu Komputer tradisional, kemungkinan besar Anda akan mengambil
+banyak kelas yang mengajarkan topik-topik lanjutan dalam ilmu komputer, mulai dari
+Sistem Operasi hingga Bahasa Pemrograman hingga Machine Learning. Namun di banyak
+institusi, ada satu topik penting yang jarang dibahas dan justru
+dibiarkan untuk dipelajari sendiri oleh para mahasiswa: literasi ekosistem komputasi.
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+Selama bertahun-tahun, kami telah membantu mengajar beberapa kelas di MIT, dan berulang kali
+kami melihat bahwa banyak mahasiswa memiliki pengetahuan terbatas tentang alat-alat yang tersedia
+untuk mereka. Komputer diciptakan untuk mengotomatisasi tugas-tugas manual, namun mahasiswa sering
+melakukan tugas-tugas berulang secara manual atau gagal memanfaatkan sepenuhnya alat-alat canggih
+seperti version control dan text editor. Dalam kasus terbaik, ini mengakibatkan
+inefisiensi dan waktu yang terbuang; dalam kasus terburuk, ini mengakibatkan masalah seperti
+kehilangan data atau ketidakmampuan menyelesaikan tugas tertentu.
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+Topik-topik ini tidak diajarkan sebagai bagian dari kurikulum universitas: mahasiswa
+tidak pernah ditunjukkan cara menggunakan alat-alat ini, atau setidaknya tidak cara menggunakannya
+secara efisien, sehingga membuang waktu dan usaha untuk tugas-tugas yang _seharusnya_ sederhana.
+Kurikulum ilmu komputer standar tidak mencakup topik-topik penting tentang ekosistem komputasi
+yang dapat membuat kehidupan mahasiswa jauh lebih mudah.
 
-# The missing semester of your CS education
+# Semester yang hilang dari pendidikan ilmu komputer Anda
 
-To help remedy this, we created a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The latest iteration of this class, with
-substantially revised material, is being run during MIT's "Independent
-Activities Period" in January 2026 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to the MIT
-community, we will provide all lecture materials along with video recordings of
-lectures to the public.
+Untuk membantu mengatasi hal ini, kami membuat kelas yang mencakup semua topik yang kami
+anggap penting untuk menjadi ilmuwan komputer dan programmer yang efektif. Kelas ini
+bersifat pragmatis dan praktis, dan memberikan pengenalan langsung terhadap
+alat-alat dan teknik yang dapat langsung Anda terapkan dalam berbagai situasi
+yang akan Anda hadapi. Iterasi terbaru kelas ini, dengan
+materi yang telah direvisi secara substansial, diadakan selama "Independent
+Activities Period" MIT pada Januari 2026 — semester satu bulan yang menampilkan kelas-kelas
+lebih pendek yang dijalankan oleh mahasiswa. Meskipun kuliah itu sendiri hanya tersedia untuk komunitas MIT,
+kami akan menyediakan semua materi kuliah beserta rekaman video
+kuliah untuk publik.
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+Jika ini terdengar menarik untuk Anda, berikut adalah beberapa contoh konkret
+tentang apa yang akan diajarkan di kelas ini:
 
 ## Command shell
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+Cara mengotomatisasi tugas-tugas umum dan berulang dengan alias, script,
+dan build system. Tidak perlu lagi copy-paste perintah dari dokumen
+teks. Tidak perlu lagi "jalankan 15 perintah ini satu per satu". Tidak
+perlu lagi "Anda lupa menjalankan ini" atau "Anda lupa memasukkan argumen ini".
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+Sebagai contoh, mencari melalui history Anda dengan cepat dapat menghemat banyak waktu. Dalam contoh di bawah kami menunjukkan beberapa trik terkait navigasi history shell Anda untuk perintah `convert`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
@@ -55,52 +54,52 @@ For example, searching through your history quickly can be a huge time saver. In
 
 ## Version control
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Cara menggunakan version control _dengan benar_, dan memanfaatkannya untuk
+menyelamatkan Anda dari bencana, berkolaborasi dengan orang lain, dan dengan cepat menemukan serta
+mengisolasi perubahan yang bermasalah. Tidak perlu lagi `rm -rf; git clone`. Tidak perlu lagi
+merge conflict (setidaknya lebih sedikit). Tidak perlu lagi blok kode besar
+yang dikomentari. Tidak perlu lagi pusing mencari apa yang merusak
+kode Anda. Tidak perlu lagi "oh tidak, apakah kita menghapus kode yang berfungsi?!". Kami bahkan
+akan mengajarkan Anda cara berkontribusi pada proyek orang lain dengan pull
+request!
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+Dalam contoh di bawah kami menggunakan `git bisect` untuk menemukan commit mana yang merusak unit test dan kemudian kami memperbaikinya dengan `git revert`.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
 ## Text editing
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Cara mengedit file secara efisien dari command-line, baik secara lokal maupun
+remote, dan memanfaatkan fitur-fitur editor yang canggih. Tidak perlu lagi
+menyalin file bolak-balik. Tidak perlu lagi mengedit file secara berulang.
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Vim macros adalah salah satu fitur terbaiknya, dalam contoh di bawah kami dengan cepat mengkonversi tabel html ke format csv menggunakan nested vim macro.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
 ## Remote machines
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+Cara tetap waras ketika bekerja dengan mesin remote menggunakan SSH keys dan
+terminal multiplexing. Tidak perlu lagi membuka banyak terminal hanya untuk
+menjalankan dua perintah sekaligus. Tidak perlu lagi mengetik password setiap kali Anda
+terhubung. Tidak perlu lagi kehilangan semuanya hanya karena Internet
+Anda terputus atau Anda harus me-reboot laptop Anda.
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
+Dalam contoh di bawah kami menggunakan `tmux` untuk menjaga sesi tetap hidup di server remote dan `mosh` untuk mendukung roaming jaringan dan diskoneksi.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Mencari file
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+Cara dengan cepat menemukan file yang Anda cari. Tidak
+perlu lagi mengklik melalui file-file di proyek Anda sampai Anda menemukan yang
+memiliki kode yang Anda inginkan.
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
+Dalam contoh di bawah kami dengan cepat mencari file dengan `fd` dan mencari cuplikan kode dengan `rg`. Kami juga dengan cepat `cd` dan `vim` file/folder terbaru/sering digunakan menggunakan `fasd`.
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
@@ -108,33 +107,31 @@ In the example below we quickly look for files with `fd` and for code snippets w
 
 ## Data wrangling
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Cara dengan cepat dan mudah memodifikasi, melihat, parse, memplot, dan menghitung
+data dan file langsung dari command-line. Tidak perlu lagi copy paste
+dari file log. Tidak perlu lagi menghitung statistik data secara manual. Tidak
+perlu lagi plotting spreadsheet.
 
-## Code quality and continuous integration
+## Kualitas kode dan continuous integration
 
-How to use autoformatting, linting, testing, and code coverage tools to improve
-code quality. No more ugly code. No more regressions. No more code that works
-on your computer but crashes on everyone else's.
+Cara menggunakan autoformatting, linting, testing, dan code coverage tools untuk meningkatkan
+kualitas kode. Tidak perlu lagi kode yang berantakan. Tidak perlu lagi regresi. Tidak perlu lagi kode yang berfungsi
+di komputer Anda tetapi crash di komputer orang lain.
 
-## Beyond the code
+## Di luar kode
 
-How to write great documentation, communicate clearly with open-source
-maintainers, submit actionable issues, and contribute pull requests that get
-merged. No more confused users who can't get started using your software. No
-more ghosting from maintainers.
+Cara menulis dokumentasi yang hebat, berkomunikasi dengan jelas dengan
+maintainer open-source, mengirimkan issue yang dapat ditindaklanjuti, dan berkontribusi pull request yang di-merge. Tidak perlu lagi pengguna yang bingung yang tidak bisa memulai menggunakan software Anda. Tidak
+perlu lagi maintainer yang menghilang.
 
-# Conclusion
+# Kesimpulan
 
-This, and more, will be covered across the 9 class lectures, each including
-exercises for you to get more familiar with the tools on your own. If you can't
-wait until January 2026, you can also take a look at the lectures from the
-[previous offering of the course](/2020/), which covers many of the same
-topics.
+Ini, dan lebih banyak lagi, akan dibahas dalam 9 kuliah, masing-masing termasuk
+latihan untuk Anda agar lebih familiar dengan alat-alat secara mandiri. Jika Anda tidak
+sabar menunggu hingga Januari 2026, Anda juga dapat melihat kuliah dari
+[penawaran kursus sebelumnya](/2020/), yang mencakup banyak topik yang sama.
 
-We hope to see you in January, whether virtually or in person!
+Kami berharap dapat melihat Anda pada bulan Januari, baik secara virtual maupun langsung!
 
 Happy hacking,<br>
-[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/)
+[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), dan [Jose](https://josejg.com/)
