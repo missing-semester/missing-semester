@@ -2,9 +2,9 @@
 layout: lecture
 title: "Metaprogramming"
 description: >
-  Learn about build systems, dependency management, testing, and continuous integration.
+  Pelajari tentang build system, manajemen dependensi, pengujian, dan continuous integration.
 thumbnail: /static/assets/thumbnails/2020/lec8.png
-details: build systems, dependency management, testing, CI
+details: build system, manajemen dependensi, pengujian, CI
 date: 2020-01-27
 ready: true
 video:
@@ -12,53 +12,51 @@ video:
   id: _Ms1Z4xfqv4
 ---
 
-What do we mean by "metaprogramming"? Well, it was the best collective
-term we could come up with for the set of things that are more about
-_process_ than they are about writing code or working more efficiently.
-In this lecture, we will look at systems for building and testing your
-code, and for managing dependencies. These may seem like they are of
-limited importance in your day-to-day as a student, but the moment you
-interact with a larger code base through an internship or once you enter
-the "real world", you will see this everywhere. We should note that
-"metaprogramming" can also mean "[programs that operate on
-programs](https://en.wikipedia.org/wiki/Metaprogramming)", whereas that
-is not quite the definition we are using for the purposes of this
-lecture.
+Apa yang kami maksud dengan "metaprogramming"? Itu adalah istilah kolektif terbaik
+yang bisa kami temukan untuk sekumpulan hal yang lebih berkaitan dengan
+_proses_ daripada menulis kode atau bekerja lebih efisien.
+Dalam kuliah ini, kita akan melihat sistem untuk membangun dan menguji
+kode Anda, serta untuk mengelola dependensi. Hal-hal ini mungkin tampak
+tidak terlalu penting dalam keseharian Anda sebagai mahasiswa, tetapi begitu
+Anda berinteraksi dengan codebase yang lebih besar melalui magang atau setelah
+Anda masuk ke "dunia nyata", Anda akan melihat ini di mana-mana. Perlu kami
+catat bahwa "metaprogramming" juga bisa berarti "[program yang menjalankan
+program](https://en.wikipedia.org/wiki/Metaprogramming)", sedangkan itu
+bukan definisi yang kami gunakan untuk keperluan kuliah ini.
 
-# Build systems
+# Build system
 
-If you write a paper in LaTeX, what are the commands you need to run to
-produce your paper? What about the ones used to run your benchmarks,
-plot them, and then insert that plot into your paper? Or to compile the
-code provided in the class you're taking and then running the tests?
+Jika Anda menulis makalah dengan LaTeX, perintah apa yang perlu Anda jalankan untuk
+menghasilkan makalah Anda? Bagaimana dengan perintah yang digunakan untuk menjalankan benchmark,
+membuat plot-nya, lalu menyisipkan plot tersebut ke makalah Anda? Atau untuk mengompilasi
+kode yang disediakan di kelas yang Anda ambil dan kemudian menjalankan tesnya?
 
-For most projects, whether they contain code or not, there is a "build
-process". Some sequence of operations you need to do to go from your
-inputs to your outputs. Often, that process might have many steps, and
-many branches. Run this to generate this plot, that to generate those
-results, and something else to produce the final paper. As with so many
-of the things we have seen in this class, you are not the first to
-encounter this annoyance, and luckily there exist many tools to help
-you!
+Untuk sebagian besar proyek, apakah mengandung kode atau tidak, terdapat "proses build".
+Suatu urutan operasi yang perlu Anda lakukan untuk pergi dari input ke output.
+Seringkali, proses tersebut mungkin memiliki banyak langkah, dan banyak cabang.
+Jalankan ini untuk menghasilkan plot ini, itu untuk menghasilkan hasil itu,
+dan sesuatu yang lain untuk menghasilkan makalah akhir. Seperti banyak hal yang
+telah kita lihat di kelas ini, Anda bukan yang pertama kali mengalami kesulitan ini,
+dan untungnya ada banyak alat yang bisa membantu Anda!
 
-These are usually called "build systems", and there are _many_ of them.
-Which one you use depends on the task at hand, your language of
-preference, and the size of the project. At their core, they are all
-very similar though. You define a number of _dependencies_, a number of
-_targets_, and _rules_ for going from one to the other. You tell the
-build system that you want a particular target, and its job is to find
-all the transitive dependencies of that target, and then apply the rules
-to produce intermediate targets all the way until the final target has
-been produced. Ideally, the build system does this without unnecessarily
-executing rules for targets whose dependencies haven't changed and where
-the result is available from a previous build.
+Ini biasanya disebut "build system", dan ada _banyak_ di antaranya.
+Yang Anda gunakan tergantung pada tugas yang ada, bahasa pemrograman
+favorit Anda, dan ukuran proyek. Pada intinya, semuanya sangat mirip.
+Anda mendefinisikan sejumlah _dependensi_, sejumlah _target_, dan _aturan_
+untuk beralih dari satu ke yang lain. Anda memberi tahu build system bahwa
+Anda menginginkan target tertentu, dan tugasnya adalah menemukan semua
+dependensi transitif dari target tersebut, lalu menerapkan aturan-aturan
+untuk menghasilkan target-target perantara sampai target akhir dihasilkan.
+Idealnya, build system melakukan ini tanpa menjalankan aturan secara
+tidak perlu untuk target-target yang dependensinya belum berubah dan
+hasilnya sudah tersedia dari build sebelumnya.
 
-`make` is one of the most common build systems out there, and you will
-usually find it installed on pretty much any UNIX-based computer. It has
-its warts, but works quite well for simple-to-moderate projects. When
-you run `make`, it consults a file called `Makefile` in the current
-directory. All the targets, their dependencies, and the rules are
-defined in that file. Let's take a look at one:
+`make` adalah salah satu build system yang paling umum, dan Anda biasanya
+akan menemukannya terinstal di hampir semua komputer berbasis UNIX.
+Ada beberapa kekurangannya, tetapi bekerja cukup baik untuk proyek sederhana
+hingga menengah. Saat Anda menjalankan `make`, ia membaca file bernama
+`Makefile` di direktori saat ini. Semua target, dependensi, dan aturan
+didefinisikan di file tersebut. Mari kita lihat salah satunya:
 
 ```make
 paper.pdf: paper.tex plot-data.png
@@ -68,29 +66,29 @@ plot-%.png: %.dat plot.py
 	./plot.py -i $*.dat -o $@
 ```
 
-Each directive in this file is a rule for how to produce the left-hand
-side using the right-hand side. Or, phrased differently, the things
-named on the right-hand side are dependencies, and the left-hand side is
-the target. The indented block is a sequence of programs to produce the
-target from those dependencies. In `make`, the first directive also
-defines the default goal. If you run `make` with no arguments, this is
-the target it will build. Alternatively, you can run something like
-`make plot-data.png`, and it will build that target instead.
+Setiap direktif dalam file ini adalah aturan untuk menghasilkan sisi kiri
+menggunakan sisi kanan. Atau, dengan kata lain, hal-hal yang disebutkan
+di sisi kanan adalah dependensi, dan sisi kiri adalah target. Blok yang
+diindentasi adalah urutan program untuk menghasilkan target dari
+dependensi-dependensi tersebut. Dalam `make`, direktif pertama juga
+mendefinisikan goal default. Jika Anda menjalankan `make` tanpa argumen,
+ini adalah target yang akan dibangun. Sebagai alternatif, Anda bisa
+menjalankan sesuatu seperti `make plot-data.png`, dan ia akan membangun
+target tersebut sebagai gantinya.
 
-The `%` in a rule is a "pattern", and will match the same string on the
-left and on the right. For example, if the target `plot-foo.png` is
-requested, `make` will look for the dependencies `foo.dat` and
-`plot.py`. Now let's look at what happens if we run `make` with an empty
-source directory.
+`%` dalam sebuah aturan adalah "pola", dan akan cocok dengan string yang
+sama di kiri dan di kanan. Misalnya, jika target `plot-foo.png` diminta,
+`make` akan mencari dependensi `foo.dat` dan `plot.py`. Sekarang mari kita
+lihat apa yang terjadi jika kita menjalankan `make` dengan direktori sumber kosong.
 
 ```console
 $ make
 make: *** No rule to make target 'paper.tex', needed by 'paper.pdf'.  Stop.
 ```
 
-`make` is helpfully telling us that in order to build `paper.pdf`, it
-needs `paper.tex`, and it has no rule telling it how to make that file.
-Let's try making it!
+`make` dengan ramah memberi tahu kita bahwa untuk membangun `paper.pdf`,
+ia membutuhkan `paper.tex`, dan tidak ada aturan yang memberitahu cara
+membuat file tersebut. Mari kita coba membuatnya!
 
 ```console
 $ touch paper.tex
@@ -98,10 +96,10 @@ $ make
 make: *** No rule to make target 'plot-data.png', needed by 'paper.pdf'.  Stop.
 ```
 
-Hmm, interesting, there _is_ a rule to make `plot-data.png`, but it is a
-pattern rule. Since the source files do not exist (`data.dat`), `make`
-simply states that it cannot make that file. Let's try creating all the
-files:
+Hmm, menarik, _ada_ aturan untuk membuat `plot-data.png`, tetapi itu
+adalah aturan pola. Karena file sumber tidak ada (`data.dat`), `make`
+hanya menyatakan bahwa ia tidak bisa membuat file tersebut. Mari kita
+coba membuat semua file:
 
 ```console
 $ cat paper.tex
@@ -133,7 +131,7 @@ $ cat data.dat
 5 8
 ```
 
-Now what happens if we run `make`?
+Sekarang apa yang terjadi jika kita menjalankan `make`?
 
 ```console
 $ make
@@ -142,18 +140,18 @@ pdflatex paper.tex
 ... lots of output ...
 ```
 
-And look, it made a PDF for us!
-What if we run `make` again?
+Dan lihat, ia membuat PDF untuk kita!
+Bagaimana jika kita menjalankan `make` lagi?
 
 ```console
 $ make
 make: 'paper.pdf' is up to date.
 ```
 
-It didn't do anything! Why not? Well, because it didn't need to. It
-checked that all of the previously-built targets were still up to date
-with respect to their listed dependencies. We can test this by modifying
-`paper.tex` and then re-running `make`:
+Ia tidak melakukan apa-apa! Mengapa? Karena tidak perlu. Ia memeriksa
+bahwa semua target yang sudah dibangun sebelumnya masih terbaru
+terhadap dependensi yang terdaftar. Kita bisa menguji ini dengan
+mengubah `paper.tex` lalu menjalankan ulang `make`:
 
 ```console
 $ vim paper.tex
@@ -162,168 +160,177 @@ pdflatex paper.tex
 ...
 ```
 
-Notice that `make` did _not_ re-run `plot.py` because that was not
-necessary; none of `plot-data.png`'s dependencies changed!
+Perhatikan bahwa `make` _tidak_ menjalankan ulang `plot.py` karena
+itu tidak diperlukan; tidak ada dependensi `plot-data.png` yang berubah!
 
-# Dependency management
+# Manajemen dependensi
 
-At a more macro level, your software projects are likely to have
-dependencies that are themselves projects. You might depend on installed
-programs (like `python`), system packages (like `openssl`), or libraries
-within your programming language (like `matplotlib`). These days, most
-dependencies will be available through a _repository_ that hosts a
-large number of such dependencies in a single place, and provides a
-convenient mechanism for installing them. Some examples include the
-Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPI for Python
-libraries, or the Arch User Repository for Arch Linux user-contributed
-packages.
+Pada tingkat yang lebih makro, proyek perangkat lunak Anda kemungkinan
+besar memiliki dependensi yang merupakan proyek-proyek itu sendiri.
+Anda mungkin bergantung pada program yang terinstal (seperti `python`),
+paket sistem (seperti `openssl`), atau pustaka dalam bahasa pemrograman
+Anda (seperti `matplotlib`). Saat ini, sebagian besar dependensi akan
+tersedia melalui sebuah _repositori_ yang menampung sejumlah besar
+dependensi tersebut di satu tempat, dan menyediakan mekanisme yang
+nyaman untuk menginstalnya. Beberapa contoh termasuk repositori paket
+Ubuntu untuk paket sistem Ubuntu, yang Anda akses melalui alat `apt`,
+RubyGems untuk pustaka Ruby, PyPI untuk pustaka Python, atau Arch User
+Repository untuk paket-paket kontributor pengguna Arch Linux.
 
-Since the exact mechanisms for interacting with these repositories vary
-a lot from repository to repository and from tool to tool, we won't go
-too much into the details of any specific one in this lecture. What we
-_will_ cover is some of the common terminology they all use. The first
-among these is _versioning_. Most projects that other projects depend on
-issue a _version number_ with every release. Usually something like
-8.1.3 or 64.1.20192004. They are often, but not always, numerical.
-Version numbers serve many purposes, and one of the most important of
-them is to ensure that software keeps working. Imagine, for example,
-that I release a new version of my library where I have renamed a
-particular function. If someone tried to build some software that
-depends on my library after I release that update, the build might fail
-because it calls a function that no longer exists! Versioning attempts
-to solve this problem by letting a project say that it depends on a
-particular version, or range of versions, of some other project. That
-way, even if the underlying library changes, dependent software
-continues building by using an older version of my library.
+Karena mekanisme yang tepat untuk berinteraksi dengan repositori-repositori
+ini sangat bervariasi dari satu repositori ke repositori lain dan dari
+satu alat ke alat lain, kita tidak akan membahas terlalu detail tentang
+ada satu alat tertentu dalam kuliah ini. Yang _akan_ kita bahas adalah
+beberapa terminologi umum yang semuanya gunakan. Yang pertama adalah
+_versioning_. Sebagian besar proyek yang menjadi dependensi proyek lain
+menerbitkan _nomor versi_ dengan setiap rilis. Biasanya sesuatu seperti
+8.1.3 atau 64.1.20192004. Biasanya numerik, tetapi tidak selalu.
+Nomor versi memiliki banyak tujuan, dan salah satu yang paling penting
+adalah memastikan perangkat lunak tetap berfungsi. Bayangkan, misalnya,
+saya merilis versi baru pustaka saya di mana saya telah mengubah nama
+sebuah fungsi. Jika seseorang mencoba membangun perangkat lunak yang
+bergantung pada pustaka saya setelah saya merilis pembaruan tersebut,
+build-nya mungkin gagal karena memanggil fungsi yang tidak ada lagi!
+Versioning berusaha menyelesaikan masalah ini dengan membiarkan sebuah
+proyek menyatakan bahwa ia bergantung pada versi tertentu, atau rentang
+versi tertentu, dari proyek lain. Dengan begitu, meskipun pustaka dasar
+berubah, perangkat lunak yang bergantung tetap bisa dibangun menggunakan
+versi lama dari pustaka saya.
 
-That also isn't ideal though! What if I issue a security update which
-does _not_ change the public interface of my library (its "API"), and
-which any project that depended on the old version should immediately
-start using? This is where the different groups of numbers in a version
-come in. The exact meaning of each one varies between projects, but one
-relatively common standard is [_semantic
-versioning_](https://semver.org/). With semantic versioning, every
-version number is of the form: major.minor.patch. The rules are:
+Namun itu juga belum ideal! Bagaimana jika saya merilis pembaruan keamanan
+yang _tidak_ mengubah antarmuka publik pustaka saya (API-nya), dan
+proyek mana pun yang bergantung pada versi lama seharusnya segera
+menggunakannya? Di sinilah kelompok angka-angka berbeda dalam nomor
+versi berperan. Arti pasti masing-masing bervariasi antar proyek, tetapi
+salah satu standar yang cukup umum adalah [_semantic
+versioning_](https://semver.org/). Dengan semantic versioning, setiap
+nomor versi memiliki format: major.minor.patch. Aturannya adalah:
 
- - If a new release does not change the API, increase the patch version.
- - If you _add_ to your API in a backwards-compatible way, increase the
-   minor version.
- - If you change the API in a non-backwards-compatible way, increase the
-   major version.
+ - Jika rilis baru tidak mengubah API, naikkan versi patch.
+ - Jika Anda _menambahkan_ ke API Anda dengan cara yang kompatibel ke
+   belakang, naikkan versi minor.
+ - Jika Anda mengubah API dengan cara yang tidak kompatibel ke belakang,
+   naikkan versi major.
 
-This already provides some major advantages. Now, if my project depends
-on your project, it _should_ be safe to use the latest release with the
-same major version as the one I built against when I developed it, as
-long as its minor version is at least what it was back then. In other
-words, if I depend on your library at version `1.3.7`, then it _should_
-be fine to build it with `1.3.8`, `1.6.1`, or even `1.3.0`. Version
-`2.2.4` would probably not be okay, because the major version was
-increased. We can see an example of semantic versioning in Python's
-version numbers. Many of you are probably aware that Python 2 and Python
-3 code do not mix very well, which is why that was a _major_ version
-bump. Similarly, code written for Python 3.5 might run fine on Python
-3.7, but possibly not on 3.4.
+Ini sudah memberikan beberapa keuntungan besar. Sekarang, jika proyek saya
+bergantung pada proyek Anda, seharusnya aman menggunakan rilis terbaru
+dengan versi major yang sama dengan yang saya gunakan saat mengembangkannya,
+selama versi minor-nya setidaknya sama dengan saat itu. Dengan kata lain,
+jika saya bergantung pada pustaka Anda di versi `1.3.7`, maka seharusnya
+tidak masalah membangunnya dengan `1.3.8`, `1.6.1`, atau bahkan `1.3.0`.
+Versi `2.2.4` mungkin tidak akan cocok, karena versi major-nya naik.
+Kita bisa melihat contoh semantic versioning di nomor versi Python.
+Banyak dari Anda mungkin sudah tahu bahwa kode Python 2 dan Python 3
+tidak bisa dicampur dengan baik, itulah mengapa itu adalah _major_
+version bump. Demikian juga, kode yang ditulis untuk Python 3.5 mungkin
+berjalan baik di Python 3.7, tetapi mungkin tidak di 3.4.
 
-When working with dependency management systems, you may also come
-across the notion of _lock files_. A lock file is simply a file that
-lists the exact version you are _currently_ depending on of each
-dependency. Usually, you need to explicitly run an update program to
-upgrade to newer versions of your dependencies. There are many reasons
-for this, such as avoiding unnecessary recompiles, having reproducible
-builds, or not automatically updating to the latest version (which may
-be broken). An extreme version of this kind of dependency locking is
-_vendoring_, which is where you copy all the code of your dependencies
-into your own project. That gives you total control over any changes to
-it, and lets you introduce your own changes to it, but also means you
-have to explicitly pull in any updates from the upstream maintainers
-over time.
+Saat bekerja dengan sistem manajemen dependensi, Anda mungkin juga
+menemui konsep _lock file_. Lock file hanyalah file yang mencantumkan
+versi tepat yang saat ini Anda andalkan dari setiap dependensi.
+Biasanya, Anda perlu secara eksplisit menjalankan program pembaruan
+untuk mengupgrade ke versi dependensi yang lebih baru. Ada banyak
+alasan untuk ini, seperti menghindari recompile yang tidak perlu,
+memiliki build yang dapat direproduksi, atau tidak secara otomatis
+memperbarui ke versi terbaru (yang mungkin rusak). Versi ekstrem dari
+penguncian dependensi semacam ini adalah _vendoring_, yaitu di mana
+Anda menyalin semua kode dependensi Anda ke proyek Anda sendiri.
+Itu memberi Anda kontrol total atas setiap perubahan padanya, dan
+memungkinkan Anda memperkenalkan perubahan Anda sendiri, tetapi juga
+berarti Anda harus secara eksplisit mengambil pembaruan dari
+pemelihara upstream dari waktu ke waktu.
 
-# Continuous integration systems
+# Sistem continuous integration
 
-As you work on larger and larger projects, you'll find that there are
-often additional tasks you have to do whenever you make a change to it.
-You might have to upload a new version of the documentation, upload a
-compiled version somewhere, release the code to pypi, run your test
-suite, and all sort of other things. Maybe every time someone sends you
-a pull request on GitHub, you want their code to be style checked and
-you want some benchmarks to run? When these kinds of needs arise, it's
-time to take a look at continuous integration.
+Saat Anda mengerjakan proyek yang semakin besar, Anda akan menemukan
+bahwa sering ada tugas tambahan yang harus dilakukan setiap kali Anda
+mengubahnya. Anda mungkin harus mengunggah versi dokumentasi baru,
+mengunggah versi yang sudah dikompilasi ke suatu tempat, merilis kode
+ke pypi, menjalankan suite pengujian, dan segala macam hal lainnya.
+Mungkin setiap kali seseorang mengirim pull request di GitHub, Anda
+ingin kode mereka diperiksa gayanya dan Anda ingin beberapa benchmark
+dijalankan? Ketika kebutuhan semacam ini muncul, saatnya untuk melihat
+continuous integration.
 
-Continuous integration, or CI, is an umbrella term for "stuff that runs
-whenever your code changes", and there are many companies out there that
-provide various types of CI, often for free for open-source projects.
-Some of the big ones are Travis CI, Azure Pipelines, and GitHub Actions.
-They all work in roughly the same way: you add a file to your repository
-that describes what should happen when various things happen to that
-repository. By far the most common one is a rule like "when someone
-pushes code, run the test suite". When the event triggers, the CI
-provider spins up a virtual machines (or more), runs the commands in
-your "recipe", and then usually notes down the results somewhere. You
-might set it up so that you are notified if the test suite stops
-passing, or so that a little badge appears on your repository as long as
-the tests pass.
+Continuous integration, atau CI, adalah istilah umum untuk "hal-hal yang
+berjalan setiap kali kode Anda berubah", dan ada banyak perusahaan di luar
+sana yang menyediakan berbagai jenis CI, seringkali gratis untuk proyek
+open-source. Beberapa yang besar adalah Travis CI, Azure Pipelines, dan
+GitHub Actions. Semuanya bekerja dengan cara yang kurang lebih sama: Anda
+menambahkan file ke repositori Anda yang menjelaskan apa yang harus
+terjadi ketika berbagai hal terjadi pada repositori tersebut. Yang paling
+umum adalah aturan seperti "ketika seseorang mengirim kode, jalankan
+suite pengujian". Ketika event terpicu, penyedia CI membuat virtual
+machine (atau lebih), menjalankan perintah dalam "resep" Anda, dan
+kemudian biasanya mencatat hasilnya di suatu tempat. Anda bisa
+mengaturnya sehingga Anda diberi tahu jika suite pengujian tidak lagi
+lulus, atau sehingga sebuah badge kecil muncul di repositori Anda
+selama tes-tes lulus.
 
-As an example of a CI system, the class website is set up using GitHub
-Pages. Pages is a CI action that runs the Jekyll blog software on every
-push to `master` and makes the built site available on a particular
-GitHub domain. This makes it trivial for us to update the website! We
-just make our changes locally, commit them with git, and then push. CI
-takes care of the rest.
+Sebagai contoh sistem CI, situs web kelas ini diatur menggunakan GitHub
+Pages. Pages adalah aksi CI yang menjalankan perangkat lunak blog Jekyll
+pada setiap push ke `master` dan membuat situs yang sudah dibangun
+tersedia di domain GitHub tertentu. Ini membuat kami sangat mudah
+memperbarui situs web! Kami hanya membuat perubahan secara lokal,
+commit dengan git, lalu push. CI menangani sisanya.
 
-## A brief aside on testing
+## Sekilas tentang pengujian
 
-Most large software projects come with a "test suite". You may already
-be familiar with the general concept of testing, but we thought we'd
-quickly mention some approaches to testing and testing terminology that
-you may encounter in the wild:
+Sebagian besar proyek perangkat lunak besar dilengkapi dengan "test suite".
+Anda mungkin sudah familiar dengan konsep umum pengujian, tetapi kami
+ingin dengan cepat menyebutkan beberapa pendekatan pengujian dan
+terminologi pengujian yang mungkin Anda temui di lapangan:
 
- - Test suite: a collective term for all the tests
- - Unit test: a "micro-test" that tests a specific feature in isolation
- - Integration test: a "macro-test" that runs a larger part of the
-   system to check that different feature or components work _together_.
- - Regression test: a test that implements a particular pattern that
-   _previously_ caused a bug to ensure that the bug does not resurface.
- - Mocking: to replace a function, module, or type with a fake
-   implementation to avoid testing unrelated functionality. For example,
-   you might "mock the network" or "mock the disk".
+ - Test suite: istilah kolektif untuk semua tes
+ - Unit test: "tes mikro" yang menguji fitur spesifik secara terisolasi
+ - Integration test: "tes makro" yang menjalankan bagian yang lebih besar
+   dari sistem untuk memeriksa bahwa fitur atau komponen yang berbeda
+   bekerja _bersama-sama_.
+ - Regression test: tes yang mengimplementasikan pola tertentu yang
+   _sebelumnya_ menyebabkan bug untuk memastikan bug tersebut tidak
+   muncul kembali.
+ - Mocking: mengganti fungsi, modul, atau tipe dengan implementasi palsu
+   untuk menghindari pengujian fungsionalitas yang tidak terkait.
+   Misalnya, Anda mungkin "mock jaringan" atau "mock disk".
 
-# Exercises
+# Latihan
 
- 1. Most makefiles provide a target called `clean`. This isn't intended
-    to produce a file called `clean`, but instead to clean up any files
-    that can be re-built by make. Think of it as a way to "undo" all of
-    the build steps. Implement a `clean` target for the `paper.pdf`
-    `Makefile` above. You will have to make the target
-    [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html).
-    You may find the [`git
-    ls-files`](https://git-scm.com/docs/git-ls-files) subcommand useful.
-    A number of other very common make targets are listed
-    [here](https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets).
- 2. Take a look at the various ways to specify version requirements for
-    dependencies in [Rust's build
-    system](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html).
-    Most package repositories support similar syntax. For each one
-    (caret, tilde, wildcard, comparison, and multiple), try to come up
-    with a use-case in which that particular kind of requirement makes
-    sense.
- 3. Git can act as a simple CI system all by itself. In `.git/hooks`
-    inside any git repository, you will find (currently inactive) files
-    that are run as scripts when a particular action happens. Write a
-    [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) hook
-    that runs `make paper.pdf` and refuses the commit if the `make`
-    command fails. This should prevent any commit from having an
-    unbuildable version of the paper.
- 4. Set up a simple auto-published page using [GitHub
-    Pages](https://pages.github.com/).
-    Add a [GitHub Action](https://github.com/features/actions) to the
-    repository to run `shellcheck` on any shell files in that
-    repository (here is [one way to do
-    it](https://github.com/marketplace/actions/shellcheck)). Check that
-    it works!
- 5. [Build your
-    own](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)
-    GitHub action to run [`proselint`](https://github.com/amperser/proselint) or
-    [`write-good`](https://github.com/btford/write-good) on all the
-    `.md` files in the repository. Enable it in your repository, and
-    check that it works by filing a pull request with a typo in it.
+  1. Sebagian besar makefile menyediakan target bernama `clean`. Ini bukan
+     dimaksudkan untuk menghasilkan file bernama `clean`, melainkan untuk
+     membersihkan file-file yang bisa di-build ulang oleh make. Anggap
+     saja sebagai cara untuk "undo" semua langkah build. Implementasikan
+     target `clean` untuk `Makefile` `paper.pdf` di atas. Anda harus
+     membuat target tersebut
+     [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html).
+     Anda mungkin menemukan subcommand [`git
+     ls-files`](https://git-scm.com/docs/git-ls-files) berguna. Sejumlah
+     target make umum lainnya terdaftar
+     [di sini](https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets).
+  2. Lihat berbagai cara untuk menentukan persyaratan versi untuk
+     dependensi di [build system
+     Rust](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html).
+     Sebagian besar repositori paket mendukung sintaks yang serupa. Untuk
+     masing-masing (caret, tilde, wildcard, perbandingan, dan multiple),
+     cobalah memikirkan kasus penggunaan di mana persyaratan jenis
+     tertentu itu masuk akal.
+  3. Git bisa bertindak sebagai sistem CI sederhana secara mandiri. Di
+     `.git/hooks` di repositori git mana pun, Anda akan menemukan file
+     yang (saat ini tidak aktif) yang dijalankan sebagai skrip ketika
+     aksi tertentu terjadi. Tulis hook
+     [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) yang
+     menjalankan `make paper.pdf` dan menolak commit jika perintah `make`
+     gagal. Ini seharusnya mencegah commit apa pun memiliki versi makalah
+     yang tidak bisa di-build.
+  4. Siapkan halaman auto-publish sederhana menggunakan [GitHub
+     Pages](https://pages.github.com/).
+     Tambahkan [GitHub Action](https://github.com/features/actions) ke
+     repositori untuk menjalankan `shellcheck` pada semua file shell di
+     repositori tersebut (ini adalah [salah satu cara untuk
+     melakukannya](https://github.com/marketplace/actions/shellcheck)).
+     Periksa bahwa itu berfungsi!
+  5. [Buat sendiri](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)
+     GitHub action untuk menjalankan [`proselint`](https://github.com/amperser/proselint) atau
+     [`write-good`](https://github.com/btford/write-good) pada semua
+     file `.md` di repositori. Aktifkan di repositori Anda, dan
+     periksa bahwa itu berfungsi dengan mengajukan pull request yang
+     mengandung typo.
