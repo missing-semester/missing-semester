@@ -2,7 +2,7 @@
 layout: lecture
 title: "Potpourri"
 description: >
-  Pelajari berbagai topik berguna termasuk pemetaan ulang keyboard, daemon, backup, API, dan lainnya.
+  Pelajari berbagai topik berguna termasuk keyboard remapping, daemon, backup, API, dan lainnya.
 thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true
@@ -12,63 +12,63 @@ video:
 special: true
 ---
 
-## Daftar Isi
+## Table of Contents
 
-- [Pemetaan ulang keyboard](#keyboard-remapping)
-- [Daemon](#daemons)
+- [Keyboard remapping](#keyboard-remapping)
+- [Daemons](#daemons)
 - [FUSE](#fuse)
-- [Backup](#backups)
-- [API](#apis)
-- [Flag/pola command-line umum](#common-command-line-flagspatterns)
-- [Window manager](#window-managers)
-- [VPN](#vpns)
+- [Backups](#backups)
+- [APIs](#apis)
+- [Common command-line flags/patterns](#common-command-line-flagspatterns)
+- [Window managers](#window-managers)
+- [VPNs](#vpns)
 - [Markdown](#markdown)
-- [Hammerspoon (otomasi desktop di macOS)](#hammerspoon-desktop-automation-on-macos)
-- [Booting + Live USB](#booting--live-usbs)
-- [Docker, Vagrant, VM, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
-- [Pemrograman notebook](#notebook-programming)
+- [Hammerspoon (desktop automation on macOS)](#hammerspoon-desktop-automation-on-macos)
+- [Booting + Live USBs](#booting--live-usbs)
+- [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
+- [Notebook programming](#notebook-programming)
 - [GitHub](#github)
 
-## Pemetaan ulang keyboard
+## Keyboard remapping
 
-Sebagai seorang programmer, keyboard Anda adalah metode input utama. Seperti hampir semua hal di komputer Anda, keyboard dapat dikonfigurasi (dan layak untuk dikonfigurasi).
+As a programmer, your keyboard is your main input method. As with pretty much anything in your computer, it is configurable (and worth configuring).
 
-Perubahan paling dasar adalah memetakan ulang tombol.
-Ini biasanya melibatkan beberapa perangkat lunak yang mendengarkan, dan setiap kali tombol tertentu ditekan, ia mencegat peristiwa tersebut dan menggantinya dengan peristiwa lain yang sesuai dengan tombol berbeda. Beberapa contoh:
-- Memetakan ulang Caps Lock ke Ctrl atau Escape. Kami (para instruktur) sangat menyarankan pengaturan ini karena Caps Lock memiliki lokasi yang sangat nyaman tetapi jarang digunakan.
-- Memetakan ulang PrtSc ke Play/Pause musik. Sebagian besar OS memiliki tombol play/pause.
-- Menukar Ctrl dan tombol Meta (Windows atau Command).
+The most basic change is to remap keys.
+This usually involves some software that is listening and, whenever a certain key is pressed, it intercepts that event and replaces it with another event corresponding to a different key. Some examples:
+- Remap Caps Lock to Ctrl or Escape. We (the instructors) highly encourage this setting since Caps Lock has a very convenient location but is rarely used.
+- Remapping PrtSc to Play/Pause music. Most OSes have a play/pause key.
+- Swapping Ctrl and the Meta (Windows or Command) key.
 
-Anda juga dapat memetakan tombol ke perintah arbitrer pilihan Anda. Ini berguna untuk tugas-tugas umum yang Anda lakukan. Di sini, beberapa perangkat lunak mendengarkan kombinasi tombol tertentu dan menjalankan skrip setiap kali peristiwa tersebut terdeteksi.
-- Membuka terminal baru atau jendela browser.
-- Menyisipkan teks tertentu, misalnya alamat email panjang Anda atau nomor ID MIT Anda.
-- Menidurkan komputer atau layar.
+You can also map keys to arbitrary commands of your choosing. This is useful for common tasks that you perform. Here, some software listens for a specific key combination and executes some script whenever that event is detected.
+- Open a new terminal or browser window.
+- Inserting some specific text, e.g. your long email address or your MIT ID number.
+- Sleeping the computer or the displays.
 
-Ada juga modifikasi yang lebih kompleks yang dapat Anda konfigurasi:
-- Memetakan ulang urutan tombol, misalnya menekan shift lima kali mengaktifkan Caps Lock.
-- Memetakan ulang saat ditekan singkat vs ditahan, misalnya tombol Caps Lock dipetakan ulang ke Esc jika Anda menekannya dengan cepat, tetapi dipetakan ulang ke Ctrl jika Anda menahannya dan menggunakannya sebagai modifier.
-- Membuat pemetaan spesifik per keyboard atau per perangkat lunak.
+There are even more complex modifications you can configure:
+- Remapping sequences of keys, e.g. pressing shift five times toggles Caps Lock.
+- Remapping on tap vs on hold, e.g. Caps Lock key is remapped to Esc if you quickly tap it, but is remapped to Ctrl if you hold it and use it as a modifier.
+- Having remaps being keyboard or software specific.
 
-Beberapa sumber perangkat lunak untuk memulai topik ini:
-- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) atau [BetterTouchTool](https://folivora.ai/)
-- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) atau [Autokey](https://github.com/autokey/autokey)
-- Windows - Builtin di Control Panel, [AutoHotkey](https://www.autohotkey.com/) atau [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
-- QMK - Jika keyboard Anda mendukung firmware kustom, Anda dapat menggunakan [QMK](https://docs.qmk.fm/) untuk mengonfigurasi perangkat keras itu sendiri sehingga pemetaan berlaku untuk mesin mana pun yang Anda gunakan dengan keyboard tersebut.
+Some software resources to get started on the topic:
+- macOS - [karabiner-elements](https://karabiner-elements.pqrs.org/), [skhd](https://github.com/koekeishiya/skhd) or [BetterTouchTool](https://folivora.ai/)
+- Linux - [xmodmap](https://wiki.archlinux.org/index.php/Xmodmap) or [Autokey](https://github.com/autokey/autokey)
+- Windows - Builtin in Control Panel, [AutoHotkey](https://www.autohotkey.com/) or [SharpKeys](https://www.randyrants.com/category/sharpkeys/)
+- QMK - If your keyboard supports custom firmware you can use [QMK](https://docs.qmk.fm/) to configure the hardware device itself so the remaps works for any machine you use the keyboard with.
 
-## Daemon
+## Daemons
 
-Anda mungkin sudah familiar dengan konsep daemon, meskipun kata tersebut terdengar baru.
-Sebagian besar komputer memiliki serangkaian proses yang selalu berjalan di latar belakang daripada menunggu pengguna untuk meluncurkannya dan berinteraksi dengannya.
-Proses-proses ini disebut daemon dan program yang berjalan sebagai daemon sering kali diakhiri dengan huruf `d` untuk menunjukkannya.
-Sebagai contoh `sshd`, daemon SSH, adalah program yang bertanggung jawab untuk mendengarkan permintaan SSH yang masuk dan memeriksa apakah pengguna jarak jauh memiliki kredensial yang diperlukan untuk masuk.
+You are probably already familiar with the notion of daemons, even if the word seems new.
+Most computers have a series of processes that are always running in the background rather than waiting for a user to launch them and interact with them.
+These processes are called daemons and the programs that run as daemons often end with a `d` to indicate so.
+For example `sshd`, the SSH daemon, is the program responsible for listening to incoming SSH requests and checking that the remote user has the necessary credentials to log in.
 
-Di Linux, `systemd` (system daemon) adalah solusi paling umum untuk menjalankan dan mengatur proses daemon.
-Anda dapat menjalankan `systemctl status` untuk melihat daftar daemon yang sedang berjalan. Sebagian besar mungkin terdengar asing tetapi bertanggung jawab atas bagian-bagian inti sistem seperti mengelola jaringan, menyelesaikan kueri DNS, atau menampilkan antarmuka grafis untuk sistem.
-Systemd dapat diinteraksi dengan perintah `systemctl` untuk `enable`, `disable`, `start`, `stop`, `restart` atau memeriksa `status` layanan (itu adalah perintah-perintah `systemctl`).
+In Linux, `systemd` (the system daemon) is the most common solution for running and setting up daemon processes.
+You can run `systemctl status` to list the current running daemons. Most of them might sound unfamiliar but are responsible for core parts of the system such as managing the network, solving DNS queries or displaying the graphical interface for the system.
+Systemd can be interacted with the `systemctl` command in order to `enable`, `disable`, `start`, `stop`, `restart` or check the `status` of services (those are the `systemctl` commands).
 
-Yang lebih menarik, `systemd` memiliki antarmuka yang cukup mudah diakses untuk mengonfigurasi dan mengaktifkan daemon baru (atau layanan).
-Berikut ini adalah contoh daemon untuk menjalankan aplikasi Python sederhana.
-Kami tidak akan membahas detailnya tetapi seperti yang Anda lihat, sebagian besar field cukup jelas maknanya.
+More interestingly, `systemd` has a fairly accessible interface for configuring and enabling new daemons (or services).
+Below is an example of a daemon for running a simple Python app.
+We won't go in the details but as you can see most of the fields are pretty self explanatory.
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -87,158 +87,330 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-Juga, jika Anda hanya ingin menjalankan beberapa program dengan frekuensi tertentu, tidak perlu membuat daemon kustom, Anda dapat menggunakan [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html), daemon yang sudah dijalankan sistem Anda untuk melakukan tugas terjadwal.
+Also, if you just want to run some program with a given frequency there is no need to build a custom daemon, you can use [`cron`](https://www.man7.org/linux/man-pages/man8/cron.8.html), a daemon your system already runs to perform scheduled tasks.
 
 ## FUSE
 
-Sistem perangkat lunak modern biasanya terdiri dari blok-blok bangunan kecil yang disusun bersama.
-Sistem operasi Anda mendukung penggunaan berbagai backend filesystem karena ada bahasa umum tentang operasi apa yang didukung oleh sebuah filesystem.
-Sebagai contoh, ketika Anda menjalankan `touch` untuk membuat file, `touch` melakukan system call ke kernel untuk membuat file dan kernel melakukan panggilan filesystem yang sesuai untuk membuat file tersebut.
-Masalahnya adalah filesystem UNIX secara tradisional diimplementasikan sebagai modul kernel dan hanya kernel yang diizinkan melakukan panggilan filesystem.
+Modern software systems are usually composed of smaller building blocks that are composed together.
+Your operating system supports using different filesystem backends because there is a common language of what operations a filesystem supports.
+For instance, when you run `touch` to create a file, `touch` performs a system call to the kernel to create the file and the kernel performs the appropriate filesystem call to create the given file.
+A caveat is that UNIX filesystems are traditionally implemented as kernel modules and only the kernel is allowed to perform filesystem calls.
 
-[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) memungkinkan filesystem diimplementasikan oleh program pengguna. FUSE memungkinkan pengguna menjalankan kode user space untuk panggilan filesystem dan kemudian menjembatani panggilan-panggilan yang diperlukan ke antarmuka kernel.
-Dalam praktiknya, ini berarti pengguna dapat mengimplementasikan fungsionalitas arbitrer untuk panggilan filesystem.
+[FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) (Filesystem in User Space) allows filesystems to be implemented by a user program. FUSE lets users run user space code for filesystem calls and then bridges the necessary calls to the kernel interfaces.
+In practice, this means that users can implement arbitrary functionality for filesystem calls.
 
-Sebagai contoh, FUSE dapat digunakan sehingga setiap kali Anda melakukan operasi di filesystem virtual, operasi tersebut diteruskan melalui SSH ke mesin jarak jauh, dilakukan di sana, dan outputnya dikembalikan kepada Anda.
-Dengan cara ini, program lokal dapat melihat file seolah-olah ada di komputer Anda padahal sebenarnya ada di server jarak jauh.
-Ini secara efektif adalah apa yang dilakukan `sshfs`.
+For example, FUSE can be used so whenever you perform an operation in a virtual filesystem, that operation is forwarded through SSH to a remote machine, performed there, and the output is returned back to you.
+This way, local programs can see the file as if it was in your computer while in reality it's in a remote server.
+This is effectively what `sshfs` does.
 
-Beberapa contoh menarik filesystem FUSE adalah:
-- [sshfs](https://github.com/libfuse/sshfs) - Membuka file/folder jarak jauh secara lokal melalui koneksi SSH.
-- [rclone](https://rclone.org/commands/rclone_mount/) - Mount layanan penyimpanan cloud seperti Dropbox, GDrive, Amazon S3 atau Google Cloud Storage dan buka data secara lokal.
-- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Sistem overlay terenkripsi. File disimpan secara terenkripsi tetapi setelah FS di-mount, mereka muncul sebagai plaintext di mountpoint.
-- [kbfs](https://keybase.io/docs/kbfs) - Filesystem terdistribusi dengan enkripsi end-to-end. Anda dapat memiliki folder pribadi, bersama, dan publik.
-- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount backup Anda yang telah dideduplikasi, dikompresi, dan dienkripsi untuk kemudahan browsing.
+Some interesting examples of FUSE filesystems are:
+- [sshfs](https://github.com/libfuse/sshfs) - Open locally remote files/folder through an SSH connection.
+- [rclone](https://rclone.org/commands/rclone_mount/) - Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally.
+- [gocryptfs](https://nuetzlich.net/gocryptfs/) - Encrypted overlay system. Files are stored encrypted but once the FS is mounted they appear as plaintext in the mountpoint.
+- [kbfs](https://keybase.io/docs/kbfs) - Distributed filesystem with end-to-end encryption. You can have private, shared and public folders.
+- [borgbackup](https://borgbackup.readthedocs.io/en/stable/usage/mount.html) - Mount your deduplicated, compressed and encrypted backups for ease of browsing.
 
-## Backup
+## Backups
 
-Data apa pun yang belum Anda backup adalah data yang bisa hilang kapan saja, selamanya.
-Mudah untuk menyalin data, tetapi sulit untuk melakukan backup data secara andal.
-Berikut adalah beberapa dasar backup yang baik dan jebakan dari beberapa pendekatan.
+Any data that you haven’t backed up is data that could be gone at any moment, forever.
+It's easy to copy data around, it's hard to reliably backup data.
+Here are some good backup basics and the pitfalls of some approaches.
 
-Pertama, salinan data di disk yang sama bukanlah backup, karena disk adalah titik kegagalan tunggal untuk semua data. Demikian pula, drive eksternal di rumah Anda juga merupakan solusi backup yang lemah karena bisa hilang dalam kebakaran/pencurian/dll. Sebaliknya, memiliki backup di lokasi terpisah adalah praktik yang direkomendasikan.
+First, a copy of the data in the same disk is not a backup, because the disk is the single point of failure for all the data. Similarly, an external drive in your home is also a weak backup solution since it could be lost in a fire/robbery/&c. Instead, having an off-site backup is a recommended practice.
 
-Solusi sinkronisasi bukanlah backup. Misalnya, Dropbox/GDrive adalah solusi yang nyaman, tetapi ketika data dihapus atau rusak, mereka menyebarkan perubahan tersebut. Untuk alasan yang sama, solusi disk mirroring seperti RAID bukanlah backup. Mereka tidak membantu jika data dihapus, rusak, atau dienkripsi oleh ransomware.
+Synchronization solutions are not backups. For instance, Dropbox/GDrive are convenient solutions, but when data is erased or corrupted they propagate the change. For the same reason, disk mirroring solutions like RAID are not backups. They don't help if data gets deleted, corrupted or encrypted by ransomware.
 
-Beberapa fitur inti dari solusi backup yang baik adalah versioning, deduplication, dan keamanan.
-Backup versioning memastikan Anda dapat mengakses riwayat perubahan dan memulihkan file secara efisien.
-Solusi backup yang efisien menggunakan deduplication data untuk hanya menyimpan perubahan inkremental dan mengurangi overhead penyimpanan.
-Terkait keamanan, Anda harus menanyakan apa yang perlu diketahui/dimiliki seseorang untuk membaca data Anda dan, yang lebih penting, untuk menghapus semua data Anda dan backup terkait.
-Terakhir, mempercayai backup secara membabi-buta adalah ide yang buruk dan Anda harus secara teratur memverifikasi bahwa Anda dapat menggunakannya untuk memulihkan data.
+Some core features of good backups solutions are versioning, deduplication and security.
+Versioning backups ensure that you can access your history of changes and efficiently recover files.
+Efficient backup solutions use data deduplication to only store incremental changes and reduce the storage overhead.
+Regarding security, you should ask yourself what someone would need to know/have in order to read your data and, more importantly, to delete all your data and associated backups.
+Lastly, blindly trusting backups is a terrible idea and you should verify regularly that you can use them to recover data.
 
-Backup tidak hanya berlaku untuk file lokal di komputer Anda.
-Mengingat pertumbuhan signifikan aplikasi web, sebagian besar data Anda hanya disimpan di cloud.
-Misalnya, webmail Anda, foto media sosial, playlist musik di layanan streaming, atau dokumen online akan hilang jika Anda kehilangan akses ke akun terkait.
-Memiliki salinan offline dari informasi ini adalah cara yang tepat, dan Anda dapat menemukan alat online yang telah dibuat orang untuk mengambil data dan menyimpannya.
+Backups go beyond local files in your computer.
+Given the significant growth of web applications, large amounts of your data are only stored in the cloud.
+For instance, your webmail, social media photos, music playlists in streaming services or online docs are gone if you lose access to the corresponding accounts.
+Having an offline copy of this information is the way to go, and you can find online tools that people have built to fetch the data and save it.
 
-Untuk penjelasan yang lebih detail, lihat catatan kuliah tahun 2019 tentang [Backups](/2019/backups).
-
-
-## API
-
-Kita telah banyak berbicara di kelas ini tentang menggunakan komputer Anda secara lebih efisien untuk menyelesaikan tugas _lokal_, tetapi Anda akan menemukan bahwa banyak pelajaran ini juga berlaku untuk internet yang lebih luas. Sebagian besar layanan online memiliki "API" yang memungkinkan Anda mengakses data mereka secara terprogram. Sebagai contoh, pemerintah AS memiliki API yang memungkinkan Anda mendapatkan prakiraan cuaca, yang bisa Anda gunakan untuk dengan mudah mendapatkan prakiraan cuaca di shell Anda.
-
-Sebagian besar API ini memiliki format yang serupa. Mereka adalah URL terstruktur, sering kali berakar di `api.service.com`, di mana path dan parameter query menunjukkan data apa yang ingin Anda baca atau tindakan apa yang ingin Anda lakukan. Untuk data cuaca AS misalnya, untuk mendapatkan prakiraan untuk lokasi tertentu, Anda mengirim permintaan GET (dengan `curl` misalnya) ke https://api.weather.gov/points/42.3604,-71.094. Respons itu sendiri berisi banyak URL lain yang memungkinkan Anda mendapatkan prakiraan spesifik untuk wilayah tersebut. Biasanya, respons diformat sebagai JSON, yang kemudian dapat Anda pipe melalui alat seperti [`jq`](https://stedolan.github.io/jq/) untuk mengolahnya sesuai kebutuhan Anda.
-
-Beberapa API memerlukan autentikasi, dan ini biasanya berupa _token_ rahasia yang perlu Anda sertakan dengan permintaan. Anda harus membaca dokumentasi API untuk melihat apa yang digunakan oleh layanan tertentu yang Anda cari, tetapi "[OAuth](https://www.oauth.com/)" adalah protokol yang sering Anda lihat digunakan. Pada intinya, OAuth adalah cara untuk memberikan token yang dapat "bertindak sebagai Anda" pada layanan tertentu, dan hanya dapat digunakan untuk tujuan tertentu. Ingatlah bahwa token ini _rahasia_, dan siapa pun yang mendapatkan akses ke token Anda dapat melakukan apa pun yang diizinkan token tersebut di bawah akun _Anda_!
-
-[IFTTT](https://ifttt.com/) adalah situs web dan layanan yang berpusat pada ide API — layanan ini menyediakan integrasi dengan banyak layanan, dan memungkinkan Anda merangkai peristiwa dari mereka dengan cara yang hampir arbitrer. Coba lihat!
-
-## Flag/pola command-line umum
-
-Alat command-line sangat bervariasi, dan Anda sering kali ingin memeriksa halaman `man` mereka sebelum menggunakannya. Namun mereka sering berbagi beberapa fitur umum yang baik untuk diketahui:
-
- - Sebagian besar alat mendukung semacam flag `--help` untuk menampilkan instruksi penggunaan singkat untuk alat tersebut.
- - Banyak alat yang dapat menyebabkan perubahan yang tidak dapat dibatalkan mendukung konsep "dry run" di mana mereka hanya mencetak apa yang _akan mereka lakukan_, tetapi tidak benar-benar melakukan perubahan. Demikian pula, mereka sering memiliki flag "interactive" yang akan meminta konfirmasi Anda untuk setiap tindakan destruktif.
- - Anda biasanya dapat menggunakan `--version` atau `-V` untuk membuat program mencetak versinya (berguna untuk melaporkan bug!).
- - Hampir semua alat memiliki flag `--verbose` atau `-v` untuk menghasilkan output yang lebih detail. Anda biasanya dapat menyertakan flag beberapa kali (`-vvv`) untuk mendapatkan output yang _lebih_ detail, yang dapat berguna untuk debugging. Demikian pula, banyak alat memiliki flag `--quiet` untuk membuatnya hanya mencetak sesuatu saat terjadi error.
- - Di banyak alat, `-` sebagai ganti nama file berarti "standard input" atau "standard output", tergantung pada argumen.
- - Alat yang berpotensi destruktif umumnya tidak rekursif secara default, tetapi mendukung flag "recursive" (sering `-r`) untuk membuatnya rekursif.
- - Terkadang, Anda ingin melewati sesuatu yang _terlihat_ seperti flag sebagai argumen normal. Misalnya, bayangkan Anda ingin menghapus file bernama `-r`. Atau Anda ingin menjalankan satu program "melalui" program lain, seperti `ssh machine foo`, dan Anda ingin melewati flag ke program "dalam" (`foo`). Argumen khusus `--` membuat program _berhenti_ memproses flag dan opsi (hal-hal yang dimulai dengan `-`) dalam apa yang mengikuti, memungkinkan Anda melewati hal-hal yang terlihat seperti flag tanpa ditafsirkan sebagai flag: `rm -- -r` atau `ssh machine --for-ssh -- foo --for-foo`.
-
-## Window manager
-
-Sebagian besar dari Anda terbiasa menggunakan window manager "drag and drop", seperti yang tersedia di Windows, macOS, dan Ubuntu secara default. Ada jendela-jendela yang begitu saja tergantung di layar, dan Anda dapat menyeretnya, mengubah ukurannya, dan membiarkan mereka saling tumpang tindih. Tetapi ini hanyalah satu _jenis_ window manager, sering disebut sebagai window manager "floating". Ada banyak lainnya, terutama di Linux. Alternatif yang sangat umum adalah window manager "tiling". Di window manager tiling, jendela tidak pernah tumpang tindih, dan sebaliknya diatur sebagai ubin di layar Anda, mirip dengan pane di tmux. Dengan window manager tiling, layar selalu diisi oleh jendela apa pun yang terbuka, diatur menurut _layout_ tertentu. Jika Anda hanya memiliki satu jendela, ia memenuhi seluruh layar. Jika Anda kemudian membuka yang lain, jendela asli mengecil untuk memberinya tempat (sering kali sesuatu seperti 2/3 dan 1/3). Jika Anda membuka yang ketiga, jendela-jendela lain akan kembali mengecil untuk mengakomodasi jendela baru. Sama seperti pane tmux, Anda dapat bernavigasi di antara jendela-jendela ubin ini dengan keyboard Anda, dan Anda dapat mengubah ukurannya serta memindahkannya, semuanya tanpa menyentuh mouse. Ini layak untuk ditelusuri!
+For a more detailed explanation, see 2019's lecture notes on [Backups](/2019/backups).
 
 
-## VPN
+## APIs
 
-VPN sedang sangat populer akhir-akhir ini, tetapi tidak jelas apakah itu karena [alasan yang baik](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). Anda harus menyadari apa yang VPN berikan dan tidak berikan. VPN, dalam kasus terbaik, _sebenarnya_ hanyalah cara bagi Anda untuk mengubah penyedia layanan internet Anda sejauh yang internet perhatikan. Semua lalu lintas Anda akan terlihat berasal dari penyedia VPN daripada lokasi "asli" Anda, dan jaringan yang Anda hubungkan hanya akan melihat lalu lintas terenkripsi.
+We've talked a lot in this class about using your computer more
+efficiently to accomplish _local_ tasks, but you will find that many of
+these lessons also extend to the wider internet. Most services online
+will have "APIs" that let you programmatically access their data. For
+example, the US government has an API that lets you get weather
+forecasts, which you could use to easily get a weather forecast in your
+shell.
 
-Meskipun itu mungkin terlihat menarik, perlu diingat bahwa ketika Anda menggunakan VPN, yang sebenarnya Anda lakukan hanyalah menggeser kepercayaan Anda dari ISP saat ini ke perusahaan hosting VPN. Apa pun yang _bisa_ dilihat oleh ISP Anda, sekarang dilihat oleh penyedia VPN _sebagai gantinya_. Jika Anda mempercayai mereka _lebih_ dari ISP Anda, itu adalah kemenangan, tetapi jika tidak, tidak jelas bahwa Anda telah mendapatkan banyak hal. Jika Anda berada di Wi-Fi publik tidak terenkripsi yang mencurigakan di bandara, mungkin Anda tidak terlalu mempercayai koneksi tersebut, tetapi di rumah, pertukarannya tidak terlalu jelas.
+Most of these APIs have a similar format. They are structured URLs,
+often rooted at `api.service.com`, where the path and query parameters
+indicate what data you want to read or what action you want to perform.
+For the US weather data for example, to get the forecast for a
+particular location, you issue GET request (with `curl` for example) to
+https://api.weather.gov/points/42.3604,-71.094. The response itself
+contains a bunch of other URLs that let you get specific forecasts for
+that region. Usually, the responses are formatted as JSON, which you can
+then pipe through a tool like [`jq`](https://stedolan.github.io/jq/) to
+massage into what you care about.
 
-Anda juga harus tahu bahwa saat ini, sebagian besar lalu lintas Anda, setidaknya yang bersifat sensitif, _sudah_ terenkripsi melalui HTTPS atau TLS secara umum. Dalam hal ini, biasanya tidak terlalu penting apakah Anda berada di jaringan yang "buruk" atau tidak -- operator jaringan hanya akan mengetahui server apa yang Anda hubungi, tetapi tidak ada informasi tentang data yang dipertukarkan.
+Some APIs require authentication, and this usually takes the form of
+some sort of secret _token_ that you need to include with the request.
+You should read the documentation for the API to see what the particular
+service you are looking for uses, but "[OAuth](https://www.oauth.com/)"
+is a protocol you will often see used. At its heart, OAuth is a way to
+give you tokens that can "act as you" on a given service, and can only
+be used for particular purposes. Keep in mind that these tokens are
+_secret_, and anyone who gains access to your token can do whatever the
+token allows under _your_ account!
 
-Perhatikan bahwa saya mengatakan "dalam kasus terbaik" di atas. Bukan tidak pernah terjadi penyedia VPN secara tidak sengaja salah mengonfigurasi perangkat lunak mereka sehingga enkripsi lemah atau sepenuhnya dinonaktifkan. Beberapa penyedia VPN bersifat jahat (atau setidaknya oportunistik), dan akan mencatat semua lalu lintas Anda, dan mungkin menjual informasi tentangnya kepada pihak ketiga. Memilih penyedia VPN yang buruk sering kali lebih buruk daripada tidak menggunakannya sama sekali.
+[IFTTT](https://ifttt.com/) is a website and service centered around the
+idea of APIs — it provides integrations with tons of services, and lets
+you chain events from them in nearly arbitrary ways. Give it a look!
 
-Dalam keadaan darurat, MIT [mengoperasikan VPN](https://ist.mit.edu/vpn) untuk mahasiswanya, jadi itu mungkin layak untuk dilihat. Juga, jika Anda ingin membuat sendiri, coba lihat [WireGuard](https://www.wireguard.com/).
+## Common command-line flags/patterns
+
+Command-line tools vary a lot, and you will often want to check out
+their `man` pages before using them. They often share some common
+features though that can be good to be aware of:
+
+ - Most tools support some kind of `--help` flag to display brief usage
+   instructions for the tool.
+ - Many tools that can cause irrevocable change support the notion of a
+   "dry run" in which they only print what they _would have done_, but
+   do not actually perform the change. Similarly, they often have an
+   "interactive" flag that will prompt you for each destructive action.
+ - You can usually use `--version` or `-V` to have the program print its
+   own version (handy for reporting bugs!).
+ - Almost all tools have a `--verbose` or `-v` flag to produce more
+   verbose output. You can usually include the flag multiple times
+   (`-vvv`) to get _more_ verbose output, which can be handy for
+   debugging. Similarly, many tools have a `--quiet` flag for making it
+   only print something on error.
+ - In many tools, `-` in place of a file name means "standard input" or
+   "standard output", depending on the argument.
+ - Possibly destructive tools are generally not recursive by default,
+   but support a "recursive" flag (often `-r`) to make them recurse.
+ - Sometimes, you want to pass something that _looks_ like a flag as a
+   normal argument. For example, imagine you wanted to remove a file
+   called `-r`. Or you want to run one program "through" another, like
+   `ssh machine foo`, and you want to pass a flag to the "inner" program
+   (`foo`). The special argument `--` makes a program _stop_ processing
+   flags and options (things starting with `-`) in what follows, letting
+   you pass things that look like flags without them being interpreted
+   as such: `rm -- -r` or `ssh machine --for-ssh -- foo --for-foo`.
+
+## Window managers
+
+Most of you are used to using a "drag and drop" window manager, like
+what comes with Windows, macOS, and Ubuntu by default. There are windows
+that just sort of hang there on screen, and you can drag them around,
+resize them, and have them overlap one another. But these are only one
+_type_ of window manager, often referred to as a "floating" window
+manager. There are many others, especially on Linux. A particularly
+common alternative is a "tiling" window manager. In a tiling window
+manager, windows never overlap, and are instead arranged as tiles on
+your screen, sort of like panes in tmux. With a tiling window manager,
+the screen is always filled by whatever windows are open, arranged
+according to some _layout_. If you have just one window, it takes up the
+full screen. If you then open another, the original window shrinks to
+make room for it (often something like 2/3 and 1/3). If you open a
+third, the other windows will again shrink to accommodate the new
+window. Just like with tmux panes, you can navigate around these tiled
+windows with your keyboard, and you can resize them and move them
+around, all without touching the mouse. They are worth looking into!
+
+
+## VPNs
+
+VPNs are all the rage these days, but it's not clear that's for [any
+good reason](https://web.archive.org/web/20230710155258/https://gist.github.com/joepie91/5a9909939e6ce7d09e29). You
+should be aware of what a VPN does and does not get you. A VPN, in the
+best case, is _really_ just a way for you to change your internet
+service provider as far as the internet is concerned. All your traffic
+will look like it's coming from the VPN provider instead of your "real"
+location, and the network you are connected to will only see encrypted
+traffic.
+
+While that may seem attractive, keep in mind that when you use a VPN,
+all you are really doing is shifting your trust from you current ISP to
+the VPN hosting company. Whatever your ISP _could_ see, the VPN provider
+now sees _instead_. If you trust them _more_ than your ISP, that is a
+win, but otherwise, it is not clear that you have gained much. If you
+are sitting on some dodgy unencrypted public Wi-Fi at an airport, then
+maybe you don't trust the connection much, but at home, the trade-off is
+not quite as clear.
+
+You should also know that these days, much of your traffic, at least of
+a sensitive nature, is _already_ encrypted through HTTPS or TLS more
+generally. In that case, it usually matters little whether you are on
+a "bad" network or not -- the network operator will only learn what
+servers you talk to, but not anything about the data that is exchanged.
+
+Notice that I said "in the best case" above. It is not unheard of for
+VPN providers to accidentally misconfigure their software such that the
+encryption is either weak or entirely disabled. Some VPN providers are
+malicious (or at the very least opportunist), and will log all your
+traffic, and possibly sell information about it to third parties.
+Choosing a bad VPN provider is often worse than not using one in the
+first place.
+
+In a pinch, MIT [runs a VPN](https://ist.mit.edu/vpn) for its students,
+so that may be worth taking a look at. Also, if you're going to roll
+your own, give [WireGuard](https://www.wireguard.com/) a look.
 
 ## Markdown
 
-Ada kemungkinan besar Anda akan menulis beberapa teks selama karier Anda. Dan sering kali, Anda akan ingin menandai teks tersebut dengan cara-cara sederhana. Anda ingin beberapa teks menjadi tebal atau miring, atau Anda ingin menambahkan header, tautan, dan fragmen kode. Alih-alih menggunakan alat berat seperti Word atau LaTeX, Anda mungkin ingin mempertimbangkan menggunakan bahasa markup ringan [Markdown](https://commonmark.org/help/).
+There is a high chance that you will write some text over the course of
+your career. And often, you will want to mark up that text in simple
+ways. You want some text to be bold or italic, or you want to add
+headers, links, and code fragments. Instead of pulling out a heavy tool
+like Word or LaTeX, you may want to consider using the lightweight
+markup language [Markdown](https://commonmark.org/help/).
 
-Anda mungkin sudah pernah melihat Markdown, atau setidaknya beberapa variannya. Subset dari Markdown digunakan dan didukung hampir di mana-mana, meskipun tidak dengan nama Markdown. Pada intinya, Markdown adalah upaya untuk membakukan cara orang sudah sering menandai teks ketika mereka menulis dokumen teks biasa. Penekanan (*miring*) ditambahkan dengan mengelilingi kata dengan `*`. Penekanan kuat (**tebal**) ditambahkan menggunakan `**`. Baris yang dimulai dengan `#` adalah heading (dan jumlah `#` adalah tingkat subheading). Baris yang dimulai dengan `-` adalah item daftar bullet, dan baris yang dimulai dengan angka + `.` adalah item daftar bernomor. Backtick digunakan untuk menampilkan kata dalam `font kode`, dan blok kode dapat dimasukkan dengan memberi indentasi empat spasi atau mengelilinginya dengan triple-backtick:
+You have probably seen Markdown already, or at least some variant of it.
+Subsets of it are used and supported almost everywhere, even if it's not
+under the name Markdown. At its core, Markdown is an attempt to codify
+the way that people already often mark up text when they are writing
+plain text documents. Emphasis (*italics*) is added by surrounding a
+word with `*`. Strong emphasis (**bold**) is added using `**`. Lines
+starting with `#` are headings (and the number of `#`s is the subheading
+level). Any line starting with `-` is a bullet list item, and any line
+starting with a number + `.` is a numbered list item. Backtick is used
+to show words in `code font`, and a code block can be entered by
+indenting a line with four spaces or surrounding it with
+triple-backticks:
 
     ```
     code goes here
     ```
 
-Untuk menambahkan tautan, tempatkan _teks_ untuk tautan dalam kurung siku, dan URL segera setelahnya dalam kurung: `[name](url)`. Markdown mudah untuk dimulai, dan Anda dapat menggunakannya hampir di mana-mana. Faktanya, catatan kuliah untuk kuliah ini, dan semua kuliah lainnya, ditulis dalam Markdown, dan Anda dapat melihat Markdown mentahnya [di sini](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
+To add a link, place the _text_ for the link in square brackets,
+and the URL immediately following that in parentheses: `[name](url)`.
+Markdown is easy to get started with, and you can use it nearly
+everywhere. In fact, the lecture notes for this lecture, and all the
+others, are written in Markdown, and you can see the raw Markdown
+[here](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
 
 
 
-## Hammerspoon (otomasi desktop di macOS)
+## Hammerspoon (desktop automation on macOS)
 
-[Hammerspoon](https://www.hammerspoon.org/) adalah framework otomasi desktop untuk macOS. Ini memungkinkan Anda menulis skrip Lua yang terhubung ke fungsionalitas sistem operasi, memungkinkan Anda berinteraksi dengan keyboard/mouse, jendela, layar, filesystem, dan banyak lagi.
+[Hammerspoon](https://www.hammerspoon.org/) is a desktop automation framework
+for macOS. It lets you write Lua scripts that hook into operating system
+functionality, allowing you to interact with the keyboard/mouse, windows,
+displays, filesystem, and much more.
 
-Beberapa contoh hal yang dapat Anda lakukan dengan Hammerspoon:
+Some examples of things you can do with Hammerspoon:
 
-- Mengikat hotkey untuk memindahkan jendela ke lokasi tertentu
-- Membuat tombol menu bar yang secara otomatis menata jendela dalam layout tertentu
-- Membisukan speaker Anda ketika Anda tiba di lab (dengan mendeteksi jaringan Wi-Fi)
-- Menampilkan peringatan jika Anda tidak sengaja mengambil power supply teman Anda
+- Bind hotkeys to move windows to specific locations
+- Create a menu bar button that automatically lays out windows in a specific layout
+- Mute your speaker when you arrive in lab (by detecting the Wi-Fi network)
+- Show you a warning if you've accidentally taken your friend's power supply
 
-Pada tingkat tinggi, Hammerspoon memungkinkan Anda menjalankan kode Lua arbitrer, yang diikat ke tombol menu, tekanan tombol, atau peristiwa, dan Hammerspoon menyediakan pustaka yang luas untuk berinteraksi dengan sistem, sehingga pada dasarnya tidak ada batasan untuk apa yang dapat Anda lakukan. Banyak orang telah membuat konfigurasi Hammerspoon mereka publik, jadi Anda biasanya dapat menemukan apa yang Anda butuhkan dengan mencari di internet, tetapi Anda selalu dapat menulis kode Anda sendiri dari awal.
+At a high level, Hammerspoon lets you run arbitrary Lua code, bound to menu
+buttons, key presses, or events, and Hammerspoon provides an extensive library
+for interacting with the system, so there's basically no limit to what you can
+do with it. Many people have made their Hammerspoon configurations public, so
+you can generally find what you need by searching the internet, but you can
+always write your own code from scratch.
 
-### Sumber Daya
+### Resources
 
 - [Getting Started with Hammerspoon](https://www.hammerspoon.org/go/)
 - [Sample configurations](https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations)
 - [Anish's Hammerspoon config](https://github.com/anishathalye/dotfiles-local/tree/mac/hammerspoon)
 
-## Booting + Live USB
+## Booting + Live USBs
 
-Ketika mesin Anda boot, sebelum sistem operasi dimuat, [BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface) menginisialisasi sistem. Selama proses ini, Anda dapat menekan kombinasi tombol tertentu untuk mengonfigurasi lapisan perangkat lunak ini. Misalnya, komputer Anda mungkin menampilkan sesuatu seperti "Press F9 to configure BIOS. Press F12 to enter boot menu." selama proses boot. Anda dapat mengonfigurasi berbagai pengaturan terkait perangkat keras di menu BIOS. Anda juga dapat masuk ke menu boot untuk boot dari perangkat alternatif selain hard drive Anda.
+When your machine boots up, before the operating system is loaded, the
+[BIOS](https://en.wikipedia.org/wiki/BIOS)/[UEFI](https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface)
+initializes the system. During this process, you can press a specific key
+combination to configure this layer of software. For example, your computer may
+say something like "Press F9 to configure BIOS. Press F12 to enter boot menu."
+during the boot process. You can configure all sorts of hardware-related
+settings in the BIOS menu. You can also enter the boot menu to boot from an
+alternate device instead of your hard drive.
 
-[Live USB](https://en.wikipedia.org/wiki/Live_USB) adalah USB flash drive yang berisi sistem operasi. Anda dapat membuatnya dengan mengunduh sistem operasi (misalnya distribusi Linux) dan membakarnya ke flash drive. Proses ini sedikit lebih rumit daripada hanya menyalin file `.iso` ke disk. Ada alat seperti [UNetbootin](https://unetbootin.github.io/) untuk membantu Anda membuat live USB.
+[Live USBs](https://en.wikipedia.org/wiki/Live_USB) are USB flash drives
+containing an operating system. You can create one of these by downloading an
+operating system (e.g. a Linux distribution) and burning it to the flash drive.
+This process is a little bit more complicated than simply copying a `.iso` file
+to the disk. There are tools like [UNetbootin](https://unetbootin.github.io/)
+to help you create live USBs.
 
-Live USB berguna untuk berbagai tujuan. Antara lain, jika Anda merusak instalasi sistem operasi yang ada sehingga tidak lagi boot, Anda dapat menggunakan live USB untuk memulihkan data atau memperbaiki sistem operasi.
+Live USBs are useful for all sorts of purposes. Among other things, if you
+break your existing operating system installation so that it no longer boots,
+you can use a live USB to recover data or fix the operating system.
 
-## Docker, Vagrant, VM, Cloud, OpenStack
+## Docker, Vagrant, VMs, Cloud, OpenStack
 
-[Virtual machine](https://en.wikipedia.org/wiki/Virtual_machine) dan alat serupa seperti container memungkinkan Anda mengemulasi seluruh sistem komputer, termasuk sistem operasi. Ini dapat berguna untuk membuat lingkungan terisolasi untuk pengujian, pengembangan, atau eksplorasi (misalnya menjalankan kode yang berpotensi berbahaya).
+[Virtual machines](https://en.wikipedia.org/wiki/Virtual_machine) and similar
+tools like containers let you emulate a whole computer system, including the
+operating system. This can be useful for creating an isolated environment for
+testing, development, or exploration (e.g. running potentially malicious code).
 
-[Vagrant](https://www.vagrantup.com/) adalah alat yang memungkinkan Anda mendeskripsikan konfigurasi mesin (sistem operasi, layanan, paket, dll.) dalam kode, dan kemudian menginisialisasi VM dengan `vagrant up` yang sederhana. [Docker](https://www.docker.com/) secara konsep serupa tetapi menggunakan container sebagai gantinya.
+[Vagrant](https://www.vagrantup.com/) is a tool that lets you describe machine
+configurations (operating system, services, packages, etc.) in code, and then
+instantiate VMs with a simple `vagrant up`. [Docker](https://www.docker.com/)
+is conceptually similar but it uses containers instead.
 
-Anda juga dapat menyewa virtual machine di cloud, dan itu adalah cara yang bagus untuk mendapatkan akses instan ke:
+You can also rent virtual machines on the cloud, and it's a nice way to get instant
+access to:
 
-- Mesin always-on yang murah yang memiliki alamat IP publik, digunakan untuk menghosting layanan
-- Mesin dengan banyak CPU, disk, RAM, dan/atau GPU
-- Lebih banyak mesin daripada yang Anda miliki secara fisik (penagihan sering per detik, jadi jika Anda ingin banyak komputasi dalam waktu singkat, layak untuk menyewa 1000 komputer selama beberapa menit)
+- A cheap always-on machine that has a public IP address, used to host services
+- A machine with a lot of CPU, disk, RAM, and/or GPU
+- Many more machines than you physically have access to (billing is often by
+the second, so if you want a lot of computing for a short amount of time, it's
+feasible to rent 1000 computers for a couple of minutes)
 
-Layanan populer termasuk [Amazon AWS](https://aws.amazon.com/), [Google Cloud](https://cloud.google.com/), [Microsoft Azure](https://azure.microsoft.com/), [DigitalOcean](https://www.digitalocean.com/).
+Popular services include [Amazon AWS](https://aws.amazon.com/), [Google
+Cloud](https://cloud.google.com/),[ Microsoft Azure](https://azure.microsoft.com/),
+[DigitalOcean](https://www.digitalocean.com/).
 
-Jika Anda anggota MIT CSAIL, Anda bisa mendapatkan VM gratis untuk tujuan penelitian melalui [CSAIL OpenStack instance](https://tig.csail.mit.edu/shared-computing/open-stack/).
+If you're a member of MIT CSAIL, you can get free VMs for research purposes
+through the [CSAIL OpenStack
+instance](https://tig.csail.mit.edu/shared-computing/open-stack/).
 
-## Pemrograman notebook
+## Notebook programming
 
-[Lingkungan pemrograman notebook](https://en.wikipedia.org/wiki/Notebook_interface) bisa sangat berguna untuk melakukan jenis pengembangan interaktif atau eksploratif tertentu. Mungkin lingkungan pemrograman notebook paling populer saat ini adalah [Jupyter](https://jupyter.org/), untuk Python (dan beberapa bahasa lainnya). [Wolfram Mathematica](https://www.wolfram.com/mathematica/) adalah lingkungan pemrograman notebook lain yang hebat untuk pemrograman berorientasi matematika.
+[Notebook programming
+environments](https://en.wikipedia.org/wiki/Notebook_interface) can be really
+handy for doing certain types of interactive or exploratory development.
+Perhaps the most popular notebook programming environment today is
+[Jupyter](https://jupyter.org/), for Python (and several other languages).
+[Wolfram Mathematica](https://www.wolfram.com/mathematica/) is another notebook
+programming environment that's great for doing math-oriented programming.
 
 ## GitHub
 
-[GitHub](https://github.com/) adalah salah satu platform paling populer untuk pengembangan perangkat lunak open-source. Banyak alat yang kita bahas di kelas ini, dari [vim](https://github.com/vim/vim) hingga [Hammerspoon](https://github.com/Hammerspoon/hammerspoon), dihosting di GitHub. Mudah untuk mulai berkontribusi pada open-source untuk membantu meningkatkan alat yang Anda gunakan setiap hari.
+[GitHub](https://github.com/) is one of the most popular platforms for
+open-source software development. Many of the tools we've talked about in this
+class, from [vim](https://github.com/vim/vim) to
+[Hammerspoon](https://github.com/Hammerspoon/hammerspoon), are hosted on
+GitHub. It's easy to get started contributing to open-source to help improve
+the tools that you use every day.
 
-Ada dua cara utama orang berkontribusi pada proyek di GitHub:
+There are two primary ways in which people contribute to projects on GitHub:
 
-- Membuat [issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue). Ini dapat digunakan untuk melaporkan bug atau meminta fitur baru. Keduanya tidak melibatkan membaca atau menulis kode, jadi bisa cukup ringan untuk dilakukan. Laporan bug berkualitas tinggi bisa sangat berharga bagi pengembang. Mengomentari diskusi yang ada juga bisa membantu.
-- Berkontribusi kode melalui [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests). Ini umumnya lebih terlibat daripada membuat issue. Anda dapat [fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) sebuah repository di GitHub, clone fork Anda, membuat branch baru, melakukan beberapa perubahan (misalnya memperbaiki bug atau mengimplementasikan fitur), push branch tersebut, dan kemudian [membuat pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). Setelah itu, biasanya akan ada beberapa diskusi dengan maintainer proyek, yang akan memberikan umpan balik pada patch Anda. Akhirnya, jika semuanya berjalan baik, patch Anda akan digabungkan ke repository upstream. Sering kali, proyek yang lebih besar akan memiliki panduan kontribusi, menandai issue yang ramah pemula, dan beberapa bahkan memiliki program mentorship untuk membantu kontributor pertama kali menjadi familiar dengan proyek.
+- Creating an
+[issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue).
+This can be used to report bugs or request a new feature. Neither of these
+involves reading or writing code, so it can be pretty lightweight to do.
+High-quality bug reports can be extremely valuable to developers. Commenting on
+existing discussions can be helpful too.
+- Contribute code through a [pull
+request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+This is generally more involved than creating an issue. You can
+[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+a repository on GitHub, clone your fork, create a new branch, make some changes
+(e.g. fix a bug or implement a feature), push the branch, and then [create a
+pull
+request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+After this, there will generally be some back-and-forth with the project
+maintainers, who will give you feedback on your patch. Finally, if all goes
+well, your patch will be merged into the upstream repository. Often times,
+larger projects will have a contributing guide, tag beginner-friendly issues,
+and some even have mentorship programs to help first-time contributors become
+familiar with the project.

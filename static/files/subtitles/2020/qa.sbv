@@ -1,2874 +1,2863 @@
 0:00:00.000,0:00:06.540
-I guess we should do an intro to to this as well,
+Saya rasa kita harus melakukan intro untuk ini juga,
 
 0:00:06.540,0:00:09.580
-so this is a just sort of a
+jadi ini hanyalah semacam
 
 0:00:09.581,0:00:14.740
-free-form Q&A lecture where you, as in
-the two people sitting here, but also
+kuliah Q&A bebas di mana kalian, seperti dua orang yang duduk di sini,
+tapi juga
 
 0:00:14.740,0:00:19.841
-everyone at home who did not come here
-in person get to ask questions and we
+semua orang di rumah yang tidak datang langsung ke sini
+bisa bertanya dan kami
 
 0:00:19.841,0:00:22.961
-have a bunch of questions people asked
-in advance but you can also ask
+punya banyak pertanyaan yang diajukan sebelumnya
+tapi kalian juga bisa mengajukan
 
 0:00:22.961,0:00:27.371
-additional questions during, for the two
-of you who are here, you can do it either
+pertanyaan tambahan selama kuliah, untuk kalian berdua yang di sini,
+bisa melakukannya dengan
 
 0:00:27.371,0:00:33.611
-by raising your hand or you can submit it on
-the forum and be anonymous, it's up to you
+mengangkat tangan atau mengirimkannya di forum dan menjadi anonim, terserah kalian
 
 0:00:33.611,0:00:35.671
-regardless though, what we're gonna
-do is just go through some of the
+bagaimanapun, yang akan kami
+lakukan adalah melewati beberapa
 
 0:00:35.681,0:00:40.241
-questions have been asked and try to
-give as helpful answers as we can
+pertanyaan yang telah diajukan dan mencoba
+memberikan jawaban yang paling membantu
 
 0:00:40.241,0:00:43.691
-although they are unprepared on our side and
+meskipun tidak dipersiapkan dari sisi kami dan
 
 0:00:43.791,0:00:45.611
-yeah that's the plan I guess we go
+ya itu rencananya saya rasa kita mulai
 
 0:00:45.611,0:00:48.911
-from popular to least popular
+dari yang paling populer ke yang paling tidak populer
 
 0:00:48.911,0:00:49.991
-fire away
+silakan
 
 0:00:49.991,0:00:52.091
-all right so for our first question any
+baiklah jadi untuk pertanyaan pertama kami
 
 0:00:52.091,0:00:55.961
-recommendations on learning operating
-system related topics like processes,
+rekomendasi untuk mempelajari topik terkait sistem operasi
+seperti proses,
 
 0:00:55.961,0:00:59.861
-virtual memory, interrupts,
-memory management, etc
+memori virtual, interrupt,
+manajemen memori, dll
 
 0:00:59.861,0:01:01.811
-so I think this is a
+jadi saya pikir ini adalah
 
 0:01:01.811,0:01:07.181
-is an interesting question because these
-are really low level concepts that often
+pertanyaan yang menarik karena ini adalah konsep-konsep yang sangat low level
+yang seringkali
 
 0:01:07.181,0:01:11.391
-do not matter, unless you have to
-deal with this in some capacity,
+tidak penting, kecuali kalian harus
+menanganinya dalam kapasitas tertentu,
 
 0:01:11.391,0:01:12.771
-right so
+jadi
 
 0:01:12.891,0:01:17.671
-one instance where this matters is you're
-writing really low level code like
+salah satu kasus di mana ini penting adalah ketika kalian
+menulis kode yang sangat low level seperti
 
 0:01:17.681,0:01:20.500
-you're implementing a kernel or something
-like that, or you want to
+kalian mengimplementasikan kernel atau sesuatu
+seperti itu, atau kalian ingin
 
 0:01:20.500,0:01:22.811
-just hack on the Linux kernel.
+sekadar mengotak-atik kernel Linux.
 
 0:01:22.811,0:01:24.751
-It's rare otherwise that you need to work with
+Jarang sekali selain itu kalian perlu bekerja dengan
 
 0:01:24.751,0:01:27.711
-especially like virtual memory and
-interrupts and stuff yourself
+terutama seperti memori virtual dan
+interrupt dan semacamnya sendiri
 
 0:01:27.851,0:01:32.071
-processes, I think are a more general concept
-that we've talked a little bit about in
+proses, saya pikir adalah konsep yang lebih umum
+yang telah kita bahas sedikit di
 
 0:01:32.071,0:01:36.611
-this class as well and tools like
-htop, pgrep, kill, and signals and
+kelas ini juga dan alat-alat seperti
+htop, pgrep, kill, dan sinyal serta
 
 0:01:36.761,0:01:37.711
-that sort of stuff
+semacamnya
 
 0:01:37.711,0:01:39.311
-in terms of learning it
+dalam hal mempelajarinya
 
 0:01:39.311,0:01:45.371
-maybe one of the best ways, is to try to
-take either an introductory class on the
+mungkin salah satu cara terbaik adalah dengan mencoba
+mengambil kelas pengantar tentang
 
 0:01:45.371,0:01:51.401
-topic, so for example MIT has a class
-called 6.828, which is where
+topik tersebut, misalnya MIT memiliki kelas
+bernama 6.828, yang merupakan
 
 0:01:51.401,0:01:55.091
-you essentially build and develop your
-own operating system based on some code
+di mana kalian pada dasarnya membangun dan mengembangkan
+sistem operasi kalian sendiri berdasarkan beberapa kode
 
 0:01:55.091,0:01:58.631
-that you're given, and all of those labs
-are publicly available and all the
+yang diberikan kepada kalian, dan semua lab tersebut
+tersedia secara publik dan semua
 
 0:01:58.631,0:02:01.601
-resources for the class are publicly available,
-and so that is a good way to
+sumber daya untuk kelas tersebut tersedia secara publik,
+dan jadi itu adalah cara yang baik untuk
 
 0:02:01.601,0:02:04.001
-really learn them is by doing them yourself.
+benar-benar mempelajarinya adalah dengan melakukannya sendiri.
 
 0:02:04.001,0:02:05.201
-There are also various
+Ada juga berbagai
 
 0:02:05.201,0:02:11.201
-tutorials online that basically guide
-you through how do you write a kernel
+tutorial online yang pada dasarnya memandu
+kalian cara menulis kernel
 
 0:02:11.201,0:02:15.431
-from scratch. Not necessarily a very
-elaborate one, not one you would want
+dari nol. Bukan yang sangat
+canggih, bukan yang akan kalian ingin
 
 0:02:15.431,0:02:20.561
-to run any real software on, but just to
-teach you the basics and so that would
+jalankan software nyata di atasnya, tapi hanya untuk
+mengajarkan dasar-dasarnya dan jadi itu akan
 
 0:02:20.561,0:02:21.930
-be another thing to look up.
+menjadi hal lain untuk dicari.
 
 0:02:21.930,0:02:24.131
-Like how do I write a kernel in and then your
+Seperti bagaimana cara menulis kernel dalam dan kemudian
 
 0:02:24.131,0:02:27.611
-language of choice. You will probably not
-find one that lets you do it in Python
+bahasa pilihan kalian. Kalian mungkin tidak akan
+menemukan yang membiarkan kalian melakukannya dalam Python
 
 0:02:27.611,0:02:33.612
-but in like C, C++, Rust, there
-are a bunch of topics like this
+tapi dalam seperti C, C++, Rust, ada
+banyak topik seperti ini
 
 0:02:33.612,0:02:36.951
-one other note on operating systems
+satu catatan lagi tentang sistem operasi
 
 0:02:36.951,0:02:39.931
-so like Jon mentioned MIT has a 6.828 class but
+jadi seperti yang disebutkan Jon, MIT memiliki kelas 6.828 tapi
 
 0:02:39.941,0:02:43.391
-if you're looking for a more high-level
-overview, not necessarily programming or
+jika kalian mencari gambaran yang lebih tinggi,
+bukan pemrograman atau
 
 0:02:43.391,0:02:46.001
-an operating system, but just learning about
-the concepts another good resource
+sistem operasi, tapi hanya belajar tentang
+konsep-konsepnya, sumber daya lain yang bagus
 
 0:02:46.001,0:02:51.331
-is a book called "Modern Operating
-Systems" by Andy Tannenbaum
+adalah buku berjudul "Modern Operating
+Systems" oleh Andy Tannenbaum
 
 0:02:51.331,0:02:58.371
-there's also actually a book called the "The FreeBSD
-Operating System" which is really good,
+ada juga sebenarnya buku berjudul "The FreeBSD
+Operating System" yang sangat bagus,
 
 0:02:58.371,0:03:03.031
-It doesn't go through Linux, but it goes
-through FreeBSD and the BSD kernel is
+tidak membahas Linux, tapi membahas
+FreeBSD dan kernel BSD
 
 0:03:03.031,0:03:07.181
-arguably better organized than the Linux
-one and better documented and so it
+bisa dibilang lebih terorganisir daripada
+Linux dan lebih terdokumentasi dengan baik dan jadi
 
 0:03:07.181,0:03:11.591
-might be a gentler introduction to some of those
-topics than trying to understand Linux
+mungkin pengantar yang lebih lembut untuk beberapa topik
+tersebut daripada mencoba memahami Linux
 
 0:03:11.591,0:03:14.951
-You want to check it as answered?
+Mau dicek sebagai terjawab?
 
 0:03:14.951,0:03:16.511
-- Yes + Nice
+- Ya + Bagus
 
 0:03:16.511,0:03:17.451
-Answered
+Terjawab
 
 0:03:17.451,0:03:19.371
-For our next question
+Untuk pertanyaan berikutnya
 
 0:03:19.371,0:03:23.951
-What are some of the tools you'd
-prioritize learning first?
+Apa saja alat yang sebaiknya
+diprioritaskan untuk dipelajari pertama kali?
 
 0:03:23.951,0:03:29.551
-- Maybe we can all go through and
-give our opinion on this? + Yeah
+- Mungkin kita semua bisa memberikan
+pendapat masing-masing? + Ya
 
 0:03:29.551,0:03:31.713
-Tools to prioritize learning first?
+Alat yang diprioritaskan untuk dipelajari pertama kali?
 
 0:03:31.713,0:03:36.451
-I think learning your editor well,
-just serves you in all capacities
+Saya pikir mempelajari editor kalian dengan baik,
+layani kalian dalam semua kapasitas
 
 0:03:36.511,0:03:40.511
-like being efficient at editing files,
-is just like a majority of
+seperti menjadi efisien dalam mengedit file,
+hanya seperti sebagian besar
 
 0:03:40.511,0:03:45.041
-what you're going to spend your time doing.
-And in general, just using your
+apa yang akan kalian habiskan waktu untuk melakukannya.
+Dan secara umum, hanya menggunakan
 
 0:03:45.041,0:03:49.211
-keyboard more in your mouse less. It means
-that you get to spend more of your
+keyboard lebih banyak dan mouse lebih sedikit. Itu berarti
+kalian bisa menghabiskan lebih banyak
 
 0:03:49.311,0:03:53.751
-time doing useful things and
-less of your time moving
+waktu untuk melakukan hal-hal yang berguna dan
+lebih sedikit waktu untuk memindahkan
 
 0:03:53.751,0:03:56.251
-I think that would be my top priority,
+Saya pikir itu akan menjadi prioritas utama saya,
 
 0:04:04.511,0:04:06.751
-so I would say that for what
+jadi saya akan mengatakan bahwa untuk
 
 0:04:06.760,0:04:09.671
-tool to prioritize will depend
-on what exactly you're doing
+alat mana yang diprioritaskan akan tergantung
+pada apa yang sebenarnya kalian lakukan
 
 0:04:09.671,0:04:16.150
-I think the core idea is you should try
-to find the types of tasks that you are
+Saya pikir ide intinya adalah kalian harus mencoba
+menemukan jenis tugas yang kalian
 
 0:04:16.151,0:04:18.371
-doing repetitively and so
+lakukan secara berulang dan jadi
 
 0:04:18.371,0:04:23.791
-if you are doing some sort of like
-machine learning workload and
+jika kalian melakukan semacam
+beban kerja machine learning dan
 
 0:04:24.011,0:04:27.130
-you find yourself using jupyter notebooks,
-like the one we presented
+kalian menemukan diri kalian menggunakan jupyter notebook,
+seperti yang kami tunjukkan
 
 0:04:27.130,0:04:32.560
-yesterday, a lot. Then again, using
-a mouse for that might not be
+kemarin, banyak. Kemudian lagi, menggunakan
+mouse untuk itu mungkin bukan
 
 0:04:32.560,0:04:35.830
-the best idea and you want to familiarize
-with the keyboard shortcuts
+ide terbaik dan kalian ingin membiasakan diri
+dengan shortcut keyboard
 
 0:04:35.830,0:04:40.750
-and pretty much with anything you will
-end up figuring out that there are some
+dan hampir dengan apa pun kalian akan
+berakhir menemukan bahwa ada beberapa
 
 0:04:40.751,0:04:45.611
-repetitive tasks, and you're running a
-computer, and just trying to figure out
+tugas berulang, dan kalian menjalankan komputer,
+dan hanya mencoba mencari tahu
 
 0:04:45.611,0:04:48.311
-oh there's probably a better way to do this
+oh mungkin ada cara yang lebih baik untuk melakukan ini
 
 0:04:48.431,0:04:50.871
-be it a terminal, be it an editor
+baik itu terminal, baik itu editor
 
 0:04:51.111,0:04:55.891
-And it might be really interesting to
-learn to use some of the topics that
+Dan mungkin sangat menarik untuk
+mempelajari beberapa topik yang
 
 0:04:55.900,0:05:01.121
-we have covered, but if they're not
-extremely useful in a everyday
+telah kami bahas, tapi jika mereka tidak
+sangat berguna dalam sehari-hari
 
 0:05:01.121,0:05:05.431
-basis then it might not worth prioritizing them
+maka mungkin tidak layak diprioritaskan
 
 0:05:06.591,0:05:07.451
-out of the topics
+dari topik-topik
 
 0:05:07.531,0:05:11.611
-covered in this class in my opinion two
-of the most useful things are version
+yang dibahas di kelas ini menurut pendapat saya, dua
+hal yang paling berguna adalah version
 
 0:05:11.621,0:05:15.220
-control and text editors, and I think they're
-a little bit different from each
+control dan text editor, dan saya pikir mereka
+agak berbeda satu sama lain
 
 0:05:15.220,0:05:18.880
-other, in the sense that text editors I
-think are really useful to learn well
+dalam arti text editor saya pikir
+sangat berguna untuk dipelajari dengan baik
 
 0:05:18.880,0:05:21.970
-but it was probably the case that before
-we started using vim and all its fancy
+tapi mungkin kasusnya adalah sebelum
+kami mulai menggunakan vim dan semua shortcut
 
 0:05:21.970,0:05:25.390
-keyboard shortcuts you had some other
-text editor you were using before and
+keyboard mewahnya, kalian punya text editor lain
+yang kalian gunakan sebelumnya dan
 
 0:05:25.390,0:05:29.890
-you could edit text just fine maybe a little
-bit inefficiently whereas I think
+kalian bisa mengedit teks dengan cukup baik mungkin agak
+tidak efisien sedangkan saya pikir
 
 0:05:29.890,0:05:33.100
-version control is another really useful
-skill and that's one where if you don't
+version control adalah skill yang sangat berguna lainnya
+dan itu adalah salah satu di mana jika kalian tidak
 
 0:05:33.100,0:05:36.580
-really know the tool properly, it can actually
-lead to some problems like loss
+benar-benar mengenal alatnya dengan baik, itu bisa
+menyebabkan beberapa masalah seperti kehilangan
 
 0:05:36.580,0:05:39.490
-of data or just inability to collaborate
-properly with people so I
+data atau hanya ketidakmampuan untuk berkolaborasi
+dengan benar dengan orang lain jadi saya
 
 0:05:39.490,0:05:42.730
-think version control is one of the first
-things that's worth learning well
+pikir version control adalah salah satu hal pertama
+yang layak dipelajari dengan baik
 
 0:05:42.730,0:05:46.871
-yeah, I agree with that, I think
-learning a tool like Git is just
+ya, saya setuju dengan itu, saya pikir
+mempelajari alat seperti Git akan
 
 0:05:46.871,0:05:49.691
-gonna save you so much heartache down the line
+menyelamatkan kalian dari banyak masalah di kemudian hari
 
 0:05:49.691,0:05:51.431
-it also, to add on to that
+juga, untuk menambahkan itu
 
 0:05:51.571,0:05:57.310
-It really helps you collaborate with others
-and Anish touched a little bit on GitHub
+itu sangat membantu kalian berkolaborasi dengan orang lain
+dan Anish menyentuh sedikit tentang GitHub
 
 0:05:57.310,0:06:01.300
-in the last lecture, and just learning
-to use that tool well in order
+di kuliah terakhir, dan hanya belajar
+menggunakan alat itu dengan baik untuk
 
 0:06:01.300,0:06:05.321
-to work on larger software projects
-that other people are working on is
+bekerja pada proyek software yang lebih besar
+yang dikerjakan orang lain adalah
 
 0:06:05.321,0:06:06.431
-an invaluable skill
+skill yang sangat berharga
 
 0:06:10.071,0:06:11.391
-For our next question
+Untuk pertanyaan berikutnya
 
 0:06:11.391,0:06:12.871
-when do I use Python versus a
+kapan saya menggunakan Python versus
 
 0:06:12.881,0:06:16.051
-bash script, versus some other language
+bash script, versus bahasa lainnya
 
 0:06:16.051,0:06:19.661
-This is tough, because I think this comes
+Ini sulit, karena saya pikir ini
 
 0:06:19.661,0:06:21.631
-down to what Jose was saying earlier too
+kembali ke apa yang dikatakan Jose sebelumnya juga
 
 0:06:21.771,0:06:23.731
-that it really depends on
-what you're trying to do
+bahwa itu benar-benar tergantung pada
+apa yang coba kalian lakukan
 
 0:06:23.731,0:06:27.155
-For me, I think for bash scripts in particular
+Bagi saya, saya pikir untuk bash script khususnya
 
 0:06:27.155,0:06:28.791
-bash scripts are for
+bash script adalah untuk
 
 0:06:28.891,0:06:33.430
-automating running a bunch of commands,
-you don't want to write any
+mengotomatiskan menjalankan serangkaian perintah,
+kalian tidak ingin menulis
 
 0:06:33.430,0:06:35.411
-other like business logic in bash
+business logic lainnya dalam bash
 
 0:06:35.411,0:06:39.011
-it is just for I want to run these
+itu hanya untuk saya ingin menjalankan
 
 0:06:39.011,0:06:44.110
-commands, in this order. Maybe with
-arguments, but like even that
+perintah-perintah ini, dalam urutan ini. Mungkin dengan
+argumen, tapi bahkan itu
 
 0:06:44.110,0:06:47.581
-it's unclear do you want to bash script
-once you start taking arguments
+masih belum jelas apakah kalian ingin bash script
+setelah kalian mulai mengambil argumen
 
 0:06:47.581,0:06:52.691
-Similarly, once you start doing any
-kind of like text processing or
+Demikian juga, setelah kalian mulai melakukan
+pemrosesan teks atau
 
 0:06:52.691,0:06:55.131
-configuration, all that
+konfigurasi, semua itu
 
 0:06:55.131,0:06:59.111
-reach for a language that is a more serious
+gunakan bahasa yang lebih serius
 
 0:06:59.111,0:07:01.031
-programming language than bash is
+bahasa pemrograman daripada bash
 
 0:07:01.091,0:07:03.451
-bash is really for sort of short one-off
+bash benar-benar untuk script singkat sekali pakai
 
 0:07:03.461,0:07:10.211
-scripts or ones that have a very well-defined
-use case on the terminal in
+atau yang memiliki kasus penggunaan yang sangat terdefinisi
+di terminal dan
 
 0:07:10.211,0:07:12.851
-the shell, probably
+shell, mungkin
 
 0:07:12.851,0:07:15.941
-For a slightly more concrete guideline,
-you might say write a
+Untuk panduan yang sedikit lebih konkret,
+kalian bisa bilang tulis
 
 0:07:15.941,0:07:19.211
-bash script if it's less than a hundred
-lines of code or so, but once it gets
+bash script jika kurang dari seratus
+baris kode atau lebih, tapi setelah itu
 
 0:07:19.211,0:07:21.611
-beyond that point bash is kind of
-unwieldy and it's probably worth
+melebihi titik itu bash agak
+merepotkan dan mungkin layak
 
 0:07:21.611,0:07:25.091
-switching to a more serious programming
-language like Python
+beralih ke bahasa pemrograman yang lebih serius
+seperti Python
 
 0:07:25.091,0:07:26.511
-and to add to that
+dan untuk menambahkan itu
 
 0:07:26.511,0:07:32.211
-I would say that I found myself writing
-sometimes scripts in Python because
+saya akan mengatakan bahwa saya menemukan diri saya kadang-kadang menulis
+script dalam Python karena
 
 0:07:32.211,0:07:36.911
-If I have already solved some subproblem
-that covers part of the problem in Python
+Jika saya sudah menyelesaikan beberapa submasalah
+yang mencakup bagian dari masalah dalam Python
 
 0:07:36.911,0:07:40.631
-I find it much easier to compose the
-previous solution that I found out in
+saya merasa jauh lebih mudah untuk menggabungkan
+solusi sebelumnya yang saya temukan dalam
 
 0:07:40.631,0:07:45.731
-Python and just try to reuse bash code,
-that I don't find as reusable as Python
+Python dan hanya mencoba menggunakan kembali kode bash,
+yang saya rasa tidak bisa digunakan kembali seperti Python
 
 0:07:45.731,0:07:49.600
-And in the same way it's kind of nice that
-a lot of people have written something
+Dan dengan cara yang sama, cukup bagus bahwa
+banyak orang telah menulis sesuatu
 
 0:07:49.600,0:07:52.631
-like Python libraries or like Ruby libraries
-to do a lot of these things
+seperti library Python atau library Ruby
+untuk melakukan banyak hal ini
 
 0:07:52.631,0:07:58.451
-whereas in bash is kind of hard
-to have like code reuse
+sedangkan dalam bash agak sulit
+untuk memiliki penggunaan kembali kode
 
 0:07:58.451,0:08:01.720
-And in fact,
+Dan sebenarnya,
 
 0:08:01.720,0:08:07.631
-I think to add to that. Usually, if you
-find a library in some language that
+saya pikir untuk menambahkan itu. Biasanya, jika kalian
+menemukan library dalam bahasa tertentu yang
 
 0:08:07.631,0:08:12.091
-helps with the task you're trying to
-do, use that language for the job
+membantu dengan tugas yang coba kalian
+lakukan, gunakan bahasa itu untuk pekerjaannya
 
 0:08:12.091,0:08:15.671
-And in bash there are no libraries, there
-are only the programs on your computer
+Dan dalam bash tidak ada library, hanya ada
+program-program di komputer kalian
 
 0:08:15.771,0:08:18.931
-So you probably don't want to use
-it unless like there's a program
+Jadi kalian mungkin tidak ingin menggunakannya
+kecuali seperti ada program
 
 0:08:18.941,0:08:23.741
-you can just invoke I do think another
-thing worth remembering about bash
+yang bisa kalian panggil saja. Saya pikir hal lain yang layak diingat tentang bash
 
 0:08:23.741,0:08:26.451
-bash is really hard to get right.
+bash sangat sulit untuk dilakukan dengan benar.
 
 0:08:26.451,0:08:30.531
-It's very easy to get it right for the particular
-use case you're trying to solve right now
+Sangat mudah untuk melakukannya dengan benar untuk kasus penggunaan
+tertentu yang coba kalian selesaikan sekarang
 
 0:08:30.531,0:08:32.471
-but things like
+tapi hal-hal seperti
 
 0:08:32.471,0:08:35.891
-What if one of the filenames has a space in it?
+Bagaimana jika salah satu nama file memiliki spasi di dalamnya?
 
 0:08:35.891,0:08:38.891
-It has caused so many bugs and so
+Itu telah menyebabkan begitu banyak bug dan
 
 0:08:38.891,0:08:43.151
-many problems in bash scripts and if you
-use a real programming language then
+banyak masalah dalam bash script dan jika kalian
+menggunakan bahasa pemrograman yang sebenarnya maka
 
 0:08:43.151,0:08:46.642
-those problems just go away
+masalah-masalah itu hilang begitu saja
 
 0:08:46.651,0:08:50.491
-Checked it
+Sudah dicek
 
 0:08:50.571,0:08:51.571
-For our next question
+Untuk pertanyaan berikutnya
 
 0:08:51.571,0:08:56.211
-What is the difference between sourcing
-a script and executing that script ?
+Apa perbedaan antara sourcing
+script dan mengeksekusi script tersebut?
 
 0:08:57.071,0:09:02.711
-So this actually, we got in office
-hours a while back as well which is
+Jadi ini sebenarnya, kami mendapat pertanyaan ini di office
+hours beberapa waktu lalu juga yaitu
 
 0:09:02.871,0:09:06.991
-Aren't they the same? like aren't they
-both just running the bash script?
+Bukankah mereka sama? bukankah keduanya
+hanya menjalankan bash script?
 
 0:09:06.991,0:09:08.051
-and it is true
+dan itu benar
 
 0:09:08.051,0:09:12.191
-both of these will end up executing the
-lines of code that are in the script
+keduanya akan berakhir mengeksekusi
+baris-baris kode yang ada dalam script
 
 0:09:12.191,0:09:16.571
-the ways in which they differ is that
-sourcing a script is telling your
+cara mereka berbeda adalah bahwa
+sourcing script adalah memberitahu
 
 0:09:16.571,0:09:22.991
-current bash script, your current bash
-session to execute that program
+bash script kalian saat ini, sesi bash
+saat ini untuk mengeksekusi program tersebut
 
 0:09:23.131,0:09:28.911
-whereas the other one is, start up a new instance
-of bash and run the program there instead
+sedangkan yang lainnya adalah, memulai instance baru
+dari bash dan menjalankan program di sana
 
 0:09:29.291,0:09:34.931
-And this matters for things like imagine that
-"script.sh" tries to change directories
+Dan ini penting untuk hal-hal seperti bayangkan bahwa
+"script.sh" mencoba mengubah direktori
 
 0:09:34.931,0:09:37.841
-If you are running the script
-as in the second invocation
+Jika kalian menjalankan script
+seperti pemanggilan kedua
 
 0:09:37.841,0:09:42.761
-"./script.sh", then the new
-process is going to change
+"./script.sh", maka proses baru
+akan mengubah
 
 0:09:42.761,0:09:46.891
-directories but by the time that script
-exits and returns to your shell
+direktori tapi pada saat script itu
+keluar dan kembali ke shell kalian
 
 0:09:46.891,0:09:51.831
-your shell still remains in the same place. However,
-if you do CD in a script and you source it
+shell kalian tetap berada di tempat yang sama. Namun,
+jika kalian melakukan CD dalam script dan kalian source itu
 
 0:09:51.831,0:09:55.241
-Your current instance of bash is the
-one that ends up running it and
+Instance bash kalian saat ini adalah yang
+berakhir menjalankannya dan
 
 0:09:55.241,0:09:57.951
-so it ends up CDing where you are
+jadi itu berakhir melakukan CD ke mana kalian berada
 
 0:09:57.951,0:10:01.171
-This is also why if you define functions
+Ini juga alasan mengapa jika kalian mendefinisikan fungsi
 
 0:10:01.171,0:10:04.751
-For example, that you may want to
-execute in your shell session
+Misalnya, yang mungkin ingin kalian
+eksekusi dalam sesi shell kalian
 
 0:10:04.751,0:10:07.011
-You need to source the script, not run it
+Kalian perlu source scriptnya, bukan menjalankannya
 
 0:10:07.011,0:10:10.261
-Because if you run it, that function
-will be defined in the
+Karena jika kalian menjalankannya, fungsi itu
+akan didefinisikan dalam
 
 0:10:10.261,0:10:11.931
-instance of bash
+instance bash
 
 0:10:11.931,0:10:16.831
-In the bash process that gets launched but it
-will not be defined in your current shell
+Dalam proses bash yang diluncurkan tapi itu
+tidak akan didefinisikan dalam shell kalian saat ini
 
 0:10:16.831,0:10:22.871
-I think those are two of the biggest
-differences between the two
+Saya pikir itu adalah dua perbedaan terbesar
+antara keduanya
 
 0:10:29.211,0:10:29.711
-Next question,
+Pertanyaan berikutnya,
 
 0:10:29.873,0:10:35.131
-What are the places where various packages and tools
-are stored and how does referencing them work?
+Di mana berbagai paket dan alat
+disimpan dan bagaimana cara mereferensikannya?
 
 0:10:35.131,0:10:39.171
-What even is /bin or /lib?
+Apa itu /bin atau /lib?
 
 0:10:39.171,0:10:45.091
-So as we covered in the first lecture,
-there is this PATH environment variable
+Jadi seperti yang kami bahas di kuliah pertama,
+ada variabel lingkungan PATH
 
 0:10:45.091,0:10:49.551
-which is a semicolon separated
-string of all the places
+yang merupakan string terpisah titik koma
+dari semua tempat
 
 0:10:49.551,0:10:55.111
-where your shell is gonna look for binaries
-and if you just do something
+di mana shell kalian akan mencari binary
+dan jika kalian hanya melakukan sesuatu
 
 0:10:55.111,0:10:58.171
-like "echo $PATH", you're gonna get this list
+seperti "echo $PATH", kalian akan mendapatkan daftar ini
 
 0:10:58.171,0:11:02.251
-and all these places are gonna
-be consulted in order.
+dan semua tempat ini akan
+dikonsultasikan secara berurutan.
 
 0:11:02.251,0:11:03.601
-It's gonna go through all of them and in fact
+Ini akan melewati semuanya dan sebenarnya
 
 0:11:03.601,0:11:07.011
-- There is already... Did we cover which? + Yeah
+- Sudah ada... Apakah kita sudah membahas which? + Ya
 
 0:11:07.211,0:11:10.011
-So if you run "which" and a specific command
+Jadi jika kalian menjalankan "which" dan perintah tertentu
 
 0:11:10.021,0:11:14.071
-the shell is actually is gonna tell
-you where it's finding this
+shell sebenarnya akan memberitahu
+kalian di mana ia menemukan ini
 
 0:11:14.071,0:11:15.391
-Beyond that,
+Selain itu,
 
 0:11:15.391,0:11:20.431
-there is like some conventions where a lot
-of programs will install their binaries
+ada beberapa konvensi di mana banyak
+program akan menginstal binary mereka
 
 0:11:20.431,0:11:24.071
-and they're like /usr/bin (or at
-least they will include symlinks)
+dan mereka seperti /usr/bin (atau setidaknya
+mereka akan menyertakan symlink)
 
 0:11:24.071,0:11:26.051
-in /usr/bin so you can find them
+di /usr/bin sehingga kalian bisa menemukannya
 
 0:11:26.191,0:11:28.211
-There's also a /usr/local/bin
+Ada juga /usr/local/bin
 
 0:11:28.211,0:11:33.951
-There are special directories. For example,
-/usr/sbin it's only for sudo user and
+Ada direktori khusus. Misalnya,
+/usr/sbin hanya untuk sudo user dan
 
 0:11:33.951,0:11:38.491
-some of these conventions are slightly
-different between different distros so
+beberapa konvensi ini sedikit
+berbeda antara distro yang berbeda jadi
 
 0:11:38.491,0:11:47.571
-I know like some distros for example install
-the user libraries under /opt for example
+saya tahu beberapa distro misalnya menginstal
+library user di bawah /opt misalnya
 
 0:11:51.191,0:11:55.491
-Yeah I think one thing just
-to talk a little bit of more
+Ya saya pikir satu hal
+untuk berbicara sedikit lebih banyak
 
 0:11:55.651,0:12:00.631
-about /bin and then Anish maybe you can
-do the other folders so when it comes to
+tentang /bin dan kemudian Anish mungkin kalian bisa
+menjelaskan folder lainnya jadi ketika datang ke
 
 0:12:00.631,0:12:02.791
-/bin the convention
+/bin konvensinya
 
 0:12:02.791,0:12:10.051
-There are conventions, and the conventions are
-usually /bin are for essential system utilities
+Ada konvensi, dan konvensinya biasanya
+/bin adalah untuk utilitas sistem penting
 
 0:12:10.051,0:12:12.531
-/usr/bin are for user programs and
+/usr/bin adalah untuk program user dan
 
 0:12:12.531,0:12:17.431
-/usr/local/bin are for user
-compiled programs, sort of
+/usr/local/bin adalah untuk program yang
+dikompilasi user, semacam
 
 0:12:17.431,0:12:21.691
-so things that you installed that you intend
-the user to run, are in /usr/bin
+jadi hal-hal yang kalian instal yang kalian niatkan
+untuk dijalankan user, ada di /usr/bin
 
 0:12:21.691,0:12:26.711
-things that a user has compiled themselves and stuck
-on your system, probably goes in /usr/local/bin
+hal-hal yang dikompilasi user sendiri dan diletakkan
+di sistem kalian, mungkin masuk ke /usr/local/bin
 
 0:12:26.711,0:12:29.991
-but again, this varies a lot from machine
-to machine, and distro to distro
+tapi sekali lagi, ini sangat bervariasi dari mesin
+ke mesin, dan distro ke distro
 
 0:12:29.991,0:12:33.971
-On Arch Linux, for example, /bin
-is a symlink to /usr/bin
+Di Arch Linux, misalnya, /bin
+adalah symlink ke /usr/bin
 
 0:12:33.971,0:12:40.261
-They're the same and as Jose mentioned, there's
-also /sbin which is for programs that are
+Mereka sama dan seperti yang disebutkan Jose, ada juga
+/sbin yang untuk program-program yang
 
 0:12:40.261,0:12:43.801
-intended to only be run as root, that
-also varies from distro to distro
+dimaksudkan hanya untuk dijalankan sebagai root, itu
+juga bervariasi dari distro ke distro
 
 0:12:43.801,0:12:47.251
-whether you even have that directory, and
-on many systems like /usr/local/bin
+apakah kalian bahkan memiliki direktori itu, dan
+di banyak sistem seperti /usr/local/bin
 
 0:12:47.251,0:12:51.151
-might not even be in your PATH, or
-might not even exist on your system
+mungkin bahkan tidak ada di PATH kalian, atau
+mungkin bahkan tidak ada di sistem kalian
 
 0:12:51.151,0:12:55.831
-On BSD on the other hand /usr/local/bin
-is often used a lot more heavily
+Di BSD sebaliknya /usr/local/bin
+sering digunakan lebih banyak
 
 0:12:56.731,0:12:57.231
-yeah so
+ya jadi
 
 0:12:57.231,0:13:01.111
-What we were talking about so far, these
-are all ways that files and folders are
+Apa yang kita bicarakan sejauh ini, ini
+semua adalah cara file dan folder
 
 0:13:01.111,0:13:05.071
-organized on Linux things or Linux or
-BSD things vary a little bit between
+diorganisir di Linux hal-hal atau Linux atau
+hal-hal BSD sedikit berbeda antara
 
 0:13:05.071,0:13:07.151
-that and macOS or other platforms
+itu dan macOS atau platform lainnya
 
 0:13:07.151,0:13:09.301
-I think for the specific locations,
+Saya pikir untuk lokasi spesifik,
 
 0:13:09.301,0:13:11.471
-if you to know exactly what it's
-used for, you can look it up
+jika kalian ingin tahu persis apa fungsinya,
+kalian bisa mencarinya
 
 0:13:11.471,0:13:17.291
-But some general patterns to keep in mind or anything
-with /bin in it has binary executable programs in it,
+Tapi beberapa pola umum untuk diingat atau apa pun
+dengan /bin di dalamnya memiliki program eksekutable biner di dalamnya,
 
 0:13:17.291,0:13:19.891
-anything with \lib in it, has
-libraries in it so things that
+apa pun dengan \lib di dalamnya, memiliki
+library di dalamnya jadi hal-hal yang
 
 0:13:19.891,0:13:25.081
-programs can link against, and then some
-other things that are useful to know are
+program bisa link terhadapnya, dan kemudian beberapa
+hal lain yang berguna untuk diketahui adalah
 
 0:13:25.081,0:13:29.431
-there's a /etc on many systems, which
-has configuration files in it and
+ada /etc di banyak sistem, yang
+memiliki file konfigurasi di dalamnya dan
 
 0:13:29.431,0:13:34.311
-then there's /home, which underneath that directory
-contains each user's home directory
+kemudian ada /home, yang di bawah direktori itu
+berisi direktori home setiap user
 
 0:13:34.311,0:13:38.521
-so like on a linux box my username
-or if it's Anish will
+jadi seperti di linux box username saya
+atau jika itu Anish akan
 
 0:13:38.651,0:13:41.351
-correspond to a home directory /home/anish
+sesuai dengan direktori home /home/anish
 
 0:13:42.071,0:13:43.351
-Yeah I guess there are
+Ya saya rasa ada
 
 0:13:43.351,0:13:47.671
-a couple of others like /tmp is usually
-a temporary directory that gets
+beberapa lainnya seperti /tmp biasanya
+direktori sementara yang dihapus
 
 0:13:47.671,0:13:51.351
-erased when you reboot not always but sometimes,
-you should check on your system
+saat kalian reboot tidak selalu tapi kadang-kadang,
+kalian harus memeriksa di sistem kalian
 
 0:13:51.731,0:13:59.211
-There's a /var which often holds like
-files the change over time so
+Ada /var yang sering menyimpan
+file yang berubah seiring waktu jadi
 
 0:13:59.211,0:14:06.151
-these these are usually going to be things
-like lock files for package managers
+ini biasanya akan menjadi hal-hal
+seperti file lock untuk package manager
 
 0:14:06.151,0:14:12.431
-they're gonna be things like log files
-files to keep track of process IDs
+mereka akan menjadi hal-hal seperti file log
+file untuk melacak process ID
 
 0:14:12.431,0:14:16.471
-then there's /dev which shows devices so
+kemudian ada /dev yang menunjukkan perangkat jadi
 
 0:14:16.471,0:14:20.551
-usually so these are special files that
-correspond to devices on your system we
+biasanya ini adalah file khusus yang
+sesuai dengan perangkat di sistem kalian kami
 
 0:14:20.551,0:14:27.391
-talked about /sys, Anish mentioned /etc
+membahas tentang /sys, Anish menyebutkan /etc
 
 0:14:29.051,0:14:36.031
-/opt is a common one for just like third-party
-software that basically it's usually for
+/opt adalah yang umum untuk hanya seperti software pihak ketiga
+yang biasanya untuk
 
 0:14:36.031,0:14:40.951
-companies ported their software to Linux
-but they don't actually understand what
+perusahaan yang mem-port software mereka ke Linux
+tapi mereka tidak benar-benar paham apa
 
 0:14:40.951,0:14:45.391
-running software on Linux is like, and
-so they just have a directory with all
+menjalankan software di Linux itu seperti apa, dan
+jadi mereka hanya memiliki direktori dengan semua
 
 0:14:45.391,0:14:51.411
-their stuff in it and when those get installed
-they usually get installed into /opt
+barang-barang mereka di dalamnya dan ketika itu diinstal
+mereka biasanya diinstal ke /opt
 
 0:14:51.411,0:14:55.651
-I think those are the ones off the top of my head
+Saya pikir itu yang saya ingat di kepala saya
 
 0:14:55.651,0:14:57.771
-yeah
+ya
 
 0:14:57.771,0:15:02.271
-And we will list these in our lecture notes
-which will produce after this lecture
+Dan kami akan mencantumkan ini di catatan kuliah kami
+yang akan kami buat setelah kuliah ini
 
 0:15:02.271,0:15:04.431
-Next question
+Pertanyaan berikutnya
 
 0:15:04.431,0:15:07.080
-Should I apt-get install a Python whatever
+Haruskah saya apt-get install paket Python apa pun
 
 0:15:07.080,0:15:10.691
-package or pip install that package
+atau pip install paket tersebut
 
 0:15:10.691,0:15:13.890
-so this is a good question that I think at
+jadi ini pertanyaan bagus yang saya pikir di
 
 0:15:13.890,0:15:17.310
-a higher level this question is asking
-should I use my systems package manager
+tingkat yang lebih tinggi pertanyaan ini menanyakan
+haruskah saya menggunakan package manager sistem saya
 
 0:15:17.310,0:15:20.850
-to install things or should I use some other
-package manager. Like in this case
+untuk menginstal sesuatu atau haruskah saya menggunakan package manager lain.
+Seperti dalam kasus ini
 
 0:15:20.850,0:15:25.021
-one that's more specific to a particular
-language. And the answer here is also
+yang lebih spesifik untuk bahasa tertentu.
+Dan jawabannya di sini juga
 
 0:15:25.021,0:15:28.590
-kind of it depends, sometimes it's nice
-to manage things using a system package
+agak tergantung, kadang-kadang bagus
+mengelola sesuatu menggunakan package manager
 
 0:15:28.590,0:15:31.950
-manager so everything can be installed
-and upgraded in a single place but
+sistem sehingga semuanya bisa diinstal
+dan di-upgrade di satu tempat tapi
 
 0:15:31.950,0:15:35.160
-I think oftentimes whatever is available
-in the system repositories the things
+saya pikir seringkali apa yang tersedia
+di repositori sistem hal-hal
 
 0:15:35.160,0:15:37.800
-you can get via a tool like
-apt-get or something similar
+yang bisa kalian dapatkan melalui alat seperti
+apt-get atau yang serupa
 
 0:15:37.800,0:15:41.040
-might be slightly out of date compared to
-the more language specific repository
+mungkin agak ketinggalan zaman dibandingkan dengan
+repositori yang lebih spesifik untuk bahasa
 
 0:15:41.040,0:15:45.060
-so for example a lot of the Python packages
-I use I really want the most
+jadi misalnya banyak paket Python
+yang saya gunakan saya benar-benar ingin versi
 
 0:15:45.060,0:15:47.771
-up-to-date version and so
-I use pip to install them
+terbaru dan jadi
+saya menggunakan pip untuk menginstalnya
 
 0:15:48.551,0:15:51.091
-Then, to extend on that is
+Kemudian, untuk memperluas itu
 
 0:15:51.091,0:15:57.751
-sometimes the case the system packages
-might require some other
+kadang-kadang kasus paket sistem
+mungkin memerlukan beberapa
 
 0:15:57.751,0:16:02.461
-dependencies that you might not have realized
-about, and it's also might be
+dependensi lain yang mungkin tidak kalian sadari,
+dan mungkin juga
 
 0:16:02.461,0:16:07.201
-the case or like for some systems,
-at least for like alpine Linux they
+kasus atau seperti untuk beberapa sistem,
+setidaknya untuk seperti alpine Linux mereka
 
 0:16:07.201,0:16:11.221
-don't have wheels for like a lot of the
-Python packages so it will just take
+tidak memiliki wheel untuk banyak
+paket Python jadi itu akan memakan
 
 0:16:11.221,0:16:15.331
-longer to compile them, it will take more
-space because they have to compile them
+waktu lebih lama untuk mengompilasinya, akan memakan lebih banyak
+ruang karena mereka harus mengompilasinya
 
 0:16:15.331,0:16:20.761
-from scratch. Whereas if you just go
-to pip, pip has binaries for a lot of
+dari awal. Sedangkan jika kalian hanya pergi
+ke pip, pip memiliki binary untuk banyak
 
 0:16:20.761,0:16:23.471
-different platforms and that will probably work
+platform berbeda dan itu mungkin akan berhasil
 
 0:16:23.471,0:16:29.191
-You also should be aware that pip might not do
-the exact same thing in different computers
+Kalian juga harus sadar bahwa pip mungkin tidak melakukan
+hal yang persis sama di komputer yang berbeda
 
 0:16:29.191,0:16:33.601
-So, for example, if you are in a kind of laptop
-or like a desktop that is running like
+Jadi, misalnya, jika kalian di laptop
+atau desktop yang menjalankan
 
 0:16:33.601,0:16:38.971
-a x86 or x86_64 you probably have binaries,
-but if you're running something
+x86 atau x86_64 kalian mungkin memiliki binary,
+tapi jika kalian menjalankan sesuatu
 
 0:16:38.971,0:16:43.471
-like Raspberry Pi or some other kind of
-embedded device. These are running on a
+seperti Raspberry Pi atau beberapa jenis
+perangkat embedded lainnya. Ini berjalan di
 
 0:16:43.471,0:16:47.611
-different kind of hardware architecture
-and you might not have binaries
+arsitektur hardware yang berbeda
+dan kalian mungkin tidak memiliki binary
 
 0:16:47.611,0:16:51.841
-I think that's also good to take into account,
-in that case in might be worthwhile to
+Saya pikir itu juga baik untuk diperhitungkan,
+dalam kasus itu mungkin layak untuk
 
 0:16:51.841,0:16:58.551
-use the system packages just because they
-will take much shorter to get them
+menggunakan paket sistem hanya karena mereka
+akan memakan waktu jauh lebih singkat untuk mendapatkannya
 
 0:16:58.551,0:17:01.691
-than to just to compile from scratch
-the entire Python installation
+daripada harus mengompilasi dari awal
+seluruh instalasi Python
 
 0:17:01.691,0:17:06.741
-Apart from that, I don't think I can think of any exceptions
-where I would actually use the system packages
+Selain itu, saya tidak pikir saya bisa memikirkan pengecualian apa pun
+di mana saya benar-benar akan menggunakan paket sistem
 
 0:17:06.741,0:17:09.251
-instead of the Python provided ones
+daripada yang disediakan Python
 
 0:17:19.011,0:17:20.851
-So, one other thing to keep in mind is that
+Jadi, satu hal lain yang perlu diingat adalah bahwa
 
 0:17:20.861,0:17:26.180
-sometimes you will have more than one
-program on your computer and you might
+kadang-kadang kalian akan memiliki lebih dari satu
+program di komputer kalian dan kalian mungkin
 
 0:17:26.180,0:17:29.961
-be developing more than one program on
-your computer and for some reason not
+mengembangkan lebih dari satu program di
+komputer kalian dan untuk beberapa alasan tidak
 
 0:17:29.961,0:17:33.861
-all programs are always built with the latest
-version of things, sometimes they
+semua program selalu dibangun dengan versi terbaru
+dari sesuatu, kadang-kadang mereka
 
 0:17:33.861,0:17:39.351
-are a little bit behind, and when you
-install something system-wide you can
+sedikit tertinggal, dan ketika kalian
+menginstal sesuatu secara system-wide kalian bisa
 
 0:17:39.351,0:17:44.691
-only... depends on your exact system,
-but often you just have one version
+hanya... tergantung pada sistem kalian yang tepat,
+tapi seringkali kalian hanya memiliki satu versi
 
 0:17:44.691,0:17:49.711
-what pip lets you do, especially combined
-with something like python's virtualenv,
+apa yang memungkinkan pip lakukan, terutama dikombinasikan
+dengan sesuatu seperti virtualenv Python,
 
 0:17:49.711,0:17:54.531
-and similar concepts exist for other
-languages, where you can sort of say
+dan konsep serupa ada untuk bahasa
+lainnya, di mana kalian bisa semacam bilang
 
 0:17:54.531,0:17:59.660
-I want to (NPM does the same thing as well
-with its node modules, for example) where
+saya akan (NPM melakukan hal yang sama juga
+dengan node modulesnya, misalnya) di mana
 
 0:17:59.660,0:18:05.991
-I'm gonna compile the dependencies of
-this package in sort of a subdirectory
+saya akan mengompilasi dependensi dari
+paket ini dalam semacam subdirektori
 
 0:18:05.991,0:18:10.431
-of its own, and all of the versions that it
-requires are going to be built in there
+sendiri, dan semua versi yang dibutuhkannya
+akan dibangun di sana
 
 0:18:10.431,0:18:13.910
-and you can do this separately for separate
-projects so there they have
+dan kalian bisa melakukan ini secara terpisah untuk proyek yang berbeda
+jadi mereka memiliki
 
 0:18:13.910,0:18:16.910
-different dependencies or the same dependencies
-with different versions
+dependensi yang berbeda atau dependensi yang sama
+dengan versi yang berbeda
 
 0:18:16.910,0:18:20.930
-they still sort of kept separate. And that
-is one thing that's hard to achieve
+mereka masih tetap terpisah. Dan itu
+adalah satu hal yang sulit dicapai
 
 0:18:20.931,0:18:22.651
-with system packages
+dengan paket sistem
 
 0:18:27.131,0:18:27.851
-Next question
+Pertanyaan berikutnya
 
 0:18:27.911,0:18:32.771
-What's the easiest and best profiling tools
-to use to improve performance of my code?
+Apa alat profiling yang paling mudah dan terbaik
+untuk digunakan meningkatkan performa kode saya?
 
 0:18:34.351,0:18:39.231
-This is a topic we could talk
-about for a very long time
+Ini adalah topik yang bisa kita bicarakan
+untuk waktu yang sangat lama
 
 0:18:39.231,0:18:42.881
-The easiest and best is to print stuff using time
+Yang paling mudah dan terbaik adalah mencetak sesuatu menggunakan time
 
 0:18:42.881,0:18:48.431
-Like, I'm not joking, very often
-the easiest thing is in your code
+Seperti, saya tidak bercanda, sangat sering
+hal termudah adalah dalam kode kalian
 
 0:18:48.971,0:18:53.751
-At the top you figure out what the current
-time is, and then you do sort of
+Di atas kalian cari tahu apa waktu saat ini,
+dan kemudian kalian lakukan semacam
 
 0:18:53.751,0:18:57.920
-a binary search over your program of add
-a print statement that prints how much
+pencarian biner atas program kalian dengan menambahkan
+pernyataan print yang mencetak berapa banyak
 
 0:18:57.920,0:19:02.511
-time has elapsed since the start of your
-program and then you do that until you
+waktu yang telah berlalu sejak awal program kalian
+dan kemudian kalian lakukan itu sampai kalian
 
 0:19:02.511,0:19:06.320
-find the segment of code that took the
-longest. And then you go into that
+menemukan segmen kode yang memakan
+waktu paling lama. Dan kemudian kalian masuk ke
 
 0:19:06.320,0:19:09.531
-function and then you do the same thing
-again and you keep doing this until you
+fungsi itu dan kemudian kalian lakukan hal yang sama
+lagi dan kalian terus melakukan ini sampai kalian
 
 0:19:09.531,0:19:14.031
-find roughly where the time was spent. It's
-not foolproof, but it is really easy
+menemukan kira-kira di mana waktu dihabiskan. Ini
+bukan solusi yang pasti, tapi sangat mudah
 
 0:19:14.031,0:19:16.721
-and it gives you good information quickly
+dan memberi kalian informasi yang bagus dengan cepat
 
 0:19:16.721,0:19:25.361
-if you do need more advanced information
-Valgrind has a tool called cache-grind?
+jika kalian memang butuh informasi yang lebih canggih
+Valgrind memiliki alat bernama cache-grind?
 
 0:19:25.361,0:19:29.431
-call grind? Cache grind? One of the two.
+call grind? Cache grind? Salah satu dari keduanya.
 
 0:19:29.431,0:19:33.310
-and this tool lets you run your program and
+dan alat ini memungkinkan kalian menjalankan program kalian dan
 
 0:19:33.310,0:19:38.741
-measure how long everything takes and
-all of the call stacks, like which
+mengukur berapa lama waktu yang dibutuhkan semuanya dan
+semua call stack, seperti fungsi
 
 0:19:38.741,0:19:42.521
-function called which function, and what
-you end up with is a really neat
+mana yang memanggil fungsi mana, dan apa
+yang kalian dapatkan adalah
 
 0:19:42.521,0:19:47.081
-annotation of your entire program source
-with the heat of every line basically
+anotasi yang sangat rapi dari seluruh sumber program kalian
+dengan panas setiap baris pada dasarnya
 
 0:19:47.081,0:19:51.761
-how much time was spent there. It does
-slow down your program by like an order
+berapa banyak waktu yang dihabiskan di sana. Ini memang
+memperlambat program kalian sekitar satu orde
 
 0:19:51.761,0:19:56.021
-of magnitude or more, and it doesn't really
-support threads but it is really
+besaran atau lebih, dan tidak benar-benar
+mendukung thread tapi itu sangat
 
 0:19:56.021,0:20:01.121
-useful if you can use it. If you can't,
-then tools like perf or similar tools
+berguna jika kalian bisa menggunakannya. Jika tidak bisa,
+maka alat seperti perf atau alat serupa
 
 0:20:01.121,0:20:05.201
-for other languages that do usually some
-kind of sampling profiling like we
+untuk bahasa lain yang biasanya melakukan
+profiling sampling semacam seperti yang kami
 
 0:20:05.201,0:20:09.811
-talked about in the profiler lecture, can
-give you pretty useful data quickly,
+bahas di kuliah profiler, bisa
+memberi kalian data yang cukup berguna dengan cepat,
 
 0:20:09.811,0:20:15.160
-but it's a lot of data around
-this, but they're a little bit
+tapi ada banyak data di sekitar ini, tapi mereka agak
 
 0:20:15.160,0:20:18.971
-biased and what kind of things they usually
-highlight as a problem and it
+bias dan hal-hal seperti apa yang biasanya
+mereka soroti sebagai masalah dan
 
 0:20:18.971,0:20:22.961
-can sometimes be hard to extract meaningful
-information about what should
+kadang-kadang bisa sulit untuk mengekstrak informasi yang bermakna
+tentang apa yang harus
 
 0:20:22.961,0:20:27.701
-I change in response to them. Whereas the
-sort of print approach very quickly
+saya ubah sebagai respons terhadapnya. Sedangkan
+pendekatan print semacam itu dengan cepat
 
 0:20:27.701,0:20:32.171
-gives you like this section
-of code is bad or slow
+memberi kalian seperti bagian kode ini
+buruk atau lambat
 
 0:20:32.171,0:20:34.871
-I think would be my answer
+Saya pikir itu akan menjadi jawaban saya
 
 0:20:34.871,0:20:40.431
-Flamegraphs are great, they're a good way
-to visualize some of this information
+Flamegraph sangat bagus, mereka adalah cara yang baik
+untuk memvisualisasikan beberapa informasi ini
 
 0:20:41.491,0:20:45.550
-Yeah I just have one thing to add,
-oftentimes programming languages
+Ya saya hanya punya satu hal untuk ditambahkan,
+seringkali bahasa pemrograman
 
 0:20:45.550,0:20:48.910
-have language specific tools for profiling
-so to figure out what's the
+memiliki alat khusus bahasa untuk profiling
+jadi untuk mencari tahu apa
 
 0:20:48.910,0:20:52.191
-right tool to use for your language like if
-you're doing JavaScript in the web browser
+alat yang tepat untuk digunakan untuk bahasa kalian seperti jika
+kalian melakukan JavaScript di browser web
 
 0:20:52.191,0:20:55.411
-the web browser has a really nice tool for
-doing profiling you should just use that
+browser web memiliki alat yang sangat bagus untuk
+melakukan profiling kalian harus menggunakannya saja
 
 0:20:55.411,0:21:00.471
-or if you are using go, for example, go has a built-in
-profiler is really good you should just use that
+atau jika kalian menggunakan go, misalnya, go memiliki profiler built-in
+yang sangat bagus kalian harus menggunakannya saja
 
 0:21:01.711,0:21:04.251
-A last thing to add to that
+Satu hal terakhir untuk ditambahkan
 
 0:21:04.251,0:21:09.951
-Sometimes you might find that doing this binary
-search over time that you're kind of
+Kadang-kadang kalian mungkin menemukan bahwa melakukan pencarian biner
+ini atas waktu bahwa kalian semacam
 
 0:21:09.961,0:21:14.351
-finding where the time is going, but this
-time is sometimes happening because
+menemukan ke mana waktu pergi, tapi waktu ini
+kadang-kadang terjadi karena
 
 0:21:14.351,0:21:18.461
-you're waiting on the network, or you're
-waiting for some file, and in that case
+kalian menunggu di jaringan, atau kalian
+menunggu beberapa file, dan dalam kasus itu
 
 0:21:18.461,0:21:23.440
-you want to make sure that the time
-that is, if I want to write
+kalian ingin memastikan bahwa waktu
+yang, jika saya ingin menulis
 
 0:21:23.440,0:21:27.310
-like 1 gigabyte file or like read 1
-gigabyte file and put it into memory
+file 1 gigabyte atau seperti membaca file 1
+gigabyte dan memasukkannya ke memori
 
 0:21:27.310,0:21:32.260
-you want to check that the actual time
-there, is the minimum amount of time
+kalian ingin memeriksa bahwa waktu aktual
+di sana, adalah jumlah waktu minimum
 
 0:21:32.260,0:21:36.221
-you actually have to wait. If it's ten times
-longer, you should try to use some
+yang sebenarnya harus kalian tunggu. Jika sepuluh kali
+lebih lama, kalian harus mencoba menggunakan beberapa
 
 0:21:36.221,0:21:39.371
-other tools that we covered in the debugging
-and profiling section to see
+alat lain yang kami bahas di bagian debugging
+dan profiling untuk melihat
 
 0:21:39.371,0:21:45.671
-why you're not utilizing all your
-resources because that might...
+mengapa kalian tidak memanfaatkan semua sumber daya kalian
+karena itu mungkin...
 
 0:21:50.511,0:21:56.071
-Because that might be a lot of what's happening
-thing, like for example, in my research
+Karena itu mungkin banyak dari apa yang terjadi,
+seperti misalnya, dalam penelitian saya
 
 0:21:56.081,0:21:59.410
-in machine learning workloads, a lot of
-time is loading data and you have to
+dalam beban kerja machine learning, banyak
+waktu adalah memuat data dan kalian harus
 
 0:21:59.410,0:22:02.981
-make sure well like the time it takes to
-load data is actually the minimum amount
+memastikan dengan baik seperti waktu yang dibutuhkan untuk
+memuat data adalah benar-benar jumlah minimum
 
 0:22:02.981,0:22:07.500
-of time you want to have that happening
+waktu yang kalian ingin terjadi
 
 0:22:08.040,0:22:13.481
-And to build on that, there are actually
-specialized tools for doing things like
+Dan untuk membangun di atas itu, sebenarnya ada
+alat khusus untuk melakukan hal-hal seperti
 
 0:22:13.481,0:22:17.351
-analyzing wait times. Very often when
-you're waiting for something what's
+menganalisis waktu tunggu. Sangat sering ketika
+kalian menunggu sesuatu yang
 
 0:22:17.351,0:22:20.591
-really happening is you're issuing your
-system call, and that system call takes
+sebenarnya terjadi adalah kalian mengeluarkan
+system call kalian, dan system call itu memakan
 
 0:22:20.591,0:22:24.191
-some amount of time to respond. Like you do
-a really large write, or a really large read
+beberapa waktu untuk merespons. Seperti kalian melakukan
+write yang sangat besar, atau read yang sangat besar
 
 0:22:24.191,0:22:28.361
-or you do many of them, and one thing
-that can be really handy here is
+atau kalian melakukan banyak dari mereka, dan satu hal
+yang bisa sangat berguna di sini adalah
 
 0:22:28.361,0:22:31.841
-to try to get information out of the
-kernel about where your program is
+untuk mencoba mendapatkan informasi dari
+kernel tentang di mana program kalian
 
 0:22:31.841,0:22:37.000
-spending its time. And so there's (it's
-not new), but there's a relatively
+menghabiskan waktunya. Dan jadi ada (itu
+bukan hal baru), tapi ada yang relatif
 
 0:22:37.000,0:22:42.820
-newly available thing called BPF or eBPF.
-Which is essentially kernel tracing
+baru tersedia yang disebut BPF atau eBPF.
+Yang pada dasarnya adalah kernel tracing
 
 0:22:42.820,0:22:48.531
-and you can do some really cool things with
-it, and that includes tracing user programs.
+dan kalian bisa melakukan beberapa hal yang sangat keren dengannya,
+dan itu termasuk tracing program user.
 
 0:22:48.531,0:22:51.760
-It can be a little bit awkward to
-get started with, there's a tool
+Ini bisa agak canggung untuk
+dimulai, ada alat
 
 0:22:51.760,0:22:56.201
-called BPF trace that i would recommend
-you looking to, if you need to do like
+bernama BPF trace yang saya akan rekomendasikan
+kalian lihat, jika kalian perlu melakukan
 
 0:22:56.201,0:23:00.040
-this kind of low-level performance debugging.
-But it is really good for this
+debugging performa low-level semacam ini.
+Tapi itu sangat bagus untuk
 
 0:23:00.040,0:23:04.601
-kind of stuff. You can get things like
-histograms over how much time was spent
+hal-hal semacam ini. Kalian bisa mendapatkan hal-hal seperti
+histogram atas berapa banyak waktu yang dihabiskan
 
 0:23:04.601,0:23:06.671
-in particular system calls
+dalam system call tertentu
 
 0:23:06.671,0:23:09.721
-It's a great tool
+Itu alat yang hebat
 
 0:23:12.251,0:23:15.351
-What browser plugins do you use?
+Plugin browser apa yang kalian gunakan?
 
 0:23:16.731,0:23:19.731
-I try to use as few as I can get away with using
+Saya mencoba menggunakan sesedikit mungkin
 
 0:23:19.731,0:23:25.991
-because I don't like things being in
-my browser, but there are a couple of
+karena saya tidak suka ada hal-hal di
+browser saya, tapi ada beberapa
 
 0:23:25.991,0:23:30.311
-ones that are sort of staples.
-The first one is uBlock Origin.
+yang menjadi pokok. Yang pertama adalah uBlock Origin.
 
 0:23:30.311,0:23:36.611
-So uBlock Origin is one of many ad blockers but
-it's a little bit more than an ad blocker.
+Jadi uBlock Origin adalah salah satu dari banyak ad blocker tapi
+itu sedikit lebih dari ad blocker.
 
 0:23:36.611,0:23:42.530
-It is (a what do they call it?) a
-network filtering tool so it lets
+Itu adalah (apa mereka menyebutnya?) alat
+penyaringan jaringan jadi itu memungkinkan
 
 0:23:42.530,0:23:47.331
-you do more things than just block ads.
-It also lets you like block connections
+kalian melakukan lebih banyak hal daripada hanya memblokir iklan.
+Itu juga memungkinkan kalian seperti memblokir koneksi
 
 0:23:47.331,0:23:51.351
-to certain domains, block connections
-for certain types of resources
+ke domain tertentu, memblokir koneksi
+untuk jenis sumber daya tertentu
 
 0:23:51.351,0:23:56.031
-So I have mine set up in what they call
-the Advanced Mode, where basically
+Jadi saya mengatur milik saya dalam apa yang mereka sebut
+Mode Lanjutan, di mana pada dasarnya
 
 0:23:56.031,0:24:02.451
-you can disable basically all network requests.
-But it's not just Network requests,
+kalian bisa menonaktifkan pada dasarnya semua permintaan jaringan.
+Tapi bukan hanya permintaan jaringan,
 
 0:24:02.451,0:24:07.430
-It's also like I have disabled all inline
-scripts on every page and all
+itu juga seperti saya telah menonaktifkan semua
+script inline di setiap halaman dan semua
 
 0:24:07.430,0:24:11.540
-third-party images and resources, and then
-you can sort of create a whitelist
+gambar dan sumber daya pihak ketiga, dan kemudian
+kalian bisa semacam membuat whitelist
 
 0:24:11.540,0:24:16.351
-for every page so it gives you really
-low-level tools around how to
+untuk setiap halaman jadi itu memberi kalian alat yang sangat
+low-level tentang bagaimana cara
 
 0:24:16.351,0:24:20.331
-how to improve the security of your browsing.
-But you can also set it in not the
+meningkatkan keamanan penjelajahan kalian. Tapi kalian juga bisa mengaturnya dalam bukan
 
 0:24:20.331,0:24:23.991
-advanced mode, and then it does much of
-the same as a regular ad blocker would
+mode lanjutan, dan kemudian itu melakukan banyak
+hal yang sama seperti yang dilakukan ad blocker biasa
 
 0:24:23.991,0:24:28.101
-do, although in a fairly efficient way
-if you're looking at an ad blocker it's
+meskipun dengan cara yang cukup efisien
+jika kalian mencari ad blocker itu
 
 0:24:28.101,0:24:31.510
-probably the one to use and it
-works on like every browser
+mungkin yang harus digunakan dan itu
+bekerja di hampir setiap browser
 
 0:24:31.511,0:24:34.451
-That would be my top pick I think,
+Itu akan menjadi pilihan utama saya saya pikir,
 
 0:24:39.111,0:24:44.391
-I think probably the one I
-use like the most actively
+saya pikir mungkin yang paling
+saya gunakan secara aktif
 
 0:24:44.391,0:24:50.391
-is one called Stylus. It lets you modify
-the CSS or like the stylesheets
+adalah yang disebut Stylus. Itu memungkinkan kalian memodifikasi
+CSS atau seperti stylesheet
 
 0:24:50.391,0:24:54.560
-that webpages have. And it's pretty
-neat, because sometimes you're
+yang dimiliki halaman web. Dan itu cukup
+keren, karena kadang-kadang kalian
 
 0:24:54.560,0:24:58.550
-looking at a website and you want
-to hide some part of the website
+melihat situs web dan kalian ingin
+menyembunyikan beberapa bagian situs web
 
 0:24:58.550,0:25:04.211
-you don't care about. Like maybe a ad, maybe
-some sidebar you're not finding useful
+yang tidak kalian pedulikan. Seperti mungkin iklan, mungkin
+sidebar yang tidak kalian temukan berguna
 
 0:25:04.211,0:25:06.290
-The thing is, at the end of
-the day these things are
+Masalahnya, pada akhirnya
+hal-hal ini
 
 0:25:06.290,0:25:09.591
-displaying in your browser, and you
-have control of what code is
+ditampilkan di browser kalian, dan kalian
+memiliki kontrol atas kode apa yang
 
 0:25:09.591,0:25:13.131
-executing and similar to what Jon was
-saying, like you can customize this
+dieksekusi dan mirip dengan apa yang dikatakan Jon,
+seperti kalian bisa menyesuaikan ini
 
 0:25:13.131,0:25:18.491
-to no end, and what I have for a lot of
-web pages like hide this this part, or
+tanpa batas, dan apa yang saya miliki untuk banyak
+halaman web seperti sembunyikan bagian ini, atau
 
 0:25:18.491,0:25:23.390
-also trying to make like dark modes for
-them like you can change pretty much the
+juga mencoba membuat seperti dark mode untuk
+mereka seperti kalian bisa mengubah hampir
 
 0:25:23.390,0:25:26.810
-color for every single website. And what
-is actually pretty neat is that there's
+warna untuk setiap situs web. Dan apa
+yang sebenarnya cukup keren adalah bahwa ada
 
 0:25:26.810,0:25:31.461
-like a repository online of people that
-have contributed this is stylesheets
+seperti repositori online orang-orang yang
+telah berkontribusi stylesheet
 
 0:25:31.461,0:25:35.031
-for the websites. So someone probably
-has (done) one for GitHub
+untuk situs web. Jadi seseorang mungkin
+telah (melakukan) satu untuk GitHub
 
 0:25:35.031,0:25:38.780
-Like I want dark GitHub and someone has
-already contributed one that makes
+Seperti saya ingin dark GitHub dan seseorang sudah
+berkontribusi satu yang membuat
 
 0:25:38.780,0:25:44.631
-that much more pleasing to browse. Apart
-from that, one that it's not really
+itu jauh lebih menyenangkan untuk dijelajahi. Selain
+itu, satu yang tidak benar-benar
 
 0:25:44.631,0:25:49.491
-fancy, but I have found incredibly helpful
-is one that just takes a screenshot an
+mewah, tapi saya temukan sangat membantu
+adalah yang hanya mengambil screenshot seluruh
 
 0:25:49.491,0:25:53.121
-entire website. And It will
-scroll for you and make
+situs web. Dan itu akan
+scroll untuk kalian dan membuat
 
 0:25:53.121,0:25:57.711
-compound image of the entire website and that's
-really great for when you're trying to
+gambar gabungan dari seluruh situs web dan itu
+sangat bagus untuk ketika kalian mencoba
 
 0:25:57.711,0:26:00.111
-print a website and is just terrible.
+mencetak situs web dan hasilnya buruk.
 
 0:26:00.111,0:26:00.611
-(It's built into Firefox)
+(Itu sudah built-in di Firefox)
 
 0:26:00.611,0:26:02.671
-oh interesting
+oh menarik
 
 0:26:02.671,0:26:05.751
-oh now that you mention builtin to Firefox,
-another one that I really like about
+oh sekarang yang kalian sebutkan built-in di Firefox,
+yang lain yang sangat saya sukai tentang
 
 0:26:05.751,0:26:09.071
-Firefox is the multi account containers
+Firefox adalah multi account containers
 
 0:26:09.071,0:26:10.831
-(Oh yeah, it's fantastic)
+(Oh ya, itu fantastis)
 
 0:26:10.831,0:26:12.291
-Which kind of lets you
+Yang semacam memungkinkan kalian
 
 0:26:12.291,0:26:16.670
-By default a lot of web browsers, like
-for example Chrome, have this
+Secara default banyak web browser, seperti
+misalnya Chrome, memiliki
 
 0:26:16.670,0:26:20.601
-notion of like there's session that you
-have, where you have all your cookies
+notion seperti ada sesi yang kalian
+miliki, di mana kalian memiliki semua cookie kalian
 
 0:26:20.601,0:26:24.560
-and they are kind of all shared from the
-different websites in the sense of
+dan mereka semua dibagi dari
+situs web yang berbeda dalam arti
 
 0:26:24.560,0:26:30.811
-you keep opening new tabs and unless you go into
-incognito you kind of have the same profile
+kalian terus membuka tab baru dan kecuali kalian masuk ke
+incognito kalian memiliki profil yang sama
 
 0:26:30.811,0:26:34.190
-And that profile is the same for
-all websites, there is this
+Dan profil itu sama untuk
+semua situs web, ada ini
 
 0:26:34.191,0:26:35.851
-Is it an extension or is it built in?
+Apakah itu ekstensi atau built-in?
 
 0:26:35.851,0:26:40.571
-(it's a mix, it's complicated)
+(itu campuran, itu rumit)
 
 0:26:41.091,0:26:46.211
-So I think you actually have to say you want
-to install it or enable it and again
+Jadi saya pikir kalian sebenarnya harus bilang kalian ingin
+menginstalnya atau mengaktifkannya dan lagi
 
 0:26:46.221,0:26:49.881
-the name is Multi Account Containers and
-these let you tell Firefox to have
+namanya adalah Multi Account Containers dan
+ini memungkinkan kalian memberitahu Firefox untuk memiliki
 
 0:26:49.881,0:26:53.961
-separate isolated sessions. So
-for example, you want to say
+sesi terisolasi yang terpisah. Jadi
+misalnya, kalian ingin bilang
 
 0:26:53.961,0:26:58.851
-I have a separate sessions for whenever I
-visit to Google or whenever I visit Amazon
+saya memiliki sesi terpisah setiap kali saya
+mengunjungi Google atau setiap kali saya mengunjungi Amazon
 
 0:26:58.851,0:27:01.791
-and that can be pretty neat, because then you can
+dan itu bisa cukup keren, karena kemudian kalian bisa
 
 0:27:01.791,0:27:08.171
-At a browser level it's ensuring that no information
-sharing is happening between the two of them
+Di tingkat browser itu memastikan bahwa tidak ada berbagi informasi
+yang terjadi antara keduanya
 
 0:27:08.171,0:27:11.961
-And it's much more convenient than
-having to open a incognito window
+Dan itu jauh lebih nyaman daripada
+harus membuka jendela incognito
 
 0:27:11.961,0:27:14.471
-where it's gonna clean all the time the stuff
+di mana itu akan membersihkan semua waktu hal-hal
 
 0:27:14.471,0:27:17.311
-(One thing to mention is Stylus vs Stylish)
+(Satu hal yang disebutkan adalah Stylus vs Stylish)
 
 0:27:17.531,0:27:19.651
-Oh yeah, I forgot about that
+Oh ya, saya lupa tentang itu
 
 0:27:19.651,0:27:24.931
-One important thing is the browser extension
-for side loading CSS Stylesheets
+Satu hal penting adalah ekstensi browser
+untuk memuat CSS Stylesheet
 
 0:27:24.931,0:27:31.851
-it's called a Stylus and that's different
-from the older one that was
+disebut Stylus dan itu berbeda
+dari yang lama yang
 
 0:27:31.851,0:27:37.400
-called Stylish, because that one got
-bought at some point by some shady
+disebut Stylish, karena itu dibeli
+pada suatu waktu oleh beberapa perusahaan yang mencurigakan,
 
 0:27:37.400,0:27:40.711
-company, that started abusing it not only to have
+yang mulai menyalahgunakannya tidak hanya untuk memiliki
+fungsi itu, tapi juga untuk membaca
 
 0:27:40.711,0:27:45.780
-that functionality, but also to read your
-entire browser history and send that
-
-0:27:45.780,0:27:48.491
-back to their servers so they could data mine it.
+seluruh riwayat browser kalian dan mengirim itu
+kembali ke server mereka sehingga mereka bisa menambang data.
 
 0:27:48.491,0:27:53.731
-So, then people just built this open-source alternative
-that is called Stylus, and that's the one
+Jadi, kemudian orang-orang hanya membangun alternatif open-source ini
+yang disebut Stylus, dan itu yang
 
 0:27:53.731,0:27:58.951
-we recommend. Said that, I think the repository
-for styles is the same for the
+kami rekomendasikan. Dikatakan demikian, saya pikir repositori
+untuk gaya adalah sama untuk
 
 0:27:58.951,0:28:03.611
-two of them, but I would have
-to double check that.
+keduanya, tapi saya harus
+memeriksa ulang itu.
 
 0:28:03.611,0:28:05.951
-Do you have any browser plugins Anish?
+Apakah kalian punya plugin browser Anish?
 
 0:28:06.071,0:28:09.311
-Yes, so I also have some recommendations
-for browser plugins
+Ya, jadi saya juga punya beberapa rekomendasi
+untuk plugin browser
 
 0:28:09.311,0:28:13.991
-I also use uBlock Origin and I also use Stylus,
+Saya juga menggunakan uBlock Origin dan saya juga menggunakan Stylus,
 
 0:28:13.991,0:28:18.511
-but one other one that I'd recommend is
-integration with a password manager
+tapi satu lagi yang saya rekomendasikan adalah
+integrasi dengan password manager
 
 0:28:18.511,0:28:21.631
-So this is a topic that we have in
-the lecture notes for the security
+Jadi ini adalah topik yang kami miliki di
+catatan kuliah untuk kuliah keamanan
 
 0:28:21.631,0:28:24.841
-lecture, but we didn't really get to talk
-about in detail. But basically password
+tapi kami tidak benar-benar mendapat kesempatan untuk membicarakannya
+secara detail. Tapi pada dasarnya password
 
 0:28:24.841,0:28:27.810
-managers do a really good job of increasing
-your security when working
+manager melakukan pekerjaan yang sangat baik dalam meningkatkan
+keamanan kalian saat bekerja
 
 0:28:27.810,0:28:31.831
-with online accounts, and having browser
-integration with your password manager
+dengan akun online, dan memiliki integrasi browser
+dengan password manager kalian
 
 0:28:31.831,0:28:34.410
-can save you a lot of time like you
-can open up a website then it can
+bisa menghemat banyak waktu seperti kalian
+bisa membuka situs web lalu itu bisa
 
 0:28:34.410,0:28:37.381
-autofill your login information for you
-sir and you go and copy and paste it
+mengisi otomatis informasi login kalian untuk
+kalian dan kalian pergi dan copy dan paste
 
 0:28:37.381,0:28:40.320
-back and forth between a separate program
-if it's not integrated with your
+bolak-balik antara program terpisah
+jika tidak terintegrasi dengan
 
 0:28:40.320,0:28:43.410
-web browser, and it can also, this integration,
-can save you from certain
+web browser kalian, dan itu juga, integrasi ini,
+bisa menyelamatkan kalian dari serangan tertentu
 
 0:28:43.410,0:28:47.651
-attacks that would otherwise be possible if
-you were doing this manual copy pasting.
+yang sebaliknya mungkin terjadi jika
+kalian melakukan copy paste manual ini.
 
 0:28:47.651,0:28:50.790
-For example, phishing attacks. So
-you find a website that looks very
+Sebagai contoh, serangan phishing. Jadi
+kalian menemukan situs web yang terlihat sangat
 
 0:28:50.790,0:28:54.211
-similar to Facebook and you go to log in
-with your facebook login credentials and
+mirip dengan Facebook dan kalian pergi untuk login
+dengan kredensial login Facebook kalian dan
 
 0:28:54.211,0:28:56.851
-you go to your password manager and copy
-paste the correct credentials into this
+kalian pergi ke password manager kalian dan copy
+paste kredensial yang benar ke
 
 0:28:56.851,0:29:00.060
-funny web site and now all of a sudden
-it has your password but if you have
+situs web aneh ini dan tiba-tiba
+itu memiliki password kalian tapi jika kalian memiliki
 
 0:29:00.060,0:29:03.091
-browser integration then the extension
-can automatically check
+integrasi browser maka ekstensi
+bisa secara otomatis memeriksa
 
 0:29:03.091,0:29:06.951
-like. Am I on F A C E B O O K.com,or
-is it some other domain
+seperti. Apakah saya di F A C E B O O K.com, atau
+apakah itu domain lain
 
 0:29:06.951,0:29:10.671
-that maybe look similar and it will not enter
-the login information if it's the wrong domain
+yang mungkin terlihat mirip dan itu tidak akan memasukkan
+informasi login jika itu domain yang salah
 
 0:29:10.671,0:29:15.791
-so browser extension for
-password managing is good
+jadi ekstensi browser untuk
+mengelola password itu bagus
 
 0:29:15.791,0:29:17.930
-Yeah I agree
+Ya saya setuju
 
 0:29:19.491,0:29:20.711
-Next question
+Pertanyaan berikutnya
 
 0:29:20.711,0:29:23.991
-What are other useful data wrangling tools?
+Apa alat data wrangling lain yang berguna?
 
 0:29:23.991,0:29:32.421
-So in yesterday's lecture, I mentioned curl, so
-curl is a fantastic tool for just making web
+Jadi di kuliah kemarin, saya menyebutkan curl, jadi
+curl adalah alat yang fantastis hanya untuk membuat permintaan
 
 0:29:32.421,0:29:35.811
-requests and dumping them to your terminal.
-You can also use it for things
+web dan membuangnya ke terminal kalian. Kalian juga bisa menggunakannya untuk hal-hal
 
 0:29:35.811,0:29:41.191
-like uploading files which is really handy.
+seperti mengunggah file yang sangat berguna.
 
 0:29:41.191,0:29:48.431
-In the exercises of that lecture we also talked about
-JQ and pup which are command line tools that let you
+Di latihan kuliah itu kami juga berbicara tentang
+JQ dan pup yang merupakan alat baris perintah yang memungkinkan kalian
 
 0:29:48.431,0:29:52.991
-basically write queries over JSON
-and HTML documents respectively
+pada dasarnya menulis query atas dokumen JSON
+dan HTML masing-masing
 
 0:29:52.991,0:30:00.391
-that can be really handy. Other
-data wrangling tools?
+itu bisa sangat berguna. Alat
+data wrangling lainnya?
 
 0:30:00.391,0:30:03.821
-Ah Perl, the Perl programming language is
+Ah Perl, bahasa pemrograman Perl
 
 0:30:03.821,0:30:08.061
-often referred to as a write only
-programming language because it's
+sering disebut sebagai bahasa pemrograman
+write only karena
 
 0:30:08.061,0:30:13.431
-impossible to read even if you wrote it.
-But it is fantastic at doing just like
+mustahil untuk dibaca bahkan jika kalian yang menulisnya.
+Tapi itu fantastis dalam melakukan
 
 0:30:13.431,0:30:21.561
-straight up text processing, like nothing
-beats it there, so maybe worth learning
+pemrosesan teks langsung, seperti tidak ada
+yang bisa mengalahkannya di sana, jadi mungkin layak mempelajari
 
 0:30:21.561,0:30:24.331
-some very rudimentary Perl just
-to write some of those scripts
+beberapa Perl yang sangat dasar hanya
+untuk menulis beberapa script tersebut
 
 0:30:24.331,0:30:29.371
-It's easier often than writing some like hacked-up
-combination of grep and awk and sed,
+Itu seringkali lebih mudah daripada menulis semacam kombinasi
+grep dan awk dan sed yang diotak-atik,
 
 0:30:29.371,0:30:36.311
-and it will be much faster to just tack something
-up than writing it up in Python, for example
+dan itu akan jauh lebih cepat hanya untuk menambahkan sesuatu
+daripada menulisnya dalam Python, misalnya
 
 0:30:36.311,0:30:44.031
-but apart from that, other data wrangling
+tapi selain itu, data wrangling lainnya
 
 0:30:44.031,0:30:47.071
-No, not off the top of my head really
+Tidak, tidak ada yang terlintas di kepala saya
 
 0:30:47.071,0:30:53.661
-column -t, if you pipe any white space separated
+column -t, jika kalian pipe input terpisah whitespace apa pun
 
 0:30:53.661,0:30:58.821
-input into column -t it will align all
-the white space of the columns so that
+ke column -t itu akan menyelaraskan semua
+whitespace kolom sehingga
 
 0:30:58.821,0:31:05.771
-you get nicely aligned columns that's, and
-head and tail but we talked about those
+kalian mendapatkan kolom yang sejajar dengan rapi, itu, dan
+head dan tail tapi kita sudah membahas itu
 
 0:31:09.011,0:31:13.791
-I think a couple of additions to that,
-that I find myself using commonly
+saya pikir beberapa tambahan untuk itu,
+yang saya temukan sering saya gunakan
 
 0:31:13.791,0:31:19.881
-one is vim. Vim can be pretty useful
-for like data wrangling on itself
+satu adalah vim. Vim bisa cukup berguna
+untuk seperti data wrangling sendiri
 
 0:31:19.881,0:31:22.461
-Sometimes you might find that the operation
-that you're trying to do is
+Kadang-kadang kalian mungkin menemukan bahwa operasi
+yang coba kalian lakukan
 
 0:31:22.461,0:31:27.711
-hard to put down in terms of piping
-different operators but if you
+sulit dituangkan dalam hal piping
+operator yang berbeda tapi jika kalian
 
 0:31:27.711,0:31:32.531
-can just open the file and just record
+bisa hanya membuka file dan hanya merekam
 
 0:31:32.531,0:31:37.301
-a couple of quick vim macros to do what you
-want it to do, it might be like much,
+beberapa macro vim cepat untuk melakukan apa yang
+kalian inginkan, itu mungkin jauh,
 
 0:31:37.301,0:31:42.311
-much easier. That's one, and then the other
-one, if you're dealing with tabular
+jauh lebih mudah. Itu satu, dan kemudian yang lain,
+jika kalian berurusan dengan data tabular
 
 0:31:42.311,0:31:46.091
-data and you want to do more complex operations
-like sorting by one column,
+dan kalian ingin melakukan operasi yang lebih kompleks
+seperti mengurutkan berdasarkan satu kolom,
 
 0:31:46.091,0:31:51.161
-then grouping and then computing some sort
-of statistic, I think a lot of that
+kemudian mengelompokkan dan kemudian menghitung semacam
+statistik, saya pikir banyak beban kerja itu
 
 0:31:51.161,0:31:55.951
-workload I ended up just using Python
-and pandas because it's built for that
+saya berakhir hanya menggunakan Python
+dan pandas karena itu dibangun untuk itu
 
 0:31:55.951,0:32:00.190
-And one of the pretty neat features that
-I find myself also using is that it
+Dan salah satu fitur yang cukup keren yang
+saya temukan juga saya gunakan adalah bahwa itu
 
 0:32:00.190,0:32:03.931
-will export to many different formats.
-So this intermediate state
+akan mengekspor ke banyak format berbeda.
+Jadi keadaan perantara ini
 
 0:32:03.931,0:32:09.221
-has its own kind of pandas dataframe
-object but it can
+memiliki objek pandas dataframe
+sendiri tapi itu bisa
 
 0:32:09.221,0:32:14.171
-export to HTM, LaTeX, a lot of different
-like table formats so if your end
+mengeksport ke HTM, LaTeX, banyak
+format tabel berbeda jadi jika produk akhir kalian
 
 0:32:14.171,0:32:19.531
-product is some sort of summary table, then pandas
-I think it's a fantastic choice for that
+adalah semacam tabel ringkasan, maka pandas
+saya pikir itu pilihan yang fantastis untuk itu
 
 0:32:21.111,0:32:24.791
-I would second the vim and also
-Python I think those are
+saya akan mendukung vim dan juga
+Python saya pikir itu adalah
 
 0:32:24.791,0:32:29.051
-two of my most used data wrangling tools.
-For the vim one, last year we had a demo
+dua alat data wrangling yang paling sering saya gunakan.
+Untuk vim, tahun lalu kami punya demo
 
 0:32:29.051,0:32:31.841
-in the series in the lecture notes, but
-we didn't cover it in class we had a
+di serial di catatan kuliah, tapi
+kami tidak membahasnya di kelas kami punya
 
 0:32:31.841,0:32:38.051
-demo of turning an XML file into a JSON version
-of that same data using only vim macros
+demo mengubah file XML menjadi versi JSON
+dari data yang sama hanya menggunakan macro vim
 
 0:32:38.051,0:32:40.331
-And I think that's actually the
-way I would do it in practice
+Dan saya pikir itu sebenarnya cara
+yang akan saya lakukan dalam praktik
 
 0:32:40.331,0:32:43.241
-I don't want to go find a tool that does
-this conversion it is actually simple
+Saya tidak ingin pergi mencari alat yang melakukan
+konversi ini itu sebenarnya sederhana
 
 0:32:43.241,0:32:45.431
-to encode as a vim macro,
-then I just do it that way
+untuk dienkode sebagai macro vim,
+maka saya hanya melakukannya dengan cara itu
 
 0:32:45.431,0:32:48.991
-And then also Python especially in an interactive
-tool like a Jupyter notebook
+Dan kemudian juga Python terutama dalam alat interaktif
+seperti Jupyter notebook
 
 0:32:48.991,0:32:51.171
-is a really great way of doing data wrangling
+adalah cara yang sangat bagus untuk melakukan data wrangling
 
 0:32:51.171,0:32:52.951
-A third tool I'd mention which
-I don't remember if we
+Alat ketiga yang saya sebutkan yang
+saya tidak ingat apakah kami
 
 0:32:52.961,0:32:55.361
-covered in the data wrangling
-lecture or elsewhere
+bahas di kuliah data wrangling
+atau di tempat lain
 
 0:32:55.361,0:32:58.751
-is a tool called pandoc which can do transformations
-between different text
+adalah alat bernama pandoc yang bisa melakukan transformasi
+antara format dokumen teks yang berbeda
 
 0:32:58.751,0:33:02.981
-document formats so you can convert from
-plaintext to HTML or HTML to markdown
+jadi kalian bisa mengkonversi dari
+plaintext ke HTML atau HTML ke markdown
 
 0:33:02.981,0:33:07.361
-or LaTeX to HTML or many other formats
-it actually it supports a large
+atau LaTeX ke HTML atau banyak format lainnya
+itu sebenarnya mendukung banyak
 
 0:33:07.361,0:33:10.471
-list of input formats and a
-large list of output formats
+daftar format input dan
+daftar format output yang besar
 
 0:33:10.471,0:33:16.361
-I think there's one last one which I mentioned briefly
-in the lecture on data wrangling which is
+Saya pikir ada satu terakhir yang saya sebutkan secara singkat
+di kuliah tentang data wrangling yaitu
 
 0:33:16.361,0:33:20.441
-the R programming language, it's
-an awful (I think it's an awful)
+bahasa pemrograman R, itu
+adalah (saya pikir itu) bahasa yang buruk
 
 0:33:20.441,0:33:25.120
-language to program in. And i would never
-use it in the middle of a data wrangling
+untuk diprogram. Dan saya tidak akan pernah
+menggunakannya di tengah pipeline data wrangling
 
 0:33:25.120,0:33:30.951
-pipeline, but at the end, in order to like produce
-pretty plots and statistics R is great
+tapi di akhir, untuk seperti menghasilkan
+plot dan statistik yang bagus R sangat bagus
 
 0:33:30.951,0:33:35.581
-Because R is built for doing
-statistics and plotting
+Karena R dibangun untuk melakukan
+statistik dan plotting
 
 0:33:35.581,0:33:40.591
-there's a library for are called
-ggplot which is just amazing
+ada library bernama
+ggplot yang luar biasa
 
 0:33:40.591,0:33:46.551
-ggplot2 i guess technically It's
-great, it produces very
+ggplot2 saya kira secara teknis itu
+sangat bagus, itu menghasilkan
 
 0:33:46.551,0:33:51.431
-nice visualizations and it lets you do,
-it does very easily do things like
+visualisasi yang sangat bagus dan memungkinkan kalian melakukan,
+itu melakukan hal-hal dengan sangat mudah seperti
 
 0:33:51.431,0:33:57.561
-If you have a data set that has like multiple
-facets like it's not just X and Y
+Jika kalian memiliki dataset yang memiliki seperti beberapa
+facet seperti bukan hanya X dan Y
 
 0:33:57.561,0:34:03.111
-it's like X Y Z and some other variable,
-and then you want to plot like the
+itu seperti X Y Z dan beberapa variabel lainnya,
+dan kemudian kalian ingin memplot seperti
 
 0:34:03.111,0:34:07.581
-throughput grouped by all of those parameters
-at the same time and produce
+throughput yang dikelompokkan oleh semua parameter tersebut
+pada saat yang sama dan menghasilkan
 
 0:34:07.581,0:34:11.991
-a visualization. R very easily let's you
-do this and I haven't seen anywhere
+visualisasi. R dengan sangat mudah membiarkan kalian
+melakukan ini dan saya belum melihat di mana pun
 
 0:34:11.991,0:34:14.891
-that lets you do that as easily
+yang membiarkan kalian melakukan itu semudah itu
 
 0:34:16.971,0:34:17.951
-Next question,
+Pertanyaan berikutnya,
 
 0:34:17.951,0:34:20.511
-What's the difference between
-Docker and a virtual machine
+Apa perbedaan antara
+Docker dan virtual machine
 
 0:34:23.271,0:34:27.731
-What's the easiest way to explain this? So docker
+Cara termudah untuk menjelaskan ini? Jadi docker
 
 0:34:27.741,0:34:31.221
-starts something called containers and
-docker is not the only program that
+memulai sesuatu yang disebut container dan
+docker bukan satu-satunya program yang
 
 0:34:31.221,0:34:36.561
-starts containers. There are many others
-and usually they rely on some feature of
+memulai container. Ada banyak lainnya
+dan biasanya mereka mengandalkan beberapa fitur dari
 
 0:34:36.561,0:34:40.401
-the underlying kernel in the case of
-docker they use something called LXC
+kernel yang mendasari dalam kasus
+docker mereka menggunakan sesuatu yang disebut LXC
 
 0:34:40.401,0:34:47.571
-which are Linux containers and the basic
-premise there is if you want to start
+yang merupakan Linux container dan premis
+dasarnya adalah jika kalian ingin memulai
 
 0:34:47.571,0:34:53.181
-what looks like a virtual machine that
-is running roughly the same operating
+apa yang tampak seperti virtual machine yang
+menjalankan kira-kira sistem operasi yang
 
 0:34:53.181,0:34:57.411
-system as you are already running on your
-computer then you don't really need
+sama dengan yang sudah kalian jalankan di
+komputer kalian maka kalian tidak benar-benar perlu
 
 0:34:57.411,0:35:04.701
-to run another instance of the kernel
-really that other virtual machine can
+menjalankan instance lain dari kernel
+benar-benar virtual machine lain itu bisa
 
 0:35:04.701,0:35:09.951
-share a kernel. And you can just use the
-kernels built in isolation mechanisms to
+berbagi kernel. Dan kalian bisa hanya menggunakan
+mekanisme isolasi built-in kernel untuk
 
 0:35:09.951,0:35:13.791
-spin up a program that thinks it's
-running on its own hardware but in
+memulai program yang pikir itu
+berjalan di hardware sendiri tapi dalam
 
 0:35:13.791,0:35:18.501
-reality it's sharing the kernel and so this
-means that containers can often run
+kenyataannya itu berbagi kernel dan jadi ini
+berarti container sering bisa berjalan
 
 0:35:18.501,0:35:22.611
-with much lower overhead than a full virtual
-machine will do but you should
+dengan overhead yang jauh lebih rendah daripada virtual machine
+penuh akan lakukan tapi kalian harus
 
 0:35:22.611,0:35:26.391
-keep in mind that it also has somewhat weaker
-isolation because you are sharing
+ingat bahwa itu juga memiliki isolasi yang agak lebih lemah
+karena kalian berbagi
 
 0:35:26.391,0:35:30.831
-a kernel between the two if you spin up
-a virtual machine the only thing that's
+kernel antara keduanya jika kalian memulai
+virtual machine satu-satunya yang
 
 0:35:30.831,0:35:35.931
-shared is sort of the hardware and to
-some extent the hypervisor, whereas
+dibagi adalah semacam hardware dan sampai
+batas tertentu hypervisor, sedangkan
 
 0:35:35.931,0:35:40.791
-with a docker container you're sharing
-the full kernel and the that is a
+dengan docker container kalian berbagi
+kernel penuh dan itu adalah
 
 0:35:40.791,0:35:44.921
-different threat model that you
-might have to keep in mind
+model ancaman yang berbeda yang
+mungkin harus kalian ingat
 
 0:35:47.341,0:35:52.361
-One another small note there as Jon pointed
-out, to use containers something
+Satu catatan kecil lagi di sini seperti yang ditunjukkan Jon,
+untuk menggunakan container sesuatu
 
 0:35:52.361,0:35:55.631
-like Docker you need the underlying operating
-system to be roughly the same
+seperti Docker kalian perlu sistem operasi yang mendasari
+kira-kira sama
 
 0:35:55.631,0:36:00.071
-as whatever the program that's running
-on top of the container expects and so
+dengan apa pun yang diharapkan program yang berjalan
+di atas container dan jadi
 
 0:36:00.071,0:36:03.791
-if you're using macOS for example, the
-way you use docker is you run Linux
+jika kalian menggunakan macOS misalnya, cara
+kalian menggunakan docker adalah kalian menjalankan Linux
 
 0:36:03.791,0:36:08.261
-inside a virtual machine and then you can
-run Docker on top of Linux so maybe
+di dalam virtual machine dan kemudian kalian bisa
+menjalankan Docker di atas Linux jadi mungkin
 
 0:36:08.261,0:36:11.741
-if you're going for containers in order
-to get better performance your trading
+jika kalian menggunakan container untuk
+mendapatkan performa yang lebih baik kalian menukar
 
 0:36:11.741,0:36:15.131
-isolation for performance if you're running
-on Mac OS that may not work out
+isolasi untuk performa jika kalian berjalan
+di Mac OS itu mungkin tidak berhasil
 
 0:36:15.131,0:36:17.451
-exactly as expected
+persis seperti yang diharapkan
 
 0:36:17.451,0:36:21.221
-And one last note is that there
-is a slight difference, so
+Dan satu catatan terakhir adalah bahwa ada
+sedikit perbedaan, jadi
 
 0:36:21.221,0:36:25.721
-with Docker and containers,
-one of the gotchas you have
+dengan Docker dan container,
+salah satu hal yang harus kalian
 
 0:36:25.721,0:36:29.411
-to be familiar with is that containers
-are more similar to virtual
+kenali adalah bahwa container
+lebih mirip virtual
 
 0:36:29.411,0:36:33.071
-machines in the sense of that they will
-persist all the storage that you
+machine dalam arti bahwa mereka akan
+mempertahankan semua penyimpanan yang kalian
 
 0:36:33.071,0:36:35.971
-have where Docker by default won't have that.
+miliki di mana Docker secara default tidak akan memilikinya.
 
 0:36:35.971,0:36:37.791
-Like Docker is supposed to be running
+Seperti Docker seharusnya berjalan
 
 0:36:37.791,0:36:41.771
-So the main idea is like I want
-to run some software and
+Jadi ide utamanya adalah seperti saya ingin
+menjalankan beberapa software dan
 
 0:36:41.771,0:36:45.671
-I get the image and it runs and if you
-want to have any kind of persistent
+saya mendapat image dan itu berjalan dan jika kalian
+ingin memiliki penyimpanan persisten apa pun
 
 0:36:45.671,0:36:50.081
-storage that links to the host system
-you have to kind of manually specify
+yang terhubung ke sistem host
+kalian harus secara manual menentukan
 
 0:36:50.081,0:36:56.051
-that, whereas a virtual machine is using
-some virtual disk that is being provided
+itu, sedangkan virtual machine menggunakan
+beberapa disk virtual yang disediakan
 
 0:36:56.051,0:37:02.671
-Next question
+Pertanyaan berikutnya
 
 0:37:02.671,0:37:05.111
-What are the advantages of each operating system
+Apa keuntungan dari masing-masing sistem operasi
 
 0:37:05.111,0:37:08.531
-and how can we choose between them?
-For example, choosing the best Linux
+dan bagaimana kita bisa memilih di antara mereka?
+Misalnya, memilih Linux
 
 0:37:08.531,0:37:10.551
-distribution for our purposes
+distribution terbaik untuk tujuan kita
 
 0:37:14.251,0:37:16.811
-I will say that for many, many tasks the
+Saya akan mengatakan bahwa untuk banyak, banyak tugas
 
 0:37:16.811,0:37:20.171
-specific Linux distribution that you're
-running is not that important
+distribusi Linux spesifik yang kalian
+jalankan tidak terlalu penting
 
 0:37:20.171,0:37:23.731
-the thing is, it's just what kind of
+masalahnya, hanya apa jenis
 
 0:37:23.731,0:37:27.651
-knowing that there are different types
-or like groups of distributions,
+mengetahui bahwa ada jenis atau kelompok
+distribusi yang berbeda,
 
 0:37:27.651,0:37:32.251
-So for example, there are some distributions
-that have really frequent updates
+Jadi misalnya, ada beberapa distribusi
+yang memiliki update yang sangat sering
 
 0:37:32.251,0:37:38.971
-but they kind of break more easily. So for
-example Arch Linux has a rolling update
+tapi mereka agak lebih mudah rusak. Jadi misalnya
+Arch Linux memiliki update bergulir
 
 0:37:38.971,0:37:43.511
-way of pushing updates, where things might
-break but they're fine with the things
+cara mendorong update, di mana hal-hal mungkin
+rusak tapi mereka baik-baik saja dengan hal-hal
 
 0:37:43.511,0:37:47.891
-being that way. Where maybe where you
-have some really important web server
+menjadi seperti itu. Di mana mungkin di mana kalian
+memiliki beberapa web server yang sangat penting
 
 0:37:47.891,0:37:51.401
-that is hosting all your business
-analytics you want that thing
+yang meng-host semua analitik bisnis kalian
+kalian ingin hal itu
 
 0:37:51.401,0:37:55.961
-to have like a much more steady way of
-updates. So that's for example why you
+memiliki cara update yang jauh lebih stabil.
+Jadi itu misalnya mengapa kalian
 
 0:37:55.961,0:37:58.121
-will see distributions like Debian being
+akan melihat distribusi seperti Debian
 
 0:37:58.121,0:38:02.951
-much more conservative about what they push, or
-even for example Ubuntu makes a difference
+jauh lebih konservatif tentang apa yang mereka dorong, atau
+bahkan misalnya Ubuntu membuat perbedaan
 
 0:38:02.951,0:38:07.001
-between the Long Term Releases
-that they are only update every
+antara Long Term Releases
+yang hanya diupdate setiap
 
 0:38:07.001,0:38:12.281
-two years and the more periodic
-releases of one there is a
+dua tahun dan rilis yang lebih periodik
+satu tahun ada
 
 0:38:12.281,0:38:16.661
-it's like two a year that they make.
-So, kind of knowing that there's the
+seperti dua setahun yang mereka buat.
+Jadi, mengetahui bahwa ada
 
 0:38:16.661,0:38:21.341
-difference apart from that some distributions
-have different ways
+perbedaan selain itu beberapa distribusi
+memiliki cara yang berbeda
 
 0:38:21.341,0:38:27.191
-of providing the binaries
-to you and the way they
+untuk menyediakan binary
+kepada kalian dan cara mereka
 
 0:38:27.191,0:38:33.791
-have the repositories so I think a lot of Red
-Hat Linux don't want non free drivers in
+memiliki repositori jadi saya pikir banyak Red
+Hat Linux tidak ingin driver non-free di
 
 0:38:33.791,0:38:37.361
-their official repositories where I
-think Ubuntu is fine with some of
+repositori resmi mereka di mana saya
+pikir Ubuntu baik-baik saja dengan beberapa
 
 0:38:37.361,0:38:42.491
-them, apart from that I think like just
-a lot of what is core to most Linux
+dari mereka, selain itu saya pikir hanya
+banyak dari apa yang inti dari sebagian besar distro Linux
 
 0:38:42.491,0:38:47.411
-distros is kind of shared between them
-and there's a lot of learning in the
+adalah semacam dibagi di antara mereka
+dan ada banyak pembelajaran di
 
 0:38:47.411,0:38:51.431
-common ground. So you don't have
-to worry about the specifics
+dasar yang sama. Jadi kalian tidak perlu
+khawatir tentang hal-hal spesifik
 
 0:38:52.391,0:38:56.351
-Keeping with the theme of this class being somewhat
-opinionated, I'm gonna go ahead and say
+Tetap dengan tema kelas ini yang agak
+opini, saya akan melanjutkan dan mengatakan
 
 0:38:56.351,0:39:00.041
-that if you're using Linux especially for
-the first time choose something like
+bahwa jika kalian menggunakan Linux terutama untuk
+pertama kali pilih sesuatu seperti
 
 0:39:00.041,0:39:03.851
-Ubuntu or Debian. So you Ubuntu to is a
-Debian based distribution but maybe is a
+Ubuntu atau Debian. Jadi Ubuntu adalah
+distribusi berbasis Debian tapi mungkin
 
 0:39:03.851,0:39:07.421
-little bit more friendly, Debian is a little
-bit more minimalist. I use Debian
+sedikit lebih ramah, Debian sedikit
+lebih minimalis. Saya menggunakan Debian
 
 0:39:07.421,0:39:10.451
-and all my servers, for example. And I use
-Debian desktop on my desktop computers
+di semua server saya, misalnya. Dan saya menggunakan
+Debian desktop di komputer desktop saya
 
 0:39:10.451,0:39:15.431
-that run Linux if you're going for maybe
-trying to learn more things and you want
+yang menjalankan Linux jika kalian mungkin
+mencoba mempelajari lebih banyak hal dan kalian ingin
 
 0:39:15.431,0:39:19.391
-a distribution that trades stability for
-having more up-to-date software maybe
+distribusi yang menukar stabilitas untuk
+memiliki software yang lebih terkini mungkin
 
 0:39:19.391,0:39:21.911
-at the expense of you having to fix a
-broken distribution every once in a
+dengan mengorbankan kalian harus memperbaiki
+distribusi yang rusak sesekali
 
 0:39:21.911,0:39:26.911
-while then maybe you can consider something
-like Arch Linux or Gentoo
+maka mungkin kalian bisa mempertimbangkan sesuatu
+seperti Arch Linux atau Gentoo
 
 0:39:26.911,0:39:32.681
-or Slackware. Oh man, I'd say that like
-if you're installing Linux and just like
+atau Slackware. Oh ya, saya akan bilang seperti
+jika kalian menginstal Linux dan hanya ingin
 
 0:39:32.681,0:39:34.891
-want to get work done Debian is a great choice
+menyelesaikan pekerjaan Debian adalah pilihan yang hebat
 
 0:39:35.911,0:39:38.271
-Yeah I think I agree with that.
+Ya saya pikir saya setuju dengan itu.
 
 0:39:38.271,0:39:40.971
-The other observation is like
-you couldn't install BSD
+Pengamatan lainnya adalah seperti
+kalian bisa menginstal BSD
 
 0:39:40.971,0:39:46.691
-BSD has gotten, has come a long way from
-where it was. There's still a bunch of
+BSD telah, telah berkembang jauh dari
+di mana itu dulu. Masih ada banyak
 
 0:39:46.691,0:39:50.921
-software you can't really get for BSD but
-it gives you a very well-documented
+software yang tidak bisa kalian dapatkan untuk BSD tapi
+itu memberi kalian pengalaman yang sangat terdokumentasi
 
 0:39:50.921,0:39:55.841
-experience and and one thing that's different
-about BSD compared to Linux is
+dan satu hal yang berbeda
+tentang BSD dibandingkan dengan Linux adalah
 
 0:39:55.841,0:40:02.531
-that in an BSD when you install BSD you
-get a full operating system, mostly
+bahwa dalam BSD ketika kalian menginstal BSD kalian
+mendapatkan sistem operasi lengkap, sebagian besar
 
 0:40:02.651,0:40:07.531
-So many of the programs are maintained by
-the same team that maintains the kernel
+Jadi banyak program dipelihara oleh
+tim yang sama yang memelihara kernel
 
 0:40:07.541,0:40:11.351
-and everything is sort of upgraded together,
-which is a little different
+dan semuanya semacam di-upgrade bersama,
+yang sedikit berbeda
 
 0:40:11.351,0:40:13.271
-than how thanks work in the Linux world it does
+dari bagaimana hal-hal bekerja di dunia Linux itu memang
 
 0:40:13.271,0:40:16.751
-mean that things often move a little bit
-slower. I would not use it for things
+berarti hal-hal sering bergerak sedikit
+lebih lambat. Saya tidak akan menggunakannya untuk hal-hal
 
 0:40:16.751,0:40:21.791
-like gaming either, because drivers support
-is meh. But it is an interesting
+seperti gaming juga, karena dukungan driver
+biasa saja. Tapi itu adalah lingkungan yang menarik
 
 0:40:21.791,0:40:30.661
-environment to look at. And then for things
-like Mac OS and Windows I think
+untuk dilihat. Dan kemudian untuk hal-hal
+seperti Mac OS dan Windows saya pikir
 
 0:40:30.661,0:40:36.041
-If you are a programmer, I don't know why
-you are using Windows unless you are
+Jika kalian adalah programmer, saya tidak tahu mengapa
+kalian menggunakan Windows kecuali kalian
 
 0:40:36.041,0:40:42.401
-building things for Windows; or you want
-to be able to do gaming and stuff
+membangun sesuatu untuk Windows; atau kalian ingin
+bisa melakukan gaming dan semacamnya
 
 0:40:42.401,0:40:46.891
-but in that case, maybe try dual booting,
-even though that's a pain too
+tapi dalam kasus itu, mungkin coba dual boot,
+meskipun itu juga merepotkan
 
 0:40:46.891,0:40:52.031
-Mac OS is a is a good sort of middle point
-between the two where you get a system
+Mac OS adalah semacam titik tengah yang baik
+antara keduanya di mana kalian mendapatkan sistem
 
 0:40:52.031,0:40:57.851
-that is like relatively nicely polished
-for you. But you still have access to
+yang relatif dipoles dengan baik
+untuk kalian. Tapi kalian masih memiliki akses ke
 
 0:40:57.851,0:41:01.191
-some of the lower-level bits
-at least to a certain extent.
+beberapa bagian yang lebih low-level
+setidaknya sampai batas tertentu.
 
 0:41:01.191,0:41:07.451
-it's also really easy to dual boot Mac OS and Windows
-it is not quite the case with like Mac OS and
+itu juga sangat mudah untuk dual boot Mac OS dan Windows
+itu tidak begitu dengan seperti Mac OS dan
 
 0:41:07.451,0:41:09.651
-Linux or Linux and Windows
+Linux atau Linux dan Windows
 
 0:41:13.911,0:41:15.751
-Alright, for the rest of the
-questions so these are
+Baiklah, untuk sisa
+pertanyaan jadi ini semua
 
 0:41:15.761,0:41:18.761
-all 0 upvote questions so maybe we can go
-through them quickly in the last five
+pertanyaan dengan 0 upvote jadi mungkin kita bisa
+melewatinya dengan cepat dalam lima menit
 
 0:41:18.761,0:41:23.471
-or so minutes of class. So the next
-one is Vim versus Emacs? Vim!
+terakhir kelas. Jadi berikutnya
+adalah Vim versus Emacs? Vim!
 
 0:41:23.471,0:41:30.911
-Easy answer, but a more serious answer is like I think
-all three of us use vim as our primary editor
+Jawaban mudah, tapi jawaban yang lebih serius adalah seperti saya pikir
+kita bertiga menggunakan vim sebagai editor utama
 
 0:41:30.911,0:41:34.931
-I use Emacs for some research specific
-stuff which requires Emacs but
+Saya menggunakan Emacs untuk beberapa hal spesifik penelitian
+yang membutuhkan Emacs tapi
 
 0:41:34.931,0:41:38.681
-at a higher level both editors have interesting
-ideas behind them and if you
+di tingkat yang lebih tinggi kedua editor memiliki ide menarik
+di belakangnya dan jika kalian
 
 0:41:38.681,0:41:43.061
-have the time is worth exploring both
-to see which fits you better and also
+punya waktu layak menjelajahi keduanya
+untuk melihat mana yang lebih cocok untuk kalian dan juga
 
 0:41:43.061,0:41:46.811
-you can use Emacs and run it in a vim
-emulation mode. I actually know a
+kalian bisa menggunakan Emacs dan menjalankannya dalam mode
+emulasi vim. Saya sebenarnya tahu cukup
 
 0:41:46.811,0:41:49.091
-good number of people who do that so
-they get access to some of the cool
+banyak orang yang melakukan itu jadi
+mereka mendapatkan akses ke beberapa fungsi keren
 
 0:41:49.091,0:41:52.631
-Emacs functionality and some of the cool
-philosophy behind that like Emacs is
+Emacs dan beberapa filosofi keren
+di belakang itu seperti Emacs
 
 0:41:52.631,0:41:55.391
-programmable through Lisp which is kind of cool.
+bisa diprogram melalui Lisp yang cukup keren.
 
 0:41:55.391,0:41:59.411
-Much better than vimscript, but people like
-vim's modal editing, so there's an
+Jauh lebih baik daripada vimscript, tapi orang suka
+modal editing vim, jadi ada
 
 0:41:59.411,0:42:04.481
-emacs plugin called evil mode which gives
-you vim modal editing within Emacs so
+plugin emacs bernama evil mode yang memberi
+kalian vim modal editing dalam Emacs jadi
 
 0:42:04.481,0:42:08.081
-it's not necessarily a binary choice you
-can kind of combine both tools if you
+itu tidak harus pilihan biner kalian
+bisa semacam menggabungkan kedua alat jika kalian
 
 0:42:08.081,0:42:11.151
-want to. And it's worth exploring
-both if you have the time.
+ingin. Dan layak menjelajahi
+keduanya jika kalian punya waktu.
 
 0:42:11.151,0:42:12.731
-Next question
+Pertanyaan berikutnya
 
 0:42:12.731,0:42:15.671
-Any tips or tricks for machine
-learning applications?
+Ada tips atau trik untuk aplikasi
+machine learning?
 
 0:42:19.271,0:42:22.351
-I think, like knowing how
+Saya pikir, seperti mengetahui bagaimana
 
 0:42:22.361,0:42:24.791
-a lot of these tools, mainly the data wrangling
+banyak alat ini, terutama data wrangling
 
 0:42:24.791,0:42:30.041
-a lot of the shell tools, it's really
-important because it seems a lot
+banyak alat shell, itu sangat
+penting karena tampaknya banyak
 
 0:42:30.041,0:42:33.851
-of what you're doing as machine learning
-researcher is trying different things
+dari apa yang kalian lakukan sebagai peneliti
+machine learning adalah mencoba hal-hal berbeda
 
 0:42:33.851,0:42:39.491
-but I think one core aspect of doing that,
-and like a lot of scientific work is being
+tapi saya pikir satu aspek inti dari melakukan itu,
+dan seperti banyak pekerjaan ilmiah adalah bisa
 
 0:42:39.491,0:42:44.501
-able to have reproducible results
-and logging them in a sensible way
+memiliki hasil yang dapat direproduksi
+dan mencatatnya dengan cara yang masuk akal
 
 0:42:44.501,0:42:47.711
-So for example, instead of trying to come
-up with really hacky solutions of how
+Jadi misalnya, alih-alih mencoba datang
+dengan solusi yang sangat diotak-atik tentang bagaimana
 
 0:42:47.711,0:42:51.151
-you name your folders to make
-sense of the experiments
+kalian menamai folder kalian untuk membuat
+arti dari eksperimen
 
 0:42:51.151,0:42:53.251
-Maybe it's just worth having for example
+Mungkin hanya layak memiliki misalnya
 
 0:42:53.251,0:42:55.931
-what I do is have like a JSON
-file that describes the
+apa yang saya lakukan adalah memiliki file JSON
+yang menggambarkan
 
 0:42:55.931,0:43:00.371
-entire experiment I know like all the parameters
-that are within and then I can
+seluruh eksperimen saya tahu seperti semua parameter
+yang ada di dalamnya dan kemudian saya bisa
 
 0:43:00.371,0:43:05.111
-really quickly, using the tools that
-we have covered, query for all the
+dengan sangat cepat, menggunakan alat yang
+telah kami bahas, query untuk semua
 
 0:43:05.111,0:43:09.701
-experiments that have some specific
-purpose or use some data set
+eksperimen yang memiliki tujuan spesifik tertentu
+atau menggunakan dataset tertentu
 
 0:43:09.701,0:43:15.071
-Things like that. Apart from that, the other
-side of this is, if you are running
+Hal-hal seperti itu. Selain itu, sisi lain
+dari ini adalah, jika kalian menjalankan
 
 0:43:15.071,0:43:19.871
-kind of things for training machine
-learning applications and you
+hal-hal untuk melatih aplikasi
+machine learning dan kalian
 
 0:43:19.871,0:43:23.981
-are not already using some sort of
-cluster, like university or your
+belum menggunakan semacam
+cluster, seperti yang disediakan universitas atau perusahaan kalian
 
 0:43:23.981,0:43:28.301
-company is providing and you're just kind
-of manually sshing, like a lot of
+dan kalian hanya semacam
+ssh secara manual, seperti yang dilakukan banyak lab,
 
 0:43:28.301,0:43:31.231
-labs do, because that's kind of the easy way
+karena itu semacam cara mudah
 
 0:43:31.231,0:43:36.671
-It's worth automating a lot of that job
-because it might not seem like it but
+Layak mengotomatiskan banyak pekerjaan itu
+karena mungkin tidak tampak seperti itu tapi
 
 0:43:36.671,0:43:40.601
-manually doing a lot of these operations
-takes away a lot of your time and also
+melakukan banyak operasi ini secara manual
+mengambil banyak waktu kalian dan juga
 
 0:43:40.601,0:43:45.031
-kind of your mental energy
-for running these things
+semacam energi mental kalian
+untuk menjalankan hal-hal ini
 
 0:43:48.551,0:43:51.691
-Anymore vim tips?
+Ada tips vim lagi?
 
 0:43:51.691,0:43:56.771
-I have one. So in the vim lecture we tried
-not to link you to too many different
+Saya punya satu. Jadi di kuliah vim kami mencoba
+tidak menautkan kalian ke terlalu banyak
 
 0:43:56.771,0:44:00.131
-vim plugins because we didn't want that
-lecture to be overwhelming but I think
+plugin vim berbeda karena kami tidak ingin kuliah itu
+kewalahan tapi saya pikir
 
 0:44:00.131,0:44:02.921
-it's actually worth exploring vim plugins
-because there are lots and lots
+sebenarnya layak menjelajahi plugin vim
+karena ada banyak dan banyak
 
 0:44:02.921,0:44:07.091
-of really cool ones out there.
-One resource you can use is the
+yang sangat keren di luar sana.
+Satu sumber daya yang bisa kalian gunakan adalah
 
 0:44:07.091,0:44:10.571
-different instructors dotfiles like a lot
-of us, I think I use like two dozen
+dotfile instruktur yang berbeda seperti banyak
+dari kita, saya pikir saya menggunakan seperti dua lusin
 
 0:44:10.571,0:44:14.321
-vim plugins and I find a lot of them quite
-helpful and I use them every day
+plugin vim dan saya menemukan banyak dari mereka cukup
+membantu dan saya menggunakannya setiap hari
 
 0:44:14.321,0:44:18.311
-we all use slightly different subsets of
-them. So go look at what we use or look
+kita semua menggunakan subset yang sedikit berbeda dari
+mereka. Jadi pergi lihat apa yang kita gunakan atau lihat
 
 0:44:18.311,0:44:22.131
-at some of the other resources we've linked
-to and you might find some stuff useful
+beberapa sumber daya lain yang telah kami tautkan
+dan kalian mungkin menemukan beberapa hal berguna
 
 0:44:22.791,0:44:26.951
-A thing to add to that is, I don't think
-we went into a lot detail in the
+Satu hal untuk ditambahkan adalah, saya tidak pikir
+kami masuk ke banyak detail di
 
 0:44:27.041,0:44:31.571
-lecture, correct me if I'm wrong. It's
-getting familiar with the leader key
+kuliah, koreksi saya jika saya salah. Itu
+mengenal leader key
 
 0:44:31.571,0:44:35.021
-Which is kind of a special key
-that a lot of programs will
+Yang merupakan semacam kunci khusus
+yang akan banyak program,
 
 0:44:35.021,0:44:39.081
-especially plugins, that will link to
-and for a lot of the common operations
+terutama plugin, tautkan ke
+dan untuk banyak operasi umum
 
 0:44:39.081,0:44:44.661
-vim has short ways of doing it, but you
-can just figure out like quicker
+vim memiliki cara singkat untuk melakukannya, tapi kalian
+bisa mencari tahu seperti versi lebih cepat
 
 0:44:44.661,0:44:50.031
-versions for doing them. So for example, like
-I know that you can do like semicolon WQ
+untuk melakukannya. Jadi misalnya, seperti
+saya tahu bahwa kalian bisa melakukan seperti semicolon WQ
 
 0:44:50.031,0:44:55.521
-to save and exit or that you
-can do like capital ZZ but I
+untuk menyimpan dan keluar atau bahwa kalian
+bisa melakukan seperti ZZ kapital tapi saya
 
 0:44:55.521,0:44:59.241
-just actually just do leader (which for
-me is the space) and then W. And I have
+hanya benar-benar melakukan leader (yang untuk
+saya adalah spasi) dan kemudian W. Dan saya telah
 
 0:44:59.241,0:45:04.131
-done that for a lot of a lot of kind of
-common operations that I keep doing all
+melakukan itu untuk banyak jenis
+operasi umum yang terus saya lakukan sepanjang
 
 0:45:04.131,0:45:08.091
-the time. Because just saving one keystroke
-for an extremely common operation
+waktu. Karena hanya menghemat satu keystroke
+untuk operasi yang sangat umum
 
 0:45:08.091,0:45:11.371
-is just saving thousands a month
+hanya menghemat ribuan sebulan
 
 0:45:11.371,0:45:12.951
-Yeah just to expand a little bit
+Ya hanya untuk memperluas sedikit
 
 0:45:12.951,0:45:17.031
-on what the leader key is so in vim you
-can bind some keys I can do like ctrl J
+tentang apa itu leader key jadi di vim kalian
+bisa mengikat beberapa kunci saya bisa melakukan seperti ctrl J
 
 0:45:17.031,0:45:20.481
-does something like holding one key and
-then pressing another I can bind that to
+melakukan sesuatu seperti menahan satu kunci dan
+kemudian menekan yang lain saya bisa mengikat itu ke
 
 0:45:20.481,0:45:23.781
-something or I can bind a single keystroke
-to something. What the leader
+sesuatu atau saya bisa mengikat satu keystroke
+ke sesuatu. Apa yang memungkinkan
 
 0:45:23.781,0:45:26.031
-key lets you do, is bind
+leader key lakukan, adalah mengikat
 
 0:45:26.031,0:45:28.311
-So you can assign any key
-to be the leader key and
+Jadi kalian bisa menetapkan kunci apa pun
+untuk menjadi leader key dan
 
 0:45:28.311,0:45:32.841
-then you can assign leader followed by
-some other key to some action so for
+kemudian kalian bisa menetapkan leader diikuti oleh
+beberapa kunci lain ke beberapa tindakan jadi misalnya
 
 0:45:32.841,0:45:36.831
-example like Jose's leader key is space
-and they can combine space and then
+seperti leader key Jose adalah spasi
+dan mereka bisa menggabungkan spasi dan kemudian
 
 0:45:36.831,0:45:41.601
-releasing space followed by some other
-key to an arbitrary vim command so it
+melepaskan spasi diikuti oleh beberapa kunci
+lain ke perintah vim arbitrer jadi itu
 
 0:45:41.601,0:45:45.631
-just gives you yet another way of binding
-like a whole set of key combinations.
+hanya memberi kalian cara lain untuk mengikat
+seperti seluruh rangkaian kombinasi kunci.
 
 0:45:45.631,0:45:49.751
-Leader key plus kind of any key on
-the keyboard to some functionality
+Leader key ditambah kunci apa pun di
+keyboard ke beberapa fungsionalitas
 
 0:45:49.751,0:45:53.751
-I think I've I forget whether
-we covered macros in the vim
+Saya pikir saya lupa apakah
+kami membahas macro di kuliah
 
 0:45:53.751,0:45:58.581
-uh sure but like vim macros are worth
-learning they're not that complicated
+vim uh tentu tapi seperti macro vim layak
+dipelajari mereka tidak terlalu rumit
 
 0:45:58.581,0:46:03.141
-but knowing that they're there and knowing
-how to use them is going to save
+tapi mengetahui bahwa mereka ada dan mengetahui
+cara menggunakannya akan menghemat
 
 0:46:03.141,0:46:09.501
-you so much time. The other one is something
-called marks. So in vim you can
+banyak waktu kalian. Yang lain adalah sesuatu
+yang disebut marks. Jadi di vim kalian bisa
 
 0:46:09.501,0:46:13.491
-press m and then any letter on your keyboard
-to make a mark in that file and
+menekan m dan kemudian huruf apa pun di keyboard kalian
+untuk membuat mark di file itu dan
 
 0:46:13.491,0:46:18.021
-then you can press apostrophe on the
-same letter to jump back to the same
+kemudian kalian bisa menekan apostrof pada
+huruf yang sama untuk melompat kembali ke
 
 0:46:18.021,0:46:21.801
-place. This is really useful if you're
-like moving back and forth
+tempat yang sama. Ini sangat berguna jika kalian
+seperti bergerak bolak-balik
 
 0:46:21.801,0:46:25.491
-between two different parts of your code
-for example. You can mark one as A and
+antara dua bagian berbeda dari kode kalian
+misalnya. Kalian bisa menandai satu sebagai A dan
 
 0:46:25.491,0:46:29.611
-one as B and you can then jump between
-them with tick A and tick B.
+satu sebagai B dan kalian bisa melompat di antara
+mereka dengan tick A dan tick B.
 
 0:46:29.611,0:46:34.851
-There's also Ctrl+O which jumps to the previous
-place you were in the file no matter
+Ada juga Ctrl+O yang melompat ke tempat sebelumnya
+kalian berada di file tidak peduli
 
 0:46:34.851,0:46:40.611
-what caused you to move. So for example
-if I am in a some line and then I jump
+apa yang menyebabkan kalian berpindah. Jadi misalnya
+jika saya berada di beberapa baris dan kemudian saya melompat
 
 0:46:40.611,0:46:45.201
-to B and then I jump to A, Ctrl+O will
-take me back to B and then back to the
+ke B dan kemudian saya melompat ke A, Ctrl+O akan
+membawa saya kembali ke B dan kemudian kembali ke
 
 0:46:45.201,0:46:48.831
-place I originally was. This can also be
-handy for things like if you're doing a
+tempat saya awalnya berada. Ini juga bisa
+berguna untuk hal-hal seperti jika kalian melakukan
 
 0:46:48.831,0:46:52.671
-search then the place that you
-started the search is a part of
+pencarian maka tempat yang kalian
+mulai pencarian adalah bagian dari
 
 0:46:52.671,0:46:56.211
-that stack. So I can do a search I can
-then like step through the results
+stack itu. Jadi saya bisa melakukan pencarian saya bisa
+kemudian seperti melangkah melalui hasil
 
 0:46:56.211,0:47:00.801
-and like change them and then Ctrl+O
-all the way back up to the search
+dan seperti mengubahnya dan kemudian Ctrl+O
+semua jalan kembali ke pencarian
 
 0:47:00.801,0:47:06.201
-Ctrl+O also lets you move across files so
-if I go from one file to somewhere else in
+Ctrl+O juga memungkinkan kalian berpindah antar file jadi
+jika saya pergi dari satu file ke tempat lain di
 
 0:47:06.201,0:47:09.681
-different file and somewhere else in the
-first file Ctrl+O will move me back
+file berbeda dan ke tempat lain di
+file pertama Ctrl+O akan membawa saya kembali
 
 0:47:09.681,0:47:15.261
-through that stack and then there's
-Ctrl+I to move forward in that
+melalui stack itu dan kemudian ada
+Ctrl+I untuk bergerak maju di
 
 0:47:15.261,0:47:20.841
-stack and so it's not as though you
-pop it and it goes away forever
+stack itu dan jadi tidak seperti kalian
+pop itu dan itu hilang selamanya
 
 0:47:20.841,0:47:26.541
-The command colon earlier is really handy.
-So, colon earlier gives you an earlier
+Perintah colon earlier sangat berguna.
+Jadi, colon earlier memberi kalian versi
 
 0:47:26.541,0:47:32.870
-version of the same file and it it does
-this based on time not based on actions
+yang lebih awal dari file yang sama dan itu melakukan
+ini berdasarkan waktu bukan berdasarkan tindakan
 
 0:47:32.870,0:47:36.651
-so for example if you press a bunch of like
-undo and redo and make some changes
+jadi misalnya jika kalian menekan banyak seperti
+undo dan redo dan membuat beberapa perubahan
 
 0:47:36.651,0:47:42.561
-and stuff, earlier will take a literally
-earlier as in time version of your file
+dan semacamnya, earlier akan mengambil secara harfiah
+yang lebih awal dalam arti waktu versi file kalian
 
 0:47:42.561,0:47:46.971
-and restore it to your buffer. This can
-sometimes be good if you like undid and
+dan mengembalikannya ke buffer kalian. Ini bisa
+kadang-kadang bagus jika kalian seperti mengundo dan
 
 0:47:46.971,0:47:50.841
-then rewrote something and then realize
-you actually wanted the version that was
+kemudian menulis ulang sesuatu dan kemudian menyadari
+kalian sebenarnya menginginkan versi yang ada
 
 0:47:50.841,0:47:55.100
-there before you started undoing earlier
-let's you do this. And there's a plug-in
+sebelum kalian mulai mengundo earlier
+membiarkan kalian melakukan ini. Dan ada plugin
 
 0:47:55.100,0:48:01.971
-called undo tree or something like
-that There are several of these,
+bernama undo tree atau sesuatu seperti
+itu Ada beberapa dari ini,
 
 0:48:01.971,0:48:05.781
-that let you actually explore the full
-tree of undo history the vim keeps
+yang membiarkan kalian sebenarnya menjelajahi seluruh
+pohon riwayat undo yang disimpan vim
 
 0:48:05.781,0:48:09.201
-because it doesn't just keep a linear history
-it actually keeps the full tree
+karena itu tidak hanya menyimpan riwayat linear
+itu sebenarnya menyimpan pohon penuh
 
 0:48:09.201,0:48:12.771
-and letting you explore that might in
-some cases save you from having to
+dan membiarkan kalian menjelajahi itu mungkin dalam
+beberapa kasus menyelamatkan kalian dari harus
 
 0:48:12.771,0:48:16.461
-re-type stuff you typed in the past or
-stuff you just forgot exactly what you
+mengetik ulang hal-hal yang kalian ketik di masa lalu atau
+hal-hal yang kalian lupa persis apa yang
 
 0:48:16.461,0:48:21.081
-had there that used to work and no longer
-works. And this is one final one I
+kalian miliki di sana yang dulu berfungsi dan tidak lagi
+berfungsi. Dan ini adalah satu terakhir yang
 
 0:48:21.081,0:48:26.751
-want to mention which is, we mentioned
-how in vim you have verbs and nouns
+saya ingin sebutkan yaitu, kami menyebutkan
+bagaimana di vim kalian memiliki verb dan noun
 
 0:48:26.751,0:48:33.201
-right to your verbs like delete or yank
-and then you have nouns like next of
+kan ke verb kalian seperti delete atau yank
+dan kemudian kalian memiliki noun seperti next dari
 
 0:48:33.201,0:48:37.401
-this character or percent to swap brackets
-and that sort of stuff the
+karakter ini atau percent untuk swap bracket
+dan semacamnya
 
 0:48:37.401,0:48:44.571
-search command is a noun so you can do
-things like D slash and then a string
+perintah search adalah noun jadi kalian bisa melakukan
+hal-hal seperti D slash dan kemudian string
 
 0:48:44.571,0:48:50.261
-and it will delete up to the next match
-of that pattern this is extremely useful
+dan itu akan menghapus sampai ke match berikutnya
+dari pola itu ini sangat berguna
 
 0:48:50.261,0:48:54.251
-and I use it all the time
+dan saya menggunakannya sepanjang waktu
 
 0:48:58.500,0:49:03.520
-One another neat addition on the undo stuff
-that I find incredibly valuable in
+Satu tambahan yang rapi pada hal undo
+yang saya temukan sangat berharga dalam
 
 0:49:03.520,0:49:08.201
-an everyday basis is that like one of
-the built-in functionalities of vim
+basis sehari-hari adalah bahwa seperti salah satu
+fungsionalitas built-in dari vim
 
 0:49:08.201,0:49:13.510
-is that you can specify an undo directory
-and if you have a specified an
+adalah bahwa kalian bisa menentukan direktori undo
+dan jika kalian memiliki direktori undo yang ditentukan
 
 0:49:13.510,0:49:17.620
-undo directory by default vim, if you
-don't have this enabled, whenever you
+secara default vim, jika kalian tidak mengaktifkan ini, setiap kali kalian
 
 0:49:17.620,0:49:23.091
-enter a file your undo history is
-clean, there's nothing in there
+memasuki file riwayat undo kalian
+bersih, tidak ada apa-apa di sana
 
 0:49:23.091,0:49:26.371
-and as you make changes and then
-undo them you kind of create this
+dan saat kalian membuat perubahan dan kemudian
+mengundonya kalian semacam membuat
 
 0:49:26.380,0:49:32.800
-history but as soon as you exit the
-file that's lost. Sorry, as soon
+riwayat ini tapi begitu kalian keluar dari
+file itu hilang. Maaf, begitu
 
 0:49:32.800,0:49:37.181
-as you exit vim, that's lost. However
-if you have an undodir, vim is
+kalian keluar dari vim, itu hilang. Namun
+jika kalian memiliki undodir, vim akan
 
 0:49:37.181,0:49:41.651
-gonna persist all those changes into
-this directory so no matter how many
+mempertahankan semua perubahan itu ke
+direktori ini jadi tidak peduli berapa kali
 
 0:49:41.651,0:49:45.580
-times you enter and leave that history
-is persisted and it's incredibly
+kalian masuk dan keluar riwayat itu
+dipertahankan dan itu sangat
 
 0:49:45.580,0:49:48.191
-helpful because even like
+membantu karena bahkan seperti
 
 0:49:48.191,0:49:50.290
-it can be very helpful for
-some files that you modify
+itu bisa sangat membantu untuk
+beberapa file yang kalian modifikasi
 
 0:49:50.290,0:49:54.760
-often because then you can kind of keep
-the flow. But it's also sometimes really
+sering karena kemudian kalian bisa semacam menjaga
+flow. Tapi itu juga kadang-kadang sangat
 
 0:49:54.760,0:50:00.010
-helpful if you modify your bashrc see and
-something broke like five days later and
+membantu jika kalian memodifikasi bashrc kalian dan
+sesuatu rusak seperti lima hari kemudian dan
 
 0:50:00.010,0:50:03.070
-then you've vim again. Like what actually
-did I change ,if you don't
+kemudian kalian vim lagi. Seperti apa yang sebenarnya
+saya ubah, jika kalian tidak
 
 0:50:03.070,0:50:06.760
-have say like version control, then
-you can just check the undos and
+memiliki seperti version control, maka
+kalian bisa hanya memeriksa undo dan
 
 0:50:06.760,0:50:10.661
-that's actually what happened. And
-the last one, it's also really
+itu sebenarnya apa yang terjadi. Dan
+yang terakhir, itu juga sangat
 
 0:50:10.661,0:50:14.891
-worth familiarizing yourself with registers
-and what different special
+layak membiasakan diri dengan register
+dan register khusus apa yang
 
 0:50:14.891,0:50:20.380
-registers vim uses. So for example if
-you want to copy/paste really that's
+digunakan vim. Jadi misalnya jika
+kalian ingin copy/paste yang benar-benar
 
 0:50:20.380,0:50:26.201
-gone into in a specific register and if you
-want to for example use the a OS a copy
+masuk ke register tertentu dan jika kalian
+ingin misalnya menggunakan clipboard OS a
 
 0:50:26.201,0:50:30.040
-like the OS clipboard, you should
-be copying or yanking
+seperti clipboard OS, kalian harus
+mengcopy atau yanking
 
 0:50:30.040,0:50:36.250
-copying and pasting from a different register
-and there's a lot of them and yeah
+copy dan paste dari register yang berbeda
+dan ada banyak dari mereka dan ya
 
 0:50:36.251,0:50:41.310
-I think that you should explore, there's
-a lot of things to know about registers
+saya pikir kalian harus menjelajahi, ada
+banyak hal yang harus diketahui tentang register
 
 0:50:42.271,0:50:45.070
-The next question is asking about two-factor
-authentication and I'll just give
+Pertanyaan berikutnya bertanya tentang autentikasi dua faktor
+dan saya hanya akan memberi
 
 0:50:45.070,0:50:48.490
-a very quick answer to this one in the interest
-of time. So it's worth using two
+jawaban yang sangat cepat untuk ini demi
+waktu. Jadi layak menggunakan autentikasi dua
 
 0:50:48.490,0:50:52.480
-factor auth for anything security sensitive
-so I use it for my GitHub
+faktor untuk apa pun yang sensitif terhadap keamanan
+jadi saya menggunakannya untuk GitHub saya
 
 0:50:52.480,0:50:56.710
-account and for my email and stuff like
-that. And there's a bunch of different
+akun dan untuk email saya dan hal-hal seperti
+itu. Dan ada banyak jenis
 
 0:50:56.710,0:51:01.360
-types of two-factor auth. From SMS based
-to factor auth where you get special
+autentikasi dua faktor yang berbeda. Dari berbasis SMS
+ke autentikasi dua faktor di mana kalian mendapat
 
 0:51:01.360,0:51:04.630
-like a number texted to you when you try
-to log in you have to type that number
+seperti nomor yang di-text ke kalian ketika kalian mencoba
+untuk login kalian harus mengetik nomor itu
 
 0:51:04.630,0:51:08.710
-and to other tools like universal to
-factor this is like those Yubikeys
+dan ke alat lain seperti universal two
+factor ini seperti Yubikey
 
 0:51:08.710,0:51:11.350
-that you plug into your you have
-to tap it every time you login
+yang kalian colokkan ke kalian harus
+mengetuknya setiap kali kalian login
 
 0:51:11.350,0:51:18.130
-so not all, (yeah Jon is holding a
-Yubikey), not all two-factor auth is
+jadi tidak semua, (ya Jon memegang
+Yubikey), tidak semua autentikasi dua faktor
 
 0:51:18.130,0:51:22.240
-created equal and you really want to be
-using something like U2F rather than SMS
+dibuat sama dan kalian benar-benar ingin
+menggunakan sesuatu seperti U2F daripada berbasis
 
 0:51:22.240,0:51:25.300
-based to factor auth. There something
-based on one-time pass codes that you
+SMS. Ada sesuatu berdasarkan one-time pass code yang
 
 0:51:25.300,0:51:28.810
-have to type in we don't have time to get
-into the details of why some methods
+harus kalian ketik kita tidak punya waktu untuk masuk
+ke detail mengapa beberapa metode
 
 0:51:28.810,0:51:32.020
-are better than others but at a high
-level use U2F and the Internet has
+lebih baik daripada yang lain tapi di tingkat tinggi
+gunakan U2F dan Internet memiliki
 
 0:51:32.020,0:51:37.560
-plenty of explanations for why other
-methods are not a great idea
+banyak penjelasan mengapa metode lain
+bukan ide yang bagus
 
 0:51:37.711,0:51:41.851
-Last question, any comments on differences
-between web browsers?
+Pertanyaan terakhir, ada komentar tentang perbedaan
+antara web browser?
 
 0:51:48.171,0:51:50.171
-Yes
+Ya
 
 0:51:54.711,0:52:00.451
-Differences between web browsers, there
-are fewer and fewer differences between
+Perbedaan antara web browser, ada
+semakin sedikit perbedaan antara
 
 0:52:00.461,0:52:06.000
-web browsers these day. At this point
-almost all web browsers are chrome
+web browser sekarang ini. Pada titik ini
+hampir semua web browser adalah chrome
 
 0:52:06.000,0:52:09.580
-Either because you're using Chrome or
-because you're using a browser that's
+Baik karena kalian menggunakan Chrome atau
+karena kalian menggunakan browser yang
 
 0:52:09.580,0:52:15.550
-using the same browser engine as Chrome.
-It's a little bit sad, one might say, but
+menggunakan browser engine yang sama dengan Chrome.
+Agak menyedihkan, bisa dibilang, tapi
 
 0:52:15.550,0:52:20.511
-I think these days whether you choose
+saya pikir sekarang ini apakah kalian memilih
 
 0:52:20.511,0:52:24.451
-Chrome is a great browser for security reasons
+Chrome adalah browser yang hebat untuk alasan keamanan
 
 0:52:24.451,0:52:28.471
-if you want to have something
-that's more customizable or
+jika kalian ingin memiliki sesuatu
+yang lebih bisa dikustomisasi atau
 
 0:52:28.471,0:52:39.490
-you don't want to be tied to Google then
-use Firefox, don't use Safari it's a
+kalian tidak ingin terikat ke Google maka
+gunakan Firefox, jangan gunakan Safari itu
 
 0:52:39.490,0:52:45.701
-worse version of Chrome. The new Internet
-Explorer edge is pretty decent and also
+versi Chrome yang lebih buruk. Internet Explorer edge yang baru cukup bagus dan juga
 
 0:52:45.701,0:52:50.820
-uses the same browser engine as
-Chrome and that's probably fine
+menggunakan browser engine yang sama dengan
+Chrome dan itu mungkin baik-baik saja
 
 0:52:50.820,0:52:54.641
-although avoid it if you can because it
-has some like legacy modes you don't
+meskipun hindari jika kalian bisa karena itu
+memiliki beberapa mode legacy yang tidak ingin
 
 0:52:54.641,0:52:58.064
-want to deal with. I think that's
+kalian urus. Saya pikir itu
 
 0:52:58.064,0:53:03.091
-Oh, there's a cool new browser called flow
+Oh, ada browser baru yang keren bernama flow
 
 0:53:03.091,0:53:05.500
-that you can't use for anything useful
-yet but they're actually writing
+yang belum bisa kalian gunakan untuk apa pun yang berguna
+tapi mereka sebenarnya menulis
 
 0:53:05.500,0:53:08.693
-their own browser engine and that's really neat
+browser engine mereka sendiri dan itu sangat keren
 
 0:53:08.693,0:53:14.951
-Firefox also has this project called servo which is
-they're really implementing their browser engine
+Firefox juga memiliki proyek ini bernama servo yang
+mereka benar-benar mengimplementasikan browser engine mereka
 
 0:53:14.951,0:53:19.570
-in Rust in order to write it to be like
-super concurrent and what they've done
+dalam Rust untuk menulisnya agar seperti
+super concurrent dan apa yang mereka lakukan
 
 0:53:19.570,0:53:24.961
-is they've started to take modules
-from that version and port them
+adalah mereka mulai mengambil modul
+dari versi itu dan mem-port mereka
 
 0:53:24.961,0:53:29.041
-over to gecko or integrate them with gecko
-which is the main browser engine
+ke gecko atau mengintegrasikan mereka dengan gecko
+yang merupakan browser engine utama
 
 0:53:29.041,0:53:32.221
-for Firefox just to get those
-speed ups there as well
+untuk Firefox hanya untuk mendapatkan
+percepatan kecepatan di sana juga
 
 0:53:32.221,0:53:37.031
-and that's a neat neat thing
-you can be watching out for
+dan itu adalah hal yang keren
+yang bisa kalian perhatikan
 
 0:53:39.231,0:53:41.851
-That is all the questions, hey we did it. Nice
+Itu semua pertanyaannya, hei kita berhasil. Bagus
 
 0:53:41.851,0:53:50.751
-I guess thanks for taking the missing semester
-class and let's do it again next year
+Saya rasa terima kasih telah mengambil kelas missing semester
+dan mari lakukan lagi tahun depan

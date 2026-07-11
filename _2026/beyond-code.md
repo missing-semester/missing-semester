@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Lebih dari Sekadar Kode"
+title: "Beyond the Code"
 description: >
-  Pelajari keterampilan lunak penting termasuk dokumentasi, norma komunitas open-source, dan etika AI.
+  Pelajari soft skills penting termasuk dokumentasi, norma komunitas open-source, dan etika AI.
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
@@ -11,434 +11,408 @@ video:
   id: 2DOEATfXT8k
 ---
 
-Menjadi software engineer yang baik bukan hanya tentang menulis kode yang
-berfungsi. Ini tentang menulis kode yang dapat dipahami, dipelihara, dan
-dikembangkan oleh orang lain (termasuk Anda di masa depan). Ini tentang
-berkomunikasi dengan jelas, berkontribusi dengan penuh pertimbangan, dan
-menjadi warga yang baik dalam ekosistem yang Anda ikuti—baik itu open source
-maupun proprietary.
+Being a good software engineer isn't just about writing code that
+works. It's about writing code that others (including future you) can
+understand, maintain, and build upon. It's about communicating
+clearly, contributing thoughtfully, and being a good citizen in the
+ecosystems you participate in—whether open source or proprietary.
 
-# Komunikasi satu arah
+# One-way communication
 
-Sebagian besar pekerjaan software engineering melibatkan menulis untuk orang
-yang tidak memiliki konteks Anda saat ini: rekan tim yang bergabung nanti,
-maintainer yang mewarisi kode Anda, atau diri Anda sendiri enam bulan dari
-sekarang ketika Anda sudah lupa mengapa Anda membuat keputusan tertentu.
-Saran utama untuk semua jenis penulisan ini adalah tujuan Anda adalah
-menangkap dan menyampaikan *mengapa* (*why*), bukan hanya *apa* (*what*).
-Bagian *apa* cenderung dapat dijelaskan dengan sendirinya, sementara *mengapa*
-adalah pengetahuan yang diperoleh dengan susah payah dan mudah hilang
-tergerus waktu.
+Much of software engineering involves writing for people who lack your
+current context: teammates who join later, maintainers who inherit
+your code, or yourself in six months when you've forgotten why you
+made a particular choice. A key piece of advice for all this kind of
+writing is that your goal is to capture and convey the *why*, not just
+the *what*. The what tends to be self-explanatory, while the *why* is
+hard-earned knowledge that is easily lost to time.
 
-Mungkin bentuk komunikasi paling umum antar-engineer (selain kode itu
-sendiri) adalah komentar kode. Saya pribadi menemukan bahwa banyak komentar
-kode tidak berguna. Tapi tidak harus demikian! Komentar yang baik menjelaskan
-hal-hal yang tidak bisa dijelaskan oleh kode itu sendiri: *mengapa* sesuatu
-dilakukan dengan cara tertentu, bukan *bagaimana* cara kerjanya (yang
-ditunjukkan oleh kode). Komentar yang baik bisa menghemat waktu berjam-jam
-dari kebingungan, sementara komentar yang buruk menambah noise atau, lebih
-buruk lagi, menyesatkan.
+Perhaps the most common form of engineer-to-engineer communication
+(apart from the code itself) is code comments. I've personally found
+that a lot of code comments are useless. But they don't have to be! Good
+comments explain things that the code itself cannot: *why* something is
+done a particular way, not *how* it works (which is what the code
+shows). They can save hours of confusion, while bad comments add noise
+or, worse, mislead.
 
-Jenis komentar yang hampir selalu bermanfaat:
+Types of comments that are nearly always worthwhile:
 
-- **TODOs**: Tandai kode yang belum selesai atau belum dipoles, tetapi
-  berikan konteks yang cukup agar orang lain dapat memahami apa yang masih
-  harus diselesaikan dan mengapa ditunda. "TODO: optimize" tidak berguna;
-  "TODO: this O(n²) loop is fine for `n<100`, but will need indexing if we
-  scale" lebih dapat ditindaklanjuti.
-- **References**: Tautkan ke sumber eksternal ketika kode mengimplementasikan
-  algoritma dari sebuah paper, mengadaptasi kode dari tempat lain, atau
-  mengencode perilaku yang ditentukan dalam dokumentasi. Gunakan permalink.
-  Catat setiap penyimpangan dari referensi.
-- **Correctness arguments**: Jelaskan *mengapa* kode yang tidak trivial
-  menghasilkan hasil yang benar. Kode menunjukkan langkah-langkahnya;
-  komentar menjelaskan mengapa langkah-langkah tersebut berhasil.
-- **Hard-learned lessons**: Jika Anda menghabiskan 30+ menit untuk
-  men-debug sesuatu dan solusinya adalah sebuah incantation yang tidak
-  jelas, dokumentasikanlah. Diri Anda di masa lalu tidak menyadari bahwa
-  itu diperlukan; pembaca di masa depan juga tidak.
-- **Rationale for constants**: Angka-angka magic pantas dijelaskan. Mengapa
-  1492? Mengapa 16 bit? Apakah dipilih secara acak, diturunkan dari
-  pengujian, atau diperlukan untuk correctness? Bahkan "chosen arbitrarily"
-  adalah informasi yang berguna.
-- **Load-bearing choices**: Jika correctness bergantung pada detail
-  implementasi yang tampaknya tidak berbahaya (misalnya, "must be a BTreeSet
-  because iteration order matters below"), sebutkan secara eksplisit.
-- **"Why not"s**: Ketika Anda dengan sengaja menghindari pendekatan yang
-  jelas, jelaskan alasannya. Jika tidak, seseorang akan "memperbaikinya"
-  nanti dan merusak segalanya.
+- **TODOs**: Mark incomplete or unpolished code, but leave enough
+  context for someone else to understand what's outstanding and why it
+  was deferred. "TODO: optimize" is useless; "TODO: this O(n²) loop is
+  fine for `n<100`, but will need indexing if we scale" is actionable.
+- **References**: Link to external sources when code implements an
+  algorithm from a paper, adapts code from elsewhere, or encodes
+  behaviour specified in documentation. Use permalinks. Note any
+  divergences from the reference.
+- **Correctness arguments**: Explain *why* non-trivial code produces
+  correct results. The code shows the steps; a comment explains why
+  those steps work.
+- **Hard-learned lessons**: If you spent 30+ minutes debugging something
+  and the fix is a non-obvious incantation, document it. Your past self
+  didn't realize it was needed; future readers won't either.
+- **Rationale for constants**: Magic numbers deserve explanation. Why
+  1492? Why 16 bits? Was it chosen randomly, derived from testing, or
+  required for correctness? Even "chosen arbitrarily" is useful
+  information.
+- **Load-bearing choices**: If correctness depends on a
+  seemingly-innocent implementation detail (e.g., "must be a BTreeSet
+  because iteration order matters below"), call it out explicitly.
+- **"Why not"s**: When you deliberately avoid the obvious approach,
+  explain why. Otherwise someone will "fix" it later and break things.
 
-README (Anda punya satu, kan?) juga merupakan titik sentuhan pertama yang
-umum dengan developer lain. README yang baik menjawab empat pertanyaan
-segera: Apa fungsi proyek ini? Mengapa saya harus peduli? Bagaimana cara
-menggunakannya? Bagaimana cara menginstalnya? Dalam urutan tersebut.
-Strukturkannya seperti corong: satu baris penjelasan dan mungkin demo
-visual di bagian atas agar seseorang dapat memutuskan dalam hitungan detik
-apakah ini menyelesaikan masalah mereka, kemudian tambahkan kedalaman secara
-bertahap. Tunjukkan penggunaan sebelum instalasi — orang ingin melihat apa
-yang mereka dapatkan sebelum melakukan langkah-langkah setup.
+READMEs (you have one, right?) are also a common first touch-point with
+other developers. A good one answers four questions immediately: What
+does this do? Why should I care? How do I use it? How do I install it?
+In that order. Structure it like a funnel: a one-liner and maybe a
+visual demo at the top so someone can decide in seconds if this solves
+their problem, then progressively add depth. Show usage before
+installation — people want to see what they're getting before committing
+to setup steps.
 
-Commit message adalah jenis lain dari "menulis untuk orang lain" yang sering
-diabaikan. Commit message sering ditulis sebagai "fixed blah" atau "added
-foo", dan meskipun itu mungkin cukup dalam beberapa kasus, mudah lupa bahwa
-mereka membentuk catatan historis tentang *mengapa* codebase berkembang
-seperti sekarang. Ketika seseorang (termasuk Anda!) menjalankan `git blame`
-untuk mencoba memahami perubahan yang membingungkan, commit message yang
-baik seharusnya memberikan jawaban.
+Commit messages are another kind of "writing for others" that is often
+neglected. They are often written as "fixed blah" or "added foo", and
+while that may be sufficient in some cases, it's easy to forget that
+they form the historical record of *why* the codebase evolved the way it
+did. When someone (including you!) runs `git blame` trying to understand
+a confusing change, good commit messages should give them answers.
 
-Secara umum, bagian body harus menjawab:
-- Masalah apa yang memaksa perubahan ini?
-- Alternatif apa saja yang Anda pertimbangkan?
-- Apa trade-off atau implikasinya?
-- Apa yang mungkin mengejutkan tentang pendekatan ini?
+In general, the body should answer:
+- What problem forced this change?
+- What alternatives did you consider?
+- What are the trade-offs or implications?
+- What might be surprising about this approach?
 
-> Tentu saja Anda harus menyesuaikan tingkat detail dengan kompleksitas.
-> Perbaikan typo satu baris hanya membutuhkan subject. Perbaikan race
-> condition yang subtil yang memakan waktu berjam-jam untuk di-debug
-> pantas mendapatkan paragraf yang menjelaskan masalah dan solusinya.
+> Obviously you should scale detail with complexity. A one-line typo fix
+> needs only a subject. A subtle race condition fix that took hours to
+> debug deserves paragraphs explaining the problem and solution.
 
-Untuk perubahan yang kompleks, bisa berguna mengikuti struktur Problem →
-Solution → Implications: Mulai dengan pemicu atau limitasi, kemudian
-jelaskan apa yang berubah dan keputusan desain utama, lalu daftar
-konsekuensi yang patut diperhatikan (positif dan negatif). Bagian terakhir
-sangat penting; rekayasa nyata melibatkan menyeimbangkan berbagai
-pertimbangan, dan mendokumentasikan bahwa sebuah trade-off memang disengaja
-mencegah developer di masa depan mengira Anda melewatkan masalah tersebut.
+For complex changes, it can be useful to follow a Problem → Solution →
+Implications structure: Start with the forcing function or limitation,
+then explain what changed and the key design decisions, and then list
+noteworthy consequences (positive and negative). That last part is
+particularly important; real engineering involves balancing concerns,
+and documenting that a trade-off was intentional prevents future
+developers from thinking you missed the problem.
 
-LLM _bisa_ membantu dalam menulis commit message. Namun, jika Anda hanya
-menunjuk ke perubahan Anda dan memintanya menulis commit message untuk
-perubahan tersebut, LLM hanya akan memiliki akses ke _apa_, bukan _mengapa_.
-Dan commit message yang dihasilkan karenanya akan sebagian besar bersifat
-deskriptif (kebalikan dari yang kita inginkan!). Jika Anda menggunakan LLM
-untuk membantu Anda membuat perubahan sejak awal, meminta LLM menulis commit
-message di sesi yang sama bisa menjadi opsi yang jauh lebih baik karena
-percakapan Anda dengan LLM secara inheren merupakan sumber konteks yang kaya
-tentang perubahan tersebut! Jika tidak, atau sebagai tambahan, trik yang
-berguna adalah secara khusus memberi tahu LLM bahwa Anda ingin commit
-message yang berfokus pada "mengapa" (dan nuansa lainnya dari catatan di
-atas), kemudian _minta LLM untuk menanyakan konteks yang hilang kepada
-Anda_. Pada dasarnya, Anda bertindak seperti "tool" MCP yang bisa digunakan
-oleh coding agent untuk "membaca" konteks.
+LLMs _can_ be helpful in writing commit messages. However, if you simply
+point one at your change and ask it to write the commit message for the
+change, the LLM will only have access to the _what_, not the _why_. And
+the resulting commit message will thus be mostly descriptive (the
+opposite of what we want!). If you used an LLM to help you make the
+change in the first place, asking the LLM to write the commit in that
+same session can be a much better option since your conversation with
+the LLM is inherently a rich source of context about the change!
+Otherwise, or in addition, a useful trick is to specifically tell the
+LLM you'd like a commit message focused on the "why" (and other nuances
+from the notes above), and then _tell it to query you for missing
+context_. Essentially, you're acting like a MCP "tool" for the coding
+agent that it can use to "read" context.
 
-Seiring perubahan Anda menjadi semakin kompleks, pastikan untuk juga
-memecah commit secara logis (`git add -p` adalah teman Anda). Setiap commit
-harus mewakili satu perubahan yang koheren yang dapat dipahami dan
-di-review secara independen. Jangan mencampur refactoring dengan fitur baru
-atau menggabungkan perbaikan bug yang tidak terkait, karena ini mengaburkan
-cerita tentang perubahan mana yang memperbaiki masalah apa, dan hampir
-pasti akan memperlambat review perubahan Anda pada akhirnya. Ini juga
-memberi Anda kekuatan super melalui `git bisect`, tapi itu cerita untuk
-waktu lain.
+As your changes get more complex, make sure to also break up commits
+logically (`git add -p` is your friend). Each commit should represent
+one coherent change that could be understood and reviewed independently.
+Don't mix refactoring with new features or combine unrelated bug fixes,
+as this muddies the story for which changes fixed what problem, and will
+almost certainly slow down the eventual review of your changes. It also
+gives you superpowers through `git bisect`, but that's a story for
+another time.
 
-> Satu catatan saat Anda mulai lebih rajin dalam menulis teknis, dan
-> menggunakannya secara lebih ekstensif, pastikan Anda menghormati pembaca.
-> Mudah terjebak dalam penjelasan berlebihan setelah Anda mulai, tetapi
-> Anda harus menahan dorongan itu agar pembaca tidak mengabaikan _semua_
-> yang telah Anda tulis. Jelaskan "mengapa" dan percayai mereka untuk
-> mencari tahu "bagaimana" untuk situasi mereka.
+> One note as you start being more diligent about technical writing, and
+> using it more extensively, make sure you respect the reader. It's easy
+> to end up over-explaining once you start, but you have to resist that
+> urge lest the reader read _none_ of what you've written. Explain the
+> "why" and trust them to figure out the "how" for their situation.
 
-# Kolaborasi
+# Collaboration
 
-Sebagai engineer, kita mungkin menghabiskan sebagian besar pekerjaan kita
-untuk coding di depan keyboard, tetapi sebagian waktu kita juga dihabiskan
-untuk berkomunikasi dengan orang lain. Waktu tersebut biasanya terbagi
-menjadi kolaborasi dan edukasi, dan manfaat dari berinvestasi untuk menjadi
-lebih baik di keduanya sangat signifikan.
+As engineers, we may spend a large part of our job coding at our own
+keyboard, but a sizeable chunk of our time is also taken up by
+communicating with others. That time is usually split into collaboration
+and education, and the payoff from investing in getting better at both is
+significant.
 
-## Berkontribusi
+## Contributing
 
-Baik Anda mengirimkan bug report, berkontribusi perbaikan bug sederhana,
-atau mengimplementasikan fitur besar, perlu diingat bahwa biasanya terdapat
-beberapa orde magnitudo lebih banyak pengguna daripada kontributor, dan
-satu orde magnitudo lebih banyak kontributor daripada maintainer. Akibatnya,
-waktu maintainer sangat terbatas. Jika Anda ingin meningkatkan kemungkinan
-kontribusi Anda membuahkan hasil yang produktif, Anda harus memastikan bahwa
-kontribusi Anda membawa rasio signal-to-noise yang tinggi dan sepadan dengan
-waktu para maintainer.
+Whether you are submitting a bug report, contributing a simple bug fix,
+or implementing a huge feature, it's worth keeping in mind that there
+are usually orders of magnitude more users than there are contributors,
+and an order of magnitude more contributors than there are maintainers.
+As a result, maintainer time is highly oversubscribed. If you want to
+increase the likelihood that your contribution goes somewhere
+productive, you have to ensure that your contributions carry a high
+signal-to-noise ratio and are worth the maintainers' time.
 
-Sebagai contoh, bug report yang baik menghormati waktu maintainer dengan
-menyediakan semua yang diperlukan untuk memahami dan mereproduksi masalah:
+For example, a good bug report respects the maintainer's time by
+providing everything needed to understand and reproduce the problem:
 
-- **Environment**: OS, nomor versi, konfigurasi yang relevan
-- **Apa yang Anda harapkan** vs **apa yang sebenarnya terjadi**
-- **Langkah-langkah untuk mereproduksi**: Spesifik. "Click the button"
-  kurang berguna daripada "Click the Submit button on the /settings page
-  while logged in as an admin."
-- **Apa yang sudah Anda coba**: Ini mencegah saran yang duplikat dan
-  menunjukkan bahwa Anda sudah melakukan investigasi
+- **Environment**: OS, version numbers, relevant configuration
+- **What you expected** vs **what actually happened**
+- **Steps to reproduce**: Be specific. "Click the button" is less useful
+  than "Click the Submit button on the /settings page while logged in as
+  an admin."
+- **What you've already tried**: This prevents duplicate suggestions and
+  shows you've done some investigation
 
-> Jika Anda menemukan kerentanan keamanan, jangan mempublikasikannya secara
-> terbuka. Hubungi maintainer secara pribadi terlebih dahulu dan beri mereka
-> waktu yang memadai untuk memperbaikinya sebelum disclosure. Banyak proyek
-> memiliki file SECURITY.md atau sejenisnya untuk tujuan ini.
+> If you find a security vulnerability, don't post it publicly. Contact
+> the maintainers privately first and give them reasonable time to fix
+> it before disclosure. Many projects have a SECURITY.md file or
+> similar for this purpose.
 
-**Pastikan Anda mencari issue yang sudah ada.** Bug atau feature request
-Anda mungkin sudah dilaporkan, dan jauh lebih baik menambahkan informasi
-ke diskusi yang sudah ada daripada membuat duplikat. Belum lagi, ini
-mengurangi noise bagi para maintainer.
+**Make sure you search for existing issues.** Your bug or feature
+request may already be reported, and it's far better to add information
+to existing discussions rather than creating duplicates. Not to mention,
+it reduces noise for the maintainers.
 
-Minimal reproducible examples sangat berharga, jika Anda bisa
-menghasilkannya. Ini menghemat banyak waktu dan usaha maintainer, dan
-mereproduksi bug secara konsisten seringkali merupakan bagian tersulit
-dalam memperbaikinya. Belum lagi, usaha yang Anda lakukan untuk mengisolasi
-masalah seringkali membantu Anda memahaminya dengan lebih baik juga, dan
-kadang-kadang mengarahkan Anda untuk menemukan solusi sendiri.
+Minimal reproducible examples are gold, if you can come up with one.
+They save the maintainer a huge amount of time and effort, and
+reliably reproducing the bug is often the hardest part of fixing it. Not
+to mention, the effort you put into isolating the problem often helps
+you understand it better too, and sometimes leads you to find a fix
+yourself.
 
-Jika Anda tidak segera mendapat balasan, ingatlah bahwa maintainer seringkali
-adalah relawan dengan waktu terbatas. Jika Anda menunggu balasan dari mereka,
-follow-up yang sopan setelah beberapa minggu masih wajar; ping setiap hari
-tidak. Demikian pula, komentar "me too", atau bug report yang hanya berisi
-copy-paste output terminal cenderung bersifat net-negatif dalam hal
-mendapatkan perhatian untuk issue Anda.
+If you don't hear back right away, keep in mind that maintainers are
+often volunteers with limited time. If you're waiting for a reply from
+them, a polite follow-up after a couple weeks is fine; daily pings are
+not. Similarly, "me too" comments, or bug reports that are just a
+copy-paste of some terminal output tend to be a net-negative in terms of
+getting traction for your issue.
 
-Jika Anda ingin membuat kontribusi kode, Anda juga perlu membiasakan diri
-dengan panduan kontribusi. Banyak proyek memiliki `CONTRIBUTING.md` —
-ikutilah. Anda juga biasanya ingin mulai dari yang kecil; perbaikan typo
-atau perbaikan dokumentasi adalah kontribusi pertama yang bagus karena
-membantu Anda mempelajari proses proyek tanpa harus melalui banyak bolak-balik
-tentang kontennya.
+If you're looking to make a code contribution, you'll also want to
+familiarize yourself with the contribution guidelines. Many projects
+have a `CONTRIBUTING.md` — follow it. You'll also usually want to start
+small; a typo fix or documentation improvement is a great first
+contribution as it helps you learn the project's processes without also
+having to go through lots of back and forth on the content.
 
-> Periksa lisensi apa yang digunakan proyek, karena kode apa pun yang Anda
-> kontribusikan akan berada di bawah lisensi yang sama. Khususnya, perhatikan
-> lisensi copyleft (seperti GPL), yang mengharuskan karya turunan juga
-> bersifat open source dan mungkin memiliki implikasi bagi pemberi kerja
-> Anda jika Anda menyentuhnya! [choosealicense.com](https://choosealicense.com/)
-> memiliki informasi yang lebih berguna.
+> Check what license the project uses, as any code you contribute will
+> fall under the same license. In particular, look out for copyleft
+> licenses (like GPL), which requires derivatives to also be open source
+> and may have implications for your employer if you touch it!
+> [choosealicense.com](https://choosealicense.com/) has more useful
+> information.
 
-Ketika Anda memutuskan untuk membuka pull request ("PR"), pertama-tama
-pastikan Anda mengisolasi perubahan yang sebenarnya ingin Anda terima. Jika
-PR Anda mengubah banyak hal lain yang tidak terkait pada saat yang sama,
-kemungkinan reviewer akan mengembalikannya kepada Anda dan meminta Anda
-membersihkannya. Ini mirip dengan bagaimana Anda harus memecah git commit
-Anda menjadi bagian-bagian yang terkait secara semantis.
+When you've decided to open a pull request ("PR"), first make sure you
+isolate the change you actually want to be accepted. If your PR changes
+lots of other unrelated things at the same time, chances are the
+reviewer will send it back to you asking you to clean it up. This is
+similar to how you should break down your git commits into semantically
+related chunks.
 
-Dalam beberapa kasus, jika Anda memiliki banyak perubahan yang tampaknya
-berbeda-beda tetapi semuanya diperlukan untuk mengaktifkan satu fitur,
-mungkin boleh membuka PR yang lebih besar yang mencakup semua perubahan
-tersebut. Namun, dalam kasus ini, kebersihan commit sangat penting agar
-maintainer memiliki opsi untuk me-review perubahan tersebut "commit demi
-commit".
+In some cases, if you have many seemingly-disparate changes but
+they're all needed to enable one feature, it may be okay to open a
+larger PR that captures all the changes. However, in this case, commit
+hygiene is particularly important so that maintainers have the option
+to review the change "commit by commit".
 
-Selanjutnya, pastikan Anda menjelaskan "mengapa" di balik perubahan dengan
-baik. Jangan hanya mendeskripsikan _apa_ yang berubah — jelaskan _mengapa_
-perubahan tersebut diperlukan dan _mengapa_ ini adalah cara yang baik untuk
-mengatasi masalah tersebut. Anda juga harus secara proaktif menyebut bagian-bagian
-perubahan yang memerlukan perhatian khusus dalam review, jika ada. Tergantung
-pada `CONTRIBUTING.md` dan sifat perubahan Anda, reviewer mungkin juga
-mengharapkan informasi tambahan seperti trade-off yang Anda buat atau cara
-menguji perubahan tersebut.
+Next, make sure you explain the "why" behind the change well. Don't just
+describe _what_ changed — explain _why_ the change is needed and _why_
+this is a good way to address the problem. You should also proactively
+call out parts of the change that warrant special attention in the
+review, if any. Depending on `CONTRIBUTING.md` and the nature of your
+change, reviewers may also expect to see additional information like
+trade-offs you made or how to test the change.
 
-> Kami merekomendasikan untuk berkontribusi kembali ke proyek upstream
-> daripada "mem-fork" proyek, setidaknya sebagai pendekatan pertama.
-> Forking (jika lisensi mengizinkan) sebaiknya dicadangkan untuk ketika
-> kontribusi yang ingin Anda buat berada di luar lingkup proyek asli.
-> Jika Anda melakukan fork, pastikan Anda mengakui proyek aslinya!
+> We recommend contributing back to upstream projects rather than
+> "forking" the project, at least as a first approach. Forking (license
+> permitting) should be reserved for when the contributions you want to
+> make are out of scope for the original project. If you do fork, make
+> sure you acknowledge the original project!
 
-AI membuat sangat mudah untuk menghasilkan kode dan PR yang terlihat
-masuk akal dengan cepat, tetapi ini tidak membebaskan Anda dari kewajiban
-untuk memahami apa yang Anda kontribusikan. Mengirimkan kode hasil
-generate AI yang tidak dapat Anda jelaskan membebani maintainer dengan
-review dan potensi pemeliharaan kode yang bahkan pembuatnya sendiri tidak
-paham. Tidak masalah menggunakan AI untuk membantu mengidentifikasi masalah
-dan menghasilkan perbaikan/fitur, **selama Anda tetap melakukan due
-diligence** untuk memolesnya menjadi kontribusi yang berharga, daripada
-meneruskan pekerjaan tersebut kepada maintainer (yang sudah kelebihan beban).
+AI makes it incredibly easy to generate plausible-looking code and PRs
+quickly, but this doesn't excuse you from understanding what you're
+contributing. Submitting AI-generated code you can't explain burdens
+maintainers with reviewing and potentially maintaining code that even
+its author doesn't understand. It's fine to use AI to help you
+identify issues and produce fixes/features, **so long as you still do
+the due diligence** to polish it into a worthwhile contribution, rather
+than passing that work on to the (already-overloaded) maintainers.
 
-Ingat bahwa bagi maintainer, menerima PR berarti menerima tanggung jawab
-jangka panjang. Mereka akan memelihara kode ini jauh setelah kontributor
-beralih ke hal lain, dan mungkin menolak perubahan yang bermaksud baik
-tetapi tidak sesuai dengan arah proyek, menambah kompleksitas yang tidak
-ingin mereka pelihara, atau di mana kebutuhannya simplemente tidak
-terdokumentasi dengan cukup baik. Ini menjadi tanggung jawab _Anda_ sebagai
-kontributor untuk memberikan argumen mengapa menerima kontribusi tersebut
-sepadan dengan beban pemeliharaannya.
+Remember that for maintainers, accepting a PR means accepting long-term
+responsibility. They will be maintaining this code long after the
+contributor has moved on, and so may decline changes that are
+well-intentioned but don't fit the project's direction, add complexity
+they don't want to maintain, or where the need simply isn't sufficiently
+well-documented. It's on _you_ as the contributor to make the case for
+why accepting the contribution is worth the maintenance burden.
 
-> Saat menerima umpan balik pada PR, ingatlah bahwa kode Anda bukanlah
-> diri Anda! Reviewer berusaha membuat kode menjadi lebih baik, bukan
-> mengkritik Anda secara pribadi. Ajukan pertanyaan klarifikasi jika Anda
-> tidak setuju — Anda mungkin belajar sesuatu, atau mungkin mereka yang
-> akan belajar.
+> When receiving feedback on a PR, remember that your code is not you!
+> Reviewers are trying to make the code better, not criticizing you
+> personally. Ask clarifying questions if you disagree — you might learn
+> something, or maybe they will.
 
-## Me-review
+## Reviewing
 
-Anda mungkin berpikir code review adalah sesuatu yang dilakukan developer
-senior, tetapi Anda mungkin akan diminta untuk me-review kode jauh lebih
-awal dari yang Anda duga, dan perspektif Anda berharga. Mata yang segar
-dapat menangkap hal-hal yang dilewatkan oleh developer berpengalaman, dan
-pertanyaan dari seseorang yang kurang familiar dengan kode seringkali
-mengungkap asumsi yang seharusnya didokumentasikan atau disederhanakan.
+You might think code review is something senior developers do, but
+you'll likely be asked to review code much earlier than you expect, and
+your perspective is valuable. Fresh eyes catch things that experienced
+developers overlook, and questions from someone less familiar with the
+code often reveal assumptions that should be documented or simplified.
 
-Review juga merupakan salah satu cara tercepat untuk belajar. Anda akan
-melihat bagaimana orang lain mendekati masalah, mempelajari pola dan idiom,
-dan mengembangkan intuisi tentang apa yang membuat kode mudah dibaca. Di
-luar pertumbuhan pribadi, review menangkap bug sebelum mencapai production,
-menyebarkan pengetahuan di seluruh tim, dan meningkatkan kualitas kode
-melalui kolaborasi. Review bukan sekadar overhead birokrasi.
+Review is also one of the fastest ways to learn. You'll see how others
+approach problems, pick up patterns and idioms, and develop intuition
+for what makes code readable. Beyond personal growth, reviews catch bugs
+before they reach production, spread knowledge across the team, and
+improve code quality through collaboration. They are not merely
+bureaucratic overhead.
 
-Code review yang baik adalah keterampilan yang perlu Anda asah seiring
-waktu, tetapi ada beberapa tips yang bisa membuatnya jauh lebih baik
-dengan lebih cepat:
+Good code review is a skill you need to hone over time, but there are
+some tips that can make them much better much faster:
 
-- **Review kodenya, bukan orangnya**:
+- **Review the code, not the person**:
   "This function is confusing" vs "You wrote confusing code."
-- **Utamakan komentar yang dapat ditindaklanjuti**:
-  "Can you replace these globals with a config dataclass" adalah komentar
-  yang lebih mudah ditangani daripada "Don't use globals here"
-- **Ajukan pertanyaan daripada membuat tuntutan**:
-  "What happens if X is null here?" lebih mengundang diskusi daripada
+- **Prefer actionable comments**:
+  "Can you replace these globals with a config dataclass" is an easier
+  comment to address than "Don't use globals here"
+- **Ask questions rather than making demands**:
+  "What happens if X is null here?" invites discussion better than
   "Handle the null case."
-- **Jelaskan "mengapa"**:
-  "Consider using a constant here" kurang berguna daripada "Consider using
-  a constant here so we can easily adjust the timeout based on environment."
-- **Bedakan antara masalah blocking dan saran**:
-  Jelaskan dengan jelas apa yang harus diubah versus apa yang hanya masalah
-  preferensi.
-- **Akui apa yang baik**:
-  Menunjukkan solusi yang cerdas atau implementasi yang bersih sangat
-  mendorong dan membantu penulis mengetahui apa yang harus dilanjutkan.
-- **Tahu kapan harus berhenti**:
-  Kontributor hanya punya waktu dan kesabaran terbatas, dan tidak selalu
-  terbaik dihabiskan untuk menangani semua hal-hal kecil. Fokus pada hal-hal
-  besar, dan pertimbangkan untuk merapikan hal-hal kecil sendiri setelahnya.
+- **Explain the "why"**:
+  "Consider using a constant here" is less useful than "Consider using a
+  constant here so we can easily adjust the timeout based on
+  environment."
+- **Distinguish blocking issues from suggestions**:
+  Be clear about what must change versus what's a matter of preference.
+- **Acknowledge what's good**:
+  Pointing out clever solutions or clean implementations is encouraging
+  and helps the author know what to continue doing.
+- **Know when to stop**:
+  Contributors only have so much time and patience, and it's not always
+  best spent handling all the nits. Focus on the big things, and
+  consider tidying up nits yourself after the fact.
 
-> Tool AI dapat menangkap masalah tertentu, tetapi bukan pengganti untuk
-> review manusia. Mereka melewatkan konteks, tidak memahami persyaratan
-> produk, dan dapat dengan percaya diri menyarankan hal-hal yang salah.
-> Mereka layak digunakan sebagai first pass, tetapi bukan pengganti untuk
-> review manusia yang penuh pertimbangan.
+> AI tools can catch certain issues, but they're not a substitute for
+> human review. They miss context, don't understand product
+> requirements, and can confidently suggest wrong things. They're worth
+> using as a first pass, but not a replacement for thoughtful human
+> review.
 
-# Edukasi
+# Education
 
-Banyak waktu non-coding kita sebagai engineer dihabiskan untuk mengajukan
-atau menjawab pertanyaan, mungkin campuran keduanya; selama kolaborasi,
-dalam dialog dengan rekan, atau saat mencoba belajar. Mengajukan pertanyaan
-yang baik adalah keterampilan yang membuat Anda lebih baik dalam belajar
-dari siapa pun, bukan hanya dari penjelas yang sempurna. Julia Evans
-memiliki beberapa posting blog yang sangat bagus tentang "[How to ask good
-questions](https://jvns.ca/blog/good-questions/)" dan "[How to get useful
-answers to your
+A lot of our non-coding time as engineers is spent either asking or
+answering questions, possibly a mixture of both; during collaboration,
+in dialogue with peers, or while trying to learn. Asking good questions
+is a skill that makes you better at learning from anyone, not just
+perfect explainers. Julia Evans has some excellent blog posts on "[How
+to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
+to get useful answers to your
 questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
-yang layak dibaca.
+that are worth reading.
 
-Beberapa saran yang sangat berharga adalah:
+Some particularly valuable pieces of advice are:
 
-- **Nyatakan pemahaman Anda terlebih dahulu**: Katakan apa yang Anda pikir
-  Anda ketahui dan tanyakan "is that right?" Ini membantu pemberi jawaban
-  mengidentifikasi celah pengetahuan Anda yang sebenarnya.
-- **Ajukan pertanyaan ya/tidak**: "Is X true?" mencegah penjelasan yang
-  melebar dan biasanya tetap mendorong elaborasi yang berguna.
-- **Spesifik**: "How do SQL joins work?" terlalu umum. "Does a LEFT JOIN
-  include rows where the right table has no match?" dapat dijawab.
-- **Akui ketika Anda tidak paham**: Potong pembicaraan untuk bertanya
-  tentang istilah yang tidak familiar. Ini mencerminkan kepercayaan diri,
-  bukan kelemahan. Demikian pula, jika mereka mengajukan pertanyaan kepada
-  Anda yang tidak Anda ketahui jawabannya, yang terbaik adalah mengatakan
-  "I don't know", dan mungkin melanjutkan dengan "but I think ..." atau
-  bahkan "but I can find out".
-- **Jangan menerima jawaban yang tidak lengkap**: Terus ajukan pertanyaan
-  lanjutan sampai Anda benar-benar paham.
-- **Lakukan riset terlebih dahulu**: Investigasi dasar membantu Anda
-  mengajukan pertanyaan yang lebih tertarget (meskipun pertanyaan kasual
-  antar rekan kerja tidak masalah).
+- **State your understanding first**: Say what you think you know and
+  ask "is that right?" This helps the answerer identify your actual
+  knowledge gaps.
+- **Ask yes/no questions**: "Is X true?" prevents tangential
+  explanations and usually prompts useful elaboration anyway.
+- **Be specific**: "How do SQL joins work?" is too vague. "Does a LEFT
+  JOIN include rows where the right table has no match?" is answerable.
+- **Admit when you don't understand**: Interrupt to ask about unfamiliar
+  terms. This reflects confidence, not weakness. Similarly, if they ask
+  questions of you that you do not know the answer to, it's best to say
+  "I don't know", and possibly follow up with "but I think ..." or even
+  "but I can find out".
+- **Don't accept incomplete answers**: Keep asking follow-ups until you
+  actually understand.
+- **Do some research first**: Basic investigation helps you ask more
+  targeted questions (though casual questions among colleagues are
+  fine).
 
-Ingat: pertanyaan yang dirancang dengan baik bermanfaat bagi seluruh
-komunitas. Mereka mengungkap asumsi tersembunyi yang juga perlu dipahami
-oleh orang lain.
+Remember: well-crafted questions benefit entire communities. They
+surface hidden assumptions that others need to understand too.
 
-> Perhatikan bahwa saran ini juga berlaku saat berkomunikasi dengan LLM!
+> Note that this advice applies just as much when communicating with
+> LLMs!
 
-# Etika AI
+# AI etiquette
 
-Dengan meningkatnya penggunaan LLM dan AI dalam software engineering,
-norma sosial dan profesional di sekitarnya masih dalam perubahan. Kami
-sudah membahas banyak pertimbangan taktis di [agentic coding
-lecture](/2026/agentic-coding/), tetapi ada juga bagian "lebih lunak" dari
-penggunaannya yang patut dibahas.
+With the growing use of LLMs and AI across software engineering, the
+social and professional norms around are still in flux. We already
+covered many of the tactical considerations in the [agentic coding
+lecture](/2026/agentic-coding/), but there are also "softer" parts of
+their use that are worth discussing.
 
-Yang pertama adalah ketika AI berkontribusi secara signifikan terhadap
-pekerjaan Anda, **ungkapkan hal tersebut**. Ini bukan tentang rasa malu —
-ini tentang kejujuran, menetapkan ekspektasi yang sesuai, dan memastikan
-karya yang dihasilkan mendapatkan tingkat review yang tepat. Juga berguna
-untuk mengungkapkan _bagian mana_ yang Anda gunakan AI — ada perbedaan
-yang bermakna antara "this whole thing is vibecoded" dan "I wrote this
-backup tool and used an LLM to style the web frontend". Sebagai contoh,
-kami telah menggunakan LLM untuk membantu menulis beberapa catatan kuliah
-ini, termasuk proofreading, brainstorming, dan menghasilkan draf pertama
-dari cuplikan kode dan latihan.
+The first of these is that when AI meaningfully contributed to your
+work, **disclose it**. This isn't about shame — it's about honesty,
+setting appropriate expectations, and ensuring the resulting work gets
+the appropriate level of review. It's also worthwhile to disclose which
+_parts_ you use AI for — there's a meaningful distinction between "this
+whole thing is vibecoded" and "I wrote this backup tool and used an LLM
+to style the web frontend". For example, we've used LLMs to help write
+some of these lecture notes, including proofreading, brainstorming, and
+generating first drafts of code snippets and exercises.
 
-Anda juga perlu mengikuti norma-norma tim dan proyek yang Anda kontribusikan.
-Beberapa tim memiliki kebijakan yang lebih ketat tentang penggunaan AI
-daripada yang lain (misalnya, karena alasan kepatuhan atau residensi data),
-dan Anda tidak ingin secara tidak sengaja melanggarnya. Terbuka tentang
-penggunaan Anda membantu mencegah kesalahan yang berpotensi mahal.
+You'll also want to follow the norms of the teams and projects you're
+contributing to here. Some teams have stricter policies around the use
+of AI than others (e.g., for compliance or data residency reasons), and
+you don't want to accidentally run afoul of that. Being open about your
+use helps prevent potentially costly mistakes.
 
-> Jika Anda bertujuan untuk belajar sebagai bagian dari pekerjaan yang Anda
-> lakukan, ingatlah bahwa jika Anda membiarkan AI melakukan semua atau
-> sebagian besar pekerjaan untuk Anda bisa menjadi bumerang; Anda mungkin
-> lebih banyak belajar tentang prompting (dan mungkin me-review output AI)
-> daripada tugas itu sendiri. Terutama ketika Anda sedang belajar, tujuannya
-> mungkin perjalanannya, bukan destinasinya, jadi menggunakan AI untuk
-> "mendapatkan solusi dengan cepat" adalah anti-goal.
+> If you're aiming to learn as part of the work you're doing, keep in
+> mind that if you have AI do all or most of the work for you can be
+> self-defeating; you're likely to learn more about prompting (and maybe
+> reviewing AI output) than the task itself. Especially when you're
+> learning, the point may be the journey, not the destination, so using
+> AI to "get the solution quickly" is an anti-goal.
 
-Keprihatinan yang terkait muncul dalam wawancara dan situasi penilaian
-lainnya. Ini seringkali dimaksudkan untuk secara khusus mengevaluasi
-keterampilan dan kemampuan _Anda_, bukan kemampuan LLM. Semakin banyak
-perusahaan yang kini mengizinkan Anda menggunakan LLM dan tool bantuan AI
-lainnya dalam wawancara selama Anda membiarkan mereka mengamati interaksi
-tersebut sebagai bagian dari wawancara (yaitu, mereka juga mengevaluasi
-keterampilan Anda dalam menggunakan tool-tool tersebut!), tetapi mereka
-masih dalam minoritas. Jika Anda tidak yakin apakah bantuan AI diizinkan
-untuk tugas tertentu, tanyakanlah!
+A related concern comes up in interviews and other assessment
+situations. These are often intended to specifically evaluate _your_
+skills and abilities, not those of an LLM. More companies now allow you
+to use LLMs and other AI-assisted tooling in interviews as long as you
+let them observe those interactions as part of the interview (i.e., they
+are evaluating your skill in making use of those tools too!), but those
+are still in the minority. If you are unsure about whether AI assistance
+is in scope for a particular task, ask!
 
-> Sudah seharusnya jika situasi penilaian secara eksplisit melarang tool
-> eksternal, LLM, dll., Anda tidak boleh menggunakannya. Mencoba melakukannya
-> secara diam-diam tanpa ketahuan **pasti** akan berbalik merugikan Anda.
+> It should go without saying that if an assessment situation explicitly
+> calls for no external tools, no LLMs, etc., you should not use them.
+> Trying to do so discretely without getting caught **will** come back
+> to bite you.
 
-# Latihan
+# Exercises
 
-1. Telusuri source code dari proyek yang terkenal (misalnya,
-   [Redis](https://github.com/redis/redis) atau
-   [curl](https://github.com/curl/curl)). Temukan contoh beberapa jenis
-   komentar yang disebutkan dalam kuliah: TODO yang berguna, referensi ke
-   dokumentasi eksternal, komentar "why not" yang menjelaskan pendekatan
-   yang dihindari, atau hard-learned lesson. Apa yang akan hilang jika
-   komentar tersebut tidak ada?
+1. Browse the source code of a well-known project (e.g.,
+   [Redis](https://github.com/redis/redis) or
+   [curl](https://github.com/curl/curl)). Find examples of some of the
+   comment types mentioned in the lecture: a useful TODO, a reference to
+   external documentation, a "why not" comment explaining an avoided
+   approach, or a hard-learned lesson. What would be lost if that
+   comment was not there?
 
-1. Pilih proyek open-source yang Anda minati dan lihat riwayat commit
-   terbarunya (`git log`). Temukan satu commit dengan pesan yang baik yang
-   menjelaskan *mengapa* perubahan tersebut dibuat, dan satu dengan pesan
-   yang lemah yang hanya mendeskripsikan *apa* yang berubah. Untuk yang
-   lemah, lihat diff-nya (`git show <hash>`) dan coba tulis commit message
-   yang lebih baik mengikuti struktur Problem → Solution → Implications.
-   Perhatikan betapa banyak usaha yang diperlukan untuk menyusun kembali
-   konteks yang diperlukan setelah fakta!
+1. Pick an open-source project you're interested in and look at its
+   recent commit history (`git log`). Find one commit with a good
+   message that explains *why* the change was made, and one with a weak
+   message that only describes *what* changed. For the weak one, look at
+   the diff (`git show <hash>`) and try to write a better commit message
+   following the Problem → Solution → Implications structure. Notice how
+   much work is required to reassemble the necessary context after the
+   fact!
 
-1. Bandingkan README dari tiga proyek GitHub dengan 1000+ bintang. Apakah
-   semuanya sama-sama berguna? Carilah hal-hal yang menurut Anda lebih
-   merupakan noise sebagai pelajaran untuk README yang Anda tulis sendiri
-   di masa depan.
+1. Compare the READMEs of three GitHub projects with 1000+ stars. Are
+   all of them equally useful? Look for things that come across mostly
+   as noise to you as a lesson for future READMEs you write yourself.
 
-1. Temukan issue terbuka pada proyek yang Anda gunakan (periksa label "good
-   first issue" atau "help wanted" jika ada). Evaluasi issue tersebut
-   berdasarkan kriteria dari kuliah: apakah sepertinya menghargai waktu
-   maintainer dan berisi semua informasi yang diperlukan untuk men-debug,
-   atau Anda berharap maintainer mungkin perlu melalui beberapa putaran
-   pertanyaan dengan pengirim untuk sampai ke masalah inti?
+1. Find an open issue on a project you use (check the "good first issue"
+   or "help wanted" labels if they have it). Evaluate the issue against
+   the criteria from the lecture: does it seem like it values the
+   maintainer's time and contains all the information necessary to debug
+   it, or do you expect that the maintainer may need to go multiple
+   rounds of questions with the submitter to get to the root problem?
 
-1. Pikirkan bug yang pernah Anda temui di perangkat lunak yang Anda gunakan
-   (atau temukan satu di issue tracker). Berlatihlah membuat minimal
-   reproducible example: hapus semua yang tidak terkait dengan bug sampai
-   Anda memiliki kasus terkecil yang masih mendemonstrasikan masalah
-   tersebut. Tuliskan apa yang Anda hapus dan alasannya.
+1. Think of a bug you've encountered in software you use (or find one in
+   an issue tracker). Practice creating a minimal reproducible example:
+   strip away everything unrelated to the bug until you have the
+   smallest case that still demonstrates the problem. Write up what you
+   removed and why.
 
-1. Temukan pull request yang sudah di-merge pada proyek yang Anda kenal
-   yang memiliki komentar review yang substantif (bukan hanya "LGTM").
-   Baca review-nya. Apakah semua komentar sama-sama produktif? Jika Anda
-   adalah penulis PR, bagaimana pengalaman Anda menerima semua komentar
-   tersebut?
+1. Find a merged pull request on a project you're familiar with that has
+   substantive review comments (not just "LGTM"). Read through the
+   review. Were all the comments equally productive? If you were the PR
+   author, how would you find the experience of getting all those
+   comments?
 
-1. Buka Stack Overflow dan temukan pertanyaan dalam teknologi yang Anda
-   ketahui yang memiliki jawaban dengan vote tinggi. Kemudian temukan satu
-   yang ditutup atau banyak downvote. Bandingkan dengan saran dari kuliah;
-   apakah bisa diprediksi pertanyaan mana yang akan mendapatkan jawaban
-   lebih baik?
+1. Go to Stack Overflow and find a question in a technology you know
+   that has a highly-voted answer. Then find one that was closed or
+   heavily downvoted. Compare them against the advice from the lecture;
+   was it predictable which question would get better answers?

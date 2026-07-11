@@ -2,7 +2,7 @@
 layout: lecture
 title: "Data Wrangling"
 description: >
-  Pelajari cara memanipulasi dan mentransformasi data menggunakan alat baris perintah seperti sed, awk, dan ekspresi reguler.
+  Pelajari cara memanipulasi dan mentransformasi data menggunakan tools command-line seperti sed, awk, dan regular expressions.
 thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
@@ -12,75 +12,69 @@ video:
 special: true
 ---
 
-Pernahkah Anda ingin mengambil data dalam satu format dan mengubahnya
-menjadi format yang berbeda? Tentu saja pernah! Secara umum, itulah
-yang menjadi pembahasan utama kuliah ini. Secara khusus, mengolah data,
-baik dalam format teks maupun biner, hingga Anda mendapatkan apa yang
-Anda inginkan.
+Have you ever wanted to take data in one format and turn it into a
+different format? Of course you have! That, in very general terms, is
+what this lecture is all about. Specifically, massaging data, whether in
+text or binary format, until you end up with exactly what you wanted.
 
-Kita sudah pernah melihat beberapa dasar data wrangling di kuliah-kuliah
-sebelumnya. Hampir setiap kali Anda menggunakan operator `|`, Anda
-sedang melakukan semacam data wrangling. Perhatikan perintah seperti
-`journalctl | grep -i intel`. Perintah ini mencari semua entri log
-sistem yang menyebutkan Intel (tidak membedakan huruf besar/kecil).
-Anda mungkin tidak menganggapnya sebagai pengolahan data, tetapi ini
-berubah dari satu format (seluruh log sistem Anda) menjadi format yang
-lebih berguna bagi Anda (hanya entri log intel). Sebagian besar data
-wrangling adalah tentang mengetahui alat apa yang Anda miliki, dan
-bagaimana menggabungkannya.
+We've already seen some basic data wrangling in past lectures. Pretty
+much any time you use the `|` operator, you are performing some kind of
+data wrangling. Consider a command like `journalctl | grep -i intel`. It
+finds all system log entries that mention Intel (case insensitive). You
+may not think of it as wrangling data, but it is going from one format
+(your entire system log) to a format that is more useful to you (just
+the intel log entries). Most data wrangling is about knowing what tools
+you have at your disposal, and how to combine them.
 
-Mari kita mulai dari awal. Untuk mengolah data, kita membutuhkan dua
-hal: data untuk diolah, dan sesuatu untuk dilakukan dengannya. Log
-seringkali menjadi kasus penggunaan yang baik, karena Anda sering ingin
-menyelidiki sesuatu tentang log tersebut, dan membaca seluruhnya tidak
-memungkinkan. Mari kita cari tahu siapa yang mencoba masuk ke server
-saya dengan melihat log server:
+Let's start from the beginning. To wrangle data, we need two things:
+data to wrangle, and something to do with it. Logs often make for a good
+use-case, because you often want to investigate things about them, and
+reading the whole thing isn't feasible. Let's figure out who's trying to
+log into my server by looking at my server's log:
 
 ```bash
 ssh myserver journalctl
 ```
 
-Itu terlalu banyak data. Mari kita batasi hanya untuk ssh:
+That's far too much stuff. Let's limit it to ssh stuff:
 
 ```bash
 ssh myserver journalctl | grep sshd
 ```
 
-Perhatikan bahwa kita menggunakan pipe untuk mengalirkan file _remote_
-melalui `grep` di komputer lokal kita! `ssh` sangat luar biasa, dan
-kita akan membahas lebih lanjut di kuliah berikutnya tentang command-line
-environment. Ini masih jauh lebih banyak data dari yang kita inginkan.
-Dan cukup sulit dibaca. Mari kita lakukan yang lebih baik:
+Notice that we're using a pipe to stream a _remote_ file through `grep`
+on our local computer! `ssh` is magical, and we will talk more about it
+in the next lecture on the command-line environment. This is still way
+more stuff than we wanted though. And pretty hard to read. Let's do
+better:
 
 ```bash
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' | less
 ```
 
-Mengapa ada tanda kutip tambahan? Well, log kita bisa sangat besar, dan
-boros jika mengalirkan semuanya ke komputer kita baru kemudian melakukan
-penyaringan. Sebagai gantinya, kita bisa melakukan penyaringan di server
-remote, dan kemudian mengolah data tersebut secara lokal. `less`
-memberikan kita "pager" yang memungkinkan kita menggulir ke atas dan ke
-bawah melalui output yang panjang. Untuk menghemat lalu lintas tambahan
-saat kita men-debug baris perintah, kita bahkan bisa menyimpan log yang
-sudah difilter ke dalam file sehingga kita tidak perlu mengakses jaringan
-saat mengembangkan:
+Why the additional quoting? Well, our logs may be quite large, and it's
+wasteful to stream it all to our computer and then do the filtering.
+Instead, we can do the filtering on the remote server, and then massage
+the data locally. `less` gives us a "pager" that allows us to scroll up
+and down through the long output. To save some additional traffic while
+we debug our command-line, we can even stick the current filtered logs
+into a file so that we don't have to access the network while
+developing:
 
 ```console
 $ ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 $ less ssh.log
 ```
 
-Masih ada banyak noise di sini. Ada _sangat banyak_ cara untuk
-menghilangkannya, tetapi mari kita lihat salah satu alat paling kuat
-dalam kotak peralatan Anda: `sed`.
+There's still a lot of noise here. There are _a lot_ of ways to get rid
+of that, but let's look at one of the most powerful tools in your
+toolkit: `sed`.
 
-`sed` adalah "stream editor" yang dibangun di atas editor `ed` yang lama.
-Di dalamnya, Anda pada dasarnya memberikan perintah singkat untuk
-mengubah file, daripada memanipulasi isinya secara langsung (meskipun
-Anda juga bisa melakukannya). Ada banyak perintah, tetapi salah satu
-yang paling umum adalah `s`: substitusi. Sebagai contoh, kita bisa
-menulis:
+`sed` is a "stream editor" that builds on top of the old `ed` editor. In
+it, you basically give short commands for how to modify the file, rather
+than manipulate its contents directly (although you can do that too).
+There are tons of commands, but one of the most common ones is `s`:
+substitution. For example, we can write:
 
 ```bash
 ssh myserver journalctl
@@ -89,126 +83,124 @@ ssh myserver journalctl
  | sed 's/.*Disconnected from //'
 ```
 
-Apa yang baru saja kita tulis adalah _ekspresi reguler_ sederhana; sebuah
-konstruksi kuat yang memungkinkan Anda mencocokkan teks terhadap pola.
-Perintah `s` ditulis dalam bentuk: `s/REGEX/SUBSTITUTION/`, di mana
-`REGEX` adalah ekspresi reguler yang ingin Anda cari, dan `SUBSTITUTION`
-adalah teks yang ingin Anda substitusikan untuk teks yang cocok.
+What we just wrote was a simple _regular expression_; a powerful
+construct that lets you match text against patterns. The `s` command is
+written in the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
+regular expression you want to search for, and `SUBSTITUTION` is the
+text you want to substitute matching text with.
 
-(Anda mungkin mengenali sintaks ini dari bagian "Search and replace" di
-[catatan kuliah](/2020/editors/#advanced-vim) Vim kita! Memang, Vim
-menggunakan sintaks untuk mencari dan mengganti yang mirip dengan
-perintah substitusi `sed`. Mempelajari satu alat sering kali membantu
-Anda menjadi lebih mahir dengan alat lainnya.)
+(You may recognize this syntax from the "Search and replace" section of our Vim
+[lecture notes](/2020/editors/#advanced-vim)! Indeed, Vim uses a syntax for
+searching and replacing that is similar to `sed`'s substitution command.
+Learning one tool often helps you become more proficient with others.)
 
 ## Regular expressions
 
-Regular expressions cukup umum dan berguna sehingga layak untuk
-meluangkan waktu memahami cara kerjanya. Mari kita mulai dengan melihat
-yang kita gunakan di atas: `/.*Disconnected from /`. Regular expressions
-biasanya (meskipun tidak selalu) diapit oleh `/`. Sebagian besar
-karakter ASCII membawa arti normalnya, tetapi beberapa karakter memiliki
-perilaku pencocokan "spesial". Tepatnya karakter mana yang melakukan apa
-sangat bervariasi antara implementasi regular expressions yang berbeda,
-yang menjadi sumber frustrasi besar. Pola yang sangat umum adalah:
+Regular expressions are common and useful enough that it's worthwhile to
+take some time to understand how they work. Let's start by looking at
+the one we used above: `/.*Disconnected from /`. Regular expressions are
+usually (though not always) surrounded by `/`. Most ASCII characters
+just carry their normal meaning, but some characters have "special"
+matching behavior. Exactly which characters do what vary somewhat
+between different implementations of regular expressions, which is a
+source of great frustration. Very common patterns are:
 
- - `.` berarti "satu karakter apa saja" kecuali newline
- - `*` nol atau lebih dari pencocokan sebelumnya
- - `+` satu atau lebih dari pencocokan sebelumnya
- - `[abc]` salah satu karakter dari `a`, `b`, dan `c`
- - `(RX1|RX2)` sesuatu yang cocok dengan `RX1` atau `RX2`
- - `^` awal dari baris
- - `$` akhir dari baris
+ - `.` means "any single character" except newline
+ - `*` zero or more of the preceding match
+ - `+` one or more of the preceding match
+ - `[abc]` any one character of `a`, `b`, and `c`
+ - `(RX1|RX2)` either something that matches `RX1` or `RX2`
+ - `^` the start of the line
+ - `$` the end of the line
 
-Regular expressions `sed` agak aneh, dan akan mengharuskan Anda
-menambahkan `\` sebelum sebagian besar karakter ini untuk memberikan
-arti spesialnya. Atau Anda bisa menggunakan `-E`.
+`sed`'s regular expressions are somewhat weird, and will require you to
+put a `\` before most of these to give them their special meaning. Or
+you can pass `-E`.
 
-Jadi, melihat kembali `/.*Disconnected from /`, kita melihat bahwa ini
-mencocokkan teks apa pun yang dimulai dengan sejumlah karakter, diikuti
-oleh string literal "Disconnected from &rdquo;. Itulah yang kita
-inginkan. Tetapi hati-hati, regular expressions bisa rumit. Bagaimana
-jika seseorang mencoba masuk dengan nama pengguna "Disconnected from"?
-Kita akan mendapatkan:
+So, looking back at `/.*Disconnected from /`, we see that it matches
+any text that starts with any number of characters, followed by the
+literal string "Disconnected from &rdquo;. Which is what we wanted. But
+beware, regular expressions are tricky. What if someone tried to log in
+with the username "Disconnected from"? We'd have:
 
 ```
 Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
 ```
 
-Apa yang akan kita dapatkan? Well, `*` dan `+` secara default bersifat
-"greedy". Mereka akan mencocokkan sebanyak mungkin teks. Jadi, pada
-contoh di atas, kita akan mendapatkan
+What would we end up with? Well, `*` and `+` are, by default, "greedy".
+They will match as much text as they can. So, in the above, we'd end up
+with just
 
 ```
 46.97.239.16 port 55920 [preauth]
 ```
 
-Yang mungkin bukan yang kita inginkan. Pada beberapa implementasi regular
-expression, Anda bisa menambahkan `?` setelah `*` atau `+` untuk
-membuatnya non-greedy, tetapi sayangnya `sed` tidak mendukung konstruk
-tersebut. Kita _bisa_ beralih ke mode command-line perl, yang _mendukung_
-konstruk tersebut:
+Which may not be what we wanted. In some regular expression
+implementations, you can just suffix `*` or `+` with a `?` to make them
+non-greedy, but sadly `sed` doesn't support that. We _could_ switch to
+perl's command-line mode though, which _does_ support that construct:
 
 ```bash
 perl -pe 's/.*?Disconnected from //'
 ```
 
-Kita akan tetap menggunakan `sed` untuk sisa ini, karena ini adalah alat
-yang jauh lebih umum untuk pekerjaan semacam ini. `sed` juga bisa
-melakukan hal-hal berguna lainnya seperti mencetak baris setelah
-pencocokan tertentu, melakukan beberapa substitusi dalam satu pemanggilan,
-mencari sesuatu, dll. Tetapi kita tidak akan membahasnya terlalu banyak
-di sini. `sed` pada dasarnya merupakan topik tersendiri, tetapi sering
-kali ada alat yang lebih baik.
+We'll stick to `sed` for the rest of this, because it's by far the more
+common tool for these kinds of jobs. `sed` can also do other handy
+things like print lines following a given match, do multiple
+substitutions per invocation, search for things, etc. But we won't cover
+that too much here. `sed` is basically an entire topic in and of itself,
+but there are often better tools.
 
-Oke, jadi kita juga memiliki sufiks yang ingin kita hilangkan. Bagaimana
-cara melakukannya? Agak rumit untuk mencocokkan hanya teks yang mengikut
-nama pengguna, terutama jika nama pengguna bisa memiliki spasi dan
-sebagainya! Yang perlu kita lakukan adalah mencocokkan _seluruh_ baris:
+Okay, so we also have a suffix we'd like to get rid of. How might we do
+that? It's a little tricky to match just the text that follows the
+username, especially if the username can have spaces and such! What we
+need to do is match the _whole_ line:
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user .* [^ ]+ port [0-9]+( \[preauth\])?$//'
 ```
 
-Mari kita lihat apa yang terjadi dengan [regex
-debugger](https://regex101.com/r/qqbZqh/2). Oke, jadi awalnya masih
-sama seperti sebelumnya. Kemudian, kita mencocokkan salah satu varian
-"user" (ada dua prefiks di log). Kemudian kita mencocokkan string apa
-pun di mana nama pengguna berada. Kemudian kita mencocokkan satu kata
-apa pun (`[^ ]+`; urutan non-kosong dari karakter bukan spasi). Kemudian
-kata "port" diikuti oleh urutan angka. Kemudian mungkin sufiks
-`[preauth]`, dan kemudian akhir baris.
+Let's look at what's going on with a [regex
+debugger](https://regex101.com/r/qqbZqh/2). Okay, so the start is still
+as before. Then, we're matching any of the "user" variants (there are
+two prefixes in the logs). Then we're matching on any string of
+characters where the username is. Then we're matching on any single word
+(`[^ ]+`; any non-empty sequence of non-space characters). Then the word
+"port" followed by a sequence of digits. Then possibly the suffix
+`[preauth]`, and then the end of the line.
 
-Perhatikan bahwa dengan teknik ini, nama pengguna "Disconnected from"
-tidak akan membingungkan kita lagi. Bisakah Anda melihat mengapa?
+Notice that with this technique, a username of "Disconnected from"
+won't confuse us any more. Can you see why?
 
-Ada satu masalah dengan ini, yaitu seluruh log menjadi kosong. Kita
-ingin _mempertahankan_ nama pengguna. Untuk ini, kita bisa menggunakan
-"capture groups". Teks apa pun yang dicocokkan oleh regex yang diapit
-oleh tanda kurung disimpan dalam capture group bernomor. Ini tersedia
-dalam substitusi (dan di beberapa engine, bahkan dalam pola itu sendiri!)
-sebagai `\1`, `\2`, `\3`, dst. Jadi:
+There is one problem with this though, and that is that the entire log
+becomes empty. We want to _keep_ the username after all. For this, we
+can use "capture groups". Any text matched by a regex surrounded by
+parentheses is stored in a numbered capture group. These are available
+in the substitution (and in some engines, even in the pattern itself!)
+as `\1`, `\2`, `\3`, etc. So:
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-Seperti yang bisa Anda bayangkan, Anda bisa membuat regular expression
-yang _sangat_ rumit. Sebagai contoh, berikut artikel tentang cara
-mencocokkan [alamat email](https://www.regular-expressions.info/email.html).
-Ini [tidak mudah](https://web.archive.org/web/20221223174323/http://emailregex.com/).
-Dan ada [banyak diskusi](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
-Dan orang-orang telah [menulis tes](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
-Dan [matriks tes](https://mathiasbynens.be/demo/url-regex). Anda bahkan
-bisa menulis regex untuk menentukan apakah suatu bilangan [adalah bilangan
-prima](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
+As you can probably imagine, you can come up with _really_ complicated
+regular expressions. For example, here's an article on how you might
+match an [e-mail
+address](https://www.regular-expressions.info/email.html). It's [not
+easy](https://web.archive.org/web/20221223174323/http://emailregex.com/). And there's [lots of
+discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
+And people have [written
+tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
+And [test matrices](https://mathiasbynens.be/demo/url-regex). You can
+even write a regex for determining if a given number [is a prime
+number](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
 
-Regular expressions terkenal sulit untuk dibuat benar, tetapi juga sangat
-berguna untuk dimiliki di kotak peralatan Anda!
+Regular expressions are notoriously hard to get right, but they are also
+very handy to have in your toolbox!
 
-## Kembali ke data wrangling
+## Back to data wrangling
 
-Oke, jadi sekarang kita punya
+Okay, so we now have
 
 ```bash
 ssh myserver journalctl
@@ -217,14 +209,14 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-`sed` bisa melakukan berbagai hal menarik lainnya, seperti menyisipkan
-teks (dengan perintah `i`), mencetak baris secara eksplisit (dengan
-perintah `p`), memilih baris berdasarkan indeks, dan banyak hal lainnya.
-Cek `man sed`!
+`sed` can do all sorts of other interesting things, like injecting text
+(with the `i` command), explicitly printing lines (with the `p`
+command), selecting lines by index, and lots of other things. Check `man
+sed`!
 
-Bagaimanapun. Apa yang kita miliki sekarang memberi kita daftar semua
-nama pengguna yang pernah mencoba masuk. Tetapi ini cukup tidak berguna.
-Mari kita cari yang paling umum:
+Anyway. What we have now gives us a list of all the usernames that have
+attempted to log in. But this is pretty unhelpful. Let's look for common
+ones:
 
 ```bash
 ssh myserver journalctl
@@ -234,10 +226,10 @@ ssh myserver journalctl
  | sort | uniq -c
 ```
 
-`sort` akan, well, mengurutkan inputnya. `uniq -c` akan menggabungkan
-baris-baris berurutan yang sama menjadi satu baris, diawali dengan jumlah
-kemunculan. Kita mungkin ingin mengurutkannya juga dan hanya menyimpan
-nama pengguna yang paling umum:
+`sort` will, well, sort its input. `uniq -c` will collapse consecutive
+lines that are the same into a single line, prefixed with a count of the
+number of occurrences. We probably want to sort that too and only keep
+the most common usernames:
 
 ```bash
 ssh myserver journalctl
@@ -248,20 +240,17 @@ ssh myserver journalctl
  | sort -nk1,1 | tail -n10
 ```
 
-`sort -n` akan mengurutkan dalam urutan numerik (bukan leksikografis).
-`-k1,1` berarti "urutkan hanya berdasarkan kolom pertama yang dipisahkan
-oleh whitespace". Bagian `,n` berarti "urutkan hingga bidang ke-`n`,
-di mana defaultnya adalah akhir baris. Dalam contoh _khusus_ ini,
-mengurutkan berdasarkan seluruh baris tidak akan berpengaruh, tetapi
-kita di sini untuk belajar!
+`sort -n` will sort in numeric (instead of lexicographic) order. `-k1,1`
+means "sort by only the first whitespace-separated column". The `,n`
+part says "sort until the `n`th field, where the default is the end of
+the line. In this _particular_ example, sorting by the whole line
+wouldn't matter, but we're here to learn!
 
-Jika kita ingin yang _paling jarang_ muncul, kita bisa menggunakan `head`
-alih-alih `tail`. Ada juga `sort -r`, yang mengurutkan dalam urutan
-terbalik.
+If we wanted the _least_ common ones, we could use `head` instead of
+`tail`. There's also `sort -r`, which sorts in reverse order.
 
-Oke, jadi itu cukup keren, tetapi bagaimana jika kita ingin mengekstrak
-hanya nama pengguna sebagai daftar yang dipisahkan koma, bukan satu per
-baris, mungkin untuk file konfigurasi?
+Okay, so that's pretty cool, but what if we'd like to extract only the usernames
+as a comma-separated list instead of one per line, perhaps for a config file?
 
 ```bash
 ssh myserver journalctl
@@ -273,51 +262,45 @@ ssh myserver journalctl
  | awk '{print $2}' | paste -sd,
 ```
 
-Jika Anda menggunakan macOS: perhatikan bahwa perintah seperti yang
-ditunjukkan tidak akan bekerja dengan `paste` BSD yang disertakan dengan
-macOS. Lihat [latihan 4 dari kuliah shell
-tools](/2020/shell-tools/#exercises) untuk lebih lanjut tentang
-perbedaan antara BSD dan GNU coreutils serta petunjuk cara menginstal
-GNU coreutils di macOS.
+If you're using macOS: note that the command as shown won't work with the BSD
+`paste` shipped with macOS. See [exercise 4 from the shell tools
+lecture](/2020/shell-tools/#exercises) for more on the difference between BSD
+and GNU coreutils and instructions for how to install GNU coreutils on macOS.
 
-Mari kita mulai dengan `paste`: alat ini memungkinkan Anda menggabungkan
-baris (`-s`) dengan delimiter karakter tunggal (`-d`; `,` dalam kasus
-ini). Tetapi apa urusan `awk` ini?
+Let's start with `paste`: it lets you combine lines (`-s`) by a given
+single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
 
-## awk -- editor lainnya
+## awk -- another editor
 
-`awk` adalah bahasa pemrograman yang kebetulan sangat bagus dalam
-memproses stream teks. Ada _sangat banyak_ yang bisa dikatakan tentang
-`awk` jika Anda mempelajarinya dengan benar, tetapi seperti banyak hal
-lain di sini, kita hanya akan membahas dasar-dasarnya.
+`awk` is a programming language that just happens to be really good at
+processing text streams. There is _a lot_ to say about `awk` if you were
+to learn it properly, but as with many other things here, we'll just go
+through the basics.
 
-Pertama, apa yang dilakukan `{print $2}`? Well, program `awk` memiliki
-bentuk pola opsional ditambah blok yang menentukan apa yang harus
-dilakukan jika pola cocok dengan baris tertentu. Pola default (yang kita
-gunakan di atas) mencocokkan semua baris. Di dalam blok, `$0` diisi
-dengan seluruh isi baris, dan `$1` hingga `$n` diisi dengan bidang ke-`n`
-dari baris tersebut, ketika dipisahkan oleh field separator `awk`
-(whitespace secara default, ubah dengan `-F`). Dalam kasus ini, kita
-mengatakan bahwa, untuk setiap baris, cetak isi dari bidang kedua, yang
-kebetulan adalah nama pengguna!
+First, what does `{print $2}` do? Well, `awk` programs take the form of
+an optional pattern plus a block saying what to do if the pattern
+matches a given line. The default pattern (which we used above) matches
+all lines. Inside the block, `$0` is set to the entire line's contents,
+and `$1` through `$n` are set to the `n`th _field_ of that line, when
+separated by the `awk` field separator (whitespace by default, change
+with `-F`). In this case, we're saying that, for every line, print the
+contents of the second field, which happens to be the username!
 
-Mari kita lihat apakah kita bisa melakukan sesuatu yang lebih menarik.
-Mari kita hitung jumlah nama pengguna yang hanya digunakan sekali yang
-dimulai dengan `c` dan diakhiri dengan `e`:
+Let's see if we can do something fancier. Let's compute the number of
+single-use usernames that start with `c` and end with `e`:
 
 ```bash
  | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
 ```
 
-Ada banyak yang harus diurai di sini. Pertama, perhatikan bahwa sekarang
-kita memiliki pola (sesuatu yang ada sebelum `{...}`). Pola tersebut
-mengatakan bahwa bidang pertama baris harus sama dengan 1 (itu adalah
-hitungan dari `uniq -c`), dan bidang kedua harus cocok dengan regular
-expression yang diberikan. Dan blok tersebut hanya mengatakan untuk
-mencetak nama pengguna. Kemudian kita menghitung jumlah baris dalam
-output dengan `wc -l`.
+There's a lot to unpack here. First, notice that we now have a pattern
+(the stuff that goes before `{...}`). The pattern says that the first
+field of the line should be equal to 1 (that's the count from `uniq
+-c`), and that the second field should match the given regular
+expression. And the block just says to print the username. We then count
+the number of lines in the output with `wc -l`.
 
-Namun, `awk` adalah bahasa pemrograman, ingat?
+However, `awk` is a programming language, remember?
 
 ```awk
 BEGIN { rows = 0 }
@@ -325,34 +308,33 @@ $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
 END { print rows }
 ```
 
-`BEGIN` adalah pola yang mencocokkan awal input (dan `END` mencocokkan
-akhir). Sekarang, blok per-baris hanya menambahkan hitungan dari bidang
-pertama (meskipun akan selalu 1 dalam kasus ini), dan kemudian kita
-mencetaknya di akhir. Bahkan, kita _bisa_ menghilangkan `grep` dan `sed`
-sepenuhnya, karena `awk` [bisa melakukan
-semuanya](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/),
-tetapi kita serahkan itu sebagai latihan bagi pembaca.
+`BEGIN` is a pattern that matches the start of the input (and `END`
+matches the end). Now, the per-line block just adds the count from the
+first field (although it'll always be 1 in this case), and then we print
+it out at the end. In fact, we _could_ get rid of `grep` and `sed`
+entirely, because `awk` [can do it
+all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
+leave that as an exercise to the reader.
 
-## Menganalisis data
+## Analyzing data
 
-Anda bisa melakukan perhitungan matematika langsung di shell menggunakan
-`bc`, kalkulator yang bisa membaca dari STDIN! Sebagai contoh, jumlahkan
-angka-angka pada setiap baris dengan menggabungkannya, dipisahkan oleh
-`+`:
+You can do math directly in your shell using `bc`, a calculator that can read
+from STDIN! For example, add the numbers on each line together by concatenating
+them together, delimited by `+`:
 
 ```bash
  | paste -sd+ | bc -l
 ```
 
-Atau buat ekspresi yang lebih rumit:
+Or produce more elaborate expressions:
 
 ```bash
 echo "2*($(data | paste -sd+))" | bc -l
 ```
 
-Anda bisa mendapatkan statistik dengan berbagai cara.
-[`st`](https://github.com/nferraz/st) cukup menarik, tetapi jika Anda
-sudah memiliki [R](https://www.r-project.org/):
+You can get stats in a variety of ways.
+[`st`](https://github.com/nferraz/st) is pretty neat, but if you already
+have [R](https://www.r-project.org/):
 
 ```bash
 ssh myserver journalctl
@@ -363,14 +345,13 @@ ssh myserver journalctl
  | awk '{print $1}' | R --no-echo -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
 ```
 
-R adalah bahasa pemrograman lain (yang aneh) yang sangat bagus untuk
-analisis data dan [plotting](https://ggplot2.tidyverse.org/). Kita tidak
-akan membahas terlalu detail, tetapi cukup dikatakan bahwa `summary`
-mencetak statistik ringkasan untuk sebuah vektor, dan kita membuat vektor
-yang berisi aliran input angka, sehingga R memberikan statistik yang
-kita inginkan!
+R is another (weird) programming language that's great at data analysis
+and [plotting](https://ggplot2.tidyverse.org/). We won't go into too
+much detail, but suffice to say that `summary` prints summary statistics
+for a vector, and we created a vector containing the input stream of
+numbers, so R gives us the statistics we wanted!
 
-Jika Anda hanya ingin plotting sederhana, `gnuplot` adalah teman Anda:
+If you just want some simple plotting, `gnuplot` is your friend:
 
 ```bash
 ssh myserver journalctl
@@ -382,30 +363,28 @@ ssh myserver journalctl
  | gnuplot -p -e 'set boxwidth 0.5; plot "-" using 1:xtic(2) with boxes'
 ```
 
-## Data wrangling untuk membuat argumen
+## Data wrangling to make arguments
 
-Terkadang Anda ingin melakukan data wrangling untuk menemukan hal-hal
-yang akan diinstal atau dihapus berdasarkan daftar yang lebih panjang.
-Data wrangling yang telah kita bahas sejauh ini + `xargs` bisa menjadi
-kombinasi yang kuat.
+Sometimes you want to do data wrangling to find things to install or
+remove based on some longer list. The data wrangling we've talked about
+so far + `xargs` can be a powerful combo.
 
-Sebagai contoh, seperti yang terlihat di kuliah, saya bisa menggunakan
-perintah berikut untuk menghapus build nightly lama Rust dari sistem saya
-dengan mengekstrak nama build lama menggunakan alat data wrangling dan
-kemudian melewatkannya melalui `xargs` ke uninstaller:
+For example, as seen in lecture, I can use the following command to uninstall
+old nightly builds of Rust from my system by extracting the old build names
+using data wrangling tools and then passing them via `xargs` to the
+uninstaller:
 
 ```bash
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
 ```
 
-## Mengolah data biner
+## Wrangling binary data
 
-Sejauh ini, kita sebagian besar telah membahas mengolah data tekstual,
-tetapi pipe sama bergunanya untuk data biner. Sebagai contoh, kita bisa
-menggunakan ffmpeg untuk mengambil gambar dari kamera kita, mengubahnya
-menjadi grayscale, mengompresnya, mengirimkannya ke mesin remote melalui
-SSH, mendekompresnya di sana, membuat salinan, dan kemudian
-menampilkannya.
+So far, we have mostly talked about wrangling textual data, but pipes
+are just as useful for binary data. For example, we can use ffmpeg to
+capture an image from our camera, convert it to grayscale, compress it,
+send it to a remote machine over SSH, decompress it there, make a copy,
+and then display it.
 
 ```bash
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
@@ -414,54 +393,57 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
 ```
 
-# Latihan
+# Exercises
 
-1. Ikuti [tutorial interaktif singkat tentang regex](https://regexone.com/) ini.
-2. Temukan jumlah kata (dalam `/usr/share/dict/words`) yang mengandung
-   setidaknya tiga `a` dan tidak berakhiran `'s`. Apa tiga kombinasi dua
-   huruf terakhir yang paling umum dari kata-kata tersebut? Perintah `y`
-   dari `sed`, atau program `tr`, mungkin membantu Anda untuk case
-   insensitivity. Berapa banyak kombinasi dua huruf yang ada? Dan untuk
-   tantangan: kombinasi mana yang tidak muncul?
-3. Untuk melakukan substitusi in-place, sangat menggoda untuk melakukan
-   sesuatu seperti `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`.
-   Namun ini adalah ide buruk, mengapa? Apakah ini khusus untuk `sed`?
-   Gunakan `man sed` untuk mencari tahu cara melakukannya.
-4. Temukan rata-rata, median, dan max waktu boot sistem Anda selama
-   sepuluh boot terakhir. Gunakan `journalctl` di Linux dan `log show`
-   di macOS, dan cari timestamp log dekat awal dan akhir setiap boot.
-   Di Linux, mungkin terlihat seperti:
+1. Take this [short interactive regex tutorial](https://regexone.com/).
+2. Find the number of words (in `/usr/share/dict/words`) that contain at
+   least three `a`s and don't have a `'s` ending. What are the three
+   most common last two letters of those words? `sed`'s `y` command, or
+   the `tr` program, may help you with case insensitivity. How many
+   of those two-letter combinations are there? And for a challenge:
+   which combinations do not occur?
+3. To do in-place substitution it is quite tempting to do something like
+   `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. However this is a
+   bad idea, why? Is this particular to `sed`? Use `man sed` to find out
+   how to accomplish this.
+4. Find your average, median, and max system boot time over the last ten
+   boots. Use `journalctl` on Linux and `log show` on macOS, and look
+   for log timestamps near the beginning and end of each boot. On Linux,
+   they may look something like:
    ```
    Logs begin at ...
    ```
-   dan
+   and
    ```
    systemd[577]: Startup finished in ...
    ```
-   Di macOS, [cari](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
+   On macOS, [look
+   for](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
    ```
    === system boot:
    ```
-   dan
+   and
    ```
    Previous shutdown cause: 5
    ```
-5. Cari pesan boot yang _tidak_ dibagi antara tiga reboot terakhir Anda
-   (lihat flag `-b` dari `journalctl`). Pecah tugas ini menjadi beberapa
-   langkah. Pertama, temukan cara untuk mendapatkan hanya log dari tiga
-   boot terakhir. Mungkin ada flag yang berlaku pada alat yang Anda
-   gunakan untuk mengekstrak log boot, atau Anda bisa menggunakan
-   `sed '0,/STRING/d'` untuk menghapus semua baris sebelum baris yang
-   cocok dengan `STRING`. Selanjutnya, hapus bagian baris yang _selalu_
-   bervariasi (seperti timestamp). Kemudian, hapus duplikasi baris input
-   dan simpan hitungan masing-masing (`uniq` adalah teman Anda). Dan
-   terakhir, hilangkan baris yang hitungannya 3 (karena _ada_ di semua
-   boot).
-6. Cari dataset online seperti [yang ini](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab),
-   [yang ini](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
-   atau mungkin [dari sini](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
-   Ambil menggunakan `curl` dan ekstrak hanya dua kolom data numerik.
-   Jika Anda mengambil data HTML, [`pup`](https://github.com/EricChiang/pup)
-   mungkin membantu. Untuk data JSON, coba [`jq`](https://stedolan.github.io/jq/).
-   Temukan min dan max dari satu kolom dalam satu perintah, dan selisih
-   jumlah dari masing-masing kolom di perintah lain.
+5. Look for boot messages that are _not_ shared between your past three
+   reboots (see `journalctl`'s `-b` flag). Break this task down into
+   multiple steps. First, find a way to get just the logs from the past
+   three boots. There may be an applicable flag on the tool you use to
+   extract the boot logs, or you can use `sed '0,/STRING/d'` to remove
+   all lines previous to one that matches `STRING`. Next, remove any
+   parts of the line that _always_ varies (like the timestamp). Then,
+   de-duplicate the input lines and keep a count of each one (`uniq` is
+   your friend). And finally, eliminate any line whose count is 3 (since
+   it _was_ shared among all the boots).
+6. Find an online data set like [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab), [this
+   one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
+   or maybe one [from
+   here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
+   Fetch it using `curl` and extract out just two columns of numerical
+   data. If you're fetching HTML data,
+   [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON
+   data, try [`jq`](https://stedolan.github.io/jq/). Find the min and
+   max of one column in a single command, and the difference of the sum
+   of each column in another.

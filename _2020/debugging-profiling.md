@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Debugging dan Profiling"
+title: "Debugging and Profiling"
 description: >
-  Pelajari cara men-debug program menggunakan logging, debugger, dan analisis statis, serta cara memprofil kode untuk performa.
+  Pelajari cara men-debug program menggunakan logging, debugger, dan analisis statis, serta cara melakukan profiling kode untuk performa.
 thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
@@ -11,23 +11,25 @@ video:
   id: l812pUnKxME
 ---
 
-Aturan emas dalam pemrograman adalah kode tidak melakukan apa yang Anda harapkan, melainkan apa yang Anda perintahkan. Menjembatani kesenjangan tersebut terkadang bisa menjadi hal yang cukup sulit. Dalam kuliah ini kita akan membahas teknik-teknik berguna untuk menangani kode yang bermasalah dan boros sumber daya: debugging dan profiling.
+A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do.
+Bridging that gap can sometimes be a quite difficult feat.
+In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
 
 # Debugging
 
-## Printf debugging dan Logging
+## Printf debugging and Logging
 
-"Alat debugging yang paling efektif tetaplah pemikiran yang cermat, dipadukan dengan pernyataan print yang ditempatkan secara bijaksana" — Brian Kernighan, _Unix for Beginners_.
+"The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
 
-Pendekatan pertama untuk men-debug program adalah dengan menambahkan pernyataan print di sekitar bagian yang Anda deteksi bermasalah, dan terus melakukan iterasi hingga Anda mengekstrak cukup informasi untuk memahami apa yang menyebabkan masalah tersebut.
+A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
 
-Pendekatan kedua adalah menggunakan logging dalam program Anda, alih-alih pernyataan print yang bersifat ad hoc. Logging lebih baik daripada pernyataan print biasa karena beberapa alasan:
+A second approach is to use logging in your program, instead of ad hoc print statements. Logging is better than regular print statements for several reasons:
 
-- Anda dapat melakukan log ke file, socket, atau bahkan server jarak jauh alih-alih standard output.
-- Logging mendukung level tingkat keparahan (seperti INFO, DEBUG, WARN, ERROR, &c), yang memungkinkan Anda memfilter output sesuai kebutuhan.
-- Untuk masalah baru, ada kemungkinan besar log Anda akan berisi cukup informasi untuk mendeteksi apa yang salah.
+- You can log to files, sockets or even remote servers instead of standard output.
+- Logging supports severity levels (such as INFO, DEBUG, WARN, ERROR, &c), that allow you to filter the output accordingly.
+- For new issues, there's a fair chance that your logs will contain enough information to detect what is going wrong.
 
-[Berikut](/static/files/logger.py) contoh kode yang melakukan log pesan:
+[Here](/static/files/logger.py) is an example code that logs messages:
 
 ```bash
 $ python logger.py
@@ -40,9 +42,11 @@ $ python logger.py color
 # Color formatted output
 ```
 
-Salah satu tips favorit saya untuk membuat log lebih mudah dibaca adalah memberi kode warna. Sampai saat ini Anda mungkin sudah menyadari bahwa terminal Anda menggunakan warna untuk membuat semuanya lebih mudah dibaca. Tapi bagaimana cara kerjanya? Program seperti `ls` atau `grep` menggunakan [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code), yaitu urutan karakter khusus untuk memberi instruksi kepada shell agar mengubah warna output. Sebagai contoh, menjalankan `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` akan mencetak pesan `This is red` berwarna merah pada terminal Anda, selama terminal tersebut mendukung [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices). Jika terminal Anda tidak mendukung hal ini (misalnya Terminal.app di macOS), Anda dapat menggunakan escape codes yang lebih universal untuk 16 pilihan warna, misalnya `echo -e "\e[31;1mThis is red\e[0m"`.
+One of my favorite tips for making logs more readable is to color code them.
+By now you probably have realized that your terminal uses colors to make things more readable. But how does it do it?
+Programs like `ls` or `grep` are using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code), which are special sequences of characters to indicate your shell to change the color of the output. For example, executing `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` prints the message `This is red` in red on your terminal, as long as it supports [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices). If your terminal doesn't support this (e.g. macOS's Terminal.app), you can use the more universally supported escape codes for 16 color choices, for example `echo -e "\e[31;1mThis is red\e[0m"`.
 
-Skrip berikut menunjukkan cara mencetak banyak warna RGB ke terminal Anda (sekali lagi, selama mendukung true color).
+The following script shows how to print many RGB colors into your terminal (again, as long as it supports true color).
 
 ```bash
 #!/usr/bin/env bash
@@ -55,13 +59,24 @@ for R in $(seq 0 20 255); do
 done
 ```
 
-## Log pihak ketiga
+## Third party logs
 
-Saat Anda mulai membangun sistem perangkat lunak yang lebih besar, Anda kemungkinan besar akan menemukan dependensi yang berjalan sebagai program terpisah. Server web, database, atau message broker adalah contoh umum dari jenis dependensi ini. Saat berinteraksi dengan sistem-sistem ini, seringkali perlu untuk membaca log mereka, karena pesan error dari sisi klien mungkin tidak cukup.
+As you start building larger software systems you will most probably run into dependencies that run as separate programs.
+Web servers, databases or message brokers are common examples of this kind of dependencies.
+When interacting with these systems it is often necessary to read their logs, since client side error messages might not suffice.
 
-Untungnya, sebagian besar program menulis log mereka di suatu tempat dalam sistem Anda. Di sistem UNIX, umumnya program menulis log mereka di bawah `/var/log`. Sebagai contoh, web server [NGINX](https://www.nginx.com/) menyimpan log-nya di `/var/log/nginx`. Belakangan ini, sistem-sistem mulai menggunakan **system log**, yang semakin menjadi tempat semua pesan log Anda masuk. Sebagian besar (tetapi tidak semua) sistem Linux menggunakan `systemd`, sebuah system daemon yang mengontrol banyak hal dalam sistem Anda seperti layanan mana yang diaktifkan dan berjalan. `systemd` menyimpan log di bawah `/var/log/journal` dalam format khusus dan Anda dapat menggunakan perintah [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) untuk menampilkan pesan-pesan tersebut. Demikian pula, di macOS masih ada `/var/log/system.log` tetapi semakin banyak alat yang menggunakan system log, yang dapat ditampilkan dengan [`log show`](https://www.manpagez.com/man/1/log/). Di sebagian besar sistem UNIX Anda juga dapat menggunakan perintah [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) untuk mengakses log kernel.
+Luckily, most programs write their own logs somewhere in your system.
+In UNIX systems, it is commonplace for programs to write their logs under `/var/log`.
+For instance, the [NGINX](https://www.nginx.com/) webserver places its logs under `/var/log/nginx`.
+More recently, systems have started using a **system log**, which is increasingly where all of your log messages go.
+Most (but not all) Linux systems use `systemd`, a system daemon that controls many things in your system such as which services are enabled and running.
+`systemd` places the logs under `/var/log/journal` in a specialized format and you can use the [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) command to display the messages.
+Similarly, on macOS there is still `/var/log/system.log` but an increasing number of tools use the system log, that can be displayed with [`log show`](https://www.manpagez.com/man/1/log/).
+On most UNIX systems you can also use the [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) command to access the kernel log.
 
-Untuk logging ke system logs Anda dapat menggunakan program shell [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html). Berikut contoh penggunaan `logger` dan cara memeriksa bahwa entri tersebut masuk ke system logs. Selain itu, sebagian besar bahasa pemrograman memiliki binding untuk melakukan logging ke system log.
+For logging under the system logs you can use the [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html) shell program.
+Here's an example of using `logger` and how to check that the entry made it to the system logs.
+Moreover, most programming languages have bindings logging to the system log.
 
 ```bash
 logger "Hello Logs"
@@ -71,31 +86,35 @@ log show --last 1m | grep Hello
 journalctl --since "1m ago" | grep Hello
 ```
 
-Seperti yang kita lihat di kuliah data wrangling, log bisa sangat panjang dan memerlukan beberapa tingkat pemrosesan serta penyaringan untuk mendapatkan informasi yang Anda inginkan. Jika Anda sering melakukan penyaringan melalui `journalctl` dan `log show`, Anda dapat mempertimbangkan untuk menggunakan flag-flag mereka, yang dapat melakukan penyaringan awal terhadap output mereka. Ada juga beberapa alat seperti [`lnav`](https://lnav.org/), yang menyediakan presentasi dan navigasi yang lebih baik untuk file log.
+As we saw in the data wrangling lecture, logs can be quite verbose and they require some level of processing and filtering to get the information you want.
+If you find yourself heavily filtering through `journalctl` and `log show` you can consider using their flags, which can perform a first pass of filtering of their output.
+There are also some tools like  [`lnav`](https://lnav.org/), that provide an improved presentation and navigation for log files.
 
-## Debugger
+## Debuggers
 
-Ketika printf debugging tidak cukup, Anda harus menggunakan debugger. Debugger adalah program yang memungkinkan Anda berinteraksi dengan eksekusi suatu program, yang memungkinkan hal-hal berikut:
+When printf debugging is not enough you should use a debugger.
+Debuggers are programs that let you interact with the execution of a program, allowing the following:
 
-- Menghentikan eksekusi program saat mencapai baris tertentu.
-- Menjalankan program satu instruksi pada satu waktu.
-- Memeriksa nilai variabel setelah program crash.
-- Menghentikan eksekusi secara kondisional ketika suatu kondisi terpenuhi.
-- Dan banyak fitur lanjutan lainnya
+- Halt execution of the program when it reaches a certain line.
+- Step through the program one instruction at a time.
+- Inspect values of variables after the program crashed.
+- Conditionally halt the execution when a given condition is met.
+- And many more advanced features
 
-Banyak bahasa pemrograman yang dilengkapi dengan semacam debugger. Dalam Python, ini adalah Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html).
+Many programming languages come with some form of debugger.
+In Python this is the Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html).
 
-Berikut deskripsi singkat beberapa perintah yang didukung `pdb`:
+Here is a brief description of some of the commands `pdb` supports:
 
-- **l**(ist) - Menampilkan 11 baris di sekitar baris saat ini atau melanjutkan listing sebelumnya.
-- **s**(tep) - Menjalankan baris saat ini, berhenti di kesempatan pertama yang memungkinkan.
-- **n**(ext) - Melanjutkan eksekusi hingga baris berikutnya dalam fungsi saat ini tercapai atau fungsi tersebut kembali.
-- **b**(reak) - Mengatur breakpoint (tergantung pada argumen yang diberikan).
-- **p**(rint) - Mengevaluasi ekspresi dalam konteks saat ini dan mencetak nilainya. Ada juga **pp** untuk menampilkan menggunakan [`pprint`](https://docs.python.org/3/library/pprint.html) sebagai gantinya.
-- **r**(eturn) - Melanjutkan eksekusi hingga fungsi saat ini kembali.
-- **q**(uit) - Keluar dari debugger.
+- **l**(ist) - Displays 11 lines around the current line or continue the previous listing.
+- **s**(tep) - Execute the current line, stop at the first possible occasion.
+- **n**(ext) - Continue execution until the next line in the current function is reached or it returns.
+- **b**(reak) - Set a breakpoint (depending on the argument provided).
+- **p**(rint) - Evaluate the expression in the current context and print its value. There's also **pp** to display using [`pprint`](https://docs.python.org/3/library/pprint.html) instead.
+- **r**(eturn) - Continue execution until the current function returns.
+- **q**(uit) - Quit the debugger.
 
-Mari kita lihat contoh penggunaan `pdb` untuk memperbaiki kode Python yang bermasalah berikut. (Lihat video kuliah).
+Let's go through an example of using `pdb` to fix the following buggy python code. (See the lecture video).
 
 ```python
 def bubble_sort(arr):
@@ -111,16 +130,20 @@ print(bubble_sort([4, 2, 1, 8, 7, 6]))
 ```
 
 
-Perhatikan bahwa karena Python adalah bahasa interpreted, kita dapat menggunakan shell `pdb` untuk menjalankan perintah dan mengeksekusi instruksi. [`ipdb`](https://pypi.org/project/ipdb/) adalah `pdb` yang lebih baik yang menggunakan REPL [`IPython`](https://ipython.org) yang memungkinkan tab completion, syntax highlighting, traceback yang lebih baik, dan introspeksi yang lebih baik sambil tetap mempertahankan antarmuka yang sama dengan modul `pdb`.
+Note that since Python is an interpreted language we can use the `pdb` shell to execute commands and to execute instructions.
+[`ipdb`](https://pypi.org/project/ipdb/) is an improved `pdb` that uses the [`IPython`](https://ipython.org) REPL enabling tab completion, syntax highlighting, better tracebacks, and better introspection while retaining the same interface as the `pdb` module.
 
-Untuk pemrograman yang lebih low level, Anda mungkin ingin melihat [`gdb`](https://www.gnu.org/software/gdb/) (dan modifikasi quality of life-nya [`pwndbg`](https://github.com/pwndbg/pwndbg)) dan [`lldb`](https://lldb.llvm.org/). Keduanya dioptimalkan untuk debugging bahasa mirip C tetapi memungkinkan Anda memeriksa hampir semua proses dan mendapatkan status mesin saat ini: register, stack, program counter, &c.
+For more low level programming you will probably want to look into [`gdb`](https://www.gnu.org/software/gdb/) (and its quality of life modification [`pwndbg`](https://github.com/pwndbg/pwndbg)) and [`lldb`](https://lldb.llvm.org/).
+They are optimized for C-like language debugging but will let you probe pretty much any process and get its current machine state: registers, stack, program counter, &c.
 
 
-## Alat-Alat Khusus
+## Specialized Tools
 
-Bahkan jika apa yang Anda coba debug adalah biner black box, ada alat yang dapat membantu Anda. Setiap kali program perlu melakukan tindakan yang hanya bisa dilakukan oleh kernel, mereka menggunakan [System Calls](https://en.wikipedia.org/wiki/System_call). Ada perintah yang memungkinkan Anda menelusuri syscalls yang dibuat program Anda. Di Linux ada [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) dan macOS serta BSD memiliki [`dtrace`](https://dtrace.org/about/). `dtrace` bisa rumit untuk digunakan karena menggunakan bahasa `D` tersendiri, tetapi ada wrapper bernama [`dtruss`](https://www.manpagez.com/man/1/dtruss/) yang menyediakan antarmuka yang lebih mirip dengan `strace` (detail lebih lanjut [di sini](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
+Even if what you are trying to debug is a black box binary there are tools that can help you with that.
+Whenever programs need to perform actions that only the kernel can, they use [System Calls](https://en.wikipedia.org/wiki/System_call).
+There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](https://dtrace.org/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
 
-Berikut beberapa contoh penggunaan `strace` atau `dtruss` untuk menampilkan jejak syscall [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) dari eksekusi `ls`. Untuk pembahasan lebih mendalam tentang `strace`, [artikel ini](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) dan [zine ini](https://jvns.ca/strace-zine-unfolded.pdf) adalah bacaan yang bagus.
+Below are some examples of using `strace` or `dtruss` to show [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall traces for an execution of `ls`. For a deeper dive into `strace`, [this article](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) and [this zine](https://jvns.ca/strace-zine-unfolded.pdf) are good reads.
 
 ```bash
 # On Linux
@@ -129,20 +152,25 @@ sudo strace -e lstat ls -l > /dev/null
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
 
-Dalam beberapa kondisi, Anda mungkin perlu melihat paket jaringan untuk menemukan masalah dalam program Anda. Alat seperti [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) dan [Wireshark](https://www.wireshark.org/) adalah network packet analyzer yang memungkinkan Anda membaca isi paket jaringan dan memfilternya berdasarkan berbagai kriteria.
+Under some circumstances, you may need to look at the network packets to figure out the issue in your program.
+Tools like [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) are network packet analyzers that let you read the contents of network packets and filter them based on different criteria.
 
-Untuk pengembangan web, developer tools Chrome/Firefox sangat berguna. Alat-alat ini memiliki banyak perangkat, termasuk:
-- Source code - Memeriksa kode sumber HTML/CSS/JS dari situs web mana pun.
-- Live HTML, CSS, JS modification - Mengubah konten, gaya, dan perilaku situs web untuk pengujian (Anda bisa melihat sendiri bahwa screenshot situs web bukan bukti yang valid).
-- Javascript shell - Menjalankan perintah di JS REPL.
-- Network - Menganalisis timeline request.
-- Storage - Melihat Cookies dan penyimpanan aplikasi lokal.
+For web development, the Chrome/Firefox developer tools are quite handy. They feature a large number of tools, including:
+- Source code - Inspect the HTML/CSS/JS source code of any website.
+- Live HTML, CSS, JS modification - Change the website content, styles and behavior to test (you can see for yourself that website screenshots are not valid proofs).
+- Javascript shell - Execute commands in the JS REPL.
+- Network - Analyze the requests timeline.
+- Storage - Look into the Cookies and local application storage.
 
-## Analisis Statis
+## Static Analysis
 
-Untuk beberapa masalah, Anda tidak perlu menjalankan kode sama sekali. Misalnya, hanya dengan melihat kode secara cermat Anda bisa menyadari bahwa variabel loop Anda membayangi variabel atau nama fungsi yang sudah ada sebelumnya; atau bahwa sebuah program membaca variabel sebelum mendefinisikannya. Di sinilah alat [analisis statis](https://en.wikipedia.org/wiki/Static_program_analysis) berperan. Program analisis statis menerima kode sumber sebagai input dan menganalisisnya menggunakan aturan-aturan coding untuk menilai kebenarannya.
+For some issues you do not need to run any code.
+For example, just by carefully looking at a piece of code you could realize that your loop variable is shadowing an already existing variable or function name; or that a program reads a variable before defining it.
+Here is where [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tools come into play.
+Static analysis programs take source code as input and analyze it using coding rules to reason about its correctness.
 
-Pada potongan Python berikut terdapat beberapa kesalahan. Pertama, variabel loop kita `foo` membayangi definisi fungsi `foo` sebelumnya. Kita juga menulis `baz` alih-alih `bar` di baris terakhir, sehingga program akan crash setelah menyelesaikan pemanggilan `sleep` (yang akan memakan waktu satu menit).
+In the following Python snippet there are several mistakes.
+First, our loop variable `foo` shadows the previous definition of the function `foo`. We also wrote `baz` instead of `bar` in the last line, so the program will crash after completing the `sleep` call (which will take one minute).
 
 ```python
 import time
@@ -158,7 +186,8 @@ time.sleep(60)
 print(baz)
 ```
 
-Alat analisis statis dapat mengidentifikasi masalah-masalah semacam ini. Ketika kita menjalankan [`pyflakes`](https://pypi.org/project/pyflakes) pada kode tersebut, kita mendapatkan error terkait kedua bug. [`mypy`](https://mypy-lang.org/) adalah alat lain yang dapat mendeteksi masalah type checking. Di sini, `mypy` akan memperingatkan kita bahwa `bar` awalnya adalah `int` dan kemudian di-cast menjadi `float`. Sekali lagi, perhatikan bahwa semua masalah ini terdeteksi tanpa harus menjalankan kode.
+Static analysis tools can identify these kinds of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](https://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
+Again, note that all these issues were detected without having to run the code.
 
 ```bash
 $ pyflakes foobar.py
@@ -172,21 +201,29 @@ foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
 
-Di kuliah shell tools kita telah membahas [`shellcheck`](https://www.shellcheck.net/), yang merupakan alat serupa untuk shell script.
+In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
 
-Sebagian besar editor dan IDE mendukung menampilkan output dari alat-alat ini dalam editor itu sendiri, menyoroti lokasi peringatan dan error. Ini sering disebut **code linting** dan juga dapat digunakan untuk menampilkan jenis masalah lain seperti pelanggaran gaya atau konstruksi yang tidak aman.
+Most editors and IDEs support displaying the output of these tools within the editor itself, highlighting the locations of warnings and errors.
+This is often called **code linting** and it can also be used to display other types of issues such as stylistic violations or insecure constructs.
 
-Di vim, plugin [`ale`](https://vimawesome.com/plugin/ale) atau [`syntastic`](https://vimawesome.com/plugin/syntastic) akan memungkinkan Anda melakukan hal itu. Untuk Python, [`pylint`](https://github.com/PyCQA/pylint) dan [`pep8`](https://pypi.org/project/pep8/) adalah contoh linter gaya dan [`bandit`](https://pypi.org/project/bandit/) adalah alat yang dirancang untuk menemukan masalah keamanan umum. Untuk bahasa lain, orang-orang telah menyusun daftar komprehensif alat analisis statis yang berguna, seperti [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (Anda mungkin ingin melihat bagian _Writing_) dan untuk linter ada [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
+In vim, the plugins [`ale`](https://vimawesome.com/plugin/ale) or [`syntastic`](https://vimawesome.com/plugin/syntastic) will let you do that.
+For Python, [`pylint`](https://github.com/PyCQA/pylint) and [`pep8`](https://pypi.org/project/pep8/) are examples of stylistic linters and [`bandit`](https://pypi.org/project/bandit/) is a tool designed to find common security issues.
+For other languages people have compiled comprehensive lists of useful static analysis tools, such as [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (you may want to take a look at the _Writing_ section) and for linters there is [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
 
-Alat pelengkap untuk stylistic linting adalah code formatter seperti [`black`](https://github.com/psf/black) untuk Python, `gofmt` untuk Go, `rustfmt` untuk Rust, atau [`prettier`](https://prettier.io/) untuk JavaScript, HTML, dan CSS. Alat-alat ini memformat kode Anda secara otomatis sehingga konsisten dengan pola gaya umum untuk bahasa pemrograman tertentu. Meskipun Anda mungkin enggan menyerahkan kontrol gaya tentang kode Anda, menstandarisasi format kode akan membantu orang lain membaca kode Anda dan akan membuat Anda lebih baik dalam membaca kode orang lain (yang telah distandarisasi secara gaya).
+A complementary tool to stylistic linting are code formatters such as [`black`](https://github.com/psf/black) for Python, `gofmt` for Go, `rustfmt` for Rust or [`prettier`](https://prettier.io/) for JavaScript, HTML and CSS.
+These tools autoformat your code so that it's consistent with common stylistic patterns for the given programming language.
+Although you might be unwilling to give stylistic control about your code, standardizing code format will help other people read your code and will make you better at reading other people's (stylistically standardized) code.
 
 # Profiling
 
-Bahkan jika kode Anda secara fungsional berperilaku seperti yang Anda harapkan, itu mungkin tidak cukup baik jika memakan semua CPU atau memori Anda dalam prosesnya. Kelas algoritma sering mengajarkan notasi big _O_ tetapi tidak cara menemukan hot spot dalam program Anda. Karena [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), Anda harus mempelajari profiler dan alat monitoring. Mereka akan membantu Anda memahami bagian mana dari program Anda yang memakan sebagian besar waktu dan/atau sumber daya sehingga Anda dapat fokus mengoptimalkan bagian-bagian tersebut.
+Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process.
+Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs.
+Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
 
 ## Timing
 
-Sama seperti kasus debugging, dalam banyak skenario cukup dengan mencetak waktu yang dibutuhkan kode Anda antara dua titik. Berikut contoh di Python menggunakan modul [`time`](https://docs.python.org/3/library/time.html).
+Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
+Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
 
 ```python
 import time, random
@@ -207,13 +244,13 @@ print(time.time() - start)
 # 0.5713930130004883
 ```
 
-Namun, wall clock time bisa menyesatkan karena komputer Anda mungkin menjalankan proses lain pada saat yang sama atau menunggu peristiwa terjadi. Alat-alat biasanya membedakan antara waktu _Real_, _User_, dan _Sys_. Secara umum, _User_ + _Sys_ memberi tahu Anda berapa banyak waktu yang sebenarnya dihabiskan proses Anda di CPU (penjelasan lebih detail [di sini](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
+However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. It is common for tools to make a distinction between _Real_, _User_ and _Sys_ time. In general, _User_ + _Sys_ tells you how much time your process actually spent in the CPU (more detailed explanation [here](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
 
-- _Real_ - Waktu wall clock yang berlalu dari awal hingga akhir program, termasuk waktu yang dihabiskan oleh proses lain dan waktu saat diblokir (misalnya menunggu I/O atau jaringan)
-- _User_ - Jumlah waktu yang dihabiskan di CPU untuk menjalankan kode user
-- _Sys_ - Jumlah waktu yang dihabiskan di CPU untuk menjalankan kode kernel
+- _Real_ - Wall clock elapsed time from start to finish of the program, including the time taken by other processes and time taken while blocked (e.g. waiting for I/O or network)
+- _User_ - Amount of time spent in the CPU running user code
+- _Sys_ - Amount of time spent in the CPU running kernel code
 
-Sebagai contoh, coba jalankan perintah yang melakukan request HTTP dan awali dengan [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Pada koneksi lambat Anda mungkin mendapatkan output seperti di bawah ini. Di sini dibutuhkan lebih dari 2 detik untuk request selesai tetapi proses hanya menggunakan 15ms waktu CPU user dan 12ms waktu CPU kernel.
+For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -222,15 +259,20 @@ user    0m0.015s
 sys     0m0.012s
 ```
 
-## Profiler
+## Profilers
 
 ### CPU
 
-Sebagian besar waktu ketika orang menyebut _profiler_, mereka sebenarnya berarti _CPU profiler_, yang merupakan yang paling umum. Ada dua jenis utama CPU profiler: profiler _tracing_ dan _sampling_. Tracing profiler menyimpan catatan setiap pemanggilan fungsi yang dibuat program Anda, sedangkan sampling profiler memeriksa program Anda secara berkala (umumnya setiap milidetik) dan merekam stack program. Mereka menggunakan catatan ini untuk menyajikan statistik agregat tentang apa yang paling banyak dilakukan program Anda. [Berikut](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) artikel pengantar yang bagus jika Anda ingin detail lebih lanjut tentang topik ini.
+Most of the time when people refer to _profilers_ they actually mean _CPU profilers_,  which are the most common.
+There are two main types of CPU profilers: _tracing_ and _sampling_ profilers.
+Tracing profilers keep a record of every function call your program makes whereas sampling profilers probe your program periodically (commonly every millisecond) and record the program's stack.
+They use these records to present aggregate statistics of what your program spent the most time doing.
+[Here](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) is a good intro article if you want more detail on this topic.
 
-Sebagian besar bahasa pemrograman memiliki semacam profiler command line yang dapat Anda gunakan untuk menganalisis kode Anda. Mereka sering terintegrasi dengan IDE lengkap tetapi untuk kuliah ini kita akan fokus pada alat command line itu sendiri.
+Most programming languages have some sort of command line profiler that you can use to analyze your code.
+They often integrate with full fledged IDEs but for this lecture we are going to focus on the command line tools themselves.
 
-Di Python kita dapat menggunakan modul `cProfile` untuk memprofil waktu per pemanggilan fungsi. Berikut contoh sederhana yang mengimplementasikan grep dasar di Python:
+In Python we can use the `cProfile` module to profile time per function call. Here is a simple example that implements a rudimentary grep in Python:
 
 ```python
 #!/usr/bin/env python
@@ -254,7 +296,7 @@ if __name__ == '__main__':
             grep(pattern, file)
 ```
 
-Kita dapat memprofil kode ini menggunakan perintah berikut. Menganalisis output, kita dapat melihat bahwa IO memakan sebagian besar waktu dan bahwa kompilasi regex juga memakan waktu yang cukup banyak. Karena regex hanya perlu dikompilasi sekali, kita dapat memfaktorkannya keluar dari for.
+We can profile this code using the following command. Analyzing the output we can see that IO is taking most of the time and that compiling the regex takes a fair amount of time as well. Since the regex only needs to be compiled once, we can factor it out of the for.
 
 ```
 $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
@@ -276,9 +318,10 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 ```
 
 
-Catatan tentang profiler `cProfile` Python (dan banyak profiler lainnya) adalah mereka menampilkan waktu per pemanggilan fungsi. Hal ini bisa menjadi tidak intuitif dengan cepat, terutama jika Anda menggunakan pustaka pihak ketiga dalam kode Anda karena pemanggilan fungsi internal juga diperhitungkan. Cara yang lebih intuitif untuk menampilkan informasi profiling adalah dengan menyertakan waktu yang dihabiskan per baris kode, yang merupakan apa yang dilakukan _line profiler_.
+A caveat of Python's `cProfile` profiler (and many profilers for that matter) is that they display time per function call. That can become unintuitive really fast, especially if you are using third party libraries in your code since internal function calls are also accounted for.
+A more intuitive way of displaying profiling information is to include the time taken per line of code, which is what _line profilers_ do.
 
-Sebagai contoh, potongan kode Python berikut melakukan request ke situs web kelas dan mengurai respons untuk mendapatkan semua URL di halaman:
+For instance, the following piece of Python code performs a request to the class website and parses the response to get all URLs in the page:
 
 ```python
 #!/usr/bin/env python
@@ -299,7 +342,7 @@ if __name__ == '__main__':
     get_urls()
 ```
 
-Jika kita menggunakan profiler `cProfile` Python, kita akan mendapatkan lebih dari 2500 baris output, dan bahkan dengan pengurutan akan sulit memahami di mana waktu dihabiskan. Jalankan cepat dengan [`line_profiler`](https://github.com/pyutils/line_profiler) menunjukkan waktu yang dihabiskan per baris:
+If we used Python's `cProfile` profiler we'd get over 2500 lines of output, and even with sorting it'd be hard to understand where the time is being spent. A quick run with [`line_profiler`](https://github.com/pyutils/line_profiler) shows the time taken per line:
 
 ```bash
 $ kernprof -l -v a.py
@@ -321,11 +364,13 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 11        24         33.0      1.4      0.0          urls.append(url['href'])
 ```
 
-### Memori
+### Memory
 
-Dalam bahasa seperti C atau C++, memory leak dapat menyebabkan program Anda tidak pernah melepaskan memori yang tidak lagi dibutuhkan. Untuk membantu dalam proses debugging memori, Anda dapat menggunakan alat seperti [Valgrind](https://valgrind.org/) yang akan membantu Anda mengidentifikasi memory leak.
+In languages like C or C++ memory leaks can cause your program to never release memory that it doesn't need anymore.
+To help in the process of memory debugging you can use tools like [Valgrind](https://valgrind.org/) that will help you identify memory leaks.
 
-Dalam bahasa dengan garbage collection seperti Python, tetap berguna untuk menggunakan memory profiler karena selama Anda memiliki pointer ke objek di memori, mereka tidak akan di-garbage collect. Berikut contoh program dan output terkait saat menjalankannya dengan [memory-profiler](https://pypi.org/project/memory-profiler/) (perhatikan decorator seperti pada `line-profiler`).
+In garbage collected languages like Python it is still useful to use a memory profiler because as long as you have pointers to objects in memory they won't be garbage collected.
+Here's an example program and its associated output when running it with [memory-profiler](https://pypi.org/project/memory-profiler/) (note the decorator like in `line-profiler`).
 
 ```python
 @profile
@@ -353,47 +398,58 @@ Line #    Mem usage  Increment   Line Contents
 
 ### Event Profiling
 
-Seperti halnya `strace` untuk debugging, Anda mungkin ingin mengabaikan detail spesifik dari kode yang Anda jalankan dan memperlakukannya seperti black box saat melakukan profiling. Perintah [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) mengabstraksikan perbedaan CPU dan tidak melaporkan waktu atau memori, melainkan melaporkan event sistem yang terkait dengan program Anda. Sebagai contoh, `perf` dapat dengan mudah melaporkan poor cache locality, page faults dalam jumlah tinggi, atau livelocks. Berikut gambaran umum perintah tersebut:
+As it was the case for `strace` for debugging, you might want to ignore the specifics of the code that you are running and treat it like a black box when profiling.
+The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abstracts CPU differences away and does not report time or memory, but instead it reports system events related to your programs.
+For example, `perf` can easily report poor cache locality, high amounts of page faults or livelocks. Here is an overview of the command:
 
-- `perf list` - Mencantumkan event yang dapat ditelusuri dengan perf
-- `perf stat COMMAND ARG1 ARG2` - Mendapatkan hitungan dari berbagai event yang terkait dengan suatu proses atau perintah
-- `perf record COMMAND ARG1 ARG2` - Merekam eksekusi suatu perintah dan menyimpan data statistik ke file bernama `perf.data`
-- `perf report` - Memformat dan mencetak data yang dikumpulkan di `perf.data`
+- `perf list` - List the events that can be traced with perf
+- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related to a process or command
+- `perf record COMMAND ARG1 ARG2` - Records the run of a command and saves the statistical data into a file called `perf.data`
+- `perf report` - Formats and prints the data collected in `perf.data`
 
 
-### Visualisasi
+### Visualization
 
-Output profiler untuk program dunia nyata akan berisi sejumlah besar informasi karena kompleksitas inheren dari proyek perangkat lunak. Manusia adalah makhluk visual dan sangat buruk dalam membaca sejumlah besar angka dan memahaminya. Oleh karena itu ada banyak alat untuk menampilkan output profiler dengan cara yang lebih mudah dipahami.
+Profiler output for real world programs will contain large amounts of information because of the inherent complexity of software projects.
+Humans are visual creatures and are quite terrible at reading large amounts of numbers and making sense of them.
+Thus there are many tools for displaying profiler's output in an easier to parse way.
 
-Salah satu cara umum untuk menampilkan informasi profiling CPU untuk sampling profiler adalah menggunakan [Flame Graph](https://www.brendangregg.com/flamegraphs.html), yang akan menampilkan hierarki pemanggilan fungsi pada sumbu Y dan waktu yang dihabiskan secara proporsional pada sumbu X. Mereka juga interaktif, memungkinkan Anda memperbesar bagian tertentu dari program dan mendapatkan stack trace-nya (coba klik gambar di bawah).
+One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](https://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
 
 [![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-Call graph atau control flow graph menampilkan hubungan antar subroutine dalam suatu program dengan menyertakan fungsi sebagai node dan pemanggilan fungsi di antara mereka sebagai edge berarah. Ketika dipasangkan dengan informasi profiling seperti jumlah pemanggilan dan waktu yang dihabiskan, call graph bisa sangat berguna untuk menginterpretasikan alur program. Di Python Anda dapat menggunakan pustaka [`pycallgraph`](https://pycallgraph.readthedocs.io/) untuk menghasilkan mereka.
+Call graphs or control flow graphs display the relationships between subroutines within a program by including functions as nodes and functions calls between them as directed edges. When coupled with profiling information such as the number of calls and time taken, call graphs can be quite useful for interpreting the flow of a program.
+In Python you can use the [`pycallgraph`](https://pycallgraph.readthedocs.io/) library to generate them.
 
 ![Call Graph](https://upload.wikimedia.org/wikipedia/commons/2/2f/A_Call_Graph_generated_by_pycallgraph.png)
 
 
-## Monitoring Sumber Daya
+## Resource Monitoring
 
-Terkadang, langkah pertama untuk menganalisis performa program Anda adalah memahami konsumsi sumber daya sebenarnya. Program sering berjalan lambat ketika mereka kekurangan sumber daya, misalnya tanpa memori yang cukup atau pada koneksi jaringan yang lambat. Ada banyak alat command line untuk memeriksa dan menampilkan berbagai sumber daya sistem seperti penggunaan CPU, penggunaan memori, jaringan, penggunaan disk, dan sebagainya.
+Sometimes, the first step towards analyzing the performance of your program is to understand what its actual resource consumption is.
+Programs often run slowly when they are resource constrained, e.g. without enough memory or on a slow network connection.
+There are a myriad of command line tools for probing and displaying different system resources like CPU usage, memory usage, network, disk usage and so on.
 
-- **Monitoring Umum** - Mungkin yang paling populer adalah [`htop`](https://htop.dev/), yang merupakan versi perbaikan dari [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
-`htop` menyajikan berbagai statistik untuk proses yang sedang berjalan di sistem. `htop` memiliki banyak opsi dan keybind, beberapa yang berguna adalah: `<F6>` untuk mengurutkan proses, `t` untuk menampilkan hierarki tree, dan `h` untuk toggle thread. Lihat juga [`glances`](https://nicolargo.github.io/glances/) untuk implementasi serupa dengan UI yang hebat. Untuk mendapatkan pengukuran agregat di semua proses, [`dool`](https://github.com/scottchiefbaker/dool) adalah alat lain yang berguna yang menghitung metrik sumber daya real-time untuk banyak subsistem berbeda seperti I/O, jaringan, penggunaan CPU, context switch, &c.
-- **Operasi I/O** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) menampilkan informasi penggunaan I/O secara langsung dan berguna untuk memeriksa apakah suatu proses melakukan operasi disk I/O yang berat
-- **Penggunaan Disk** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) menampilkan metrik per partisi dan [`du`](https://man7.org/linux/man-pages/man1/du.1.html) menampilkan penggunaan **d**isk per file untuk direktori saat ini. Pada alat-alat ini flag `-h` memberitahu program untuk mencetak dalam format yang mudah dibaca manusia (**h**uman readable).
-Versi lebih interaktif dari `du` adalah [`ncdu`](https://dev.yorhel.nl/ncdu) yang memungkinkan Anda menavigasi folder dan menghapus file serta folder saat Anda menavigasi.
-- **Penggunaan Memori** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) menampilkan jumlah total memori yang bebas dan digunakan dalam sistem. Memori juga ditampilkan di alat seperti `htop`.
-- **File Terbuka** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) mencantumkan informasi file tentang file yang dibuka oleh proses. Ini bisa sangat berguna untuk memeriksa proses mana yang telah membuka file tertentu.
-- **Koneksi dan Konfigurasi Jaringan** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) memungkinkan Anda memantau statistik paket jaringan masuk dan keluar serta statistik antarmuka. Kasus penggunaan umum `ss` adalah mencari tahu proses mana yang menggunakan port tertentu di suatu mesin. Untuk menampilkan routing, perangkat jaringan, dan antarmuka Anda dapat menggunakan [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html). Perhatikan bahwa `netstat` dan `ifconfig` telah didepresiasi demi alat-alat sebelumnya masing-masing.
-- **Penggunaan Jaringan** - [`nethogs`](https://github.com/raboof/nethogs) dan [`iftop`](https://pdw.ex-parrot.com/iftop/) adalah alat CLI interaktif yang bagus untuk memantau penggunaan jaringan.
+- **General Monitoring** - Probably the most popular is [`htop`](https://htop.dev/), which is an improved version of [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
+`htop` presents various statistics for the currently running processes on the system. `htop` has a myriad of options and keybinds, some useful ones  are: `<F6>` to sort processes, `t` to show tree hierarchy and `h` to toggle threads.
+See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dool`](https://github.com/scottchiefbaker/dool) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
+- **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information and is handy to check if a process is doing heavy I/O disk operations
+- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](https://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
+A more interactive version of `du` is [`ncdu`](https://dev.yorhel.nl/ncdu) which lets you navigate folders and delete files and folders as you navigate.
+- **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays the total amount of free and used memory in the system. Memory is also displayed in tools like `htop`.
+- **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html)  lists file information about files opened by processes. It can be quite useful for checking which process has opened a specific file.
+- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
+- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage.
 
-Jika Anda ingin menguji alat-alat ini, Anda juga dapat membebani mesin secara buatan menggunakan perintah [`stress`](https://linux.die.net/man/1/stress).
+If you want to test these tools you can also artificially impose loads on the machine using the [`stress`](https://linux.die.net/man/1/stress) command.
 
 
-### Alat-Alat Khusus
+### Specialized tools
 
-Terkadang, benchmarking black box adalah semua yang Anda butuhkan untuk menentukan perangkat lunak mana yang akan digunakan. Alat seperti [`hyperfine`](https://github.com/sharkdp/hyperfine) memungkinkan Anda dengan cepat melakukan benchmark program command line. Sebagai contoh, di kuliah shell tools dan scripting kami merekomendasikan `fd` daripada `find`. Kita dapat menggunakan `hyperfine` untuk membandingkan mereka dalam tugas yang sering kita jalankan. Misalnya, pada contoh di bawah `fd` 20x lebih cepat daripada `find` di mesin saya.
+Sometimes, black box benchmarking is all you need to determine what software to use.
+Tools like [`hyperfine`](https://github.com/sharkdp/hyperfine) let you quickly benchmark command line programs.
+For instance, in the shell tools and scripting lecture we recommended `fd` over `find`. We can use `hyperfine` to compare them in tasks we run often.
+E.g. in the example below `fd` was 20x faster than `find` in my machine.
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -410,16 +466,18 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-Seperti halnya debugging, browser juga dilengkapi dengan seperangkat alat fantastis untuk memprofil pemuatan halaman web, memungkinkan Anda mengetahui di mana waktu dihabiskan (memuat, rendering, scripting, &c). Info lebih lanjut untuk [Firefox](https://profiler.firefox.com/docs/) dan [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
+As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
+More info for [Firefox](https://profiler.firefox.com/docs/) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
 
-# Latihan
+# Exercises
 
 ## Debugging
-1. Gunakan `journalctl` di Linux atau `log show` di macOS untuk mendapatkan akses super user dan perintah di hari terakhir. Jika tidak ada, Anda dapat menjalankan beberapa perintah yang tidak berbahaya seperti `sudo ls` dan periksa lagi.
+1. Use `journalctl` on Linux or `log show` on macOS to get the super user accesses and commands in the last day.
+If there aren't any you can execute some harmless commands such as `sudo ls` and check again.
 
-1. Lakukan tutorial hands-on `pdb` [ini](https://github.com/spiside/pdb-tutorial) untuk membiasakan diri dengan perintah-perintahnya. Untuk tutorial yang lebih mendalam baca [ini](https://realpython.com/python-debugging-pdb).
+1. Do [this](https://github.com/spiside/pdb-tutorial) hands on `pdb` tutorial to familiarize yourself with the commands. For a more in depth tutorial read [this](https://realpython.com/python-debugging-pdb).
 
-1. Instal [`shellcheck`](https://www.shellcheck.net/) dan coba periksa skrip berikut. Apa yang salah dengan kode tersebut? Perbaiki. Instal plugin linter di editor Anda sehingga Anda bisa mendapatkan peringatan secara otomatis.
+1. Install [`shellcheck`](https://www.shellcheck.net/) and try checking the following script. What is wrong with the code? Fix it. Install a linter plugin in your editor so you can get your warnings automatically.
 
    ```bash
    #!/bin/sh
@@ -431,12 +489,12 @@ Seperti halnya debugging, browser juga dilengkapi dengan seperangkat alat fantas
    done
    ```
 
-1. (Lanjutan) Baca tentang [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) dan dapatkan contoh sederhana yang bekerja menggunakan [`rr`](https://rr-project.org/) atau [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
+1. (Advanced) Read about [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) and get a simple example working using [`rr`](https://rr-project.org/) or [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
 ## Profiling
 
-1. [Berikut](/static/files/sorts.py) beberapa implementasi algoritma pengurutan. Gunakan [`cProfile`](https://docs.python.org/3/library/profile.html) dan [`line_profiler`](https://github.com/pyutils/line_profiler) untuk membandingkan runtime insertion sort dan quicksort. Apa bottleneck dari masing-masing algoritma? Kemudian gunakan `memory_profiler` untuk memeriksa konsumsi memori, mengapa insertion sort lebih baik? Sekarang periksa versi inplace dari quicksort. Tantangan: Gunakan `perf` untuk melihat cycle count dan cache hits dan misses dari masing-masing algoritma.
+1. [Here](/static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/pyutils/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
 
-1. Berikut kode Python (yang mungkin agak berbelit-belit) untuk menghitung bilangan Fibonacci menggunakan sebuah fungsi untuk setiap bilangan.
+1. Here's some (arguably convoluted) Python code for computing Fibonacci numbers using a function for each number.
 
    ```python
    #!/usr/bin/env python
@@ -456,10 +514,13 @@ Seperti halnya debugging, browser juga dilengkapi dengan seperangkat alat fantas
        print(eval("fib9()"))
    ```
 
-   Simpan kode ke dalam file dan jadikan executable. Instal prasyarat: [`pycallgraph`](https://lewiscowles1986.github.io/py-call-graph/) dan [`graphviz`](https://graphviz.org/). (Jika Anda bisa menjalankan `dot`, Anda sudah memiliki GraphViz.) Jalankan kode apa adanya dengan `pycallgraph graphviz -- ./fib.py` dan periksa file `pycallgraph.png`. Berapa kali `fib0` dipanggil?. Kita bisa melakukan lebih baik dari itu dengan memoize fungsi-fungsinya. Hapus komentar pada baris yang dikomentari dan generate ulang gambar. Berapa kali kita memanggil setiap fungsi `fibN` sekarang?
+   Put the code into a file and make it executable. Install prerequisites: [`pycallgraph`](https://lewiscowles1986.github.io/py-call-graph/) and [`graphviz`](https://graphviz.org/). (If you can run `dot`, you already have GraphViz.) Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
 
-1. Masalah umum adalah port yang ingin Anda dengarkan sudah digunakan oleh proses lain. Mari kita pelajari cara menemukan pid proses tersebut. Pertama jalankan `python -m http.server 4444` untuk memulai server web minimal yang mendengarkan di port `4444`. Di terminal terpisah jalankan `lsof | grep LISTEN` untuk mencetak semua proses dan port yang mendengarkan. Temukan pid proses tersebut dan hentikan dengan menjalankan `kill <PID>`.
+1. A common issue is that a port you want to listen on is already taken by another process. Let's learn how to discover that process pid. First execute `python -m http.server 4444` to start a minimal web server listening on port `4444`. On a separate terminal run `lsof | grep LISTEN` to print all listening processes and ports. Find that process pid and terminate it by running `kill <PID>`.
 
-1. Membatasi sumber daya proses bisa menjadi alat berguna lainnya dalam kotak peralatan Anda. Coba jalankan `stress -c 3` dan visualisasikan konsumsi CPU dengan `htop`. Sekarang, jalankan `taskset --cpu-list 0,2 stress -c 3` dan visualisasikan. Apakah `stress` menggunakan tiga CPU? Mengapa tidak? Baca [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html). Tantangan: capai hal yang sama menggunakan [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Coba batasi konsumsi memori `stress -m`.
+1. Limiting a process's resources can be another handy tool in your toolbox.
+Try running `stress -c 3` and visualize the CPU consumption with `htop`. Now, execute `taskset --cpu-list 0,2 stress -c 3` and visualize it. Is `stress` taking three CPUs? Why not? Read [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html).
+Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Try limiting the memory consumption of `stress -m`.
 
-1. (Lanjutan) Perintah `curl ipinfo.io` melakukan request HTTP dan mengambil informasi tentang IP publik Anda. Buka [Wireshark](https://www.wireshark.org/) dan coba sniff paket request dan reply yang dikirim dan diterima `curl`. (Petunjuk: Gunakan filter `http` untuk hanya melihat paket HTTP).
+1. (Advanced) The command `curl ipinfo.io` performs a HTTP request and fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
+
