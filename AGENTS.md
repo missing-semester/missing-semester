@@ -2,9 +2,33 @@
 
 This file provides guidance to AI coding agents working with this repository. See [agents.md](https://agents.md/) for the specification.
 
-## Project Overview
+## Project Context
 
-This is the website for **The Missing Semester of Your CS Education** (https://missing.csail.mit.edu/), an MIT class teaching practical computing tools. It's a Jekyll static site hosted on GitHub Pages.
+This is the **Indonesian translation** of [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/), an MIT class teaching practical computing tools.
+
+- **Upstream repo:** https://github.com/missing-semester/missing-semester
+- **This repo:** Indonesian (Bahasa Indonesia) version
+- **GitHub org:** `missing-semester-idn`
+- **Site URL:** https://missing-semester-idn.github.io/
+
+This is a community translation effort. The original content is in English; this repo maintains the Indonesian translation.
+
+## Translation Workflow
+
+Translation work is organized via GitHub milestones and issues:
+- **Milestones:** 7 milestones covering site setup, root pages, and lectures by year
+- **Issues:** 55 issues total, one per file to translate
+- **Priority order:** Setup → Root pages → 2026 lectures → 2020 lectures → 2019 lectures → Subtitles
+
+## Translation Guidelines
+
+When translating content:
+- Keep code blocks, commands, and file paths in English
+- Translate only prose, explanations, and headings
+- Preserve YAML front matter structure (translate `title` and `description` fields)
+- Keep links to external resources unchanged
+- Translate inline code comments to Indonesian where helpful
+- Maintain consistency with existing translations (reuse terminology)
 
 ## Build and Test Commands
 
