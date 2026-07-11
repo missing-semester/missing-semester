@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "2026 Lectures"
+title: "Kuliah 2026"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2026.
+  Catatan kuliah dan video untuk Missing Semester, MIT IAP 2026.
 permalink: /2026/
 phony: true
 ---
@@ -29,11 +29,11 @@ phony: true
   {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L).
+Rekaman video kuliah tersedia [di YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L).
 
-# Beyond MIT
+# Di Luar MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+Kami juga membagikan kelas ini di luar MIT dengan harapan orang lain dapat memanfaatkan sumber daya ini. Anda dapat menemukan postingan dan diskusi di
 
 - [Hacker News](https://news.ycombinator.com/item?id=47124171)
 - [Lobsters](https://lobste.rs/s/q4ykw7/missing_semester_your_cs_education_2026)
@@ -44,6 +44,6 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 - [LinkedIn](https://www.linkedin.com/posts/anishathalye_i-returned-to-mit-during-iap-january-term-activity-7430285026933522433-Ehr9)
 - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L)
 
-# Acknowledgments
+# Ucapan Terima Kasih
 
-We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
+Kami mengucapkan terima kasih kepada Elaine Mello dan [MIT Open Learning](https://openlearning.mit.edu/) yang telah memungkinkan kami untuk merekam video kuliah. Kami mengucapkan terima kasih kepada Luis Turino / [SIPB](https://sipb.mit.edu/) yang telah mendukung kelas ini sebagai bagian dari [SIPB IAP 2026](https://sipb.mit.edu/iap/).

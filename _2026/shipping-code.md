@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Packaging and Shipping Code"
+title: "Pengemasan dan Distribusi Kode"
 description: >
-  Learn about project packaging, environments, versioning, and deploying libraries, applications, and services.
+  Pelajari tentang pengemasan proyek, environment, versioning, dan deployment pustaka, aplikasi, serta layanan.
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
@@ -11,14 +11,14 @@ video:
   id: KBMiB-8P4Ns
 ---
 
-Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
+Membuat kode berjalan sesuai harapan itu sulit; membuat kode yang sama berjalan di mesin yang berbeda dari mesin Anda seringkali lebih sulit lagi.
 
-Shipping code means taking the code you wrote and converting it into a usable form that someone else can run without your computer's exact setup.
-Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
-It also depends on what you are building: a software library, a command line tool, and a web service all have different requirements and deployment steps.
-Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a. the _artifact_ --- and what assumptions it makes about the environment around it.
+Distribusi kode berarti mengambil kode yang Anda tulis dan mengubahnya menjadi bentuk yang dapat digunakan oleh orang lain tanpa memerlukan setup komputer yang sama persis dengan komputer Anda.
+Distribusi kode memiliki banyak bentuk dan bergantung pada pilihan bahasa pemrograman, pustaka sistem, dan sistem operasi, serta banyak faktor lainnya.
+Bentuk distribusi juga bergantung pada apa yang Anda bangun: pustaka perangkat lunak, alat baris perintah, dan layanan web semuanya memiliki kebutuhan dan langkah deployment yang berbeda.
+Meskipun demikian, terdapat pola umum di semua skenario ini: kita perlu mendefinisikan apa deliverable-nya --- alias _artifact_ --- dan asumsi apa yang dibuatnya tentang lingkungan di sekitarnya.
 
-In this lecture, we'll cover:
+Dalam kuliah ini, kita akan membahas:
 
 - [Dependencies & Environments](#dependencies--environments)
 - [Artifacts & Packaging](#artifacts--packaging)
@@ -29,14 +29,14 @@ In this lecture, we'll cover:
 - [Services & Orchestration](#services--orchestration)
 - [Publishing](#publishing)
 
-We'll explain these concepts through examples from the Python ecosystem, as concrete examples are helpful for understanding. While the tools are different for other programming language ecosystems, the concepts will largely be the same.
+Kita akan menjelaskan konsep-konsep ini melalui contoh dari ekosistem Python, karena contoh konkret sangat membantu untuk memahami. Meskipun alat yang digunakan berbeda untuk ekosistem bahasa pemrograman lain, konsepnya sebagian besar sama.
 
 # Dependencies & Environments
 
-In modern software development, layers of abstraction are ubiquitous.
-Programs naturally offload logic to other libraries or services.
-However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
-For instance, in Python, to fetch the content of a website we often do:
+Dalam pengembangan perangkat lunak modern, lapisan abstraksi ada di mana-mana.
+Program secara alami membebankan logika ke pustaka atau layanan lain.
+Namun, ini memperkenalkan hubungan _dependency_ antara program Anda dan pustaka yang dibutuhkannya untuk berfungsi.
+Sebagai contoh, di Python, untuk mengambil konten sebuah website kita sering melakukan:
 
 ```python
 import requests
@@ -44,7 +44,7 @@ import requests
 response = requests.get("https://missing.csail.mit.edu")
 ```
 
-Yet the `requests` library does not come bundled with the Python runtime, so if we try to run this code without having `requests` installed, Python will raise an error:
+Namun pustaka `requests` tidak disertakan bersama runtime Python, jadi jika kita mencoba menjalankan kode ini tanpa menginstal `requests`, Python akan memunculkan error:
 
 ```console
 $ python fetch.py
@@ -54,14 +54,14 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'requests'
 ```
 
-To make this library available we need to first run `pip install requests` to install it.
-`pip` is the command line tool that the Python programming language provides for installing packages.
-Executing `pip install requests` produces the following sequence of actions:
+Untuk membuat pustaka ini tersedia, kita perlu menjalankan `pip install requests` terlebih dahulu untuk menginstalnya.
+`pip` adalah alat baris perintah yang disediakan bahasa pemrograman Python untuk menginstal paket.
+Menjalankan `pip install requests` menghasilkan urutan tindakan berikut:
 
-1. Search for requests in the Python Package Index ([PyPI](https://pypi.org/))
-1. Search for the appropriate artifact for the platform we are running under
-1. Resolve dependencies --- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies and install them beforehand
-1. Download the artifacts, then unpack and copy the files into the right places in our filesystem
+1. Mencari requests di Python Package Index ([PyPI](https://pypi.org/))
+1. Mencari artifact yang sesuai untuk platform yang sedang dijalankan
+1. Menyelesaikan dependency --- pustaka `requests` sendiri bergantung pada paket lain, sehingga installer harus menemukan versi yang kompatibel dari semua dependency transitif dan menginstalnya terlebih dahulu
+1. Mengunduh artifact, lalu mengekstrak dan menyalin file ke lokasi yang tepat di filesystem kita
 
 ```console
 $ pip install requests
@@ -79,8 +79,8 @@ Installing collected packages: urllib3, idna, charset-normalizer, certifi, reque
 Successfully installed certifi-2024.8.30 charset-normalizer-3.4.0 idna-3.10 requests-2.32.3 urllib3-2.2.3
 ```
 
-Here we can see that `requests` has its own dependencies such as `certifi` or `charset-normalizer` and that they have to be installed before `requests` can be installed.
-Once installed, the Python runtime can find this library when importing it.
+Di sini kita dapat melihat bahwa `requests` memiliki dependency-nya sendiri seperti `certifi` atau `charset-normalizer` dan bahwa mereka harus diinstal sebelum `requests` dapat diinstal.
+Setelah terinstal, runtime Python dapat menemukan pustaka ini saat mengimpornya.
 
 ```console
 $ python -c 'import requests; print(requests.__path__)'
@@ -90,19 +90,19 @@ $ pip list | grep requests
 requests        2.32.3
 ```
 
-Programming languages have different tools, conventions and practices for installing and publishing libraries.
-In some languages like Rust, the toolchain is unified --- `cargo` handles building, testing, dependency management, and publishing.
-In others like Python, the unification happens at a specification level --- rather than a single tool, there are standardized specifications that define how packaging works, allowing multiple competing tools for each task (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
-And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
+Bahasa pemrograman memiliki alat, konvensi, dan praktik yang berbeda untuk menginstal dan mempublikasikan pustaka.
+Di beberapa bahasa seperti Rust, toolchain-nya terpadu --- `cargo` menangani building, testing, manajemen dependency, dan publishing.
+Di bahasa lain seperti Python, pemaduan terjadi di tingkat spesifikasi --- alih-alih satu alat tunggal, terdapat spesifikasi standar yang mendefinisikan cara kerja pengemasan, yang memungkinkan beberapa alat yang bersaing untuk setiap tugas (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
+Dan di beberapa ekosistem seperti LaTeX, distribusi seperti TeX Live atau MacTeX disertakan bersama ribuan paket yang sudah terinstal.
 
-Introducing dependencies also introduces dependency conflicts.
-Conflicts happen when programs require incompatible versions of the same dependency.
-For example, if `tensorflow==2.3.0` requires `numpy>=1.16.0,<1.19.0` and `pandas==1.2.0`  requires `numpy>=1.16.5`, then any version satisfying `numpy>=1.16.5,<1.19.0` will be valid.
-But if another package in your project requires `numpy>=1.19`, you have a conflict with no valid version that satisfies all constraints.
+Memasukkan dependency juga memperkenalkan konflik dependency.
+Konflik terjadi ketika program membutuhkan versi yang tidak kompatibel dari dependency yang sama.
+Sebagai contoh, jika `tensorflow==2.3.0` membutuhkan `numpy>=1.16.0,<1.19.0` dan `pandas==1.2.0` membutuhkan `numpy>=1.16.5`, maka setiap versi yang memenuhi `numpy>=1.16.5,<1.19.0` akan valid.
+Tetapi jika paket lain di proyek Anda membutuhkan `numpy>=1.19`, Anda memiliki konflik tanpa versi valid yang memenuhi semua batasan.
 
-This situation --- where multiple packages require mutually incompatible versions of shared dependencies --- is commonly referred to as _dependency hell_.
-One way to deal with conflicts is to isolate the dependencies of each program into their own _environment_.
-In Python we create a virtual environment by running:
+Situasi ini --- di mana beberapa paket membutuhkan versi yang saling tidak kompatibel dari dependency bersama --- sering disebut sebagai _dependency hell_.
+Salah satu cara menangani konflik adalah dengan mengisolasi dependency setiap program ke dalam _environment_-nya sendiri.
+Di Python kita membuat virtual environment dengan menjalankan:
 
 ```console
 $ which python
@@ -124,17 +124,17 @@ Package Version
 pip     24.0
 ```
 
-You can think of an environment as an entire standalone version of the language runtime with its own set of installed packages.
-This virtual environment or venv isolates the installed dependencies from the global Python installation.
-It is a good practice to have a virtual environment for each project, containing the dependencies it requires.
+Anda dapat membayangkan environment sebagai versi runtime bahasa yang sepenuhnya berdiri sendiri dengan kumpulan paket terinstal-nya sendiri.
+Virtual environment atau venv ini mengisolasi dependency yang terinstal dari instalasi Python global.
+Merupakan praktik yang baik untuk memiliki virtual environment untuk setiap proyek, yang berisi dependency yang dibutuhkannya.
 
-> While many modern operating systems ship with installations of programming language runtimes like Python, it is unwise to modify these installations since the OS might rely on them for its own functionality. Prefer using separate environments instead.
+> Meskipun banyak sistem operasi modern disertakan dengan instalasi runtime bahasa pemrograman seperti Python, tidak bijaksana untuk memodifikasi instalasi tersebut karena OS mungkin mengandalkannya untuk fungsionalitasnya sendiri. Lebih baik gunakan environment terpisah.
 
-In some languages, the installation protocol is not defined by a tool but as a specification.
-In Python [PEP 517](https://peps.python.org/pep-0517/) defines the build system interface and [PEP 621](https://peps.python.org/pep-0621/) specifies how project metadata is stored in `pyproject.toml`.
-This has enabled developers to improve upon `pip` and produce more optimized tools like `uv`. To install `uv` it suffices to do `pip install uv`.
+Di beberapa bahasa, protokol instalasi tidak didefinisikan oleh sebuah alat tetapi sebagai spesifikasi.
+Di Python, [PEP 517](https://peps.python.org/pep-0517/) mendefinisikan antarmuka build system dan [PEP 621](https://peps.python.org/pep-0621/) menentukan bagaimana metadata proyek disimpan di `pyproject.toml`.
+Hal ini memungkinkan pengembang untuk meningkatkan `pip` dan menghasilkan alat yang lebih teroptimasi seperti `uv`. Untuk menginstal `uv` cukup dengan melakukan `pip install uv`.
 
-Using `uv` instead of `pip` follows the same interface but is significantly faster:
+Menggunakan `uv` alih-alih `pip` mengikuti antarmuka yang sama tetapi secara signifikan lebih cepat:
 
 ```console
 $ uv pip install requests
@@ -148,9 +148,9 @@ Installed 5 packages in 8ms
  + urllib3==2.2.3
 ```
 
-> We strongly recommend using `uv pip` instead of `pip` whenever possible as it dramatically reduces the installation time.
+> Kami sangat menyarankan menggunakan `uv pip` alih-alih `pip` kapan pun memungkinkan karena secara dramatis mengurangi waktu instalasi.
 
-Beyond dependency isolation, environments also allow you to have different versions of your programming language runtime.
+Selain isolasi dependency, environment juga memungkinkan Anda memiliki berbagai versi runtime bahasa pemrograman.
 
 ```console
 $ uv venv --python 3.12 venv312
@@ -168,15 +168,15 @@ $ source venv311/bin/activate && python --version
 Python 3.11.10
 ```
 
-This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
+Ini membantu ketika Anda perlu menguji kode Anda di berbagai versi Python atau ketika sebuah proyek membutuhkan versi tertentu.
 
-> In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
+> Di beberapa bahasa pemrograman, setiap proyek secara otomatis mendapatkan environment-nya sendiri untuk dependency-nya alih-alih Anda membuatnya secara manual, tetapi prinsipnya sama. Sebagian besar bahasa saat ini juga memiliki mekanisme untuk mengelola beberapa versi bahasa pada satu sistem, dan kemudian menentukan versi mana yang digunakan untuk masing-masing proyek.
 
 # Artifacts & Packaging
 
-In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code --- ready to be installed or deployed.
-An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
-Consider this example where we have a Python file `greet.py` in our current directory:
+Dalam pengembangan perangkat lunak, kita membedakan antara source code dan artifact. Pengembang menulis dan membaca source code, sedangkan artifact adalah output yang dikemas dan dapat didistribusikan yang dihasilkan dari source code tersebut --- siap untuk diinstal atau di-deploy.
+Sebuah artifact bisa sesederhana file kode yang kita jalankan, dan serumit sebuah Virtual Machine yang berisi semua komponen yang diperlukan dari sebuah aplikasi.
+Perhatikan contoh ini di mana kita memiliki file Python `greet.py` di direktori saat ini:
 
 ```console
 $ cat greet.py
@@ -191,15 +191,15 @@ $ python -c "from greet import greet; print(greet('World'))"
 ModuleNotFoundError: No module named 'greet'
 ```
 
-The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
+Import gagal setelah kita pindah ke direktori lain karena Python hanya mencari modul di lokasi tertentu (direktori saat ini, paket yang terinstal, dan path di `PYTHONPATH`). Pengemasan menyelesaikan masalah ini dengan menginstal kode ke lokasi yang diketahui.
 
-In Python, packaging a library involves producing an artifact that package installers like `pip` or `uv` can use to install the relevant files.
-Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
-Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other information. In Python, we use `pyproject.toml` for this purpose.
+Di Python, mengemas sebuah pustaka melibatkan pembuatan artifact yang dapat digunakan oleh installer paket seperti `pip` atau `uv` untuk menginstal file-file yang relevan.
+Artifact Python disebut _wheel_ dan berisi semua informasi yang diperlukan untuk menginstal sebuah paket: file kode, metadata tentang paket (nama, versi, dependency), dan instruksi untuk menempatkan file di environment.
+Membangun sebuah artifact memerlukan kita untuk menulis file proyek (sering juga dikenal sebagai manifest) yang merinci spesifikasi proyek, dependency yang diperlukan, versi paket, dan informasi lainnya. Di Python, kita menggunakan `pyproject.toml` untuk tujuan ini.
 
-> `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
+> `pyproject.toml` adalah cara modern dan yang direkomendasikan. Meskipun metode pengemasan sebelumnya seperti `requirements.txt` atau `setup.py` masih didukung, Anda harus lebih memilih `pyproject.toml` kapan pun memungkinkan.
 
-Here's a minimal `pyproject.toml` for a library that also provides a command-line tool:
+Berikut adalah `pyproject.toml` minimal untuk sebuah pustaka yang juga menyediakan alat baris perintah:
 
 ```toml
 [project]
@@ -216,9 +216,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
-The `typer` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+Pustaka `typer` adalah paket Python populer untuk membuat antarmuka baris perintah dengan boilerplate minimal.
 
-And the corresponding `greeting.py`:
+Dan file `greeting.py` yang sesuai:
 
 ```python
 import typer
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     cli()
 ```
 
-With this file, we can now build the wheel:
+Dengan file ini, kita sekarang dapat membangun wheel:
 
 ```console
 $ uv build
@@ -250,9 +250,9 @@ greeting-0.1.0-py3-none-any.whl
 greeting-0.1.0.tar.gz
 ```
 
-The `.whl` file is the wheel (a zip archive with a specific structure), and the `.tar.gz` is a source distribution for systems that need to build from source.
+File `.whl` adalah wheel (arsip zip dengan struktur tertentu), dan `.tar.gz` adalah source distribution untuk sistem yang perlu membangun dari source.
 
-You can inspect the contents of a wheel to see what gets packaged:
+Anda dapat memeriksa isi sebuah wheel untuk melihat apa yang dikemas:
 
 ```console
 $ unzip -l dist/greeting-0.1.0-py3-none-any.whl
@@ -268,7 +268,7 @@ Archive:  dist/greeting-0.1.0-py3-none-any.whl
       998                     5 files
 ```
 
-Now if we were to give this wheel to someone else, they could install it by running:
+Sekarang jika kita memberikan wheel ini kepada orang lain, mereka dapat menginstalnya dengan menjalankan:
 
 ```console
 $ uv pip install ./greeting-0.1.0-py3-none-any.whl
@@ -276,72 +276,72 @@ $ greet Alice
 Hello, Alice!
 ```
 
-This would install the library we built earlier into their environment, including the `greet` cli tool.
+Ini akan menginstal pustaka yang kita bangun sebelumnya ke environment mereka, termasuk alat cli `greet`.
 
-There are limitations to this approach. In particular if our library depends on platform-specific libraries, e.g. CUDA for GPU acceleration, then our artifact only works on systems with those specific libraries installed, and we may need to build separate wheels for different platforms (Linux, macOS, Windows) and architectures (x86, ARM).
+Ada batasan pada pendekatan ini. Khususnya jika pustaka kita bergantung pada pustaka yang spesifik terhadap platform, misalnya CUDA untuk akselerasi GPU, maka artifact kita hanya berfungsi di sistem dengan pustaka spesifik tersebut yang terinstal, dan kita mungkin perlu membangun wheel terpisah untuk platform yang berbeda (Linux, macOS, Windows) dan arsitektur yang berbeda (x86, ARM).
 
 
-When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine --- this requires having a compiler and build tools installed, and can take significant time for large projects.
+Saat menginstal perangkat lunak, terdapat perbedaan penting antara menginstal dari source dan menginstal binary yang sudah dibangun. Menginstal dari source berarti mengunduh kode asli dan mengompilasinya di mesin Anda --- ini memerlukan compiler dan build tools yang terinstal, dan bisa memakan waktu yang signifikan untuk proyek besar.
 
-Installing a prebuilt binary means downloading an artifact that was already compiled by someone else --- faster and simpler, but the binary must match your platform and architecture.
-For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
+Menginstal binary yang sudah dibangun berarti mengunduh artifact yang sudah dikompilasi oleh orang lain --- lebih cepat dan lebih sederhana, tetapi binary harus cocok dengan platform dan arsitektur Anda.
+Sebagai contoh, [halaman rilis ripgrep](https://github.com/BurntSushi/ripgrep/releases) menampilkan binary yang sudah dibangun untuk Linux (x86_64, ARM), macOS (Intel, Apple Silicon), dan Windows.
 
 
 # Releases & Versioning
 
-Code is built in a continuous process but is released on a discrete basis.
-In software development there is a clear distinction between development and production environments.
-Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
-The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
+Kode dibangun dalam proses yang berkelanjutan tetapi dirilis secara diskrit.
+Dalam pengembangan perangkat lunak terdapat perbedaan yang jelas antara environment development dan production.
+Kode perlu terbukti berfungsi di environment dev sebelum _dikirim_ ke prod.
+Proses rilis melibatkan banyak langkah, termasuk testing, manajemen dependency, versioning, konfigurasi, deployment, dan publishing.
 
 
-Software libraries are not static and evolve over time getting fixes and new features.
-We track this evolution by discrete version identifiers that correspond to the state of the library at a certain point in time.
-Changes in the behavior of a library can range from patches that fix noncritical functionality, new features that extend its functionality, to changes breaking backwards compatibility.
-Changelogs document what changes a version introduces --- these are documents that software developers use to communicate the changes associated with a new release.
+Pustaka perangkat lunak tidak statis dan berkembang seiring waktu dengan perbaikan dan fitur baru.
+Kita melacak evolusi ini dengan pengenal versi diskrit yang sesuai dengan keadaan pustaka pada titik waktu tertentu.
+Perubahan perilaku pustaka dapat berkisar dari patch yang memperbaiki fungsionalitas yang tidak kritis, fitur baru yang memperluas fungsionalitasnya, hingga perubahan yang memecah kompatibilitas ke belakang (breaking changes).
+Changelog mendokumentasikan perubahan apa yang diperkenalkan oleh sebuah versi --- ini adalah dokumen yang digunakan pengembang perangkat lunak untuk mengkomunikasikan perubahan yang terkait dengan rilis baru.
 
-However, keeping track of the ongoing changes in each and every dependency is impractical, even more so when we consider the transitive dependencies --- i.e. the dependencies of our dependencies.
+Namun, melacak perubahan yang sedang berlangsung di setiap dependency tidak praktis, terlebih lagi ketika kita mempertimbangkan dependency transitif --- yaitu dependency dari dependency kita.
 
-> You can visualize the entire dependency tree of your project with `uv tree`, which shows all packages and their transitive dependencies in a tree format.
+> Anda dapat memvisualisasikan seluruh dependency tree proyek Anda dengan `uv tree`, yang menampilkan semua paket dan dependency transitifnya dalam format tree.
 
-To simplify this problem there are conventions on how to version software, and one of the most prevalent is [Semantic Versioning](https://semver.org/) or SemVer.
-Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PATCH where each one of the values takes an integer value. The short version is that upgrading:
+Untuk menyederhanakan masalah ini, terdapat konvensi tentang cara memberi versi pada perangkat lunak, dan salah satu yang paling umum adalah [Semantic Versioning](https://semver.org/) atau SemVer.
+Dalam Semantic Versioning, sebuah versi memiliki pengenal dalam bentuk MAJOR.MINOR.PATCH di mana masing-masing nilai mengambil nilai integer. Versi singkatnya adalah, upgrade:
 
-- PATCH (e.g., 1.2.3 → 1.2.4) should only contain bug fixes and be fully backwards compatible
-- MINOR (e.g., 1.2.3 → 1.3.0) adds new functionality in a backwards-compatible way
-- MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
+- PATCH (misalnya, 1.2.3 → 1.2.4) seharusnya hanya berisi perbaikan bug dan sepenuhnya kompatibel ke belakang
+- MINOR (misalnya, 1.2.3 → 1.3.0) menambahkan fungsionalitas baru dengan cara yang kompatibel ke belakang
+- MAJOR (misalnya, 1.2.3 → 2.0.0) menunjukkan perubahan yang memecah kompatibilitas (breaking changes) yang mungkin memerlukan modifikasi kode
 
-> This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
+> Ini adalah penyederhanaan dan kami mendorong Anda untuk membaca spesifikasi SemVer lengkap untuk memahami misalnya mengapa berpindah dari 0.1.3 ke 0.2.0 dapat menyebabkan breaking changes atau apa arti 1.0.0-rc.1.
+Pengemasan Python mendukung semantic versioning secara native, jadi ketika kita menentukan versi dependency kita, kita dapat menggunakan berbagai specifier:
 
-In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies:
+Di `pyproject.toml` kita memiliki berbagai cara untuk membatasi rentang versi yang kompatibel dari dependency kita:
 
 ```toml
 [project]
 dependencies = [
-    "requests==2.32.3",  # Exact version - only this specific version
+    "requests==2.32.3",  # Exact Version - only this specific version
     "click>=8.0",        # Minimum version - 8.0 or newer
     "numpy>=1.24,<2.0",  # Range - at least 1.24 but less than 2.0
     "pandas~=2.1.0",     # Compatible release - >=2.1.0 and <2.2.0
 ]
 ```
 
-Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator --- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
+Version specifier ada di banyak package manager (npm, cargo, dll.) dengan semantik yang bervariasi. Operator `~=` adalah operator "compatible release" Python --- `~=2.1.0` berarti "versi apa pun yang kompatibel dengan 2.1.0", yang diterjemahkan menjadi `>=2.1.0` dan `<2.2.0`. Ini kurang lebih setara dengan operator caret (`^`) di npm dan cargo, yang mengikuti notions kompatibilitas SemVer.
 
-Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
+Tidak semua perangkat lunak menggunakan semantic versioning. Alternatif yang umum adalah Calendar Versioning (CalVer), di mana versi didasarkan pada tanggal rilis alih-alih makna semantik. Sebagai contoh, Ubuntu menggunakan versi seperti `24.04` (April 2024) dan `24.10` (Oktober 2024). CalVer memudahkan untuk melihat seberapa lama sebuah rilis, meskipun tidak mengkomunikasikan apa pun tentang kompatibilitas. Terakhir, semantic versioning tidak sempurna, dan terkadang maintainer tanpa sengaja memperkenalkan breaking changes di rilis minor atau patch.
 
 
 # Reproducibility
 
-In modern software development the code you write sits atop a significant number of layers of abstraction.
-This includes things like your programming language runtime, third party libraries, the operating system, or even the hardware itself.
-Any difference across any of these layers might change the behavior of your code or even prevent it from working as intended.
-Furthermore, even differences in the underlying hardware impact your ability to ship software.
+Dalam pengembangan perangkat lunak modern, kode yang Anda tulis berada di atas sejumlah lapisan abstraksi yang signifikan.
+Ini mencakup hal-hal seperti runtime bahasa pemrograman Anda, pustaka pihak ketiga, sistem operasi, atau bahkan hardware itu sendiri.
+Perbedaan apa pun di salah satu lapisan ini dapat mengubah perilaku kode Anda atau bahkan mencegahnya berfungsi sebagaimana mestinya.
+Selain itu, perbedaan dalam hardware yang mendasari juga memengaruhi kemampuan Anda untuk mendistribusikan perangkat lunak.
 
-Pinning a library refers to specifying an exact version rather than a range, e.g. `requests==2.32.3` instead of `requests>=2.0`.
+Pinning sebuah pustaka berarti menentukan versi yang tepat alih-alih rentang, misalnya `requests==2.32.3` alih-alih `requests>=2.0`.
 
-Part of the job of a package manager is to consider all the constraints provided by the dependencies --- and transitive dependencies --- and then produce a valid list of versions that will satisfy all the constraints.
-The specific list of versions can then be saved to a file for reproducibility purposes; these files are referred to as _lock files_.
+Bagian dari tugas package manager adalah mempertimbangkan semua batasan yang diberikan oleh dependency --- dan dependency transitif --- dan kemudian menghasilkan daftar versi yang valid yang akan memenuhi semua batasan.
+Daftar versi spesifik kemudian dapat disimpan ke file untuk keperluan reproducibility; file-file ini disebut sebagai _lock file_.
 
 ```console
 $ uv lock
@@ -362,37 +362,37 @@ wheels = [
 ...
 ```
 
-One critical distinction when dealing with dependency versioning and reproducibility is the difference between libraries and applications/services.
-A library is intended to be imported and used by other code which might have its own dependencies, so specifying overly strict version constraints can cause conflicts with the user's other dependencies.
-In contrast, applications or services are final consumers of the software and typically expose their functionality through a user interface or an API, not through a programming interface.
-For libraries, it is good practice to specify version ranges to maximize compatibility with the wider package ecosystem. For applications, pinning exact versions ensures reproducibility --- everyone running the application uses the exact same dependencies.
+Satu perbedaan penting saat menangani versioning dependency dan reproducibility adalah perbedaan antara pustaka dan aplikasi/layanan.
+Sebuah pustaka dimaksudkan untuk diimpor dan digunakan oleh kode lain yang mungkin memiliki dependency-nya sendiri, sehingga menentukan batasan versi yang terlalu ketat dapat menyebabkan konflik dengan dependency lain milik pengguna.
+Sebaliknya, aplikasi atau layanan adalah konsumen akhir perangkat lunak dan biasanya mengekspos fungsionalitasnya melalui antarmuka pengguna atau API, bukan melalui antarmuka pemrograman.
+Untuk pustaka, praktik yang baik adalah menentukan rentang versi untuk memaksimalkan kompatibilitas dengan ekosistem paket yang lebih luas. Untuk aplikasi, pinning versi yang tepat memastikan reproducibility --- semua orang yang menjalankan aplikasi menggunakan dependency yang sama persis.
 
 
-For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
+Untuk proyek yang membutuhkan reproducibility maksimal, alat seperti [Nix](https://nixos.org/) dan [Bazel](https://bazel.build/) menyediakan build _hermetic_ --- di mana setiap input termasuk compiler, pustaka sistem, dan bahkan environment build itu sendiri dipin dan di-address berdasarkan konten. Ini menjamin output yang identik bit demi bit terlepas dari kapan atau di mana build dijalankan.
 
-> You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
+> Anda bahkan dapat menggunakan NixOS untuk mengelola seluruh instalasi komputer Anda sehingga Anda dapat dengan mudah membuat salinan baru dari setup komputer Anda dan mengelola konfigurasi lengkapnya melalui file konfigurasi yang terkontrol versi.
 
-A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
-We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
+Ketegangan yang tidak pernah berakhir dalam pengembangan perangkat lunak adalah bahwa versi perangkat lunak baru memperkenalkan kerusakan baik secara sengaja maupun tidak sengaja, sementara di sisi lain, versi perangkat lunak lama menjadi rentan terhadap kerentanan keamanan seiring berjalannya waktu.
+Kita dapat mengatasi ini dengan menggunakan pipeline continuous integration (kita akan melihat lebih lanjut di kuliah [Code Quality and CI](/2026/code-quality/)) yang menguji aplikasi kita terhadap versi perangkat lunak baru dan memiliki otomatisasi untuk mendeteksi ketika versi baru dari dependency kita dirilis, seperti [Dependabot](https://github.com/dependabot).
 
-Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
-In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
+Bahkan dengan pengujian CI yang ada, masalah masih terjadi saat mengupgrade versi perangkat lunak, sering kali karena ketidakcocokan yang tak terelakkan antara environment dev dan prod.
+Dalam keadaan tersebut, tindakan terbaik adalah memiliki rencana _rollback_, di mana upgrade versi dibatalkan dan versi yang diketahui baik di-deploy ulang.
 
 # VMs & Containers
 
-As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
-One common reason is having to interface with specific system libraries or hardware drivers.
-For example, in scientific computing and AI, programs often need specialized libraries and drivers to utilize GPU hardware.
-Many system-level dependencies (GPU drivers, specific compiler versions, shared libraries like OpenSSL) still require system-wide installation.
+Saat Anda mulai mengandalkan dependency yang lebih kompleks, kemungkinan dependency kode Anda akan melampaui batas-batas yang dapat ditangani oleh package manager.
+Salah satu alasan umum adalah harus berinteraksi dengan pustaka sistem atau driver hardware tertentu.
+Sebagai contoh, dalam komputasi ilmiah dan AI, program sering membutuhkan pustaka dan driver khusus untuk memanfaatkan hardware GPU.
+Banyak dependency tingkat sistem (driver GPU, versi compiler tertentu, pustaka bersama seperti OpenSSL) masih memerlukan instalasi di seluruh sistem.
 
-Traditionally this wider dependency problem was solved with Virtual Machines (VMs).
-VMs abstract the entire computer and provide a completely isolated environment with its own dedicated operating system.
-A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
-Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
+Secara tradisional, masalah dependency yang lebih luas ini diselesaikan dengan Virtual Machine (VM).
+VM mengabstraksi seluruh komputer dan menyediakan environment yang sepenuhnya terisolasi dengan sistem operasi khusus-nya sendiri.
+Pendekatan yang lebih modern adalah container, yang mengemas sebuah aplikasi beserta dependency, pustaka, dan filesystem-nya, tetapi berbagi kernel sistem operasi host alih-alih memvirtualisasi seluruh komputer.
+Container lebih ringan daripada VM karena mereka berbagi kernel, sehingga lebih cepat untuk dimulai dan lebih efisien untuk dijalankan.
 
-The most popular container platform is [Docker](https://www.docker.com/). Docker introduced a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime --- an industry standard that other tools like Kubernetes also use.
+Platform container yang paling populer adalah [Docker](https://www.docker.com/). Docker memperkenalkan cara standar untuk membangun, mendistribusikan, dan menjalankan container. Di balik layar, Docker menggunakan containerd sebagai container runtime-nya --- standar industri yang juga digunakan oleh alat lain seperti Kubernetes.
 
-Running a container is straightforward. For example, to run a Python interpreter inside a container we use `docker run` (The `-it` flags make the container interactive with a terminal. When you exit, the container stops.).
+Menjalankan container cukup mudah. Sebagai contoh, untuk menjalankan interpreter Python di dalam container kita menggunakan `docker run` (Flag `-it` membuat container bersifat interaktif dengan terminal. Ketika Anda keluar, container berhenti.).
 
 ```console
 $ docker run -it python:3.12 python
@@ -401,9 +401,9 @@ Python 3.12.7 (main, Nov  5 2024, 02:53:25) [GCC 12.2.0] on linux
 Hello from inside a container!
 ```
 
-In practice your program might depend on the entire filesystem.
-To overcome this, we can use container images that ship the entire filesystem of the application as the artifact.
-The container images are created programmatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
+Dalam praktiknya, program Anda mungkin bergantung pada keseluruhan filesystem.
+Untuk mengatasinya, kita dapat menggunakan container image yang mengangkut seluruh filesystem aplikasi sebagai artifact.
+Container image dibuat secara terprogram. Dengan docker kita menentukan secara tepat dependency, pustaka sistem, dan konfigurasi image menggunakan sintaks Dockerfile:
 
 ```dockerfile
 FROM python:3.12
@@ -417,11 +417,11 @@ WORKDIR /app
 RUN pip install .
 ```
 
-An important distinction: a Docker **image** is the packaged artifact (like a template), while a **container** is a running instance of that image. You can run multiple containers from the same image. Images are built in layers, where each instruction (`FROM`, `RUN`, `COPY`, etc) in a Dockerfile creates a new layer. Docker caches these layers, so if you change a line in your Dockerfile, only that layer and subsequent layers need to be rebuilt.
+Perbedaan penting: Docker **image** adalah artifact yang dikemas (seperti template), sedangkan **container** adalah instance yang sedang berjalan dari image tersebut. Anda dapat menjalankan beberapa container dari image yang sama. Image dibangun dalam lapisan, di mana setiap instruksi (`FROM`, `RUN`, `COPY`, dll) di Dockerfile membuat lapisan baru. Docker melakukan cache pada lapisan-lapisan ini, jadi jika Anda mengubah sebuah baris di Dockerfile Anda, hanya lapisan tersebut dan lapisan setelahnya yang perlu dibangun ulang.
 
-The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, versions are not pinned, and it doesn't clean up package manager caches, shipping unnecessary files. Other frequent mistakes include insecurely running containers as root and accidentally embedding secrets in layers.
+Dockerfile sebelumnya memiliki beberapa masalah: menggunakan image Python penuh alih-alih varian slim, menjalankan perintah `RUN` terpisah yang membuat lapisan yang tidak perlu, versi tidak dipin, dan tidak membersihkan cache package manager, sehingga mengangkut file yang tidak perlu. Kesalahan umum lainnya termasuk menjalankan container secara tidak aman sebagai root dan secara tidak sengaja menyematkan secrets di lapisan.
 
-Here's an improved version
+Berikut adalah versi yang lebih baik
 
 ```dockerfile
 FROM python:3.12-slim
@@ -434,19 +434,19 @@ RUN uv pip install --system -r uv.lock
 COPY . /app
 ```
 
-In the previous example we see that instead of installing `uv` from source, we are copying the prebuilt binary from the `ghcr.io/astral-sh/uv:latest` image. This is known as the _builder_ pattern. With this pattern we do not need to ship all the tools needed to compile our code, just the final binary that is needed to run the application (`uv` in this case).
+Pada contoh sebelumnya kita melihat bahwa alih-alih menginstal `uv` dari source, kita menyalin binary yang sudah dibangun dari image `ghcr.io/astral-sh/uv:latest`. Ini dikenal sebagai pola _builder_. Dengan pola ini kita tidak perlu mengangkut semua alat yang dibutuhkan untuk mengompilasi kode kita, hanya binary akhir yang diperlukan untuk menjalankan aplikasi (`uv` dalam kasus ini).
 
-Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
+Docker memiliki batasan-batasan penting yang perlu diperhatikan. Pertama, container image seringkali spesifik terhadap platform --- image yang dibangun untuk `linux/amd64` tidak akan berjalan secara native di `linux/arm64` (Mac Apple Silicon) tanpa emulasi, yang lambat. Kedua, container Docker memerlukan kernel Linux, jadi di macOS dan Windows, Docker sebenarnya menjalankan VM Linux ringan di balik layar, yang menambah overhead. Ketiga, isolasi Docker lebih lemah daripada VM --- container berbagi kernel host, yang menjadi masalah keamanan di environment multi-tenant.
 
-> These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
+> Saat ini, semakin banyak proyek yang juga menggunakan nix untuk mengelola bahkan pustaka "tingkat sistem" dan aplikasi per proyek melalui [nix flakes](https://serokell.io/blog/practical-nix-flakes).
 
 # Configuration
 
-Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
-Software configuration should not be embedded in the code but be provided at runtime.
-A couple of common ones being environment variables and config files.
+Perangkat lunak pada dasarnya dapat dikonfigurasi. Dalam kuliah [command line environment](/2026/command-line-environment/) kita melihat program menerima opsi melalui flag, environment variable, atau bahkan file konfigurasi alias dotfiles. Hal ini berlaku bahkan untuk aplikasi yang lebih kompleks, dan terdapat pola yang sudah mapan untuk mengelola konfigurasi dalam skala besar.
+Konfigurasi perangkat lunak tidak boleh disematkan di dalam kode tetapi harus disediakan saat runtime.
+Beberapa yang umum adalah environment variable dan file konfigurasi.
 
-Here's an example of an application that is configured via environment variables:
+Berikut adalah contoh sebuah aplikasi yang dikonfigurasi melalui environment variable:
 
 ```python
 import os
@@ -456,7 +456,7 @@ DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 API_KEY = os.environ["API_KEY"]  # Required - will raise if not set
 ```
 
-An application could also be configured via a configuration file (e.g., a Python program that loads a config via `yaml.load`), `config.yaml`:
+Sebuah aplikasi juga dapat dikonfigurasi melalui file konfigurasi (misalnya, program Python yang memuat konfigurasi melalui `yaml.load`), `config.yaml`:
 
 ```yaml
 database:
@@ -468,22 +468,22 @@ server:
   debug: false
 ```
 
-A good right-hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
+Aturan praktis yang baik untuk memikirkan konfigurasi adalah bahwa codebase yang sama harus dapat di-deploy ke environment yang berbeda (development, staging, production) hanya dengan perubahan konfigurasi, bukan perubahan kode.
 
-Among the many configuration options there is often sensitive data such as API keys.
-Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
+Di antara banyak opsi konfigurasi, sering kali terdapat data sensitif seperti API key.
+Secrets perlu ditangani dengan hati-hati untuk menghindari paparan yang tidak disengaja, dan tidak boleh disertakan dalam version control.
 
 
 # Services & Orchestration
 
-Modern applications rarely exist in isolation. A typical web application might need a database for persistent storage, a cache for performance, a message queue for background tasks, and various other supporting services. Rather than bundling everything into a single monolithic application, modern architectures often decompose functionality into separate services that can be developed, deployed, and scaled independently.
+Aplikasi modern jarang ada dalam isolasi. Sebuah aplikasi web tipikal mungkin membutuhkan database untuk penyimpanan persisten, cache untuk performa, message queue untuk tugas latar belakang, dan berbagai layanan pendukung lainnya. Daripada menggabungkan semuanya menjadi satu aplikasi monolitik, arsitektur modern sering menguraikan fungsionalitas menjadi layanan terpisah yang dapat dikembangkan, di-deploy, dan di-scale secara independen.
 
-As an example, if we determine our application might benefit from using a cache, instead of rolling our own we can leverage existing battle tested solutions like [Redis](https://redis.io/) or [Memcached](https://memcached.org/).
-We could embed Redis in our application dependencies by building it as part of the container, but that means harmonizing all the dependencies between Redis and our application which could be challenging or even unfeasible.
-Instead what we can do is deploy each application separately in its own container.
-This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs.
+Sebagai contoh, jika kita menentukan bahwa aplikasi kita mungkin mendapat manfaat dari penggunaan cache, alih-alih membuatnya sendiri kita dapat memanfaatkan solusi yang sudah teruji seperti [Redis](https://redis.io/) atau [Memcached](https://memcached.org/).
+Kita bisa menyematkan Redis di dependency aplikasi kita dengan membangunnya sebagai bagian dari container, tetapi itu berarti menyelaraskan semua dependency antara Redis dan aplikasi kita yang bisa menantang atau bahkan tidak layak.
+Sebaliknya, yang dapat kita lakukan adalah men-deploy setiap aplikasi secara terpisah di container-nya sendiri.
+Ini sering disebut sebagai arsitektur microservice di mana setiap komponen berjalan sebagai layanan independen yang berkomunikasi melalui jaringan, biasanya melalui API HTTP.
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together. Now our full application encompasses more than one container:
+[Docker Compose](https://docs.docker.com/compose/) adalah alat untuk mendefinisikan dan menjalankan aplikasi multi-container. Alih-alih mengelola container secara individual, Anda mendeklarasikan semua layanan dalam satu file YAML dan mengorkestrasikannya bersama. Sekarang aplikasi lengkap kita mencakup lebih dari satu container:
 
 ```yaml
 # docker-compose.yml
@@ -506,10 +506,10 @@ volumes:
   redis_data:
 ```
 
-With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
-Docker Compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
+Dengan `docker compose up`, kedua layanan dimulai bersama, dan aplikasi web dapat terhubung ke Redis menggunakan hostname `cache` (DNS internal Docker menyelesaikan nama layanan secara otomatis).
+Docker Compose memungkinkan kita mendeklarasikan bagaimana kita ingin men-deploy satu atau lebih layanan, dan menangani orkestrasi untuk memulai mereka bersama, mengatur jaringan di antara mereka, dan mengelola volume bersama untuk persistensi data.
 
-For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
+Untuk deployment production, Anda sering ingin layanan docker compose Anda dimulai secara otomatis saat boot dan dimulai ulang saat terjadi kegagalan. Pendekatan yang umum adalah menggunakan systemd untuk mengelola deployment docker compose:
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -529,11 +529,11 @@ ExecStop=/usr/bin/docker compose down
 WantedBy=multi-user.target
 ```
 
-This systemd unit file ensures your application starts when the system boots (after Docker is ready), and provides standard controls like `systemctl start myapp`, `systemctl stop myapp`, and `systemctl status myapp`.
+File unit systemd ini memastikan aplikasi Anda dimulai ketika sistem boot (setelah Docker siap), dan menyediakan kontrol standar seperti `systemctl start myapp`, `systemctl stop myapp`, dan `systemctl status myapp`.
 
-As deployment requirements grow more complex --- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees --- organizations turn to sophisticated container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. That said, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
+Seiring kebutuhan deployment yang semakin kompleks --- membutuhkan skalabilitas di beberapa mesin, toleransi kesalahan saat layanan crash, dan jaminan ketersediaan tinggi --- organisasi beralih ke platform orkestrasi container yang canggih seperti Kubernetes (k8s), yang dapat mengelola ribuan container di seluruh cluster mesin. Meskipun demikian, Kubernetes memiliki kurva pembelajaran yang curam dan overhead operasional yang signifikan, sehingga sering berlebihan untuk proyek yang lebih kecil.
 
-This multi-container setup is partly feasible because modern services communicate with each other via standardized APIs, with HTTP REST APIs. For example, whenever a program interacts with an LLM provider like OpenAI or Anthropic, under the hood it is sending an HTTP request to their servers and parsing the response:
+Setup multi-container ini sebagian memungkinkan karena layanan modern berkomunikasi satu sama lain melalui API yang terstandarisasi, dengan HTTP REST API. Sebagai contoh, setiap kali sebuah program berinteraksi dengan penyedia LLM seperti OpenAI atau Anthropic, di balik layar ia mengirim permintaan HTTP ke server mereka dan mengurai responsnya:
 
 ```console
 $ curl https://api.anthropic.com/v1/messages \
@@ -546,17 +546,17 @@ $ curl https://api.anthropic.com/v1/messages \
 
 # Publishing
 
-Once you have shown your code to work, you might be interested in distributing it for others to download and install.
-Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
+Setelah Anda menunjukkan bahwa kode Anda berfungsi, Anda mungkin tertarik untuk mendistribusikannya agar orang lain dapat mengunduh dan menginstalnya.
+Distribusi memiliki banyak bentuk dan terkait erat dengan bahasa pemrograman dan environment yang Anda gunakan.
 
-The simplest form of distribution is uploading artifacts for people to download and install locally.
-This is still common and you can find it in places like [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/), which is essentially an HTTP directory listing of `.deb` files.
+Bentuk distribusi paling sederhana adalah mengunggah artifact untuk orang lain unduh dan instal secara lokal.
+Ini masih umum dan Anda dapat menemukannya di tempat-tempat seperti [arsip paket Ubuntu](http://archive.ubuntu.com/ubuntu/pool/main/), yang pada dasarnya adalah daftar direktori HTTP dari file `.deb`.
 
-These days, GitHub has become the de facto platform for publishing source code and artifacts.
-While the source code is often publicly available, GitHub Releases allow maintainers to attach prebuilt binaries and other artifacts to tagged versions.
+Saat ini, GitHub telah menjadi platform de facto untuk mempublikasikan source code dan artifact.
+Meskipun source code sering tersedia secara publik, GitHub Releases memungkinkan maintainer untuk melampirkan binary yang sudah dibangun dan artifact lainnya ke versi yang di-tag.
 
 
-Package managers sometimes support installing directly from GitHub, either from source or from a pre-built wheel:
+Package manager terkadang mendukung menginstal langsung dari GitHub, baik dari source maupun dari wheel yang sudah dibangun:
 
 ```console
 # Install from source (will clone and build)
@@ -569,8 +569,8 @@ $ pip install git+https://github.com/psf/requests.git@v2.32.3
 $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
-In fact, some languages like Go use a decentralized distribution model --- rather than a central package repository, Go modules are distributed directly from their source code repositories.
-Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo`, or `brew` have central indexes of pre-packaged projects for ease of distribution and installation. If we run
+Faktanya, beberapa bahasa seperti Go menggunakan model distribusi terdesentralisasi --- alih-alih repositori paket terpusat, modul Go didistribusikan langsung dari repositori source code mereka.
+Path modul seperti `github.com/gorilla/mux` menunjukkan di mana kode berada, dan `go get` mengambil langsung dari sana. Namun, sebagian besar package manager seperti `pip`, `cargo`, atau `brew` memiliki indeks terpusat dari proyek yang sudah dikemas untuk kemudahan distribusi dan instalasi. Jika kita menjalankan
 
 ```console
 $ uv pip install requests --verbose --no-cache 2>&1 | grep -F '.whl'
@@ -579,18 +579,18 @@ DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3ea
 DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl
 ```
 
-we see where we are fetching the `requests` wheel from. Notice the `py3-none-any` in the filename --- this means the wheel works with any Python 3 version, on any OS, on any architecture. For packages with compiled code, the wheel is platform-specific:
+kita melihat dari mana kita mengambil wheel `requests`. Perhatikan `py3-none-any` di nama file --- ini berarti wheel berfungsi dengan versi Python 3 apa pun, di OS apa pun, di arsitektur apa pun. Untuk paket dengan kode yang dikompilasi, wheel-nya spesifik terhadap platform:
 
 ```console
 $ uv pip install numpy --verbose --no-cache 2>&1 | grep -F '.whl'
 DEBUG Selecting: numpy==2.2.1 [compatible] (numpy-2.2.1-cp312-cp312-macosx_14_0_arm64.whl)
 ```
 
-Here `cp312-cp312-macosx_14_0_arm64` indicates this wheel is specifically for CPython 3.12 on macOS 14+ for ARM64 (Apple Silicon). If you're on a different platform, `pip` will download a different wheel or build from source.
+Di sini `cp312-cp312-macosx_14_0_arm64` menunjukkan bahwa wheel ini khusus untuk CPython 3.12 di macOS 14+ untuk ARM64 (Apple Silicon). Jika Anda berada di platform yang berbeda, `pip` akan mengunduh wheel yang berbeda atau membangun dari source.
 
-Conversely, for people to be able to find a package we've created, we need to publish it to one of these registries.
-In Python, the main registry is the [Python Package Index (PyPI)](https://pypi.org).
-Like with installing, there are multiple ways of publishing packages. The `uv publish` command provides a modern interface for uploading packages to PyPI:
+Sebaliknya, agar orang lain dapat menemukan paket yang telah kita buat, kita perlu mempublikasikannya ke salah satu registri ini.
+Di Python, registri utama adalah [Python Package Index (PyPI)](https://pypi.org).
+Seperti halnya menginstal, ada beberapa cara untuk mempublikasikan paket. Perintah `uv publish` menyediakan antarmuka modern untuk mengunggah paket ke PyPI:
 
 ```console
 $ uv publish --publish-url https://test.pypi.org/legacy/
@@ -598,33 +598,33 @@ Publishing greeting-0.1.0.tar.gz
 Publishing greeting-0.1.0-py3-none-any.whl
 ```
 
-Here we are using [TestPyPI](https://test.pypi.org) --- a separate package registry intended for testing your publishing workflow without polluting the real PyPI. Once uploaded, you can install from TestPyPI:
+Di sini kita menggunakan [TestPyPI](https://test.pypi.org) --- registri paket terpisah yang ditujukan untuk menguji alur kerja publishing Anda tanpa mengotori PyPI yang sebenarnya. Setelah diunggah, Anda dapat menginstal dari TestPyPI:
 
 ```console
 $ uv pip install --index-url https://test.pypi.org/simple/ greeting
 ```
 
-A key consideration when publishing software is trust. How do users verify that the package they download actually comes from you and hasn't been tampered with? Package registries use checksums to verify integrity, and some ecosystems support package signing to provide cryptographic proof of authorship.
+Pertimbangan penting saat mempublikasikan perangkat lunak adalah kepercayaan. Bagaimana pengguna memverifikasi bahwa paket yang mereka unduh benar-benar berasal dari Anda dan belum diubah? Registri paket menggunakan checksum untuk memverifikasi integritas, dan beberapa ekosistem mendukung penandatanganan paket untuk memberikan bukti kriptografis kepengarangan.
 
-Different languages have their own package registries: [crates.io](https://crates.io) for Rust, [npm](https://www.npmjs.com) for JavaScript, [RubyGems](https://rubygems.org) for Ruby, and [Docker Hub](https://hub.docker.com) for container images. Meanwhile, for private or internal packages, organizations often deploy their own package repositories (such as a private PyPI server or a private Docker registry) or use managed solutions from cloud providers.
+Bahasa yang berbeda memiliki registri paket mereka sendiri: [crates.io](https://crates.io) untuk Rust, [npm](https://www.npmjs.com) untuk JavaScript, [RubyGems](https://rubygems.org) untuk Ruby, dan [Docker Hub](https://hub.docker.com) untuk container image. Sementara itu, untuk paket pribadi atau internal, organisasi sering men-deploy repositori paket mereka sendiri (seperti server PyPI pribadi atau registri Docker pribadi) atau menggunakan solusi terkelola dari penyedia cloud.
 
-Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
+Men-deploy layanan web ke internet melibatkan infrastruktur tambahan: pendaftaran nama domain, konfigurasi DNS untuk mengarahkan domain Anda ke server Anda, dan sering kali reverse proxy seperti nginx untuk menangani HTTPS dan merutekan traffic. Untuk kasus penggunaan yang lebih sederhana seperti dokumentasi atau situs statis, [GitHub Pages](https://pages.github.com/) menyediakan hosting gratis langsung dari repositori.
 
 <!--
 ## Documentation
 
-So far we have emphasized the deliverable _artifact_ as the main output of packaging and shipping code.
-In addition to the artifact, we need to document for users the code's functionality, installation instructions, and usage examples.
+Sejauh ini kita telah menekankan _artifact_ deliverable sebagai output utama dari pengemasan dan distribusi kode.
+Selain artifact, kita perlu mendokumentasikan untuk pengguna tentang fungsionalitas kode, instruksi instalasi, dan contoh penggunaan.
 
-Tools like [Sphinx](https://www.sphinx-doc.org/) (Python) and [MkDocs](https://www.mkdocs.org/) can automatically generate browsable documentation from docstrings and markdown files, often hosted on services like [Read the Docs](https://readthedocs.org/).
-For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (formerly Swagger) provides a standard format for describing API endpoints, which tools can use to generate interactive documentation and client libraries automatically. -->
+Alat seperti [Sphinx](https://www.sphinx-doc.org/) (Python) dan [MkDocs](https://www.mkdocs.org/) dapat secara otomatis menghasilkan dokumentasi yang dapat ditelusuri dari docstring dan file markdown, sering di-host di layanan seperti [Read the Docs](https://readthedocs.org/).
+Untuk API berbasis HTTP, [spesifikasi OpenAPI](https://www.openapis.org/) (sebelumnya Swagger) menyediakan format standar untuk mendeskripsikan endpoint API, yang dapat digunakan oleh alat untuk menghasilkan dokumentasi interaktif dan pustaka klien secara otomatis. -->
 
 
 # Exercises
 
-1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
-1. Create a Python package with a `pyproject.toml` and install it in a virtual environment. Create a lockfile and inspect it.
-1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
-1. Write a Dockerfile for a simple Python application. Then write a `docker-compose.yml` that runs your application alongside a Redis cache.
-1. Publish a Python package to TestPyPI (don't publish to the real PyPI unless it's worth sharing!). Then build a Docker image with said package and push it to `ghcr.io`.
-1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra (non-)credit: configure it with a custom domain.
+1. Simpan environment Anda dengan `printenv` ke sebuah file, buat sebuah venv, aktifkan, `printenv` ke file lain dan `diff before.txt after.txt`. Apa yang berubah di environment? Mengapa shell lebih memilih venv? (Petunjuk: lihat `$PATH` sebelum dan setelah aktivasi.) Jalankan `which deactivate` dan pikirkan tentang apa yang dilakukan fungsi bash deactivate.
+1. Buat sebuah paket Python dengan `pyproject.toml` dan instal di virtual environment. Buat lockfile dan periksa isinya.
+1. Instal Docker dan gunakan untuk membangun website kelas Missing Semester secara lokal menggunakan docker compose.
+1. Tulis sebuah Dockerfile untuk aplikasi Python sederhana. Kemudian tulis `docker-compose.yml` yang menjalankan aplikasi Anda bersama dengan cache Redis.
+1. Publikasikan sebuah paket Python ke TestPyPI (jangan publikasikan ke PyPI yang sebenarnya kecuali memang layak untuk dibagikan!). Kemudian bangun sebuah Docker image dengan paket tersebut dan push ke `ghcr.io`.
+1. Buat sebuah website menggunakan [GitHub Pages](https://docs.github.com/en/pages/quickstart). Nilai tambah (non-)kredit: konfigurasikan dengan domain kustom.
