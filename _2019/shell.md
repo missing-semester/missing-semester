@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Shell and Scripting"
+title: "Shell dan Scripting"
 presenter: Jon
 date: 2019-01-15
 order: 3
@@ -9,276 +9,276 @@ video:
   id: dbDRfmH5uSI
 ---
 
-The shell is an efficient, textual interface to your computer.
+Shell adalah antarmuka tekstual yang efisien untuk komputer Anda.
 
-The shell prompt: what greets you when you open a terminal.
-Lets you run programs and commands; common ones are:
+Prompt shell: apa yang menyambut Anda ketika Anda membuka terminal.
+Memungkinkan Anda menjalankan program dan perintah; yang umum adalah:
 
- - `cd` to change directory
- - `ls` to list files and directories
- - `mv` and `cp` to move and copy files
+ - `cd` untuk berpindah direktori
+ - `ls` untuk menampilkan daftar file dan direktori
+ - `mv` dan `cp` untuk memindahkan dan menyalin file
 
-But the shell lets you do _so_ much more; you can invoke any program on
-your computer, and command-line tools exist for doing pretty much
-anything you may want to do. And they're often more efficient than their
-graphical counterparts. We'll go through a bunch of those in this class.
+Namun shell memungkinkan Anda melakukan _jauh_ lebih banyak; Anda dapat menjalankan program apa pun di
+komputer Anda, dan alat baris perintah tersedia untuk melakukan hampir semua
+yang mungkin ingin Anda lakukan. Dan mereka sering kali lebih efisien daripada
+padanan grafisnya. Kita akan membahas beberapa di antaranya di kelas ini.
 
-The shell provides an interactive programming language ("scripting").
-There are many shells:
+Shell menyediakan bahasa pemrograman interaktif ("scripting").
+Ada banyak shell:
 
- - You've probably used `sh` or `bash`.
- - Also shells that match languages: `csh`.
- - Or "better" shells: `fish`, `zsh`, `ksh`.
+ - Anda mungkin sudah menggunakan `sh` atau `bash`.
+ - Ada juga shell yang sesuai dengan bahasa: `csh`.
+ - Atau shell yang "lebih baik": `fish`, `zsh`, `ksh`.
 
-In this class we'll focus on the ubiquitous `sh` and `bash`, but feel
-free to play around with others. I like `fish`.
+Di kelas ini kita akan fokus pada `sh` dan `bash` yang ada di mana-mana, tetapi jangan
+ragu untuk bereksperimen dengan yang lain. Saya suka `fish`.
 
-Shell programming is a *very* useful tool in your toolbox.
-Can either write programs directly at the prompt, or into a file.
-`#!/bin/sh` + `chmod +x` to make shell executable.
+Pemrograman shell adalah alat yang *sangat* berguna dalam kotak peralatan Anda.
+Anda dapat menulis program langsung di prompt, atau ke dalam file.
+`#!/bin/sh` + `chmod +x` untuk membuat shell dapat dieksekusi.
 
-## Working with the shell
+## Bekerja dengan shell
 
-Run a command a bunch of times:
+Jalankan perintah berulang kali:
 
 ```bash
 for i in $(seq 1 5); do echo hello; done
 ```
 
-There's a lot to unpack:
+Ada banyak yang harus diurai:
 
  - `for x in list; do BODY; done`
-   - `;` terminates a command -- equivalent to newline
-   - split `list`, assign each to `x`, and run body
-   - splitting is "whitespace splitting", which we'll get back to
-   - no curly braces in shell, so `do` + `done`
+    - `;` mengakhiri perintah -- setara dengan baris baru
+    - pisahkan `list`, tetapkan masing-masing ke `x`, dan jalankan body
+    - pemisahan adalah "whitespace splitting", yang akan kita bahas kembali
+    - tidak ada kurung kurawal di shell, jadi `do` + `done`
  - `$(seq 1 5)`
-   - run the program `seq` with arguments `1` and `5`
-   - substitute entire `$()` with the output of that program
-   - equivalent to
-     ```bash
-     for i in 1 2 3 4 5
-     ```
+    - jalankan program `seq` dengan argumen `1` dan `5`
+    - ganti seluruh `$()` dengan output dari program tersebut
+    - setara dengan
+      ```bash
+      for i in 1 2 3 4 5
+      ```
  - `echo hello`
-   - everything in a shell script is a command
-   - in this case, run the `echo` command, which prints its arguments
-     with the argument `hello`.
-   - all commands are searched for in `$PATH` (colon-separated)
+    - semua hal dalam script shell adalah perintah
+    - dalam hal ini, jalankan perintah `echo`, yang mencetak argumennya
+      dengan argumen `hello`.
+    - semua perintah dicari di `$PATH` (dipisahkan dengan tanda titik dua)
 
-We have variables:
+Kita memiliki variabel:
 ```bash
 for f in $(ls); do echo $f; done
 ```
 
-Will print each file name in the current directory.
-Can also set variables using `=` (no space!):
+Akan mencetak nama setiap file di direktori saat ini.
+Anda juga dapat mengatur variabel menggunakan `=` (tanpa spasi!):
 
 ```bash
 foo=bar
 echo $foo
 ```
 
-There are a bunch of "special" variables too:
+Ada juga sejumlah variabel "khusus":
 
- - `$1` to `$9`: arguments to the script
- - `$0` name of the script itself
- - `$#` number of arguments
- - `$$` process ID of current shell
+ - `$1` hingga `$9`: argumen untuk script
+ - `$0` nama script itu sendiri
+ - `$#` jumlah argumen
+ - `$$` process ID dari shell saat ini
 
-To only print directories
+Untuk hanya mencetak direktori
 
 ```bash
 for f in $(ls); do if test -d $f; then echo dir $f; fi; done
 ```
 
-More to unpack here:
+Lebih banyak yang harus diurai di sini:
 
  - `if CONDITION; then BODY; fi`
-   - `CONDITION` is a command; if it returns with exit status 0
-     (success), then `BODY` is run.
-   - can also hook in an `else` or `elif`
-   - again, no curly braces, so `then` + `fi`
- - `test` is another program that provides various checks and
-   comparisons, and exits with 0 if they're true (`$?`)
-   - `man COMMAND` is your friend: `man test`
-   - can also be invoked with `[` + `]`: `[ -d $f ]`
-     - take a look at `man test` and `which "["`
+    - `CONDITION` adalah perintah; jika mengembalikan status keluar 0
+      (sukses), maka `BODY` dijalankan.
+    - juga dapat menambahkan `else` atau `elif`
+    - sekali lagi, tidak ada kurung kurawal, jadi `then` + `fi`
+ - `test` adalah program lain yang menyediakan berbagai pemeriksaan dan
+    perbandingan, dan keluar dengan 0 jika benar (`$?`)
+    - `man COMMAND` adalah teman Anda: `man test`
+    - juga dapat dipanggil dengan `[` + `]`: `[ -d $f ]`
+      - lihat `man test` dan `which "["`
 
-But wait! This is wrong! What if a file is called "My Documents"?
+Tapi tunggu! Ini salah! Bagaimana jika sebuah file bernama "My Documents"?
 
- - `for f in $(ls)` expands to `for f in My Documents`
- - first do the test on `My`, then on `Documents`
- - not what we wanted!
- - biggest source of bugs in shell scripts
+ - `for f in $(ls)` menjadi `for f in My Documents`
+ - pertama lakukan pengujian pada `My`, kemudian pada `Documents`
+ - bukan itu yang kita inginkan!
+ - sumber bug terbesar dalam script shell
 
-## Argument splitting
+## Pemisahan argumen
 
-Bash splits arguments by whitespace; not always what you want!
+Bash memisahkan argumen berdasarkan spasi; tidak selalu sesuai yang Anda inginkan!
 
- - need to use quoting to handle spaces in arguments
-   `for f in "My Documents"` would work correctly
- - same problem somewhere else -- do you see where?
-   `test -d $f`: if `$f` contains whitespace, `test` will error!
- - `echo` happens to be okay, because split + join by space
-   but what if a filename contains a newline?! turns into space!
- - quote all use of variables that you don't want split
- - but how do we fix our script above?
-   what do you think `for f in "$(ls)"` does?
+ - perlu menggunakan tanda kutip untuk menangani spasi dalam argumen
+    `for f in "My Documents"` akan bekerja dengan benar
+ - masalah yang sama di tempat lain -- apakah Anda melihat di mana?
+    `test -d $f`: jika `$f` mengandung spasi, `test` akan error!
+ - `echo` kebetulan aman, karena pisahkan + gabungkan dengan spasi
+    tapi bagaimana jika nama file mengandung baris baru?! berubah menjadi spasi!
+ - kutip semua penggunaan variabel yang tidak ingin Anda pisahkan
+ - tapi bagaimana kita memperbaiki script di atas?
+    menurut Anda apa yang dilakukan `for f in "$(ls)"`?
 
-Globbing is the answer!
+Globbing adalah jawabannya!
 
- - bash knows how to look for files using patterns:
-   - `*` any string of characters
-   - `?` any single character
-   - `{a,b,c}` any of these characters
- - `for f in *`: all files in this directory
- - when globbing, each matching file becomes its own argument
-   - still need to make sure to quote when _using_: `test -d "$f"`
- - can make advanced patterns:
-   - `for f in a*`: all files starting with `a` in the current directory
-   - `for f in foo/*.txt`: all `.txt` files in `foo`
-   - `for f in foo/*/p??.txt`
-     all three-letter text files starting with p in subdirs of `foo`
+ - bash tahu cara mencari file menggunakan pola:
+    - `*` string karakter apa pun
+    - `?` satu karakter apa pun
+    - `{a,b,c}` salah satu dari karakter-karakter ini
+ - `for f in *`: semua file di direktori ini
+ - saat globbing, setiap file yang cocok menjadi argumen tersendiri
+    - tetap perlu memastikan untuk mengutip saat _menggunakan_: `test -d "$f"`
+ - dapat membuat pola tingkat lanjut:
+    - `for f in a*`: semua file yang dimulai dengan `a` di direktori saat ini
+    - `for f in foo/*.txt`: semua file `.txt` di `foo`
+    - `for f in foo/*/p??.txt`
+      semua file teks tiga huruf yang dimulai dengan p di subdirektori `foo`
 
-Whitespace issues don't stop there:
+Masalah spasi tidak berhenti di situ:
 
- - `if [ $foo = "bar" ]; then` -- see the issue?
- - what if `$foo` is empty? arguments to `[` are `=` and `bar`...
- - _can_ work around this with `[ x$foo = "xbar" ]`, but bleh
- - instead, use `[[`: bash built-in comparator that has special parsing
-   - also allows `&&` instead of `-a`, `||` over `-o`, etc.
+ - `if [ $foo = "bar" ]; then` -- melihat masalahnya?
+ - bagaimana jika `$foo` kosong? argumen untuk `[` adalah `=` dan `bar`...
+ - _bisa_ mengatasinya dengan `[ x$foo = "xbar" ]`, tapi tidak elegan
+ - sebaliknya, gunakan `[[`: comparator bawaan bash yang memiliki parsing khusus
+    - juga mengizinkan `&&` sebagai ganti `-a`, `||` sebagai ganti `-o`, dll.
 
 <!-- TODO: arrays? $@. ${array[@]} vs "${array[@]}". -->
 
-## Composability
+## Komposabilitas
 
-Shell is powerful in part because of composability. Can chain multiple
-programs together rather than have one program that does everything.
+Shell sangat kuat sebagian karena komposabilitasnya. Anda dapat merantai beberapa
+program bersama-sama daripada memiliki satu program yang melakukan semuanya.
 
-The key character is `|` (pipe).
+Karakter kuncinya adalah `|` (pipe).
 
- - `a | b` means run both `a` and `b`
-   send all output of `a` as input to `b`
-   print the output of `b`
+ - `a | b` berarti jalankan `a` dan `b`
+    kirim semua output `a` sebagai input ke `b`
+    cetak output `b`
 
-All programs you launch ("processes") have three "streams":
+Semua program yang Anda jalankan ("proses") memiliki tiga "stream":
 
- - `STDIN`: when the program reads input, it comes from here
- - `STDOUT`: when the program prints something, it goes here
- - `STDERR`: a 2nd output the program can choose to use
- - by default, `STDIN` is your keyboard, `STDOUT` and `STDERR` are both
-   your terminal. but you can change that!
-   - `a | b` makes `STDOUT` of `a` `STDIN` of `b`.
-   - also have:
-     - `a > foo` (`STDOUT` of `a` goes to the file `foo`)
-     - `a 2> foo` (`STDERR` of `a` goes to the file `foo`)
-     - `a < foo` (`STDIN` of `a` is read from the file `foo`)
-     - hint: `tail -f` will print a file as it's being written
- - why is this useful? lets you manipulate output of a program!
-   - `ls | grep foo`: all files that contain the word `foo`
-   - `ps | grep foo`: all processes that contain the word `foo`
-   - `journalctl | grep -i intel | tail -n5`:
-     last 5 system log messages with the word intel (case insensitive)
-   - `who | sendmail -t me@example.com`
-     send the list of logged-in users to `me@example.com`
-   - forms the basis for much data-wrangling, as we'll cover later
+ - `STDIN`: ketika program membaca input, input berasal dari sini
+ - `STDOUT`: ketika program mencetak sesuatu, hasilnya pergi ke sini
+ - `STDERR`: output kedua yang dapat digunakan oleh program
+ - secara default, `STDIN` adalah keyboard Anda, `STDOUT` dan `STDERR` keduanya
+    adalah terminal Anda. tetapi Anda dapat mengubahnya!
+    - `a | b` membuat `STDOUT` dari `a` menjadi `STDIN` dari `b`.
+    - juga ada:
+      - `a > foo` (`STDOUT` dari `a` pergi ke file `foo`)
+      - `a 2> foo` (`STDERR` dari `a` pergi ke file `foo`)
+      - `a < foo` (`STDIN` dari `a` dibaca dari file `foo`)
+      - petunjuk: `tail -f` akan mencetak file saat file tersebut ditulis
+ - mengapa ini berguna? memungkinkan Anda memanipulasi output dari sebuah program!
+    - `ls | grep foo`: semua file yang mengandung kata `foo`
+    - `ps | grep foo`: semua proses yang mengandung kata `foo`
+    - `journalctl | grep -i intel | tail -n5`:
+      5 pesan log sistem terakhir dengan kata intel (tidak membedakan huruf besar/kecil)
+    - `who | sendmail -t me@example.com`
+      kirim daftar pengguna yang login ke `me@example.com`
+    - membentuk dasar untuk banyak pengolahan data, seperti yang akan kita bahas nanti
 
-Bash also provides a number of other ways to compose programs.
+Bash juga menyediakan sejumlah cara lain untuk menggabungkan program.
 
-You can group commands with `(a; b) | tac`: run `a`, then `b`, and send
-all their output to `tac`, which prints its input in reverse order.
+Anda dapat mengelompokkan perintah dengan `(a; b) | tac`: jalankan `a`, lalu `b`, dan kirim
+semua output mereka ke `tac`, yang mencetak inputnya dalam urutan terbalik.
 
-A lesser-known, but super useful one is _process substitution_.
-`b <(a)` will run `a`, generate a temporary file-name for its output
-stream, and pass that file-name to `b`. For example:
+Yang kurang dikenal, tetapi sangat berguna adalah _process substitution_.
+`b <(a)` akan menjalankan `a`, menghasilkan nama file sementara untuk stream
+outputnya, dan meneruskan nama file tersebut ke `b`. Sebagai contoh:
 
 ```bash
 diff <(journalctl -b -1 | head -n20) <(journalctl -b -2 | head -n20)
 ```
-will show you the difference between the first 20 lines of the last boot
-log and the one before that.
+akan menunjukkan perbedaan antara 20 baris pertama dari log boot terakhir
+dan satu sebelumnya.
 
 <!-- TODO: exit codes? -->
 
-## Job and process control
+## Kontrol job dan proses
 
-What if you want to run longer-term things in the background?
+Bagaimana jika Anda ingin menjalankan hal-hal jangka panjang di latar belakang?
 
- - the `&` suffix runs a program "in the background"
-   - it will give you back your prompt immediately
-   - handy if you want to run two programs at the same time
-     like a server and client: `server & client`
-   - note that the running program still has your terminal as `STDOUT`!
-     try: `server > server.log & client`
- - see all such processes with `jobs`
-   - notice that it shows "Running"
- - bring it to the foreground with `fg %JOB` (no argument is latest)
- - if you want to background the current program: `^Z` + `bg` (Here `^Z` means pressing `Ctrl+Z`)
-   - `^Z` stops the current process and makes it a "job"
-   - `bg` runs the last job in the background (as if you did `&`)
- - background jobs are still tied to your current session, and exit if
-   you log out. `disown` lets you sever that connection. or use `nohup`.
- - `$!` is pid of last background process
+ - sufiks `&` menjalankan program "di latar belakang"
+    - akan segera memberikan Anda prompt kembali
+    - berguna jika Anda ingin menjalankan dua program secara bersamaan
+      seperti server dan client: `server & client`
+    - perhatikan bahwa program yang berjalan masih memiliki terminal Anda sebagai `STDOUT`!
+      coba: `server > server.log & client`
+ - lihat semua proses tersebut dengan `jobs`
+    - perhatikan bahwa ia menampilkan "Running"
+ - bawa ke foreground dengan `fg %JOB` (tanpa argumen adalah yang terbaru)
+ - jika Anda ingin memindahkan program saat ini ke latar belakang: `^Z` + `bg` (Di sini `^Z` berarti menekan `Ctrl+Z`)
+    - `^Z` menghentikan proses saat ini dan menjadikannya "job"
+    - `bg` menjalankan job terakhir di latar belakang (seolah-olah Anda melakukan `&`)
+ - job latar belakang masih terikat ke sesi Anda saat ini, dan keluar jika
+    Anda logout. `disown` memungkinkan Anda memutus koneksi tersebut. atau gunakan `nohup`.
+ - `$!` adalah pid dari proses latar belakang terakhir
 
 <!-- TODO: process output control (^S and ^Q)? -->
 
-What about other stuff running on your computer?
+Bagaimana dengan hal lain yang berjalan di komputer Anda?
 
- - `ps` is your friend: lists running processes
-   - `ps -A`: print processes from all users (also `ps ax`)
-   - `ps` has *many* arguments: see `man ps`
- - `pgrep`: find processes by searching (like `ps -A | grep`)
-   - `pgrep -af`: search and display with arguments
- - `kill`: send a _signal_ to a process by ID (`pkill` by search + `-f`)
-   - signals tell a process to "do something"
-   - most common: `SIGKILL` (`-9` or `-KILL`): tell it to exit *now*
-     equivalent to `^\`
-   - also `SIGTERM` (`-15` or `-TERM`): tell it to exit gracefully
-     equivalent to `^C`
+ - `ps` adalah teman Anda: menampilkan daftar proses yang berjalan
+    - `ps -A`: cetak proses dari semua pengguna (juga `ps ax`)
+    - `ps` memiliki *banyak* argumen: lihat `man ps`
+ - `pgrep`: cari proses dengan pencarian (seperti `ps -A | grep`)
+    - `pgrep -af`: cari dan tampilkan dengan argumen
+ - `kill`: kirim _signal_ ke proses berdasarkan ID (`pkill` berdasarkan pencarian + `-f`)
+    - signal memberi tahu proses untuk "melakukan sesuatu"
+    - yang paling umum: `SIGKILL` (`-9` atau `-KILL`): menyuruhnya keluar *sekarang*
+      setara dengan `^\`
+    - juga `SIGTERM` (`-15` atau `-TERM`): menyuruhnya keluar dengan baik-baik
+      setara dengan `^C`
 
 
-## Flags
+## Flag
 
-Most command line utilities take parameters using **flags**. Flags usually come in short form (`-h`) and long form (`--help`). Usually running `CMD -h` or `man CMD` will give you a list of the flags the program takes.
-Short flags can usually be combined, running `rm -r -f` is equivalent to running `rm -rf` or `rm -fr`.
-Some common flags are a de facto standard and you will seem them in many applications:
+Sebagian besar utilitas baris perintah menerima parameter menggunakan **flag**. Flag biasanya tersedia dalam bentuk pendek (`-h`) dan bentuk panjang (`--help`). Biasanya menjalankan `CMD -h` atau `man CMD` akan memberikan daftar flag yang diterima program.
+Flag pendek biasanya dapat digabungkan, menjalankan `rm -r -f` setara dengan menjalankan `rm -rf` atau `rm -fr`.
+Beberapa flag umum adalah standar de facto dan Anda akan menemukannya di banyak aplikasi:
 
-* `-a` commonly refers to all files (i.e. also including those that start with a period)
-* `-f` usually refers to forcing something, like `rm -f`
-* `-h` displays the help for most commands
-* `-v` usually enables a verbose output
-* `-V` usually prints the version of the command
+* `-a` umumnya merujuk pada semua file (yaitu juga termasuk yang dimulai dengan titik)
+* `-f` biasanya merujuk pada memaksa sesuatu, seperti `rm -f`
+* `-h` menampilkan bantuan untuk sebagian besar perintah
+* `-v` biasanya mengaktifkan output verbose
+* `-V` biasanya mencetak versi dari perintah
 
-Also, a double dash `--` is used in built-in commands and many other commands to signify the end of command options, after which only positional parameters are accepted. So if you have a file called `-v` (which you can) and want to grep it `grep pattern -- -v` will work whereas `grep pattern -v` won't. In fact, one way to create such file is to do `touch -- -v`.
+Juga, double dash `--` digunakan dalam perintah bawaan dan banyak perintah lainnya untuk menandakan akhir dari opsi perintah, yang setelahnya hanya parameter posisional yang diterima. Jadi jika Anda memiliki file bernama `-v` (yang memang bisa) dan ingin melakukan grep pada file tersebut `grep pattern -- -v` akan berhasil sedangkan `grep pattern -v` tidak. Bahkan, salah satu cara untuk membuat file tersebut adalah dengan melakukan `touch -- -v`.
 
-## Exercises
+## Latihan
 
-1. If you are completely new to the shell you may want to read a more comprehensive guide about it such as [BashGuide](https://mywiki.wooledge.org/BashGuide). If you want a more in-depth introduction [The Linux Command Line](https://linuxcommand.org/tlcl.php) is a good resource.
+1. Jika Anda sama sekali baru menggunakan shell, Anda mungkin ingin membaca panduan yang lebih komprehensif seperti [BashGuide](https://mywiki.wooledge.org/BashGuide). Jika Anda ingin pendahuluan yang lebih mendalam [The Linux Command Line](https://linuxcommand.org/tlcl.php) adalah sumber daya yang bagus.
 
 1. **PATH, which, type**
 
-    We briefly discussed that the `PATH` environment variable is used to locate the programs that you run through the command line. Let's explore that a little further
-    - Run `echo $PATH` (or `echo $PATH | tr -s ':' '\n'` for pretty printing) and examine its contents, what locations are listed?
-    - The command `which` locates a program in the user PATH. Try running `which` for common commands like `echo`, `ls` or `mv`. Note that `which` is a bit limited since it does not understand shell aliases. Try running `type` and `command -v` for those same commands. How is the output different?
-    - Run `PATH=` and try running the previous commands again, some work and some don't, can you figure out why?
+    Kita telah membahas secara singkat bahwa variabel lingkungan `PATH` digunakan untuk menemukan program yang Anda jalankan melalui baris perintah. Mari kita eksplorasi lebih lanjut
+    - Jalankan `echo $PATH` (atau `echo $PATH | tr -s ':' '\n'` untuk tampilan yang lebih rapi) dan periksa isinya, lokasi apa saja yang tercantum?
+    - Perintah `which` menemukan program di PATH pengguna. Cobalah jalankan `which` untuk perintah umum seperti `echo`, `ls` atau `mv`. Perhatikan bahwa `which` agak terbatas karena tidak memahami alias shell. Cobalah jalankan `type` dan `command -v` untuk perintah-perintah yang sama. Bagaimana outputnya berbeda?
+    - Jalankan `PATH=` dan cobalah jalankan perintah-perintah sebelumnya lagi, beberapa berhasil dan beberapa tidak, bisakah Anda mengetahui alasannya?
 
-1. **Special Variables**
-    - What does the variable `~` expands as? What about `.`? And `..`?
-    - What does the variable `$?` do?
-    - What does the variable `$_` do?
-    - What does the variable `!!` expand to? What about `!!*`? And `!l`?
-    - Look for documentation for these options and familiarize yourself with them
+1. **Variabel Khusus**
+    - Variabel `~` diekspansi menjadi apa? Bagaimana dengan `.`? Dan `..`?
+    - Apa fungsi variabel `$?`?
+    - Apa fungsi variabel `$_`?
+    - `!!` diekspansi menjadi apa? Bagaimana dengan `!!*`? Dan `!l`?
+    - Carilah dokumentasi untuk opsi-opsi ini dan biasakan diri Anda dengan mereka
 
 1. **xargs**
 
-    Sometimes piping doesn't quite work because the command being piped into does not expect the newline separated format. For example `file` command tells you properties of the file.
+    Terkadang piping tidak cukup berhasil karena perintah yang menjadi tujuan pipe tidak mengharapkan format yang dipisahkan baris baru. Sebagai contoh, perintah `file` memberi tahu Anda properti dari file.
 
-    Try running `ls | file` and `ls | xargs file`. What is `xargs` doing?
+    Cobalah jalankan `ls | file` dan `ls | xargs file`. Apa yang dilakukan `xargs`?
 
 
 1. **Shebang**
 
-    When you write a script you can specify to your shell what interpreter should be used to interpret the script by using a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line. Write a script called `hello` with the following contentsmake  it executable with `chmod +x hello`. Then execute it with `./hello`. Then remove the first line and execute it again? How is the shell using that first line?
+    Ketika Anda menulis script, Anda dapat menentukan ke shell Anda interpreter apa yang harus digunakan untuk menginterpretasikan script dengan menggunakan baris [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)). Tulis script bernama `hello` dengan isi berikut dan jadikan dapat dieksekusi dengan `chmod +x hello`. Kemudian eksekusi dengan `./hello`. Kemudian hapus baris pertama dan eksekusi lagi? Bagaimana shell menggunakan baris pertama tersebut?
 
 
     ```bash
@@ -287,12 +287,12 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       print("Hello World!")
     ```
 
-    You will often see programs that have a shebang that looks like `#! usr/bin/env bash`. This is a more portable solution with it own set of [advantages and disadvantages](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my). How is `env` different from `which`? What environment variable does `env` use to decide what program to run?
+    Anda akan sering melihat program yang memiliki shebang seperti `#! usr/bin/env bash`. Ini adalah solusi yang lebih portabel dengan [keuntungan dan kerugiannya](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my) sendiri. Bagaimana `env` berbeda dari `which`? Variabel lingkungan apa yang digunakan `env` untuk memutuskan program apa yang akan dijalankan?
 
 
-1. **Pipes, process substitution, subshell**
+1. **Pipe, process substitution, subshell**
 
-    Create a script called `slow_seq.sh` with the following contents and do `chmod +x slow_seq.sh` to make it executable.
+    Buat script bernama `slow_seq.sh` dengan isi berikut dan lakukan `chmod +x slow_seq.sh` untuk menjadikannya dapat dieksekusi.
 
     ```bash
       #! /usr/bin/env bash
@@ -303,20 +303,20 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       done
     ```
 
-    There is a way in which pipes (and process substitution) differ from using subshell execution, i.e. `$()`. Run the following commands and observe the differences:
+    Ada cara di mana pipe (dan process substitution) berbeda dari penggunaan eksekusi subshell, yaitu `$()`. Jalankan perintah-perintah berikut dan amati perbedaannya:
 
     - `./slow_seq.sh | grep -P "[3-6]"`
     - `grep -P "[3-6]" <(./slow_seq.sh)`
     - `echo $(./slow_seq.sh) | grep -P "[3-6]"`
 
 
-1. **Misc**
-    - Try running `touch {a,b}{a,b}` then `ls` what did appear?
-    - Sometimes you want to keep STDIN and still pipe it to a file. Try running `echo HELLO | tee hello.txt`
-    - Try running `cat hello.txt > hello.txt ` what do you expect to happen? What does happen?
-    - Run `echo HELLO > hello.txt` and then run `echo WORLD >> hello.txt`. What are the contents of `hello.txt`? How is `>` different from `>>`?
-    - Run `printf "\e[38;5;81mfoo\e[0m\n"`. How was the output different? If you want to know more, search for ANSI color escape sequences.
-    - Run `touch a.txt` then run `^txt^log` what did bash do for you? In the same vein, run `fc`. What does it do?
+1. **Lain-lain**
+    - Cobalah jalankan `touch {a,b}{a,b}` kemudian `ls` apa yang muncul?
+    - Terkadang Anda ingin menyimpan STDIN dan tetap mem-pipe-nya ke file. Cobalah jalankan `echo HELLO | tee hello.txt`
+    - Cobalah jalankan `cat hello.txt > hello.txt` apa yang Anda perkirakan terjadi? Apa yang sebenarnya terjadi?
+    - Jalankan `echo HELLO > hello.txt` dan kemudian jalankan `echo WORLD >> hello.txt`. Apa isi dari `hello.txt`? Bagaimana `>` berbeda dari `>>`?
+    - Jalankan `printf "\e[38;5;81mfoo\e[0m\n"`. Bagaimana outputnya berbeda? Jika Anda ingin tahu lebih lanjut, carilah tentang ANSI color escape sequences.
+    - Jalankan `touch a.txt` kemudian jalankan `^txt^log` apa yang dilakukan bash untuk Anda? Dengan cara yang sama, jalankan `fc`. Apa yang dilakukannya?
 
 {% comment %}
 
@@ -328,12 +328,12 @@ TODO
 
 {% endcomment %}
 
-1. **Keyboard shortcuts**
+1. **Pintasan keyboard**
 
-    As with any application you use frequently is worth familiarising yourself with its keyboard shortcuts. Type the following ones and try figuring out what they do and in what scenarios it might be convenient knowing about them. For some of them it might be easier searching online about what they do. (remember that `^X` means pressing `Ctrl+X`)
+    Seperti halnya aplikasi apa pun yang sering Anda gunakan, ada baiknya membiasakan diri dengan pintasan keyboardnya. Ketik yang berikut ini dan cobalah figures out apa yang mereka lakukan dan dalam skenario apa mungkin berguna untuk mengetahuinya. Untuk beberapa di antaranya mungkin lebih mudah mencari secara online tentang apa yang mereka lakukan. (ingat bahwa `^X` berarti menekan `Ctrl+X`)
 
     - `^A`, `^E`
     - `^R`
     - `^L`
-    - `^C`, `^\` and  `^D`
+    - `^C`, `^\` dan  `^D`
     - `^U` and `^Y`

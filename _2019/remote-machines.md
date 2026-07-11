@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Remote Machines"
+title: "Mesin Remote"
 presenter: Jose
 date: 2019-01-29
 order: 4
@@ -9,59 +9,58 @@ video:
   id: X5c2Y8BCowM
 ---
 
-It has become more and more common for programmers to use remote servers in their everyday work. If you need to use remote servers in order to deploy backend software or you need a server with higher computational capabilities, you will end up using a Secure Shell (SSH). As with most tools covered, SSH is highly configurable so it is worth learning about it.
+Semakin umum bagi para programmer untuk menggunakan server remote dalam pekerjaan sehari-hari mereka. Jika Anda perlu menggunakan server remote untuk men-deploy perangkat lunak backend atau Anda membutuhkan server dengan kemampuan komputasi yang lebih tinggi, Anda akan menggunakan Secure Shell (SSH). Seperti kebanyakan alat yang dibahas, SSH sangat dapat dikonfigurasi sehingga patut untuk dipelajari.
 
 
-## Executing commands
+## Menjalankan perintah
 
-An often overlooked feature of `ssh` is the ability to run commands directly.
+Fitur `ssh` yang sering terlewatkan adalah kemampuan untuk menjalankan perintah secara langsung.
 
-- `ssh foobar@server ls` will execute ls in the home folder of foobar
-- It works with pipes, so `ssh foobar@server ls | grep PATTERN` will grep locally the remote output of `ls` and `ls | ssh foobar@server grep PATTERN` will grep remotely the local output of `ls`.
+- `ssh foobar@server ls` akan menjalankan ls di folder home dari foobar
+- Ini berfungsi dengan pipe, sehingga `ssh foobar@server ls | grep PATTERN` akan melakukan grep secara lokal pada output remote dari `ls` dan `ls | ssh foobar@server grep PATTERN` akan melakukan grep secara remote pada output lokal dari `ls`.
 
-## SSH Keys
+## Kunci SSH
 
-Key-based authentication exploits public-key cryptography to prove to the server that the client owns the secret private key without revealing the key. This way you do not need to reenter your password every time. Nevertheless the private key (e.g. `~/.ssh/id_rsa`) is effectively your password so treat it like so.
+Autentikasi berbasis kunci memanfaatkan kriptografi kunci publik untuk membuktikan kepada server bahwa klien memiliki kunci privat rahasia tanpa mengungkapkan kunci tersebut. Dengan cara ini Anda tidak perlu memasukkan ulang kata sandi setiap kali. Meskipun demikian, kunci privat (misalnya `~/.ssh/id_rsa`) secara efektif adalah kata sandi Anda, jadi perlakukan seperti itu.
 
-- Key generation. To generate a pair you can simply run `ssh-keygen -t rsa -b 4096`. If you do not choose a passphrase anyone that gets hold of your private key will be able to access authorized servers so it is recommended to choose  one and use `ssh-agent` to manage shell sessions.
+- Pembuatan kunci. Untuk membuat pasangan kunci Anda cukup menjalankan `ssh-keygen -t rsa -b 4096`. Jika Anda tidak memilih passphrase, siapa pun yang mendapatkan kunci privat Anda akan dapat mengakses server yang diotorisasi, sehingga disarankan untuk memilih satu dan menggunakan `ssh-agent` untuk mengelola sesi shell.
 
-If you have configured pushing to Github using SSH keys you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+Jika Anda telah mengkonfigurasi push ke GitHub menggunakan kunci SSH, Anda mungkin telah melakukan langkah-langkah yang diuraikan [di sini](https://help.github.com/articles/connecting-to-github-with-ssh/) dan sudah memiliki pasangan kunci yang valid. Untuk memeriksa apakah Anda memiliki passphrase dan memvalidasinya, Anda dapat menjalankan `ssh-keygen -y -f /path/to/key`.
 
-- Key based authentication. `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over we can use the
+- Autentikasi berbasis kunci. `ssh` akan melihat ke `.ssh/authorized_keys` untuk menentukan klien mana yang seharusnya diizinkan. Untuk menyalin kunci publik, kita dapat menggunakan
 
 ```bash
 cat .ssh/id_dsa.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
-A simpler solution can be achieved with `ssh-copy-id` where available.
+Solusi yang lebih sederhana dapat dicapai dengan `ssh-copy-id` jika tersedia.
 
 ```bash
 ssh-copy-id -i .ssh/id_dsa.pub foobar@remote
 ```
 
-## Copying files over ssh
+## Menyalin file melalui ssh
 
-There are many ways to copy files over ssh
+Ada banyak cara untuk menyalin file melalui ssh
 
-- `ssh+tee`, the simplest is to use `ssh` command execution and stdin input by doing `cat localfile | ssh remote_server tee serverfile`
-- `scp` when copying large amounts of files/directories, the secure copy `scp` command is more convenient since it can easily recurse over paths. The syntax is `scp path/to/local_file remote_host:path/to/remote_file`
-- `rsync` improves upon `scp` by detecting identical files in local and remote and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+- `ssh+tee`, cara paling sederhana adalah menggunakan eksekusi perintah `ssh` dan input stdin dengan melakukan `cat localfile | ssh remote_server tee serverfile`
+- `scp` ketika menyalin sejumlah besar file/direktori, perintah secure copy `scp` lebih nyaman karena dapat melakukan rekursi dengan mudah pada path. Sintaksnya adalah `scp path/to/local_file remote_host:path/to/remote_file`
+- `rsync` meningkatkan `scp` dengan mendeteksi file yang identik di lokal dan remote serta mencegah penyalinan ulang. Ini juga menyediakan kontrol yang lebih rinci atas symlink, permission, dan memiliki fitur tambahan seperti flag `--partial` yang dapat melanjutkan salinan yang sebelumnya terinterupsi. `rsync` memiliki sintaks yang mirip dengan `scp`.
 
 
-## Backgrounding processes
+## Memproses di latar belakang
 
-By default when interrupting a ssh connection, child processes of the parent shell are killed along with it. There are a couple of alternatives
+Secara default ketika memutus koneksi ssh, proses anak dari shell induk akan dimatikan bersamanya. Ada beberapa alternatif
 
-- `nohup` - the `nohup` tool effectively allows for a process to live when the terminal gets killed. Although this can sometimes be achieved with `&` and `disown`, nohup is a better default. More details can be found [here](https://unix.stackexchange.com/questions/3886/difference-between-nohup-disown-and).
+- `nohup` - alat `nohup` secara efektif memungkinkan sebuah proses tetap hidup ketika terminal dimatikan. Meskipun ini terkadang dapat dicapai dengan `&` dan `disown`, nohup adalah pilihan default yang lebih baik. Detail lebih lanjut dapat ditemukan [di sini](https://unix.stackexchange.com/questions/3886/difference-between-nohup-disown-and).
 
-- `tmux`, `screen` - whereas `nohup` effectively backgrounds the process it is not convenient for interactive shell sessions. In that case using a terminal multiplexer like `screen` or `tmux` is a convenient choice since one can easily detach and reattach the associated shells.
+- `tmux`, `screen` - sedangkan `nohup` secara efektif memindahkan proses ke latar belakang, ini tidak nyaman untuk sesi shell interaktif. Dalam kasus tersebut, menggunakan terminal multiplexer seperti `screen` atau `tmux` adalah pilihan yang nyaman karena seseorang dapat dengan mudah melepaskan dan melampirkan kembali shell yang terkait.
 
-Lastly, if you disown a program and want to reattach it to the current terminal, you can look into [reptyr](https://github.com/nelhage/reptyr). `reptyr PID` will grab the process with id PID and attach it to your current terminal.
+Terakhir, jika Anda melepaskan sebuah program dan ingin melampirkannya kembali ke terminal saat ini, Anda dapat melihat [reptyr](https://github.com/nelhage/reptyr). `reptyr PID` akan mengambil proses dengan id PID dan melampirkannya ke terminal Anda saat ini.
 
 ## Port Forwarding
 
-In many scenarios you will run into software that works by listening to ports in the machine. When this happens in your local machine you can simply do `localhost:PORT` or `127.0.0.1:PORT`, but what do you do with a remote server that does not have its ports directly available through the network/internet?. This is called port forwarding and it
-comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the pictures for more details, credit of the pictures from [this SO post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
+Dalam banyak skenario, Anda akan menemukan perangkat lunak yang bekerja dengan mendengarkan port di mesin. Ketika ini terjadi di mesin lokal Anda, Anda cukup melakukan `localhost:PORT` atau `127.0.0.1:PORT`, tetapi apa yang Anda lakukan dengan server remote yang port-nya tidak tersedia secara langsung melalui jaringan/internet?. Ini disebut port forwarding dan tersedia dalam dua jenis: Local Port Forwarding dan Remote Port Forwarding (lihat gambar untuk detail lebih lanjut, kredit gambar dari [postingan SO ini](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
 
 
 **Local Port Forwarding**
@@ -71,17 +70,17 @@ comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the 
 ![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png)
 
 
-The most common scenario is local port forwarding where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus to forward that to the local port `9999` we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `localhost:9999` in our local machine.
+Skenario yang paling umum adalah local port forwarding di mana sebuah layanan di mesin remote mendengarkan pada sebuah port dan Anda ingin menautkan sebuah port di mesin lokal Anda untuk meneruskan ke port remote. Misalnya jika kita menjalankan `jupyter notebook` di server remote yang mendengarkan port `8888`. Maka untuk meneruskannya ke port lokal `9999` kita akan melakukan `ssh -L 9999:localhost:8888 foobar@remote_server` dan kemudian navigasi ke `localhost:9999` di mesin lokal kita.
 
 ## Graphics Forwarding
 
-Sometimes forwarding ports is not enough since we want to run a GUI based program in the server. You can always resort to Remote Desktop Software that sends the entire Desktop Environment (ie. options like RealVNC, Teamviewer, &c). However for a single GUI tool, SSH provides a good alternative: Graphics Forwarding.
+Terkadang mem-forward port tidak cukup karena kita ingin menjalankan program berbasis GUI di server. Anda selalu dapat menggunakan Perangkat Lunak Remote Desktop yang mengirimkan seluruh Lingkungan Desktop (yaitu opsi seperti RealVNC, Teamviewer, dll). Namun untuk satu alat GUI, SSH menyediakan alternatif yang baik: Graphics Forwarding.
 
-Using the `-X` flag tells SSH to forward
+Menggunakan flag `-X` memberitahu SSH untuk mem-forward
 
- For trusted X11 forwarding the `-Y` flag can be used.
+ Untuk forwarding X11 yang dipercaya, flag `-Y` dapat digunakan.
 
-Final note is that for this to work the `sshd_config` on the server must have the following options
+Catatan terakhir adalah agar ini berfungsi, `sshd_config` di server harus memiliki opsi berikut
 
 ```bash
 X11Forwarding yes
@@ -90,17 +89,17 @@ X11DisplayOffset 10
 
 ## Roaming
 
-A common pain when connecting to a remote server are disconnections due to shutting down/sleeping your computer or changing a network. Moreover if one has a connection with significant lag using ssh can become quite frustrating. [Mosh](https://mosh.org/), the mobile shell, improves upon ssh, allowing roaming connections, intermittent connectivity and providing intelligent local echo.
+Masalah umum saat menghubungkan ke server remote adalah pemutusan koneksi karena mematikan/memenidukan komputer Anda atau berpindah jaringan. Selain itu, jika seseorang memiliki koneksi dengan lag yang signifikan, menggunakan ssh bisa menjadi sangat frustrasi. [Mosh](https://mosh.org/), the mobile shell, meningkatkan ssh, memungkinkan koneksi roaming, konektivitas intermiten, dan menyediakan echo lokal yang cerdas.
 
-Mosh is present in all common distributions and package managers. Mosh requires an ssh server to be working in the server. You do not need to be superuser to install mosh  but it does require that ports 60000 through 60010 to be open in the server (they usually are since they are not in the privileged range).
+Mosh tersedia di semua distribusi dan package manager umum. Mosh membutuhkan server ssh yang berjalan di server. Anda tidak perlu menjadi superuser untuk menginstal mosh, tetapi memerlukan port 60000 hingga 60010 untuk dibuka di server (biasanya sudah terbuka karena tidak berada dalam rentang port yang diprivilese).
 
-A downside of `mosh` is that is does not support roaming port/graphics forwarding so if you use those often `mosh` won't be of much help.
+Kekurangan dari `mosh` adalah tidak mendukung forwarding port/graphics roaming, jadi jika Anda sering menggunakannya, `mosh` tidak akan banyak membantu.
 
-## SSH Configuration
+## Konfigurasi SSH
 
-### Client
+### Klien
 
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_serer="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, however there is a better alternative, using `~/.ssh/config`.
+Kita telah membahas banyak argumen yang dapat kita berikan. Alternatif yang menggoda adalah membuat alias shell seperti `alias my_serer="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, namun ada alternatif yang lebih baik, menggunakan `~/.ssh/config`.
 
 ```bash
 Host vm
@@ -116,46 +115,46 @@ Host *.mit.edu
 ```
 
 
-An additional advantage of using the `~/.ssh/config` file over aliases  is that other programs like `scp`, `rsync`, `mosh`, &c are able to read it as well and convert the settings into the corresponding flags.
+Keuntungan tambahan menggunakan file `~/.ssh/config` dibandingkan alias adalah program lain seperti `scp`, `rsync`, `mosh`, dll juga dapat membacanya dan mengonversi pengaturan menjadi flag yang sesuai.
 
 
-Note that the `~/.ssh/config` file can be considered a dotfile, and in general it is fine for it to be included with the rest of your dotfiles. However if you make it public, think about the information that you are potentially providing strangers on the internet: the addresses of your servers, the users you are using, the open ports, &c. This may facilitate some types of attacks so be thoughtful about sharing your SSH configuration.
+Perhatikan bahwa file `~/.ssh/config` dapat dianggap sebagai dotfile, dan secara umum tidak masalah untuk disertakan bersama dotfile Anda lainnya. Namun jika Anda membuatnya publik, pikirkan tentang informasi yang berpotensi Anda berikan kepada orang asing di internet: alamat server Anda, pengguna yang Anda gunakan, port yang terbuka, dll. Ini dapat memfasilitasi beberapa jenis serangan, jadi berhati-hatilah dalam membagikan konfigurasi SSH Anda.
 
-Warning: Never include your RSA keys ( `~/.ssh/id_rsa*` ) in a public repository!
+Peringatan: Jangan pernah sertakan kunci RSA Anda (`~/.ssh/id_rsa*`) di repositori publik!
 
-### Server side
+### Sisi server
 
-Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make  changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings in a per user basis.
+Konfigurasi sisi server biasanya ditentukan di `/etc/ssh/sshd_config`. Di sini Anda dapat melakukan perubahan seperti menonaktifkan autentikasi kata sandi, mengubah port ssh, mengaktifkan forwarding X11, dll. Anda dapat menentukan pengaturan konfigurasi per pengguna.
 
 ## Remote Filesystem
 
-Sometimes it is convenient to mount a remote folder. [sshfs](https://github.com/libfuse/sshfs) can mount a folder on a remote server
-locally, and then you can use a local editor.
+Terkadang lebih mudah untuk me-mount folder remote. [sshfs](https://github.com/libfuse/sshfs) dapat me-mount folder di server remote
+secara lokal, dan kemudian Anda dapat menggunakan editor lokal.
 
-## Exercises
+## Latihan
 
-1. For SSH to work the host needs to be running an SSH server. Install an SSH server (such as OpenSSH) in a virtual machine so you can do the rest of the exercises. To figure out what is the ip of the machine run the command `ip addr` and look for the inet field (ignore the `127.0.0.1` entry, that corresponds to the loopback interface).
+1. Agar SSH berfungsi, host perlu menjalankan server SSH. Instal server SSH (seperti OpenSSH) di mesin virtual sehingga Anda dapat melakukan latihan lainnya. Untuk mengetahui ip mesin, jalankan perintah `ip addr` dan cari field inet (abaikan entri `127.0.0.1`, yang sesuai dengan antarmuka loopback).
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -t rsa -b 4096`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
+1. Pergi ke `~/.ssh/` dan periksa apakah Anda memiliki pasangan kunci SSH di sana. Jika tidak, buat dengan `ssh-keygen -t rsa -b 4096`. Disarankan agar Anda menggunakan kata sandi dan menggunakan `ssh-agent`, info lebih lanjut [di sini](https://www.ssh.com/ssh/agent).
 
-1. Use `ssh-copy-id` to copy the key to your virtual machine. Test that you can ssh without a password. Then, edit your `sshd_config` in the server to disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`.
+1. Gunakan `ssh-copy-id` untuk menyalin kunci ke mesin virtual Anda. Uji bahwa Anda dapat ssh tanpa kata sandi. Kemudian, edit `sshd_config` Anda di server untuk menonaktifkan autentikasi kata sandi dengan mengedit nilai `PasswordAuthentication`. Nonaktifkan login root dengan mengedit nilai `PermitRootLogin`.
 
-1. Edit the `sshd_config` in the server to change the ssh port and check that you can still ssh. If you ever have a public facing server, a non default port and key only login will throttle a significant amount of malicious attacks.
+1. Edit `sshd_config` di server untuk mengubah port ssh dan periksa bahwa Anda masih dapat ssh. Jika Anda pernah memiliki server yang terbuka untuk publik, port non-default dan login hanya dengan kunci akan memperlambat sejumlah besar serangan berbahaya.
 
-1. Install mosh in your server/VM, establish a connection and then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. Instal mosh di server/VM Anda, buat koneksi, dan kemudian putuskan adaptor jaringan server/VM. Dapatkah mosh pulih dengan baik dari hal tersebut?
 
-1. Another use of local port forwarding is to tunnel certain host to the server. If your network filters some website like for example `reddit.com` you can tunnel it through the server as follows:
+1. Kegunaan lain dari local port forwarding adalah untuk menunnel host tertentu ke server. Jika jaringan Anda memfilter beberapa situs web seperti misalnya `reddit.com`, Anda dapat menunnelnya melalui server sebagai berikut:
 
-    - Run `ssh remote_server -L 80:reddit.com:80`
-    - Set `reddit.com` and `www.reddit.com` to `127.0.0.1` in `/etc/hosts`
-    - Check that you are accessing that website through the server
-    - If it is not obvious use a website such as [ipinfo.io](https://ipinfo.io/) which will change depending on your host public ip.
-
-
-1. Background port forwarding can easily be achieved with a couple of extra flags. Look into what the `-N` and `-f` flags do in `ssh` and figure out what a command such as this `ssh -N -f -L 9999:localhost:8888 foobar@remote_server` does.
+    - Jalankan `ssh remote_server -L 80:reddit.com:80`
+    - Atur `reddit.com` dan `www.reddit.com` ke `127.0.0.1` di `/etc/hosts`
+    - Periksa bahwa Anda mengakses situs web tersebut melalui server
+    - Jika tidak jelas, gunakan situs web seperti [ipinfo.io](https://ipinfo.io/) yang akan berubah tergantung pada ip publik host Anda.
 
 
-## References
+1. Background port forwarding dapat dengan mudah dicapai dengan beberapa flag tambahan. Pelajari apa yang dilakukan flag `-N` dan `-f` di `ssh` dan cari tahu apa yang dilakukan perintah seperti ini `ssh -N -f -L 9999:localhost:8888 foobar@remote_server`.
+
+
+## Referensi
 
 - [SSH Hacks](https://matt.might.net/articles/ssh-hacks/)
 - [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
