@@ -100,7 +100,7 @@ A downside of `mosh` is that is does not support roaming port/graphics forwardin
 
 ### Client
 
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_serer="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, however there is a better alternative, using `~/.ssh/config`.
+We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_server="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, however there is a better alternative, using `~/.ssh/config`.
 
 ```bash
 Host vm
