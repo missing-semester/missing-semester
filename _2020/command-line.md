@@ -384,9 +384,9 @@ The most common scenario is local port forwarding, where a service in the remote
 
 ## SSH Configuration
 
-We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like
+We have covered many arguments that we can pass. A tempting alternative is to create shell aliases that look like
 ```bash
-alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server"
+alias my_server="ssh -i ~/.ssh/id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server"
 ```
 
 However, there is a better alternative using `~/.ssh/config`.
@@ -444,7 +444,7 @@ One thing to note when using these frameworks is that they may slow down your sh
 
 # Terminal Emulators
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
+Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
 
 Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
 

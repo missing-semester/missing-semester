@@ -86,7 +86,7 @@ One thing to note when using these frameworks is that if the code they run is no
 
 ## Terminal Emulators & Multiplexers
 
-Along with customizing your shell it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
+Along with customizing your shell it is worth spending some time figuring out your choice of **terminal emulator** and its settings. There are many terminal emulators out there (here is a [comparison](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)).
 
 Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
 
