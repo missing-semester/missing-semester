@@ -6,6 +6,8 @@ description: >
 thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true
+previous_lesson: "/2020/security"
+next_lesson: "/2020/qa"
 video:
   aspect: 56.25
   id: JZDt-PRq0uo
