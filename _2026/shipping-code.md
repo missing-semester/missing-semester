@@ -225,7 +225,7 @@ import typer
 
 
 def greet(name: str) -> str:
-    return f"Hello, {name}!"
+    typer.echo(f"Hello, {name}!")
 
 
 def cli():
