@@ -6,6 +6,8 @@ description: >
 thumbnail: /static/assets/thumbnails/2020/lec5.png
 date: 2020-01-21
 ready: true
+previous_lesson: "/2020/data-wrangling"
+next_lesson: "/2020/version-control"
 video:
   aspect: 56.25
   id: e8BO_dYxk5c

@@ -6,6 +6,8 @@ description: >
 thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
+previous_lesson: "/2020/version-control"
+next_lesson: "/2020/metaprogramming"
 video:
   aspect: 56.25
   id: l812pUnKxME
