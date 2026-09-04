@@ -123,33 +123,33 @@ directory named "My Photos"), you can either quote the argument with `'`
 or `"` (`"My Photos"`), or escape just the relevant characters with `\`
 (`My\ Photos`).
 
-But how does the shell know how to find the `date` or `echo` programs?
+But how does the shell know how to find commands like `date` or `echo`?
 Well, the shell is a programming environment, just like Python or Ruby,
 and so it has variables, conditionals, loops, and functions (next
 lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+small bit of code that your shell interprets. Some commands are provided
+by the shell itself as builtins. For other commands, the shell consults
+an _environment variable_ called `$PATH` that lists which directories it
+should search for programs:
 
 
 ```console
 missing:~$ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-missing:~$ which echo
-/bin/echo
+missing:~$ type echo
+echo is a shell builtin
+missing:~$ type -a echo
+echo is a shell builtin
+echo is /bin/echo
 missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+The `type` command tells us how the shell will resolve a command name,
+and `type -a` lists every available definition. Here, `echo` is a shell
+builtin, so the shell runs it without searching `$PATH`. There is also
+an executable called `echo` in `/bin`. We can bypass the builtin and the
+`$PATH` search by giving the _path_ to that executable directly.
 
 ## Navigating in the shell
 
