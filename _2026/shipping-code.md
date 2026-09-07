@@ -181,9 +181,9 @@ Consider this example where we have a Python file `greet.py` in our current dire
 ```console
 $ cat greet.py
 def greet(name):
-    return f"Hello, {name}!"
+    print(f"Hello, {name}!")
 
-$ python -c "from greet import greet; print(greet('World'))"
+$ python -c "from greet import greet; greet('World')"
 Hello, World!
 
 $ cd /tmp
@@ -225,7 +225,7 @@ import typer
 
 
 def greet(name: str) -> str:
-    return f"Hello, {name}!"
+    print(f"Hello, {name}!")
 
 
 def cli():
