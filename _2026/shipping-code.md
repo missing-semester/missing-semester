@@ -187,7 +187,7 @@ $ python -c "from greet import greet; greet('World')"
 Hello, World!
 
 $ cd /tmp
-$ python -c "from greet import greet; print(greet('World'))"
+$ python -c "from greet import greet; greet('World')"
 ModuleNotFoundError: No module named 'greet'
 ```
 
