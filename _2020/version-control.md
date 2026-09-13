@@ -156,7 +156,7 @@ An "object" is a blob, tree, or commit:
 type object = blob | tree | commit
 ```
 
-In Git data store, all objects are content-addressed by their [SHA-1
+In Git's data store, all objects are content-addressed by their [SHA-1
 hash](https://en.wikipedia.org/wiki/SHA-1).
 
 ```
