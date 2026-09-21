@@ -55,7 +55,7 @@ specific customizations online, such as Mathias Bynens'
 
 [Tiling window management](https://en.wikipedia.org/wiki/Tiling_window_manager)
 is one approach to window management, where you organize windows into
-non-overlapping frames. If you're using a Unix-based operating system, you can
+non-overlapping frames. If you're using a Linux-based operating system, you can
 install a tiling window manager; if you're using something like Windows or
 macOS, you can install applications that let you approximate this behavior.
 
