@@ -1,7 +1,9 @@
 # Setup
 title: 'The Missing Semester of Your CS Education'
 url: https://missing-semester-my.github.io
+# baseurl: "/missing-semester-my" # Uncomment if hosted at subpath https://missing-semester-my.github.io/missing-semester-my
 thumbnail: "/static/assets/thumbnails/default.png"
+
 
 
 # Settings
