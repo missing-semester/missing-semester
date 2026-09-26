@@ -2,7 +2,7 @@
 layout: lecture
 title: "Data Wrangling"
 description: >
-  Learn how to manipulate and transform data using command-line tools like sed, awk, and regular expressions.
+  sed၊ awk နှင့် Regular Expression များကဲ့သို့သော Command-line tool များကို အသုံးပြု၍ ဒေတာများကို ပြုပြင်ပြောင်းလဲနည်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
@@ -12,69 +12,38 @@ video:
 special: true
 ---
 
-Have you ever wanted to take data in one format and turn it into a
-different format? Of course you have! That, in very general terms, is
-what this lecture is all about. Specifically, massaging data, whether in
-text or binary format, until you end up with exactly what you wanted.
+ဒေတာများကို Format တစ်ခုမှ အခြား Format တစ်ခုသို့ ပြောင်းလဲလိုသည့် အခြေအနေမျိုး ကြုံတွေ့ဖူးပါသလား။ အမှန်တကယ် ကြုံဖူးကြပါလိမ့်မည်။ ဤသင်ခန်းစာသည် ယင်းအကြောင်းကို အဓိကထား သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။ အထူးသဖြင့် စာသား သို့မဟုတ် Binary format ရှိ ဒေတာများကို မိမိ လိုချင်သော ပုံစံအတိုင်း ရရှိသည်အထိ ပြုပြင်ပြင်ဆင်ခြင်း (Data Wrangling) အကြောင်း ဖြစ်ပါသည်။
 
-We've already seen some basic data wrangling in past lectures. Pretty
-much any time you use the `|` operator, you are performing some kind of
-data wrangling. Consider a command like `journalctl | grep -i intel`. It
-finds all system log entries that mention Intel (case insensitive). You
-may not think of it as wrangling data, but it is going from one format
-(your entire system log) to a format that is more useful to you (just
-the intel log entries). Most data wrangling is about knowing what tools
-you have at your disposal, and how to combine them.
+ယခင် သင်ခန်းစာများတွင် အခြေခံ Data Wrangling အချို့ကို တွေ့မြင်ခဲ့ရပြီး ဖြစ်သည်။ `|` (pipe) operator ကို အသုံးပြုတိုင်း Data Wrangling ကို ပြုလုပ်နေခြင်း ဖြစ်သည်။ ဥပမာ `journalctl | grep -i intel` command ကို ကြည့်ပါ။ ယင်းက စနစ်၏ Log များအနက် Intel ပါဝင်သော စာကြောင်းများကို ရှာဖွေပေးသည်။ ဤသည်မှာ စနစ် log အပြည့်အစုံမှ မိမိအတွက် အသုံးဝင်သော Format သို့ ပြောင်းလဲလိုက်ခြင်း ဖြစ်သည်။ Data Wrangling ၏ အဓိက သဘောတရားမှာ မိမိ ထံတွင် ရှိသော tool များကို မည်သို့ ပေါင်းစပ် အသုံးပြုရမည်ကို တတ်မြောက်ထားခြင်း ဖြစ်သည်။
 
-Let's start from the beginning. To wrangle data, we need two things:
-data to wrangle, and something to do with it. Logs often make for a good
-use-case, because you often want to investigate things about them, and
-reading the whole thing isn't feasible. Let's figure out who's trying to
-log into my server by looking at my server's log:
+အစမှ စတင်ကြည့်ကြပါစို့။ Data wrangle ပြုလုပ်ရန်အတွက် အရာနှစ်ခု လိုအပ်သည်—Wrangle ပြုလုပ်မည့် ဒေတာ နှင့် ယင်းဒေတာကို ပြုလုပ်မည့် အရာ တို့ ဖြစ်ကြသည်။ Log ဖိုင်များသည် အလွန် ကောင်းမွန်သော စံနမူနာ ဖြစ်သည်၊ အကြောင်းမှာ ယင်းတို့ကို လေ့လာကြည့်ရှုရန် လိုအပ်သော်လည်း ဖိုင်တစ်ခုလုံးကို ဖတ်ရှုရန် မဖြစ်နိုင်သောကြောင့် ဖြစ်သည်။ အောက်ပါ command ဖြင့် Server ၏ log ကို စစ်ဆေးကြည့်ပါ-
 
 ```bash
 ssh myserver journalctl
 ```
 
-That's far too much stuff. Let's limit it to ssh stuff:
+ဤသည်မှာ စာသားများ လွန်စွာ များပြားလှသည်။ SSH နှင့် သက်ဆိုင်သည်များကိုသာ ခွဲထုတ်ကြည့်ကြမည်-
 
 ```bash
 ssh myserver journalctl | grep sshd
 ```
 
-Notice that we're using a pipe to stream a _remote_ file through `grep`
-on our local computer! `ssh` is magical, and we will talk more about it
-in the next lecture on the command-line environment. This is still way
-more stuff than we wanted though. And pretty hard to read. Let's do
-better:
+ဒီနေရာမှာ Pipe ကို အသုံးပြု၍ Remote server ပေါ်ရှိ ဖိုင်ကို မိမိ စက်ပေါ်ရှိ `grep` ထံသို့ Stream ပြုလုပ်ပေးပို့ထားခြင်း ဖြစ်သည်။ ဤသည်မှာလည်း အချက်အလက်များ လွန်စွာ များပြားနေပါသေးသည်။ ထို့ကြောင့် အောက်ပါအတိုင်း ပိုမို ကောင်းမွန်အောင် ပြုလုပ်ကြပါစို့-
 
 ```bash
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' | less
 ```
 
-Why the additional quoting? Well, our logs may be quite large, and it's
-wasteful to stream it all to our computer and then do the filtering.
-Instead, we can do the filtering on the remote server, and then massage
-the data locally. `less` gives us a "pager" that allows us to scroll up
-and down through the long output. To save some additional traffic while
-we debug our command-line, we can even stick the current filtered logs
-into a file so that we don't have to access the network while
-developing:
+အဘယ်ကြောင့် Quote ခံထားသနည်း။ Log များသည် အလွန် ကြီးမားနိုင်သဖြင့် မိမိ စက်ထံသို့ ဒေတာ အားလုံး Stream လုပ်ပြီးမှ Filter လုပ်ခြင်းသည် ကွန်ရက် လှိုင်းနှုန်း အဟောသိက္ခာ ဖြစ်စေသည်။ ထို့ကြောင့် Remote server ပေါ်တွင် Filter စတင် ပြုလုပ်ပြီးမှ မိမိ စက်ထံသို့ ပေးပို့ခြင်း ဖြစ်သည်။ `less` သည် စာသားများကို အထက်အောက် ရွှေ့လျားကြည့်ရှုနိုင်သော Pager ကို ပံ့ပိုးပေးသည်။ ယာယီ ဖိုင်အဖြစ် သိမ်းဆည်း၍လည်း ကြည့်ရှုနိုင်ပါသည်-
 
 ```console
 $ ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 $ less ssh.log
 ```
 
-There's still a lot of noise here. There are _a lot_ of ways to get rid
-of that, but let's look at one of the most powerful tools in your
-toolkit: `sed`.
+ဤနေရာတွင် မလိုအပ်သော စာသားများ ပါဝင်နေသေးသည်။ ယင်းတို့ကို ဖယ်ရှားရန်အတွက် အလွန် စွမ်းအားထက်မြက်သော tool တစ်ခု ဖြစ်သည့် **`sed`** ကို လေ့လာကြပါစို့။
 
-`sed` is a "stream editor" that builds on top of the old `ed` editor. In
-it, you basically give short commands for how to modify the file, rather
-than manipulate its contents directly (although you can do that too).
-There are tons of commands, but one of the most common ones is `s`:
-substitution. For example, we can write:
+`sed` သည် "stream editor" တစ်ခု ဖြစ်သည်။ ယင်းတွင် ဖိုင်ကို တိုက်ရိုက် ပြုပြင်ခြင်းထက် မည်သို့ ပြုပြင်ရမည်ဆိုသော Command တိုများကို ပေးပို့ရသည်။ အသုံးအများဆုံး Command မှာ `s` (substitution - အစားထိုးခြင်း) ဖြစ်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -83,124 +52,46 @@ ssh myserver journalctl
  | sed 's/.*Disconnected from //'
 ```
 
-What we just wrote was a simple _regular expression_; a powerful
-construct that lets you match text against patterns. The `s` command is
-written in the form: `s/REGEX/SUBSTITUTION/`, where `REGEX` is the
-regular expression you want to search for, and `SUBSTITUTION` is the
-text you want to substitute matching text with.
+ယခု ကျွန်ုပ်တို့ ရေးသားလိုက်သည်မှာ **Regular Expression** (Regex) ဖြစ်သည်။ ယင်းသည် စာသားများကို ပုံစံ (pattern) များနှင့် တိုက်ဆိုင် စစ်ဆေးပေးသော စွမ်းအားထက်မြက်သည့် စနစ်ဖြစ်သည်။ `s` command ၏ ပုံစံမှာ `s/REGEX/SUBSTITUTION/` ဖြစ်သည်။
 
-(You may recognize this syntax from the "Search and replace" section of our Vim
-[lecture notes](/2020/editors/#advanced-vim)! Indeed, Vim uses a syntax for
-searching and replacing that is similar to `sed`'s substitution command.
-Learning one tool often helps you become more proficient with others.)
+## Regular expressions (ပုံမှန် ဖော်ပြချက်များ)
 
-## Regular expressions
+Regular expression များကို နားလည်ထားခြင်းသည် အလွန် အသုံးဝင်လှပါသည်။ အထက်ပါ ဥပမာ `/.*Disconnected from /` ကို လေ့လာကြည့်ကြပါစို့။ 
 
-Regular expressions are common and useful enough that it's worthwhile to
-take some time to understand how they work. Let's start by looking at
-the one we used above: `/.*Disconnected from /`. Regular expressions are
-usually (though not always) surrounded by `/`. Most ASCII characters
-just carry their normal meaning, but some characters have "special"
-matching behavior. Exactly which characters do what vary somewhat
-between different implementations of regular expressions, which is a
-source of great frustration. Very common patterns are:
+အသုံးများသော Regex Pattern များမှာ-
+ - `.` Newline မှလွဲ၍ မည်သည့် စာလုံးတစ်လုံးမဆို
+ - `*` ရှေ့ စာလုံး 0 ခု သို့မဟုတ် မည်မျှမဆို ပါဝင်ခြင်း
+ - `+` ရှေ့ စာလုံး 1 ခု သို့မဟုတ် မည်မျှမဆို ပါဝင်ခြင်း
+ - `[abc]` `a`၊ `b` သို့မဟုတ် `c` အနက် စာလုံးတစ်လုံး ပါဝင်ခြင်း
+ - `(RX1|RX2)` `RX1` သို့မဟုတ် `RX2` ကို ကိုက်ညီခြင်း
+ - `^` စာကြောင်း ၏ အစ
+ - `$` စာကြောင်း ၏ အဆုံး
 
- - `.` means "any single character" except newline
- - `*` zero or more of the preceding match
- - `+` one or more of the preceding match
- - `[abc]` any one character of `a`, `b`, and `c`
- - `(RX1|RX2)` either something that matches `RX1` or `RX2`
- - `^` the start of the line
- - `$` the end of the line
+`sed` တွင် အထူး သင်္ကေတများ အဖြစ် အဓိပ္ပာယ်ဖော်ရန် `\` ခံပေးရန် လိုအပ်သည် သို့မဟုတ် `-E` flag ကို အသုံးပြုနိုင်ပါသည်။
 
-`sed`'s regular expressions are somewhat weird, and will require you to
-put a `\` before most of these to give them their special meaning. Or
-you can pass `-E`.
-
-So, looking back at `/.*Disconnected from /`, we see that it matches
-any text that starts with any number of characters, followed by the
-literal string "Disconnected from &rdquo;. Which is what we wanted. But
-beware, regular expressions are tricky. What if someone tried to log in
-with the username "Disconnected from"? We'd have:
-
-```
-Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
-```
-
-What would we end up with? Well, `*` and `+` are, by default, "greedy".
-They will match as much text as they can. So, in the above, we'd end up
-with just
-
-```
-46.97.239.16 port 55920 [preauth]
-```
-
-Which may not be what we wanted. In some regular expression
-implementations, you can just suffix `*` or `+` with a `?` to make them
-non-greedy, but sadly `sed` doesn't support that. We _could_ switch to
-perl's command-line mode though, which _does_ support that construct:
+Perl command-line တွင် non-greedy matching ပြုလုပ်ရန် `?` ကို အသုံးပြုနိုင်သည်-
 
 ```bash
 perl -pe 's/.*?Disconnected from //'
 ```
 
-We'll stick to `sed` for the rest of this, because it's by far the more
-common tool for these kinds of jobs. `sed` can also do other handy
-things like print lines following a given match, do multiple
-substitutions per invocation, search for things, etc. But we won't cover
-that too much here. `sed` is basically an entire topic in and of itself,
-but there are often better tools.
-
-Okay, so we also have a suffix we'd like to get rid of. How might we do
-that? It's a little tricky to match just the text that follows the
-username, especially if the username can have spaces and such! What we
-need to do is match the _whole_ line:
+ဖိုင် စာကြောင်း တစ်ခုလုံးကို တိုက်ဆိုင် စစ်ဆေးရန်-
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user .* [^ ]+ port [0-9]+( \[preauth\])?$//'
 ```
 
-Let's look at what's going on with a [regex
-debugger](https://regex101.com/r/qqbZqh/2). Okay, so the start is still
-as before. Then, we're matching any of the "user" variants (there are
-two prefixes in the logs). Then we're matching on any string of
-characters where the username is. Then we're matching on any single word
-(`[^ ]+`; any non-empty sequence of non-space characters). Then the word
-"port" followed by a sequence of digits. Then possibly the suffix
-`[preauth]`, and then the end of the line.
-
-Notice that with this technique, a username of "Disconnected from"
-won't confuse us any more. Can you see why?
-
-There is one problem with this though, and that is that the entire log
-becomes empty. We want to _keep_ the username after all. For this, we
-can use "capture groups". Any text matched by a regex surrounded by
-parentheses is stored in a numbered capture group. These are available
-in the substitution (and in some engines, even in the pattern itself!)
-as `\1`, `\2`, `\3`, etc. So:
+မိမိ သိမ်းဆည်းလိုသော စာသားကို Capture Group ဖြင့် သိမ်းဆည်းနိုင်သည်-
 
 ```bash
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-As you can probably imagine, you can come up with _really_ complicated
-regular expressions. For example, here's an article on how you might
-match an [e-mail
-address](https://www.regular-expressions.info/email.html). It's [not
-easy](https://web.archive.org/web/20221223174323/http://emailregex.com/). And there's [lots of
-discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982).
-And people have [written
-tests](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php).
-And [test matrices](https://mathiasbynens.be/demo/url-regex). You can
-even write a regex for determining if a given number [is a prime
-number](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
+Regex များကို စမ်းသပ်ရန် [regex101.com](https://regex101.com/) ကဲ့သို့သော ဝဘ်ဆိုက်များကို အသုံးပြုနိုင်ပါသည်။
 
-Regular expressions are notoriously hard to get right, but they are also
-very handy to have in your toolbox!
+## Back to data wrangling (Data wrangling သို့ ပြန်လည် ဝင်ရောက်ခြင်း)
 
-## Back to data wrangling
-
-Okay, so we now have
+ယခု ကျွန်ုပ်တို့တွင် အောက်ပါ Command ရှိနေပြီ ဖြစ်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -209,27 +100,7 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
-`sed` can do all sorts of other interesting things, like injecting text
-(with the `i` command), explicitly printing lines (with the `p`
-command), selecting lines by index, and lots of other things. Check `man
-sed`!
-
-Anyway. What we have now gives us a list of all the usernames that have
-attempted to log in. But this is pretty unhelpful. Let's look for common
-ones:
-
-```bash
-ssh myserver journalctl
- | grep sshd
- | grep "Disconnected from"
- | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
- | sort | uniq -c
-```
-
-`sort` will, well, sort its input. `uniq -c` will collapse consecutive
-lines that are the same into a single line, prefixed with a count of the
-number of occurrences. We probably want to sort that too and only keep
-the most common usernames:
+မကြာခဏ ရောက်ရှိလာသော အသုံးပြုသူ အမည်များကို စီစဉ် ကြည့်ရှုရန် `sort` နှင့် `uniq -c` ကို အသုံးပြုနိုင်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -240,17 +111,9 @@ ssh myserver journalctl
  | sort -nk1,1 | tail -n10
 ```
 
-`sort -n` will sort in numeric (instead of lexicographic) order. `-k1,1`
-means "sort by only the first whitespace-separated column". The `,n`
-part says "sort until the `n`th field, where the default is the end of
-the line. In this _particular_ example, sorting by the whole line
-wouldn't matter, but we're here to learn!
+`sort -n` သည် ကိန်းဂဏန်း အစဉ်လိုက် စီစဉ်ပေးပြီး `-k1,1` သည် ပထမဆုံး ကော်လံအတိုင်း စီစဉ်ပေးသည်။
 
-If we wanted the _least_ common ones, we could use `head` instead of
-`tail`. There's also `sort -r`, which sorts in reverse order.
-
-Okay, so that's pretty cool, but what if we'd like to extract only the usernames
-as a comma-separated list instead of one per line, perhaps for a config file?
+ရလဒ်များကို စာကြောင်း တစ်ကြောင်းစီ မဟုတ်ဘဲ ကော်မာ ခွဲခြားထားသော စာရင်းအဖြစ် ပြောင်းလဲရန် `paste -sd,` ကို အသုံးပြုနိုင်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -262,45 +125,17 @@ ssh myserver journalctl
  | awk '{print $2}' | paste -sd,
 ```
 
-If you're using macOS: note that the command as shown won't work with the BSD
-`paste` shipped with macOS. See [exercise 4 from the shell tools
-lecture](/2020/shell-tools/#exercises) for more on the difference between BSD
-and GNU coreutils and instructions for how to install GNU coreutils on macOS.
+## awk -- အခြား Editor တစ်ခု (awk -- another editor)
 
-Let's start with `paste`: it lets you combine lines (`-s`) by a given
-single-character delimiter (`-d`; `,` in this case). But what's this `awk` business?
+`awk` သည် စာသား သတင်းအချက်အလက် စီးကြောင်းများကို ပြုပြင်ရာတွင် အလွန် ကောင်းမွန်သော ပရိုဂရမ်းမင်း ဘာသာစကား ဖြစ်သည်။
 
-## awk -- another editor
-
-`awk` is a programming language that just happens to be really good at
-processing text streams. There is _a lot_ to say about `awk` if you were
-to learn it properly, but as with many other things here, we'll just go
-through the basics.
-
-First, what does `{print $2}` do? Well, `awk` programs take the form of
-an optional pattern plus a block saying what to do if the pattern
-matches a given line. The default pattern (which we used above) matches
-all lines. Inside the block, `$0` is set to the entire line's contents,
-and `$1` through `$n` are set to the `n`th _field_ of that line, when
-separated by the `awk` field separator (whitespace by default, change
-with `-F`). In this case, we're saying that, for every line, print the
-contents of the second field, which happens to be the username!
-
-Let's see if we can do something fancier. Let's compute the number of
-single-use usernames that start with `c` and end with `e`:
+`awk` တွင် `$0` သည် စာကြောင်း တစ်ကြောင်းလုံး ဖြစ်ပြီး `$1` မှ `$n` တို့မှာ ကော်လံ (field) များ ဖြစ်ကြသည်။ `{print $2}` သည် ဒုတိယ ကော်လံကို ထုတ်ပေးခြင်း ဖြစ်သည်။
 
 ```bash
  | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
 ```
 
-There's a lot to unpack here. First, notice that we now have a pattern
-(the stuff that goes before `{...}`). The pattern says that the first
-field of the line should be equal to 1 (that's the count from `uniq
--c`), and that the second field should match the given regular
-expression. And the block just says to print the username. We then count
-the number of lines in the output with `wc -l`.
-
-However, `awk` is a programming language, remember?
+`awk` ပရိုဂရမ် တွင် `BEGIN` နှင့် `END` ဘလောက်များကို အသုံးပြု၍ တွက်ချက်မှုများ ပြုလုပ်နိုင်သည်-
 
 ```awk
 BEGIN { rows = 0 }
@@ -308,33 +143,15 @@ $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
 END { print rows }
 ```
 
-`BEGIN` is a pattern that matches the start of the input (and `END`
-matches the end). Now, the per-line block just adds the count from the
-first field (although it'll always be 1 in this case), and then we print
-it out at the end. In fact, we _could_ get rid of `grep` and `sed`
-entirely, because `awk` [can do it
-all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
-leave that as an exercise to the reader.
+## ဒေတာများကို ဆန်းစစ်ခြင်း (Analyzing data)
 
-## Analyzing data
-
-You can do math directly in your shell using `bc`, a calculator that can read
-from STDIN! For example, add the numbers on each line together by concatenating
-them together, delimited by `+`:
+`bc` ကို အသုံးပြု၍ Shell တွင် သင်္ချာ တွက်ချက်မှုများ ပြုလုပ်နိုင်သည်-
 
 ```bash
  | paste -sd+ | bc -l
 ```
 
-Or produce more elaborate expressions:
-
-```bash
-echo "2*($(data | paste -sd+))" | bc -l
-```
-
-You can get stats in a variety of ways.
-[`st`](https://github.com/nferraz/st) is pretty neat, but if you already
-have [R](https://www.r-project.org/):
+[R](https://www.r-project.org/) ကို အသုံးပြု၍ အချက်အလက် စာရင်းအင်းများကို ဆန်းစစ်နိုင်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -345,13 +162,7 @@ ssh myserver journalctl
  | awk '{print $1}' | R --no-echo -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
 ```
 
-R is another (weird) programming language that's great at data analysis
-and [plotting](https://ggplot2.tidyverse.org/). We won't go into too
-much detail, but suffice to say that `summary` prints summary statistics
-for a vector, and we created a vector containing the input stream of
-numbers, so R gives us the statistics we wanted!
-
-If you just want some simple plotting, `gnuplot` is your friend:
+`gnuplot` ကို အသုံးပြု၍ Graph ပုံစံ ရေးဆွဲနိုင်သည်-
 
 ```bash
 ssh myserver journalctl
@@ -363,28 +174,9 @@ ssh myserver journalctl
  | gnuplot -p -e 'set boxwidth 0.5; plot "-" using 1:xtic(2) with boxes'
 ```
 
-## Data wrangling to make arguments
+## Binary data များကို ပြုပြင်ခြင်း (Wrangling binary data)
 
-Sometimes you want to do data wrangling to find things to install or
-remove based on some longer list. The data wrangling we've talked about
-so far + `xargs` can be a powerful combo.
-
-For example, as seen in lecture, I can use the following command to uninstall
-old nightly builds of Rust from my system by extracting the old build names
-using data wrangling tools and then passing them via `xargs` to the
-uninstaller:
-
-```bash
-rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
-```
-
-## Wrangling binary data
-
-So far, we have mostly talked about wrangling textual data, but pipes
-are just as useful for binary data. For example, we can use ffmpeg to
-capture an image from our camera, convert it to grayscale, compress it,
-send it to a remote machine over SSH, decompress it there, make a copy,
-and then display it.
+`ffmpeg` နှင့် `gzip` များကို အသုံးပြု၍ Binary data များကိုလည်း Pipe ဖြင့် ချိတ်ဆက် ပြုပြင်နိုင်သည်-
 
 ```bash
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
@@ -393,57 +185,11 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
 ```
 
-# Exercises
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Take this [short interactive regex tutorial](https://regexone.com/).
-2. Find the number of words (in `/usr/share/dict/words`) that contain at
-   least three `a`s and don't have a `'s` ending. What are the three
-   most common last two letters of those words? `sed`'s `y` command, or
-   the `tr` program, may help you with case insensitivity. How many
-   of those two-letter combinations are there? And for a challenge:
-   which combinations do not occur?
-3. To do in-place substitution it is quite tempting to do something like
-   `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. However this is a
-   bad idea, why? Is this particular to `sed`? Use `man sed` to find out
-   how to accomplish this.
-4. Find your average, median, and max system boot time over the last ten
-   boots. Use `journalctl` on Linux and `log show` on macOS, and look
-   for log timestamps near the beginning and end of each boot. On Linux,
-   they may look something like:
-   ```
-   Logs begin at ...
-   ```
-   and
-   ```
-   systemd[577]: Startup finished in ...
-   ```
-   On macOS, [look
-   for](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
-   ```
-   === system boot:
-   ```
-   and
-   ```
-   Previous shutdown cause: 5
-   ```
-5. Look for boot messages that are _not_ shared between your past three
-   reboots (see `journalctl`'s `-b` flag). Break this task down into
-   multiple steps. First, find a way to get just the logs from the past
-   three boots. There may be an applicable flag on the tool you use to
-   extract the boot logs, or you can use `sed '0,/STRING/d'` to remove
-   all lines previous to one that matches `STRING`. Next, remove any
-   parts of the line that _always_ varies (like the timestamp). Then,
-   de-duplicate the input lines and keep a count of each one (`uniq` is
-   your friend). And finally, eliminate any line whose count is 3 (since
-   it _was_ shared among all the boots).
-6. Find an online data set like [this
-   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab), [this
-   one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1),
-   or maybe one [from
-   here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
-   Fetch it using `curl` and extract out just two columns of numerical
-   data. If you're fetching HTML data,
-   [`pup`](https://github.com/EricChiang/pup) might be helpful. For JSON
-   data, try [`jq`](https://stedolan.github.io/jq/). Find the min and
-   max of one column in a single command, and the difference of the sum
-   of each column in another.
+၁။ [RegexOne](https://regexone.com/) တွင် Regular Expression လေ့ကျင့်ခန်းများကို လေ့ကျင့်ပါ။
+၂။ `/usr/share/dict/words` ထဲတွင် အနည်းဆုံး `a` ၃ လုံး ပါဝင်ပြီး `'s` ဖြင့် မဆုံးသော စကားလုံး အရေအတွက်ကို ရှာဖွေပါ။
+၃။ `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt` ဟု ရေးသားခြင်းသည် အဘယ်ကြောင့် မကောင်းသနည်း။ `man sed` တွင် အစားထိုးနည်းကို ရှာဖွေပါ။
+၄။ မိမိ စက်၏ နောက်ဆုံး boot တက်ခဲ့သော စာရင်းများမှ ပျမ်းမျှ၊ မီဒီယံနှင့် အများဆုံး အချိန်ကို ရှာဖွေပါ။ (`journalctl` သို့မဟုတ် `log show` ကို အသုံးပြုပါ)။
+၅။ နောက်ဆုံး ၃ ကြိမ် boot တက်မှုအတွင်း တူညီမှု မရှိသော log စာကြောင်းများကို ရှာဖွေပါ။
+၆။ အွန်လိုင်း ဒေတာ အစုံများမှ `curl` ဖြင့် ဒေတာ ရယူပြီး `jq` သို့မဟုတ် `pup` အသုံးပြု၍ ကော်လံ နှစ်ခုကို ခွဲထုတ်ပါ။

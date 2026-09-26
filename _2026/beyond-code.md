@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Beyond the Code"
+title: "ကုဒ်ရေးသားခြင်းထက် ကျော်လွန်၍"
 description: >
-  Learn about essential soft skills including documentation, open-source community norms, and AI etiquette.
+  Documentation ရေးသားခြင်း၊ အိုးပင်းဆော့စ် အသိုင်းအဝိုင်း ကျင့်ဝတ်များ၊ နှင့် AI အသုံးပြုမှု ကျင့်ဝတ်များ အပါအဝင် မရှိမဖြစ် လိုအပ်သော ဆော့ဖ်စကေးလ်များ (soft skills) အကြောင်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
@@ -11,408 +11,153 @@ video:
   id: 2DOEATfXT8k
 ---
 
-Being a good software engineer isn't just about writing code that
-works. It's about writing code that others (including future you) can
-understand, maintain, and build upon. It's about communicating
-clearly, contributing thoughtfully, and being a good citizen in the
-ecosystems you participate in—whether open source or proprietary.
+ကောင်းမွန်သော ဆော့ဖ်ဝဲ အင်ဂျင်နီယာတစ်ဦး ဖြစ်လာရန်မှာ အလုပ်လုပ်သည့် ကုဒ် ရေးသားနိုင်ခြင်း တစ်ခုတည်း မကပါဘူး။ မိမိကိုယ်တိုင် အပါအဝင် အခြားသူများ (နောင်တစ်ချိန်တွင် ကြည့်မည့် မိမိ အပါအဝင်) နားလည်နိုင်၊ ထိန်းသိမ်းပြင်ဆင်နိုင်၊ ၎င်းအပေါ်တွင် ထပ်မံ တည်ဆောက်နိုင်မည့် ကုဒ်မျိုးကို ရေးသားနိုင်ခြင်းလည်း ဖြစ်ပါတယ်။ ထို့အပြင် ရှင်းလင်းစွာ ဆက်သွယ်ပြောဆိုခြင်း၊ သေချာ စဉ်းစားသုံးသပ်၍ ပါဝင်ကူညီခြင်း၊ နှင့် အိုးပင်းဆော့စ်ဖြစ်စေ၊ ပရိုပရိုက်ထရီ (proprietary) ဖြစ်စေ မိမိ ပါဝင်လှုပ်ရှားနေသော အသိုင်းအဝိုင်းဂေဟစနစ်တွင် နိုင်ငံသားကောင်းတစ်ဦး သဖွယ် ပြုမူနေထိုင်ခြင်းတို့လည်း ပါဝင်ပါတယ်။
 
-# One-way communication
+# တစ်ဖက်သတ် ဆက်သွယ်ပြောဆိုခြင်း (One-way communication)
 
-Much of software engineering involves writing for people who lack your
-current context: teammates who join later, maintainers who inherit
-your code, or yourself in six months when you've forgotten why you
-made a particular choice. A key piece of advice for all this kind of
-writing is that your goal is to capture and convey the *why*, not just
-the *what*. The what tends to be self-explanatory, while the *why* is
-hard-earned knowledge that is easily lost to time.
+ဆော့ဖ်ဝဲ အင်ဂျင်နီယာ လုပ်ငန်းစဉ်များစွာတွင် လက်ရှိ သင်၏ အကြောင်းအရင်းအချက်အလက် (context) များကို မသိရှိကြသူများအတွက် ရေးသားရခြင်းများ ပါဝင်လေ့ရှိပါတယ် - နောက်မှ အဖွဲ့ထဲ ရောက်လာသည့် အဖွဲ့ဝင်များ၊ သင်၏ ကုဒ်ကို ဆက်လက် ထိန်းသိမ်းရမည့် ထိန်းသိမ်းသူများ (maintainers)၊ သို့မဟုတ် အချို့သော ရွေးချယ်မှုများကို အဘယ်ကြောင့် ပြုလုပ်ခဲ့သလဲဆိုသည်ကို မေ့သွားသည့် လွန်ခဲ့သော ၆ လက မိမိကိုယ်တိုင်တို့ ဖြစ်ကြပါတယ်။ ဤသို့သော စာရေးသားခြင်း အမျိုးအစား အားလုံးအတွက် အဓိက အကြံပြုချက်မှာ သင်၏ ရည်မှန်းချက်သည် *ဘာလုပ်ထားသလဲ* (*what*) ဆိုသည်တင်မကဘဲ *အဘယ်ကြောင့် ပြုလုပ်ရသလဲ* (*why*) ဆိုသည်ကိုပါ မှတ်တမ်းတင် ချပြရန် ဖြစ်ပါတယ်။ *ဘာလုပ်ထားသလဲ* ဆိုသည်မှာ ကုဒ်ကို ကြည့်ရုံဖြင့် သဘောပေါက်နိုင်သော်လည်း *အဘယ်ကြောင့် ပြုလုပ်ရသလဲ* ဆိုသည်မှာမူ အချိန်ကြာလာသည်နှင့်အမျှ လွယ်ကူစွာ မေ့ပျောက်သွားနိုင်သော ခက်ခဲစွာ ရရှိထားသည့် အသိပညာဖြစ်ပါတယ်။
 
-Perhaps the most common form of engineer-to-engineer communication
-(apart from the code itself) is code comments. I've personally found
-that a lot of code comments are useless. But they don't have to be! Good
-comments explain things that the code itself cannot: *why* something is
-done a particular way, not *how* it works (which is what the code
-shows). They can save hours of confusion, while bad comments add noise
-or, worse, mislead.
+အင်ဂျင်နီယာအချင်းချင်း ဆက်သွယ်ပြောဆိုသည့် အလေ့အထများအနက် (ကုဒ် သီးသန့် မဟုတ်ပါက) အသုံးအများဆုံး နည်းလမ်းမှာ ကုဒ် ကွန်မန့်များ (code comments) ဖြစ်နိုင်ပါတယ်။ ကျွန်ုပ်၏ ကိုယ်တွေ့အရ အချို့သော ကုဒ်ကွန်မန့်များသည် အသုံးမဝင်သည်ကို တွေ့ရပါတယ်။ သို့သော် ၎င်းတို့သည် အမြဲတမ်း အသုံးမဝင်ဘဲ မနေသင့်ပါဘူး။ ကောင်းမွန်သော ကွန်မန့်များသည် ကုဒ်ကိုယ်တိုင်က မရှင်းပြနိုင်သော အရာများကို ရှင်းပြပေးကြပါတယ် - ဆိုလိုသည်မှာ အရာတစ်ခုကို အဘယ်ကြောင့် ဤနည်းလမ်းအတိုင်း ပြုလုပ်ခဲ့သနည်း (*why*) ဆိုသည်ကို ရှင်းပြခြင်းဖြစ်ပြီး၊ ၎င်းက မည်သို့ အလုပ်လုပ်သနည်း (*how*) ဆိုသည်ကို မဟုတ်ပါ (၎င်းကို ကုဒ်က ပြသထားပြီး ဖြစ်ပါတယ်)။ ၎င်းတို့သည် နာရီပေါင်းများစွာ ကြာမြင့်နိုင်သော ဇဝေဇဝါ ဖြစ်မှုများကို သက်သာစေနိုင်ပြီး၊ မကောင်းသော ကွန်မန့်များသည် အနှောင့်အယှက် ဖြစ်စေနိုင်သလို၊ ပိုဆိုးသည်မှာ လမ်းလွဲ ရောက်စေနိုင်ပါတယ်။
 
-Types of comments that are nearly always worthwhile:
+နီးပါးမျှ အမြဲတမ်း တန်ဖိုးရှိသည့် ကွန်မန့် အမျိုးအစားများမှာ -
 
-- **TODOs**: Mark incomplete or unpolished code, but leave enough
-  context for someone else to understand what's outstanding and why it
-  was deferred. "TODO: optimize" is useless; "TODO: this O(n²) loop is
-  fine for `n<100`, but will need indexing if we scale" is actionable.
-- **References**: Link to external sources when code implements an
-  algorithm from a paper, adapts code from elsewhere, or encodes
-  behaviour specified in documentation. Use permalinks. Note any
-  divergences from the reference.
-- **Correctness arguments**: Explain *why* non-trivial code produces
-  correct results. The code shows the steps; a comment explains why
-  those steps work.
-- **Hard-learned lessons**: If you spent 30+ minutes debugging something
-  and the fix is a non-obvious incantation, document it. Your past self
-  didn't realize it was needed; future readers won't either.
-- **Rationale for constants**: Magic numbers deserve explanation. Why
-  1492? Why 16 bits? Was it chosen randomly, derived from testing, or
-  required for correctness? Even "chosen arbitrarily" is useful
-  information.
-- **Load-bearing choices**: If correctness depends on a
-  seemingly-innocent implementation detail (e.g., "must be a BTreeSet
-  because iteration order matters below"), call it out explicitly.
-- **"Why not"s**: When you deliberately avoid the obvious approach,
-  explain why. Otherwise someone will "fix" it later and break things.
+- **TODO များ**: မပြီးသေးသော သို့မဟုတ် မသပ်ရပ်သေးသော ကုဒ်များကို မှတ်သားထားပါ၊ သို့သော် အခြားသူတစ်ဦးအနေဖြင့် မည်သည့်အရာ ကျန်ရှိနေသနည်းနှင့် အဘယ်ကြောင့် ဆိုင်းငံ့ထားခဲ့သနည်းဆိုသည်ကို နားလည်နိုင်ရန် လုံလောက်သော အကြောင်းအရင်း (context) ကို ချန်ထားခဲ့ပါ။ "TODO: optimize" ဟု ရေးခြင်းသည် အသုံးမဝင်ပါ၊ "TODO: ဤ O(n²) loop သည် `n<100` အတွက် အဆင်ပြေ သော်လည်း Scale လုပ်ပါက indexing လိုအပ်ပါလိမ့်မည်" ဟု ရေးခြင်းက အမှန်တကယ် ဆောင်ရွက်နိုင်သော လမ်းညွှန်ချက် ဖြစ်ပါတယ်။
+- **ကိုးကားချက်များ (References)**: ကုဒ်သည် သုတေသနစာတမ်းပါ အယ်လဂိုရီသမ်ကို အကောင်အထည်ဖော်ခြင်း၊ အခြားနေရာမှ ကုဒ်ကို မှီငြမ်းပြင်ဆင်ခြင်း သို့မဟုတ် Documentation ပါ သတ်မှတ်ချက်အတိုင်း မူတည်ရေးသားခြင်းတို့ ပြုလုပ်ပါက ပြင်ပ အရင်းအမြစ်များသို့ လင့်ခ်ချိတ်ဆက်ပေးပါ။ Permalinks များကို အသုံးပြုပါ။ မူရင်းကိုးကားချက်မှ ခွဲထွက်ပြောင်းလဲသွားသည့် အချက်များရှိပါက မှတ်သားဖော်ပြပါ။
+- **မှန်ကန်ကြောင်း အထောက်အထားများ (Correctness arguments)**: ရှုပ်ထွေးသော ကုဒ်များသည် အဘယ်ကြောင့် မှန်ကန်သော ရလဒ်များ ထွက်ပေါ်စေသည်ဆိုသည့် *အကြောင်းအရင်း*ကို ရှင်းပြပါ။ ကုဒ်သည် အဆင့်များကို ဖော်ပြပေးပြီး ကွန်မန့်က ထိုအဆင့်များ အဘယ်ကြောင့် အလုပ်လုပ်သည်ကို ရှင်းပြပေးပါတယ်။
+- **ခက်ခဲစွာ သင်ယူခဲ့ရသော သင်ခန်းစာများ (Hard-learned lessons)**: အကယ်၍ သင်သည် အရာတစ်ခုကို ဖြေရှင်းရန် (debugging) မိနစ် ၃၀ ကျော် သုံးခဲ့ရပြီး ယင်းဖြေရှင်းချက်မှာ မသိသာသော နည်းလမ်းဖြစ်ပါက မှတ်တမ်းတင်ထားပါ။ လွန်ခဲ့သော သင်ကိုယ်တိုင်က ၎င်းလိုအပ်သည်ကို သတိမပြုမိခဲ့သလို၊ နောင်တွင် ဖတ်ရှုမည့်သူများလည်း သတိပြုမိမည် မဟုတ်ပါ။
+- **ကိန်းသေများအတွက် အကြောင်းပြချက်များ (Rationale for constants)**: သီးသန့် ကိန်းဂဏန်းများ (Magic numbers) သည် ရှင်းလင်းချက် လိုအပ်ပါတယ်။ အဘယ်ကြောင့် 1492 နံပါတ် ဖြစ်ရသနည်း။ အဘယ်ကြောင့် 16 bits ဖြစ်ရသနည်း။ ၎င်းကို ကြုံရာ ရွေးချယ်ခဲ့ခြင်းလား၊ စမ်းသပ်မှုမှ ထွက်ပေါ်လာခြင်းလား၊ သို့မဟုတ် မှန်ကန်မှုအတွက် လိုအပ်၍လား။ "ကြုံရာ ရွေးချယ်ထားခြင်း" ဆိုသည့် စကားပင်လျှင် အသုံးဝင်သော သတင်းအချက်အလက် ဖြစ်ပါတယ်။
+- **အရေးပါသော ရွေးချယ်မှုများ (Load-bearing choices)**: အကယ်၍ စနစ်မှန်ကန်မှုသည် မသိသာသော ရေးသားမှု အသေးစိတ်တစ်ခုပေါ်တွင် မူတည်နေပါက (ဥပမာ - "အောက်ပါအတိုင်း ပတ်လည်စစ်ဆေးမှု (iteration order) အစီအစဉ် အရေးကြီးသောကြောင့် BTreeSet ဖြစ်ရပါမည်") ၎င်းကို အတိအလင်း ဖော်ပြထားပါ။
+- **"အဘယ်ကြောင့် မသုံးသနည်း" များ ("Why not"s)**: ထင်ရှားသော နည်းလမ်းကို သင်တမင် ရှောင်ရှားခဲ့ပါက အဘယ်ကြောင့် ရှောင်ရှားခဲ့သနည်းဆိုသည်ကို ရှင်းပြပါ။ သို့မဟုတ်ပါက အခြားသူတစ်ဦးက နောင်တွင် လာရောက် "ပြင်ဆင်" ပြီး အရာအားလုံးကို ပျက်စီးစေပါလိမ့်မည်။
 
-READMEs (you have one, right?) are also a common first touch-point with
-other developers. A good one answers four questions immediately: What
-does this do? Why should I care? How do I use it? How do I install it?
-In that order. Structure it like a funnel: a one-liner and maybe a
-visual demo at the top so someone can decide in seconds if this solves
-their problem, then progressively add depth. Show usage before
-installation — people want to see what they're getting before committing
-to setup steps.
+README များသည်လည်း (သင့်ထံတွင် တစ်ခု ရှိတယ်မလား) အခြားသော Developer များနှင့် ပထမဆုံး ထိတွေ့ဆက်ဆံသည့် အသုံးများသော နေရာတစ်ခု ဖြစ်ပါတယ်။ ကောင်းမွန်သော README တစ်ခုသည် မေးခွန်း လေးခုကို ချက်ချင်း အဖြေပေးနိုင်ပါတယ် - ၎င်းသည် ဘာလုပ်သနည်း၊ အဘယ်ကြောင့် စိတ်ဝင်စားသင့်သနည်း၊ မည်သို့ အသုံးပြုရသနည်း၊ မည်သို့ တပ်ဆင်ရသနည်း။ ဤအစီအစဉ်အတိုင်း အဖြေပေးရပါမည်။ ၎င်းကို ကတော့ (funnel) ပုံစံမျိုး တည်ဆောက်ပါ - ထိပ်ဆုံးတွင် စာတစ်ကြောင်း ရှင်းလင်းချက်နှင့် ရုပ်မြင်သရုပ်ပြ Demo ပါဝင်ကောင်း ပါဝင်နိုင်ပြီး လူတစ်ယောက်အနေဖြင့် ၎င်းသည် သူတို့၏ ပြဿနာကို ဖြေရှင်းပေးနိုင်သလားဆိုသည်ကို စက္ကန့်ပိုင်းအတွင်း ဆုံးဖြတ်နိုင်အောင် ပြုလုပ်ပါ၊ ထို့နောက်မှ အသေးစိတ်များကို အဆင့်ဆင့် ထည့်သွင်းသွားပါ။ တပ်ဆင်နည်း (installation) မပြမီ အသုံးပြုပုံ (usage) ကို ပြသပါ - လူများသည် တပ်ဆင်မှု အဆင့်များကို မပြုလုပ်မီ သူတို့ မည်သည့်အရာ ရရှိမည်ကို ကြည့်ရှုချင်ကြပါတယ်။
 
-Commit messages are another kind of "writing for others" that is often
-neglected. They are often written as "fixed blah" or "added foo", and
-while that may be sufficient in some cases, it's easy to forget that
-they form the historical record of *why* the codebase evolved the way it
-did. When someone (including you!) runs `git blame` trying to understand
-a confusing change, good commit messages should give them answers.
+Commit မက်ဆေ့ဂျ်များသည် မကြာခဏ လျစ်လျူရှုခံရလေ့ရှိသော အခြားသော "အခြားသူများအတွက် ရေးသားခြင်း" အမျိုးအစားတစ်ခု ဖြစ်ပါတယ်။ ၎င်းတို့ကို "fixed blah" သို့မဟုတ် "added foo" ဟူ၍ ရေးသားလေ့ရှိကြပြီး၊ အချို့ကိစ္စများတွင် လုံလောက်နိုင်သော်လည်း၊ ၎င်းတို့သည် အဘယ်ကြောင့် ကုဒ်အစုအဝေး (codebase) ဤသို့ ပြောင်းလဲလာရသနည်းဆိုသည့် *အကြောင်းအရင်း* မှတ်တမ်းအဖြစ် တည်ရှိနေသည်ကို မေ့လျော့သွားတတ်ကြပါတယ်။ တစ်စုံတစ်ယောက် (သင်ကိုယ်တိုင် အပါအဝင်) က ရှုပ်ထွေးသော ပြောင်းလဲမှုကို နားလည်ရန် `git blame` ကို စစ်ဆေးသည့်အခါ ကောင်းမွန်သော commit မက်ဆေ့ဂျ်များသည် အဖြေပေးနိုင်ရပါမည်။
 
-In general, the body should answer:
-- What problem forced this change?
-- What alternatives did you consider?
-- What are the trade-offs or implications?
-- What might be surprising about this approach?
+ယေဘုယျအားဖြင့်၊ မက်ဆေ့ဂျ်၏ အဓိက စာကိုယ်သည် အောက်ပါမေးခွန်းများကို အဖြေပေးသင့်ပါတယ် -
+- မည်သည့် ပြဿနာက ဤပြောင်းလဲမှုကို ပြုလုပ်ရန် ဖိအားပေးခဲ့သနည်း။
+- မည်သည့် အခြားရွေးချယ်စရာ နည်းလမ်းများကို သင် စဉ်းစားခဲ့သနည်း။
+- ရလဒ် သို့မဟုတ် ရင်းနှီးပေးဆပ်ရမှု (trade-offs) များသည် မည်သည်တို့ ဖြစ်သနည်း။
+- ဤနည်းလမ်းနှင့် ပတ်သက်၍ အံ့အားသင့်ဖွယ် ဖြစ်နိုင်သည်မှာ မည်သည်နည်း။
 
-> Obviously you should scale detail with complexity. A one-line typo fix
-> needs only a subject. A subtle race condition fix that took hours to
-> debug deserves paragraphs explaining the problem and solution.
+> သိသာထင်ရှားသည်မှာ အသေးစိတ် ရေးသားချက်ကို ရှုပ်ထွေးမှုနှင့်အညီ ချိန်ဆရပါမည်။ စာလုံးပေါင်း အမှားပြင်ခြင်းကဲ့သို့ ရိုးရှင်းသော ပြောင်းလဲမှုအတွက် ခေါင်းစဉ် (subject) တစ်ကြောင်းသာ လိုအပ်ပါလိမ့်မည်။ Debug ပြုလုပ်ရန် နာရီပေါင်းများစွာ သုံးခဲ့ရသော သိမ်မွေ့သည့် race condition ပြုပြင်မှုမျိုးတွင်မူ ပြဿနာနှင့် ဖြေရှင်းချက်ကို ရှင်းပြထားသည့် စာပိုဒ်များ ရေးသားရန် ထိုက်တန်ပါတယ်။
 
-For complex changes, it can be useful to follow a Problem → Solution →
-Implications structure: Start with the forcing function or limitation,
-then explain what changed and the key design decisions, and then list
-noteworthy consequences (positive and negative). That last part is
-particularly important; real engineering involves balancing concerns,
-and documenting that a trade-off was intentional prevents future
-developers from thinking you missed the problem.
+ရှုပ်ထွေးသော ပြောင်းလဲမှုများအတွက် ပြဿနာ (Problem) → ဖြေရှင်းချက် (Solution) → နောက်ဆက်တွဲ ရလဒ်များ (Implications) အဆင်လိုက် တည်ဆောက်ပုံကို လိုက်နာခြင်းက အသုံးဝင်နိုင်ပါတယ် - ဖိအားပေးသည့် အကြောင်းအရင်း သို့မဟုတ် ကန့်သတ်ချက်ဖြင့် စတင်ပါ၊ ထို့နောက် မည်သည်တို့ ပြောင်းလဲသွားသည်နှင့် အဓိက ဒီဇိုင်း ဆုံးဖြတ်ချက်များကို ရှင်းပြပါ၊ ထို့နောက် သတိပြုဖွယ် ရလဒ်များ (ကောင်းကျိုးနှင့် ဆိုးကျိုးများ) ကို စာရင်းပြုလုပ်ပါ။ နောက်ဆုံးအပိုင်းသည် အထူးပင် အရေးကြီးပါတယ် - စစ်မှန်သော အင်ဂျင်နီယာ လုပ်ငန်းသည် ကောင်းကျိုးဆိုးကျိုးများကို မျှတအောင် ချိန်ဆရခြင်း ပါဝင်ပြီး ရင်းနှီးပေးဆပ်ရမှု (trade-off) ကို တမင်တကာ ပြုလုပ်ခဲ့ခြင်းဖြစ်ကြောင်း မှတ်တမ်းတင်ခြင်းက နောင်လာမည့် Developer များကို သင် ပြဿနာကို မမြင်ဘဲ လျစ်လျူရှုခဲ့သည်ဟု ထင်မြင်ခြင်းမှ ကာကွယ်ပေးပါတယ်။
 
-LLMs _can_ be helpful in writing commit messages. However, if you simply
-point one at your change and ask it to write the commit message for the
-change, the LLM will only have access to the _what_, not the _why_. And
-the resulting commit message will thus be mostly descriptive (the
-opposite of what we want!). If you used an LLM to help you make the
-change in the first place, asking the LLM to write the commit in that
-same session can be a much better option since your conversation with
-the LLM is inherently a rich source of context about the change!
-Otherwise, or in addition, a useful trick is to specifically tell the
-LLM you'd like a commit message focused on the "why" (and other nuances
-from the notes above), and then _tell it to query you for missing
-context_. Essentially, you're acting like a MCP "tool" for the coding
-agent that it can use to "read" context.
+LLM များကို Commit မက်ဆေ့ဂျ်များ ရေးသားရာတွင် အကူအညီ ရယူ *နိုင်ပါသည်*။ သို့သော် အကယ်၍ သင်သည် ပြောင်းလဲမှုကို LLM သို့ ပြသပြီး Commit မက်ဆေ့ဂျ် ရေးခိုင်းရုံမျှဖြင့် LLM သည် *ဘာလုပ်ထားသလဲ* (*what*) ဆိုသည်ကိုသာ ရရှိနိုင်မည်ဖြစ်ပြီး၊ *အဘယ်ကြောင့် ပြုလုပ်သနည်း* (*why*) ဆိုသည်ကို ရရှိမည် မဟုတ်ပါ။ ထို့ကြောင့် ထွက်ပေါ်လာသော Commit မက်ဆေ့ဂျ်သည် ဖော်ပြချက် သက်သက်သာ ဖြစ်နေပါလိမ့်မည် (ကျွန်ုပ်တို့ လိုချင်သည့် အရာနှင့် ဆန့်ကျင်ဘက်ဖြစ်သည်!)။ အကယ်၍ သင်သည် ပြောင်းလဲမှုကို ပြုလုပ်ရန် LLM ကို အသုံးပြုခဲ့ပါက၊ ထို LLM နှင့် ဆွေးနွေးနေသည့် Session တွင်းမှာပင် Commit မက်ဆေ့ဂျ် ရေးခိုင်းခြင်းက ပိုမို ကောင်းမွန်သော နည်းလမ်းဖြစ်နိုင်ပါတယ်၊ အကြောင်းမှာ LLM နှင့် ဆွေးနွေးထားချက်များသည် ပြောင်းလဲမှုဆိုင်ရာ အကြောင်းအရင်းများ (context) ကြွယ်ဝစွာ ပါဝင်နေသောကြောင့် ဖြစ်ပါတယ်။ သို့မဟုတ်ပါက (သို့မဟုတ် ထပ်ဆောင်းအနေဖြင့်) အသုံးဝင်သော နည်းလမ်းတစ်ခုမှာ LLM အား "အဘယ်ကြောင့် ပြုလုပ်သနည်း" (*why*) ကို အဓိကထားသည့် (နှင့် အထက်ပါ မှတ်စုများပါ သိမ်မွေ့သော အချက်များ ပါဝင်သည့်) Commit မက်ဆေ့ဂျ်မျိုး လိုချင်ကြောင်း အတိအလင်း ပြောကြားပြီး *လိုအကွငျးအရာမြားအတှကျ မေးမြန်းခိုငျးခွငျး* ဖြစ်ပါတယ်။ အခြေခံအားဖြင့် သင်သည် Coding Agent အတွက် အကြောင်းအရင်းများကို "ဖတ်ရှုနိုင်သော" MCP "tool" တစ်ခုကဲ့သို့ ဆောင်ရွက်ပေးနေခြင်း ဖြစ်ပါတယ်။
 
-As your changes get more complex, make sure to also break up commits
-logically (`git add -p` is your friend). Each commit should represent
-one coherent change that could be understood and reviewed independently.
-Don't mix refactoring with new features or combine unrelated bug fixes,
-as this muddies the story for which changes fixed what problem, and will
-almost certainly slow down the eventual review of your changes. It also
-gives you superpowers through `git bisect`, but that's a story for
-another time.
+သင်၏ ပြောင်းလဲမှုများ ပိုမို ရှုပ်ထွေးလာသည်နှင့်အမျှ Commit များကို သုတ္တတြိယ (logically) ခွဲခြားရန် မမေ့ပါနှင့် (`git add -p` သည် သင်၏ မိတ်ဆွေဖြစ်ပါတယ်။)။ Commit တိုင်းသည် သီးခြားစီ နားလည်နိုင်ပြီး ပြန်လည်သုံးသပ်နိုင်သော ခိုင်မာသည့် ပြောင်းလဲမှုတစ်ခုကို ကိုယ်စားပြုရပါမည်။ Refactoring ပြုလုပ်ခြင်းကို အင်္ဂါရပ်အသစ်များ (new features) နှင့် ရောနှောခြင်း သို့မဟုတ် ဆက်စပ်မှုမရှိသော bug ပြုပြင်မှုများကို ပေါင်းစပ်ခြင်း မပြုပါနှင့်၊ ၎င်းသည် မည်သည့် ပြောင်းလဲမှုက မည်သည့် ပြဿနာကို ဖြေရှင်းခဲ့သလဲဆိုသည်ကို ရှုပ်ထွေးစေပြီး သင်၏ ပြောင်းလဲမှုများကို ပြန်လည် သုံးသပ်သည့်အခါ နှောင့်နှေးစေမည်မှာ သေချာသလောက် ရှိပါတယ်။ ထို့အပြင် ၎င်းသည် `git bisect` မှတစ်ဆင့် အလွန်အသုံးဝင်သော စွမ်းရည်များကို ပေးစွမ်းနိုင်သော်လည်း၊ ယင်းမှာ အခြားအချိန်မှ ပြောရမည့် အကြောင်းအရာ ဖြစ်ပါတယ်။
 
-> One note as you start being more diligent about technical writing, and
-> using it more extensively, make sure you respect the reader. It's easy
-> to end up over-explaining once you start, but you have to resist that
-> urge lest the reader read _none_ of what you've written. Explain the
-> "why" and trust them to figure out the "how" for their situation.
+> နည်းပညာဆိုင်ရာ စာရေးသားခြင်းများတွင် ပိုမို ဂရုစိုက်လာပြီး ကျယ်ကျယ်ပြန့်ပြန့် အသုံးပြုလာသည်နှင့်အမျှ စာဖတ်သူကို လေးစားမှုရှိရန် မမေ့ပါနှင့်။ စတင်လိုက်သည်နှင့် အသေးစိတ် လွန်ကဲစွာ ရှင်းပြလိုသည့် စိတ်ဖြစ်ပေါ်လာရန် လွယ်ကူသော်လည်း စာဖတ်သူက သင်ရေးထားသည်ကို *လုံးဝ* မဖတ်ဘဲ မနေစေရန် ထိုဆန္ဒကို ထိန်းချုပ်ရပါမည်။ *အဘယ်ကြောင့်* (*why*) ကို ရှင်းပြပါ၊ ထို့နောက် သူတို့၏ အခြေအနေအတွက် *မည်သို့ပြုလုပ်ရမည်နည်း* (*how*) ကို သူတို့ကိုယ်တိုင် ရှာဖွေနိုင်မည်ဟု ယုံကြည်ပါ။
 
-# Collaboration
+# ပူးပေါင်းဆောင်ရွက်ခြင်း (Collaboration)
 
-As engineers, we may spend a large part of our job coding at our own
-keyboard, but a sizeable chunk of our time is also taken up by
-communicating with others. That time is usually split into collaboration
-and education, and the payoff from investing in getting better at both is
-significant.
+အင်ဂျင်နီယာများအနေဖြင့် ကျွန်ုပ်တို့သည် လုပ်ငန်းခွင်၏ အချိန်အများစုကို မိမိတို့ ကီးဘုတ်တွင် ကုဒ်ရေးသားခြင်းဖြင့် ကုန်လွန်စေသော်လည်း အချိန် တော်တော်များများကိုမူ အခြားသူများနှင့် ဆက်သွယ်ပြောဆိုခြင်းဖြင့် ကုန်လွန်စေရပါတယ်။ ထိုအချိန်ကို ပူးပေါင်းဆောင်ရွက်ခြင်း (collaboration) နှင့် လေ့လာသင်ယူခြင်း/မျှဝေခြင်း (education) ဟူ၍ ခွဲခြားလေ့ရှိပြီး နှစ်ခုစလုံးတွင် ပိုမို တိုးတက်အောင် ရင်းနှီးမြှုပ်နှံခြင်း၏ အကျိုးကျေးဇူးမှာ အလွန်ပင် ကြီးမားပါတယ်။
 
-## Contributing
+## ပါဝင်ကူညီဆောင်ရွက်ခြင်း (Contributing)
 
-Whether you are submitting a bug report, contributing a simple bug fix,
-or implementing a huge feature, it's worth keeping in mind that there
-are usually orders of magnitude more users than there are contributors,
-and an order of magnitude more contributors than there are maintainers.
-As a result, maintainer time is highly oversubscribed. If you want to
-increase the likelihood that your contribution goes somewhere
-productive, you have to ensure that your contributions carry a high
-signal-to-noise ratio and are worth the maintainers' time.
+သင်သည် Bug အစီရင်ခံစာ ပေးပို့ခြင်း၊ ရိုးရှင်းသော Bug ပြုပြင်မှု ပါဝင်ကူညီခြင်း သို့မဟုတ် ကြီးမားသော အင်္ဂါရပ်တစ်ခုကို အကောင်အထည်ဖော်ခြင်း ပြုလုပ်သည်ဖြစ်စေ၊ ပါဝင်ကူညီသူများ (contributors) ထက် အသုံးပြုသူများ (users) က အဆပေါင်းများစွာ ပိုမိုများပြားပြီး ထိန်းသိမ်းသူများ (maintainers) ထက် ပါဝင်ကူညီသူများက အဆပေါင်းများစွာ ပိုမိုများပြားသည်ကို သတိရရန် ထိုက်တန်ပါတယ်။ ရလဒ်အနေဖြင့် ထိန်းသိမ်းသူများ၏ အချိန်သည် အလွန်ပင် မလောက်မငှ ဖြစ်နေရပါတယ်။ အကယ်၍ သင့် ပါဝင်ကူညီမှုသည် အကျိုးရှိသော နေရာသို့ ရောက်ရှိနိုင်ခြေ တိုးတက်စေချင်ပါက သင်၏ ပါဝင်ကူညီမှုများသည် သတင်းအချက်အလက် ခိုင်မာမှု (signal-to-noise ratio) မြင့်မားပြီး ထိန်းသိမ်းသူများ၏ အချိန်နှင့် ထိုက်တန်ကြောင်း သေချာစေရပါမည်။
 
-For example, a good bug report respects the maintainer's time by
-providing everything needed to understand and reproduce the problem:
+ဥပမာအားဖြင့်၊ ကောင်းမွန်သော Bug အစီရင်ခံစာသည် ပြဿနာကို နားလည်ရန်နှင့် ပြန်လည်ဖန်တီး စမ်းသပ်ရန် (reproduce) လိုအပ်သော အရာအားလုံးကို ပံ့ပိုးပေးခြင်းဖြင့် ထိန်းသိမ်းသူ၏ အချိန်ကို လေးစားမှု ပြသပါတယ် -
 
-- **Environment**: OS, version numbers, relevant configuration
-- **What you expected** vs **what actually happened**
-- **Steps to reproduce**: Be specific. "Click the button" is less useful
-  than "Click the Submit button on the /settings page while logged in as
-  an admin."
-- **What you've already tried**: This prevents duplicate suggestions and
-  shows you've done some investigation
+- **ပတ်ဝန်းကျင် (Environment)**: OS၊ ဗားရှင်းနံပါတ်များ၊ သက်ဆိုင်ရာ ဆက်တင် ကွန်ဖစ်ဂူရေးရှင်းများ
+- **သင် မျှော်လင့်ထားသည့် အရာ** နှင့် **အမှန်တကယ် ဖြစ်ပျက်ခဲ့သည့် အရာ**
+- **ပြန်လည်ဖန်တီးရန် အဆင့်များ (Steps to reproduce)**: တိကျပါစေ။ "ခလုတ်ကို နှိပ်ပါ" ဟု ရေးခြင်းသည် "Admin အဖြစ် ဝင်ရောက်ထားစဉ် /settings စာမျက်နှာရှိ Submit ခလုတ်ကို နှိပ်ပါ" ဟု ရေးခြင်းလောက် အသုံးမဝင်ပါ။
+- **သင် စမ်းသပ် ပြုလုပ်ခဲ့ပြီးသော အရာများ**: ၎င်းသည် ထပ်မံ အကြံပြုချက်များကို တားဆီးပေးပြီး သင်ကိုယ်တိုင် အချို့သော စုံစမ်းစစ်ဆေးမှုများ ပြုလုပ်ခဲ့ကြောင်း ပြသပါတယ်။
 
-> If you find a security vulnerability, don't post it publicly. Contact
-> the maintainers privately first and give them reasonable time to fix
-> it before disclosure. Many projects have a SECURITY.md file or
-> similar for this purpose.
+> အကယ်၍ သင်သည် လုံခြုံရေးဆိုင်ရာ အားနည်းချက်တစ်ခုကို တွေ့ရှိပါက၊ ၎င်းကို အများပြည်သူသို့ လျှို့ဝှက်ချက်မထားဘဲ မတင်ပါနှင့်။ မထုတ်ပြန်မီ ပုဂ္ဂလိကအဖြစ် ထိန်းသိမ်းသူများထံ စတင် ဆက်သွယ်ပြီး ပြင်ဆင်ရန် သင့်တော်သော အချိန် ပေးပါ။ ပရောဂျက်အများအပြားတွင် ဤရည်ရွယ်ချက်အတွက် `SECURITY.md` ဖိုင် သို့မဟုတ် ယင်းနှင့် ဆင်တူသော ဖိုင်များ ရှိကြပါတယ်။
 
-**Make sure you search for existing issues.** Your bug or feature
-request may already be reported, and it's far better to add information
-to existing discussions rather than creating duplicates. Not to mention,
-it reduces noise for the maintainers.
+**ရှိပြီးသား ပြဿနာများ (issues) ကို ရှာဖွေထားကြောင်း သေချာပါစေ။** သင်၏ Bug သို့မဟုတ် အင်္ဂါရပ် တောင်းဆိုချက်သည် တင်ပြပြီး ဖြစ်နိုင်ပြီး၊ ထပ်တူ ပြဿနာများ ထပ်မံ ဖန်တီးမည့်အစား ရှိပြီးသား ဆွေးနွေးမှုများတွင် သတင်းအချက်အလက် ထပ်မံဖြည့်စွက်ခြင်းက မဆိုင်းမတွ ပိုမို ကောင်းမွန်ပါတယ်။ ထို့အပြင် ၎င်းသည် ထိန်းသိမ်းသူများအတွက် အနှောင့်အယှက်များကိုလည်း လျှော့ချပေးပါတယ်။
 
-Minimal reproducible examples are gold, if you can come up with one.
-They save the maintainer a huge amount of time and effort, and
-reliably reproducing the bug is often the hardest part of fixing it. Not
-to mention, the effort you put into isolating the problem often helps
-you understand it better too, and sometimes leads you to find a fix
-yourself.
+အနည်းဆုံး ပြန်လည်ဖန်တီးနိုင်သော နမူနာများ (Minimal reproducible examples) ကို သင် ဖန်တီးပေးနိုင်ပါက အလွန်ပင် တန်ဖိုးရှိပါတယ်။ ၎င်းတို့သည် ထိန်းသိမ်းသူ၏ အချိန်နှင့် အားထုတ်မှုကို များစွာ သက်သာစေပြီး၊ Bug ကို စိတ်ချယုံကြည်စွာ ပြန်လည်ဖန်တီးခြင်းသည် ပြုပြင်ရန် အခက်ခဲဆုံး အပိုင်းဖြစ်လေ့ရှိပါတယ်။ ထို့အပြင် ပြဿနာကို သီးခြားခွဲထုတ်ရန် သင် စိုက်ထုတ်ခဲ့သော ကြိုးပမ်းမှုသည် ၎င်းကို ပိုမို နားလည်စေရန် ကူညီပေးပြီး အချို့သောအခါများတွင် ဖြေရှင်းချက်ကို မိမိကိုယ်တိုင် တွေ့ရှိသွားစေနိုင်ပါတယ်။
 
-If you don't hear back right away, keep in mind that maintainers are
-often volunteers with limited time. If you're waiting for a reply from
-them, a polite follow-up after a couple weeks is fine; daily pings are
-not. Similarly, "me too" comments, or bug reports that are just a
-copy-paste of some terminal output tend to be a net-negative in terms of
-getting traction for your issue.
+အကယ်၍ သင် ချက်ချင်း အကြောင်းပြန်စာ မရရှိပါက၊ ထိန်းသိမ်းသူများသည် ကန့်သတ်ထားသော အချိန်သာရှိသည့် စေတနာ့ဝန်ထမ်းများ ဖြစ်လေ့ရှိသည်ကို သတိရပါ။ အကယ်၍ သူတို့ထံမှ အကြောင်းပြန်စာကို စောင့်ဆိုင်းနေပါက သီတင်းပတ်အနည်းငယ် ကြာပြီးနောက် ယဉ်ကျေးစွာ ထပ်မံ မေးမြန်းခြင်းက အဆင်ပြေ သော်လည်း နေ့စဉ် တွန်းအားပေး မေးမြန်းခြင်းမျိုး မပြုလုပ်သင့်ပါ။ ထို့အတူ "ကျွန်ုပ်လည်း ဖြစ်သည်" ("me too") ဟူသော ကွန်မန့်များ သို့မဟုတ် Terminal output များကို Copy-Paste မျှသာ လုပ်ထားသော Bug အစီရင်ခံစာများသည် သင်၏ ပြဿနာ တိုးတက်မှု ရရှိရန်အတွက် အနုတ်လက္ခဏာ ဆောင်လေ့ရှိပါတယ်။
 
-If you're looking to make a code contribution, you'll also want to
-familiarize yourself with the contribution guidelines. Many projects
-have a `CONTRIBUTING.md` — follow it. You'll also usually want to start
-small; a typo fix or documentation improvement is a great first
-contribution as it helps you learn the project's processes without also
-having to go through lots of back and forth on the content.
+အကယ်၍ သင်သည် ကုဒ်ဖြင့် ပါဝင်ကူညီရန် မျှော်လင့်ပါက ပါဝင်ကူညီမှုဆိုင်ရာ လမ်းညွှန်ချက်များနှင့် ရင်းနှီးကျွမ်းဝင်အောင် ပြုလုပ်လိုပါလိမ့်မည်။ ပရောဂျက် အများအပြားတွင် `CONTRIBUTING.md` ဖိုင် ရှိကြပါတယ် - ၎င်းကို လိုက်နာပါ။ ထို့အပြင် သေးငယ်သောအရာမှ စတင်လိုပါလိမ့်မည် - စာလုံးပေါင်း အမှား ပြုပြင်ခြင်း သို့မဟုတ် Documentation တိုးတက်အောင် ပြုလုပ်ခြင်းသည် ပရောဂျက်၏ လုပ်ငန်းစဉ်များကို သင်ယူနိုင်စေသောကြောင့် ပထမဆုံး ပါဝင်ကူညီမှုအဖြစ် အလွန်ကောင်းမွန်ပြီး၊ အကြောင်းအရာဆိုင်ရာ အပြင်းအထန် အပြန်အလှန် ဆွေးနွေးမှုများကို ဖြတ်သန်းရန် မလိုအပ်ပါ။
 
-> Check what license the project uses, as any code you contribute will
-> fall under the same license. In particular, look out for copyleft
-> licenses (like GPL), which requires derivatives to also be open source
-> and may have implications for your employer if you touch it!
-> [choosealicense.com](https://choosealicense.com/) has more useful
-> information.
+> ပရောဂျက် အသုံးပြုထားသော လိုင်စင်ကို စစ်ဆေးပါ၊ အကြောင်းမှာ သင့် ပါဝင်ကူညီသည့် ကုဒ်များသည်လည်း ထိုလိုင်စင်အောက်သို့ ရောက်ရှိမည်ဖြစ်သောကြောင့် ဖြစ်ပါတယ်။ အထူးသဖြင့် စေတနာလိုင်စင်များ (Copyleft licenses၊ ဥပမာ - GPL) ကို သတိပြုပါ၊ ၎င်းသည် ဆင်းသက်လာသော ကုဒ်များကိုလည်း အိုးပင်းဆော့စ်အဖြစ် သတ်မှတ်ရန် လိုအပ်ပြီး သင် ကိုင်တွယ်ပါက သင့် အလုပ်ရှင်အတွက် ရိုက်ခတ်မှုများ ရှိလာနိုင်ပါတယ်! [choosealicense.com](https://choosealicense.com/) တွင် ပိုမို အသုံးဝင်သော သတင်းအချက်အလက်များ ရှိပါတယ်။
 
-When you've decided to open a pull request ("PR"), first make sure you
-isolate the change you actually want to be accepted. If your PR changes
-lots of other unrelated things at the same time, chances are the
-reviewer will send it back to you asking you to clean it up. This is
-similar to how you should break down your git commits into semantically
-related chunks.
+Pull request ("PR") တစ်ခု စတင်ရန် ဆုံးဖြတ်ပြီးပါက၊ ပထမဦးစွာ အမှန်တကယ် လက်ခံစေချင်သော ပြောင်းလဲမှုကို သီးခြားခွဲထုတ်ထားကြောင်း သေချာပါစေ။ အကယ်၍ သင့် PR သည် အခြား ဆက်စပ်မှုမရှိသော အရာများစွာကို တစ်ပြိုင်နက်တည်း ပြောင်းလဲပါက သုံးသပ်သူ (reviewer) က ရှင်းလင်းရန် တောင်းဆိုပြီး သင့်ထံ ပြန်လည် ပို့ဆောင်ပေးနိုင်ခြေ ရှိပါတယ်။ ဤသည်မှာ git commits များကို ဆက်စပ်မှုရှိသော အစိတ်အပိုင်းများအဖြစ် ခွဲခြားသင့်သည့် နည်းလမ်းနှင့် ဆင်တူပါတယ်။
 
-In some cases, if you have many seemingly-disparate changes but
-they're all needed to enable one feature, it may be okay to open a
-larger PR that captures all the changes. However, in this case, commit
-hygiene is particularly important so that maintainers have the option
-to review the change "commit by commit".
+အချို့သော ကိစ္စများတွင် အကယ်၍ သင့်ထံ၌ သီးခြားစီဖြစ်နေပုံရသော ပြောင်းလဲမှုများစွာ ရှိသော်လည်း ၎င်းတို့ အားလုံးသည် အင်္ဂါရပ်တစ်ခုအတွက် လိုအပ်ပါက ပြောင်းလဲမှု အားလုံး ပါဝင်သော ပိုမိုကြီးမားသည့် PR တစ်ခုကို ဖွင့်လှစ်ခြင်းက အဆင်ပြေနိုင်ပါတယ်။ သို့သော် ဤကိစ္စတွင် ထိန်းသိမ်းသူများအနေဖြင့် ပြောင်းလဲမှုကို "commit တစ်ခုချင်းစီအလိုက်" သုံးသပ်နိုင်သည့် အခွင့်အရေး ရရှိရန် commit သန့်ရှင်းမှုက အထူးပင် အရေးကြီးပါတယ်။
 
-Next, make sure you explain the "why" behind the change well. Don't just
-describe _what_ changed — explain _why_ the change is needed and _why_
-this is a good way to address the problem. You should also proactively
-call out parts of the change that warrant special attention in the
-review, if any. Depending on `CONTRIBUTING.md` and the nature of your
-change, reviewers may also expect to see additional information like
-trade-offs you made or how to test the change.
+နောက်တစ်ခုအနေဖြင့်၊ ပြောင်းလဲမှု၏ နောက်ကွယ်မှ "အဘယ်ကြောင့်" (*why*) ကို သေချာစွာ ရှင်းပြပါ။ *ဘာတွေ* ပြောင်းလဲသွားသလဲဆိုသည်ကို ဖော်ပြရုံမျှ မပြုပါနှင့် - *အဘယ်ကြောင့်* ဤပြောင်းလဲမှု လိုအပ်သနည်းနှင့် *အဘယ်ကြောင့်* ဤနည်းလမ်းက ပြဿနာကို ဖြေရှင်းရန် ကောင်းမွန်သော နည်းလမ်းဖြစ်သနည်းဆိုသည်ကို ရှင်းပြပါ။ ပြောင်းလဲမှုတွင် အထူးသတိပြုရန် လိုအပ်သော အပိုင်းများရှိပါကလည်း ကြိုတင်၍ သတိပေးဖော်ပြသင့်ပါတယ်။ `CONTRIBUTING.md` နှင့် သင့်ပြောင်းလဲမှု၏ သဘောသဘာဝပေါ် မူတည်၍ သုံးသပ်သူများသည် ပြုလုပ်ခဲ့သော ရင်းနှီးပေးဆပ်ရမှုများ သို့မဟုတ် ပြောင်းလဲမှုကို မည်သို့ စမ်းသပ်ရမည်ဆိုသည့် အပိုဆောင်း သတင်းအချက်အလက်များကိုလည်း မျှော်လင့်နိုင်ပါတယ်။
 
-> We recommend contributing back to upstream projects rather than
-> "forking" the project, at least as a first approach. Forking (license
-> permitting) should be reserved for when the contributions you want to
-> make are out of scope for the original project. If you do fork, make
-> sure you acknowledge the original project!
+> အနည်းဆုံး ပထမဆုံး နည်းလမ်းအဖြစ် ပရောဂျက်ကို "fork" လုပ်မည့်အစား မူရင်း Upstream ပရောဂျက်သို့ ပြန်လည် ပါဝင်ကူညီရန် အကြံပြုပါတယ်။ Fork လုပ်ခြင်းကို (လိုင်စင် ခွင့်ပြုပါက) သင် ပြုလုပ်လိုသော ပါဝင်ကူညီမှုများသည် မူရင်းပရောဂျက်၏ နယ်ပယ်ပြင်ပသို့ ရောက်ရှိနေသည့် အခါမှသာ အသုံးပြုသင့်ပါတယ်။ အကယ်၍ သင် Fork လုပ်ပါက မူရင်းပရောဂျက်ကို အသိအမှတ်ပြုထားကြောင်း သေချာပါစေ။
 
-AI makes it incredibly easy to generate plausible-looking code and PRs
-quickly, but this doesn't excuse you from understanding what you're
-contributing. Submitting AI-generated code you can't explain burdens
-maintainers with reviewing and potentially maintaining code that even
-its author doesn't understand. It's fine to use AI to help you
-identify issues and produce fixes/features, **so long as you still do
-the due diligence** to polish it into a worthwhile contribution, rather
-than passing that work on to the (already-overloaded) maintainers.
+AI သည် လက်ခံနိုင်ဖွယ်ရှိသော ကုဒ်များနှင့် PR များကို လျင်မြန်စွာ ဖန်တီးရန် အလွန် လွယ်ကူစေသော်လည်း၊ ဤသည်မှာ သင် ပါဝင်ကူညီနေသော အရာကို နားမလည်ဘဲ နေခွင့် ပေးသည် မဟုတ်ပါ။ သင့်ကိုယ်တိုင် မရှင်းပြနိုင်သော AI ဖန်တီးထားသည့် ကုဒ်များကို တင်ပြခြင်းသည် ကုဒ်ရေးသားသူကိုယ်တိုင် မနားလည်သော ကုဒ်များကို စစ်ဆေးရန်နှင့် ထိန်းသိမ်းရန် ထိန်းသိမ်းသူများအပေါ် ဝန်ထုပ်ဝန်ပိုး ဖြစ်စေပါတယ်။ ပြဿနာများကို ရှာဖွေရန်နှင့် ပြုပြင်မှုများ/အင်္ဂါရပ်များကို ထုတ်လုပ်ရန် AI အကူအညီ ရယူခြင်းက အဆင်ပြေပါတယ်၊ **သို့သော် ထိုအလုပ်ကို (ဝန်ပိနေပြီးဖြစ်သော) ထိန်းသိမ်းသူများထံ လွှဲပြောင်းပေးမည့်အစား တန်ဖိုးရှိသော ပါဝင်ကူညီမှုတစ်ခုဖြစ်အောင် သေချာစွာ စိစစ်ပြင်ဆင်ရန် မိမိတွင် တာဝန်ရှိပါတယ်**။
 
-Remember that for maintainers, accepting a PR means accepting long-term
-responsibility. They will be maintaining this code long after the
-contributor has moved on, and so may decline changes that are
-well-intentioned but don't fit the project's direction, add complexity
-they don't want to maintain, or where the need simply isn't sufficiently
-well-documented. It's on _you_ as the contributor to make the case for
-why accepting the contribution is worth the maintenance burden.
+ထိန်းသိမ်းသူများအတွက် PR တစ်ခုကို လက်ခံခြင်းသည် ရေရှည် တာဝန်ယူမှုကို လက်ခံခြင်းဖြစ်သည်ကို သတိရပါ။ ပါဝင်ကူညီသူ ထွက်ခွာသွားပြီးနောက် အချိန်ကြာမြင့်စွာ ဤကုဒ်ကို သူတို့ ဆက်လက် ထိန်းသိမ်းရမည်ဖြစ်သဖြင့် စေတနာဖြင့် ပြုလုပ်ထားသော်လည်း ပရောဂျက်၏ ဦးတည်ချက်နှင့် မကိုက်ညီသော၊ သူတို့ မထိန်းသိမ်းချင်သော ရှုပ်ထွေးမှုများကို ပေါင်းစပ်ပေးသော၊ သို့မဟုတ် လိုအပ်ချက်ကို လုံလောက်စွာ မှတ်တမ်းမတင်ထားသော ပြောင်းလဲမှုများကို ငြင်းပယ်နိုင်ပါတယ်။ ပါဝင်ကူညီမှုကို လက်ခံခြင်းသည် ထိန်းသိမ်းမှု ဝန်ထုပ်ဝန်ပိုးနှင့် ထိုက်တန်ကြောင်း အကြောင်းပြချက် ပေးရန်မှာ ပါဝင်ကူညီသူ *သင့်* အပေါ်တွင် တည်ရှိပါတယ်။
 
-> When receiving feedback on a PR, remember that your code is not you!
-> Reviewers are trying to make the code better, not criticizing you
-> personally. Ask clarifying questions if you disagree — you might learn
-> something, or maybe they will.
+> PR ဆိုင်ရာ တုံ့ပြန်ချက်များကို လက်ခံရရှိသည့်အခါ သင့် ကုဒ်သည် သင့်ကိုယ်တိုင် မဟုတ်ကြောင်း သတိရပါ! သုံးသပ်သူများသည် ကုဒ်ကို ပိုမို ကောင်းမွန်အောင် ပြုလုပ်ရန် ကြိုးစားနေခြင်းဖြစ်ပြီး သင့်ကို ပုဂ္ဂိုလ်ရေးအရ ဝေဖန်နေခြင်း မဟုတ်ပါ။ အကယ်၍ သင် သဘောမတူပါက ရှင်းလင်းချက် မေးခွန်းများ မေးမြန်းပါ - သင် တစ်ခုခု သင်ယူရရှိနိုင်သလို၊ သို့မဟုတ် သူတို့လည်း သင်ယူရရှိနိုင်ပါတယ်။
 
-## Reviewing
+## ပြန်လည်သုံးသပ်ခြင်း (Reviewing)
 
-You might think code review is something senior developers do, but
-you'll likely be asked to review code much earlier than you expect, and
-your perspective is valuable. Fresh eyes catch things that experienced
-developers overlook, and questions from someone less familiar with the
-code often reveal assumptions that should be documented or simplified.
+Code review ကို Senior Developer များသာ ပြုလုပ်သည်ဟု သင် ထင်မြင်နိုင်သော်လည်း၊ သင် မျှော်လင့်ထားသည်ထက် ပိုမို စောစီးစွာ ကုဒ် သုံးသပ်ပေးရန် တောင်းဆိုခံရနိုင်ပြီး သင့် အမြင်သည်လည်း တန်ဖိုးရှိပါတယ်။ အသစ်အဆန်း အမြင်များသည် အတွေ့အကြုံရှိ Developer များ သတိမထားမိသော အရာများကို တွေ့ရှိနိုင်ပြီး၊ ကုဒ်နှင့် ရင်းနှီးမှုနည်းသူတစ်ဦး၏ မေးခွန်းများသည် မကြာခဏဆိုသလို မှတ်တမ်းတင်ရမည့် သို့မဟုတ် ရိုးရှင်းအောင် ပြုလုပ်ရမည့် ယူဆချက်များကို ပေါ်လွင်စေပါတယ်။
 
-Review is also one of the fastest ways to learn. You'll see how others
-approach problems, pick up patterns and idioms, and develop intuition
-for what makes code readable. Beyond personal growth, reviews catch bugs
-before they reach production, spread knowledge across the team, and
-improve code quality through collaboration. They are not merely
-bureaucratic overhead.
+Review ပြုလုပ်ခြင်းသည် လေ့လာရန် အမြန်ဆုံး နည်းလမ်းများအနက် တစ်ခုလည်း ဖြစ်ပါတယ်။ အခြားသူများ ပြဿနာများကို မည်သို့ ချဉ်းကပ်သနည်းဆိုသည်ကို တွေ့မြင်ရမည်ဖြစ်ပြီး၊ ဒီဇိုင်း ပုံစံများ (patterns) နှင့် အသုံးအနှုန်းများ (idioms) ကို လေ့လာနိုင်ကာ မည်သည့်အရာက ကုဒ်ကို ဖတ်ရှုရလွယ်ကူစေသနည်းဆိုသည့် စာနာနားလည်မှုကို တည်ဆောက်နိုင်မည် ဖြစ်ပါတယ်။ ကိုယ်ပိုင် တိုးတက်မှုအပြင်၊ Review များသည် Production သို့ မရောက်မီ Bug များကို ဖမ်းဆီးပေးနိုင်ခြင်း၊ အဖွဲ့တစ်လျှောက် အသိပညာ ပြန့်ပွားစေခြင်း၊ နှင့် ပူးပေါင်းဆောင်ရွက်မှုမှတစ်ဆင့် ကုဒ်အရည်အသွေးကို တိုးတက်စေခြင်းတို့ကို ဆောင်ရွက်ပေးပါတယ်။ ၎င်းတို့သည် ရုံးလုပ်ငန်းဆိုင်ရာ ဝန်ထုပ်ဝန်ပိုး သက်သက် မဟုတ်ပါဘူး။
 
-Good code review is a skill you need to hone over time, but there are
-some tips that can make them much better much faster:
+ကောင်းမွန်သော ကုဒ် သုံးသပ်ခြင်းသည် အချိန်ယူ၍ လေ့ကျင့်ယူရမည့် ကျွမ်းကျင်မှုတစ်ခု ဖြစ်သော်လည်း၊ ၎င်းတို့ကို ပိုမို မြန်ဆန်စွာ ကောင်းမွန်စေနိုင်သော အကြံပြုချက်အချို့ ရှိပါတယ် -
 
-- **Review the code, not the person**:
-  "This function is confusing" vs "You wrote confusing code."
-- **Prefer actionable comments**:
-  "Can you replace these globals with a config dataclass" is an easier
-  comment to address than "Don't use globals here"
-- **Ask questions rather than making demands**:
-  "What happens if X is null here?" invites discussion better than
-  "Handle the null case."
-- **Explain the "why"**:
-  "Consider using a constant here" is less useful than "Consider using a
-  constant here so we can easily adjust the timeout based on
-  environment."
-- **Distinguish blocking issues from suggestions**:
-  Be clear about what must change versus what's a matter of preference.
-- **Acknowledge what's good**:
-  Pointing out clever solutions or clean implementations is encouraging
-  and helps the author know what to continue doing.
-- **Know when to stop**:
-  Contributors only have so much time and patience, and it's not always
-  best spent handling all the nits. Focus on the big things, and
-  consider tidying up nits yourself after the fact.
+- **လူကို မဟုတ်ဘဲ ကုဒ်ကို သုံးသပ်ပါ**:
+  "ဤ Function သည် ရှုပ်ထွေးသည်" နှင့် "သင် ရှုပ်ထွေးသော ကုဒ် ရေးထားသည်" ကို နှိုင်းယှဉ်ကြည့်ပါ။
+- **အမှန်တကယ် ဆောင်ရွက်နိုင်သော ကွန်မန့်များကို ပိုမို သုံးပါ**:
+  "ဤ globals များကို config dataclass ဖြင့် အစားထိုးနိုင်မလား" ဟူသော ကွန်မန့်သည် "ဒီမှာ globals မသုံးပါနှင့်" ထက် ဖြေရှင်းရန် ပိုမို လွယ်ကူပါတယ်။
+- **တောင်းဆိုချက်များ ပြုလုပ်မည့်အစား မေးခွန်းများ မေးပါ**:
+  "ဒီမှာ X က null ဖြစ်သွားရင် ဘာဖြစ်မလဲ" ဟု မေးခြင်းက "Null ဖြစ်စဉ်ကို ကိုင်တွယ်ပါ" ဟု ပြောခြင်းထက် ဆွေးနွေးမှုကို ပိုမို ဖိတ်ခေါ်ပါတယ်။
+- **"အဘယ်ကြောင့်" ကို ရှင်းပြပါ**:
+  "ဒီမှာ ကိန်းသေ (constant) သုံးရန် စဉ်းစားပါ" ဟု ပြောခြင်းသည် "ပတ်ဝန်းကျင်အလိုက် Timeout ကို လွယ်ကူစွာ ပြင်ဆင်နိုင်ရန် ဒီမှာ ကိန်းသေ (constant) သုံးရန် စဉ်းစားပါ" ထက် အသုံးဝင်မှု နည်းပါတယ်။
+- **တားဆီးသည့် ပြဿနာများနှင့် အကြံပြုချက်များကို ခွဲခြားပါ**:
+  မည်သည့်အရာ မဖြစ်မနေ ပြောင်းလဲရမည်နှင့် မည်သည့်အရာက စိတ်ကြိုက် ရွေးချယ်မှုဖြစ်သည်ကို ရှင်းလင်းစွာ ဖော်ပြပါ။
+- **ကောင်းမွန်သော အရာများကို အသိအမှတ်ပြုပါ**:
+  ပါးနပ်သော ဖြေရှင်းချက်များ သို့မဟုတ် သန့်ရှင်းသော ရေးသားမှုများကို ထောက်ပြခြင်းသည် အားပေးရာ ရောက်ပြီး ရေးသားသူအား မည်သည့်အရာကို ဆက်လက် ပြုလုပ်ရမည်ကို သိရှိစေပါတယ်။
+- **မည်သည့်အခါ ရပ်တန့်ရမည်ကို သိရှိပါ**:
+  ပါဝင်ကူညီသူများတွင် အချိန်နှင့် စိတ်ရှည်မှု အကန့်အသတ်ရှိပြီး၊ အသေးအဖွဲ ကိစ္စရပ်များအားလုံးကို ကိုင်တွယ်ခြင်းက အကောင်းဆုံး မဟုတ်ပါဘူး။ အဓိက အရာများကို အာရုံစိုက်ပါ၊ ထို့နောက် အသေးအဖွဲများကို နောင်တွင် သင်ကိုယ်တိုင် သန့်ရှင်းရေး ပြုလုပ်ရန် စဉ်းစားပါ။
 
-> AI tools can catch certain issues, but they're not a substitute for
-> human review. They miss context, don't understand product
-> requirements, and can confidently suggest wrong things. They're worth
-> using as a first pass, but not a replacement for thoughtful human
-> review.
+> AI မကိရိယာများသည် အချို့သော ပြဿနာများကို ဖမ်းဆီးနိုင်သော်လည်း လူသားများ၏ သုံးသပ်မှုအတွက် အစားထိုး မဟုတ်ပါဘူး။ ၎င်းတို့သည် အကြောင်းအရင်းများ (context) ကို လွတ်သွားတတ်ပြီး ပရောဂျက် လိုအပ်ချက်များကို မနားလည်ပါ၊ ထို့ပြင် လွဲမှားသော အရာများကို စိတ်ချလက်ချ အကြံပြုနိုင်ပါတယ်။ ၎င်းတို့ကို ပထမဆုံး အကြမ်းစစ်ဆေးမှုအဖြစ် အသုံးပြုရန် ထိုက်တန်သော်လည်း သေချာစွာ စဉ်းစားထားသော လူသား သုံးသပ်မှု၏ အစားထိုး မဟုတ်ပါဘူး။
 
-# Education
+# လေ့လာသင်ယူခြင်းနှင့် မျှဝေခြင်း (Education)
 
-A lot of our non-coding time as engineers is spent either asking or
-answering questions, possibly a mixture of both; during collaboration,
-in dialogue with peers, or while trying to learn. Asking good questions
-is a skill that makes you better at learning from anyone, not just
-perfect explainers. Julia Evans has some excellent blog posts on "[How
-to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
-to get useful answers to your
-questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
-that are worth reading.
+အင်ဂျင်နီယာများအနေဖြင့် ကုဒ်မရေးသည့် အချိန်အများစုကို မေးခွန်းများ မေးခြင်း သို့မဟုတ် ဖြေကြားခြင်းတို့ဖြင့် ကုန်လွန်စေရပါတယ်၊ ပူးပေါင်းဆောင်ရွက်စဉ်၊ လုပ်ဖော်ကိုင်ဖက်များနှင့် ဆွေးနွေးစဉ် သို့မဟုတ် လေ့လာရန် ကြိုးစားနေစဉ်တွင် နှစ်ခုစလုံး ရောနှောပါဝင်နိုင်ပါတယ်။ မေးခွန်းကောင်းများ မေးမြန်းခြင်းသည် အထူးကျွမ်းကျင်စွာ ရှင်းပြနိုင်သူများထံမှ သာမက မည်သူ့ထံမှမဆို ပိုမို ကောင်းမွန်စွာ သင်ယူနိုင်စေသည့် ကျွမ်းကျင်မှုတစ်ခု ဖြစ်ပါတယ်။ Julia Evans ၏ "[မေးခွန်းကောင်းများ မည်သို့ မေးရမလဲ](https://jvns.ca/blog/good-questions/)" နှင့် "[သင့် မေးခွန်းများအတွက် အသုံးဝင်သော အဖြေများ မည်သို့ ရယူမလဲ](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)" ဘလော့ဂ်ပို့စ်များသည် ဖတ်ရှုရန် အထူး ထိုက်တန်ပါတယ်။
 
-Some particularly valuable pieces of advice are:
+အထူးတလွန် တန်ဖိုးရှိသော အကြံပြုချက်အချို့မှာ -
 
-- **State your understanding first**: Say what you think you know and
-  ask "is that right?" This helps the answerer identify your actual
-  knowledge gaps.
-- **Ask yes/no questions**: "Is X true?" prevents tangential
-  explanations and usually prompts useful elaboration anyway.
-- **Be specific**: "How do SQL joins work?" is too vague. "Does a LEFT
-  JOIN include rows where the right table has no match?" is answerable.
-- **Admit when you don't understand**: Interrupt to ask about unfamiliar
-  terms. This reflects confidence, not weakness. Similarly, if they ask
-  questions of you that you do not know the answer to, it's best to say
-  "I don't know", and possibly follow up with "but I think ..." or even
-  "but I can find out".
-- **Don't accept incomplete answers**: Keep asking follow-ups until you
-  actually understand.
-- **Do some research first**: Basic investigation helps you ask more
-  targeted questions (though casual questions among colleagues are
-  fine).
+- **သင် နားလည်ထားသည်ကို ပထမဦးစွာ ဖော်ပြပါ**: သင် သိထားသည်ဟု ထင်ရသော အရာကို ပြောပြီး "အဲဒါ မှန်သလား" ဟု မေးပါ။ ဤသည်မှာ အဖြေပေးသူအား သင်၏ အမှန်တကယ် မသိသေးသော ကွက်လပ်များကို ဖော်ထုတ်ရန် ကူညီပေးပါတယ်။
+- **ဟုတ်/မဟုတ် မေးခွန်းများ မေးပါ**: "X က မှန်ပါသလား" ဟူသော မေးခွန်းသည် မသက်ဆိုင်သော ရှင်းလင်းချက်များကို တားဆီးပေးပြီး အသုံးဝင်သော အသေးစိတ် ရှင်းလင်းချက်များကို ရရှိစေလေ့ရှိပါတယ်။
+- **တိကျပါစေ**: "SQL joins များ မည်သို့ အလုပ်လုပ်သနည်း" ဟူသော မေးခွန်းသည် လွန်းမက ကျယ်ပြန့်ပါတယ်။ "LEFT JOIN တွင် ညာဘက် table ၌ ကိုက်ညီမှုမရှိသော rows များ ပါဝင်ပါသလား" ဟူသော မေးခွန်းမျိုးက အဖြေပေးနိုင်ပါတယ်။
+- **မနားလည်ပါက ဝန်ခံပါ**: မရင်းနှီးသော အသုံးအနှုန်းများကို မေးရန် ကြားဖြတ် မေးမြန်းပါ။ ဤသည်မှာ ယုံကြည်မှုကို ပြသခြင်းဖြစ်ပြီး အားနည်းချက် မဟုတ်ပါ။ ထို့အတူ အကယ်၍ သူတို့က သင့်အား သင်မသိသော မေးခွန်းများ မေးပါက "ကျွန်ုပ် မသိပါ" ဟု ပြောခြင်းက အကောင်းဆုံးဖြစ်ပြီး၊ "သို့သော် ကျွန်ုပ် ထင်သည်မှာ..." သို့မဟုတ် "သို့သော် ကျွန်ုပ် စုံစမ်းကြည့်နိုင်ပါတယ်" ဟု ဆက်လက် ပြောဆိုနိုင်ပါတယ်။
+- **မပြည့်စုံသော အဖြေများကို လက်မခံပါနှင့်**: သင် အမှန်တကယ် နားလည်သည်အထိ ဆက်လက်၍ မေးခွန်းများ မေးပါ။
+- **ရှာဖွေ လေ့လာမှုအချို့ ပြုလုပ်ပါ**: အခြေခံ စုံစမ်းစစ်ဆေးမှုသည် ပိုမို တိကျသော မေးခွန်းများ မေးမြန်းနိုင်ရန် ကူညီပေးပါတယ် (လုပ်ဖော်ကိုင်ဖက်များအကြား ပေါ့ပေါ့ပါးပါး မေးခွန်းများမှာမူ အဆင်ပြေပါတယ်)။
 
-Remember: well-crafted questions benefit entire communities. They
-surface hidden assumptions that others need to understand too.
+သတိရပါ - သေချာစွာ စဉ်းစားထားသော မေးခွန်းများသည် အသိုင်းအဝိုင်းတစ်ခုလုံးကို အကျိုးပြုပါတယ်။ ၎င်းတို့သည် အခြားသူများလည်း နားလည်ရန် လိုအပ်သော ကွယ်ဝှက်နေသည့် ယူဆချက်များကို ပေါ်လွင်စေပါတယ်။
 
-> Note that this advice applies just as much when communicating with
-> LLMs!
+> ဤအကြံပြုချက်သည် LLM များနှင့် ဆက်သွယ်ပြောဆိုသည့်အခါတွင်လည်း ထို့အတူ သက်ရောက်ကြောင်း သတိပြုပါ!
 
-# AI etiquette
+# AI အသုံးပြုမှု ကျင့်ဝတ်များ (AI etiquette)
 
-With the growing use of LLMs and AI across software engineering, the
-social and professional norms around are still in flux. We already
-covered many of the tactical considerations in the [agentic coding
-lecture](/2026/agentic-coding/), but there are also "softer" parts of
-their use that are worth discussing.
+ဆော့ဖ်ဝဲ အင်ဂျင်နီယာ ရပ်ဝန်းတွင် LLM များနှင့် AI များကို အသုံးပြုမှု တိုးတက်လာသည်နှင့်အမျှ၊ ယင်းတို့နှင့် ပတ်သက်သည့် လူမှုရေးနှင့် အသက်မွေးဝမ်းကျောင်းဆိုင်ရာ စံနှုန်းများသည် ပြောင်းလဲနေဆဲ ဖြစ်ပါတယ်။ ကျွန်ုပ်တို့သည် နည်းဗျူဟာမြောက် စဉ်းစားဖွယ်ရာ အများအပြားကို [Agentic Coding ခေါင်းစဉ်](/2026/agentic-coding/) တွင် လွှမ်းခြုံခဲ့ပြီး ဖြစ်သော်လည်း ၎င်းတို့ အသုံးပြုမှု၏ အခြားသော "နူးညံ့သည့်" (softer) အပိုင်းများကိုလည်း ဆွေးနွေးရန် ထိုက်တန်ပါတယ်။
 
-The first of these is that when AI meaningfully contributed to your
-work, **disclose it**. This isn't about shame — it's about honesty,
-setting appropriate expectations, and ensuring the resulting work gets
-the appropriate level of review. It's also worthwhile to disclose which
-_parts_ you use AI for — there's a meaningful distinction between "this
-whole thing is vibecoded" and "I wrote this backup tool and used an LLM
-to style the web frontend". For example, we've used LLMs to help write
-some of these lecture notes, including proofreading, brainstorming, and
-generating first drafts of code snippets and exercises.
+ပထမဆုံးအချက်မှာ အကယ်၍ AI သည် သင်၏ လုပ်ငန်းတွင် အဓိပ္ပာယ်ရှိစွာ ပါဝင်ကူညီခဲ့ပါက **ပွင့်လင်းစွာ ထုတ်ဖော်ပြောဆိုပါ**။ ဤသည်မှာ ရှက်စရာ မဟုတ်ပါ - ရိုးသားမှု၊ သင့်တော်သော မျှော်လင့်ချက်များ သတ်မှတ်မှု၊ နှင့် ထွက်ပေါ်လာသော အလုပ်သည် သင့်တော်သော Review အဆင့် ရရှိစေရေးတို့အတွက် ဖြစ်ပါတယ်။ မည်သည့် *အပိုင်းများ* အတွက် AI ကို အသုံးပြုခဲ့သည်ကို ထုတ်ဖော်ပြောဆိုခြင်းကလည်း တန်ဖိုးရှိပါတယ် - "ဤအရာတစ်ခုလုံးကို vibecode လုပ်ထားခြင်းဖြစ်သည်" နှင့် "ကျွန်ုပ်သည် ဤ Backup tool ကို ရေးသားခဲ့ပြီး Web frontend ဒီဇိုင်းအတွက် LLM ကို အသုံးပြုခဲ့သည်" ဟူသည်အကြား ထင်ရှားသော ခွဲခြားမှု ရှိပါတယ်။ ဥပမာအားဖြင့်၊ ကျွန်ုပ်တို့သည် စာလုံးပေါင်း စိစစ်ခြင်း၊ အကြံဉာဏ် ဖလှယ်ခြင်း၊ နှင့် ကုဒ်နမူနာများနှင့် လေ့ကျင့်ခန်းများ၏ ပထမဆုံး မူကြမ်းများ ထုတ်လုပ်ခြင်းတို့ အပါအဝင် ဤ သင်ခန်းစာ မှတ်စုအချို့ကို ရေးသားရာတွင် ကူညီရန် LLM များကို အသုံးပြုခဲ့ပါတယ်။
 
-You'll also want to follow the norms of the teams and projects you're
-contributing to here. Some teams have stricter policies around the use
-of AI than others (e.g., for compliance or data residency reasons), and
-you don't want to accidentally run afoul of that. Being open about your
-use helps prevent potentially costly mistakes.
+သင် ပါဝင်ကူညီနေသော အဖွဲ့များနှင့် ပရောဂျက်များ၏ စံနှုန်းများကိုလည်း လိုက်နာလိုပါလိမ့်မည်။ အချို့အဖွဲ့များတွင် အခြားအဖွဲ့များထက် AI အသုံးပြုမှုဆိုင်ရာ ပိုမို တင်းကျပ်သော မူဝါဒများ ရှိကြပါတယ် (ဥပမာ - လိုက်နာဆောင်ရွက်မှု သို့မဟုတ် ဒေတာ တည်ရှိမှု အကြောင်းအရင်းများ ကြောင့်ဖြစ်သည်)၊ ထို့ကြောင့် မတော်တဆ စည်းကမ်းဖောက်ဖျက်မိခြင်းမျိုး မဖြစ်ချင်ပါ။ သင်၏ အသုံးပြုမှုကို ပွင့်လင်းစွာ ဖော်ပြခြင်းသည် ကုန်ကျစရိတ် ကြီးမားနိုင်သော အမှားများကို တားဆီးရန် ကူညီပေးပါတယ်။
 
-> If you're aiming to learn as part of the work you're doing, keep in
-> mind that if you have AI do all or most of the work for you can be
-> self-defeating; you're likely to learn more about prompting (and maybe
-> reviewing AI output) than the task itself. Especially when you're
-> learning, the point may be the journey, not the destination, so using
-> AI to "get the solution quickly" is an anti-goal.
+> အကယ်၍ သင်သည် ပြုလုပ်နေသော အလုပ်မှတစ်ဆင့် လေ့လာရန် ရည်ရွယ်ပါက၊ AI အား အလုပ် အားလုံး သို့မဟုတ် အများစုကို ခိုင်းစေခြင်းသည် မိမိကိုယ်တိုင် တိုးတက်မှုကို အဟန့်အတား ဖြစ်စေနိုင်ကြောင်း သတိရပါ - သင်သည် လုပ်ငန်းစဉ်ကိုယ်တိုင်ထက် Prompting ရေးသားခြင်း (နှင့် AI ရလဒ်များကို Review ပြုလုပ်ခြင်း) အကြောင်းကိုသာ ပိုမို လေ့လာမိပါလိမ့်မည်။ အထူးသဖြင့် သင် လေ့လာနေချိန်တွင် ပန်းတိုင်ထက် ခရီးစဉ် (ခရီးလမ်း) က အဓိက ဖြစ်နိုင်သည်၊ ထို့ကြောင့် "ဖြေရှင်းချက်ကို မြန်ဆန်စွာ ရရှိရန်" AI ကို အသုံးပြုခြင်းသည် ဆန့်ကျင်ဘက် ရည်မှန်းချက် (anti-goal) ဖြစ်ပါတယ်။
 
-A related concern comes up in interviews and other assessment
-situations. These are often intended to specifically evaluate _your_
-skills and abilities, not those of an LLM. More companies now allow you
-to use LLMs and other AI-assisted tooling in interviews as long as you
-let them observe those interactions as part of the interview (i.e., they
-are evaluating your skill in making use of those tools too!), but those
-are still in the minority. If you are unsure about whether AI assistance
-is in scope for a particular task, ask!
+ဆက်စပ်နေသည့် စိုးရိမ်ဖွယ်ရာ တစ်ခုမှာ အင်တာဗျူးများနှင့် အခြားသော အကဲဖြတ်မှု အခြေအနေများတွင် ပေါ်ပေါက်လာပါတယ်။ ဤအရာများသည် LLM ၏ ကျွမ်းကျင်မှု မဟုတ်ဘဲ *သင့်* ကျွမ်းကျင်မှုနှင့် စွမ်းဆောင်ရည်များကို သီးသန့် အကဲဖြတ်ရန် ရည်ရွယ်လေ့ရှိပါတယ်။ ကုမ္ပဏီ အများအပြားသည် အင်တာဗျူး၏ အစိတ်အပိုင်းအဖြစ် ထို ဆက်သွယ်ဆောင်ရွက်မှုများကို လေ့လာခွင့်ပေးထားသရွေ့ အင်တာဗျူးများတွင် LLM များနှင့် အခြား AI အထောက်အကူပြု မကိရိယာများကို အသုံးပြုခွင့် ပေးထားကြပြီး (ဆိုလိုသည်မှာ ထို tool များကို အသုံးပြုနိုင်သော သင့် ကျွမ်းကျင်မှုကိုပါ အကဲဖြတ်နေခြင်း ဖြစ်သည်!)၊ သို့သော် ထိုသို့သော ကုမ္ပဏီများသည် အနည်းစုသာ ရှိပါသေးတယ်။ အကယ်၍ သီးခြား လုပ်ငန်းတစ်ခုအတွက် AI အကူအညီ ရယူခွင့် ရှိမရှိ မသေချာပါက မေးမြန်းပါ!
 
-> It should go without saying that if an assessment situation explicitly
-> calls for no external tools, no LLMs, etc., you should not use them.
-> Trying to do so discretely without getting caught **will** come back
-> to bite you.
+> အကယ်၍ အကဲဖြတ်မှု အခြေအနေတစ်ခုက ပြင်ပ tool များ၊ LLMs များ စသည်တို့ကို မသုံးရဟု အတိအလင်း သတ်မှတ်ထားပါက ၎င်းတို့ကို မသုံးသင့်ကြောင်း သီးသန့် ပြောရန်ပင် မလိုပါဘူး။ မမိအောင် တိတ်တဆိတ် သုံးစွဲရန် ကြိုးစားခြင်းသည် သင့်ထံ အကျိုးဆက်အဖြစ် အမှန်တကယ် ပြန်လည် **ရိုက်ခတ်လာပါလိမ့်မည်**။
 
-# Exercises
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Browse the source code of a well-known project (e.g.,
-   [Redis](https://github.com/redis/redis) or
-   [curl](https://github.com/curl/curl)). Find examples of some of the
-   comment types mentioned in the lecture: a useful TODO, a reference to
-   external documentation, a "why not" comment explaining an avoided
-   approach, or a hard-learned lesson. What would be lost if that
-   comment was not there?
+1. ထင်ရှားသော ပရောဂျက်တစ်ခု၏ စော့စ်ကုဒ် (source code) ကို ဝင်ရောက်ကြည့်ရှုပါ (ဥပမာ - [Redis](https://github.com/redis/redis) သို့မဟုတ် [curl](https://github.com/curl/curl))။ သင်ခန်းစာတွင် ဖော်ပြထားသော ကွန်မန့် အမျိုးအစား အချို့၏ နမူနာများကို ရှာဖွေပါ - အသုံးဝင်သော TODO တစ်ခု၊ ပြင်ပ Documentation ဆိုင်ရာ ကိုးကားချက် တစ်ခု၊ ရှောင်ရှားခဲ့သော နည်းလမ်းကို ရှင်းပြထားသည့် "အဘယ်ကြောင့် မသုံးသနည်း" ကွန်မန့် တစ်ခု၊ သို့မဟုတ် ခက်ခဲစွာ သင်ယူခဲ့ရသော သင်ခန်းစာ ကွန်မန့် တစ်ခု။ အကယ်၍ ထို ကွန်မန့် မရှိပါက မည်သည့်အရာများ ဆုံးရှုံးသွားမည်နည်း။
 
-1. Pick an open-source project you're interested in and look at its
-   recent commit history (`git log`). Find one commit with a good
-   message that explains *why* the change was made, and one with a weak
-   message that only describes *what* changed. For the weak one, look at
-   the diff (`git show <hash>`) and try to write a better commit message
-   following the Problem → Solution → Implications structure. Notice how
-   much work is required to reassemble the necessary context after the
-   fact!
+1. သင် စိတ်ဝင်စားသော အိုးပင်းဆော့စ် ပရောဂျက်တစ်ခုကို ရွေးချယ်ပြီး ၎င်း၏ လတ်တလော commit သမိုင်းကြောင်း (`git log`) ကို ကြည့်ရှုပါ။ အဘယ်ကြောင့် ပြောင်းလဲမှုကို ပြုလုပ်ခဲ့သနည်း (*why*) ဆိုသည်ကို ရှင်းပြထားသော ကောင်းမွန်သည့် မက်ဆေ့ဂျ် ပါဝင်သည့် commit တစ်ခုနှင့် ဘာတွေ ပြောင်းလဲသွားသလဲ (*what*) ဆိုသည်ကိုသာ ဖော်ပြထားသည့် အားနည်းသော မက်ဆေ့ဂျ် ပါဝင်သည့် commit တစ်ခုကို ရှာပါ။ အားနည်းသော commit အတွက် diff ကို ကြည့်ရှုပြီး (`git show <hash>`) ပြဿနာ → ဖြေရှင်းချက် → နောက်ဆက်တွဲ ရလဒ်များ အဆင်လိုက် တည်ဆောက်ပုံအတိုင်း ပိုမို ကောင်းမွန်သော commit မက်ဆေ့ဂျ် ရေးသားရန် ကြိုးစားကြည့်ပါ။ ပြီးစီးသွားပြီးနောက် လိုအပ်သော အကြောင်းအရင်းများ (context) ကို ပြန်လည် စုစည်းရန် မည်မျှ ကြိုးစားအားထုတ်ရသည်ကို သတိပြုပါ!
 
-1. Compare the READMEs of three GitHub projects with 1000+ stars. Are
-   all of them equally useful? Look for things that come across mostly
-   as noise to you as a lesson for future READMEs you write yourself.
+1. Star ၁၀၀၀ ကျော် ရရှိထားသော GitHub ပရောဂျက် သုံးခု၏ README များကို နှိုင်းယှဉ်ကြည့်ပါ။ ၎င်းတို့ အားလုံးသည် တူညီစွာ အသုံးဝင်ကြပါသလား။ သင်ကိုယ်တိုင် နောင်တွင် ရေးသားမည့် README များအတွက် သင်ခန်းစာအဖြစ် သင့်အတွက် အနှောင့်အယှက် သက်သက်သာ ဖြစ်စေသည့် အရာများကို ရှာဖွေပါ။
 
-1. Find an open issue on a project you use (check the "good first issue"
-   or "help wanted" labels if they have it). Evaluate the issue against
-   the criteria from the lecture: does it seem like it values the
-   maintainer's time and contains all the information necessary to debug
-   it, or do you expect that the maintainer may need to go multiple
-   rounds of questions with the submitter to get to the root problem?
+1. သင် အသုံးပြုသော ပရောဂျက်တစ်ခုတွင် ဖွင့်လှစ်ထားသော Issue တစ်ခုကို ရှာပါ (၎င်းတို့တွင် ရှိပါက "good first issue" သို့မဟုတ် "help wanted" လေဘယ်များကို စစ်ဆေးပါ)။ ၎င်း Issue ကို သင်ခန်းစာပါ စံနှုန်းများနှင့် နှိုင်းယှဉ် အကဲဖြတ်ပါ - ၎င်းသည် ထိန်းသိမ်းသူ၏ အချိန်ကို တန်ဖိုးထားပြီး Debug ပြုလုပ်ရန် လိုအပ်သော သတင်းအချက်အလက် အားလုံး ပါဝင်ပုံ ရပါသလား၊ သို့မဟုတ် ပင်မ ပြဿနာသို့ ရောက်ရှိရန် ထိန်းသိမ်းသူအနေဖြင့် တင်ပြသူထံ အကြိမ်ကြိမ် မေးခွန်းများ မေးမြန်းရန် လိုအပ်မည်ဟု သင် မျှော်လင့်ပါသလား။
 
-1. Think of a bug you've encountered in software you use (or find one in
-   an issue tracker). Practice creating a minimal reproducible example:
-   strip away everything unrelated to the bug until you have the
-   smallest case that still demonstrates the problem. Write up what you
-   removed and why.
+1. သင် အသုံးပြုသော ဆော့ဖ်ဝဲတွင် ကြုံတွေ့ခဲ့ဖူးသော Bug တစ်ခုကို စဉ်းစားပါ (သို့မဟုတ် Issue Tracker တွင် တစ်ခု ရှာဖွေပါ)။ အနည်းဆုံး ပြန်လည်ဖန်တီးနိုင်သော နမူနာ (minimal reproducible example) တစ်ခု ဖန်တီးရန် လေ့ကျင့်ပါ - ပြဿနာကို ပြသနိုင်ဆဲ အသေးငယ်ဆုံး အခြေအနေတစ်ခု ရရှိသည်အထိ Bug နှင့် မသက်ဆိုင်သော အရာအားလုံးကို ဖယ်ရှားပါ။ သင် ဖယ်ရှားခဲ့သည်များနှင့် အဘယ်ကြောင့် ဖယ်ရှားခဲ့သည်ကို ရေးသားပါ။
 
-1. Find a merged pull request on a project you're familiar with that has
-   substantive review comments (not just "LGTM"). Read through the
-   review. Were all the comments equally productive? If you were the PR
-   author, how would you find the experience of getting all those
-   comments?
+1. သင် ရင်းနှီးသော ပရောဂျက်တစ်ခုတွင် အဓိပ္ပာယ်ရှိသော Review ကွန်မန့်များ ပါဝင်သည့် Merge လုပ်ပြီးသား Pull Request တစ်ခုကို ရှာပါ ("LGTM" သက်သက် မဟုတ်ပါ)။ Review ကို ဖတ်ရှုပါ။ ကွန်မန့် အားလုံးသည် တူညီစွာ အကျိုးရှိပါသလား။ အကယ်၍ သင်သည် PR ရေးသားသူ ဖြစ်ပါက ထို ကွန်မန့်များ အအားလုံး ရရှိသည့် အတွေ့အကြုံကို မည်သို့ ခံစားရမည်နည်း။
 
-1. Go to Stack Overflow and find a question in a technology you know
-   that has a highly-voted answer. Then find one that was closed or
-   heavily downvoted. Compare them against the advice from the lecture;
-   was it predictable which question would get better answers?
+1. Stack Overflow သို့ သွားရောက်ပြီး သင်သိသော နည်းပညာတစ်ခုတွင် မဲအများအပြား ရရှိထားသည့် အဖြေပါသော မေးခွန်းတစ်ခုကို ရှာပါ။ ထို့နောက် ပိတ်သိမ်းထားသော သို့မဟုတ် မဲလျော့ခြင်း အများအပြား ခံရသော မေးခွန်းတစ်ခုကို ရှာပါ။ ၎င်းတို့ကို သင်ခန်းစာပါ အကြံပြုချက်များနှင့် နှိုင်းယှဉ်ကြည့်ပါ - မည်သည့် မေးခွန်းက ပိုမို ကောင်းမွန်သော အဖြေများ ရရှိမည်ဆိုသည်ကို ကြိုတင် ခန့်မှန်းနိုင်ပါသလား။

@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Course Overview + Introduction to the Shell"
+title: "သင်တန်းမိတ်ဆက် + Shell အသုံးပြုနည်းမိတ်ဆက်"
 description: >
-  Learn about the motivation for this class, and get started with the shell.
+  ဤသင်တန်းကို ဖွင့်လှစ်သင်ကြားရခြင်း ရည်ရွယ်ချက်ကို လေ့လာပြီး Shell ကို စတင်အသုံးပြုပါ။
 thumbnail: /static/assets/thumbnails/2026/lec1.png
 date: 2026-01-12
 ready: true
@@ -11,156 +11,70 @@ video:
   id: MSgoeuMqUmU
 ---
 
-# Who are we?
+# ကျွန်ုပ်တို့သည် မည်သူများနည်း။
 
-This class is co-taught by [Anish](https://anish.io/),
-[Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
-are all ex-MIT students who started this MIT IAP class back when we were
-students. You can reach us collectively at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+ဤသင်တန်းကို [Anish](https://anish.io/)၊ [Jon](https://thesquareplanet.com/) နှင့် [Jose](http://josejg.com/) တို့မှ ပူးတွဲသင်ကြားပေးထားခြင်းဖြစ်သည်။ ကျွန်ုပ်တို့အားလုံးသည် MIT ကျောင်းသားဟောင်းများဖြစ်ကြပြီး ကျောင်းသားဘဝတုန်းက ဤ MIT IAP သင်တန်းကို စတင်ခဲ့ကြခြင်းဖြစ်သည်။ ကျွန်ုပ်တို့ထံ ဆက်သွယ်လိုပါက [missing-semester@mit.edu](mailto:missing-semester@mit.edu) သို့ အီးမေးလ်ပေးပို့နိုင်ပါသည်။
 
-We are not paid to teach this class, and do not monetize the class in
-any way. We make all the [course
-materials](https://missing.csail.mit.edu/) and [recordings of the
-lectures](https://www.youtube.com/@MissingSemester) freely available
-online. If you want to support our work, the best way to do so is to
-simply spread the word about the class. If you're a company, university,
-or other organization that runs this content past larger cohorts, please
-send us experience reports/testimonials by email so we get to hear about
-it :)
+ကျွန်ုပ်တို့သည် ဤသင်တန်းကို သင်ကြားရန်အတွက် ဉာဏ်ပူဇော်ခ ရယူခြင်းမရှိသလို၊ မည်သည့်နည်းလမ်းဖြင့်မျှ စီးပွားဖြစ် ပြုလုပ်ထားခြင်းမရှိပါ။ ကျွန်ုပ်တို့၏ [သင်တန်းစာသင်ပစ္စည်းများ](https://missing.csail.mit.edu/) နှင့် [သင်ခန်းစာ ဗီဒီယိုမှတ်တမ်းများ](https://www.youtube.com/@MissingSemester) အားလုံးကို အွန်လိုင်းတွင် အခမဲ့ လွတ်လပ်စွာ ကြည့်ရှုနိုင်ရန် စီစဉ်ပေးထားပါသည်။ သင်၏ပံ့ပိုးကူညီမှုကို ပြသလိုပါက အကောင်းဆုံးနည်းလမ်းမှာ ဤသင်တန်းအကြောင်းကို အခြားသူများထံ သတင်းမျှဝေပေးခြင်းပင် ဖြစ်ပါသည်။ အကယ်၍ သင်သည် ကုမ္ပဏီ၊ တက္ကသိုလ် သို့မဟုတ် အခြားအဖွဲ့အစည်းတစ်ခုဖြစ်ပြီး ဤသင်ရိုးညွှန်းတမ်းကို သင်တန်းသား အများအပြားအား သင်ကြားပို့ချပေးနေပါက ကျွန်ုပ်တို့သိရှိနိုင်ရန်အတွက် အတွေ့အကြုံ အစီရင်ခံစာများ/သုံးသပ်ချက်များကို အီးမေးလ်မှတစ်ဆင့် ပေးပို့ပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။ :)
 
-# Motivation
+# သင်တန်းဖွင့်လှစ်ရခြင်း ရည်ရွယ်ချက်
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools available
-at our fingertips that enable us to be more productive and solve more
-complex problems when working on any computer-related problem. Yet many
-of us utilize only a small fraction of those tools; we only know enough
-magical incantations by rote to get by, and blindly copy-paste commands
-from the internet when we get stuck.
+ကွန်ပျူတာသိပ္ပံပညာရှင်များအနေဖြင့် ကွန်ပျူတာများသည် ထပ်ခါတလဲလဲ ပြုလုပ်ရသော အလုပ်များကို ကူညီဆောင်ရွက်ပေးရာတွင် အလွန်ကောင်းမွန်ကြောင်း ကျွန်ုပ်တို့ သိရှိကြသည်။ သို့သော်လည်း ဤအချက်သည် ကျွန်ုပ်တို့၏ ပရိုဂရမ်များ လုပ်ဆောင်စေလိုသည့် တွက်ချက်မှုများတွင်သာမက ကျွန်ုပ်တို့ကိုယ်တိုင် ကွန်ပျူတာကို _အသုံးပြုပုံ_ တွင်လည်း အလားတူ သက်ရောက်ကြောင်း မကြာခဏဆိုသလို မေ့လျော့နေတတ်ကြသည်။ ကွန်ပျူတာနှင့် ပတ်သက်သည့် မည်သည့်ပြဿနာမဆို ဖြေရှင်းသည့်အခါ လုပ်ငန်းတွင်ကျယ်မှု ပိုမိုရှိစေရန်နှင့် ပိုမိုရှုပ်ထွေးသော ပြဿနာများကို ဖြေရှင်းနိုင်စေရန်အတွက် ကျယ်ပြန့်လှသော ကိရိယာ (tools) များကို လက်တစ်ကမ်းတွင် အသင့်ရရှိနိုင်ပါသည်။ သို့သော် ကျွန်ုပ်တို့အနက် အများအပြားသည် ထိုကိရိယာများ၏ သေးငယ်သော အစိတ်အပိုင်းမျှကိုသာ အသုံးပြုကြပြီး အဆင်ပြေရုံမျှ အလွတ်ကျက်မှတ်ထားသော ကွန်ပျူတာ command အနည်းငယ်ကိုသာ သိရှိကြကာ အခက်အခဲတွေ့သည့်အခါ အင်တာနက်မှ command များကို မစဉ်းစားမဆင်ခြင်ဘဲ ကူးယူဖော်ပြ (copy-paste) တတ်ကြသည်။
 
-This class is an attempt to [address this](/about/).
+ဤသင်တန်းသည် ထိုပြဿနာကို [ဖြေရှင်းရန်](/about/) ကြိုးပမ်းမှုတစ်ခု ဖြစ်ပါသည်။
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+ကျွန်ုပ်တို့သည် သင်သိရှိပြီးသား ကိရိယာများကို အထိရောက်ဆုံး အသုံးပြုနည်းကို သင်ကြားပေးလိုပြီး၊ သင်၏ ကိရိယာအိတ်ထဲသို့ ထည့်သွင်းရန် ကိရိယာအသစ်များကို ပြသပေးကာ၊ မိမိကိုယ်တိုင် ကိရိယာအသစ်များကို ပိုမိုရှာဖွေ လေ့လာရန် (အချို့ကို ဖန်တီးရန်လည်း ဖြစ်နိုင်သည်) စိတ်အားထက်သန်မှု မြှင့်တင်ပေးနိုင်ရန် မျှော်လင့်ပါသည်။ ဤသည်မှာ ကွန်ပျူတာသိပ္ပံ သင်ရိုးညွှန်းတမ်း အများစုတွင် လိုအပ်နေသော ပျောက်ဆုံးနေသည့် စာသင်နှစ်ဝက် (The Missing Semester) ဖြစ်သည်ဟု ကျွန်ုပ်တို့ ယုံကြည်ပါသည်။
 
-# Class structure
+# သင်တန်းစနစ်နှင့် ဖွဲ့စည်းပုံ
 
-The not-for-credit class consists of nine 1-hour lectures, each one
-centering on a [particular topic](/2026/). The lectures are largely
-independent, though as the semester goes on we will presume that you are
-familiar with the content from the earlier lectures. We have lecture
-notes online, but there may be content covered in class (e.g. in the
-form of demos) that may not be in the notes. As for past years, we will
-be recording lectures and posting the recordings
-[online](https://www.youtube.com/@MissingSemester).
+အမှတ်မပေးသော (not-for-credit) ဤသင်တန်းတွင် ၁ နာရီကြာ သင်ခန်းစာ ၉ ခု ပါဝင်ပြီး၊ တစ်ခုစီသည် [သီးခြားခေါင်းစဉ်တစ်ခု](/2026/) ကို အဓိကထားထားသည်။ သင်ခန်းစာများသည် သီးခြားစီ လေ့လာနိုင်သော ခေါင်းစဉ်များ ဖြစ်ကြသော်လည်း သင်တန်းကာလ ကြာမြင့်လာသည်နှင့်အမျှ ယခင်သင်ခန်းစာများမှ အကြောင်းအရာများကို သင်ကျွမ်းကျင်ပြီးသားဖြစ်သည်ဟု ကျွန်ုပ်တို့ ယူဆသွားမည်ဖြစ်သည်။ ကျွန်ုပ်တို့သည် စာတွေ့မှတ်စုများကို အွန်လိုင်းတွင် တင်ပေးထားသော်လည်း စာသင်ချိန်အတွင်း သင်ကြားပြသသည့် အကြောင်းအရာများ (ဥပမာ- လက်တွေ့ပြသမှု demos များ) သည် စာတွေ့မှတ်စုများတွင် ပါဝင်ချင်မှ ပါဝင်မည်ဖြစ်သည်။ လွန်ခဲ့သော နှစ်များနည်းတူ သင်ခန်းစာများကို ဗီဒီယိုရိုက်ကူးပြီး ရိုက်ကူးချက်များကို [အွန်လိုင်း](https://www.youtube.com/@MissingSemester) တွင် တင်ဆက်ပေးသွားမည်ဖြစ်သည်။
 
-We are trying to cover a lot of ground over the course of just a few
-1-hour lectures, so the lectures are fairly dense. To allow you some
-time to get familiar with the content at your own pace, each lecture
-includes a set of exercises that guide you through the lecture's key
-points. We will not be running dedicated office hours, but we encourage
-you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
-in `#missing-semester-forum`, or email us at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+၁ နာရီကြာ သင်ခန်းစာ အနည်းငယ်အတွင်း အကြောင်းအရာ အမြောက်အမြားကို လွှမ်းခြုံနိုင်ရန် ကြိုးစားထားသောကြောင့် သင်ခန်းစာများသည် တော်တော်လေး စိတ်အာရုံစိုက်ရန် လိုအပ်ပါသည်။ မိမိ၏ လေ့လာနိုင်သော နှုန်းအတိုင်း အကြောင်းအရာများနှင့် ရင်းနှီးကျွမ်းကျင်စေရန်အတွက် သင်ခန်းစာတစ်ခုစီတွင် သော့ချက်အချက်များကို လမ်းညွှန်ပေးသည့် လေ့ကျင့်ခန်းများ ပါဝင်ပါသည်။ ကျွန်ုပ်တို့သည် သီးသန့် အမေးအဖြေပြုလုပ်ရန် Office Hours သတ်မှတ်ထားခြင်း မရှိသော်လည်း [OSSU Discord](https://ossu.dev/#community) ၏ `#missing-semester-forum` တွင် မေးခွန်းများ မေးမြန်းရန် သို့မဟုတ် [missing-semester@mit.edu](mailto:missing-semester@mit.edu) သို့ အီးမေးလ် ပေးပို့ရန် တိုက်တွန်းပါသည်။
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+အချိန်ကန့်သတ်ချက်ကြောင့် ကိရိယာတစ်ခုချင်းစီကို အပြည့်အဝသင်တန်းတစ်ခုကဲ့သို့ အသေးစိတ်အချက်အလက်များအတိုင်း လွှမ်းခြုံနိုင်မည် မဟုတ်ပါ။ ဖြစ်နိုင်သမျှ ကိရိယာ သို့မဟုတ် ခေါင်းစဉ်တစ်ခုကို ပိုမိုနက်ရှိုင်းစွာ လေ့လာနိုင်ရန် အရင်းအမြစ်များကို လမ်းညွှန်ပေးရန် ကြိုးစားသွားမည်ဖြစ်သော်လည်း အထူးစိတ်ဝင်စားသည့် အကြောင်းအရာတစ်ခုခု ရှိပါက ကျွန်ုပ်တို့ထံ ဆက်သွယ်၍ လမ်းညွှန်ချက်များ တောင်းခံရန် တွန့်ဆုတ်မနေပါနှင့်!
 
-Finally, if you have feedback about the class, please send it to us by
-email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+နောက်ဆုံးအနေဖြင့် သင်တန်းနှင့်ပတ်သက်၍ အကြံပြုချက်များရှိပါက [missing-semester@mit.edu](mailto:missing-semester@mit.edu) သို့ အီးမေးလ်မှတစ်ဆင့် ပေးပို့နိုင်ပါသည်။
 
-# Topic 1: The Shell
+# ခေါင်းစဉ် ၁ - Shell
 
 {% comment %}
 lecturer: Jon
 {% endcomment %}
 
-## What is the shell?
+## Shell ဆိုတာ ဘာလဲ။
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, AR/VR,
-and more recently: LLMs. These are great for 80% of use-cases, but they
-are often fundamentally restricted in what they allow you to do — you
-cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+ယနေ့ခေတ် ကွန်ပျူတာများတွင် ညွှန်ကြားချက်များ ပေးပို့ရန်အတွက် အතුරුအပြင် မျက်နှာပြင် (interface) အမျိုးမျိုး ရှိကြပါသည်။ ဆန်းသစ်သော graphical user interfaces၊ အသံဖြင့် ညွှန်ကြားသည့် interfaces၊ AR/VR နှင့် မကြာသေးမီက ပေါ်ပေါက်လာသော LLM များ ဖြစ်ကြသည်။ ၎င်းတို့သည် အသုံးပြုမှု အခြေအနေ ၈၀% အတွက် အဆင်ပြေ သော်လည်း လုပ်ဆောင်နိုင်စွမ်းတွင် အခြေခံအားဖြင့် ကန့်သတ်ချက်များ ရှိတတ်ကြသည် — မရှိသေးသော ခလုတ်တစ်ခုကို နှိပ်၍ မရနိုင်သလို၊ ပရိုဂရမ် ရေးဆွဲမထားသော အသံမိန့်န့်ခွန်းကိုလည်း ပေး၍ မရနိုင်ပါ။ သင်၏ ကွန်ပျူတာက ပံ့ပိုးပေးထားသော ကိရိယာများကို အပြည့်အဝ အသုံးချနိုင်ရန် ရှေးမူမပျက် စာသားအခြေပြု interface ဖြစ်သည့် Shell သို့ ဆင်းသက် အသုံးပြုရမည် ဖြစ်သည်။
 
-Nearly all platforms you can get your hands on have a shell in one form
-or another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+သင် အသုံးပြုနိုင်သည့် ပလပ်ဖောင်း တိုင်းနီးပါးတွင် ပုံစံတစ်မျိုးမျိုးဖြင့် Shell ပါဝင်ပြီး၊ ၎င်းတို့အနက် အများအပြားတွင် ရွေးချယ်စရာ Shell အမြောက်အမြား ရှိကြသည်။ အသေးစိတ် အချက်အလက်များတွင် ကွဲပြားနိုင်သော်လည်း အဓိက သဘောတရားအားဖြင့် အားလုံး နီးပါး တူညီကြသည် - ပရိုဂရမ်များကို စေခိုင်းခြင်း၊ ၎င်းတို့ထံ input များ ပေးပို့ခြင်းနှင့် ၎င်းတို့၏ output များကို ပုံစံတကျ စစ်ဆေးကြည့်ရှုခြင်းများကို ပြုလုပ်နိုင်စေပါသည်။
 
-To open a shell _prompt_ (where you can type commands), you first need a
-_terminal_, which is the visual interface to a shell. Your device
-probably shipped with one installed, or you can install one fairly
-easily:
+Shell _prompt_ (ညွှန်ကြားချက်များ ရိုက်ထည့်နိုင်သည့်နေရာ) ကို ဖွင့်ရန်အတွက် ရှေးဦးစွာ Shell ၏ မြင်ကွင်း interface ဖြစ်သော _terminal_ တစ်ခု လိုအပ်ပါသည်။ သင်၏ စက်ပစ္စည်းတွင် တစ်ခု စက်ရုံထုတ် ပါဝင်ပြီးသား ဖြစ်နိုင်သည် သို့မဟုတ် အလွယ်တကူ တပ်ဆင် install လုပ်နိုင်သည်-
 
 - **Linux:**
-  Press `Ctrl + Alt + T` (works on most distributions). Or search for
-  "Terminal" in your applications menu.
+  `Ctrl + Alt + T` ကို နှိပ်ပါ (distribution အများစုတွင် လုပ်ဆောင်သည်)။ သို့မဟုတ် သင်၏ applications menu တွင် "Terminal" ဟု ရှာပါ။
 - **Windows:**
-  Press `Win + R`, type `cmd` or `powershell`, and press Enter.
-  Alternatively, search "Terminal" or "Command Prompt" in the Start menu.
+  `Win + R` ကို နှိပ်ပါ၊ `cmd` သို့မဟုတ် `powershell` ဟု ရိုက်ထည့်ပြီး Enter နှိပ်ပါ။ သို့မဟုတ် Start menu တွင် "Terminal" သို့မဟုတ် "Command Prompt" ဟု ရှာပါ။
 - **macOS:**
-  Press `Cmd + Space` to open Spotlight, type "Terminal", and press Enter.
-  Or find it in Applications → Utilities → Terminal.
+  `Cmd + Space` ကို နှိပ်၍ Spotlight ဖွင့်ပါ၊ "Terminal" ဟု ရိုက်ထည့်ပြီး Enter နှိပ်ပါ။ သို့မဟုတ် Applications → Utilities → Terminal တွင် ရှာပါ။
 
-On Linux and macOS, this will usually open the Bourne Again SHell, or
-"bash" for short. This is one of the most widely used shells, and its
-syntax is similar to what you will see in many other shells. On Windows,
-you'll be greeted by the "batch" or "powershell" shells, depending on
-which command you ran. These are Windows-specific, and not what we'll be
-focusing on in this class, although it has analogues for most of what
-we'll be teaching. You'll instead want the [Windows Subsystem for
-Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-machine.
+Linux နှင့် macOS တို့တွင် ၎င်းသည် Bourne Again SHell သို့မဟုတ် အတိုကောက် "bash" ကို ပုံမှန်အားဖြင့် ဖွင့်ပေးမည် ဖြစ်သည်။ ဤသည်မှာ အသုံးအများဆုံး Shell များထဲမှ တစ်ခုဖြစ်ပြီး၊ ၎င်း၏ syntax သည် အခြား Shell အများအပြားတွင် တွေ့ရမည် ဖြစ်သည့်အတိုင်း တူညီလှသည်။ Windows တွင်မူ သင် မည်သည့် command ဖွင့်ခဲ့သည်အပေါ် မူတည်၍ "batch" သို့မဟုတ် "powershell" Shell များဖြင့် ကြိုဆိုမည် ဖြစ်သည်။ ၎င်းတို့သည် Windows သီးသန့်ဖြစ်ပြီး ဤသင်တန်းတွင် အဓိက ထား သင်ကြားမည် မဟုတ်ပါ (သို့သော်လည်း ကျွန်ုပ်တို့ သင်ကြားမည့် အကြောင်းအရာ အများစုအတွက် တူညီသော သဘောတရားများ ရှိကြသည်)။ ထို့အစား [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) သို့မဟုတ် Linux virtual machine တစ်ခုကို အသုံးပြုရန် လိုအပ်မည် ဖြစ်သည်။
 
-Other shells exist, often with many ergonomic improvements over bash
-(fish and zsh are among the most common). While these are very popular
-(all the instructors use one), they're nowhere near as ubiquitous as
-bash, and lean on many of the same concepts, so we won't be focusing on
-those in this lecture.
+bash ထက် အသုံးပြုရ ပိုမို အဆင်ပြေစေသည့် မွမ်းမံမှုများ ပါဝင်သော အခြား Shell များလည်း ရှိကြသည် (fish နှင့် zsh တို့မှာ အသုံးအများဆုံးထဲတွင် ပါဝင်သည်)။ ၎င်းတို့သည် လူကြိုက်များသော်လည်း (ဆရာအားလုံးလည်း တစ်ခုခုကို အသုံးပြုကြသည်) bash ကဲ့သို့ နေရာတိုင်းတွင် မရှိနိုင်သကဲ့သို့ တူညီသော သဘောတရားများပေါ်တွင် မှီခိုနေသဖြင့် ဤသင်ခန်းစာတွင် ၎င်းတို့ကို အဓိကထားမည် မဟုတ်ပါ။
 
-## Why should you care about it?
+## ဒါကို ဘာကြောင့် စိတ်ဝင်စားသင့်သလဲ။
 
-The shell is not just (usually) much faster than "clicking around", it
-also comes with expressive power you can't easily find in any one
-graphical program. As we'll see, the shell gives you the ability to
-_combine_ programs in creative ways to automate nearly any task.
+Shell သည် "မောက်စ်ဖြင့် လိုက်ကလစ်နှိပ်ခြင်း" ထက် (ပုံမှန်အားဖြင့်) ပိုမို မြန်ဆန်ရုံသာမက မည်သည့် graphical ပရိုဂရမ်တစ်ခုတွင်မှ အလွယ်တကူ ရှာမတွေ့နိုင်သော ဖော်ပြနိုင်စွမ်းအား ပါဝင်သည်။ နောက်ပိုင်းတွင် တွေ့မြင်ရမည့်အတိုင်း Shell သည် ပရိုဂရမ်များကို တီထွင်ဖန်တီးမှုရှိသော နည်းလမ်းများဖြင့် _ပေါင်းစပ်_ ပြီး မည်သည့် လုပ်ငန်းမဆို အလိုအလျောက် ဆောင်ရွက်နိုင်စေသည့် စွမ်းရည်ကို ပေးစွမ်းသည်။
 
-Knowing your way around a shell is also very useful to navigate the
-world of open-source software (which often come with install
-instructions that require the shell), building continuous integration
-for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality/)), and debugging errors when other programs
-fail.
+Shell အသုံးပြုပုံကို ကျွမ်းကျင်စွာ သိရှိခြင်းသည် Open-source ဆော့ဖ်ဝဲလ် ကမ္ဘာကို လေ့လာစုံစမ်းရာတွင်လည်းကောင်း (၎င်းတို့တွင် Shell ကို သုံးရသည့် တပ်ဆင်မှု ညွှန်ကြားချက်များ ပါဝင်လေ့ရှိသည်)၊ သင်၏ ဆော့ဖ်ဝဲလ် ပရောဂျက်များအတွက် Continuous Integration တည်ဆောက်ရာတွင်လည်းကောင်း ([Code Quality သင်ခန်းစာ](/2026/code-quality/) တွင် ဖော်ပြထားသည့်အတိုင်း)၊ အခြား ပရိုဂရမ်များ ထိခိုက်ပျက်စီးသည့်အခါ အမှားများကို ရှာဖွေ ပြင်ဆင်ရာတွင်လည်းကောင်း အလွန် အသုံးဝင်ပါသည်။
 
-## Navigating in the shell
+## Shell တွင် လမ်းကြောင်းရှာဖွေ သွားလာခြင်း
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Terminal ကို စတင်ဖွင့်လိုက်သည့်အခါ ဤကဲ့သို့ တွေ့ရလေ့ရှိသော _prompt_ တစ်ခုကို မြင်တွေ့ရမည် ဖြစ်သည်-
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+ဤသည်မှာ Shell ၏ အဓိက စာသား interface ဖြစ်သည်။ သင်သည် `missing` ဟုခေါ်သော စက်ထဲတွင် ရောက်ရှိနေပြီး၊ သင်၏ "လက်ရှိ အလုပ်လုပ်နေသည့် ဖိုဒါလမ်းကြောင်း (current working directory)" သို့မဟုတ် လက်ရှိ ရောက်ရှိနေသည့် နေရာမှာ `~` ("home" ၏ အတိုကောက်) ဖြစ်ကြောင်း ဖော်ပြသည်။ `$` က သင်သည် root အသုံးပြုသူ မဟုတ်ကြောင်း ဖော်ပြသည် (ထိုအကြောင်းကို နောက်မှ အသေးစိတ် ပြောပါမည်)။ ဤ prompt တွင် သင်သည် _command_ တစ်ခု ရိုက်ထည့်နိုင်ပြီး ထို command ကို Shell မှ ဘာသာပြန် လုပ်ဆောင်ပေးမည် ဖြစ်သည်။ အခြေခံအကျဆုံး command မှာ ပရိုဂရမ်တစ်ခုကို စေခိုင်း run ခြင်း ဖြစ်သည်-
 
 ```console
 missing:~$ date
@@ -168,43 +82,20 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+ဤနေရာတွင် ကျွန်ုပ်တို့သည် `date` ပရိုဂရမ်ကို run ခဲ့ပြီး၊ ၎င်းသည် (မျှော်လင့်ထားသည့်အတိုင်း) လက်ရှိ ရက်စွဲနှင့် အချိန်ကို ရိုက်နှိပ်ပြသပေးသည်။ ထို့နောက် Shell က ကျွန်ုပ်တို့အား နောက်ထပ် run မည့် command တစ်ခု ရိုက်ထည့်ရန် တောင်းဆိုသည်။ ကျွန်ုပ်တို့သည် command တစ်ခုကို _arguments_ (အချက်အလက်များ) နှင့်အတူလည်း run နိုင်သည်။
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+ဤနေရာတွင် ကျွန်ုပ်တို့သည် `echo` ပရိုဂရမ်ကို `hello` ဆိုသည့် argument နှင့်အတူ run ရန် Shell အား ညွှန်ကြားခဲ့သည်။ `echo` ပရိုဂရမ်သည် ၎င်းထံ ပေးပို့လိုက်သော argument များကို ရိုးရှင်းစွာ ပြန်လည် ရိုက်နှိပ်ပေးခြင်း ဖြစ်သည်။ Shell သည် command ကို ဟာကွက် (whitespace) များဖြင့် ပိုင်းခြား၍ စစ်ဆေးပြီး ပထမစကားလုံးဖြင့် ညွှန်ပြသော ပရိုဂရမ်ကို run ကာ နောက်ဆက်တွဲ စကားလုံးများကို ပရိုဂရမ် အသုံးပြုနိုင်သည့် argument များအဖြစ် ပေးပို့သည်။ အကယ်၍ သင်သည် ကွက်လပ်များ သို့မဟုတ် အထူးသင်္ကေတများ ပါဝင်သော argument တစ်ခု (ဥပမာ- "My Photos" ဟု အမည်ရသော ဖိုဒါ) ကို ပေးပို့လိုပါက argument ကို `'` သို့မဟုတ် `"` ဖြင့် သတ်မှတ်နိုင်သည် (`"My Photos"`)၊ သို့မဟုတ် သက်ဆိုင်ရာ သင်္ကေတများကို `\` ဖြင့် escape လုပ်နိုင်သည် (`My\ Photos`)။
 
-Perhaps the most important command when you're starting out is `man`,
-short for "manual". The `man` program, among other things, lets you look
-up more information about any command on your system. For example, if
-you run `man date`, it'll explain what `date` is, and all of the various
-arguments you can pass it to alter its behavior. You can also usually
-get a short version of the help by passing `--help` as an argument to
-most commands.
+စတင်လေ့လာချိန်တွင် အရေးကြီးဆုံး command မှာ "manual" ၏ အတိုကောက် ဖြစ်သော `man` command ဖြစ်ပေလိမ့်မည်။ `man` ပရိုဂရမ်သည် အခြားအရာများအပြင် သင်၏ system ပေါ်ရှိ မည်သည့် command ၏ အသေးစိတ် အချက်အလက်များကိုမဆို ရှာဖွေ ကြည့်ရှုနိုင်စေသည်။ ဥပမာအားဖြင့် `man date` ကို run ပါက `date` ဆိုသည်မှာ ဘာလဲဆိုသည်နှင့် ၎င်း၏ လုပ်ဆောင်ချက်ကို ပြောင်းလဲရန် ပေးပို့နိုင်သည့် argument အမျိုးမျိုးကို ရှင်းပြပေးမည် ဖြစ်သည်။ command အများစုအတွက် `--help` ကို argument အဖြစ် ပေးပို့ခြင်းဖြင့်လည်း ကူညီမှု အတိုချုပ်ကို ရရှိနိုင်လေ့ ရှိသည်။
 
-> Consider installing and using [`tldr`](https://tldr.sh/) in addition
-> to `man`, as it shows you common usage examples right there in the
-> terminal. LLMs are also usually very good at explaining how commands
-> work and how you can call them to achieve what you want to accomplish.
+> `man` အပြင် [`tldr`](https://tldr.sh/) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ၊ ၎င်းသည် အသုံးများသော ဥပမာများကို terminal ထဲတွင်ပင် တိုက်ရိုက် ပြသပေးသောကြောင့် ဖြစ်သည်။ LLM များသည်လည်း command များ မည်သို့ အလုပ်လုပ်ကြောင်းနှင့် မိမိ လိုချင်သည့် ရလဒ် ရရှိရန် မည်သို့ ခေါ်ယူသုံးစွဲရကြောင်း ရှင်းပြရာတွင် အလွန် ကောင်းမွန်ကြသည်။
 
-After `man`, the most important command to learn is `cd`, or "change
-directory". This command is actually built into the shell, and isn't a
-separate program (i.e., `which cd` will say "no cd found"). You pass it
-a path, and that path becomes your current working directory. You'll
-also see the working directory reflected in the shell prompt:
+`man` ပြီးလျှင် လေ့လာရန် အရေးကြီးဆုံး command မှာ "change directory" ၏ အတိုကောက်ဖြစ်သော `cd` ဖြစ်သည်။ ဤ command သည် သီးခြား ပရိုဂရမ် မဟုတ်ဘဲ Shell ထဲတွင် တိုက်ရိုက် ပါဝင်ပြီးသား (built-in) ဖြစ်သည် (ဥပမာ- `which cd` ကို run ပါက "no cd found" ဟု ဖော်ပြလိမ့်မည်)။ သင်သည် လမ်းကြောင်း path တစ်ခု ပေးပို့လိုက်ပါက ထို path သည် သင်၏ လက်ရှိ အလုပ်လုပ်နေသော ဖိုဒါလမ်းကြောင်း ဖြစ်လာမည် ဖြစ်သည်။ လက်ရှိ ရောက်ရှိနေသော ဖိုဒါလမ်းကြောင်းကို Shell prompt တွင်လည်း တွေ့မြင်ရမည် ဖြစ်သည်-
 
 ```console
 missing:~$ cd /bin
@@ -213,23 +104,11 @@ missing:/$ cd ~
 missing:~$
 ```
 
-> Note that the shell comes with auto-completion, so you can often
-> complete paths faster by pressing `<TAB>`!
+> Shell တွင် auto-completion ပါဝင်သောကြောင့် `<TAB>` ကို နှိပ်ခြင်းဖြင့် လမ်းကြောင်းများကို ပိုမို မြန်ဆန်စွာ ရိုက်ထည့်နိုင်သည်ကို သတိပြုပါ!
 
-A lot of commands operate on the current working directory if nothing
-else is specified. If you're ever unsure where you are, you can run
-`pwd` or print the `$PWD` environment variable (with `echo $PWD`), both
-of which produce the current working directory.
+အခြားနေရာ သီးသန့် မသတ်မှတ်ထားပါက command အများစုသည် လက်ရှိ အလုပ်လုပ်နေသော ဖိုဒါလမ်းကြောင်းပေါ်တွင် လုပ်ဆောင်ကြသည်။ သင် မည်သည့်နေရာတွင် ရောက်ရှိနေသည်ကို မသေချာပါက `pwd` ကို run နိုင်သည် သို့မဟုတ် `$PWD` environment variable ကို ရိုက်နှိပ်ကြည့်နိုင်သည် (`echo $PWD` ဖြင့်)၊ ၎င်းတို့ နှစ်ခုလုံးသည် လက်ရှိ ရောက်ရှိနေသော ဖိုဒါလမ်းကြောင်းကို ပြသပေးမည် ဖြစ်သည်။
 
-The current working directory also comes in handy in that it allows us to
-use _relative_ paths. All the paths we've seen so far have been
-_absolute_ --- they start with `/` and give the full set of directories
-needed to navigate to some location from the root of the file system
-(`/`). In practice, you'll more commonly work with relative paths; so
-called because they are relative to the current working directory. In a
-relative path (anything _not_ starting with `/`), the first path
-component is looked up in the current working directory, and subsequent
-components traverse as usual. For example:
+လက်ရှိ အလုပ်လုပ်နေသော ဖိုဒါလမ်းကြောင်းသည် _relative_ (နှိုင်းယှဉ်) paths များကို အသုံးပြုနိုင်စေသည့်အတွက်လည်း အလွန် အဆင်ပြေသည်။ ယခုအထိ ကျွန်ုပ်တို့ တွေ့ခဲ့ရသော paths အားလုံးသည် _absolute_ (အပြည့်အစုံ) paths များ ဖြစ်ကြသည် --- ၎င်းတို့သည် `/` ဖြင့် စတင်ပြီး file system ၏ root (`/`) မှစ၍ မည်သည့် နေရာသို့မဆို သွားရောက်နိုင်သည့် ဖိုဒါလမ်းကြောင်း အပြည့်အစုံကို ပေးသည်။ လက်တွေ့တွင် relative paths များကို ပိုမို သုံးလေ့ ရှိကြသည်၊ အကြောင်းမှာ ၎င်းတို့သည် လက်ရှိ ဖိုဒါလမ်းကြောင်းအပေါ် မူတည်၍ သတ်မှတ်သောကြောင့် ဖြစ်သည်။ Relative path တစ်ခုတွင် (`/` ဖြင့် စမထားသော မည်သည့် path မဆို) ပထမဆုံး လမ်းကြောင်း အစိတ်အပိုင်းကို လက်ရှိ ဖိုဒါထဲတွင် ရှာဖွေပြီး နောက်ဆက်တွဲ အစိတ်အပိုင်းများကို ပုံမှန်အတိုင်း ဆက်လက် သွားရောက်သည်။ ဥပမာအားဖြင့်-
 
 ```console
 missing:~$ cd /
@@ -237,9 +116,7 @@ missing:/$ cd bin
 missing:/bin$
 ```
 
-There are also two "special" components that exist in every directory:
-`.` and `..`. `.` is "this directory", and `..` is "the parent
-directory". So:
+ဖိုဒါတိုင်းတွင် ရှိနေသော "အထူး" အစိတ်အပိုင်း နှစ်ခုလည်း ရှိသည်- `.` နှင့် `..` တို့ ဖြစ်ကြသည်။ `.` မှာ "ဤလက်ရှိ ဖိုဒါ" ဖြစ်ပြီး `..` မှာ "အထက်ဖိုဒါ (parent directory)" ဖြစ်သည်။ ထို့ကြောင့်-
 
 ```console
 missing:~$ cd /
@@ -247,21 +124,13 @@ missing:/$ cd bin/../bin/../bin/././../bin/..
 missing:/$
 ```
 
-You can usually use absolute and relative paths interchangeably for any
-command argument, just keep in mind what your current working directory
-is when using a relative one!
+command argument မည်သည့်အရာအတွက်မဆို absolute နှင့် relative paths များကို အပြန်အလှန် လဲလှယ် အသုံးပြုနိုင်လေ့ ရှိသည်၊ relative path ကို သုံးသည့်အခါ မိမိ၏ လက်ရှိ ရောက်ရှိနေသော ဖိုဒါလမ်းကြောင်း မည်သည်ဖြစ်ကြောင်းကိုသာ သတိရပါ။
 
-> Consider installing and using
-> [`zoxide`](https://github.com/ajeetdsouza/zoxide) to speed up your
-> `cd`ing --- `z` will remember the paths you frequently visit and let
-> you access with less typing.
+> `cd` ဖြင့် သွားလာခြင်းကို မြန်ဆန်စေရန် [`zoxide`](https://github.com/ajeetdsouza/zoxide) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ --- `z` သည် သင် မကြာခဏ သွားရောက်လေ့ရှိသော လမ်းကြောင်းများကို မှတ်သားထားပြီး အနည်းငယ်မျှ ရိုက်ထည့်ရုံဖြင့် ဝင်ရောက်နိုင်စေသည်။
 
-## What is available in the shell?
+## Shell တွင် မည်သည့် ကိရိယာများ ရရှိနိုင်သနည်း။
 
-But how does the shell know how to find programs like `date` or `echo`?
-If the shell is asked to execute a command, it consults an _environment
-variable_ called `$PATH` that lists which directories the shell should
-search for programs when it is given a command:
+သို့သော် Shell သည် `date` သို့မဟုတ် `echo` ကဲ့သို့သော ပရိုဂရမ်များကို မည်သို့ ရှာဖွေရမည်ကို မည်သို့ သိရှိသနည်း။ Shell အား command တစ်ခုကို run ရန် ခိုင်းစေသည့်အခါ ၎င်းသည် command ပေးလိုက်သည့်အခါ မည်သည့် ဖိုဒါများတွင် ရှာဖွေရမည်ကို စာရင်းပြုစုထားသော `$PATH` ဟုခေါ်သည့် _environment variable_ ကို တိုင်ပင်စစ်ဆေးသည်-
 
 ```console
 missing:~$ echo $PATH
@@ -272,122 +141,70 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+ကျွန်ုပ်တို့သည် `echo` command ကို run သည့်အခါ Shell သည် `echo` ပရိုဂရမ်ကို စေခိုင်းရမည်ဖြစ်ကြောင်း သိရှိပြီး `$PATH` ထဲရှိ `:` ဖြင့် ပိုင်းခြားထားသော ဖိုဒါစာရင်းများတွင် ထိုအမည်ရှိသော file ကို ရှာဖွေသည်။ တွေ့ရှိပါက run ပေးသည် (file သည် _executable_ မောင်းနှင်နိုင်သော file ဖြစ်သည်ဟု ယူဆပါသည်၊ ထိုအကြောင်းကို နောက်မှ အသေးစိတ် ပြောပါမည်)။ `which` ပရိုဂရမ်ကို အသုံးပြု၍ ပေးထားသော ပရိုဂရမ်အမည်အတွက် မည်သည့် file ကို မောင်းနှင်ရမည်ကို ရှာဖွေနိုင်သည်။ ကျွန်ုပ်တို့ မောင်းနှင်လိုသော file ၏ _path_ လမ်းကြောင်းကို တိုက်ရိုက် ပေးပို့ခြင်းဖြင့် `$PATH` ကို သုံးစရာမလိုဘဲ တိုက်ရိုက် run နိုင်သည်။
 
-This also gives a clue for how we can determine _all_ the programs we're
-able to execute in the shell: by listing the contents of all the
-directories on `$PATH`. We can do this by passing a given directory path
-to the `ls` program, which lists files:
+ဤသည်မှာ Shell တွင် ကျွန်ုပ်တို့ run နိုင်သော ပရိုဂရမ်များ _အားလုံး_ ကို မည်သို့ သိရှိနိုင်သနည်းဆိုသည်အတွက် အရိပ်အမြွက် ပေးသည်- `$PATH` ပေါ်ရှိ ဖိုဒါများအားလုံး၏ ပါဝင်သည့် အရာများကို စာရင်းထုတ်ကြည့်ခြင်း ဖြင့် ဖြစ်သည်။ file များကို စာရင်းထုတ်ပေးသော `ls` ပရိုဂရမ်သို့ ဖိုဒါ path တစ်ခု ပေးပို့ခြင်းဖြင့် ဤသို့ ပြုလုပ်နိုင်သည်-
 
 ```console
 missing:~$ ls /bin
 ```
 
-> Consider installing and using [`eza`](https://eza.rocks/) for a more
-> human-friendly `ls`.
+> ပိုမို အဆင်ပြေသော `ls` အတွေ့အကြုံအတွက် [`eza`](https://eza.rocks/) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ။
 
-This will, on most computers, print a _lot_ of programs, but we'll only
-focus on some of the most important ones here. First, some simple ones:
+ကွန်ပျူတာ အများစုတွင် ဤသို့ပြုလုပ်ပါက ပရိုဂရမ် အမြောက်အမြားကို ပြသပေးမည် ဖြစ်သော်လည်း ဤနေရာတွင် အရေးကြီးဆုံး အချို့ကိုသာ အဓိကထားသွားပါမည်။ ပထမဦးစွာ ရိုးရှင်းသော အချို့မှာ-
 
-- `cat file`, which prints the contents of `file`.
-- `sort file`, which prints out the lines of `file` in sorted order.
-- `uniq file`, which eliminates consecutive duplicate lines from `file`.
-- `head file` and `tail file`, which respectively print the first and
-  last few lines of `file`.
+- `cat file` - `file` ၏ ပါဝင်သောအရာများကို ပြသပေးသည်။
+- `sort file` - `file` ၏ စာကြောင်းများကို အစီအစဉ်အတိုင်း စီပေးသည်။
+- `uniq file` - `file` ထဲရှိ ဆက်တိုက် ထပ်နေသော စာကြောင်းများကို ဖယ်ရှားပေးသည်။
+- `head file` နှင့် `tail file` - သက်ဆိုင်ရာ `file` ၏ ရှေ့ဆုံး နှင့် နောက်ဆုံး စာကြောင်း အနည်းငယ်ကို ပြသပေးသည်။
 
-> Consider installing and using [`bat`](https://github.com/sharkdp/bat)
-> over `cat` for syntax highlighting and scrolling.
+> စာသားများ အရောင်စုံ ပြသနိုင်ရန်နှင့် Scrolling ပြုလုပ်နိုင်ရန် `cat` အစား [`bat`](https://github.com/sharkdp/bat) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ။
 
-There's also `grep pattern file`, which finds lines matching `pattern`
-in `file`. This one deserves slightly more attention as it's both _very_
-useful and sports a wider array of features than one may expect.
-`pattern` is actually a _regular expression_ which can express very
-complex patterns --- we'll [cover
-those](/2026/code-quality/#regular-expressions)
-in the code quality lecture. You can also specify a directory instead of a
-file (or leave it off for `.`) and pass `-r` to recursively search all
-the files in a directory.
+`file` ထဲတွင် `pattern` နှင့် ကိုက်ညီသော စာကြောင်းများကို ရှာဖွေပေးသည့် `grep pattern file` လည်း ရှိသည်။ ဤ command သည် အလွန် အသုံးဝင်သကဲ့သို့ မျှော်လင့်ထားသည်ထက် ပိုမိုကျယ်ပြန့်သော လုပ်ဆောင်ချက်များ ပါဝင်သဖြင့် ပိုမို အာရုံစိုက်ရန် ထိုက်တန်ပါသည်။ `pattern` ဆိုသည်မှာ အမှန်တကယ်တွင် အလွန် ရှုပ်ထွေးသော ပုံစံများကို ဖော်ပြနိုင်သည့် _regular expression_ ဖြစ်သည် --- ထိုအကြောင်းကို Code Quality သင်ခန်းစာ တွင် [လွှမ်းခြုံ ဖော်ပြသွားမည် ဖြစ်သည်](/2026/code-quality/#regular-expressions)။ file တစ်ခုအစား ဖိုဒါတစ်ခုကိုလည်း သတ်မှတ်နိုင်ပြီး (သို့မဟုတ် `.` အတွက် ချန်လှပ်ထားနိုင်သည်) ဖိုဒါတစ်ခုအတွင်းရှိ file အားလုံးကို အဆင့်ဆင့် ရှာဖွေရန် `-r` ကို ပေးပို့နိုင်သည်။
 
-> Consider installing and using
-> [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
-> faster and more human-friendly (but less portable) alternative.
-> `ripgrep` will also recursively search the current working directory
-> by default!
+> ပိုမို မြန်ဆန်ပြီး အသုံးပြုရ လွယ်ကူသော (သို့သော် ရွှေ့ပြောင်းအသုံးပြုရမှု အနည်းငယ် လျော့နည်းသော) အခြားရွေးချယ်စရာအဖြစ် `grep` အစား [`ripgrep`](https://github.com/BurntSushi/ripgrep) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ။ `ripgrep` သည် ပုံမှန်အားဖြင့် လက်ရှိ အလုပ်လုပ်နေသော ဖိုဒါကိုလည်း အလိုအလျောက် အဆင့်ဆင့် ရှာဖွေပေးမည် ဖြစ်သည်!
 
-There are also some very useful tools with a slightly more complicated
-interface. First among those is `sed`, which is a programmatic file
-editor. It has its own programming language for making automated edits
-to files, but the most common use of it is:
+အနည်းငယ် ပိုမို ရှုပ်ထွေးသော interface ရှိသည့် အလွန် အသုံးဝင်သော ကိရိယာများလည်း ရှိသည်။ ထိုအထဲမှ ပထမဆုံးမှာ ပရိုဂရမ်ဆန်သော file အယ်ဒီတာ ဖြစ်သည့် `sed` ဖြစ်သည်။ ၎င်းတွင် file များကို အလိုအလျောက် ပြင်ဆင်ရန် ကိုယ်ပိုင် ပရိုဂရမ်မင်း ဘာသာစကား ပါဝင်သော်လည်း အသုံးအများဆုံး နည်းလမ်းမှာ-
 
 ```console
 missing:~$ sed -i 's/pattern/replacement/g' file
 ```
 
-This replaces all instances of `pattern` with `replacement` in `file`.
-The `-i` indicates that we want the substitutions to happen inline (as
-opposed to leaving `file` unmodified and printing the substituted
-contents). The `s/` is the way to express in the sed programming
-language that we want to do a substitution. The `/` separates the
-pattern from the replacement. And the trailing `/g` indicates that we
-want to replace _all_ occurrences on each line rather than just the
-first. As with `grep`, `pattern` here is a regular expression, which
-gives you significant expressive power. Regular expression substitutions
-also allow `replacement` to refer back to parts of the matched pattern;
-we'll see an example of that in a second.
+ဤသည်မှာ `file` ထဲရှိ `pattern` နေရာများ အားလုံးကို `replacement` ဖြင့် အစားထိုးပေးသည်။ `-i` က အစားထိုးမှုများကို inline တိုက်ရိုက် ပြုလုပ်စေလိုကြောင်း ပြသသည် (`file` ကို မပြင်ဘဲ အစားထိုးထားသော အကြောင်းအရာများကို ရိုက်နှိပ်ပြခြင်း မဟုတ်ပါ)။ `s/` မှာ အစားထိုးလိုကြောင်း sed ပရိုဂရမ်မင်း ဘာသာစကားတွင် ဖော်ပြသည့် နည်းလမ်းဖြစ်သည်။ `/` က pattern နှင့် replacement ကို ပိုင်းခြားပေးသည်။ နောက်ဆုံးရှိ `/g` က စာကြောင်းတစ်ကြောင်းစီရှိ ပထမဆုံး တစ်ခုတည်း မဟုတ်ဘဲ ပါဝင်သမျှ အားလုံးကို အစားထိုးလိုကြောင်း ပြသသည်။ `grep` နည်းတူ ဤနေရာမှ `pattern` သည် regular expression ဖြစ်ပြီး ကြီးမားသော ဖော်ပြနိုင်စွမ်းကို ပေးသည်။ Regular expression အစားထိုးမှုများသည် `replacement` အား ကိုက်ညီသော pattern ၏ အစိတ်အပိုင်းများကို ပြန်လည် ရည်ညွှန်းနိုင်စေသည်၊ ထိုအကြောင်း ဥပမာတစ်ခုကို ခဏအတွင်း တွေ့ရပါမည်။
 
-Next, we have `find`, which lets you find files (recursively) that match
-certain conditions. For example:
+နောက်တစ်ခုမှာ သတ်မှတ်ထားသော အခြေအနေများနှင့် ကိုက်ညီသော file များကို (အဆင့်ဆင့်) ရှာဖွေနိုင်သည့် `find` ဖြစ်သည်။ ဥပမာအားဖြင့်-
 
 ```console
 missing:~$ find ~/Downloads -type f -name "*.zip" -mtime +30
 ```
 
-Finds ZIP files in the download directory that are older than 30 days.
+Download ဖိုဒါထဲရှိ ရက်ပေါင်း ၃၀ ထက် ဟောင်းနွမ်းသော ZIP file များကို ရှာဖွေပေးသည်။
 
 ```console
 missing:~$ find ~ -type f -size +100M -exec ls -lh {} \;
 ```
 
-Finds files larger than 100M in your home directory and lists them. Note
-that `-exec` takes a _command_ terminated with a stand-alone `;` (which
-we need to escape much like a space) where `{}` is replaced with each
-matching file path by `find`.
+Home ဖိုဒါထဲရှိ 100M ထက် ကြီးသော file များကို ရှာဖွေ၍ စာရင်းထုတ်ပေးသည်။ `-exec` သည် တန်းလန်း `;` ဖြင့် ဆုံးသော _command_ တစ်ခုကို ယူဆောင်ပြီး (ဟာကွက်ကဲ့သို့ပင် escape လုပ်ရန် လိုအပ်သည်)၊ ထိုနေရာတွင် `{}` ကို ကိုက်ညီသော file path တစ်ခုစီဖြင့် `find` က အစားထိုးပေးကြောင်း သတိပြုပါ။
 
 ```console
 missing:~$ find . -name "*.py" -exec grep -l "TODO" {} \;
 ```
 
-Finds any `.py` files with TODO items in them.
+TODO အကြောင်းအရာများ ပါရှိသော မည်သည့် `.py` file များကိုမဆို ရှာဖွေပေးသည်။
 
-The syntax of `find` can be a little daunting, but hopefully this gives
-you a sense of how useful it can be!
+`find` ၏ syntax သည် အနည်းငယ် ခက်ခဲနိုင်သော်လည်း ၎င်းသည် မည်မျှ အသုံးဝင်ကြောင်း သဘောပေါက်နိုင်မည်ဟု မျှော်လင့်ပါသည်။
 
-> Consider installing and using [`fd`](https://github.com/sharkdp/fd)
-> instead of `find` for a more human-friendly (but less portable!)
-> experience.
+> `find` အစား ပိုမို အသုံးပြုရ လွယ်ကူသော အတွေ့အကြုံအတွက် [`fd`](https://github.com/sharkdp/fd) ကို တပ်ဆင် အသုံးပြုရန် စဉ်းစားကြည့်ပါ (သို့သော် ရွှေ့ပြောင်းသုံးစွဲနိုင်မှု အနည်းငယ် လျော့နည်းသည်)။
 
-Next on the docket is `awk`, which, like `sed`, has its own programming
-language. Where `sed` is built for editing files, `awk` is built for
-parsing them. By far the most common use of `awk` is for data files with
-a regular syntax (like CSV files) where you want to extract only certain
-parts of every record (i.e., line):
+နောက်ထပ် လေ့လာရမည်မှာ `sed` ကဲ့သို့ပင် ကိုယ်ပိုင် ပရိုဂရမ်မင်း ဘာသာစကား ပါရှိသော `awk` ဖြစ်သည်။ `sed` ကို file များ ပြင်ဆင်ရန် တည်ဆောက်ထားပြီး `awk` ကိုမူ ၎င်းတို့ကို စစ်ဆေး ဘာသာပြန်ရန် တည်ဆောက်ထားသည်။ `awk` ၏ အသုံးအများဆုံး နည်းလမ်းမှာ မှတ်တမ်း (စာကြောင်း) တိုင်း၏ အစိတ်အပိုင်း အချို့ကိုသာ ထုတ်ယူလိုသော ပုံမှန် syntax ပါရှိသည့် ဒေတာ file များ (CSV file များကဲ့သို့) အတွက် ဖြစ်သည်-
 
 ```console
 missing:~$ awk '{print $2}' file
 ```
 
-Prints the second whitespace-separated column of every line of `file`.
-If you add `-F,`, it'll print the second comma-separated column of every
-line. `awk` can do much more --- filtering rows, computing aggregates,
-and more --- see the exercises for a taste.
+`file` ၏ စာကြောင်းတိုင်းရှိ ဟာကွက်ဖြင့် ပိုင်းခြားထားသော ဒုတိယ ကော်လံကို ရိုက်နှိပ်ပေးသည်။ `-F,` ကို ထည့်သွင်းပါက ကော်မာဖြင့် ပိုင်းခြားထားသော ဒုတိယ ကော်လံကို ရိုက်နှိပ်ပေးမည် ဖြစ်သည်။ `awk` သည် စာကြောင်းများ စစ်ထုတ်ခြင်း၊ စုစုပေါင်း တွက်ချက်ခြင်း စသည်ဖြင့် ပိုမို ပြုလုပ်နိုင်ပါသည် --- နမူနာအဖြစ် လေ့ကျင့်ခန်းများကို ကြည့်ပါ။
 
-Putting these tools together, we can do fancy things like:
+ဤကိရိယာများကို ပေါင်းစပ်လိုက်လျှင် ဤကဲ့သို့ ဆန်းသစ်သော အရာများကို ပြုလုပ်နိုင်သည်-
 
 ```console
 missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
@@ -398,76 +215,29 @@ missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
 postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 ```
 
-This grabs SSH logs from a remote server (we'll talk more about `ssh` in
-the next lecture), searches for disconnect messages, extracts the
-username from each such message, and prints the top 10 usernames
-comma-separated. All in one command! We'll leave dissecting each step as
-an exercise.
+ဤသည်မှာ Remote server တစ်ခုမှ SSH logs များကို ရယူပြီး (`ssh` အကြောင်းကို နောက်သင်ခန်းစာတွင် ပိုမို ပြောပါမည်)၊ အဆက်အသွယ် ပြတ်တောက်မှု မက်ဆေ့ဂျ်များကို ရှာဖွေကာ၊ ထို မက်ဆေ့ဂျ်များမှ username ကို ထုတ်ယူ၍ အများဆုံး ပါဝင်သော သုံးစွဲသူ အမည် ၁၀ ခုကို ကော်မာခြားပြီး ရိုက်နှိပ်ပေးသည်။ command တစ်ခုတည်းဖြင့် ရရှိခြင်း ဖြစ်သည်! အဆင့်တစ်ခုစီကို အသေးစိတ် ခွဲခြားလေ့လာခြင်းကို လေ့ကျင့်ခန်းအဖြစ် ချန်လှပ်ထားပါမည်။
 
-## The shell language (bash)
+## Shell ဘာသာစကား (bash)
 
-The previous example introduced a new concept: pipes (`|`). These let
-you string together the output of one program with the input of another.
-This works because most command-line programs will operate on their
-"standard input" (where your keystrokes normally go) if no `file`
-argument is given. `|` takes the "standard output" (what normally gets
-printed to your terminal) of the program before the `|` and makes it be
-the standard input of the program after the `|`. This allows you to
-_compose_ shell programs, and it's part of what makes the shell such a
-productive environment to work in!
+ယခင် ဥပမာသည် သဘောတရား အသစ်တစ်ခုကို မိတ်ဆက်ပေးခဲ့သည်- pipes (`|`)။ ၎င်းတို့သည် ပရိုဂရမ်တစ်ခု၏ output ကို အခြား ပရိုဂရမ်တစ်ခု၏ input နှင့် ချိတ်ဆက်ပေးသည်။ command-line ပရိုဂရမ် အများစုသည် မည်သည့် `file` argument မျှ မပေးထားပါက ၎င်းတို့၏ "standard input" (ပုံမှန်အားဖြင့် သင် ရိုက်ထည့်သော စာသားများ ရောက်ရှိရာ) ပေါ်တွင် လုပ်ဆောင်သောကြောင့် ဤသို့ လုပ်ဆောင်နိုင်ခြင်း ဖြစ်သည်။ `|` သည် ၎င်း၏ ရှေ့ရှိ ပရိုဂရမ်မှ "standard output" (ပုံမှန်အားဖြင့် terminal တွင် ရိုက်နှိပ်ပြသရာ) ကို ယူပြီး `|` ၏ နောက်ရှိ ပရိုဂရမ်အတွက် standard input ဖြစ်စေသည်။ ဤသည်မှာ Shell ပရိုဂရမ်များကို _ပေါင်းစပ်_ နိုင်စေပြီး Shell အား လုပ်ငန်းတွင်ကျယ်သော ဝန်းကျင်တစ်ခု ဖြစ်စေသည့် အချက်တစ်ခု ဖြစ်သည်!
 
-In fact, most shells implement a full programming language (like bash),
-just like Python or Ruby. It has variables, conditionals, loops, and
-functions. When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. We won't teach you all of
-bash today, but there are some bits you'll find particularly useful:
+အမှန်စင်စစ် Shell အများစုသည် Python သို့မဟုတ် Ruby ကဲ့သို့ပင် ပြည့်စုံသော ပရိုဂရမ်မင်း ဘာသာစကားကို (bash ကဲ့သို့) အကောင်အထည်ဖော်ထားကြသည်။ ၎င်းတွင် variables၊ conditionals၊ loops နှင့် functions များ ပါဝင်သည်။ သင်၏ Shell တွင် command များ run သည့်အခါ အမှန်တကယ်အားဖြင့် သင်သည် Shell မှ ဘာသာပြန်မည့် ကုဒ် အနည်းငယ်ကို ရေးသားနေခြင်း ဖြစ်သည်။ ယနေ့တွင် bash တစ်ခုလုံးကို သင်ကြားမည် မဟုတ်သော်လည်း အထူး အသုံးဝင်မည့် အစိတ်အပိုင်း အချို့ကို ဖော်ပြပေးပါမည်-
 
-First, redirects: `>file` lets you take the standard output of a program
-and write it to `file` instead of to your terminal. This makes it easier
-to analyze after the fact. `>>file` will append to `file` rather than
-overwrite it. There's also `<file` which tells the shell to read from
-`file` instead of from your keyboard as the standard input to a program.
+ပထမဦးစွာ Redirects များ- `>file` သည် ပရိုဂရမ်တစ်ခု၏ standard output ကို ယူပြီး terminal သို့ ရိုက်နှိပ်မပြဘဲ `file` ထဲသို့ ရေးသားပေးသည်။ ဤသည်မှာ နောက်ပိုင်းတွင် ဓာတ်ခွဲစစ်ဆေးရန် ပိုမို လွယ်ကူစေသည်။ `>>file` သည် `file` ကို ထပ်ရေး (overwrite) ခြင်း မပြုဘဲ စာကြောင်းများ ထပ်ပေါင်းပေးမည် ဖြစ်သည်။ ပရိုဂရမ်အတွက် standard input အဖြစ် ကီးဘုတ်အစား `file` မှ ဖတ်ရှုရန် Shell အား ညွှန်ကြားသည့် `<file` လည်း ရှိသည်။
 
-> This is a good time to mention the `tee` program. `tee` will print
-> standard input to standard output (just like `cat`!), but will _also_
-> write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
-> will preserve the full verbose log to a file while keeping your
-> terminal clean!
+> ဤသည်မှာ `tee` ပရိုဂရမ်အကြောင်း ပြောပြရန် သင့်တော်သော အချိန်ဖြစ်ပါသည်။ `tee` သည် standard input ကို standard output သို့ ရိုက်နှိပ်ပေးမည်ဖြစ်သလို (`cat` ကဲ့သို့ပင်!) file ထဲသို့လည်း _ရေးသားပေးမည်_ ဖြစ်သည်။ ထို့ကြောင့် `verbose cmd | tee verbose.log | grep CRITICAL` သည် terminal ကို သန့်ရှင်းစေပြီး ရလဒ်အပြည့်အစုံကို log file ထဲတွင် သိမ်းဆည်းပေးမည် ဖြစ်သည်!
 
-Next, conditionals: `if command1; then command2; command3; fi` will
-execute `command1`, and if it doesn't result in an error, will run
-`command2` and `command3`. You can also have an `else` branch if you
-wish. The most common command to use as `command1` is the `test`
-command, often abbreviated simply as `[`, which lets you evaluate
-conditions like "does a file exist" (`test -f file` / `[ -f file ]`) or
-"does a string equal another" (`[ "$var" = "string" ]`). In bash,
-there's also `[[ ]]`, which is a "safer" built-in version of `test` that
-has fewer odd behaviours around quoting.
+နောက်တစ်ခုမှာ Conditionals များ- `if command1; then command2; command3; fi` သည် `command1` ကို run မည်ဖြစ်ပြီး အမှား မရှိပါက `command2` နှင့် `command3` တို့ကို run မည်ဖြစ်သည်။ လိုအပ်ပါက `else` အခက်အလက်ကိုလည်း ထည့်သွင်းနိုင်သည်။ `command1` အဖြစ် သုံးလေ့ရှိသော အသုံးအများဆုံး command မှာ `test` command ဖြစ်ပြီး အတိုကောက်အားဖြင့် `[` ဟု ဖော်ပြလေ့ရှိကာ "file ရှိပါသလား" (`test -f file` / `[ -f file ]`) သို့မဟုတ် "string စာသား တူညီပါသလား" (`[ "$var" = "string" ]`) ကဲ့သို့ အခြေအနေများကို စစ်ဆေးပေးသည်။ bash တွင် ပိုမို "ဘေးကင်းသော" built-in `test` ပုံစံ ဖြစ်သည့် `[[ ]]` လည်း ရှိပြီး ကိုးကားချက် quoting ဆိုင်ရာ ပုံမှန်မဟုတ်သော မူမမှန်မှုများ ပိုမို နည်းပါးသည်။
 
-Bash also has two forms of loops, `while` and `for`. `while command1; do
-command2; command3; done` functions just like the equivalent `if`
-command, except that it will re-execute the whole thing over and over
-for as long as `command1` does not error. `for varname in a b c d; do
-command; done` executes `command` four times, each time with `$varname`
-set to one of `a`, `b`, `c`, and `d`. Instead of listing the items
-explicitly, you'll often use "command substitution", such as:
+Bash တွင် `while` နှင့် `for` ဆိုသည့် Loop ပုံစံ နှစ်မျိုး ပါဝင်သည်။ `while command1; do command2; command3; done` သည် `command1` အမှားမရှိသမျှ ကာလပတ်လုံး တစ်ခုလုံးကို ထပ်ခါထပ်ခါ run နေမည်မှလွဲ၍ သက်ဆိုင်ရာ `if` command ကဲ့သို့ လုပ်ဆောင်သည်။ `for varname in a b c d; do command; done` သည် `command` ကို လေးကြိမ် run ပြီး ကြိမ်တိုင်းတွင် `$varname` ကို `a`၊ `b`၊ `c`၊ `d` တို့ဖြင့် သတ်မှတ်သည်။ အရာများကို တိုက်ရိုက် ရေးသားခြင်းထက် ဤကဲ့သို့သော "command substitution" ကို အသုံးပြုလေ့ ရှိကြသည်-
 
 ```bash
 for i in $(seq 1 10); do
 ```
 
-This executes the command `seq 1 10` (which prints the numbers from 1 to
-10 inclusive) and then replaces the whole `$()` with that command's
-output, giving you a 10-iteration for loop. In older code you'll
-sometimes see literal backticks (like ``for i in `seq 1 10`; do``)
-instead of `$()`, but you should strongly prefer the `$()` form as it
-can be nested.
+ဤသည်မှာ `seq 1 10` command ကို run ပြီး (၁ မှ ၁၀ အထိ ကိန်းဂဏန်းများကို ရိုက်နှိပ်ပေးသည်) ထို command ၏ output ဖြင့် `$()` တစ်ခုလုံးကို အစားထိုးပေးသောကြောင့် အကြိမ် ၁၀ ကြိမ် လည်ပတ်သည့် for loop ကို ရရှိစေသည်။ ရှေးကျသော ကုဒ်များတွင် `$()` အစား backticks များကို (``for i in `seq 1 10`; do`` ကဲ့သို့) တွေ့ရတတ်သော်လည်း `$()` ကို ထပ်ဆင့် (nested) အသုံးပြုနိုင်သောကြောင့် ၎င်းကိုသာ အဓိက သုံးစွဲသင့်ပါသည်။
 
-While you _can_ write long shell scripts directly in your prompt, you'll
-usually want to write them into a `.sh` file instead. For example,
-here's a script that will run a program in a loop until it fails,
-printing the output only of the failed run, while stressing your CPU in
-the background (useful to reproduce flaky tests for example):
+ရှည်လျားသော shell scripts များကို သင်၏ prompt ထဲတွင် တိုက်ရိုက် ရေးသားနိုင်သော်လည်း `.sh` file တစ်ခုထဲသို့ ရေးသားလေ့ ရှိကြသည်။ ဥပမာအားဖြင့် မအောင်မြင်မချင်း ပရိုဂရမ်တစ်ခုကို loop ပတ်၍ run ပြီး မအောင်မြင်သော ပုံစံ၏ output ကိုသာ ရိုက်နှိပ်ပြသကာ အနောက်ကွယ်တွင် CPU အား ဝန်ပိစေမည့် script တစ်ခု ဖြစ်ပါသည် (မတည်ငြိမ်သော flaky tests များကို ပြန်လည် စမ်းသပ်ရာတွင် အသုံးဝင်သည်)-
 
 ```bash
 #!/bin/bash
@@ -496,161 +266,56 @@ tail -n 20 "$LOGFILE"
 echo "Full log: $LOGFILE"
 ```
 
-This has a number of new things in it that I recommend you spend some
-time diving into, as they're very useful in crafting useful shell
-invocations like background jobs (`&`) to run programs concurrently,
-trickier [shell
-redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html),
-and [arithmetic
-expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html).
+ဤနေရာတွင် အသစ်အဆန်း အချို့ ပါဝင်ပြီး ပရိုဂရမ်များကို ပြိုင်တူ run ရန် အနောက်ကွယ် အလုပ်များ (`&`)၊ ပိုမို ရှုပ်ထွေးသော [shell redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) နှင့် [arithmetic expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html) များကဲ့သို့ အသုံးဝင်သော shell command များ ရေးသားရာတွင် လေ့လာရန် အကြံပြုပါသည်။
 
-It's worth spending a second on the first two lines of the program
-though. The first is the "shebang" -- you'll see this at the top of
-other files than shell scripts too. When a file that starts with the
-magic incantation `#!/path` is executed, the shell will start the
-program at `/path`, and pass it the contents of the file as input. In
-the case of a shell script, this means passing the contents of the shell
-script to `/bin/bash`, but you can also write Python scripts with a
-shebang line of `/usr/bin/python`!
+ပရိုဂရမ်၏ ပထမ စာကြောင်း နှစ်ကြောင်းကို စိစစ်ကြည့်ရန် ထိုက်တန်ပါသည်။ ပထမ စာကြောင်းမှာ "shebang" ဖြစ်ပြီး shell scripts မဟုတ်သော အခြား file ၏ အပေါ်ဆုံးတွင်လည်း တွေ့ရမည် ဖြစ်သည်။ `#!/path` ဖြင့် စတင်သော file တစ်ခုကို run သည့်အခါ Shell သည် `/path` ရှိ ပရိုဂရမ်ကို စတင်ပြီး file ၏ ပါဝင်သည့် အရာများကို input အဖြစ် ပေးပို့သည်။ Shell script တစ်ခုတွင် ဤသည်မှာ shell script ကို `/bin/bash` သို့ ပေးပို့ခြင်းဖြစ်ပြီး Python script များကိုလည်း `/usr/bin/python` shebang စာကြောင်းဖြင့် ရေးသားနိုင်ပါသည်!
 
-The second line is a way to make bash "stricter", and mitigate a number
-of footguns when writing shell scripts. `set` can take a whole lot of
-arguments, but briefly: `-e` makes it so that if any command fails, the
-script exits early; `-u` makes it so that use of undefined variables
-crashes the script rather than just using an empty string; and `-o
-pipefail` makes it so that if programs in a `|` sequence fail, the
-shell script as a whole also exits early.
+ဒုတိယ စာကြောင်းမှာ bash ကို ပိုမို "တင်းကျပ်" စေပြီး shell scripts ရေးသားရာတွင် ဖြစ်လေ့ရှိသော အမှားများကို လျော့ပါးစေမည့် နည်းလမ်း ဖြစ်သည်။ `set` သည် argument အမြောက်အမြား ယူဆောင်နိုင်သော်လည်း အတိုချုပ်အားဖြင့်- `-e` သည် command တစ်ခုခု ပျက်စီးပါက script ကို စောစီးစွာ ထွက်ခွာစေသည်၊ `-u` သည် သတ်မှတ်မထားသော variables အသုံးပြုပါက စာသားအလွတ် အစား script ကို ထိခိုက်ရပ်တန့်စေသည်၊ `-o pipefail` သည် `|` တန်းစီဇယားထဲရှိ ပရိုဂရမ်များ ပျက်စီးပါက script တစ်ခုလုံးကို စောစီးစွာ ထွက်ခွာစေသည်။
 
-> Shell programming is a deep topic, just as any programming language
-> is, but be warned: bash has an unusual number of gotchas, to the point
-> that there are [multiple](https://tldp.org/LDP/abs/html/gotchas.html)
-> websites dedicated to [listing them](https://mywiki.wooledge.org/BashPitfalls).
-> I highly recommend making heavy use of
-> [shellcheck](https://www.shellcheck.net/) when writing them. LLMs are
-> also great at writing and debugging shell scripts, as well as
-> translating them to a "real" programming language (like Python) when
-> they've grown too unwieldy for bash (100+ lines).
+> Shell programming သည် အခြား ပရိုဂရမ်မင်း ဘာသာစကားများကဲ့သို့ပင် နက်ရှိုင်းသော ခေါင်းစဉ်ဖြစ်သော်လည်း သတိပြုပါ- bash တွင် ပုံမှန်မဟုတ်သော အမှားထောင်ချောက်များ (gotchas) အမြောက်အမြား ရှိနေပြီး ၎င်းတို့ကို [စာရင်းပြုစုထားသော](https://mywiki.wooledge.org/BashPitfalls) ဝက်ဘ်ဆိုက်များပင် [အများအပြား](https://tldp.org/LDP/abs/html/gotchas.html) ရှိကြသည်။ ၎င်းတို့ကို ရေးသားသည့်အခါ [shellcheck](https://www.shellcheck.net/) ကို ထိရောက်စွာ အသုံးပြုရန် အလွန် အကြံပြုပါသည်။ LLM များသည်လည်း shell scripts များကို ရေးသားခြင်း၊ စစ်ဆေးခြင်းနှင့် bash ထက် ပိုမိုကြီးမားလာသောအခါ (စာကြောင်း ၁၀၀+) "အမှန်တကယ်" ပရိုဂရမ်မင်း ဘာသာစကား (Python ကဲ့သို့) သို့ ပြောင်းလဲပေးရာတွင် အလွန် ကောင်းမွန်ကြသည်။
 
-# Next steps
+# နောက်ဆက်တွဲ လေ့လာရန်များ
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+ယခုအခါ အခြေခံ လုပ်ဆောင်ချက်များကို လုပ်ဆောင်နိုင်ရန်အတွက် Shell အသုံးပြုပုံကို ကျွမ်းကျင်စွာ သိရှိပြီး ဖြစ်သည်။ စိတ်ဝင်စားဖွယ် file များကို ရှာဖွေနိုင်ပြီး ပရိုဂရမ် အများစု၏ အခြေခံ လုပ်ဆောင်ချက်များကို အသုံးပြုနိုင်မည် ဖြစ်သည်။ နောက်သင်ခန်းစာတွင် Shell နှင့် ကိရိယာ command-line ပရိုဂရမ်များ အသုံးပြု၍ ပိုမို ရှုပ်ထွေးသော လုပ်ငန်းများကို အလိုအလျောက် ဆောင်ရွက်နည်းများအကြောင်း ပြောပြသွားပါမည်။
 
-# Exercises
+# လေ့ကျင့်ခန်းများ
 
-All classes in this course are accompanied by a series of exercises.
-Some give you a specific task to do, while others are open-ended, like
-"try using X and Y programs". We highly encourage you to try them out.
+ဤသင်တန်းရှိ သင်ခန်းစာ အားလုံးတွင် လေ့ကျင့်ခန်းများ ပါဝင်သည်။ အချို့မှာ သီးခြား လုပ်ဆောင်ရမည့် အလုပ်တစ်ခုကို ပေးထားပြီး အချို့မှာ "X နှင့် Y ပရိုဂရမ်များကို အသုံးပြုကြည့်ပါ" ကဲ့သို့ ပွင့်လင်းသော လေ့ကျင့်ခန်းများ ဖြစ်ကြသည်။ ၎င်းတို့ကို စမ်းသပ်ကြည့်ရန် အလွန် တိုက်တွန်းပါသည်။
 
-We have not written solutions for the exercises. If you are stuck on
-anything in particular, feel free to post in `#missing-semester-forum`
-on [Discord](https://ossu.dev/#community) or send us an email describing
-what you've tried so far, and we will try to help you out. These
-exercises will also likely work well as initial prompts in a
-conversation with an LLM where you can interactively dive into the
-topic. The real value in these exercises is the journey of discovering
-the answers, not the answer itself. We encourage you to follow tangents
-and ask "why" as you work through them, rather than just looking for the
-shortest path to the solution.
+ကျွန်ုပ်တို့သည် လေ့ကျင့်ခန်းများအတွက် အဖြေများကို ရေးသားထားခြင်း မရှိပါ။ တစ်ခုခုတွင် အခက်အခဲ တွေ့ပါက [Discord](https://ossu.dev/#community) ရှိ `#missing-semester-forum` တွင် တင်ပြနိုင်သည် သို့မဟုတ် သင် ကြိုးစားထားသည်များကို အီးမေးလ် ပေးပို့နိုင်ပြီး ကျွန်ုပ်တို့ ကူညီပေးပါမည်။ ဤလေ့ကျင့်ခန်းများသည် LLM နှင့် စကားပြောရာတွင် ခေါင်းစဉ်ထဲသို့ အပြန်အလှန် လေ့လာနိုင်သည့် စတင်မှု prompts များအဖြစ်လည်း ကောင်းစွာ အလုပ်လုပ်ပါလိမ့်မည်။ ဤလေ့ကျင့်ခန်းများ၏ အစစ်အမှန် တန်ဖိုးမှာ အဖြေကိုယ်တိုင် မဟုတ်ဘဲ အဖြေကို ရှာဖွေတွေ့ရှိသည့် ခရီးစဉ် ဖြစ်သည်။ အဖြေသို့ ရောက်ရှိမည့် အတိုဆုံး လမ်းကြောင်းကိုသာ ရှာဖွေခြင်းထက် လေ့လာနေစဉ် ဆက်စပ်အကြောင်းအရာများကို လိုက်လေ့လာရန်နှင့် "ဘာကြောင့်လဲ" ဟု မေးခွန်းထုတ်ရန် တိုက်တွန်းပါသည်။
 
-1. For this course, you need to be using a Unix shell like Bash or ZSH. If
-   you are on Linux or macOS, you don't have to do anything special. If you
-   are on Windows, you need to make sure you are not running cmd.exe or
-   PowerShell; you can use [Windows Subsystem for
-   Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-   machine to use Unix-style command-line tools. To make sure you're running
-   an appropriate shell, you can try the command `echo $SHELL`. If it says
-   something like `/bin/bash` or `/usr/bin/zsh`, that means you're running
-   the right program.
+1. ဤသင်တန်းအတွက် Bash သို့မဟုတ် ZSH ကဲ့သို့သော Unix shell တစ်ခုကို အသုံးပြုရန် လိုအပ်ပါသည်။ အကယ်၍ သင်သည် Linux သို့မဟုတ် macOS တွင် ရှိပါက သီးသန့် ပြုလုပ်ရန် မလိုပါ။ အကယ်၍ သင်သည် Windows တွင် ရှိပါက cmd.exe သို့မဟုတ် PowerShell ကို မသုံးကြောင်း သေချာပါစေ။ Unix ပုံစံ command-line tools များကို အသုံးပြုရန် [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) သို့မဟုတ် Linux virtual machine တစ်ခုကို သုံးနိုင်သည်။ သင့်လျော်သော shell ကို run နေကြောင်း သေချာစေရန် `echo $SHELL` command ကို စမ်းကြည့်ပါ။ အကယ်၍ `/bin/bash` သို့မဟုတ် `/usr/bin/zsh` ကဲ့သို့ ဖော်ပြပါက မှန်ကန်သော ပရိုဂရမ်ကို run နေခြင်း ဖြစ်သည်။
 
-1. What does the `-l` flag to `ls` do? Run `ls -l /` and examine the output.
-   What do the first 10 characters of each line mean? (Hint: `man ls`)
+1. `ls` ၏ `-l` flag သည် မည်သို့ လုပ်ဆောင်သနည်း။ `ls -l /` ကို run ပြီး output ကို စိစစ်ပါ။ စာကြောင်းတစ်ကြောင်းစီ၏ ပထမဆုံး စာလုံး ၁၀ လုံးသည် မည်သည့် အဓိပ္ပာယ်လဲ။ (အကူအညီ- `man ls`)
 
-1. In the command `find ~/Downloads -type f -name "*.zip" -mtime +30`, the
-   `*.zip` is a "glob". What is a glob? Create a test directory with some
-   files and experiment with patterns like `ls *.txt`, `ls file?.txt`, and
-   `ls {a,b,c}.txt`. See [Pattern
-   Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html)
-   in the Bash manual.
+1. `find ~/Downloads -type f -name "*.zip" -mtime +30` command တွင် `*.zip` သည် "glob" ဖြစ်သည်။ Glob ဆိုသည်မှာ ဘာလဲ။ file အချို့ ပါဝင်သော စမ်းသပ် ဖိုဒါတစ်ခု ဖန်တီးပြီး `ls *.txt`၊ `ls file?.txt` နှင့် `ls {a,b,c}.txt` ကဲ့သို့ ပုံစံများကို စမ်းသပ်ပါ။ Bash manual ရှိ [Pattern Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html) ကို ကြည့်ပါ။
 
-1. What's the difference between `'single quotes'`, `"double quotes"`, and
-   `$'ANSI quotes'`? Write a command that echoes a string containing a
-   literal `$`, a `!`, and a newline character. See
-   [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html).
+1. `'single quotes'`၊ `"double quotes"` နှင့် `$'ANSI quotes'` တို့၏ ကွဲပြားချက်မှာ ဘာလဲ။ တိုက်ရိုက် `$`၊ `!` နှင့် စာကြောင်းအသစ် (newline) စာလုံး ပါဝင်သော စာသားကို ရိုက်နှိပ်ပြသည့် command တစ်ခု ရေးပါ။ [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) ကို ကြည့်ပါ။
 
-1. The shell has three standard streams: stdin (0), stdout (1), and stderr
-   (2). Run `ls /nonexistent /tmp` and redirect stdout to one file and
-   stderr to another. How would you redirect both to the same file? See
-   [Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html).
+1. Shell တွင် ပုံမှန် stream သုံးခု ရှိသည်- stdin (0)၊ stdout (1) နှင့် stderr (2)။ `ls /nonexistent /tmp` ကို run ပြီး stdout ကို file တစ်ခုသို့လည်းကောင်း၊ stderr ကို အခြား file တစ်ခုသို့လည်းကောင်း redirect ပြုလုပ်ပါ။ နှစ်ခုလုံးကို file တစ်ခုတည်းသို့ မည်သို့ redirect လုပ်မည်နည်း။ [Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) ကို ကြည့်ပါ။
 
-1. `$?` holds the exit status of the last command (0 = success). `&&` runs
-   the next command only if the previous succeeded; `||` runs it only if
-   the previous failed. Write a one-liner that creates `/tmp/mydir` only if
-   it doesn't already exist. See [Exit
-   Status](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html).
+1. `$?` တွင် နောက်ဆုံး command ၏ exit status ပါဝင်သည် (0 = အောင်မြင်မှု)။ `&&` သည် ယခင် command အောင်မြင်ပါကမှ နောက် command ကို run ပြီး၊ `||` သည် ယခင် command မအောင်မြင်ပါကမှ run မည်။ `/tmp/mydir` မရှိသေးပါကမှ ဖန်တီးမည့် command တစ်ကြောင်း ရေးပါ။ [Exit Status](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html) ကို ကြည့်ပါ။
 
-1. Why does `cd` have to be built into the shell itself rather than a
-   standalone program? (Hint: think about what a child process can and
-   cannot affect in its parent.)
+1. `cd` သည် သီးခြား ပရိုဂရမ်တစ်ခု မဟုတ်ဘဲ Shell ထဲတွင် တိုက်ရိုက် built-in အဖြစ် အဘယ်ကြောင့် ပါဝင်ရသနည်း။ (အကူအညီ- child process သည် parent process တွင် မည်သည့်အရာ ပြောင်းလဲနိုင်သည်၊ မပြောင်းလဲနိုင်သည်ကို စဉ်းစားပါ။)
 
-1. Write a script that takes a filename as an argument (`$1`) and checks
-   whether the file exists using `test -f` or `[ -f ... ]`. It should print
-   different messages depending on whether the file exists. See [Bash
-   Conditional
-   Expressions](https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html).
+1. File အမည်ကို argument (`$1`) အဖြစ် ယူပြီး `test -f` သို့မဟုတ် `[ -f ... ]` သုံး၍ file ရှိမရှိ စစ်ဆေးသည့် script တစ်ခု ရေးပါ။ File ရှိမရှိအပေါ် မူတည်၍ မတူညီသော မက်ဆေ့ဂျ်များ ရိုက်နှိပ်ရမည်။ [Bash Conditional Expressions](https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html) ကို ကြည့်ပါ။
 
-1. Save the script from the previous exercise to a file (e.g., `check.sh`).
-   Try running it with `./check.sh somefile`. What happens? Now run
-   `chmod +x check.sh` and try again. Why is this step necessary? (Hint:
-   look at `ls -l check.sh` before and after the `chmod`.)
+1. ယခင် လေ့ကျင့်ခန်းမှ script ကို file ထဲသို့ သိမ်းဆည်းပါ (ဥပမာ- `check.sh`)။ `./check.sh somefile` ဖြင့် run ကြည့်ပါ။ ဘာဖြစ်သနည်း။ ယခု `chmod +x check.sh` ကို run ပြီး ထပ်မံ စမ်းကြည့်ပါ။ ဤအဆင့်သည် အဘယ်ကြောင့် လိုအပ်သနည်း။ (အကူအညီ- `chmod` မတိုင်မီနှင့် အပြီးရှိ `ls -l check.sh` ကို ကြည့်ပါ။)
 
-1. What happens if you add `-x` to the `set` flags in a script? Try it with
-    a simple script and observe the output. See [The Set
-    Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
+1. Script ထဲရှိ `set` flags များတွင် `-x` ထည့်ပါက ဘာဖြစ်မည်နည်း။ ရိုးရှင်းသော script တစ်ခုဖြင့် စမ်းသပ်ကြည့်ပြီး output ကို လေ့လာပါ။ [The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html) ကို ကြည့်ပါ။
 
-1. Write a command that copies a file to a backup with today's date in the
-    filename (e.g., `notes.txt` → `notes_2026-01-12.txt`). (Hint: `$(date
-    +%Y-%m-%d)`). See [Command
-    Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html).
+1. File ကို ဒီနေ့ ရက်စွဲ ပါသော backup သို့ ကူးယူသည့် command တစ်ခု ရေးပါ (ဥပမာ- `notes.txt` → `notes_2026-01-12.txt`)။ (အကူအညီ- `$(date +%Y-%m-%d)`)။ [Command Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) ကို ကြည့်ပါ။
 
-1. Modify the flaky test script from the lecture to accept the test command
-    as an argument instead of hardcoding `cargo test my_test`. (Hint: `$1`
-    or `$@`). See [Special
-    Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
+1. Lecture ထဲမှ မတည်ငြိမ်သော test script ကို `cargo test my_test` အစား test command ကို argument အဖြစ် လက်ခံရန် ပြင်ဆင်ပါ။ (အကူအညီ- `$1` သို့မဟုတ် `$@`)။ [Special Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html) ကို ကြည့်ပါ။
 
-1. Use pipes to find the 5 most common file extensions in your home
-    directory. (Hint: combine `find`, `grep` or `sed` or `awk`, `sort`,
-    `uniq -c`, and `head`.)
+1. Pipes ကို အသုံးပြု၍ သင့် home ဖိုဒါထဲရှိ အသုံးအများဆုံး file extensions ၅ ခုကို ရှာပါ။ (အကူအညီ- `find`၊ `grep` သို့မဟုတ် `sed` သို့မဟုတ် `awk`၊ `sort`၊ `uniq -c` နှင့် `head` တို့ကို ပေါင်းစပ်ပါ။)
 
-1. `xargs` converts lines from stdin into command arguments. Use `find` and
-    `xargs` together (not `find -exec`) to find all `.sh` files in a
-    directory and count the lines in each with `wc -l`. Bonus: make it
-    handle filenames with spaces. (Hint: `-print0` and `-0`). See `man
-    xargs`.
+1. `xargs` သည် stdin မှ စာကြောင်းများကို command arguments သို့ ပြောင်းလဲပေးသည်။ `find` နှင့် `xargs` ကို အတူတကွ သုံး၍ (`find -exec` မဟုတ်ပါ) ဖိုဒါတစ်ခုထဲရှိ `.sh` file များအားလုံးကို ရှာပြီး `wc -l` ဖြင့် တစ်ခုစီ၏ စာကြောင်း အရေအတွက်ကို ရေတွက်ပါ။ အပိုဆောင်း- ဟာကွက်ပါသော file အမည်များကို ကိုင်တွယ်နိုင်အောင် ပြုလုပ်ပါ။ (အကူအညီ- `-print0` နှင့် `-0`)။ `man xargs` ကို ကြည့်ပါ။
 
-1. Use `curl` to fetch the HTML of the course website
-    (`https://missing.csail.mit.edu/`) and pipe it to `grep` to count how
-    many lectures are listed. (Hint: look for a pattern that appears once
-    per lecture; use `curl -s` to silence the progress output.)
+1. `curl` ကို အသုံးပြု၍ သင်တန်း ဝက်ဘ်ဆိုက်၏ HTML ကို ရယူပါ (`https://missing.csail.mit.edu/`) ပြီးလျှင် သင်ခန်းစာ အရေအတွက် မည်မျှ စာရင်းပါဝင်ကြောင်း ရေတွက်ရန် `grep` သို့ pipe ပြုလုပ်ပါ။ (အကူအညီ- သင်ခန်းစာ တစ်ခုစီတွင် ပါဝင်သည့် ပုံစံကို ရှာပါ၊ တိုးတက်မှု output ကို ပိတ်ရန် `curl -s` ကို သုံးပါ။)
 
-1. [`jq`](https://jqlang.github.io/jq/) is a powerful tool for processing
-    JSON data. Fetch the sample data at
-    `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` with
-    `curl` and use `jq` to extract just the names of people whose version
-    is greater than 6. (Hint: pipe to `jq .` first to see the structure;
-    then try `jq '.[] | select(...) | .name'`)
+1. [`jq`](https://jqlang.github.io/jq/) သည် JSON ဒေတာများကို ကိုင်တွယ်ရန် စွမ်းအားထက်မြက်သော ကိရိယာ ဖြစ်သည်။ `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` တွင်ရှိသော နမူနာ ဒေတာကို `curl` ဖြင့် ရယူပြီး version 6 ထက် ကြီးသော လူများ၏ အမည်များကိုသာ ထုတ်ယူရန် `jq` ကို သုံးပါ။ (အကူအညီ- ပုံသဏ္ဌာန်ကို ကြည့်ရန် ပထမဦးစွာ `jq .` သို့ pipe ပြုလုပ်ပါ၊ ထို့နောက် `jq '.[] | select(...) | .name'` ကို စမ်းသပ်ပါ။)
 
-1. `awk` can filter lines based on column values and manipulate output.
-    For example, `awk '$3 ~ /pattern/ {$4=""; print}'` prints only lines
-    where the third column matches `pattern`, while omitting the fourth
-    column. Write an `awk` command that prints only lines where the second
-    column is greater than 100, and swaps the first and third columns. Test
-    with: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
+1. `awk` သည် ကော်လံ တန်ဖိုးများပေါ် မူတည်၍ စာကြောင်းများကို စစ်ထုတ်နိုင်ပြီး output ကို ပြုပြင်နိုင်သည်။ ဥပမာအားဖြင့် `awk '$3 ~ /pattern/ {$4=""; print}'` သည် တတိယ ကော်လံ pattern နှင့် ကိုက်ညီသော စာကြောင်းများကိုသာ ရိုက်နှိပ်ပြီး စတုတ္ထ ကော်လံကို ချန်လှပ်ထားသည်။ ဒုတိယ ကော်လံ ၁၀၀ ထက် ကြီးသော စာကြောင်းများကိုသာ ရိုက်နှိပ်ပြီး ပထမနှင့် တတိယ ကော်လံများကို လဲလှယ်ပေးသည့် `awk` command တစ်ခု ရေးပါ။ `printf 'a 50 x\nb 150 y\nc 200 z\n'` ဖြင့် စမ်းသပ်ပါ။
 
-1. Dissect the SSH log pipeline from the lecture: what does each step do?
-    Then build something similar to find your most-used shell commands from
-    `~/.bash_history` (or `~/.zsh_history`).
+1. Lecture ထဲမှ SSH log pipeline ကို အသေးစိတ် စိစစ်ပါ- အဆင့်တစ်ခုစီသည် မည်သို့ လုပ်ဆောင်သနည်း။ ထို့နောက် `~/.bash_history` (သို့မဟုတ် `~/.zsh_history`) မှ အသုံးအများဆုံး shell commands များကို ရှာရန် အလားတူတစ်ခု တည်ဆောက်ပါ။

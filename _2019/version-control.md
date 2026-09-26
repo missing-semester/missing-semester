@@ -9,50 +9,30 @@ video:
   id: 3fig2Vz8QXs
 ---
 
-Whenever you are working on something that changes over time, it's
-useful to be able to _track_ those changes. This can be for a number of
-reasons: it gives you a record of what changed, how to undo it, who
-changed it, and possibly even why. Version control systems (VCS) give
-you that ability. They let you _commit_ changes to a set of files, along
-with a message describing the change, as well as look at and undo
-changes you've made in the past.
+အချိန်နှင့်အမျှ ပြောင်းလဲနေသည့် အရာတစ်ခုခုကို မိမိလုပ်ဆောင်နေသည့်အခါ ထိုအပြောင်းအလဲများကို _ခြေရာခံ (track)_ နိုင်ခြင်းက အသုံးဝင်ပါသည်။ ဤသို့ပြုလုပ်ရခြင်းအတွက် အကြောင်းအရင်းများစွာ ရှိပါသည် - ၎င်းသည် မည်သည့်အရာများ ပြောင်းလဲသွားခဲ့သည်၊ မည်သို့ ပြန်ပြင်ရမည်၊ မည်သူ ပြောင်းလဲခဲ့သည်နှင့် မည်သည့်အတွက်ကြောင့် ပြောင်းလဲခဲ့ရသည် စသည်တို့ကို မှတ်တမ်းတစ်ခုအနေဖြင့် ပေးစွမ်းနိုင်သောကြောင့် ဖြစ်သည်။ Version control systems (VCS) များသည် သင့်အား ထိုစွမ်းဆောင်ရည်ကို ပေးစွမ်းပါသည်။ ၎င်းတို့သည် သင့်အား ပြောင်းလဲမှုကို ဖော်ပြသည့် စာတို (message) တစ်ခုနှင့်အတူ ဖိုင်အစုအဝေးတစ်ခုသို့ အပြောင်းအလဲများကို _commit_ လုပ်ခွင့်ပြုသလို၊ အတိတ်က မိမိပြုလုပ်ခဲ့သော အပြောင်းအလဲများကို ပြန်လည် ကြည့်ရှုခြင်းနှင့် ပြန်ပြင်ခြင်းတို့ကိုလည်း ပြုလုပ်နိုင်စေပါသည်။
 
-Most VCS support sharing the commit history between multiple users. This
-allows for convenient collaboration: you can see the changes I've made,
-and I can see the changes you've made. And since the VCS tracks
-_changes_, it can often (though not always) figure out how to combine
-our changes as long as they touch relatively disjoint things.
+VCS အများစုသည် သုံးစွဲသူ အများအပြားကြားတွင် commit ရာဇဝင် (history) ကို မျှဝေခြင်းအား အထောက်အပံ့ ပေးပါသည်။ ဤသည်မှာ အဆင်ပြေချောမွေ့သော ပူးပေါင်းဆောင်ရွက်မှုကို ဖြစ်စေပါသည် - ကျွန်ုပ် ပြုလုပ်ခဲ့သည့် အပြောင်းအလဲများကို သင့်အနေဖြင့် မြင်တွေ့နိုင်ပြီး၊ သင် ပြုလုပ်ခဲ့သည့် အပြောင်းအလဲများကိုလည်း ကျွန်ုပ် မြင်တွေ့နိုင်ပါသည်။ ထို့အပြင် VCS သည် _အပြောင်းအလဲများ_ ကို ခြေရာခံထားသောကြောင့် ကျွန်ုပ်တို့၏ အပြောင်းအလဲများသည် သီးခြားစီဖြစ်နေသမျှ ကာလပတ်လုံး ၎င်းတို့ကို မည်သို့ပေါင်းစပ်ရမည်ကို (အမြဲတမ်း မဟုတ်သော်လည်း) မကြာခဏ အလိုအလျောက် သီးခြားခွဲခြား ပေါင်းစပ်ပေးနိုင်ပါသည်။
 
-There [_a
-lot_](https://en.wikipedia.org/wiki/Comparison_of_version-control_software)
-of VCSes out there that differ a lot in what they support, how they
-function, and how you interact with them. Here, we'll focus on
-[git](https://git-scm.com/), one of the more commonly used ones, but I
-recommend you also take a look at
-[Mercurial](https://www.mercurial-scm.org/).
+၎င်းတို့ အထောက်အပံ့ပေးသည့် အရာများ၊ အလုပ်လုပ်ပုံများနှင့် သင် ချိတ်ဆက်ဆောင်ရွက်ပုံများအပေါ် မူတည်၍ ကွဲပြားမှုများစွာရှိသော VCS များ [မြောက်မြားစွာ](https://en.wikipedia.org/wiki/Comparison_of_version-control_software) ရှိကြပါသည်။ ဤနေရာတွင် ကျွန်ုပ်တို့သည် အသုံးအများဆုံး စနစ်တစ်ခုဖြစ်သည့် [git](https://git-scm.com/) ကို အဓိကထား လေ့လာသွားမည်ဖြစ်သော်လည်း၊ [Mercurial](https://www.mercurial-scm.org/) ကိုလည်း လေ့လာကြည့်ပါရန် အကြံပြုလိုပါသည်။
 
-With that all said -- to the cliffnotes!
+ထိုသို့ ပြောကြားပြီးနောက် -- အဓိက မှတ်စုတိုများဆီသို့ သွားကြရအောင်။
 
-## Is git dark magic?
+## git ဆိုတာ မည်းမှောင်တဲ့ အမှောင်မှော်ပညာ ဖြစ်ပါသလား။
 
-not quite.. you need to understand the data model.
-we're going to skip over some of the details, but roughly speaking,
-the _core_ "thing" in git is a commit.
+လုံးဝ မဟုတ်ပါဘူး.. မိမိအနေနဲ့ data model ကို နားလည်ဖို့ပဲ လိုအပ်ပါတယ်။
+ကျွန်ုပ်တို့ အသေးစိတ်အချက်အချို့ကို ကျော်လွန်သွားမည်ဖြစ်သော်လည်း၊ ယေဘုယျအားဖြင့် ပြောရလျှင် git ရဲ့ _အဓိက (core)_ အရာကတော့ commit ဖြစ်ပါတယ်။
 
- - every commit has a unique name, "revision hash"
-   a long hash like `998622294a6c520db718867354bf98348ae3c7e2`
-   often shortened to a short (unique-ish) prefix: `9986222`
- - commit has author + commit message
- - also has the hash of any _ancestor commits_
-   usually just the hash of the previous commit
- - commit also represents a _diff_, a representation of how you get from
-   the commit's ancestors to the commit (e.g., remove this line in this
-   file, add these lines to this file, rename that file, etc.)
-   - in reality, git stores the full before and after state
-   - probably don't want to store big files that change!
+ - commit တိုင်းတွင် "revision hash" ဟုခေါ်သော သီးသန့် အမည် (unique name) တစ်ခုရှိပါသည်
+   `998622294a6c520db718867354bf98348ae3c7e2` ကဲ့သို့သော ရှည်လျားသည့် hash တစ်ခုဖြစ်ပြီး
+   ၎င်းကို မကြာခဏ အတိုကောက် ရှေ့ဆက်ဖြစ်သော `9986222` အဖြစ် သုံးလေ့ရှိသည်
+ - commit တွင် ရေးသားသူ (author) + commit စာတို (commit message) ပါဝင်သည်
+ - ထို့အပြင် _ancestor commits (ဘိုးဘေး commit များ)_ ရဲ့ hash လည်း ပါဝင်သည်
+   ပုံမှန်အားဖြင့် ယခင် commit ရဲ့ hash သာ ဖြစ်လေ့ရှိသည်
+ - commit သည် commit ရဲ့ ဘိုးဘေးမှ ယခု commit သို့ မည်သို့ ရောက်ရှိလာကြောင်း ဖော်ပြသည့် _diff_ တစ်ခုကိုလည်း ကိုယ်စားပြုသည် (ဥပမာ- ဤဖိုင်ရှိ ဤစာကြောင်းကို ဖျက်ရန်၊ ဤဖိုင်သို့ ဤစာကြောင်းများ ထည့်ရန်၊ ထိုဖိုင်ကို အမည်ပြောင်းရန် စသည်ဖြင့်)
+   - လက်တွေ့တွင် git သည် အပြောင်းအလဲ မတိုင်မီနှင့် ပြောင်းလဲပြီးနောက် အခြေအနေ အပြည့်အစုံကို သိမ်းဆည်းပါသည်
+   - ခဏခဏ ပြောင်းလဲနေသော ဖိုင်ကြီးများကို သိမ်းဆည်းရန် မသင့်တော်ပါ!
 
-initially, the _repository_ (roughly: the folder that git manages) has
-no content, and no commits. let's set that up:
+စတင်ချိန်တွင် _repository_ (ယေဘုယျအားဖြင့်: git စီမံခန့်ခွဲသော folder) ၌ မည်သည့် အကြောင်းအရာမျှ မရှိသေးသလို၊ မည်သည့် commit မျှလည်း မရှိသေးပါ။ ၎င်းကို စတင် ပြင်ဆင်ကြည့်ရအောင် -
 
 ```console
 $ git init hackers
@@ -60,109 +40,94 @@ $ cd hackers
 $ git status
 ```
 
-the output here actually gives us a good starting point. let's dig in
-and make sure we understand it all.
+ဤနေရာတွင် ထွက်ပေါ်လာသော output သည် ကျွန်ုပ်တို့အတွက် ကောင်းမွန်သော စတင်မှတ် တစ်ခုကို ပေးပါသည်။ အသေးစိတ် လေ့လာကြည့်ပြီး အားလုံးကို နားလည်အောင် လုပ်ဆောင်ကြရအောင်။
 
-first, "On branch master".
+ပထမဦးစွာ "On branch master".
 
- - don't want to use hashes all the time.
- - branches are names that point to hashes.
- - master is traditionally the name for the "latest" commit.
-   every time a new commit is made, the master name will be made to
-   point to the new commit's hash.
- - special name `HEAD` refers to "current" name
- - you can also make your own names with `git branch` (or `git tag`)
-   we'll get back to that
+ - hash များကို အချိန်တိုင်း မသုံးချင်ကြပါ။
+ - branch များသည် hash များကို ညွှန်ပြနေသည့် အမည်များ ဖြစ်ကြသည်။
+ - master သည် ပုံမှန်အားဖြင့် "နောက်ဆုံး" commit အတွက် ပေးထားသော အမည်ဖြစ်သည်။
+   commit အသစ်တစ်ခု ပြုလုပ်တိုင်း master အမည်သည် ထို commit အသစ်၏ hash ကို ညွှန်ပြသွားမည်ဖြစ်သည်။
+ - အထူးအမည် `HEAD` သည် "လက်ရှိ" အမည်ကို ညွှန်ပြသည်။
+ - မိမိကိုယ်ပိုင် အမည်များကိုလည်း `git branch` (သို့မဟုတ် `git tag`) ဖြင့် ဖန်တီးနိုင်သည်
+   ထိုအကြောင်းကို နောက်မှ ပြန်လာပါမည်
 
-let's skip over "No commits yet" because that's all there is to it.
+"No commits yet" ကို ကျော်လိုက်ပါမည်၊ အဘယ်ကြောင့်ဆိုသော် ၎င်း၏ အဓိပ္ပာယ်မှာ ရှင်းလင်းပြီးသား ဖြစ်သောကြောင့်ဖြစ်သည်။
 
-then, "nothing to commit".
+ထို့နောက် "nothing to commit".
 
- - every commit contains a diff with all the changes you made.
-   but how is that diff constructed in the first place?
- - _could_ just always commit _all_ changes you've made since the last
-   commit
-   - sometimes you want to only commit some of them (e.g., not `TODO`s)
-   - sometimes you want to break up a change into multiple commits to
-     give a separate commit message for each one
- - git lets you _stage_ changes to construct a commit
-   - add changes to a file or files to the staged changes with `git add`
-     - add only some changes in a file with `git add -p`
-     - without argument `git add` operates on "all known files"
-   - remove a file and stage its removal with `git rm`
-   - empty the set of staged changes `git reset`
-     - note that this does *not* change any of your files!
-       it *only* means that no changes will be included in a commit
-     - to remove only some staged changes:
-       `git reset FILE` or `git reset -p`
-   - check staged changes with `git diff --staged`
-   - see remaining changes with `git diff`
-   - when you're happy with the stage, make a commit with `git commit`
-     - if you just want to commit *all* changes: `git commit -a`
-     - `git help add` has a bunch more helpful info
+ - commit တိုင်းတွင် သင်ပြုလုပ်ခဲ့သော အပြောင်းအလဲ အားလုံး၏ diff တစ်ခု ပါဝင်သည်။ သို့သော် ထို diff ကို ပထမဦးစွာ မည်သို့ တည်ဆောက်ပါသနည်း။
+ - ယခင် commit ပြီးကတည်းက သင်ပြုလုပ်ခဲ့သော အပြောင်းအလဲ _အားလုံး_ ကို အမြဲတမ်း commit လုပ်၍ _ရနိုင်သည်_
+   - အချို့သော အခါများတွင် ၎င်းတို့အနက်မှ အချို့ကိုသာ commit လုပ်ချင်မည်ဖြစ်သည် (ဥပမာ- `TODO` များကို မပါစေချင်ဘဲ)
+   - အချို့သော အခါများတွင် အပြောင်းအလဲများကို commit အများအပြား ခွဲထုတ်ပြီး တစ်ခုစီအတွက် သီးခြား commit message ပေးချင်မည်ဖြစ်သည်
+ - git သည် commit တစ်ခု တည်ဆောက်ရန် အပြောင်းအလဲများကို _stage_ လုပ်ခွင့် ပေးသည်
+   - ဖိုင်တစ်ခု သို့မဟုတ် ဖိုင်များ၏ အပြောင်းအလဲများကို `git add` ဖြင့် staged အပြောင်းအလဲများအတွင်းသို့ ထည့်သွင်းပါ
+     - ဖိုင်တစ်ခုအတွင်းရှိ အပြောင်းအလဲအချို့ကိုသာ ထည့်ရန် `git add -p` ကို သုံးပါ
+     - argument မပါပါက `git add` သည် "သိရှိပြီး ဖိုင်အားလုံး" အပေါ် အလုပ်လုပ်ပါသည်
+   - ဖိုင်တစ်ခုကို ဖျက်ပစ်ပြီး ၎င်း၏ ဖျက်ဆီးမှုကို stage လုပ်ရန် `git rm` ကို သုံးပါ
+   - staged အပြောင်းအလဲများ အစုအဝေးကို အလွတ်ဖြစ်စေရန် `git reset` ကို သုံးပါ
+     - ဤသည်မှာ မိမိ၏ ဖိုင်များကို ပြောင်းလဲခြင်း *မပြုလုပ်ပါ* ဆိုသည်ကို သတိပြုပါ!
+       ၎င်းသည် commit အတွင်းတွင် မည်သည့် အပြောင်းအလဲမျှ ပါဝင်မည် မဟုတ်ကြောင်းသာ *ဆိုလိုခြင်း* ဖြစ်သည်
+     - staged အပြောင်းအလဲ အချို့ကိုသာ ဖယ်ရှားရန်-
+       `git reset FILE` သို့မဟုတ် `git reset -p`
+   - staged ဖြစ်နေသော အပြောင်းအလဲများကို `git diff --staged` ဖြင့် စစ်ဆေးပါ
+   - ကျန်ရှိနေသေးသော အပြောင်းအလဲများကို `git diff` ဖြင့် ကြည့်ပါ
+   - stage အခြေအနေကို ကျေနပ်ပါက `git commit` ဖြင့် commit တစ်ခု ဖန်တီးပါ
+     - အပြောင်းအလဲ *အားလုံး* ကို သာ commit လုပ်လိုပါက: `git commit -a`
+     - `git help add` တွင် အသုံးဝင်သော အချက်အလက်များစွာ ပါရှိသည်
 
-while you're playing with the above, try to run `git status` to see what
-git thinks you're doing -- it's surprisingly helpful!
+အထက်ပါ အချက်များကို လေ့ကျင့်နေစဉ်အတွင်း git က သင့်ကို မည်သည့်အရာ ပြုလုပ်နေသည်ဟု ထင်မြင်နေကြောင်း ကြည့်ရှုရန် `git status` ကို စမ်းသပ် run ကြည့်ပါ -- ၎င်းသည် မထင်မှတ်ထားလောက်အောင် အသုံးဝင်ပါသည်။
 
-## A commit you say...
+## commit တစ်ခု ရပြီဆိုတော့...
 
-okay, we have a commit, now what?
+ကဲ၊ ကျွန်ုပ်တို့မှာ commit တစ်ခု ရပါပြီ၊ အခု ဘာဆက်လုပ်ကြမလဲ။
 
- - we can look at recent changes: `git log` (or `git log --oneline`)
- - we can look at the full changes: `git log -p`
- - we can show a particular commit: `git show master`
-   - or with `-p` for full diff/patch
- - we can go back to the state at a commit using `git checkout NAME`
-   - if `NAME` is a commit hash, git says we're "detached". this just
-     means there's no `NAME` that refers to this commit, so if we make
-     commits, no-one will know about them.
- - we can revert a change with `git revert NAME`
-   - applies the diff in the commit at `NAME` in reverse.
- - we can compare an older version to this one using `git diff NAME..`
-   - `a..b` is a commit _range_. if either is left out, it means `HEAD`.
- - we can show all the commits between using `git log NAME..`
-   - `-p` works here too
- - we can change `master` to point to a particular commit (effectively
-   undoing everything since) with `git reset NAME`:
-   - huh, why? wasn't `reset` to change staged changes?
-     reset has a "second" form (see `git help reset`) which sets `HEAD`
-     to the commit pointed to by the given name.
-   - notice that this didn't change any files -- `git diff` now
-     effectively shows `git diff NAME..`.
+ - လတ်တလော အပြောင်းအလဲများကို ကြည့်ရှုနိုင်သည်: `git log` (သို့မဟုတ် `git log --oneline`)
+ - အပြောင်းအလဲ အပြည့်အစုံကို ကြည့်ရှုနိုင်သည်: `git log -p`
+ - သီးခြား commit တစ်ခုကို ပြသနိုင်သည်: `git show master`
+   - သို့မဟုတ် အပြည့်အစုံ diff/patch အတွက် `-p` ဖြင့် ပြနိုင်သည်
+ - `git checkout NAME` ကို အသုံးပြု၍ commit တစ်ခု၏ အခြေအနေသို့ ပြန်သွားနိုင်သည်
+   - အကယ်၍ `NAME` သည် commit hash တစ်ခုဖြစ်ပါက git က ကျွန်ုပ်တို့ကို "detached" ဖြစ်နေသည်ဟု ပြောပါလိမ့်မည်။ ဤသည်မှာ ထို commit ကို ညွှန်ပြသော `NAME` မရှိကြောင်းကိုသာ ဆိုလိုသဖြင့်၊ အကယ်၍ ကျွန်ုပ်တို့ commit များကို ပြုလုပ်ပါက မည်သူမျှ သိရှိနိုင်မည် မဟုတ်ပါ။
+ - `git revert NAME` ဖြင့် အပြောင်းအလဲတစ်ခုကို ပြန်လည် ပယ်ဖျက် (revert) နိုင်သည်
+   - `NAME` ရှိ commit ၏ diff ကို ပြောင်းပြန်ပုံစံ ပြန်လည် သက်ရောက်စေပါသည်။
+ - `git diff NAME..` ကို အသုံးပြု၍ မူလ ဗားရှင်းအဟောင်းနှင့် ယခုဗားရှင်းကို နှိုင်းယှဉ်နိုင်သည်
+   - `a..b` သည် commit _range (အပိုင်းအခြား)_ ဖြစ်သည်။ တစ်ခုခုကို ချန်လှပ်ထားခဲ့ပါက ၎င်းသည် `HEAD` ကို ဆိုလိုသည်။
+ - `git log NAME..` ကို အသုံးပြု၍ ကြားရှိ commit များအားလုံးကို ပြသနိုင်သည်
+   - ဤနေရာတွင်လည်း `-p` သည် အလုပ်လုပ်ပါသည်
+ - `git reset NAME` ဖြင့် သီးခြား commit တစ်ခုကို ညွှန်ပြရန် `master` ကို ပြောင်းလဲနိုင်သည် (ထိုအချိန်မှစ၍ ပြုလုပ်ခဲ့သမျှ အရာအားလုံးကို ထိရောက်စွာ ပြန်ဖျက်ပစ်ခြင်းဖြစ်သည်):
+   - ဪ၊ ဘာလို့ပါလဲ။ `reset` က staged အပြောင်းအလဲတွေကို ပြောင်းလဲဖို့ မဟုတ်ဘူးလား။
+     reset တွင် "ဒုတိယ" ပုံစံရှိပါသည် (`git help reset` ကို ကြည့်ပါ)၊ ၎င်းသည် ပေးထားသော အမည်ဖြင့် ညွှန်ပြထားသော commit သို့ `HEAD` ကို သတ်မှတ်ပေးပါသည်။
+   - ဤသည်မှာ မည်သည့် ဖိုင်ကိုမျှ မပြောင်းလဲခဲ့ကြောင်း သတိပြုပါ -- ယခု `git diff` သည် `git diff NAME..` ကို ထိရောက်စွာ ပြသပေးနေမည်ဖြစ်ပါသည်။
 
-## What's in a name?
+## အမည်တစ်ခုမှာ ဘာတွေ ပါဝင်နေသလဲ။
 
-clearly, names are important in git. and they're the key to
-understanding *a lot* of what goes on in git. so far, we've talked about
-commit hashes, master, and `HEAD`. but there's more!
+ရှင်းရှင်းလင်းလင်းပင် git တွင် အမည်များသည် အရေးပါပါသည်။ ၎င်းတို့သည် git အတွင်း ဖြစ်ပျက်နေသည်များ၏ *အရာများစွာ* ကို နားလည်ရန် သော့ချက်ဖြစ်ကြသည်။ ယခုအချိန်အထိ ကျွန်ုပ်တို့သည် commit hash များ၊ master နှင့် `HEAD` တို့အကြောင်း ပြောဆိုခဲ့ပြီး ဖြစ်သည်။ သို့သော် နောက်ထပ် ရှိပါသေးသည်!
 
- - you can make your own branches (like master) with `git branch b`
-   - creates a new name, `b`, which points to the commit at `HEAD`
-   - you're still "on" master though, so if you make a new commit,
-     master will point to that new commit, `b` will not.
-   - switch to a branch with `git checkout b`
-     - any commits you make will now update the `b` name
-     - switch back to master with `git checkout master`
-       - all your changes in `b` are hidden away
-     - a very handy way to be able to easily test out changes
- - tags are other names that never change, and that have their own
-   message. often used to mark releases + changelogs.
- - `NAME^` means "the commit before `NAME`
-   - can apply recursively: `NAME^^^`
-   - you _most likely_ mean `~` when you use `~`
-     - `~` is "temporal", whereas `^` goes by ancestors
-     - `~~` is the same as `^^`
-     - with `~` you can also write `X~3` for "3 commits older than `X`
-     - you don't want `^3`
+ - `git branch b` ဖြင့် မိမိကိုယ်ပိုင် branch များကို (master ကဲ့သို့) ဖန်တီးနိုင်သည်
+   - `HEAD` ရှိ commit ကို ညွှန်ပြသော အမည်အသစ် `b` ကို ဖန်တီးပေးပါသည်
+   - သို့သော် သင်သည် master ပေါ်တွင် ရှိနေဆဲဖြစ်သဖြင့် commit အသစ်တစ်ခု ပြုလုပ်ပါက master သည် ထို commit အသစ်ကို ညွှန်ပြမည်ဖြစ်ပြီး `b` က ညွှန်ပြမည် မဟုတ်ပါ။
+   - `git checkout b` ဖြင့် branch တစ်ခုသို့ ပြောင်းပါ
+     - သင်ပြုလုပ်သမျှ commit များသည် ယခုအခါ `b` အမည်ကို update ပြုလုပ်ပါလိမ့်မည်
+     - `git checkout master` ဖြင့် master သို့ ပြန်ပြောင်းပါ
+       - `b` အတွင်းရှိ သင့်အပြောင်းအလဲများ အားလုံးကို ကွယ်ဝှက်ထားရှိပါသည်
+     - အပြောင်းအလဲများကို လွယ်ကူစွာ စမ်းသပ်နိုင်သည့် လွန်စွာ အသုံးဝင်သော နည်းလမ်းဖြစ်သည်
+ - tag များသည် မည်သည့်အခါမျှ မပြောင်းလဲဘဲ သီးခြား စာတိုပါရှိသော အခြား အမည်များ ဖြစ်ကြသည်။ ၎င်းတို့ကို release များ + changelog များကို မှတ်သားရန် မကြာခဏ အသုံးပြုကြသည်။
+ - `NAME^` သည် "`NAME` ၏ ရှေ့မှ commit" ကို ဆိုလိုသည်
+   - ထပ်ခါထပ်ခါ အသုံးပြုနိုင်သည်: `NAME^^^`
+   - သင် `~` ကို သုံးသည့်အခါ _အများအားဖြင့်_ `~` ကို ဆိုလိုခြင်း ဖြစ်နိုင်သည်
+     - `~` သည် "အချိန်ကာလအလိုက်" ဖြစ်ပြီး၊ `^` သည် ဘိုးဘေးစဉ်ဆက်အတိုင်း သွားပါသည်
+     - `~~` သည် `^^` နှင့် အတူတူပင်ဖြစ်သည်
+     - `~` ဖြင့် `X` ထက် "၃ စောင်မက စောသော commit" အတွက် `X~3` ဟုလည်း ရေးနိုင်သည်
+     - သင် `^3` ကို လိုချင်မည် မဟုတ်ပါ
    - `git diff HEAD^`
- - `-` means "the previous name"
- - most commands operate on `HEAD` unless you give another argument
+ - `-` သည် "ယခင် အမည်" ကို ဆိုလိုသည်
+ - အခြား argument ကို မပေးပါက မိန့်ခွန်းအများစုသည် `HEAD` အပေါ် အလုပ်လုပ်ပါသည်
 
-## Clean up your mess
+## သင်၏ ရှုပ်ပွနေသည်များကို ရှင်းလင်းပါ
 
-your commit history will _very_ often end up as:
+သင်၏ commit ရာဇဝင် (history) သည် _မကြာခဏ_ အောက်ပါအတိုင်း ဖြစ်သွားလေ့ရှိပါသည် -
 
- - `add feature x` -- maybe even with a commit message about `x`!
+ - `add feature x` -- `x` အကြောင်း commit message တစ်ခု ပါနိုင်သည်!
  - `forgot to add file`
  - `fix bug`
  - `typo`
@@ -177,152 +142,100 @@ your commit history will _very_ often end up as:
  - `x`
  - `x`
 
-that's _fine_ as far as git is concerned, but is not very helpful to
-your future self, or to other people who are curious about what has
-changed. git lets you clean up these things:
+git ၏ ရှုထောင့်မှကြည့်လျှင် ၎င်းမှာ _အဆင်ပြေ_ သော်လည်း၊ အနာဂတ် သင်ကိုယ်တိုင်အတွက် သို့မဟုတ် မည်သည့်အရာများ ပြောင်းလဲသွားသည်ကို သိရှိလိုသော အခြားသူများအတွက် မည်သို့မျှ အထောက်အကူ မပြုပါ။ git သည် သင့်အား ဤအရာများကို ရှင်းလင်းခွင့် ပြုထားသည် -
 
- - `git commit --amend`: fold staged changes into previous commit
-   - note that this _changes_ the previous commit, giving it a new hash!
- - `git rebase -i HEAD~13` is _magical_.
-   for each commit from past 13, choose what to do:
-   - default is `pick`; do nothing
-   - `r`: change commit message
-   - `e`: change commit (add or remove files)
-   - `s`: combine commit with previous and edit commit message
-   - `f`: "fixup" -- combine commit with previous; discard commit msg
-   - at the end, `HEAD` is made to point to what is now the last commit
-   - often referred to as _squashing_ commits
-   - what it really does: rewind `HEAD` to rebase start point, then
-     re-apply the commits in order as directed.
- - `git reset --hard NAME`: reset the state of all files to that of
-   `NAME` (or `HEAD` if no name is given). handy for undoing changes.
+ - `git commit --amend`: staged ဖြစ်နေသော အပြောင်းအလဲများကို ယခင် commit အတွင်းသို့ ပေါင်းထည့်ပါ
+   - ဤသည်မှာ ယခင် commit ကို _ပြောင်းလဲစေပြီး_ hash အသစ်တစ်ခု ပေးသွားမည်ဖြစ်ကြောင်း သတိပြုပါ!
+ - `git rebase -i HEAD~13` သည် _အလွန်ပင် ဆန်းကြယ်ပါသည်_။
+   လွန်ခဲ့သော 13 စောင်မှ commit တစ်ခုစီအတွက် မည်သို့ ပြုလုပ်ရမည်ကို ရွေးချယ်ပါ-
+   - ပုံမှန်အားဖြင့် `pick` ဖြစ်သည်; မည်သည့်အရာမျှ မပြုလုပ်ပါ
+   - `r`: commit message ကို ပြောင်းလဲရန်
+   - `e`: commit ကို ပြောင်းလဲရန် (ဖိုင်များ ထည့်ရန် သို့မဟုတ် ဖျက်ရန်)
+   - `s`: commit ကို ယခင် commit နှင့် ပေါင်းစပ်ပြီး commit message ကို ပြင်ဆင်ရန်
+   - `f`: "fixup" -- commit ကို ယခင် commit နှင့် ပေါင်းစပ်ရန်; commit message ကို ပယ်ဖျက်ရန်
+   - ပြီးဆုံးပါက `HEAD` ကို ယခုအခါ နောက်ဆုံး commit ဖြစ်နေသော အရာဆီသို့ ညွှန်ပြစေသည်
+   - ၎င်းကို commit များကို _squash ပြုလုပ်ခြင်း_ ဟု မကြာခဏ ခေါ်ဆိုလေ့ရှိသည်
+   - ၎င်းအမှန်တကယ် ပြုလုပ်သည့်အရာ- rebase စတင်သည့် အမှတ်သို့ `HEAD` ကို ပြန်ရစ်ပြီး၊ ထို့နောက် လမ်းညွှန်ချက်အတိုင်း commit များကို အစဉ်လိုက် ပြန်လည် အသုံးပြုခြင်းဖြစ်သည်။
+ - `git reset --hard NAME`: ဖိုင်အားလုံး၏ အခြေအနေကို `NAME` (သို့မဟုတ် အမည်မပေးထားပါက `HEAD`) ၏ အခြေအနေသို့ ပြန်လည် reset လုပ်ပါ။ အပြောင်းအလဲများကို ပြန်ဖြုတ်ရန် လွန်စွာ အသုံးဝင်ပါသည်။
 
-## Playing with others
+## အခြားသူများနှင့် ပူးပေါင်းဆောင်ရွက်ခြင်း
 
-a common use-case for version control is to allow multiple people to
-make changes to a set of files without stepping on each other's toes.
-or rather, to make sure that _if_ they step on each other's toes, they
-won't just silently overwrite each other's changes.
+version control ၏ အသုံးများသော သုံးစွဲပုံတစ်ခုမှာ လူအများအပြားအား တစ်ဦးနှင့်တစ်ဦး အနှောင့်အယှက် မဖြစ်စေဘဲ ဖိုင်အစုအဝေးတစ်ခုကို ပြောင်းလဲမှုများ ပြုလုပ်ခွင့် ပေးခြင်းဖြစ်ပါသည်။ သို့မဟုတ် အကယ်၍ တစ်ဦးနှင့်တစ်ဦး အပြောင်းအလဲများ ထပ်သွားပါကလည်း၊ အခြားသူ၏ အပြောင်းအလဲများကို တိတ်တဆိတ် ထပ်ရေးမိခြင်း (overwrite) မဖြစ်စေရန် သေချာစေခြင်း ဖြစ်ပါသည်။
 
-git is a _distributed_ VCS: everyone has a local copy of the entire
-repository (well, of everything others have chosen to publish). some
-VCSes are _centralized_ (e.g., subversion): a server has all the
-commits, clients only have the files they have "checked out". basically,
-they only have the _current_ files, and need to ask the server if they
-want anything else.
+git သည် _distributed (ဗဟိုချုပ်ကိုင်မှုမရှိသော)_ VCS ဖြစ်ပါသည် - လူတိုင်းတွင် တစ်ခုလုံးသော repository ၏ local copy တစ်ခုစီ (အခြားသူများ ထုတ်ဝေရန် ရွေးချယ်ထားသော အရာအားလုံး) ရှိကြသည်။ အချို့သော VCS များမှာ _centralized (ဗဟိုချုပ်ကိုင်သော)_ စနစ်များ ဖြစ်ကြသည် (ဥပမာ- subversion) - server တွင် commit အားလုံး ရှိပြီး client များတွင် ၎င်းတို့ "checkout" လုပ်ထားသော ဖိုင်များသာ ရှိကြသည်။ အခြေခံအားဖြင့် ၎င်းတို့တွင် _လက်ရှိ_ ဖိုင်များသာ ရှိပြီး အခြားအရာတစ်ခုခု လိုအပ်ပါက server ကို တောင်းဆိုရန် လိုအပ်သည်။
 
-every copy of a git repository can be listed as a "remote". you can copy
-an existing git repository using `git clone ADDRESS` (instead of `git
-init`). this creates a remote called _origin_ that points to `ADDRESS`.
-you can fetch names and the commits they point to from a remote with
-`git fetch REMOTE`. all names at a remote are available to you as
-`REMOTE/NAME`, and you can use them just like local names.
+git repository တစ်ခု၏ copy တိုင်းကို "remote" တစ်ခုအဖြစ် စာရင်းသွင်းနိုင်ပါသည်။ `git clone ADDRESS` ကို အသုံးပြု၍ ရှိပြီးသား git repository တစ်ခုကို မိတ္တူကူးယူနိုင်ပါသည် (`git init` အစား)။ ဤသည်မှာ `ADDRESS` ကို ညွှန်ပြသော _origin_ ဟုခေါ်သော remote တစ်ခုကို ဖန်တီးပေးပါသည်။ remote တစ်ခုမှ အမည်များနှင့် ၎င်းတို့ ညွှန်ပြသော commit များကို `git fetch REMOTE` ဖြင့် ရယူနိုင်ပါသည်။ remote တစ်ခုရှိ အမည်များ အားလုံးကို သင့်ထံတွင် `REMOTE/NAME` အဖြစ် ရရှိနိုင်ပြီး၊ ၎င်းတို့ကို local အမည်များကဲ့သို့ပင် အသုံးပြုနိုင်ပါသည်။
 
-if you have write access to a remote, you can change names at the remote
-to point to commits you've made using `git push`. for example, let's
-make the master name (branch) at the remote `origin` point to the commit
-that our master branch currently points to:
+အကယ်၍ သင့်တွင် remote သို့ ရေးသားခွင့် (write access) ရှိပါက၊ `git push` ကို အသုံးပြု၍ သင်ပြုလုပ်ခဲ့သော commit များကို ညွှန်ပြရန် remote ရှိ အမည်များကို ပြောင်းလဲနိုင်ပါသည်။ ဥပမာအားဖြင့် `origin` အမည်ရှိ remote ၌ master အမည် (branch) ကို ကျွန်ုပ်တို့၏ master branch မှ လက်ရှိ ညွှန်ပြနေသော commit သို့ ညွှန်ပြစေကြစို့ -
 
    - `git push origin master:master`
-   - for convenience, you can set `origin/master` as the default target
-     for when you `git push` from the current branch with `-u`
-   - consider: what does this do? `git push origin master:HEAD^`
+   - အဆင်ပြေစေရန်အတွက် လက်ရှိ branch မှ `git push` လုပ်သည့်အခါ မူလသတ်မှတ်ထားသော ပစ်မှတ်အဖြစ် `origin/master` ကို `-u` ဖြင့် သတ်မှတ်နိုင်ပါသည်
+   - စဉ်းစားကြည့်ပါ- ဤမိန့်ခွန်းသည် မည်သည့်အရာကို ပြုလုပ်သနည်း။ `git push origin master:HEAD^`
 
-often you'll use GitHub, GitLab, BitBucket, or something else as your
-remote. there's nothing "special" about that as far as git is concerned.
-it's all just names and commits. if someone makes a change to master and
-updates `github/master` to point to their commit (we'll get back to
-that in a second), then when you `git fetch github`, you'll be able to
-see their changes with `git log github/master`.
+မကြာခဏဆိုသလို သင်သည် သင်၏ remote အဖြစ် GitHub၊ GitLab၊ BitBucket သို့မဟုတ် အခြားတစ်ခုခုကို အသုံးပြုမည် ဖြစ်သည်။ git ၏ ရှုထောင့်မှကြည့်လျှင် ထိုအရာများအတွက် "ထူးခြားမှု" မရှိပါ။ အရာအားလုံးသည် အမည်များနှင့် commit များသာ ဖြစ်ကြသည်။ အကယ်၍ တစ်စုံတစ်ယောက်က master သို့ အပြောင်းအလဲတစ်ခု ပြုလုပ်ပြီး ၎င်းတို့၏ commit ကို ညွှန်ပြရန် `github/master` ကို update လုပ်လိုက်ပါက (ထိုအကြောင်းကို ခဏအတွင်း ပြန်လာပါမည်)၊ သင် `git fetch github` ပြုလုပ်သည့်အခါ ၎င်းတို့၏ အပြောင်းအလဲများကို `git log github/master` ဖြင့် ကြည့်ရှုနိုင်မည် ဖြစ်သည်။
 
-## Working with others
+## အခြားသူများနှင့် လက်တွဲလုပ်ဆောင်ခြင်း
 
-so far, branches seem pretty useless: you can create them, do work on
-them, but then what? eventually, you'll just make master point to them
-anyway, right?
+ယခုအချိန်အထိ branch များသည် သိပ်မသုံးဝင်သကဲ့သို့ ထင်ရပါသည်- ၎င်းတို့ကို ဖန်တီးနိုင်သည်၊ ၎င်းတို့ထဲတွင် အလုပ်လုပ်နိုင်သည်၊ သို့သော် ထို့နောက်တွင်ကော။ နောက်ဆုံးတွင် သင်သည် master ကို ၎င်းတို့ထံ ညွှန်ပြအောင် လုပ်ဆောင်မည် မဟုတ်ပါလား။
 
- - what if you had to fix something while working on a big feature?
- - what if someone else made a change to master in the meantime?
+ - လုပ်ဆောင်ချက်ကြီး တစ်ခု (big feature) ပေါ်တွင် အလုပ်လုပ်နေစဉ် တစ်ခုခုကို ပြင်ဆင်ရန် လိုအပ်လာပါက မည်သို့ ပြုလုပ်မည်နည်း။
+ - ထိုအတောအတွင်း အခြားတစ်စုံတစ်ယောက်က master သို့ အပြောင်းအလဲတစ်ခု ပြုလုပ်လိုက်ပါက မည်သို့ ပြုလုပ်မည်နည်း။
 
-inevitably, you will have to _merge_ changes in one branch with changes
-in another, whether those changes are made by you or someone else. git
-lets you do this with, unsurprisingly, `git merge NAME`. `merge` will:
+ရှောင်လွှဲ၍ မရနိုင်စွာပင် branch တစ်ခုရှိ အပြောင်းအလဲများကို အခြား branch တစ်ခုရှိ အပြောင်းအလဲများနှင့် _merge (ပေါင်းစပ်)_ ရမည် ဖြစ်သည်၊ ထို အပြောင်းအလဲများကို သင်ကိုယ်တိုင် သို့မဟုတ် အခြားသူက ပြုလုပ်ခဲ့သည်ဖြစ်စေ။ git က သင့်အား ၎င်းကို မအံ့ဩစရာပင် `git merge NAME` ဖြင့် ပြုလုပ်ခွင့် ပေးထားသည်။ `merge` က ဆောင်ရွက်မည့် အရာများမှာ -
 
- - look for the latest point where `HEAD` and `NAME` shared a commit
-   ancestor (i.e., where they diverged)
- - (try to) apply all those changes to the current `HEAD`
- - produce a commit that contains all those changes, and lists both
-   `HEAD` and `NAME` as its ancestors
- - set `HEAD` to that commit's hash
+ - `HEAD` နှင့် `NAME` တို့သည် ဘိုးဘေး commit အတူတူ မျှဝေခဲ့သည့် (ဆိုလိုသည်မှာ ၎င်းတို့ ခွဲထွက်ခဲ့သည့်) နောက်ဆုံးအမှတ်ကို ရှာဖွေခြင်း
+ - ထို အပြောင်းအလဲများ အားလုံးကို လက်ရှိ `HEAD` သို့ သက်ရောက်စေရန် (ကြိုးစားခြင်း)
+ - ထို အပြောင်းအလဲများ အားလုံး ပါဝင်သော commit တစ်ခုကို ထုတ်လုပ်ပြီး `HEAD` နှင့် `NAME` နှစ်ခုလုံးကို ၎င်း၏ ဘိုးဘေးများအဖြစ် စာရင်းသွင်းခြင်း
+ - `HEAD` ကို ထို commit ၏ hash အဖြစ် သတ်မှတ်ခြင်း
 
-once your big feature has been finished, you can merge its branch into
-master, and git will ensure that you don't lose any changes from either
-branch!
+သင်၏ လုပ်ဆောင်ချက်ကြီး ပြီးစီးပါက ၎င်း၏ branch ကို master အတွင်းသို့ merge လုပ်နိုင်ပြီး၊ git က မည်သည့် branch မှ အပြောင်းအလဲ မည်သည့်အရာမျှ ဆုံးရှုံးမသွားစေရန် သေချာအောင် ပြုလုပ်ပေးပါလိမ့်မည်။
 
-if you've used git in the past, you may recognize `merge` by a different
-name: `pull`. when you do `git pull REMOTE BRANCH`, that is:
+အကယ်၍ သင်သည် အတိတ်က git ကို အသုံးပြုခဲ့ဖူးပါက `merge` ကို အခြားအမည်တစ်ခု ဖြစ်သည့် `pull` အဖြစ် သတိပြုမိနိုင်ပါသည်။ `git pull REMOTE BRANCH` ကို ပြုလုပ်သည့်အခါ ၎င်းသည် -
 
  - `git fetch REMOTE`
  - `git merge REMOTE/BRANCH`
- - where, like `push`, `REMOTE` and `BRANCH` are often omitted and use
-   the "tracking" remote branch (remember `-u`?)
+ - ဤနေရာတွင် `push` ကဲ့သို့ပင် `REMOTE` နှင့် `BRANCH` တို့ကို မကြာခဏ ချန်လှပ်ထားလေ့ရှိပြီး "tracking" ဖြစ်သော remote branch ကို အသုံးပြုကြသည် (`-u` ကို မှတ်မိပါသလား)
 
-this usually works _great_. as long as the changes to the branches being
-merged are disjoint. if they are not, you get a _merge conflict_. sounds
-scary...
+merge ပြုလုပ်မည့် branch များ၏ အပြောင်းအလဲများသည် သီးခြားစီ ဖြစ်နေသမျှ ကာလပတ်လုံး ဤသည်မှာ ပုံမှန်အားဖြင့် _အလွန် ကောင်းမွန်စွာ_ အလုပ်လုပ်ပါသည်။ အကယ်၍ ၎င်းတို့ သီးခြားစီ မဟုတ်ပါက သင့်ထံတွင် _merge conflict (ပေါင်းစပ်မှု ပဋိပက္ခ)_ ဖြစ်ပေါ်လာမည် ဖြစ်သည်။ ခြောက်ခြားဖွယ် ကြားရသော်လည်း...
 
- - a merge conflict is just git telling you that it doesn't know what
-   the final diff should look like
- - git pauses and asks you to finish staging the "merge commit"
- - open the conflicted file in your editor and look for lots of angle
-   brackets (`<<<<<<<`). the stuff above `=======` is the change made in
-   the `HEAD` since the shared ancestor commit. the stuff below is the
-   change made in the `NAME` since the shared commit.
- - `git mergetool` is pretty handy -- opens a diff editor
- - once you've _resolved_ the conflict by figuring out what the file
-   should now look like, stage those changes with `git add`.
- - when all the conflicts are resolved, finish with `git commit`
-   - you can give up with `git merge --abort`
+ - merge conflict ဆိုသည်မှာ နောက်ဆုံး diff က မည်သို့ပုံစံ ဖြစ်သင့်သည်ကို မသိရှိကြောင်း git က သင့်အား ပြောပြခြင်းသာ ဖြစ်သည်
+ - git က ခေတ္တရပ်တန့်ပြီး "merge commit" ကို stage လုပ်ခြင်း ပြီးစီးအောင် ပြုလုပ်ရန် တောင်းဆိုသည်
+ - ပဋိပက္ခဖြစ်နေသော ဖိုင်ကို သင်၏ editor တွင် ဖွင့်ပြီး ထောင့်ကွင်း အများအပြား (`<<<<<<<`) ကို ရှာဖွေပါ။ `=======` ၏ အထက်ရှိ အရာများသည် မျှဝေထားသော ဘိုးဘေး commit ပြီးကတည်းက `HEAD` တွင် ပြုလုပ်ခဲ့သော အပြောင်းအလဲ ဖြစ်သည်။ အောက်ရှိ အရာများသည် မျှဝေထားသော commit ပြီးကတည်းက `NAME` တွင် ပြုလုပ်ခဲ့သော အပြောင်းအလဲ ဖြစ်သည်။
+ - `git mergetool` သည် အလွန် အသုံးဝင်ပါသည် -- diff editor တစ်ခုကို ဖွင့်ပေးသည်
+ - ဖိုင်သည် ယခု မည်သို့ဖြစ်သင့်သည်ကို အဖြေရှာခြင်းဖြင့် ပဋိပက္ခကို _ဖြေရှင်း (resolve)_ ပြီးပါက ထိုအပြောင်းအလဲများကို `git add` ဖြင့် stage လုပ်ပါ
+ - ပဋိပက္ခ အားလုံးကို ဖြေရှင်းပြီးပါက `git commit` ဖြင့် ပြီးဆုံးအောင် ဆောင်ရွက်ပါ
+   - `git merge --abort` ဖြင့် လက်လျှော့ စွန့်လွှတ်နိုင်ပါသည်
 
-you've just resolved your first git merge conflict! \o/
-now you can publish your finished changes with `git push`
+သင်သည် သင်၏ ပထမဆုံး git merge conflict ကို ဖြေရှင်းပြီးပါပြီ။ \o/
+ယခုအခါ ပြီးစီးသွားသော အပြောင်းအလဲများကို `git push` ဖြင့် ထုတ်ဝေနိုင်ပါပြီ။
 
-## When worlds collide
+## ကမ္ဘာများ ထိတွေ့မိသည့်အခါ
 
-when you `push`, git checks that no-one else's work is lost if you
-update the remote name you're pushing too. it does this by checking
-that the current commit of the remote name is an ancestor of the commit
-you are pushing. if it is, git can safely just update the name; this is
-called _fast-forwarding_. if it is not, git will refuse to update the
-remote name, and tell you there have been changes.
+သင် `push` ပြုလုပ်သည့်အခါ၊ သင် push လုပ်နေသည့် remote အမည်ကို update ပြုလုပ်ပါက အခြားသူ၏ အလုပ်များ ဆုံးရှုံးမသွားစေရန် git က စစ်ဆေးပါသည်။ ၎င်းသည် remote အမည်၏ လက်ရှိ commit သည် သင် push လုပ်နေသော commit ၏ ဘိုးဘေးဖြစ်မဖြစ် စစ်ဆေးခြင်းဖြင့် ပြုလုပ်သည်။ အကယ်၍ ဖြစ်ပါက git သည် အမည်ကို ဘေးကင်းစွာ update ပြုလုပ်နိုင်သည်၊ ၎င်းကို _fast-forwarding_ ဟု ခေါ်သည်။ အကယ်၍ မဟုတ်ပါက git သည် remote အမည်ကို update ပြုလုပ်ရန် ငြင်းဆန်မည်ဖြစ်ပြီး အပြောင်းအလဲများ ရှိနေကြောင်း သင့်အား ပြောပြပါလိမ့်မည်။
 
-if your push is rejected, what do you do?
+အကယ်၍ သင်၏ push ကို ငြင်းဆန်ခံရပါက သင် မည်သို့ ပြုလုပ်မည်နည်း။
 
- - merge remote changes with `git pull` (i.e., `fetch` + `merge`)
- - force the push with `--force`: this will lose other people's changes!
-   - there's also `--force-with-lease`, which will only force the change
-     if the remote name hasn't changed since the last time you fetched
-     from that remote. much safer!
-   - if you've rebased local commits that you've previously pushed
-     ("history rewriting"; probably don't do this), you'll have to force
-     push. think about why!
- - try to re-apply your changes "on top of" the changes made remotely
-   - this is a `rebase`!
-     - rewind all local commits since shared ancestor
-     - fast-forward `HEAD` to commit at remote name
-     - apply local commits in-order
-       - may have conflicts you have to manually resolve
-       - `git rebase --continue` or `--abort`
-     - lots more [here](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
-   - `git pull --rebase` will start this process for you
-   - whether you should merge or rebase is a hot topic! some good reads:
-     - [this](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
-     - [this](https://web.archive.org/web/20210106220723/https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/)
-     - [this](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge)
+ - `git pull` ဖြင့် remote အပြောင်းအလဲများကို merge ပြုလုပ်ပါ (ဆိုလိုသည်မှာ `fetch` + `merge`)
+ - `--force` ဖြင့် push ကို အတင်းအကျပ် ပြုလုပ်ပါ: ဤသည်မှာ အခြားသူများ၏ အပြောင်းအလဲများကို ဆုံးရှုံးစေမည် ဖြစ်သည်!
+   - `--force-with-lease` လည်း ရှိပါသေးသည်၊ ၎င်းသည် ထို remote မှ သင်နောက်ဆုံး အကြိမ် fetch ပြုလုပ်ခဲ့ပြီးနောက်ပိုင်း remote အမည် ပြောင်းလဲမသွားပါက အပြောင်းအလဲကို အတင်းအကျပ် ပြုလုပ်မည်ဖြစ်သည်။ များစွာ ပိုမိုဘေးကင်းပါသည်!
+   - အကယ်၍ သင်သည် ယခင်က push ခဲ့ဖူးသော local commit များကို rebase ပြုလုပ်ခဲ့ပါက ("history ရေးသားပြင်ဆင်ခြင်း"၊ ၎င်းကို မပြုလုပ်တာ ပိုကောင်းနိုင်သည်)၊ သင် force push ပြုလုပ်ရလိမ့်မည်။ အဘယ်ကြောင့်ဆိုသည်ကို စဉ်းစားကြည့်ပါ!
+ - remote တွင် ပြုလုပ်ခဲ့သော အပြောင်းအလဲများ၏ "အပေါ်၌" သင်၏ အပြောင်းအလဲများကို ပြန်လည် သက်ရောက်စေရန် ကြိုးစားပါ
+   - ဤသည်မှာ `rebase` ဖြစ်ပါသည်!
+     - မျှဝေထားသော ဘိုးဘေး ပြီးကတည်းက local commit အားလုံးကို ပြန်ရစ်ပါ
+     - `HEAD` ကို remote အမည်ရှိ commit ထံ fast-forward ပြုလုပ်ပါ
+     - local commit များကို အစဉ်လိုက် ပြန်လည် သက်ရောက်စေပါ
+       - သင့်အနေဖြင့် ကိုယ်တိုင် ဖြေရှင်းရမည့် conflict များ ရှိကောင်းရှိနိုင်သည်
+       - `git rebase --continue` သို့မဟုတ် `--abort`
+       - အသေးစိတ်ကို [ဤနေရာတွင်](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) ထပ်မံ ကြည့်ရှုပါ
+   - `git pull --rebase` သည် သင့်အတွက် ဤလုပ်ငန်းစဉ်ကို စတင်ပေးမည် ဖြစ်သည်
+   - သင် merge သို့မဟုတ် rebase ပြုလုပ်သင့်သလား ဆိုသည်မှာ အပူတပြင်း ဆွေးနွေးနေကြသော ခေါင်းစဉ်တစ်ခု ဖြစ်သည်! အောက်ပါတို့မှာ ဖတ်ရှုရန် ကောင်းမွန်သော ဆောင်းပါးများ ဖြစ်ကြသည်-
+     - [ဤဆောင်းပါး](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+     - [ဤဆောင်းပါး](https://web.archive.org/web/20210106220723/https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/)
+     - [ဤဆောင်းပါး](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge)
 
-# Further reading
+# ထပ်မံ ဖတ်ရှုရန်များ
 
-[![XKCD on git](https://imgs.xkcd.com/comics/git.png)](https://xkcd.com/1597/)
+[![git အကြောင်း XKCD](https://imgs.xkcd.com/comics/git.png)](https://xkcd.com/1597/)
 
  - [Learn git branching](https://learngitbranching.js.org/)
  - [How to explain git in simple words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
@@ -331,28 +244,28 @@ if your push is rejected, what do you do?
  - [Oh shit, git!](https://ohshitgit.com/)
  - [The Pro Git book](https://git-scm.com/book/en/v2)
 
-# Exercises
+# လေ့ကျင့်ခန်းများ
 
-1. On a repo try modifying an existing file. What happens when you do `git stash`? What do you see when running `git log --all --oneline`? Run `git stash pop` to undo what you did with `git stash`. In what scenario might this be useful?
+1. repository တစ်ခုတွင် ရှိပြီးသား ဖိုင်တစ်ခုကို ပြင်ဆင်ကြည့်ပါ။ `git stash` ကို ပြုလုပ်သည့်အခါ မည်သို့ ဖြစ်ပျက်သနည်း။ `git log --all --oneline` ကို run သည့်အခါ သင့်အနေဖြင့် မည်သည့်အရာကို မြင်တွေ့ရသနည်း။ `git stash` ဖြင့် ပြုလုပ်ခဲ့သည်များကို ပြန်ပြင်ရန် `git stash pop` ကို run ပါ။ မည်သည့် အခြေအနေမျိုးတွင် ဤသည်မှာ အသုံးဝင်နိုင်သနည်း။
 
-1. One common mistake when learning git is to commit large files that should not be managed by git or adding sensitive information. Try adding a file to a repository, making some commits and then deleting that file from history (you may want to look at [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)). Also if you do want git to manage large  files for you, look into [Git-LFS](https://git-lfs.github.com/)
+1. git ကို လေ့လာရာတွင် တွေ့ရလေ့ရှိသော အမှားတစ်ခုမှာ git ဖြင့် မစီမံသင့်သော ဖိုင်ကြီးများကို commit လုပ်မိခြင်း သို့မဟုတ် ထိခိုက်လွယ်သော အချက်အလက်များ ထည့်သွင်းမိခြင်း ဖြစ်သည်။ repository သို့ ဖိုင်တစ်ခု ထည့်သွင်းကြည့်ပါ၊ commit အချို့ ပြုလုပ်ပါ၊ ထို့နောက် ထိုဖိုင်ကို ရာဇဝင် (history) မှ ဖျက်ပစ်ပါ ([ဤဆောင်းပါး](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) ကို လေ့လာလိုပါလိမ့်မည်)။ ထို့အပြင် git အား သင့်အတွက် ဖိုင်ကြီးများကို စီမံပေးစေလိုပါက [Git-LFS](https://git-lfs.github.com/) ကို လေ့လာကြည့်ပါ။
 
-1. Git is really convenient for undoing changes but one has to be familiar even with the most unlikely changes
-   1. If a file is mistakenly modified in some commit it can be reverted with `git revert`. However if a commit involves several changes `revert` might not be the best option. How can we use `git checkout` to recover a file version from a specific commit?
-   1. Create a branch, make a commit in said branch and then delete it. Can you still recover said commit? Try looking into `git reflog`. (Note: Recover dangling things quickly, git will periodically automatically clean up commits that nothing points to.)
-   1. If one is too trigger happy with `git reset --hard` instead of `git reset` changes can be easily lost. However since the changes were staged, we can recover them. (look into `git fsck --lost-found` and `.git/lost-found`)
+1. Git သည် အပြောင်းအလဲများကို ပြန်ဖြုတ်ရန်အတွက် အမှန်တကယ် အဆင်ပြေလှသော်လည်း ဖြစ်တောင့်ဖြစ်ခဲ အပြောင်းအလဲများနှင့်ပင် ကျွမ်းဝင်မှု ရှိရန် လိုအပ်သည်
+   1. အကယ်၍ ဖိုင်တစ်ခုကို commit တစ်ခုခုတွင် မှားယွင်း ပြောင်းလဲခဲ့ပါက ၎င်းကို `git revert` ဖြင့် ပြန်လည် ပယ်ဖျက်နိုင်ပါသည်။ သို့သော် commit တစ်ခုတွင် အပြောင်းအလဲ အများအပြား ပါဝင်နေပါက `revert` သည် အကောင်းဆုံး ရွေးချယ်မှု မဟုတ်နိုင်ပါ။ သီးခြား commit တစ်ခုမှ ဖိုင်ဗားရှင်းကို ပြန်လည် ရယူရန် `git checkout` ကို မည်သို့ အသုံးပြုနိုင်သနည်း။
+   1. branch တစ်ခု ဖန်တီးပါ၊ ထို branch ၌ commit တစ်ခု ပြုလုပ်ပါ၊ ထို့နောက် ၎င်းကို ဖျက်ပစ်ပါ။ ထို commit ကို ပြန်လည် ရယူနိုင်ပါသေးသလား။ `git reflog` ကို လေ့လာကြည့်ပါ။ (မှတ်ချက်- တွဲလောင်းဖြစ်နေသော အရာများကို လျင်မြန်စွာ ပြန်လည်ရယူပါ၊ မည်သည့်အရာကမျှ ညွှန်ပြမနေသော commit များကို git က ပုံမှန် အလိုအလျောက် ရှင်းလင်းပေးပါလိမ့်မည်။)
+   1. အကယ်၍ `git reset` အစား `git reset --hard` ကို အလျင်စလို အသုံးပြုပါက အပြောင်းအလဲများ လွယ်ကူစွာ ဆုံးရှုံးသွားနိုင်သည်။ သို့သော် အပြောင်းအလဲများမှာ staged ဖြစ်ခဲ့ပြီး ဖြစ်သောကြောင့် ၎င်းတို့ကို ကျွန်ုပ်တို့ ပြန်လည် ရယူနိုင်ပါသည်။ (`git fsck --lost-found` နှင့် `.git/lost-found` တို့ကို လေ့လာကြည့်ပါ)
 
-1. In any git repo look under the folder `.git/hooks` you will find a bunch of scripts that end with `.sample`. If you rename them without the `.sample` they will run based on their name. For instance `pre-commit` will execute before doing a commit. Experiment with them
+1. မည်သည့် git repo မဆို `.git/hooks` folder အောက်တွင် ကြည့်ပါ၊ `.sample` ဖြင့် ဆုံးသော script များစွာကို တွေ့ရပါလိမ့်မည်။ အကယ်၍ ၎င်းတို့ကို `.sample` မပါဘဲ အမည်ပြောင်းလိုက်ပါက ၎င်းတို့၏ အမည်အပေါ် မူတည်၍ run မည်ဖြစ်သည်၊ ဥပမာအားဖြင့် `pre-commit` သည် commit မပြုလုပ်မီ execute လုပ်ပါလိမ့်မည်။ ၎င်းတို့ဖြင့် စမ်းသပ်ကြည့်ပါ
 
-1. Like many command line tools `git` provides a configuration file (or dotfile) called `~/.gitconfig` . Create and alias using `~/.gitconfig` so that when you run `git graph` you get the output of `git log --oneline --decorate --all --graph` (this is a good command to quickly visualize the commit graph)
+1. command line tool အများအပြားကဲ့သို့ပင် `git` သည် `~/.gitconfig` ဟုခေါ်သော configuration file (သို့မဟုတ် dotfile) တစ်ခုကို ပေးထားပါသည်။ `~/.gitconfig` ကို အသုံးပြု၍ alias တစ်ခု ဖန်တီးပါ၊ ထို့ကြောင့် သင် `git graph` ကို run သည့်အခါ `git log --oneline --decorate --all --graph` ၏ output ကို ရရှိမည် ဖြစ်သည် (ဤသည်မှာ commit graph ကို အမြန် ကြည့်ရှုရန် ကောင်းမွန်သော မိန့်ခွန်းဖြစ်သည်)
 
-1. Git also lets you define global ignore patterns under `~/.gitignore_global`, this is useful to prevent common errors like adding RSA keys. Create a `~/.gitignore_global` file and add the pattern `*rsa`, then test that it works in a repo.
+1. Git သည် သင့်အား `~/.gitignore_global` အောက်တွင် global ignore pattern များကို သတ်မှတ်ခွင့် ပြုထားသည်၊ ဤသည်မှာ RSA key များကို ထည့်မိခြင်းကဲ့သို့သော ပုံမှန် အမှားများကို ကာကွယ်ရန် အသုံးဝင်သည်။ `~/.gitignore_global` ဖိုင်တစ်ခု ဖန်တီးပြီး pattern `*rsa` ကို ထည့်ပါ၊ ထို့နောက် repo တစ်ခုတွင် အလုပ်လုပ် မလုပ် စမ်းသပ်ပါ။
 
-1. Once you start to get more familiar with `git`, you will find yourself running into common tasks, such as editing your `.gitignore`. [git extras](https://github.com/tj/git-extras/blob/master/Commands.md) provides a bunch of little utilities that integrate with `git`. For example `git ignore PATTERN` will add the specified pattern to the `.gitignore` file in your repo and `git ignore-io LANGUAGE` will fetch the common ignore patterns for that language from [gitignore.io](https://www.gitignore.io). Install `git extras` and try using some tools like `git alias` or `git ignore`.
+1. သင် `git` နှင့် ပိုမို ကျွမ်းဝင်လာပါက၊ သင်၏ `.gitignore` ကို ပြင်ဆင်ခြင်းကဲ့သို့သော ပုံမှန် အလုပ်များကို ပြုလုပ်လာရသည်ကို တွေ့ရပါလိမ့်မည်။ [git extras](https://github.com/tj/git-extras/blob/master/Commands.md) သည် `git` နှင့် တွဲဖက် အလုပ်လုပ်သော သေးငယ်သည့် utility များကို ထောက်ပံ့ပေးသည်။ ဥပမာအားဖြင့် `git ignore PATTERN` သည် သင်၏ repo ရှိ `.gitignore` ဖိုင်သို့ သတ်မှတ်ထားသော pattern ကို ထည့်သွင်းပေးမည်ဖြစ်ပြီး `git ignore-io LANGUAGE` သည် [gitignore.io](https://www.gitignore.io) မှ ထိုဘာသာစကားအတွက် ပုံမှန် ignore pattern များကို ရယူပေးမည်ဖြစ်သည်။ `git extras` ကို install လုပ်ပြီး `git alias` သို့မဟုတ် `git ignore` ကဲ့သို့သော tool အချို့ကို စမ်းသုံးကြည့်ပါ။
 
-1. Git GUI programs can be a great resource sometimes. Try running [gitk](https://git-scm.com/docs/gitk) in a git repo an explore the different parts of the interface. Then run `gitk --all` what are the differences?
+1. Git GUI ပရိုဂရမ်များသည် အချို့သော အခါများတွင် ကောင်းမွန်သော အရင်းအမြစ်တစ်ခု ဖြစ်နိုင်သည်။ git repo တစ်ခုတွင် [gitk](https://git-scm.com/docs/gitk) ကို run ကြည့်ပြီး interface ၏ မတူညီသော အပိုင်းများကို လေ့လာကြည့်ပါ။ ထို့နောက် `gitk --all` ကို run ပါ၊ ကွဲပြားခြားနားချက်များမှာ မည်သည်တို့ နည်း။
 
-1. Once you get used to command line applications GUI tools can feel cumbersome/bloated. A nice compromise between the two are ncurses based tools which can be navigated from the command line and still provide an interactive interface. Git has [tig](https://github.com/jonas/tig), try installing it and running it in a repo. You can find some usage examples [here](https://www.atlassian.com/blog/git/git-tig).
+1. သင် command line application များကို ကျင့်သုံးသွားပါက GUI tool များသည် ရှုပ်ထွေး/မလိုအပ်ဘဲ ကြီးမားနေသကဲ့သို့ ခံစားရနိုင်သည်။ ၎င်းတို့ နှစ်ခုကြား ကောင်းမွန်သော ညှိနှိုင်းမှုတစ်ခုမှာ command line မှ မောင်းနှင်နိုင်ပြီး interactive interface ကိုလည်း ပေးစွမ်းနိုင်သော ncurses အခြေပြု tool များဖြစ်ကြသည်။ Git တွင် [tig](https://github.com/jonas/tig) ရှိသည်၊ ၎င်းကို install လုပ်ပြီး repo တစ်ခုတွင် run ကြည့်ပါ။ အသုံးပြုပုံ ဥပမာအချို့ကို [ဤနေရာတွင်](https://www.atlassian.com/blog/git/git-tig) တွေ့ရှိနိုင်ပါသည်။
 
 
 {% comment %}

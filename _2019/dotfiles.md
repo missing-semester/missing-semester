@@ -9,56 +9,35 @@ video:
   id: YSZBWWJw3mI
 ---
 
-Many programs are configured using plain-text files known as "dotfiles"
-(because the file names begin with a `.`, e.g. `~/.gitconfig`, so that they are
-hidden in the directory listing `ls` by default).
+ပရိုဂရမ်အများအပြားကို "dotfiles" ဟုခေါ်သော plain-text ဖိုင်များအသုံးပြု၍ ချိန်ညှိပြင်ဆင်ကြပါတယ် (ဖိုင်အမည်များသည် `.` ဖြင့် စတင်လေ့ရှိသောကြောင့် ဖြစ်သည်၊ ဥပမာ `~/.gitconfig`၊ သို့မှသာ ယင်းတို့သည် `ls` ဖြင့် directory အတွင်းရှိ ဖိုင်များကို ကြည့်ရှုသည့်အခါ ပုံသေအားဖြင့် ကွယ်နေမည်ဖြစ်သည်)။
 
-A lot of the tools you use probably have a lot of settings that can be tuned
-pretty finely. Often times, tools are customized with specialized languages,
-e.g. Vimscript for Vim or the shell's own language for a shell.
+သင်အသုံးပြုသည့် tool အတော်များများတွင် အသေးစိတ် ချိန်ညှိနိုင်သော စက်တင် (setting) အမြောက်အမြား ပါဝင်လေ့ရှိသည်။ ထို့အပြင် tool များကို သီးသန့် ဘာသာစကားများဖြင့် စိတ်ကြိုက် ပြင်ဆင်လေ့ရှိကြသည်၊ ဥပမာ Vim အတွက် Vimscript သို့မဟုတ် shell အတွက် shell ၏ ကိုယ်ပိုင် ဘာသာစကား ဖြစ်သည်။
 
-Customizing and adapting your tools to your preferred workflow will make you
-more productive. We advise you to invest time in customizing your tool yourself
-rather than cloning someone else's dotfiles from GitHub.
+သင်၏ tool များကို သင်နှစ်သက်ရာ လုပ်ငန်းစဉ် (workflow) နှင့်အညီ စိတ်ကြိုက် ပြင်ဆင် (customize) ပြီး အံဝင်ခွင်ကျ ဖြစ်အောင် ညှိယူခြင်းက သင့်ကို ပိုမို အလုပ်တွင်ကျယ်စေပါလိမ့်မည်။ GitHub မှ အခြားသူတစ်ဦး၏ dotfile များကို ကူးယူ (clone) အသုံးပြုခြင်းထက် မိမိ၏ tool များကို မိမိကိုယ်တိုင် စိတ်ကြိုက် ပြင်ဆင်ရန် အချိန်ပေး ရင်းနှီးမြှုပ်နှံဖို့ ကျွန်ုပ်တို့ အကြံပြုလိုပါသည်။
 
-You probably have some dotfiles set up already. Some places to look:
+သင့်ထံတွင် dotfile အချို့ တည်ဆောက်ထားပြီးဖြစ်နိုင်ပါသည်။ ရှာဖွေကြည့်ရှုနိုင်သည့် နေရာအချို့မှာ-
 
 - `~/.bashrc`
 - `~/.emacs`
 - `~/.vim`
 - `~/.gitconfig`
 
-Some programs don't put the files under your home folder directly and instead they put them in a folder under `~/.config`.
+ပရိုဂရမ်အချို့သည် ဖိုင်များကို သင်၏ home folder အောက်တွင် တိုက်ရိုက်မထားဘဲ `~/.config` အောက်ရှိ folder တစ်ခုအတွင်း ထည့်သွင်းထားလေ့ရှိကြသည်။
 
-Dotfiles are not exclusive to command line applications, for instance the [MPV](https://mpv.io/) video player can be configured editing files under `~/.config/mpv`
+Dotfile များသည် command line application များအတွက်သာ သီးသန့်မဟုတ်ပါ၊ ဥပမာအားဖြင့် [MPV](https://mpv.io/) ဗီဒီယိုပလေယာကို `~/.config/mpv` အောက်ရှိ ဖိုင်များကို ပြင်ဆင်ခြင်းဖြင့် စက်တင်ညှိနိုင်ပါသည်။
 
-# Learning to customize tools
+# Tool များကို စိတ်ကြိုက် ပြင်ဆင်ရန် လေ့လာခြင်း (Learning to customize tools)
 
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
+အွန်လိုင်း documentation များ သို့မဟုတ် [man pages](https://en.wikipedia.org/wiki/Man_page) များကို ဖတ်ရှုခြင်းဖြင့် သင်၏ tool ၏ စက်တင်များအကြောင်း လေ့လာနိုင်ပါသည်။ အခြား ကောင်းမွန်သော နည်းလမ်းတစ်ခုမှာ အတိအကျ ပရိုဂရမ်များအကြောင်း ရေးသားထားသည့် ဘလော့ဂ်ဆောင်းပါးများကို အင်တာနက်တွင် ရှာဖွေခြင်း ဖြစ်ပြီး ယင်းတို့၌ စာရေးသူများ၏ နှစ်သက်ရာ စိတ်ကြိုက်ပြင်ဆင်မှုများအကြောင်း ရေးသားထားကြသည်။ စိတ်ကြိုက်ပြင်ဆင်မှုများအကြောင်း လေ့လာရန် အခြား နည်းလမ်းတစ်ခုမှာ အခြားသူများ၏ dotfile များကို ဝင်ရောက်ကြည့်ရှုခြင်း ဖြစ်သည်- GitHub တွင် [dotfiles repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) အမြောက်အမြားကို ရှာဖွေတွေ့ရှိနိုင်ပါသည် --- လူကြိုက်အများဆုံး repository ကို [ဒီမှာ](https://github.com/mathiasbynens/dotfiles) ကြည့်ရှုပါ (စက်တင်များကို မျက်စိမှိတ် အကန်းလိုက် မကူးယူရန်တော့ ကျွန်ုပ်တို့ အကြံပြုလိုပါသည်)။
 
-# Organization
+# စနစ်တကျ ဖွဲ့စည်း စီမံခြင်း (Organization)
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+သင်၏ dotfile များကို မည်သို့ စနစ်တကျ ဖွဲ့စည်းထားသင့်သနည်း။ ယင်းတို့ကို သီးသန့် folder တစ်ခုအတွင်း ထည့်သွင်းထားပြီး၊ version control အောက်တွင် ထားရှိကာ၊ script တစ်ခုအသုံးပြု၍ သက်ဆိုင်ရာ နေရာများသို့ **symlink** ချိတ်ဆက်ထားသင့်ပါသည်။ ဤသို့ ပြုလုပ်ခြင်း၏ အကျိုးကျေးဇူးများမှာ-
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute
-- **Portability**: your tools will work the same way everywhere
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects
+- **လွယ်ကူစွာ တပ်ဆင်နိုင်ခြင်း (Easy installation)**: စက်အသစ်တစ်လုံးသို့ ဝင်ရောက်အသုံးပြုသည့်အခါ သင်၏ စိတ်ကြိုက်ပြင်ဆင်မှုများကို အသုံးပြုနိုင်ရန် မိနစ်ပိုင်းမျှသာ ကြာမြင့်မည် ဖြစ်သည်
+- **နေရာမရွေး အသုံးပြုနိုင်ခြင်း (Portability)**: သင်၏ tool များသည် ဘယ်နေရာမှာမဆို ပုံစံတူအတိုင်း အလုပ်လုပ်ဆောင်မည် ဖြစ်သည်
+- **ဟန်ချက်ညီ ပေါင်းစပ်နိုင်ခြင်း (Synchronization)**: သင်၏ dotfile များကို မည်သည့်နေရာတွင်မဆို update ပြုလုပ်နိုင်ပြီး အားလုံးကို ဟန်ချက်ညီညီ ထိန်းသိမ်းထားနိုင်သည်
+- **အပြောင်းအလဲများကို စောင့်ကြည့်မှတ်တမ်းတင်နိုင်ခြင်း (Change tracking)**: သင်၏ Programmer သက်တမ်းတစ်ခုလုံးတွင် dotfile များကို ထိန်းသိမ်းသွားရဖွယ် ရှိသဖြင့်၊ ကာလရှည် စီမံကိန်းများအတွက် version history ရှိထားခြင်းသည် အလွန်ကောင်းမွန်ပါသည်
 
 ```shell
 cd ~/src
@@ -80,24 +59,19 @@ git add bashrc install
 git commit -m 'Initial commit'
 ```
 
-# Advanced topics
+# အဆင့်မြင့် ခေါင်းစဉ်များ (Advanced topics)
 
-## Machine-specific customizations
+## စက်အလိုက် သီးသန့် စိတ်ကြိုက်ပြင်ဆင်ခြင်းများ (Machine-specific customizations)
 
-Most of the time, you'll want the same configuration across machines, but
-sometimes, you'll want a small delta on a particular machine. Here are a couple
-ways you can handle this situation:
+အများအားဖြင့် စက်အမျိုးမျိုးတွင် ပုံစံတူ configuration ကိုသာ အသုံးပြုလိုကြသော်လည်း၊ အချို့အချိန်များတွင် သီးခြား စက်တစ်ခုအတွက် အနည်းငယ် ကွဲပြားမှု (delta) ကို လိုချင်နိုင်ပါသည်။ ဤအခြေအနေကို ဖြေရှင်းနိုင်မည့် နည်းလမ်းအချို့မှာ အောက်ပါအတိုင်း ဖြစ်သည်-
 
-### Branch per machine
+### စက်အလိုက် Branch တစ်ခုစီ ခွဲထားခြင်း (Branch per machine)
 
-Use version control to maintain a branch per machine. This approach is
-logically straightforward but can be pretty heavyweight.
+စက်တစ်လုံးစီအတွက် branch တစ်ခုစီ ထိန်းသိမ်းရန် version control ကို အသုံးပြုပါ။ ဤနည်းလမ်းသည် ယုတ္တိဗေဒအရ ရှင်းလင်းတိုက်ရိုက်သော်လည်း အနည်းငယ် ဝန်လေး (heavyweight) စေနိုင်ပါသည်။
 
-### If statements
+### If statement များ အသုံးပြုခြင်း (If statements)
 
-If the configuration file supports it, use the equivalent of if-statements to
-apply machine specific customizations. For example, your shell could have something
-like:
+Configuration ဖိုင်က ထောက်ပံ့ပေးပါက စက်အလိုက် သီးသန့် စိတ်ကြိုက်ပြင်ဆင်မှုများ ထည့်သွင်းရန် if-statement နှင့် ညီမျှသော နည်းလမ်းကို အသုံးပြုပါ။ ဥပမာအားဖြင့် သင်၏ shell တွင် အောက်ပါကဲ့သို့ ရေးသားနိုင်သည်-
 
 ```shell
 if [[ "$(uname)" == "Linux" ]]; then {do_something else}; fi
@@ -109,21 +83,18 @@ if [[ "$(uname)" == "Darwin" ]]; then {do_something}; fi
 if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
 ```
 
-### Includes
+### Include များကို အသုံးပြုခြင်း (Includes)
 
-If the configuration file supports it, make use of includes. For example,
-a `~/.gitconfig` can have a setting:
+Configuration ဖိုင်က ထောက်ပံ့ပေးပါက include များကို အသုံးပြုပါ။ ဥပမာအားဖြင့် `~/.gitconfig` တွင် အောက်ပါ စက်တင် ထည့်သွင်းထားနိုင်သည်-
 
 ```
 [include]
     path = ~/.gitconfig_local
 ```
 
-And then on each machine, `~/.gitconfig_local` can contain machine-specific
-settings. You could even track these in a separate repository for
-machine-specific settings.
+ထို့နောက် စက်တစ်လုံးစီတွင် `~/.gitconfig_local` ၌ စက်အလိုက် သီးသန့် စက်တင်များ ပါဝင်နိုင်ပါသည်။ စက်အလိုက် သီးသန့် စက်တင်များအတွက် ၎င်းတို့ကို သီးသန့် repository တစ်ခုတွင်ပင် ထိန်းသိမ်းစောင့်ကြည့် (track) နိုင်ပါသည်။
 
-This idea is also useful if you want different programs to share some configurations. For instance if you want both `bash` and `zsh` to share the same set of aliases you can write them under `.aliases` and have the following block in both.
+အခြားသော ပရိုဂရမ်များတွင် စက်တင်အချို့ကို မျှဝေသုံးစွဲလိုပါကလည်း ဤနည်းလမ်းသည် အသုံးဝင်ပါသည်။ ဥပမာအားဖြင့် `bash` နှင့် `zsh` နှစ်ခုစလုံးကို တူညီသော alias အစုအဝေး မျှဝေသုံးစွဲစေလိုပါက ယင်းတို့ကို `.aliases` အောက်တွင် ရေးသားနိုင်ပြီး နှစ်ခုစလုံးတွင် အောက်ပါ block ကို ထည့်သွင်းထားနိုင်ပါသည်။
 
 ```bash
 # Test if ~/.aliases exists and source it
@@ -132,34 +103,22 @@ if [ -f ~/.aliases ]; then
 fi
 ```
 
-# Resources
+# လေ့လာရန် သယံဇာတများ (Resources)
 
-- Your instructors' dotfiles:
-  [Anish](https://github.com/anishathalye/dotfiles),
-  [Jon](https://github.com/jonhoo/configs),
-  [Jose](https://github.com/jjgo/dotfiles)
-- [GitHub does dotfiles](https://dotfiles.github.io/): dotfile frameworks,
-utilities, examples, and tutorials
-- [Shell startup
-  scripts](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html): an
-  explanation of the different configuration files used for your shell
+- သင်၏ နည်းပြများ၏ dotfile များ- [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles)
+- [GitHub does dotfiles](https://dotfiles.github.io/)- dotfile framework များ၊ utility များ၊ ဥပမာများနှင့် သင်ခန်းစာများ
+- [Shell startup scripts](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html)- သင်၏ shell အတွက် အသုံးပြုသည့် မတူညီသော configuration ဖိုင်များအကြောင်း ရှင်းလင်းချက်
 
-# Exercises
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Create a folder for your dotfiles and set up [version
-   control](/2019/version-control/).
+1. သင်၏ dotfile များအတွက် folder တစ်ခု ဖန်တီးပြီး [version control](/2019/version-control/) ကို စတင် တည်ဆောက်ပါ။
 
-1. Add a configuration for at least one program, e.g. your shell, with some
-   customization (to start off, it can be something as simple as customizing
-   your shell prompt by setting `$PS1`).
+1. အနည်းဆုံး ပရိုဂရမ် တစ်ခုအတွက် (ဥပမာ သင်၏ shell) စိတ်ကြိုက်ပြင်ဆင်မှု ပါဝင်သော configuration တစ်ခု ထည့်သွင်းပါ (စတင်သည့်အနေဖြင့် `$PS1` ကို သတ်မှတ်၍ သင်၏ shell prompt ကို စိတ်ကြိုက် ပြင်ဆင်ခြင်းကဲ့သို့ ရိုးရှင်းသော အရာတစ်ခု ဖြစ်နိုင်သည်)။
 
-1. Set up a method to install your dotfiles quickly (and without manual effort)
-   on a new machine. This can be as simple as a shell script that calls `ln -s`
-   for each file, or you could use a [specialized
-   utility](https://dotfiles.github.io/utilities/).
+1. စက်အသစ်တစ်လုံးတွင် သင်၏ dotfile များကို လျင်မြန်စွာ (လူကိုယ်တိုင် အားစိုက်ထုတ်ရန် မလိုဘဲ) တပ်ဆင်နိုင်မည့် နည်းလမ်းတစ်ခု စီစဉ်ပါ။ ၎င်းသည် ဖိုင်တစ်ခုစီအတွက် `ln -s` ကို ခေါ်ယူပေးသည့် shell script တစ်ခုကဲ့သို့ ရိုးရှင်းနိုင်သည်၊ သို့မဟုတ် [သီးသန့် utility](https://dotfiles.github.io/utilities/) တစ်ခုကိုလည်း အသုံးပြုနိုင်ပါသည်။
 
-1. Test your installation script on a fresh virtual machine.
+1. သင်၏ တပ်ဆင်မှု script ကို virtual machine အသစ်တစ်ခုတွင် စမ်းသပ်ပါ။
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+1. လက်ရှိ tool စက်တင်များ အားလုံးကို သင်၏ dotfiles repository သို့ ပြောင်းရွှေ့ပါ။
 
-1. Publish your dotfiles on GitHub.
+1. သင်၏ dotfile များကို GitHub ပေါ်တွင် လွှင့်တင်ပါ (publish ပြုလုပ်ပါ)။

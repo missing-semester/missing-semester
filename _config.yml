@@ -1,7 +1,8 @@
 # Setup
-title: 'Missing Semester'
-url: https://missing.csail.mit.edu
+title: 'The Missing Semester of Your CS Education'
+url: https://missing-semester-my.github.io
 thumbnail: "/static/assets/thumbnails/default.png"
+
 
 # Settings
 markdown: kramdown
@@ -12,7 +13,7 @@ highlighter: rouge
 permalink: /:title/
 future: true
 # safe: true # breaks local rendering if enabled
-timezone: America/New_York
+timezone: Asia/Yangon
 analytics:
   tracking_id: G-P7WVHD84D1
 

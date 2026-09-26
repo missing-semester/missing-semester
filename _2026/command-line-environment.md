@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Command-line ပတ်ဝန်းကျင်"
 description: >
-  Learn how command-line programs work, including input/output streams, environment variables, and remote machines with SSH.
+  Input/output streams များ၊ environment variables များ နှင့် SSH ဖြင့် remote machine များကို ချိတ်ဆက်အသုံးပြုနည်းများ အပါအဝင် command-line ပရိုဂရမ်များ လုပ်ဆောင်ပုံကို လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true
@@ -11,24 +11,23 @@ video:
   id: ccBGsPedE9Q
 ---
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
-but in practice they provide an entire programming language full of common patterns and abstractions.
-However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
+ယခင်သင်ခန်းစာတွင် ဆွေးနွေးခဲ့သည့်အတိုင်း shell အများစုသည် အခြားပရိုဂရမ်များကို စတင်ပွင့်စေသည့် ရိုးရိုး launcher မျှသာမဟုတ်ဘဲ လက်တွေ့တွင် ဘုံသုံး pattern များနှင့် abstraction များ ပြည့်နှက်နေသော ပရိုဂရမ်မင်းဘာသာစကား တစ်ခုလုံးကို ပံ့ပိုးပေးထားပါသည်။
+သို့သော် အခြားပရိုဂရမ်မင်းဘာသာစကား အများစုနှင့်မတူဘဲ shell scripting တွင် အရာအားလုံးကို ပရိုဂရမ်များ Run ရန်နှင့် ၎င်းတို့အချင်းချင်း ရိုးရှင်းထိရောက်စွာ ဆက်သွယ်ဆောင်ရွက်နိုင်စေရန်အတွက် ဒီဇိုင်းထုတ်ထားခြင်းဖြစ်ပါသည်။
 
-In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
-We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
+အထူးသဖြင့် shell scripting သည် _သဘောတူညီချက်များ (conventions)_ နှင့် အလွန်နီးကပ်စွာ ဆက်စပ်နေပါသည်။ Command line interface (CLI) ပရိုဂရမ်တစ်ခုသည် ပိုမိုကျယ်ပြန့်သော shell ပတ်ဝန်းကျင်အတွင်း အဆင်ပြေပြေ ပူးပေါင်းလုပ်ဆောင်နိုင်ရန်အတွက် လိုက်နာရန် လိုအပ်သည့် ဘုံ pattern အချို့ ရှိပါသည်။
+ယခုအခါ command line ပရိုဂရမ်များ မည်သို့အလုပ်လုပ်သည်ကို နားလည်ရန် လိုအပ်သည့် သဘောတရားအများအပြားနှင့် ၎င်းတို့ကို အသုံးပြုပုံ၊ ချိန်ညှိပြင်ဆင်ပုံဆိုင်ရာ အသုံးများသော သဘောတူညီချက် (conventions) များကို လေ့လာသွားမည် ဖြစ်ပါသည်။
 
 # The Command Line Interface
 
-Writing a function in most programming languages looks something like:
+ပရိုဂရမ်မင်းဘာသာစကား အများစုတွင် function တစ်ခု ရေးသားပုံသည် အောက်ပါအတိုင်း ဖြစ်လေ့ရှိသည် -
 
 ```
 def add(x: int, y: int) -> int:
     return x + y
 ```
 
-Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance.
+ဒီနေရာမှာ ပရိုဂရမ်ရဲ့ input တွေနဲ့ output တွေကို ရှင်းရှင်းလင်းလင်း မြင်တွေ့နိုင်ပါတယ်။
+၎င်းနှင့် ဆန့်ကျင်ဘက်အနေဖြင့် shell script များကို စတင်ကြည့်ရှုချိန်တွင် တော်တော်လေး ကွဲပြားခြားနားနေသည်ကို တွေ့ရပါလိမ့်မည်။
 
 ```shell
 #!/usr/bin/env bash
@@ -46,51 +45,51 @@ else
 fi
 ```
 
-To properly understand what is going in scripts like this one we first need to introduce a few concepts that appear often when shell programs communicate with each other or with the shell environment:
+ယခုကဲ့သို့ script မျိုးတွင် မည်သည့်အရာများ ဖြစ်ပျက်နေသည်ကို သေချာစွာ နားလည်နိုင်ရန်အတွက် shell ပရိုဂရမ်များ အချင်းချင်း သို့မဟုတ် shell ပတ်ဝန်းကျင်နှင့် ဆက်သွယ်ရာတွင် မကြာခဏ ပါဝင်လေ့ရှိသည့် သဘောတရား အနည်းငယ်ကို မိတ်ဆက်ပေးရန် လိုအပ်ပါသည် -
 
-- Arguments
-- Streams
-- Environment variables
-- Return codes
-- Signals
+- Arguments များ
+- Streams များ
+- Environment variables များ
+- Return codes များ
+- Signals များ
 
-## Arguments
+## Arguments များ
 
-Shell programs receive a list of arguments when they are executed.
-Arguments are plain strings in shell, and it is up to the program how to interpret them.
-For instance when we do `ls -l folder/`, we are executing the program `/bin/ls` with arguments `['-l', 'folder/']`.
+Shell ပရိုဂရမ်များကို Run သည့်အခါ အဆိုပါ ပရိုဂရမ်များသည် argument စာရင်းတစ်ခုကို လက်ခံရရှိကြပါသည်။
+Arguments တွေဟာ shell မှာ ရိုးရိုး string များဖြစ်ကြပြီး ၎င်းတို့ကို မည်သို့ အဓိပ္ပာယ်ဖော်မည်ဆိုသည်မှာ ပရိုဂရမ်အပေါ်၌သာ မူတည်ပါသည်။
+ဥပမာအားဖြင့် ကျွန်ုပ်တို့သည် `ls -l folder/` ဟု ရိုက်ထည့်လိုက်သောအခါ `/bin/ls` ပရိုဂရမ်ကို argument များဖြစ်သော `['-l', 'folder/']` တို့ဖြင့် Run ပေးခြင်းဖြစ်ပါသည်။
 
-From within a shell script we access these via special shell syntax.
-To access the first argument we access the variable `$1`, second argument `$2` and so on and so forth until `$9`. To access all arguments as a list we use `$@` and to retrieve the number of arguments `$#`. Additionally we can also access the name of the program with `$0`.
+Shell script အတွင်းမှနေ၍ ၎င်းတို့ကို အထူး shell syntax ဖြင့် ရယူအသုံးပြုနိုင်ပါသည်။
+ပထမဆုံး argument ကို ရယူရန် variable `$1`၊ ဒုတိယ argument အတွက် `$2` စသဖြင့် `$9` အထိ အသုံးပြုနိုင်ပါသည်။ Argument အားလုံးကို စာရင်း (list) အဖြစ် ရယူရန် `$@` ကို သုံးပြီး argument အရေအတွက်ကို ရယူရန် `$#` ကို သုံးပါသည်။ ထို့ပြင် ပရိုဂရမ်၏ အမည်ကိုလည်း `$0` ဖြင့် ရယူနိုင်ပါသည်။
 
-For most programs the arguments will consist of a mixture of _flags_ and regular strings.
-Flags can be identified because they are preceded by a dash (`-`) or double-dash (`--`).
-Flags are usually optional and their role is to modify the behavior of the program.
-For example `ls -l` changes how `ls` formats its output.
+ပရိုဂရမ် အများစုအတွက် argument များသည် _flags_ များ နှင့် ရိုးရိုး string များ ရောနှောပါဝင်လေ့ရှိပါသည်။
+Flag များကို အရှေ့တွင် dash တိုင်တို (`-`) သို့မဟုတ် double-dash (`--`) ပါဝင်ခြင်းဖြင့် ခွဲခြားသိရှိနိုင်ပါသည်။
+Flag များသည် ပုံမှန်အားဖြင့် မထည့်လည်း ရပြီး ၎င်းတို့၏ အဓိကအခန်းကဏ္ဍမှာ ပရိုဂရမ်၏ လုပ်ဆောင်ပုံကို ပြောင်းလဲပေးရန် ဖြစ်ပါသည်။
+ဥပမာအားဖြင့် `ls -l` သည် `ls` ၏ output ဖော်ပြပုံပုံစံကို ပြောင်းလဲပေးပါသည်။
 
-You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
-Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
-The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
-Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
+သင့်အနေဖြင့် `--all` ကဲ့သို့ နာမည်ရှည်ပါသော double dash flag များနှင့် `-a` ကဲ့သို့ စာလုံးတစ်လုံးတည်း ပါလေ့ရှိသော single dash flag များကို တွေ့မြင်ရပါလိမ့်မည်။
+ထို option တစ်ခုတည်းကိုပင် ပုံစံနှစ်မျိုးလုံးဖြင့် သတ်မှတ်နိုင်သည်၊ ဥပမာ `ls -a` နှင့် `ls --all` တို့သည် အတူတူပင် ဖြစ်ပါသည်။
+Single dash flag များကို စုစည်း၍လည်း ရေးသားနိုင်သဖြင့် `ls -l -a` နှင့် `ls -la` တို့သည်လည်း အတူတူပင် ဖြစ်ပါသည်။
+Flag များ၏ အစဉ်လိုက် သတ်မှတ်မှုသည်လည်း ပုံမှန်အားဖြင့် အရေးမကြီးပါ၊ `ls -la` နှင့် `ls -al` တို့သည် ရလဒ်တစ်ခုတည်းကိုပင် ထုတ်ပေးပါသည်။
+Flag အချို့သည် အလွန်အသုံးများပြီး shell ပတ်ဝန်းကျင်နှင့် ပိုမိုရင်းနှီးလာသည်နှင့်အမျှ သဘာဝအတိုင်း အလိုလို သုံးစွဲမိလာပါလိမ့်မည် (ဥပမာ `--help`, `--verbose`, `--version`)။
 
-> Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
-Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
-> In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
+> Flag များသည် shell သဘောတူညီချက်များ (conventions) ၏ ကောင်းမွန်သော ပထမဆုံး ဥပမာတစ်ခု ဖြစ်ပါသည်။ Shell ဘာသာစကားသည် ကျွန်ုပ်တို့၏ ပရိုဂရမ်အား `-` သို့မဟုတ် `--` ကို ဤကဲ့သို့ သီးသန့် အသုံးပြုရန် အတင်းအကျပ် လိုအပ်ခြင်း မရှိပါ။
+`myprogram +myoption myfile` ကဲ့သို့ syntax မျိုးဖြင့် ပရိုဂရမ်တစ်ခု ရေးသားခြင်းကို မည်သည့်အရာကမျှ တားဆီးထားခြင်းမရှိသော်လည်း Dash များကို သုံးစွဲရန် မျှော်လင့်ထားကြသဖြင့် ရှုပ်ထွေးမှုများ ဖြစ်ပေါ်စေပါလိမ့်မည်။
+> လက်တွေ့တွင် ပရိုဂရမ်မင်းဘာသာစကား အများစုသည် CLI flag parsing library များကို ပံ့ပိုးပေးထားကြပါသည် (ဥပမာ dash syntax ဖြင့် argument များကို parse လုပ်ရန် python ရှိ `argparse`)။
 
-Another common convention in CLI programs is for programs to accept a variable number of arguments of the same type. When given arguments in this way the command performs the same operation on each one of them.
+CLI ပရိုဂရမ်များ၏ အခြား အသုံးများသော သဘောတူညီချက်တစ်ခုမှာ ပရိုဂရမ်များသည် အမျိုးအစားတူညီသော argument အရေအတွက် အမျိုးမျိုးကို လက်ခံနိုင်ခြင်း ဖြစ်ပါသည်။ ဤကဲ့သို့ argument များကို ပေးလိုက်သောအခါ command သည် ၎င်းတို့တစ်ခုစီအပေါ် တူညီသော လုပ်ဆောင်ချက်ကို လုပ်ဆောင်ပေးပါသည်။
 
 ```shell
 mkdir src
 mkdir docs
-# is equivalent to
+# သည် အောက်ပါအတိုင်း ရေးသည်နှင့် အတူတူပင်ဖြစ်သည်
 mkdir src docs
 ```
 
-This syntax sugar might seem unnecessary at first, but it becomes really powerful when combined with _globbing_.
-Globbing or globs are special patterns that the shell will expand before calling the program.
+ဤ syntax sugar သည် စတင်ချိန်တွင် မလိုအပ်ဟု ထင်ရနိုင်သော်လည်း _globbing_ နှင့် တွဲဖက်လိုက်သောအခါ အလွန်ပင် စွမ်းအားထက်မြက်လာပါသည်။
+Globbing သို့မဟုတ် globs တွေဆိုတာ ပရိုဂရမ်ကို မခေါ်မီ shell က အလိုအလျောက် ဖြန့်ကျက်ပေးမည့် (expand) အထူး pattern များ ဖြစ်ကြပါသည်။
 
-Say we wanted to delete all .py files in the current folder nonrecursively. From what we learned in the previous lecture we could achieve this by running
+ဥပမာ လက်ရှိ folder အတွင်းရှိ .py file အားလုံးကို nonrecursively ဖျက်ပစ်ချင်သည် ဆိုပါစို့။ ယခင်သင်ခန်းစာတွင် လေ့လာခဲ့သည်များအရ အောက်ပါအတိုင်း Run ပြီး ပြုလုပ်နိုင်ပါသည် -
 
 ```shell
 for file in $(ls | grep -P '\.py$'); do
@@ -98,54 +97,54 @@ for file in $(ls | grep -P '\.py$'); do
 done
 ```
 
-But we can replace that with just `rm *.py`!
+သို့သော် ၎င်းကို `rm *.py` ဟု သာ ရေးသားပြီး အစားထိုးနိုင်ပါသည်။
 
-When we type `rm *.py` into the terminal, the shell will not call the `/bin/rm` program with arguments `['*.py']`.
-Instead, the shell will search for files in the current folder matching the pattern `*.py` where `*` can match any string of zero or more characters of any type.
-So if our folder has `main.py` and `utils.py` then the `rm` program will receive arguments `['main.py', 'utils.py']`.
+terminal ထဲတွင် `rm *.py` ဟု ရိုက်ထည့်လိုက်သောအခါ shell သည် `/bin/rm` ပရိုဂရမ်ကို `['*.py']` ဆိုသည့် argument ဖြင့် ခေါ်ယူမည် မဟုတ်ပါ။
+ယင်းအစား shell သည် လက်ရှိ folder အတွင်း `*.py` pattern နှင့် ကိုက်ညီသော file များကို ရှာဖွေမည်ဖြစ်ပြီး၊ ဤနေရာတွင် `*` သည် မည်သည့်အမျိုးအစားမဆို ရှိသော စာလုံး အရေအတွက် သုည သို့မဟုတ် သုညထက်ပိုသော string တစ်ခုခုနှင့် ကိုက်ညီမှု ရှိနိုင်ပါသည်။
+ထို့ကြောင့် ကျွန်ုပ်တို့၏ folder တွင် `main.py` နှင့် `utils.py` တို့ ရှိနေပါက `rm` ပရိုဂရမ်သည် `['main.py', 'utils.py']` ဆိုသည့် argument များကို လက်ခံရရှိမည် ဖြစ်ပါသည်။
 
-The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
-Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
+တွေ့ရှိရမည့် အသုံးအများဆုံး glob တွေကတော့ wildcard `*` (သုည သို့မဟုတ် သုညထက်ပိုသော မည်သည့်စာလုံးမဆို)၊ `?` (အတိအကျ တစ်လုံးတည်းသော မည်သည့်စာလုံးမဆို) နှင့် curly braces တွေ ဖြစ်ကြပါတယ်။
+Curly braces `{}` သည် ကော်မာခံထားသော pattern စာရင်းကို argument အများအပြားအဖြစ် ဖြန့်ကျက် (expand) ပေးပါသည်။
 
-In practice, globs are best understood with motivating examples.
+လက်တွေ့တွင် glob များကို စိတ်ဝင်စားဖွယ် ဥပမာများဖြင့် နားလည်ရလွယ်ကူပါသည် -
 
 ```shell
 touch folder/{a,b,c}.py
-# Will expand to
+# အောက်ပါအတိုင်း Expand ဖြစ်သွားမည်
 touch folder/a.py folder/b.py folder/c.py
 
 convert image.{png,jpg}
-# Will expand to
+# အောက်ပါအတိုင်း Expand ဖြစ်သွားမည်
 convert image.png image.jpg
 
 cp /path/to/project/{setup,build,deploy}.sh /newpath
-# Will expand to
+# အောက်ပါအတိုင်း Expand ဖြစ်သွားမည်
 cp /path/to/project/setup.sh /path/to/project/build.sh /path/to/project/deploy.sh /newpath
 
-# Globbing techniques can also be combined
+# Globbing နည်းလမ်းများကို ပေါင်းစပ်၍လည်း သုံးနိုင်သည်
 mv *{.py,.sh} folder
-# Will move all *.py and *.sh files
+# *.py နှင့် *.sh file အားလုံးကို ရွှေ့ပေးမည် ဖြစ်သည်
 ```
 
-> Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
+> အချို့သော shell များ (ဥပမာ zsh) သည် recursive path များအထိ ပါဝင်အောင် expand လုပ်ပေးနိုင်သော `**` ကဲ့သို့ ပိုမိုဆင့်မြင့်သည့် globbing ပုံစံများကိုပင် ပံ့ပိုးပေးထားပါသည်။ ထို့ကြောင့် `rm **/*.py` သည် .py file အားလုံးကို recursive နည်းဖြင့် ဖျက်ပစ်မည် ဖြစ်ပါသည်။
 
 
-## Streams
+## Streams များ
 
-Whenever we execute a program pipeline like
+အောက်ပါအတိုင်း ပရိုဂရမ် pipeline တစ်ခုကို Run သည့်အခါတိုင်း -
 
 ```shell
 cat myfile | grep -P '\d+' | uniq -c
 ```
 
-we see that the `grep` program is communicating with both the `cat` and `uniq` programs.
+`grep` ပရိုဂရမ်သည် `cat` နှင့် `uniq` ပရိုဂရမ် နှစ်ခုလုံးနှင့် ဆက်သွယ်ဆောင်ရွက်နေသည်ကို တွေ့မြင်နိုင်ပါသည်။
 
-An important observation here is that all three programs are executing at once.
-Namely, the shell is not first calling cat, then grep, and then uniq.
-Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
-When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
+ဤနေရာတွင် သတိပြုရန် အရေးကြီးသော အချက်မှာ ပရိုဂရမ် သုံးခုလုံးသည် တစ်ပြိုင်နက်တည်း Run နေခြင်း ဖြစ်ပါသည်။
+အသေးစိတ် ပြောရလျှင် shell သည် ပထမဆုံး cat ကို ခေါ်၊ ပြီးမှ grep ကို ခေါ်၊ ပြီးမှ uniq ကို ခေါ်ခြင်း မဟုတ်ပါ။
+ယင်းအစား ပရိုဂရမ် သုံးခုလုံးကို တစ်ပြိုင်နက်တည်း စတင်လိုက်ပြီး shell က cat ၏ output ကို grep ၏ input သို့၊ grep ၏ output ကို uniq ၏ input သို့ ချိတ်ဆက်ပေးခြင်း ဖြစ်ပါသည်။
+Pipe operator `|` ကို အသုံးပြုသောအခါ shell သည် စီးကြောင်းတစ်လျှောက်တွင် ပရိုဂရမ်တစ်ခုမှ နောက်တစ်ခုသို့ စီးဆင်းသွားသော data stream များကို စီမံဆောင်ရွက်ပေးပါသည်။
 
-We can demonstrate this concurrency, all commands in a pipeline start immediately:
+ဤပြိုင်တူလုပ်ဆောင်မှုကို သက်သေပြနိုင်ပါသည်၊ pipeline တစ်ခုအတွင်းရှိ command အားလုံးသည် ချက်ချင်း စတင်ကြပါသည် -
 
 ```console
 $ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
@@ -158,166 +157,166 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
   32948 pts/1    00:00:00 grep
 ```
 
-We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
+`cat` မှလွဲ၍ အခြား process အားလုံးသည် ချက်ချင်း Run နေသည်ကို တွေ့မြင်နိုင်ပါသည်။ Shell သည် ၎င်းတို့ထဲမှ မည်သည့် process မျှ မပြီးဆုံးမီ process အားလုံးကို စတင်ဖွင့်လှစ်ပြီး ၎င်းတို့၏ stream များကို ချိတ်ဆက်ပေးလိုက်ပါသည်။ `cat` သည် sleep ပြီးဆုံးမှသာ စတင်မည်ဖြစ်ပြီး၊ `cat` ၏ output ကို grep ထံ ပို့ပေးကာ ၎င်းမှတစ်ဆင့် ဆက်လက် စီးဆင်းသွားမည် ဖြစ်ပါသည်။
 
-Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
+ပရိုဂရမ်တိုင်းတွင် stdin (standard input အတွက်) ဟု ခေါ်သော input stream တစ်ခု ရှိပါသည်။ Pipe လုပ်သောအခါ stdin ကို အလိုအလျောက် ချိတ်ဆက်ပေးပါသည်။ Script အတွင်းတွင် ပရိုဂရမ်အများစုသည် "stdin မှ ဖတ်ရှုမည်" ဟု အဓိပ္ပာယ်ရသော file အမည်အဖြစ် `-` ကို လက်ခံကြပါသည် -
 
 ```shell
-# These are equivalent when data comes from a pipe
+# ဒေတာသည် pipe မှ လာသောအခါ ဤနှစ်ခုသည် အတူတူပင်ဖြစ်သည်
 echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
 
-Similarly, every program has two output streams: stdout and stderr.
-The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
+အလားတူပင် ပရိုဂရမ်တိုင်းတွင် output stream နှစ်ခု ရှိကြပါသည် - stdout နှင့် stderr တို့ဖြစ်ကြပါသည်။
+Standard output (stdout) သည် အများဆုံး တွေ့ကြုံရသည့် stream ဖြစ်ပြီး ပရိုဂရမ်၏ output ကို pipeline ၏ နောက်ထပ် command ထံသို့ pipe လုပ်ရာတွင် အသုံးပြုပါသည်။
+Standard error (stderr) သည် ပရိုဂရမ်များမှ သတိပေးချက်များနှင့် အခြား ပြဿနာအမျိုးအစားများကို သတင်းပို့ရန်အတွက် သီးသန့် ရည်ရွယ်ထားသော တခြား stream တစ်ခုဖြစ်ပြီး အဆိုပါ output သည် စီးကြောင်း၏ နောက် command မှ parse လုပ်ခြင်း မခံရပါ။
 
 ```console
 $ ls /nonexistent
 ls: cannot access '/nonexistent': No such file or directory
 $ ls /nonexistent | grep "pattern"
 ls: cannot access '/nonexistent': No such file or directory
-# The error message still appears because stderr is not piped
+# stderr ကို pipe မလုပ်ထားသောကြောင့် Error စာတမ်းသည် ပေါ်နေဆဲဖြစ်သည်
 $ ls /nonexistent 2>/dev/null
-# No output - stderr was redirected to /dev/null
+# Output မရှိတော့ပါ - stderr ကို /dev/null သို့ လမ်းကြောင်းပြောင်းလိုက်သောကြောင့်ဖြစ်သည်
 ```
 
-The shell provides syntax for redirecting these streams. Here are some illustrative examples.
+Shell သည် ဤ stream များကို လမ်းကြောင်းပြောင်းရန် (redirect) အတွက် syntax များကို ထောက်ပံ့ပေးထားပါသည်။ အောက်တွင် ဥပမာအချို့ကို ဖော်ပြထားပါသည် -
 
 ```shell
-# Redirect stdout to a file (overwrite)
+# stdout ကို file တစ်ခုသို့ လမ်းကြောင်းပြောင်းရန် (အသစ်ထပ်ရေးမည်)
 echo "hello" > output.txt
 
-# Redirect stdout to a file (append)
+# stdout ကို file တစ်ခုသို့ လမ်းကြောင်းပြောင်းရန် (အနောက်မှ ဆက်ရေးမည်)
 echo "world" >> output.txt
 
-# Redirect stderr to a file
+# stderr ကို file တစ်ခုသို့ လမ်းကြောင်းပြောင်းရန်
 ls foobar 2> errors.txt
 
-# Redirect both stdout and stderr to the same file
+# stdout နှင့် stderr နှစ်ခုလုံးကို file တစ်ခုတည်းသို့ လမ်းကြောင်းပြောင်းရန်
 ls foobar &> all_output.txt
 
-# Redirect stdin from a file
+# stdin ကို file တစ်ခုမှ လမ်းကြောင်းပြောင်းယူရန်
 grep "pattern" < input.txt
 
-# Discard output by redirecting to /dev/null
+# /dev/null သို့ လမ်းကြောင်းပြောင်း၍ output ကို စွန့်ပစ်ရန်
 cmd > /dev/null 2>&1
 ```
 
-Another powerful tool that exemplifies the Unix philosophy is [`fzf`](https://github.com/junegunn/fzf), a fuzzy finder. It reads lines from stdin and provides an interactive interface to filter and select:
+Unix ဒဿန (philosophy) ကို ထင်ဟပ်စေသည့် အခြား စွမ်းအားထက်မြက်သော ကိရိယာတစ်ခုမှာ fuzzy finder တစ်ခုဖြစ်သည့် [`fzf`](https://github.com/junegunn/fzf) ဖြစ်ပါသည်။ ၎င်းသည် stdin မှ စာကြောင်းများကို ဖတ်ရှုပြီး စစ်ထုတ်ရန်နှင့် ရွေးချယ်ရန် အပြန်အလှန်လုပ်ဆောင်နိုင်သော interface တစ်ခုကို ပံ့ပိုးပေးပါသည် -
 
 ```console
 $ ls | fzf
 $ cat ~/.bash_history | fzf
 ```
 
-`fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
+`fzf` ကို shell လုပ်ဆောင်ချက်များစွာနှင့် ပေါင်းစပ်အသုံးပြုနိုင်ပါသည်။ Shell စိတ်ကြိုက်ပြင်ဆင်ခြင်းအကြောင်း ဆွေးနွေးသည့်အခါ ၎င်း၏ အသုံးပြုပုံများကို ပိုမိုတွေ့မြင်ရပါလိမ့်မည်။
 
 
-## Environment variables
+## Environment variables များ
 
-To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
-Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
-In shell scripting the role of the space character is to perform argument splitting.
-This behavior can be confusing and tricky to get used to, so keep it in mind.
+Bash တွင် variable များ သတ်မှတ်ရန် `foo=bar` syntax ကို အသုံးပြုပြီး variable ၏ တန်ဖိုးကို ရယူရန် `$foo` syntax ကို သုံးပါသည်။
+`foo = bar` ဟု ရေးသားခြင်းသည် မှားယွင်းသော syntax ဖြစ်ကြောင်း သတိပြုပါ၊ အကြောင်းမှာ shell က ၎င်းကို `foo` ပရိုဂရမ်အား `['=', 'bar']` ဆိုသည့် argument များနှင့် ခေါ်ယူခြင်းအဖြစ် parse လုပ်မည်ဖြစ်သောကြောင့် ဖြစ်သည်။
+Shell scripting တွင် space (ကွက်လပ်) ၏ အခန်းကဏ္ဍမှာ argument များကို ခွဲခြားပေးရန် ဖြစ်ပါသည်။
+ဤပြုမူပုံသည် ရှုပ်ထွေးနိုင်ပြီး ကျင့်သုံးရခက်ခဲနိုင်သဖြင့် စိတ်ထဲတွင် မှတ်သားထားပါ။
 
-Shell variables do not have types, they are all strings.
-Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
+Shell variable များတွင် type များ မရှိပါ၊ ၎င်းတို့အားလုံးသည် string များ ဖြစ်ကြသည်။
+Shell တွင် string expression များကို ရေးသားသောအခါ single quote (`'`) နှင့် double quote (`"`) တို့သည် အပြန်အလှန် အစားထိုး၍ မရကြောင်း သတိပြုပါ။
+`'` ဖြင့် ဝိုင်းထားသော string များသည် စာသားအတိုင်း ဖြစ်ပြီး variable များကို expand လုပ်မည်မဟုတ်၊ command substitution ပြုလုပ်မည်မဟုတ် သို့မဟုတ် escape sequence များကို ပရိုဆက်လုပ်မည်မဟုတ်ပါ။ ၎င်းနှင့် ဆန့်ကျင်ဘက်အနေဖြင့် `"` ဖြင့် ဝိုင်းထားသော string များသည် ထိုသို့ ပြုလုပ်ပေးမည် ဖြစ်သည်။
 
 ```shell
 foo=bar
 echo "$foo"
-# prints bar
+# bar ဟု ရိုက်နှိပ်မည်
 echo '$foo'
-# prints $foo
+# $foo ဟု ရိုက်နှိပ်မည်
 ```
 
-To capture the output of a command into a variable we use _command substitution_.
-When we execute
+Command တစ်ခု၏ output ကို variable တစ်ခုအတွင်း သမ်းဆည်းရန်အတွက် _command substitution_ ကို အသုံးပြုပါသည်။
+ကျွန်ုပ်တို့သည်
 ```shell
 files=$(ls)
 echo "$files" | grep README
 echo "$files" | grep ".py"
 ```
-the output (concretely the stdout) of ls is placed into the variable `$files` which we can access later.
-The content of the `$files` variable does include the newlines from the ls output, which is how programs like `grep` know to operate on each item independently.
+ဟု Run လိုက်သောအခါ ls ၏ output (အတိအကျပြောရလျှင် stdout) ကို နောက်ပိုင်းတွင် ရယူသုံးစွဲနိုင်သည့် variable `$files` ထဲသို့ ထည့်သွင်းပေးလိုက်မည် ဖြစ်သည်။
+`$files` variable ၏ အကြောင်းအရာတွင် ls output မှ newline များ ပါဝင်နေပြီး၊ ၎င်းသည် `grep` ကဲ့သို့သော ပရိုဂရမ်များက item တစ်ခုစီကို သီးခြားစီ လုပ်ဆောင်နိုင်ရန် သိရှိသည့် ပုံစံဖြစ်ပါသည်။
 
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name.
-This is useful when commands expect values to be passed by file instead of by STDIN.
-For example, `diff <(ls src) <(ls docs)` will show differences between files in dirs `src` and `docs`.
+သိသူနည်းပါးသော အလားတူ feature တစ်ခုမှာ _process substitution_ ဖြစ်ပြီး၊ `<( CMD )` သည် `CMD` ကို Run ပြီး ရလဒ် output ကို ယာယီ file တစ်ခုအတွင်း ထည့်သွင်းကာ `<()` ကို ထို file ၏ အမည်ဖြင့် အစားထိုးပေးမည် ဖြစ်ပါသည်။
+ဒါဟာ command တွေက STDIN အစား file ဖြင့် တန်ဖိုးများ ပေးပို့ရန် မျှော်လင့်ထားသည့်အခါမျိုးတွင် အသုံးဝင်ပါသည်။
+ဥပမာအားဖြင့် `diff <(ls src) <(ls docs)` သည် `src` နှင့် `docs` directory နှစ်ခုအတွင်းရှိ file များ၏ ခြားနားချက်များကို ပြသပေးမည် ဖြစ်ပါသည်။
 
-Whenever a shell program calls another program it passes along a set of variables that are often referred to as _environment variables_.
-From within a shell we can find the current environment variables by running `printenv`.
-To pass an environment variable explicitly we can prepend a command with a variable assignment
+Shell ပရိုဂရမ်တစ်ခုသည် အခြားပရိုဂရမ်တစ်ခုကို ခေါ်ယူသည့်အခါတိုင်း ၎င်းသည် _environment variables_ ဟု အလွယ်ခေါ်ကြသော variable အစုအဝေးတစ်ခုကို ထပ်ဆင့် ပေးပို့ပေးပါသည်။
+Shell အတွင်းမှနေ၍ လက်ရှိ environment variable များကို `printenv` ကို Run ခြင်းဖြင့် ရှာဖွေနိုင်ပါသည်။
+Environment variable တစ်ခုကို အတိအကျ ပေးပို့ရန်အတွက် command ၏ အရှေ့တွင် variable သတ်မှတ်ချက်ကို အောက်ပါအတိုင်း ရှေ့ဆက်ထည့်နိုင်သည် -
 
-> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+> Environment variable များကို သဘောတူညီချက် (convention) အဖြစ် စာလုံးကြီးများ (ALL_CAPS) ဖြင့် ရေးသားလေ့ရှိကြပါသည် (ဥပမာ `HOME`, `PATH`, `DEBUG`)။ ဒါဟာ နည်းပညာအရ မဖြစ်မနေ လိုအပ်ချက်မဟုတ်ဘဲ convention တစ်ခုသာ ဖြစ်သော်လည်း ၎င်းကို လိုက်နာခြင်းဖြင့် ပုံမှန်အားဖြင့် စာလုံးသေးဖြင့် ရေးသားသော local shell variable များနှင့် environment variable များကို ခွဲခြားသိမြင်စေရန် ကူညီပေးပါသည်။
 
 ```shell
-TZ=Asia/Tokyo date  # prints the current time in Tokyo
-echo $TZ  # this will be empty, since TZ was only set for the child command
+TZ=Asia/Tokyo date  # တိုကျိုမြို့၏ လက်ရှိအချိန်ကို ရိုက်နှိပ်မည်
+echo $TZ  # TZ ကို child command အတွက်သာ သတ်မှတ်ခဲ့သောကြောင့် ဤနေရာတွင် လွတ်နေမည် ဖြစ်သည်
 ```
 
-Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
+သို့မဟုတ်ပါက ကျွန်ုပ်တို့၏ လက်ရှိ environment ကို ပြုပြင်ပြောင်းလဲပေးမည့် `export` built-in function ကို အသုံးပြုနိုင်ပြီး ထိုသို့ ပြုလုပ်ခြင်းဖြင့် child process အားလုံးသည် အဆိုပါ variable ကို လက်ခံရရှိသွားမည် ဖြစ်သည် -
 
 ```shell
 export DEBUG=1
-# All programs from this point onwards will have DEBUG=1 in their environment
+# ဤအချိန်မှစ၍ ပရိုဂရမ်အားလုံးသည် ၎င်းတို့၏ environment တွင် DEBUG=1 ပါရှိသွားမည် ဖြစ်သည်
 bash -c 'echo $DEBUG'
-# prints 1
+# 1 ဟု ရိုက်နှိပ်မည်
 ```
 
-To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
+Variable တစ်ခုကို ဖျက်ပစ်ရန်အတွက် `unset` built-in command ကို သုံးပါ၊ ဥပမာ `unset DEBUG`။
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
+> Environment variable တွေဟာ အခြားသော shell သဘောတူညီချက် (convention) တစ်ခု ဖြစ်ပါတယ်။ ၎င်းတို့ကို ပရိုဂရမ်အများအပြား၏ ပြုမူပုံကို အတိအကျ ပြင်ဆင်ခိုင်းခြင်းထက် သွယ်ဝိုက်သော နည်းလမ်းဖြင့် ပြောင်းလဲရန် အသုံးပြုနိုင်ပါသည်။ ဥပမာအားဖြင့် shell သည် လက်ရှိ user ၏ home folder path ဖြင့် `$HOME` environment variable ကို သတ်မှတ်ပေးထားပါသည်။ ထို့ကြောင့် ပရိုဂရမ်များသည် `--home /home/alice` ကဲ့သို့ အတိအကျ တောင်းဆိုရန် မလိုဘဲ ဤအချက်အလက်ကို ရယူရန် အဆိုပါ variable ကို အသုံးပြုနိုင်ပါသည်။ အခြား အသုံးများသော ဥပမာတစ်ခုမှာ `$TZ` ဖြစ်ပြီး ပရိုဂရမ်များစွာသည် သတ်မှတ်ထားသော စံတော်ချိန် (timezone) အလိုက် ရက်စွဲနှင့် အချိန်များကို ပုံစံထုတ်ရန် သုံးစွဲကြပါသည်။
 
-## Return codes
+## Return codes များ
 
-As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
+ယခင်က တွေ့မြင်ခဲ့ရသည့်အတိုင်း shell ပရိုဂရမ်တစ်ခု၏ အဓိက output ကို stdout/stderr stream များနှင့် filesystem ဘေးထွက်ဆိုးကျိုး (side effects) များမှတစ်ဆင့် ဖော်ပြပေးပါသည်။
 
-By default a shell script will return exit code zero.
-The convention is that zero means everything went well whereas nonzero means some issues were encountered.
-To return a nonzero exit code we have to use the `exit NUM` shell built-in.
-We can access the return code of the last command that was run by accessing the special variable `$?`.
+မူလအားဖြင့် shell script တစ်ခုသည် exit code သုည (0) ကို Return ပြန်ပေးမည် ဖြစ်ပါသည်။
+သဘောတူညီချက် (convention) အရ သုညသည် အရာအားလုံး အဆင်ပြေပြေ ပြီးမြောက်ခဲ့သည်ဟု အဓိပ္ပာယ်ရပြီး သုညမဟုတ်သော တန်ဖိုး (nonzero) သည် ပြဿနာအချို့ ကြုံတွေ့ခဲ့ရသည်ဟု အဓိပ္ပာယ်ရပါသည်။
+သုညမဟုတ်သော exit code ကို Return ပြန်ပေးရန်အတွက် `exit NUM` ဆိုသည့် shell built-in ကို အသုံးပြုရပါမည်။
+နောက်ဆုံး Run ခဲ့သော command ၏ return code ကို အထူး variable `$?` ကို ဝင်ရောက်ကြည့်ရှုခြင်းဖြင့် ရယူနိုင်ပါသည်။
 
-The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
-Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
-Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
-This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
+Shell တွင် AND နှင့် OR လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ရန်အတွက် boolean operator များဖြစ်ကြသော `&&` နှင့် `||` တို့ ပါရှိပါသည်။
+ပုံမှန် ပရိုဂရမ်မင်းဘာသာစကားများတွင် တွေ့ရသည်များနှင့် မတူဘဲ shell ရှိ operator များသည် ပရိုဂရမ်များ၏ return code အပေါ် မူတည်၍ လုပ်ဆောင်ကြခြင်း ဖြစ်ပါသည်။
+ဤနှစ်ခုလုံးသည် [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operator များ ဖြစ်ကြပါသည်။
+ဆိုလိုသည်မှာ ယခင် command များ၏ အောင်မြင်မှု သို့မဟုတ် လှဲမှားမှုအပေါ် မူတည်၍ နောက် command များကို အခြေအနေအလိုက် Run ရန် ၎င်းတို့ကို အသုံးပြုနိုင်ပြီး၊ အောင်မြင်မှုကို return code သည် သုည ဟုတ်မဟုတ်အပေါ် မူတည်၍ ဆုံးဖြတ်ခြင်း ဖြစ်ပါသည်။ ဥပမာအချို့ -
 
 ```shell
-# echo will only run if grep succeeds (finds a match)
+# grep အောင်မြင်ပါက (ကိုက်ညီမှုတွေ့ရှိပါက) မှသာ echo ကို Run မည်ဖြစ်သည်
 grep -q "pattern" file.txt && echo "Pattern found"
 
-# echo will only run if grep fails (no match)
+# grep မအောင်မြင်ပါက (ကိုက်ညီမှုမတွေ့ပါက) မှသာ echo ကို Run မည်ဖြစ်သည်
 grep -q "pattern" file.txt || echo "Pattern not found"
 
-# true is a shell program that always succeeds
+# true သည် အမြဲတမ်း အောင်မြင်သော shell ပရိုဂရမ်တစ်ခု ဖြစ်သည်
 true && echo "This will always print"
 
-# and false is a shell program that always fails
+# false သည် အမြဲတမ်း မအောင်မြင်သော shell ပရိုဂရမ်တစ်ခု ဖြစ်သည်
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
+အလားတူ သဘောတရားကို `if` နှင့် `while` statement များတွင်လည်း ကျင့်သုံးသည်၊ ၎င်းတို့ နှစ်ခုလုံးသည် ဆုံးဖြတ်ချက်ချရန်အတွက် return code များကို အသုံးပြုကြပါသည် -
 
 ```shell
-# if uses the return code of the condition command (0 = true, nonzero = false)
+# if သည် condition command ၏ return code ကို အသုံးပြုသည် (0 = true, nonzero = false)
 if grep -q "pattern" file.txt; then
     echo "Found"
 fi
 
-# while loops continue as long as the command returns 0
+# while loop သည် command က 0 ပြန်ပေးနေသရွေ့ ဆက်လက် လုပ်ဆောင်နေမည်ဖြစ်သည်
 while read line; do
     echo "$line"
 done < file.txt
 ```
 
-## Signals
+## Signals များ
 
-In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
-The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+အချို့သော အခြေအနေများတွင် ပရိုဂရမ်တစ်ခု လုပ်ဆောင်နေစဉ်အတွင်း ဥပမာ command တစ်ခု ပြီးမြောက်ရန် အချိန်ကြာလွန်းနေပါက ၎င်းအား ကြားဖြတ်ရပ်တန့်ရန် လိုအပ်ပါလိမ့်မည်။
+ပရိုဂရမ်တစ်ခုကို ကြားဖြတ်ရပ်တန့်ရန် အရိုးရှင်းဆုံး နည်းလမ်းမှာ `Ctrl-C` ကို နှိပ်လိုက်ခြင်းဖြစ်ပြီး အဆိုပါ command သည် ရပ်တန့်သွားလေ့ရှိပါသည်။
+သို့သော် ဒါဟာ လက်တွေ့မှာ မည်သို့ အလုပ်လုပ်သနည်း၊ ၎င်းသည် ရံဖန်ရံခါ process ကို အဘယ်ကြောင့် ရပ်တန့်ရန် ပျက်ကွက်ရသနည်း။
 
 ```console
 $ sleep 100
@@ -325,24 +324,24 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl-C` is displayed when typed in the terminal.
+> ဤနေရာတွင် `^C` ဆိုသည်မှာ terminal ထဲတွင် `Ctrl-C` ကို ရိုက်ထည့်လိုက်သောအခါ ဖော်ပြပေးသည့် ပုံစံဖြစ်ပါသည်။
 
-Under the hood, what happened here is the following:
+ကွယ်လွန်နောက်ကွယ်တွင် ဖြစ်ပျက်သွားသည်မှာ အောက်ပါအတိုင်း ဖြစ်ပါသည် -
 
-1. We pressed `Ctrl-C`
-2. The shell identified the special combination of characters
-3. The shell process sent a SIGINT signal to the `sleep` process
-4. The signal interrupted the execution of the `sleep` process
+1. ကျွန်ုပ်တို့ `Ctrl-C` ကို နှိပ်လိုက်သည်
+2. Shell က ထိုအထူး စာလုံးပေါင်းစပ်မှုကို ခွဲခြားသိရှိလိုက်သည်
+3. Shell process က SIGINT signal တစ်ခုကို `sleep` process ထံသို့ ပေးပို့လိုက်သည်
+4. Signal သည် `sleep` process ၏ လုပ်ဆောင်မှုကို ကြားဖြတ်ရပ်တန့်လိုက်သည်
 
-Signals are a special communication mechanism.
-When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Signal များသည် အထူး ဆက်သွယ်ရေး ယန္တရားတစ်ခု ဖြစ်ကြသည်။
+Process တစ်ခုသည် signal တစ်ခုကို လက်ခံရရှိသောအခါ ၎င်း၏ လုပ်ဆောင်မှုကို ရပ်တန့်လိုက်ပြီး signal ကို ဖြေရှင်းကာ အဆိုပါ signal မှ ပေးပို့လိုက်သော အချက်အလက်များအပေါ် မူတည်၍ လုပ်ဆောင်မှု စီးဆင်းပုံကို ပြောင်းလဲနိုင်ပါသည်။ ဤအကြောင်းကြောင့် signal များကို _software interrupts_ ဟု ခေါ်ဆိုကြပါသည်။
 
 
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+ကျွန်ုပ်တို့၏ အခြေအနေတွင် `Ctrl-C` ကို ရိုက်ထည့်လိုက်သောအခါ ၎င်းသည် process ထံသို့ `SIGINT` signal ပေးပို့ရန် shell ကို တိုက်တွန်းလိုက်ခြင်း ဖြစ်ပါသည်။
+အောက်တွင် `SIGINT` ကို ဖမ်းယူပြီး ပစ်ပယ်ထားကာ ဆက်လက် ရပ်တန့်ခြင်းမရှိတော့သည့် Python ပရိုဂရမ်၏ အသေးငယ်ဆုံး ဥပမာကို ဖော်ပြထားပါသည်။ ဤပရိုဂရမ်ကို Kill လုပ်ရန်အတွက် `Ctrl-\` ကို ရိုက်ထည့်ခြင်းဖြင့် `SIGQUIT` signal ကို အစားထိုး အသုံးပြုနိုင်ပါပြီ။
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/env bash
 import signal, time
 
 def handler(signum, time):
@@ -356,7 +355,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+ဤပရိုဂရမ်ထံသို့ `SIGINT` နှစ်ကြိမ် ပေးပို့ပြီးနောက် `SIGQUIT` ပေးပို့လိုက်သောအခါ ဖြစ်ပေါ်လာပုံမှာ အောက်ပါအတိုင်း ဖြစ်ပါသည်။ Terminal ထဲတွင် ရိုက်ထည့်လိုက်သောအခါ `Ctrl` ကို `^` ဖြင့် ဖော်ပြကြောင်း သတိပြုပါ -
 
 ```console
 $ python sigint.py
@@ -367,25 +366,25 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+`SIGINT` နှင့် `SIGQUIT` နှစ်ခုလုံးသည် ပုံမှန်အားဖြင့် terminal ဆိုင်ရာ တောင်းဆိုချက်များနှင့် ဆက်စပ်နေသော်လည်း၊ process တစ်ခုအား သပ်သပ်ရပ်ရပ် ပိတ်သိမ်းရန် တောင်းဆိုသည့် ပိုမို အထွေထွေကျသော signal မှာ `SIGTERM` signal ဖြစ်ပါသည်။
+ဤ signal ကို ပေးပို့ရန်အတွက် [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command ကို `kill -TERM <PID>` syntax ဖြင့် အသုံးပြုနိုင်ပါသည်။
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Signal များသည် process တစ်ခုကို kill ပြုလုပ်ခြင်းထက် အခြားအရာများကိုလည်း ဆောင်ရွက်နိုင်ပါသည်။ ဥပမာ `SIGSTOP` သည် process ကို ခဏရပ်တန့် (pause) စေပါသည်။ Terminal တွင် `Ctrl-Z` ရိုက်ထည့်ပါက Terminal Stop ၏ အတိုကောက်ဖြစ်သော `SIGTSTP` signal ကို ပေးပို့ရန် shell ကို တိုက်တွန်းမည် ဖြစ်သည် (ဆိုလိုသည်မှာ `SIGSTOP` ၏ terminal ဗားရှင်းဖြစ်သည်)။
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+ထို့နောက် ရပ်တန့်ထားသော job ကို foreground တွင် ဖြစ်စေ၊ background တွင် ဖြစ်စေ အသီးသီး [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) သို့မဟုတ် [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html) များကို အသုံးပြု၍ ဆက်လက် လုပ်ဆောင်စေနိုင်ပါသည်။
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+[`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command သည် လက်ရှိ terminal session နှင့် ဆက်စပ်နေသော မပြီးဆုံးသေးသည့် job များကို စာရင်းဖော်ပြပေးပါသည်။
+အဆိုပါ job များကို ၎င်းတို့၏ pid ကို အသုံးပြု၍ ညွှန်းဆိုနိုင်သည် (ရှာဖွေရန် [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) ကို သုံးနိုင်သည်)။
+ပိုမိုလွယ်ကူစွာဖြင့် ၎င်းတို့၏ job number ( `jobs` မှ ဖော်ပြထားသော) ရှေ့တွင် ရာခိုင်နှုန်းသင်္ကေတ (%) ကို တပ်၍လည်း ညွှန်းဆိုနိုင်ပါသည်။ နောက်ဆုံး background သို့ ပို့ထားသော job ကို ညွှန်းဆိုရန် အထူး parameter ဖြစ်သော `$!` ကို အသုံးပြုနိုင်ပါသည်။
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
+သိရှိထားရန် အခြားအချက်တစ်ခုမှာ command တစ်ခု၏ အနောက်တွင် `&` ထည့်သွင်းလိုက်ပါက command ကို background တွင် Run ပေးမည်ဖြစ်ပြီး သင့်ထံ prompt ပြန်လည် ရရှိစေမည် ဖြစ်သည်၊ သို့သော် ၎င်းသည် shell ၏ STDOUT ကို သုံးနေဆဲဖြစ်သဖြင့် စိတ်အနှောင့်အယှက် ဖြစ်စရာ ကောင်းနိုင်ပါသည် (ထိုသို့ဖြစ်ပါက shell redirection များကို သုံးပါ)။ အလားတူပင် Run နေပြီးသား ပရိုဂရမ်တစ်ခုကို background သို့ ပို့ရန် `Ctrl-Z` နှိပ်ပြီးနောက် `bg` ဟု ရိုက်ထည့်နိုင်ပါသည်။
 
 
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
+Background သို့ ပို့ထားသော process များသည် သင့် terminal ၏ child process များဖြစ်နေဆဲဖြစ်ပြီး terminal ကို ပိတ်လိုက်ပါက သေဆုံးသွားမည်ဖြစ်ကြောင်း သတိပြုပါ (ဒါဟာ အခြား signal တစ်ခုဖြစ်သည့် `SIGHUP` ကို ပေးပို့လိုက်ခြင်း ဖြစ်သည်)။
+ထိုသို့ မဖြစ်ပွားစေရန်အတွက် ပရိုဂရမ်ကို [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (`SIGHUP` ကို ပစ်ပယ်ရန် wrapper) ဖြင့် Run နိုင်သည်၊ သို့မဟုတ် process က စတင်နေပြီးပါက `disown` ကို အသုံးပြုနိုင်ပါသည်။
+သို့မဟုတ်ပါက နောက်အပိုင်းတွင် လေ့လာရမည့် terminal multiplexer တစ်ခုကို အသုံးပြုနိုင်ပါသည်။
 
-Below is a sample session to showcase some of these concepts.
+အောက်တွင် ဤသဘောတရားအချို့ကို ပြသရန် နမူနာ session တစ်ခုကို ဖော်ပြထားပါသည် -
 
 ```
 $ sleep 1000
@@ -412,11 +411,11 @@ $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+`SIGKILL` သည် ထူးခြားသော signal တစ်ခုဖြစ်သည်၊ အကြောင်းမှာ ၎င်းကို process မှ ဖမ်းယူထား၍ မရနိုင်ဘဲ ချက်ချင်း အမြဲတမ်း ပြီးဆုံးစေသောကြောင့် ဖြစ်သည်။ သို့သော် ၎င်းတွင် မိဘမဲ့ child process များ ကျန်ရစ်ခဲ့ခြင်းကဲ့သို့သော မကောင်းသော ဘေးထွက်ဆိုးကျိုးများ ရှိနိုင်ပါသည်။
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+ဤအရာများနှင့် အခြား signal များအကြောင်းကို [ဤနေရာတွင်](https://en.wikipedia.org/wiki/Signal_(IPC)) သို့မဟုတ် [`man signal`](https://www.man7.org/linux/man-pages/man1/signal.7.html) သို့မဟုတ် `kill -l` ဟု ရိုက်ထည့်၍ ပိုမို လေ့လာနိုင်ပါသည်။
 
-Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
+Shell script များအတွင်း Signal များကို လက်ခံရရှိသည့်အခါ command များကို စီမံဆောင်ရွက်ရန် `trap` built-in ကို သုံးနိုင်သည်။ ဒါဟာ ရှင်းလင်းရေး လုပ်ငန်းစဉ်များ (cleanup) အတွက် အလွန် အသုံးဝင်ပါသည် -
 
 ```shell
 #!/usr/bin/env bash
@@ -424,24 +423,24 @@ cleanup() {
     echo "Cleaning up temporary files..."
     rm -f /tmp/mytemp.*
 }
-trap cleanup EXIT  # Run cleanup when script exits
-trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
+trap cleanup EXIT  # Script မှ ထွက်ခွာသည့်အခါ cleanup ကို Run မည်
+trap cleanup SIGINT SIGTERM  # Ctrl-C သို့မဟုတ် kill ပြုလုပ်သည့်အခါတွင်လည်း Run မည်
 ```
 {% comment %}
 ### Users, Files and Permissions
 
-Lastly, another way programs have to indirectly communicate with each other is using files.
-For a program to be able to correctly read/write/delete files and folders, the file permissions must allow the operation.
+အဆုံးသတ်အနေဖြင့် ပရိုဂရမ်များ သွယ်ဝိုက်၍ အချင်းချင်း ဆက်သွယ်နိုင်သော အခြားနည်းလမ်းတစ်ခုမှာ file များကို အသုံးပြုခြင်း ဖြစ်ပါသည်။
+ပရိုဂရမ်တစ်ခုအနေဖြင့် file များနှင့် folder များကို မှန်ကန်စွာ ဖတ်ရှု/ရေးသား/ဖျက်ပစ် နိုင်ရန်အတွက် file permission များသည် အဆိုပါ လုပ်ဆောင်ချက်ကို ခွင့်ပြုထားရပါမည်။
 
-Listing a specific file will give the following output
+သီးသန့် file တစ်ခုကို စာရင်းဖော်ပြလိုက်ပါက အောက်ပါ output ကို ရရှိပါလိမ့်မည် -
 
 ```console
 $ ls -l notes.txt
 -rw-r--r--  1 alice  users  12693 Jan 11 23:05 notes.txt
 ```
 
-Here `ls` is listing what is the owner of the file, user `alice`, and the group `users`. Then the `rw-r--r--` are a shorthand notation for the permissions.
-In this case, the file `notes.txt` has read/write permissions for the user alice `rw-`, and only read permissions for the group and the rest of users in the file system.
+ဤနေရာတွင် `ls` သည် file ၏ ပိုင်ရှင် မည်သူဖြစ်သည် (user `alice`) နှင့် group `users` တို့ကို စာရင်းဖော်ပြပေးနေခြင်း ဖြစ်ပါသည်။ ထို့နောက် `rw-r--r--` သည် permission များအတွက် အတိုကောက် သင်္ကေတဖော်ပြချက် ဖြစ်ပါသည်။
+ဤအခြေအနေတွင် `notes.txt` file သည် user alice အတွက် ဖတ်ရှု/ရေးသား ခွင့်ပြုချက် `rw-` ရှိပြီး၊ group နှင့် file system ထဲမှ အခြား user များအတွက် ဖတ်ရှုခွင့် သာလျှင် ရှိပါသည်။
 
 ```console
 $ ./script.sh
@@ -452,9 +451,9 @@ $ ls -l script.sh
 $ ./script.sh
 ```
 
-For a script to be executable, the executable rights must be set, hence why we had to use the `chmod` (change mode) program.
-`chmod` syntax, while intuitive, is not obvious when first encountered.
-If you, like me, prefer to learn by example, this is a good usecase of the `tldr` tool (note that you need to install it first).
+Script တစ်ခု လုပ်ဆောင်နိုင် (executable) ရန်အတွက် executable အခွင့်အရေးများကို သတ်မှတ်ပေးထားရပါမည်၊ ထို့ကြောင့် ကျွန်ုပ်တို့သည် `chmod` (change mode) ပရိုဂရမ်ကို အသုံးပြုခဲ့ရခြင်း ဖြစ်ပါသည်။
+`chmod` syntax သည် ရိုးရှင်းသော်လည်း စတင် တွေ့ရှိချိန်တွင် ထင်သာမြင်သာ မရှိလှပါ။
+အကယ်၍ သင့်အနေဖြင့် ဥပမာများဖြင့် လေ့လာရသည်ကို ပိုကြိုက်ပါက ဒါဟာ `tldr` tool ကို အသုံးပြုရန် ကောင်းမွန်သော အခြေအနေတစ်ခု ဖြစ်သည် (၎င်းကို မသုံးမီ ပထမဆုံး install လုပ်ထားရန် လိုအပ်သည်ကို သတိပြုပါ)။
 
 ```console
 ❯ tldr chmod
@@ -474,71 +473,71 @@ If you, like me, prefer to learn by example, this is a good usecase of the `tldr
       chmod a+rx path/to/file
 ```
 
-Run `tldr chmod` to see more examples, including recursive operations and group permissions.
+Recursive လုပ်ဆောင်ချက်များနှင့် group permission များ အပါအဝင် အခြား ဥပမာများကို ကြည့်ရှုရန် `tldr chmod` ကို Run ပါ။
 
-> Your shell might show you something like `command not found: tldr`. That is because it is a more modern tool and it is not pre-installed in most systems. A good reference for how to install tools is the [https://command-not-found.com](https://command-not-found.com) website. It contains instructions for a huge collection of CLI tools for popular OS distributions.
+> သင့် shell သည် `command not found: tldr` ကဲ့သို့ စာတမ်းမျိုး ပြသနိုင်ပါသည်။ အကြောင်းမှာ ဒါဟာ ပိုမို ခေတ်မီသော ကိရိယာတစ်ခုဖြစ်ပြီး စနစ်အများစုတွင် ကြိုတင် install လုပ်မထားသောကြောင့် ဖြစ်သည်။ ကိရိယာများကို မည်သို့ install လုပ်ရမည်ဆိုသည်နှင့် ပတ်သက်၍ ကောင်းမွန်သော ကိုးကားချက်တစ်ခုမှာ [https://command-not-found.com](https://command-not-found.com) ဝဘ်ဆိုက် ဖြစ်ပါသည်။ ၎င်းတွင် လူကြိုက်များသော OS distribution များအတွက် CLI ကိရိယာ အမြောက်အမြား၏ ညွှန်ကြားချက်များ ပါဝင်ပါသည်။
 
-Each program is run as a specific user in the system. We can use the `whoami` command to find our user name and `id -u` to find our UID (user id) which is the integer value that the OS associates with the user.
+ပရိုဂရမ်တစ်ခုစီသည် စနစ်အတွင်းရှိ သီးသန့် user အဖြစ် Run ခြင်း ဖြစ်သည်။ ကျွန်ုပ်တို့၏ user အမည်ကို ရှာဖွေရန် `whoami` command ကို သုံးနိုင်ပြီး OS က user နှင့် ဆက်စပ်ပေးထားသည့် ကိန်းပြည့်တန်ဖိုး ဖြစ်သော ကျွန်ုပ်တို့၏ UID (user id) ကို ရှာရန် `id -u` ကို သုံးနိုင်ပါသည်။
 
-When running `sudo command`, the `command` is run as the root user which can bypass most permissions in the system.
-Try running `sudo whoami` and `sudo id -u` to see how the output changes (you might be prompted for your password).
-To change the owner of a file or folder, we use the `chown` command.
+`sudo command` ကို Run သည့်အခါ `command` သည် စနစ်အတွင်းရှိ permission အများစုကို ကျော်လွန်ဆောင်ရွက်နိုင်သော root user အဖြစ် Run သွားမည် ဖြစ်ပါသည်။
+Output မည်သို့ ပြောင်းလဲသွားသည်ကို ကြည့်ရန် `sudo whoami` နှင့် `sudo id -u` တို့ကို Run ကြည့်ပါ (သင့်ထံမှ စကားဝှက် တောင်းဆိုနိုင်ပါသည်)။
+File သို့မဟုတ် folder တစ်ခု၏ ပိုင်ရှင်ကို ပြောင်းလဲရန် `chown` command ကို အသုံးပြုပါသည်။
 
-You can learn more about UNIX file permissions [here](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions)
+UNIX file permission များအကြောင်းကို [ဤနေရာတွင်](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions) ပိုမို လေ့လာနိုင်ပါသည်။
 
-So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
+ယခုအချိန်အထိ ကျွန်ုပ်တို့သည် သင့် local စက်အကြောင်းကိုသာ အဓိကထားခဲ့သော်လည်း Remote server များနှင့် အလုပ်လုပ်သည့်အခါ ဤကျွမ်းကျင်မှု အများအပြားသည် ပိုမို တန်ဖိုးရှိလာပါသည်။
 
 {% endcomment %}
 
-# Remote Machines
+# Remote Machine များ
 
-It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
+ပရိုဂရမာများအနေဖြင့် ၎င်းတို့၏ နေ့စဉ်အလုပ်တွင် remote server များနှင့် တွဲဖက်လုပ်ဆောင်ရခြင်းမှာ ပိုမို ခေတ်စားလာပါသည်။ ဤနေရာတွင် အလုပ်အတွက် အသုံးအများဆုံး ကိရိယာမှာ SSH (Secure Shell) ဖြစ်ပြီး ၎င်းသည် remote server သို့ ချိတ်ဆက်နိုင်ရန်နှင့် ယခု ရင်းနှီးနေပြီဖြစ်သော shell interface ကို ပံ့ပိုးပေးနိုင်ရန် ကူညီပေးပါလိမ့်မည်။ ကျွန်ုပ်တို့သည် server တစ်ခုသို့ အောက်ပါအတိုင်း command ဖြင့် ချိတ်ဆက်ကြပါသည် -
 
 ```bash
 ssh alice@server.mit.edu
 ```
 
-Here we are trying to ssh as user `alice` in server `server.mit.edu`.
+ဤနေရာတွင် ကျွန်ုပ်တို့သည် `server.mit.edu` server ရှိ user `alice` အဖြစ် ssh ဝင်ရောက်ရန် ကြိုးပမ်းနေခြင်း ဖြစ်ပါသည်။
 
-An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
+`ssh` ၏ သတိမမူမိတတ်ကြသော feature တစ်ခုမှာ command များကို non-interactively (အပြန်အလှန် တုံ့ပြန်စရာ မလိုဘဲ) Run နိုင်သည့် စွမ်းရည် ဖြစ်ပါသည်။ `ssh` သည် command ၏ stdin ပေးပို့ခြင်းနှင့် stdout လက်ခံရရှိခြင်းတို့ကို မှန်ကန်စွာ စီမံပေးသဖြင့် ၎င်းကို အခြား command များနှင့် ပေါင်းစပ်အသုံးပြုနိုင်ပါသည် -
 
 ```shell
-# here ls runs in the remote, and wc runs locally
+# ဤနေရာတွင် ls ကို remote တွင် Run ပြီး wc ကို local တွင် Run သည်
 ssh alice@server ls | wc -l
 
-# here both ls and wc run in the server
+# ဤနေရာတွင် ls နှင့် wc နှစ်ခုလုံးကို server တွင် Run သည်
 ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
+> ချိတ်ဆက်မှုပြတ်တောက်ခြင်း၊ sleep ဝင်/ထွက်ခြင်း၊ ကွန်ရက်ပြောင်းလဲခြင်းနှင့် latency မြင့်မားသော ချိတ်ဆက်မှုများကို စီမံနိုင်သည့် SSH အစားထိုး ကိရိယာအဖြစ် [Mosh](https://mosh.org/) ကို install လုပ်ကြည့်ပါ။
 
-For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
-We can do this via passwords or ssh keys.
-Key-based authentication utilizes public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
-Key based authentication is both more convenient and more secure, so you should prefer it.
-Note that the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so and never share its contents.
+`ssh` က ကျွန်ုပ်တို့အား remote server တွင် command များကို Run ခွင့်ပြုရန်အတွက် ကျွန်ုပ်တို့သည် ထိုသို့ ပြုလုပ်ရန် အခွင့်အာဏာရှိကြောင်း သက်သေပြရန် လိုအပ်ပါသည်။
+၎င်းကို password များ သို့မဟုတ် ssh key များမှတစ်ဆင့် ပြုလုပ်နိုင်ပါသည်။
+Key အခြေပြု authentication သည် အဓိက လျှို့ဝှက် private key ကို ထုတ်ဖော်ပြသခြင်း မရှိဘဲ client သည် ထို key ကို ပိုင်ဆိုင်ကြောင်း server သို့ သက်သေပြရန်အတွက် public-key cryptography ကို အသုံးပြုပါသည်။
+Key အခြေပြု authentication သည် ပိုမို အဆင်ပြေပြီး ပိုမို လုံခြုံသဖြင့် ၎င်းကိုသာ ဦးစားပေး အသုံးပြုသင့်ပါသည်။
+Private key (မကြာခဏ `~/.ssh/id_rsa` နှင့် နောက်ပိုင်းတွင် `~/.ssh/id_ed25519`) သည် ထိရောက်စွာဖြင့် သင့် password ဖြစ်သောကြောင့် ၎င်းအတိုင်း သဘောထားပါ၊ ၎င်း၏ အကြောင်းအရာများကို မည်သူ့ကိုမျှ မျှဝေခြင်း မပြုပါနှင့်။
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+Key တွဲတစ်ခုကို ထုတ်လုပ်ရန်အတွက် [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html) ကို Run နိုင်ပါသည်။
 ```bash
 ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+အကယ်၍ သင့်အနေဖြင့် SSH key များ သုံးပြီး GitHub သို့ push ပြုလုပ်ရန် ချိန်ညှိဖူးပါက [ဤနေရာတွင်](https://help.github.com/articles/connecting-to-github-with-ssh/) ဖော်ပြထားသော အဆင့်များကို ပြုလုပ်ဖူးပြီးသားဖြစ်နိုင်ပြီး တရားဝင် key တွဲတစ်ခု ရှိနှင့်ပြီး ဖြစ်ပါလိမ့်မည်။ သင့်တွင် passphrase ရှိမရှိ စစ်ဆေးရန်နှင့် အတည်ပြုရန်အတွက် `ssh-keygen -y -f /path/to/key` ကို Run နိုင်ပါသည်။
 
-At the server side `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+Server ဘက်တွင် `ssh` သည် မည်သည့် client များကို ဝင်ရောက်ခွင့်ပြုရမည်နည်းဆိုသည်ကို ဆုံးဖြတ်ရန် `.ssh/authorized_keys` တွင် ကြည့်ရှုမည် ဖြစ်ပါသည်။ Public key တစ်ခုကို ကူးယူထည့်သွင်းရန် အောက်ပါအတိုင်း သုံးနိုင်သည် -
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 
-# or more simply (if ssh-copy-id is available)
+# သို့မဟုတ် ပိုမို ရိုးရှင်းစွာဖြင့် (ssh-copy-id ရှိပါက)
 
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
 
-Beyond running commands, the connection that ssh establishes can be used to transfer files from and to the server securely. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) is the most traditional tool and the syntax is `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+Command များကို Run ခြင်းအပြင် SSH ဖြင့် ထူထောင်ထားသော ချိတ်ဆက်မှုကို server ထံသို့ သို့မဟုတ် server ထံမှ file များကို လုံခြုံစွာ လွှဲပြောင်းရန်လည်း အသုံးပြုနိုင်ပါသည်။ [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) သည် ရိုးရာအကျဆုံး ကိရိယာဖြစ်ပြီး syntax မှာ `scp path/to/local_file remote_host:path/to/remote_file` ဖြစ်ပါသည်။ [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) သည် local နှင့် remote တွင် တူညီသော file များကို ရှာဖွေတွေ့ရှိခြင်းဖြင့် ၎င်းတို့ကို ထပ်မံ ကူးယူခြင်းမှ တားဆီးကာ `scp` ထက် ပိုမို ကောင်းမွန်အောင် ပြုလုပ်ထားပါသည်။ ၎င်းသည် symlink များနှင့် permission များအပေါ် ပိုမို သီးသန့် ထိန်းချုပ်နိုင်မှုကို ပေးစွမ်းပြီး ယခင် ကြားဖြတ် ရပ်တန့်သွားသော copy ပြုလုပ်မှုကို ပြန်လည် စတင်နိုင်သည့် `--partial` flag ကဲ့သို့သော အပို feature များ ပါရှိပါသည်။ `rsync` တွင် `scp` နှင့် အလားတူ syntax ရှိပါသည်။
 
-SSH client configuration is located at `~/.ssh/config` and it lets us declare hosts and set default settings for them. This configuration file is not just read by `ssh` but also other programs like `scp`, `rsync`, `mosh`, &c.
+SSH client ချိန်ညှိချက်များသည် `~/.ssh/config` တွင် တည်ရှိပြီး ၎င်းသည် host များကို ကြေညာရန်နှင့် ၎င်းတို့အတွက် မူလ setting များကို သတ်မှတ်ရန် ခွင့်ပြုပေးပါသည်။ ဤ configuration file ကို `ssh` ကသာမက `scp`, `rsync`, `mosh` အစရှိသည့် အခြား ပရိုဂရမ်များကလည်း ဖတ်ရှုကြပါသည်။
 
 ```bash
 Host vm
@@ -547,7 +546,7 @@ Host vm
     Port 2222
     IdentityFile ~/.ssh/id_ed25519
 
-# Configs can also take wildcards
+# Configuration များတွင် wildcard များကိုလည်း သုံးနိုင်သည်
 Host *.mit.edu
     User alice
 ```
@@ -557,100 +556,99 @@ Host *.mit.edu
 
 # Terminal Multiplexers
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+Command line interface ကို အသုံးပြုသည့်အခါ အရာတစ်ခုထက်မက တစ်ပြိုင်နက်တည်း Run လိုသည့် အခြေအနေများ မကြာခဏ ရှိပါလိမ့်မည်။
+ဥပမာ သင့်အနေဖြင့် သင့် editor နှင့် သင့်ပရိုဂရမ်ကို ဘေးချင်းယှဉ် Run လိုနိုင်ပါသည်။
+၎င်းကို terminal window အသစ်များ ဖွင့်လှစ်ခြင်းဖြင့် အောင်မြင်နိုင်သော်လည်း terminal multiplexer တစ်ခုကို အသုံးပြုခြင်းသည် ပိုမို စွမ်းဆောင်ရည်စုံလင်သော ဖြေရှင်းချက်တစ်ခု ဖြစ်ပါသည်။
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions in an efficient manner.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-Because of this, terminal multiplexers are really convenient when working with remote machines, as it avoids the need to use `nohup` and similar tricks.
+[`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) ကဲ့သို့သော Terminal multiplexer များသည် ပိုမိုထိရောက်သော နည်းလမ်းဖြင့် shell session အများအပြားနှင့် ဆက်သွယ်နိုင်စေရန် pane များနှင့် tab များကို အသုံးပြု၍ terminal window များကို multiplex ပြုလုပ်ခွင့် ပေးထားပါသည်။
+ထို့ပြင် terminal multiplexer များသည် လက်ရှိ terminal session ကို ဖြုတ်ထုတ်ထားနိုင်ခဲ့ (detach) ပြီး နောက်ပိုင်းတွင် ပြန်လည် ချိတ်ဆက်နိုင်ခဲ့ (reattach) ပါသည်။
+ဤအကြောင်းကြောင့် terminal multiplexer များသည် `nohup` သို့မဟုတ် အလားတူ လှည့်ကွက်များကို သုံးရန် မလိုတော့ဘဲ remote machine များနှင့် အလုပ်လုပ်သည့်အခါ အလွန်ပင် အဆင်ပြေလှပါသည်။
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+ယခုခေတ်တွင် အသုံးအများဆုံး terminal multiplexer မှာ [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) ဖြစ်ပါသည်။ `tmux` သည် စိတ်ကြိုက်ပြင်ဆင်နိုင်စွမ်း မြင့်မားပြီး သက်ဆိုင်ရာ keybinding များကို အသုံးပြု၍ tab များနှင့် pane အများအပြားကို ဖန်တီးကာ ၎င်းတို့အကြား လျင်မြန်စွာ သွားလာနိုင်ပါသည်။
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+`tmux` သည် သင့်အား ၎င်း၏ keybinding များကို သိရှိထားရန် မျှော်လင့်ထားပြီး၊ ၎င်းတို့အားလုံးသည် `<C-b> x` ပုံစံ ရှိကြပြီး ဆိုလိုသည်မှာ (၁) `Ctrl+b` ကို နှိပ်ပါ၊ (၂) `Ctrl+b` ကို လွှတ်ပါ၊ ထို့နောက် (၃) `x` ကို နှိပ်ပါ။ `tmux` တွင် အောက်ပါ အဆင့်ဆင့် ပါဝင်သော အရာများ (hierarchy of objects) ရှိပါသည် -
+- **Sessions** - session တစ်ခုသည် window တစ်ခု သို့မဟုတ် တစ်ခုထက်မက ပါဝင်သော သီးခြား workspace တစ်ခု ဖြစ်သည်
+    + `tmux` သည် session အသစ်တစ်ခုကို စတင်ပေးသည်
+    + `tmux new -s NAME` သည် ၎င်းအမည်ဖြင့် စတင်ပေးသည်
+    + `tmux ls` သည် လက်ရှိ session များကို စာရင်းဖော်ပြပေးသည်
+    + `tmux` အတွင်း `<C-b> d` ရိုက်ထည့်ပါက လက်ရှိ session ကို detach ပြုလုပ်ပေးသည်
+    + `tmux a` သည် နောက်ဆုံး session ကို attach ပြုလုပ်ပေးသည်။ မည်သည့် session ကို မည်သို့ သတ်မှတ်ရန် `-t` flag ကို သုံးနိုင်သည်
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **Windows** - Editor သို့မဟုတ် browser ရှိ tab များနှင့် တူညီပြီး၊ ၎င်းတို့သည် session တစ်ခုတည်း၏ အမြင်အရ သီးခြား ဖြစ်နေသော အစိတ်အပိုင်းများ ဖြစ်ကြသည်
+    + `<C-b> c` Window အသစ်တစ်ခု ဖန်တီးပေးသည်။ ၎င်းကို ပိတ်ရန် `<C-d>` ပြုလုပ်ပြီး shell များကို ပိတ်သိမ်းနိုင်သည်
+    + `<C-b> N` အမှတ်စဉ် _N_ မြောက် window သို့ သွားမည်။ ၎င်းတို့ကို နံပါတ် တပ်ထားကြောင်း သတိပြုပါ
+    + `<C-b> p` ယခင် window သို့ သွားမည်
+    + `<C-b> n` နောက် window သို့ သွားမည်
+    + `<C-b> ,` လက်ရှိ window ၏ အမည်ကို ပြောင်းလဲမည်
+    + `<C-b> w` လက်ရှိ window များကို စာရင်းဖော်ပြမည်
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Panes** - Vim split များနှင့် တူပြီး၊ pane များသည် မျက်နှာပြင် အမြင်တစ်ခုတည်းတွင် shell အများအပြားကို ယှဉ်တွဲ ရှိစေနိုင်သည်
+    + `<C-b> "` လက်ရှိ pane ကို အလျားလိုက် ပိုင်းခြားမည်
+    + `<C-b> %` လက်ရှိ pane ကို ဒေါင်လိုက် ပိုင်းခြားမည်
+    + `<C-b> <direction>` သတ်မှတ်ထားသော _direction_ အတိုင်း pane သို့ ရွှေ့မည်။ ဤနေရာတွင် Direction ဆိုသည်မှာ မျှားကီးများကို ဆိုလိုသည်
+    + `<C-b> z` လက်ရှိ pane အတွက် zoom ကို ဖွင့်/ပိတ် ပြုလုပ်မည်
+    + `<C-b> [` Scrollback ကို စတင်မည်။ ထို့နောက် ရွေးချယ်မှု စတင်ရန် `<space>` ကို နှိပ်နိုင်ပြီး အဆိုပါ ရွေးချယ်မှုကို ကူးယူရန် `<enter>` ကို နှိပ်နိုင်သည်
+    + `<C-b> <space>` Pane စီစဉ်ထားရှိမှု ပုံစံများကို အလှည့်ကျ ပြောင်းလဲမည်
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> tmux အကြောင်း ပိုမို လေ့လာရန် [ဤ](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) ရိုးရှင်း လွယ်ကူသော သင်ခန်းစာနှင့် [ဤ](https://linuxcommand.org/lc3_adv_termmux.php) ပိုမို အသေးစိတ်ကျသော ရှင်းလင်းချက်ကို ဖတ်ရှုရန် စဉ်းစားပါ။
 
-With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
+သင့် toolkit တွင် tmux နှင့် SSH တို့ ပါဝင်လာပြီဖြစ်ရာ မည်သည့် စက်တွင်မဆို သင့် ပတ်ဝန်းကျင်ကို ကိုယ်ပိုင်အိမ်ကဲ့သို့ ခံစားရစေချင်ပါလိမ့်မည်။ ထိုနေရာတွင် shell စိတ်ကြိုက်ပြင်ဆင်ခြင်း (shell customization) ရောက်ရှိလာပါသည်။
 
-# Customizing the Shell
+# Shell ကို စိတ်ကြိုက်ပြင်ဆင်ခြင်း
 
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+Command line ပရိုဂရမ် အမြောက်အမြားကို _dotfiles_ ဟု သိကြသော ရိုးရိုးစာသား (plain-text) file များကို သုံး၍ ချိန်ညှိပြင်ဆင်ကြပါသည်
+(အဘယ်ကြောင့်ဆိုသော် file အမည်များသည် `.` ဖြင့် စတင်လေ့ရှိကြပြီး ဥပမာ `~/.vimrc` ဖြစ်သဖြင့် ၎င်းတို့ကို မူလအားဖြင့် `ls` directory စာရင်းထုတ်ရာတွင် ဝှက်ထားသောကြောင့် ဖြစ်သည်)။
 
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
+> Dotfiles တွေဟာ အခြားသော shell သဘောတူညီချက် (convention) တစ်ခု ဖြစ်ပါတယ်။ အရှေ့မှ အစက်သည် စာရင်းထုတ်ရာတွင် ၎င်းတို့ကို "ဝှက်ထားရန်" ဖြစ်ပါတယ် (ဟုတ်ပါတယ်၊ အခြား convention တစ်ခုပါပဲ)။
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Shell တွေဟာ ထိုကဲ့သို့သော file များဖြင့် ချိန်ညှိပြင်ဆင်ရသည့် ပရိုဂရမ်များ၏ ဥပမာတစ်ခု ဖြစ်ကြပါသည်။ စတင်ပွင့်ချိန်တွင် သင့် shell သည် ၎င်း၏ configuration များကို Load လုပ်ရန် file အများအပြားကို ဖတ်ရှုမည် ဖြစ်ပါသည်။
+Shell နှင့် သင်သည် login နှင့်/သို့မဟုတ် interactive session တစ်ခုကို စတင်နေခြင်း ရှိမရှိအပေါ် မူတည်၍ လုပ်ငန်းစဉ်တစ်ခုလုံးသည် တော်တော်လေး ရှုပ်ထွေးနိုင်ပါသည်။
+[ဤနေရာတွင်](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) ဤအကြောင်းအရာအတွက် အလွန်ကောင်းမွန်သော အရင်းအမြစ်တစ်ခု ရှိပါသည်။
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Some other examples of tools that can be configured through dotfiles are:
+`bash` အတွက် သင့် `.bashrc` သို့မဟုတ် `.bash_profile` ကို ပြင်ဆင်ခြင်းသည် စနစ်အများစုတွင် အလုပ်လုပ်ပါလိမ့်မည်။
+Dotfiles များမှတစ်ဆင့် ချိန်ညှိပြင်ဆင်နိုင်သော အခြားသော ကိရိယာများ၏ ဥပမာအချို့မှာ -
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` နှင့် `~/.vim` folder
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
+အသုံးများသော configuration ပြောင်းလဲမှုတစ်ခုမှာ shell က ပရိုဂရမ်များကို ရှာဖွေနိုင်ရန် တည်နေရာအသစ်များ ပေါင်းစပ်ထည့်သွင်းပေးခြင်း ဖြစ်ပါသည်။ Software များကို install လုပ်သည့်အခါ ဤ pattern ကို တွေ့ကြုံရပါလိမ့်မည် -
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
 
-Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `path/to/append`.
+ဤနေရာတွင် ကျွန်ုပ်တို့သည် shell အား $PATH variable ၏ တန်ဖိုးကို ၎င်း၏ လက်ရှိတန်ဖိုးတွင် တည်နေရာအသစ် တစ်ခုပေါင်းစပ်၍ သတ်မှတ်ခိုင်းနေခြင်းဖြစ်ပြီး၊ child process အားလုံးသည် PATH အတွက် ဤတန်ဖိုးအသစ်ကို လက်ခံရရှိသွားမည် ဖြစ်ပါသည်။
+ဒါဟာ child process များကို `path/to/append` အောက်တွင် တည်ရှိသော ပရိုဂရမ်များကို ရှာဖွေနိုင်စေမည် ဖြစ်ပါသည်။
 
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
+သင့် shell ကို စိတ်ကြိုက်ပြင်ဆင်ခြင်းသည် command-line ကိရိယာ အသစ်များကို install လုပ်ခြင်းဟု မကြာခဏ အဓိပ္ပာယ်ရပါသည်။ Package manager များသည် ဤအရာကို လွယ်ကူစေပါသည်။ ၎င်းတို့သည် software များကို ဒေါင်းလုဒ်ဆွဲခြင်း၊ install လုပ်ခြင်းနှင့် update လုပ်ခြင်းတို့ကို စီမံဆောင်ရွက်ပေးကြပါသည်။ မတူညီသော operating system များတွင် မတူညီသော package manager များ ရှိကြပါသည် - macOS သည် [Homebrew](https://brew.sh/) ကို သုံးသည်၊ Ubuntu/Debian တို့သည် `apt` ကို သုံးသည်၊ Fedora သည် `dnf` ကို သုံးပြီး Arch က `pacman` ကို သုံးပါသည်။ Shipping code သင်ခန်းစာတွင် package manager များကို အသေးစိတ် ထပ်မံ ဖော်ပြသွားပါမည်။
 
-Here's how to install two useful tools using Homebrew on macOS:
+macOS တွင် Homebrew ကို အသုံးပြု၍ အသုံးဝင်သော ကိရိယာနှစ်ခုကို မည်သို့ install လုပ်ရမည်ကို ဖော်ပြထားပါသည် -
 
 ```shell
-# ripgrep: a faster grep with better defaults
+# ripgrep: ပိုမိုကောင်းမွန်သော မူလပြင်ဆင်ချက်များ ပါဝင်ပြီး ပိုမိုမြန်ဆန်သော grep ဖြစ်သည်
 brew install ripgrep
 
-# fd: a faster, user-friendly find
+# fd: ပိုမိုမြန်ဆန်ပြီး သုံးစွဲသူအတွက် အဆင်ပြေသော find ဖြစ်သည်
 brew install fd
 ```
 
-With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+ဤအရာများကို install လုပ်ပြီးပါက `grep` အစား `rg` ကိုလည်းကောင်း၊ `find` အစား `fd` ကိုလည်းကောင်း အသုံးပြုနိုင်ပါပြီ။
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **`curl | bash` နှင့် ပတ်သက်၍ သတိပေးချက်** - `curl -fsSL https://example.com/install.sh | bash` ကဲ့သို့သော installation ညွှန်ကြားချက်များကို မကြာခဏ တွေ့ရပါလိမ့်မည်။ ဤ pattern သည် script တစ်ခုကို ဒေါင်းလုဒ်လုပ်ပြီး ချက်ချင်း Run လိုက်ခြင်း ဖြစ်ရာ အဆင်ပြေသော်လည်း စွန့်စားမှု ရှိပါသည်။ အကြောင်းမှာ သင် စစ်ဆေးမထားသော စိုက်ထုတ်ထားသည့် code ကို Run နေခြင်းကြောင့် ဖြစ်သည်။ ပိုမို လုံခြုံသော နည်းလမ်းမှာ ပထမဆုံး ဒေါင်းလုဒ်လုပ်ရန်၊ ပြန်လည် သုံးသပ်ရန်၊ ထို့နောက်မှ Run ရန် ဖြစ်ပါသည် -
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
-> less install.sh  # review the script
+> less install.sh  # script ကို ပြန်လည်သုံးသပ်ပါ
 > bash install.sh
 > ```
-> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+> အချို့သော installer များသည် အနည်းငယ် ပိုမိုလုံခြုံသော ပုံစံကွဲကို အသုံးပြုကြသည် - `/bin/bash -c "$(curl -fsSL https://url)"` ၎င်းသည် အနည်းဆုံးတော့ သင့်လက်ရှိ shell အစား bash က script ကို parse လုပ်ပေးကြောင်း သေချာစေပါသည်။
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
+Install လုပ်မထားသော command တစ်ခုကို Run ရန် ကြိုးစားသောအခါ သင့် shell က `command not found` ဟု ဖော်ပြပါလိမ့်မည်။ ဝဘ်ဆိုက် [command-not-found.com](https://command-not-found.com) သည် မတူညီသော package manager များနှင့် distribution များအလိုက် မည်သို့ install လုပ်ရမည်ဆိုသည်ကို ရှာဖွေနိုင်သည့် အသုံးဝင်သော အရင်းအမြစ်တစ်ခု ဖြစ်ပါသည်။
 
-Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+အခြား အသုံးဝင်သော ကိရိယာတစ်ခုမှာ [`tldr`](https://tldr.sh/) ဖြစ်ပြီး ၎င်းသည် ရိုးရှင်း၍ ဥပမာကို အဓိကထားသော man page များကို ပံ့ပိုးပေးပါသည်။ ရှည်လျားသော Documentation များကို ဖတ်ရှုမည့်အစား အသုံးများသော အသုံးပြုမှု pattern များကို လျှောက်ကြည့်နိုင်ပါသည် -
 
 ```console
 $ tldr fd
@@ -667,109 +665,92 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
+အချို့အခြေအနေများတွင် ပရိုဂရမ်အသစ် တစ်ခုလုံး မလိုအပ်ဘဲ သီးသန့် flag များပါသည့် လက်ရှိ command ၏ အတိုကောက် (shortcut) မျှသာ လိုအပ်တတ်ပါသည်။ ထိုနေရာတွင် alias များ ရောက်ရှိလာပါသည်။
 
-We can also create our own command aliases using the `alias` shell built-in.
-A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
-For instance, an alias in bash has the following structure:
+Shell built-in ဖြစ်သော `alias` ကို အသုံးပြု၍ ကျွန်ုပ်တို့ကိုယ်ပိုင် command alias များကိုလည်း ဖန်တီးနိုင်ပါသည်။
+Shell alias ဆိုသည်မှာ ၎င်း expression ကို မစစ်ဆေးမီ သင့် shell က အလိုအလျောက် အစားထိုးပေးမည့် အခြား command တစ်ခုအတွက် အတိုကောက် ပုံစံဖြစ်ပါသည်။
+ဥပမာအားဖြင့် bash ရှိ alias တစ်ခုတွင် အောက်ပါ တည်ဆောက်ပုံ ပါရှိသည် -
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-> Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+> ညီမျှခြင်းသင်္ကေတ `=` ၏ ဘေးပတ်လည်တွင် space (ကွက်လပ်) မပါရှိကြောင်း သတိပြုပါ၊ အကြောင်းမှာ [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) သည် argument တစ်ခုတည်းသာ ယူသော shell command တစ်ခု ဖြစ်သောကြောင့် ဖြစ်သည်။
 
-Aliases have many convenient features:
+Alias တွေမှာ အဆင်ပြေစေမည့် feature များစွာ ရှိကြပါတယ် -
 
 ```bash
-# Make shorthands for common flags
+# ဘုံသုံး flag များအတွက် အတိုကောက် ဖန်တီးပါ
 alias ll="ls -lh"
 
-# Save a lot of typing for common commands
+# အသုံးများသော command များအတွက် စာရိုက်ရမှု အများအပြားကို သက်သာစေပါ
 alias gs="git status"
 alias gc="git commit"
 
-# Save you from mistyping
+# စာလုံးမှားယွင်း ရိုက်မိခြင်းမှ ကယ်တင်ပေးပါ
 alias sl=ls
 
-# Overwrite existing commands for better defaults
-alias mv="mv -i"           # -i prompts before overwrite
-alias mkdir="mkdir -p"     # -p make parent dirs as needed
-alias df="df -h"           # -h prints human readable format
+# ပိုမိုကောင်းမွန်သော မူလပြင်ဆင်ချက်များ ရရှိရန် လက်ရှိ command များကို ထပ်ရေးပါ
+alias mv="mv -i"           # -i သည် အသစ်မထပ်ရေးမီ မေးမြန်းမည်ဖြစ်သည်
+alias mkdir="mkdir -p"     # -p သည် လိုအပ်ပါက မိခင် dir များကို ဖန်တီးပေးမည်ဖြစ်သည်
+alias df="df -h"           # -h သည် လူနားလည်လွယ်သော ပုံစံဖြင့် ရိုက်နှိပ်ပေးမည်ဖြစ်သည်
 
-# Alias can be composed
+# Alias များကို ပေါင်းစပ်ဖွဲ့စည်းနိုင်သည်
 alias la="ls -A"
 alias lla="la -l"
 
-# To ignore an alias run it prepended with \
+# Alias ကို ပစ်ပယ်ထားရန် ရှေ့တွင် \ တပ်၍ Run ပါ
 \ls
-# Or disable an alias altogether with unalias
+# သို့မဟုတ် unalias ဖြင့် alias ကို လုံးဝ ပိတ်ထားပါ
 unalias la
 
-# To get an alias definition just call it with alias
+# Alias သတ်မှတ်ချက်ကို ရယူရန် alias ဖြင့် ခေါ်ယူရုံမျှသာ ပြုလုပ်ပါ
 alias ll
-# Will print ll='ls -lh'
+# ll='ls -lh' ဟု ရိုက်နှိပ်မည်ဖြစ်သည်
 ```
 
-Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
+Alias များတွင် ကန့်သတ်ချက်များ ရှိသည် - ၎င်းတို့သည် command ၏ အလယ်တွင် argument များကို ယူ၍ မရပါ။ ပိုမို ရှုပ်ထွေးသော ပြုမူဆောင်ရွက်ချက်များအတွက် ၎င်းအစား shell function များကို သုံးသင့်ပါသည်။
 
-Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+Shell အများစုသည် ရာဇဝင် (history) ကို နောက်ပြန် ရှာဖွေရန်အတွက် `Ctrl-R` ကို ပံ့ပိုးပေးထားပါသည်။ `Ctrl-R` ကို နှိပ်ပြီး ယခင် command များကို ရှာဖွေရန် စာရိုက်ပါ။ အစောပိုင်းက fuzzy finder အဖြစ် `fzf` ကို မိတ်ဆက်ခဲ့ပါသည်၊ fzf ၏ shell integration ဖြင့် ချိန်ညှိထားပါက `Ctrl-R` သည် မူလပုံစံထက် မက ပိုမို စွမ်းအားထက်မြက်သည့် သင့် history တစ်ခုလုံးအပေါ် အပြန်အလှန်လုပ်ဆောင်နိုင်သော fuzzy search တစ်ခု ဖြစ်လာပါသည်။
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+သင့် dotfile များကို မည်သို့ စုစည်းသင့်သနည်း။ ၎င်းတို့သည် ကိုယ်ပိုင် folder တွင် ရှိသင့်ပြီး၊ version control အောက်တွင် ရှိကာ script ကို သုံး၍ နေရာတကျ **symlink** ပြုလုပ်ထားသင့်ပါသည်။ ဒါဟာ အောက်ပါ အကျိုးကျေးဇူးများ ရှိစေပါသည် -
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **တပ်ဆင်ရ လွယ်ကူခြင်း** - အကယ်၍ စက်အသစ်တစ်ခုသို့ ဝင်ရောက်ပါက သင့် စိတ်ကြိုက်ပြင်ဆင်ချက်များကို ထည့်သွင်းရန် တစ်မိနစ်မျှသာ ကြာမြင့်မည် ဖြစ်ပါသည်။
+- **သယ်ဆောင်လွယ်ခြင်း (Portability)** - သင့်ကိရိယာများသည် နေရာတိုင်းတွင် တူညီသော ပုံစံဖြင့် အလုပ်လုပ်ပါလိမ့်မည်။
+- **ဟန်ချက်ညီ အပြိုင်ဖြစ်ခြင်း (Synchronization)** - မည်သည့်နေရာတွင်မဆို သင့် dotfile များကို update လုပ်နိုင်ပြီး ၎င်းတို့အားလုံးကို အပြိုင် ဟန်ချက်ညီစေနိုင်ပါသည်။
+- **ပြောင်းလဲမှု မှတ်တမ်းတင်နိုင်ခြင်း** - သင့် ပရိုဂရမ်မင်း သက်တမ်းတစ်ခုလုံးတွင် သင့် dotfile များကို ထိန်းသိမ်းသွားဖွယ် ရှိရာ ကြာရှည်သုံးမည့် project များအတွက် version history ရှိထားခြင်းမှာ ကောင်းမွန်ပါသည်။
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+သင့် dotfile တွေထဲမှာ မည်သည့်အရာတွေ ထည့်ရမလဲ။
+အွန်လိုင်း Documentation များ သို့မဟုတ် [man page](https://en.wikipedia.org/wiki/Man_page) များကို ဖတ်ရှုခြင်းဖြင့် သင့်ကိရိယာ၏ setting များကို လေ့လာနိုင်ပါသည်။ အခြား နည်းလမ်းကောင်းတစ်ခုမှာ စာရေးသူများက ၎င်းတို့ နှစ်သက်သော စိတ်ကြိုက်ပြင်ဆင်မှုများအကြောင်း ပြောပြထားသည့် သီးသန့် ပရိုဂရမ်များဆိုင်ရာ blog post များကို အင်တာနက်တွင် ရှာဖွေခြင်း ဖြစ်ပါသည်။ စိတ်ကြိုက်ပြင်ဆင်မှုများအကြောင်း လေ့လာရန် အခြားနည်းလမ်းတစ်ခုမှာ အခြားသူများ၏ dotfile များကို လျှောက်ကြည့်ခြင်း ဖြစ်ပါသည် - GitHub တွင် [dotfiles repository](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) မြောက်မြားစွာကို ရှာဖွေတွေ့ရှိနိုင်ပါသည် --- လူကြိုက်အများဆုံး တစ်ခုကို [ဤနေရာတွင်](https://github.com/mathiasbynens/dotfiles) ကြည့်ရှုနိုင်ပါသည် (သို့သော် configuration များကို မျက်စိမှိတ် မကူးယူရန် အကြံပြုပါသည်)။
+[ဤနေရာတွင်](https://dotfiles.github.io/) ဤအကြောင်းအရာနှင့် ပတ်သက်သည့် အခြား ကောင်းမွန်သော အရင်းအမြစ်တစ်ခု ရှိပါသည်။
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
-[Jon](https://github.com/jonhoo/configs),
-[Jose](https://github.com/jjgo/dotfiles).
+သင်တန်းဆရာများ အားလုံး၏ dotfile များကို GitHub တွင် အများပြည်သူ ကြည့်ရှုနိုင်ရန် ဖွင့်လှစ်ပေးထားပါသည် - [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles)။
 
-**Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
+**Framework များနှင့် plugin များ** သည်လည်း သင့် shell ကို ပိုမိုကောင်းမွန်စေနိုင်ပါသည်။ အသုံးများသော အထွေထွေ framework အချို့မှာ [prezto](https://github.com/sorin-ionescu/prezto) သို့မဟုတ် [oh-my-zsh](https://ohmyz.sh/) တို့ဖြစ်ကြပြီး၊ သီးသန့် feature များကို အဓိကထားသည့် သေးငယ်သော plugin များမှာ -
 
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - suggests commands from history as you type
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) - additional completion definitions
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-like history search
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - fast, customizable prompt theme
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - စာရိုက်နေစဉ် တရားဝင်/မတရားဝင် command များကို အရောင်ဆိုးပေးသည်
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - စာရိုက်နေစဉ် history မှ command များကို အကြံပြုပေးသည်
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) - အပိုထပ်ဆောင်း ဖြည့်စွက်ချက် (completion) သတ်မှတ်ချက်များ
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish ကဲ့သို့သော history ရှာဖွေမှု
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - မြန်ဆန်ပြီး စိတ်ကြိုက်ပြင်နိုင်သော prompt theme
 
-Shells like [fish](https://fishshell.com/) include many of these features by default.
+[fish](https://fishshell.com/) ကဲ့သို့သော shell တွင် ဤ feature အများအပြားကို မူလအားဖြင့် ထည့်သွင်းပေးထားပါသည်။
 
-> You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
+> ဤ feature များကို ရရှိရန် oh-my-zsh ကဲ့သို့သော ကြီးမားသည့် framework တစ်ခု မလိုအပ်ပါ။ တစ်သီးပုဂ္ဂလ plugin များကို install လုပ်ခြင်းသည် မကြာခဏ ပိုမိုမြန်ဆန်ပြီး ပိုမို ထိန်းချုပ်ခွင့် ပေးပါသည်။ ကြီးမားသော framework များသည် shell စတင်ချိန်ကို သိသာစွာ နှေးကွေးစေနိုင်သဖြင့် သင် အမှန်တကယ် သုံးစွဲသည့်အရာများကိုသာ install လုပ်ရန် စဉ်းစားပါ။
 
 
-# AI in the Shell
+# Shell အတွင်း AI အသုံးပြုခြင်း
 
-There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
+Shell တွင် AI ကိရိယာများကို ထည့်သွင်းအသုံးပြုရန် နည်းလမ်းများစွာ ရှိပါသည်။ အောက်တွင် မတူညီသော ပေါင်းစပ်မှု အဆင့်များအလိုက် ဥပမာအချို့ကို ဖော်ပြထားပါသည် -
 
-**Command generation**: Tools like [`simonw/llm`](https://github.com/simonw/llm) can help generate shell commands from natural language descriptions:
+**Command ထုတ်လုပ်ပေးခြင်း** - [`simonw/llm`](https://github.com/simonw/llm) ကဲ့သို့သော ကိရိယာများသည် သဘာဝဘာသာစကား ဖော်ပြချက်များမှတစ်ဆင့် shell command များကို ထုတ်လုပ်ပေးနိုင်ရန် ကူညီပေးနိုင်ပါသည်။
 
 ```console
 $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
+**Pipeline တွင် ပေါင်းစပ်ခြင်း** - LLM များကို ဒေတာများကို ပရိုဆက်လုပ်ရန်နှင့် ပြောင်းလဲရန် shell pipeline များအတွင်း ပေါင်းစပ်နိုင်ပါသည်။ ရိုးရိုး regex သုံးလျှင် ခက်ခဲမည့် ပုံစံမမှန်သော ဖော်မတ်များမှ အချက်အလက်များကို ထုတ်ယူရန် လိုအပ်သည့်အခါ ၎င်းတို့သည် အထူး အသုံးဝင်ပါသည် -
 
 ```console
 $ cat users.txt
@@ -789,40 +770,40 @@ mike_wilson
 sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
+Variable တွင် space (ကွက်လပ်) များ ပါဝင်နေသောကြောင့် `"$INSTRUCTIONS"` (quote ဖြင့်) ကို သုံးထားပုံနှင့် file ၏ အကြောင်းအရာကို stdin သို့ လမ်းကြောင်းပြောင်းရန် `< users.txt` ကို သုံးထားပုံကို သတိပြုပါ။
 
-**AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
+**AI Shell များ** - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) ကဲ့သို့သော ကိရိယာများသည် အင်္ဂလိပ်စာ command များကို လက်ခံပြီး ၎င်းတို့ကို shell လုပ်ဆောင်ချက်များ၊ file ပြင်ဆင်မှုများနှင့် ပိုမို ရှုပ်ထွေးသော အဆင့်များစွာပါဝင်သည့် အလုပ်များအဖြစ် ဘာသာပြန်ပေးသည့် meta-shell အဖြစ် လုပ်ဆောင်ပေးပါသည်။
 
-# Terminal Emulators
+# Terminal Emulator များ
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
-A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
-There are many terminal emulators out there.
+သင့် shell ကို စိတ်ကြိုက်ပြင်ဆင်ခြင်းနှင့်အတူ သင့်အနေဖြင့် **terminal emulator** ရွေးချယ်မှုနှင့် ၎င်း၏ setting များကို စူးစမ်းရန် အချိန်အနည်းငယ် ပေးသင့်ပါသည်။
+Terminal emulator ဆိုသည်မှာ သင့် shell Run နေသည့် စာသားအခြေပြု interface ကို ပံ့ပိုးပေးသော GUI ပရိုဂရမ်တစ်ခု ဖြစ်ပါသည်။
+ထွက်ရှိထားသော terminal emulator များစွာ ရှိကြပါသည်။
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+သင့် terminal တွင် နာရီပေါင်း ရာနှင့်ချီ၍ သို့မဟုတ် ထောင်နှင့်ချီ၍ အချိန်ကုန်လွန်ရဖွယ် ရှိသဖြင့် ၎င်း၏ setting များကို ဝင်ရောက်ကြည့်ရှုရန် ထိုက်တန်လှပါသည်။ သင့် terminal တွင် ပြုပြင်ပြောင်းလဲလိုနိုင်သည့် အချက်အချို့တွင် အောက်ပါတို့ ပါဝင်သည် -
 
-- Font choice
+- Font ရွေးချယ်မှု
 - Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
+- Keyboard shortcut များ
+- Tab/Pane ထောက်ပံ့မှု
 - Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/alacritty/alacritty) or [Ghostty](https://ghostty.org/) offer GPU acceleration).
+- စွမ်းဆောင်ရည် ( [Alacritty](https://github.com/alacritty/alacritty) သို့မဟုတ် [Ghostty](https://ghostty.org/) ကဲ့သို့သော အချို့သော သစ်လွင်သည့် terminal များသည် GPU acceleration ကို ပံ့ပိုးပေးကြသည်)။
 
 
 
-# Exercises
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-## Arguments and Globs
+## Arguments များနှင့် Globs တွဲဖက်သုံးခြင်း
 
-1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
+1. သင့်အနေဖြင့် `cmd --flag -- --notaflag` ကဲ့သို့သော command များကို တွေ့ရနိုင်ပါသည်။ `--` သည် ပရိုဂရမ်အား flag များကို parse လုပ်ခြင်း ရပ်တန့်ရန် ပြောဆိုသော အထူး argument ဖြစ်ပါသည်။ `--` ၏ အနောက်ရှိ အရာအားလုံးကို positional argument အဖြစ် သတ်မှတ်ပါသည်။ ဒါဟာ အဘယ်ကြောင့် အသုံးဝင်နိုင်သနည်း။ `touch -- -myfile` ကို Run ကြည့်ပြီး `--` မပါဘဲ ၎င်းကို ပြန်လည် ဖျက်ပစ်ရန် ကြိုးစားကြည့်ပါ။
 
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
+1. [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) ကို ဖတ်ရှုပြီး file များကို အောက်ပါ ပုံစံအတိုင်း စာရင်းထုတ်ပေးသည့် `ls` command တစ်ခု ရေးသားပါ -
+    - ဝှက်ထားသော file များ ပါဝင်သော file အားလုံး ပါဝင်ရမည်
+    - အရွယ်အစားများကို လူနားလည်လွယ်သော ပုံစံဖြင့် စာရင်းဖော်ပြရမည် (ဥပမာ 454279954 အစား 454M)
+    - File များကို လတ်တဆတ်ဆုံး အစီအစဉ်အတိုင်း စီစဉ်ထားရမည်
+    - Output ကို အရောင်ဆိုးထားရမည်
 
-    A sample output would look like this:
+    နမူနာ output သည် အောက်ပါအတိုင်း ဖြစ်ပါလိမ့်မည် -
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -836,11 +817,11 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 ls -lath --color=auto
 {% endcomment %}
 
-1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
+1. Process substitution `<(command)` သည် command တစ်ခု၏ output ကို file တစ်ခုကဲ့သို့ အသုံးပြုခွင့် ပေးပါသည်။ `printenv` နှင့် `export` တို့၏ output များကို နှိုင်းယှဉ်ရန် process substitution နှင့်အတူ `diff` ကို အသုံးပြုပါ။ ၎င်းတို့ အဘယ်ကြောင့် မတူညီကြသနည်း။ (အကြံပြုချက် - `diff <(printenv | sort) <(export | sort)` ကို စမ်းကြည့်ပါ)။
 
-## Environment Variables
+## Environment Variables များ
 
-1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+1. အောက်ပါအတိုင်း လုပ်ဆောင်ပေးသော bash function `marco` နှင့် `polo` တို့ကို ရေးသားပါ - သင့်အနေဖြင့် `marco` ကို Run သည့်အခါတိုင်း လက်ရှိ working directory ကို တစ်နည်းနည်းဖြင့် သိမ်းဆည်းထားရမည်၊ ထို့နောက် မည်သည့် directory သို့ ရောက်ရှိနေပါစေ `polo` ကို Run လိုက်ပါက `polo` က သင့်အား `marco` ကို Run ခဲ့သည့် directory သို့ `cd` ဖြင့် ပြန်လည် ပို့ဆောင်ပေးရမည်။ Debug ပြုလုပ်ရန် လွယ်ကူစေရေးအတွက် code ကို `marco.sh` file တစ်ခုတွင် ရေးသားနိုင်ပြီး `source marco.sh` ကို Run ခြင်းဖြင့် သင့် shell သို့ သတ်မှတ်ချက်များကို (ပြန်လည်) Load ပြုလုပ်နိုင်ပါသည်။
 
 {% comment %}
 marco() {
@@ -852,9 +833,9 @@ polo() {
 }
 {% endcomment %}
 
-## Return Codes
+## Return Codes များ
 
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
+1. သင့်တွင် ခဲယဉ်းစွာ မအောင်မြင်တတ်သော command တစ်ခု ရှိသည် ဆိုပါစို့။ ၎င်းကို debug ပြုလုပ်ရန် output ကို ဖမ်းယူရန် လိုအပ်သော်လည်း မအောင်မြင်သော Run ကို ရရှိရန် အချိန်ကုန်နိုင်ပါသည်။ အောက်ပါ script ကို မအောင်မြင်မချင်း Run ပြီး ၎င်း၏ standard output နှင့် error stream များကို file များသို့ ဖမ်းယူကာ အဆုံးတွင် အရာအားလုံးကို ရိုက်နှိပ်ပေးသည့် bash script တစ်ခု ရေးသားပါ။ Script မအောင်မြင်မီ အရေအတွက် မည်မျှ Run ခဲ့ရသည်ကိုလည်း သတင်းပို့နိုင်ပါက Bonus အမှတ် ရရှိပါမည်။
 
     ```bash
     #!/usr/bin/env bash
@@ -884,47 +865,47 @@ echo "found error after $count runs"
 cat out.txt
 {% endcomment %}
 
-## Signals and Job Control
+## Signal များနှင့် Job Control
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-lf` flags).
+1. Terminal ထဲတွင် `sleep 10000` job တစ်ခုကို စတင်ပါ၊ `Ctrl-Z` ဖြင့် background သို့ ပို့ပြီး `bg` ဖြင့် ၎င်း၏ လုပ်ဆောင်မှုကို ဆက်လက် ပြုလုပ်ပါ။ ယခုအခါ ၎င်း၏ pid ကို ရှာရန် [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) ကို အသုံးပြုပြီး pid ကိုယ်တိုင် ရိုက်ထည့်ရန် မလိုဘဲ ၎င်းအား kill ပြုလုပ်ရန် [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) ကို အသုံးပြုပါ။ (အကြံပြုချက် - `-lf` flag များကို သုံးပါ)။
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. အခြား process တစ်ခု မပြီးဆုံးမီ process တစ်ခုကို မစတင်ချင်ဟု ဆိုပါစို့။ မည်သို့ ပြုလုပ်မည်နည်း။ ဤလေ့ကျင့်ခန်းတွင် ကျွန်ုပ်တို့၏ ကန့်သတ်ချက် process သည် အမြဲတမ်း `sleep 60 &` ဖြစ်ပါမည်။ ဤအရာကို ရရှိရန် နည်းလမ်းတစ်ခုမှာ [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command ကို အသုံးပြုခြင်း ဖြစ်ပါသည်။ Sleep command ကို စတင်ပြီး background process မပြီးဆုံးမီအထိ `ls` တစ်ခုက စောင့်ဆိုင်းအောင် ပြုလုပ်ကြည့်ပါ။
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+    သို့သော် ဤနည်းဗျူဟာသည် မတူညီသော bash session တစ်ခုတွင် စတင်ပါက ပျက်ကွက်ပါလိမ့်မည်၊ အကြောင်းမှာ `wait` သည် child process များအတွက်သာ အလုပ်လုပ်သောကြောင့် ဖြစ်သည်။ မှတ်စုများတွင် ကျွန်ုပ်တို့ မဆွေးနွေးခဲ့သည့် feature တစ်ခုမှာ `kill` command ၏ exit status သည် အောင်မြင်ပါက သုညဖြစ်ပြီး သို့မဟုတ်ပါက သုညမဟုတ်ဘဲ ဖြစ်နေခြင်းပင် ဖြစ်သည်။ `kill -0` သည် signal တစ်ခုကို မပို့သော်လည်း process မရှိပါက သုညမဟုတ်သော exit status ကို ပေးပါလိမ့်မည်။ Pid တစ်ခုကို ယူပြီး ပေးထားသော process မပြီးဆုံးမီအထိ စောင့်ဆိုင်းပေးသည့် `pidwait` ဟု ခေါ်သော bash function တစ်ခု ရေးသားပါ။ CPU ကို မလိုအပ်ဘဲ ဖြုန်းတီးခြင်းမှ ရှောင်ရှားရန် `sleep` ကို အသုံးပြုသင့်ပါသည်။
 
-## Files and Permissions
+## File များနှင့် Permission များ
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+1. (အဆင့်မြင့်) Directory တစ်ခုအတွင်း လတ်တဆတ်ဆုံး ပြင်ဆင်ထားသော file ကို recursive နည်းဖြင့် ရှာဖွေရန် command သို့မဟုတ် script တစ်ခု ရေးသားပါ။ ပိုမို အထွေထွေကျစွာဖြင့် file အားလုံးကို လတ်တဆတ်ဆုံး အစီအစဉ်အတိုင်း စာရင်းထုတ်နိုင်ပါသလား။
 
 ## Terminal Multiplexers
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. ဤ `tmux` [သင်ခန်းစာ](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) ကို လိုက်နာပါ၊ ထို့နောက် [ဤအဆင့်များ](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/) ကို လိုက်နာ၍ အခြေခံ စိတ်ကြိုက်ပြင်ဆင်မှုများ ပြုလုပ်နည်းကို လေ့လာပါ။
 
-## Aliases and Dotfiles
+## Alias များနှင့် Dotfiles
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+1. စာလုံးမှား ရိုက်မိသည့်အခါ `cd` သို့ ရောက်ရှိသွားမည့် alias `dc` တစ်ခု ဖန်တီးပါ။
 
-1. Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1. သင့်အသုံးအများဆုံး ထိပ်တန်း command ၁၀ ခုကို ရရှိရန် `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` ကို Run ပြီး ၎င်းတို့အတွက် ပိုမိုတိုတောင်းသော alias များ ရေးသားရန် စဉ်းစားပါ။ မှတ်ချက် - ဤအရာသည် Bash အတွက် အလုပ်လုပ်ပါသည်၊ အကယ်၍ ZSH ကို သုံးနေပါက `history` အစား `history 1` ကို သုံးပါ။
 
-1. Create a folder for your dotfiles and set up version control.
+1. သင့် dotfile များအတွက် folder တစ်ခု ဖန်တီးပြီး version control ထူထောင်ပါ။
 
-1. Add a configuration for at least one program, e.g. your shell, with some customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. စိတ်ကြိုက်ပြင်ဆင်မှု အချို့ ပါရှိသော အနည်းဆုံး ပရိုဂရမ်တစ်ခု (ဥပမာ သင့် shell) အတွက် configuration တစ်ခု ထည့်သွင်းပါ (စတင်ရန်အတွက် `$PS1` သတ်မှတ်ခြင်းဖြင့် သင့် shell prompt ကို စိတ်ကြိုက်ပြင်ခြင်းကဲ့သို့ ရိုးရှင်းသော အရာတစ်ခု ဖြစ်နိုင်ပါသည်)။
 
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
+1. စက်အသစ်တွင် သင့် dotfile များကို လျှင်မြန်စွာ (နှင့် ကိုယ်တိုင် အားထုတ်စရာမလိုဘဲ) install လုပ်မည့် နည်းလမ်းတစ်ခု ထူထောင်ပါ။ ဒါဟာ file တစ်ခုစီအတွက် `ln -s` ကို ခေါ်ယူသည့် ရိုးရှင်းသော shell script တစ်ခု ဖြစ်နိုင်သည်၊ သို့မဟုတ် [သီးသန့် utility](https://dotfiles.github.io/utilities/) တစ်ခုကို သုံးနိုင်ပါသည်။
 
-1. Test your installation script on a fresh virtual machine.
+1. သန့်ရှင်းသော virtual machine အသစ်တစ်ခုတွင် သင့် installation script ကို စမ်းသပ်ပါ။
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+1. သင့် လက်ရှိ ကိရိယာ configuration အားလုံးကို သင့် dotfiles repository ထံ သို့ ပြောင်းရွှေ့ပါ။
 
-1. Publish your dotfiles on GitHub.
+1. သင့် dotfile များကို GitHub တွင် ထုတ်ဝေပါ။
 
-## Remote Machines (SSH)
+## Remote Machine များ (SSH)
 
-Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
+ဤလေ့ကျင့်ခန်းများအတွက် Linux virtual machine တစ်ခု ထည့်သွင်းပါ (သို့မဟုတ် ရှိနှင့်ပြီးသား တစ်ခုကို သုံးပါ)။ အကယ်၍ သင့်အနေဖြင့် virtual machine များနှင့် မရင်းနှီးပါက တစ်ခု ထည့်သွင်းရန်အတွက် [ဤ](hibbard.eu/install-ubuntu-virtual-box/) သင်ခန်းစာကို ကြည့်ရှုပါ။
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
+1. `~/.ssh/` သို့ သွားပြီး သင့်တွင် SSH key တွဲတစ်ခု ရှိမရှိ စစ်ဆေးပါ။ မရှိပါက `ssh-keygen -a 100 -t ed25519` ဖြင့် ထုတ်လုပ်ပါ။ Password အသုံးပြုရန်နှင့် `ssh-agent` ကို သုံးရန် အကြံပြုပါသည်၊ အချက်အလက် ထပ်မံကြည့်ရှုရန် [ဤနေရာတွင်](https://www.ssh.com/ssh/agent) ကြည့်ပါ။
 
-1. Edit `.ssh/config` to have an entry as follows:
+1. အောက်ပါအတိုင်း ပါဝင်အောင် `.ssh/config` ကို ပြင်ဆင်ပါ -
 
     ```bash
     Host vm
@@ -934,12 +915,12 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
         LocalForward 9999 localhost:8888
     ```
 
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. Server ထံသို့ သင့် ssh key ကူးယူရန် `ssh-copy-id vm` ကို သုံးပါ။
 
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. သင့် VM တွင် `python -m http.server 8888` ကို Run ၍ webserver တစ်ခု စတင်ပါ။ သင့်စက်ရှိ `http://localhost:9999` သို့ ဝင်ရောက်၍ VM webserver ကို ကြည့်ရှုပါ။
 
-1. Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. `sudo vim /etc/ssh/sshd_config` ပြုလုပ်၍ သင့် SSH server config ကို ပြင်ဆင်ပြီး `PasswordAuthentication` တန်ဖိုးကို ပြင်ဆင်၍ password authentication ကို ပိတ်ထားပါ။ `PermitRootLogin` တန်ဖိုးကို ပြင်ဆင်၍ root login ကို ပိတ်ထားပါ။ `sudo service sshd restart` ဖြင့် `ssh` service ကို restart ပြုလုပ်ပါ။ SSH ပြန်ဝင်ကြည့်ပါ။
 
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (စိန်ခေါ်မှု) VM တွင် [`mosh`](https://mosh.org/) ကို install လုပ်ပြီး ချိတ်ဆက်မှု ထူထောင်ပါ။ ထို့နောက် server/VM ၏ network adapter ကို ဖြုတ်လိုက်ပါ။ Mosh က ၎င်းမှ မှန်ကန်စွာ ပြန်လည် သက်သာလာနိုင်ပါသလား။
 
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+1. (စိန်ခေါ်မှု) `ssh` တွင် `-N` နှင့် `-f` flag များ အဘယ်သို့ ပြုလုပ်သည်ကို ရှာဖွေပြီး background port forwarding ကို ရရှိရန် command တစ်ခုကို စိစစ်ဖော်ထုတ်ပါ။

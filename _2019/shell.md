@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Shell and Scripting"
+title: "Shell နှင့် Script ရေးသားခြင်း"
 presenter: Jon
 date: 2019-01-15
 order: 3
@@ -9,276 +9,250 @@ video:
   id: dbDRfmH5uSI
 ---
 
-The shell is an efficient, textual interface to your computer.
+Shell ဆိုသည်မှာ သင်၏ ကွန်ပျူတာကို စာသားဖြင့် ထိရောက်စွာ ခိုင်းစေနိုင်သည့် Interface တစ်ခု ဖြစ်ပါသည်။
 
-The shell prompt: what greets you when you open a terminal.
-Lets you run programs and commands; common ones are:
+Shell prompt ဆိုသည်မှာ Terminal တစ်ခုကို ဖွင့်လိုက်သည့်အခါ သင့်အား ကြိုဆိုသည့် နေရာဖြစ်ပါသည်။
+ယင်းက သင့်အား ပရိုဂရမ်များနှင့် Command များကို Run နိုင်စေပါသည်။ အသုံးများသော Command အချို့မှာ-
 
- - `cd` to change directory
- - `ls` to list files and directories
- - `mv` and `cp` to move and copy files
+ - Directory ပြောင်းလဲရန် `cd`
+ - ဖိုင်များနှင့် Directory များကို စာရင်းထုတ်ကြည့်ရန် `ls`
+ - ဖိုင်များကို ရွှေ့ပြောင်းရန်နှင့် ကူးယူရန် `mv` နှင့် `cp`
 
-But the shell lets you do _so_ much more; you can invoke any program on
-your computer, and command-line tools exist for doing pretty much
-anything you may want to do. And they're often more efficient than their
-graphical counterparts. We'll go through a bunch of those in this class.
+သို့သော် Shell သည် ထိုမျှမက _အဆမတန်_ ပိုမို ပြုလုပ်နိုင်ပါသည်။ သင့် ကွန်ပျူတာပေါ်ရှိ မည်သည့် ပရိုဂရမ်ကိုမဆို ခေါ်ယူ အသုံးပြုနိုင်ပြီး၊ သင် ပြုလုပ်လိုသမျှ ကိစ္စတိုင်းနီးပါးအတွက် Command-line tool များ ရှိကြပါသည်။ ထို့အပြင် ၎င်းတို့သည် Graphical (GUI) နည်းလမ်းများထက် ပိုမို အလုပ်တွင် မြန်ဆန်လေ့ ရှိကြပါသည်။ ဤသင်ခန်းစာတွင် ယင်း tool အများအပြားကို လေ့လာသွားမည် ဖြစ်ပါသည်။
 
-The shell provides an interactive programming language ("scripting").
-There are many shells:
+Shell သည် အပြန်အလှန် တုံ့ပြန်နိုင်သော Programming Language ("scripting") တစ်ခုကို ပံ့ပိုးပေးပါသည်။ Shell အမျိုးအစားများစွာ ရှိပါသည်-
 
- - You've probably used `sh` or `bash`.
- - Also shells that match languages: `csh`.
- - Or "better" shells: `fish`, `zsh`, `ksh`.
+ - သင်သည် `sh` သို့မဟုတ် `bash` ကို အသုံးပြုဖူးပေလိမ့်မည်။
+ - ပရိုဂရမ်းမင်း ဘာသာစကားများနှင့် စတိုင်တူသော Shell များလည်း ရှိသည်- ဥပမာ `csh`။
+ - သို့မဟုတ် ပိုမို "ကောင်းမွန်သော" Shell များ- `fish`, `zsh`, `ksh`။
 
-In this class we'll focus on the ubiquitous `sh` and `bash`, but feel
-free to play around with others. I like `fish`.
+ဤသင်ခန်းစာတွင် နေရာတိုင်း၌ တွေ့ရှိနိုင်သော `sh` နှင့် `bash` ကို အဓိကထားသွားမည် ဖြစ်သော်လည်း အခြား Shell များကိုလည်း စမ်းသပ်ကြည့်နိုင်ပါသည်။ ကျွန်တော်ကတော့ `fish` ကို ကြိုက်ပါသည်။
 
-Shell programming is a *very* useful tool in your toolbox.
-Can either write programs directly at the prompt, or into a file.
-`#!/bin/sh` + `chmod +x` to make shell executable.
+Shell programming သည် သင်၏ tool အိတ်ထဲတွင် *အလွန်* အသုံးဝင်သော tool တစ်ခု ဖြစ်ပါသည်။
+ပရိုဂရမ်များကို Prompt တွင် တိုက်ရိုက် ရေးသားနိုင်သကဲ့သို့ ဖိုင်တစ်ခုအတွင်းသို့လည်း ရေးသားနိုင်ပါသည်။
+Shell ကို Execute လုပ်နိုင်ရန်အတွက် `#!/bin/sh` + `chmod +x` ကို အသုံးပြုပါသည်။
 
-## Working with the shell
+## Shell ကို အသုံးပြု၍ အလုပ်လုပ်ခြင်း
 
-Run a command a bunch of times:
+Command တစ်ခုကို အကြိမ်များစွာ Run ခြင်း-
 
 ```bash
 for i in $(seq 1 5); do echo hello; done
 ```
 
-There's a lot to unpack:
+ဒီနေရာမှာ အသေးစိတ် လေ့လာစရာများစွာ ရှိပါသည်-
 
  - `for x in list; do BODY; done`
-   - `;` terminates a command -- equivalent to newline
-   - split `list`, assign each to `x`, and run body
-   - splitting is "whitespace splitting", which we'll get back to
-   - no curly braces in shell, so `do` + `done`
+   - `;` သည် Command တစ်ခုကို အဆုံးသတ်ပေးသည် -- စာကြောင်းအသစ် (newline) ဖြတ်လိုက်သကဲ့သို့ တူညီသည်
+   - `list` ကို ခွဲခြားပြီး၊ တစ်ခုစီကို `x` တွင် သတ်မှတ်ကာ body ကို Run သည်
+   - ခွဲခြားခြင်းသည် "whitespace splitting" (ဟာကွက်ဖြင့် ခွဲခြားခြင်း) ဖြစ်ပြီး နောက်တွင် ထပ်မံ ရှင်းပြပါမည်
+   - Shell တွင် Curly braces ({}) များ မပါရှိသဖြင့် `do` + `done` ကို အသုံးပြုသည်
  - `$(seq 1 5)`
-   - run the program `seq` with arguments `1` and `5`
-   - substitute entire `$()` with the output of that program
-   - equivalent to
+   - `seq` ပရိုဂရမ်ကို Argument များဖြစ်သော `1` နှင့် `5` ဖြင့် Run သည့် သဘောဖြစ်သည်
+   - `$()` တစ်ခုလုံးကို ထိုပရိုဂရမ်၏ Output ဖြင့် အစားထိုးသည်
+   - အောက်ပါအတိုင်း ရေးသားခြင်းနှင့် တူညီသည်-
      ```bash
      for i in 1 2 3 4 5
      ```
  - `echo hello`
-   - everything in a shell script is a command
-   - in this case, run the `echo` command, which prints its arguments
-     with the argument `hello`.
-   - all commands are searched for in `$PATH` (colon-separated)
+   - Shell script ထဲရှိ အရာအားလုံးသည် Command များ ဖြစ်ကြသည်
+   - ဤနေရာတွင် မိမိထံ ပေးပို့လိုက်သော Argument များကို ရိုက်နှိပ်ပြသသည့် `echo` command ကို `hello` ဆိုသည့် Argument ဖြင့် Run ခြင်း ဖြစ်သည်
+   - Command အားလုံးကို Colon (:) ဖြင့် ခွဲခြားထားသော `$PATH` အတွင်း၌ ရှာဖွေသည်
 
-We have variables:
+Variable များလည်း ရှိကြပါသည်-
 ```bash
 for f in $(ls); do echo $f; done
 ```
 
-Will print each file name in the current directory.
-Can also set variables using `=` (no space!):
+ယင်းက လက်ရှိ Directory ထဲရှိ ဖိုင်အမည် တစ်ခုစီကို ရိုက်နှိပ်ပြသမည် ဖြစ်ပါသည်။
+Variable များကို `=` (Space မပါဘဲ!) အသုံးပြု၍လည်း သတ်မှတ်နိုင်ပါသည်-
 
 ```bash
 foo=bar
 echo $foo
 ```
 
-There are a bunch of "special" variables too:
+"သီးသန့်" Variable အများအပြားလည်း ရှိပါသည်-
 
- - `$1` to `$9`: arguments to the script
- - `$0` name of the script itself
- - `$#` number of arguments
- - `$$` process ID of current shell
+ - `$1` မှ `$9`: Script ထံ ပေးပို့သော Argument များ
+ - `$0`: Script ၏ အမည်ကိုယ်တိုင်
+ - `$#`: Argument အရေအတွက်
+ - `$$`: လက်ရှိ Shell ၏ Process ID (PID)
 
-To only print directories
+Directory များကိုသာ ရိုက်နှိပ်ပြသလိုပါက-
 
 ```bash
 for f in $(ls); do if test -d $f; then echo dir $f; fi; done
 ```
 
-More to unpack here:
+ဒီနေရာမှာလည်း အသေးစိတ် လေ့လာစရာများ ပါရှိပါသည်-
 
  - `if CONDITION; then BODY; fi`
-   - `CONDITION` is a command; if it returns with exit status 0
-     (success), then `BODY` is run.
-   - can also hook in an `else` or `elif`
-   - again, no curly braces, so `then` + `fi`
- - `test` is another program that provides various checks and
-   comparisons, and exits with 0 if they're true (`$?`)
-   - `man COMMAND` is your friend: `man test`
-   - can also be invoked with `[` + `]`: `[ -d $f ]`
-     - take a look at `man test` and `which "["`
+   - `CONDITION` သည် Command တစ်ခု ဖြစ်ပြီး ယင်းက Exit status 0 (အောင်မြင်မှု) ဖြင့် ပြန်လာပါက `BODY` ကို Run ပေးသည်
+   - `else` သို့မဟုတ် `elif` များကိုလည်း ချိတ်ဆက် အသုံးပြုနိုင်သည်
+   - ဤနေရာတွင်လည်း Curly braces မပါရှိသဖြင့် `then` + `fi` ကို အသုံးပြုသည်
+ - `test` သည် ဆန်းစစ်မှုများနှင့် နှိုင်းယှဉ်မှု အမျိုးမျိုးကို ပြုလုပ်ပေးသည့် အခြား ပရိုဂရမ်တစ်ခု ဖြစ်ပြီး မှန်ကန်ပါက 0 ဖြင့် Exit လုပ်သည် (`$?`)
+   - `man COMMAND` သည် သင့်အတွက် အကူအညီဖြစ်သည်- `man test`
+   - `[` + `]` ဖြင့်လည်း ခေါ်ယူ အသုံးပြုနိုင်သည်- `[ -d $f ]`
+     - `man test` နှင့် `which "["` ကို ကြည့်ရှုပါ
 
-But wait! This is wrong! What if a file is called "My Documents"?
+ဒါပေမဲ့ ခဏနေပါဦး! ဒါ မှားနေပါတယ်! ဖိုင်အမည်က "My Documents" လို့ ခေါ်ရင် ဘာဖြစ်မလဲ?
 
- - `for f in $(ls)` expands to `for f in My Documents`
- - first do the test on `My`, then on `Documents`
- - not what we wanted!
- - biggest source of bugs in shell scripts
+ - `for f in $(ls)` သည် `for f in My Documents` အဖြစ် ဖြန့်ကားသွားမည် ဖြစ်သည်
+ - ပထမဦးစွာ `My` ကို စစ်ဆေးပြီး၊ ထို့နောက် `Documents` ကို စစ်ဆေးပါလိမ့်မည်
+ - ဒါဟာ ကျွန်ုပ်တို့ လိုချင်တဲ့ အရာ မဟုတ်ပါဘူး!
+ - ဒါဟာ Shell script တွေမှာ Bug တွေ ဖြစ်ပေါ်စေတဲ့ အကြီးမားဆုံး အကြောင်းအရင်း ဖြစ်ပါတယ်
 
-## Argument splitting
+## Argument များကို ခွဲခြားခြင်း (Argument splitting)
 
-Bash splits arguments by whitespace; not always what you want!
+Bash သည် Argument များကို Whitespace (ဟာကွက်) ဖြင့် ခွဲခြားပါသည်။ ဒါဟာ သင် အမြဲတမ်း လိုလားတဲ့ အရာ မဟုတ်နိုင်ပါဘူး!
 
- - need to use quoting to handle spaces in arguments
-   `for f in "My Documents"` would work correctly
- - same problem somewhere else -- do you see where?
-   `test -d $f`: if `$f` contains whitespace, `test` will error!
- - `echo` happens to be okay, because split + join by space
-   but what if a filename contains a newline?! turns into space!
- - quote all use of variables that you don't want split
- - but how do we fix our script above?
-   what do you think `for f in "$(ls)"` does?
+ - Argument ထဲရှိ Space များကို ကိုင်တွယ်ရန် Quoting (မျက်တောင်အဖွင့်အပိတ်) အသုံးပြုဖို့ လိုအပ်သည်၊ `for f in "My Documents"` ဆိုလျှင် မှန်ကန်စွာ အလုပ်လုပ်မည် ဖြစ်သည်
+ - အခြားနေရာတစ်ခုမှာလည်း ဒီပြဿနာမျိုး ရှိနေသည် -- ဘယ်နေရာလဲဆိုတာ မြင်ပါသလား?
+   `test -d $f`: အကယ်၍ `$f` တွင် Whitespace ပါဝင်နေပါက `test` သည် Error တက်ပါလိမ့်မည်!
+ - `echo` ကတော့ Space ဖြင့် ခွဲခြားပြီး ပြန်ပေါင်းပေးတာကြောင့် အဆင်ပြေနေသလို ရှိသော်လည်း ဖိုင်အမည်ထဲတွင် Newline ပါဝင်နေရင် ဘာဖြစ်မလဲ?! Space အဖြစ် ပြောင်းလဲသွားပါလိမ့်မည်!
+ - မခွဲခြားစေလိုသော Variable အသုံးပြုမှု တိုင်းကို Quoting ဖြင့် အုပ်ပေးပါ
+ - ဒါပေမဲ့ အထက်ပါ ကျွန်ုပ်တို့၏ Script ကို ဘယ်လို ပြင်ကြမလဲ?
+   `for f in "$(ls)"` က ဘာလုပ်ပေးမယ်လို့ ထင်ပါသလဲ?
 
-Globbing is the answer!
+Globbing (Pattern ဖြင့် ရှာဖွေခြင်း) သည် ယင်း၏ အဖြေဖြစ်ပါသည်။
 
- - bash knows how to look for files using patterns:
-   - `*` any string of characters
-   - `?` any single character
-   - `{a,b,c}` any of these characters
- - `for f in *`: all files in this directory
- - when globbing, each matching file becomes its own argument
-   - still need to make sure to quote when _using_: `test -d "$f"`
- - can make advanced patterns:
-   - `for f in a*`: all files starting with `a` in the current directory
-   - `for f in foo/*.txt`: all `.txt` files in `foo`
-   - `for f in foo/*/p??.txt`
-     all three-letter text files starting with p in subdirs of `foo`
+ - Bash သည် Pattern များကို အသုံးပြု၍ ဖိုင်များကို မည်သို့ ရှာဖွေရမည်ကို သိရှိသည်-
+   - `*` မည်သည့် စာလုံးစုမဆို
+   - `?` မည်သည့် စာလုံးတစ်လုံးမဆို
+   - `{a,b,c}` ဤစာလုံးများထဲမှ မည်သည့် စာလုံးမဆို
+ - `for f in *`: ဤ Directory ထဲရှိ ဖိုင်အားလုံး
+ - Globbing ပြုလုပ်သည့်အခါ ကိုက်ညီသော ဖိုင်တစ်ခုစီသည် သီးခြား Argument တစ်ခု ဖြစ်လာသည်
+   - သို့သော် _အသုံးပြုသည့်အခါ_ Quoting အုပ်ရန် လိုအပ်ဆဲဖြစ်သည်- `test -d "$f"`
+ - ပိုမို အဆင့်မြင့်သော Pattern များကို ဖန်တီးနိုင်သည်-
+   - `for f in a*`: လက်ရှိ Directory ထဲရှိ `a` ဖြင့် စသော ဖိုင်အားလုံး
+   - `for f in foo/*.txt`: `foo` ထဲရှိ `.txt` ဖိုင်အားလုံး
+   - `for f in foo/*/p??.txt`: `foo` ၏ Subdirectory များထဲရှိ `p` ဖြင့် စသော စာလုံးသုံးလုံးပါ စာသားဖိုင်များအားလုံး
 
-Whitespace issues don't stop there:
+Whitespace ပြဿနာများက ထိုမျှနှင့် မပြီးဆုံးသေးပါ-
 
- - `if [ $foo = "bar" ]; then` -- see the issue?
- - what if `$foo` is empty? arguments to `[` are `=` and `bar`...
- - _can_ work around this with `[ x$foo = "xbar" ]`, but bleh
- - instead, use `[[`: bash built-in comparator that has special parsing
-   - also allows `&&` instead of `-a`, `||` over `-o`, etc.
+ - `if [ $foo = "bar" ]; then` -- ပြဿနာကို မြင်ပါသလား?
+ - အကယ်၍ `$foo` က ဗလာဖြစ်နေရင် ဘာဖြစ်မလဲ? `[` ထံ ပေးပို့သော Argument များသည် `=` နှင့် `bar` သာ ဖြစ်သွားမည်...
+ - ဤသည်ကို `[ x$foo = "xbar" ]` ဖြင့် ဖြေရှင်းနိုင်သော်လည်း သိပ်မကောင်းလှပါ
+ - ယင်းအစား သီးသန့် Parsing ပါဝင်သော Bash built-in comparator ဖြစ်သည့် `[[` ကို အသုံးပြုပါ
+   - ထို့အပြင် `-a` အစား `&&` ကိုလည်းကောင်း၊ `-o` အစား `||` ကိုလည်းကောင်း စသည်ဖြင့် အသုံးပြုခွင့် ပေးသည်
 
 <!-- TODO: arrays? $@. ${array[@]} vs "${array[@]}". -->
 
-## Composability
+## ပေါင်းစပ် အသုံးပြုနိုင်မှု (Composability)
 
-Shell is powerful in part because of composability. Can chain multiple
-programs together rather than have one program that does everything.
+Shell သည် စွမ်းဆောင်ရည် ထက်မြက်ရခြင်း၏ အကြောင်းရင်း အစိတ်အပိုင်းတစ်ခုမှာ ပေါင်းစပ် အသုံးပြုနိုင်မှုကြောင့် ဖြစ်ပါသည်။ အရာအားလုံးကို ပြုလုပ်သည့် ပရိုဂရမ်တစ်ခုတည်း ရှိမည့်အစား ပရိုဂရမ် အများအပြားကို အပြန်အလှန် ချိတ်ဆက် အသုံးပြုနိုင်ပါသည်။
 
-The key character is `|` (pipe).
+အဓိက သင်္ကေတမှာ `|` (pipe) ဖြစ်ပါသည်။
 
- - `a | b` means run both `a` and `b`
-   send all output of `a` as input to `b`
-   print the output of `b`
+ - `a | b` ဆိုသည်မှာ `a` နှင့် `b` နှစ်ခုလုံးကို Run ပြီး၊ `a` ၏ Output အားလုံးကို `b` ၏ Input အဖြစ် ပို့ဆောင်ကာ `b` ၏ Output ကို ရိုက်နှိပ်ပြသခြင်း ဖြစ်သည်
 
-All programs you launch ("processes") have three "streams":
+သင် စတင်လိုက်သော ပရိုဂရမ်တိုင်း ("processes") တွင် "stream" သုံးခု ပါရှိကြသည်-
 
- - `STDIN`: when the program reads input, it comes from here
- - `STDOUT`: when the program prints something, it goes here
- - `STDERR`: a 2nd output the program can choose to use
- - by default, `STDIN` is your keyboard, `STDOUT` and `STDERR` are both
-   your terminal. but you can change that!
-   - `a | b` makes `STDOUT` of `a` `STDIN` of `b`.
-   - also have:
-     - `a > foo` (`STDOUT` of `a` goes to the file `foo`)
-     - `a 2> foo` (`STDERR` of `a` goes to the file `foo`)
-     - `a < foo` (`STDIN` of `a` is read from the file `foo`)
-     - hint: `tail -f` will print a file as it's being written
- - why is this useful? lets you manipulate output of a program!
-   - `ls | grep foo`: all files that contain the word `foo`
-   - `ps | grep foo`: all processes that contain the word `foo`
-   - `journalctl | grep -i intel | tail -n5`:
-     last 5 system log messages with the word intel (case insensitive)
-   - `who | sendmail -t me@example.com`
-     send the list of logged-in users to `me@example.com`
-   - forms the basis for much data-wrangling, as we'll cover later
+ - `STDIN`: ပရိုဂရမ်က Input ကို ဖတ်ရှုသည့်အခါ ဤနေရာမှ လာသည်
+ - `STDOUT`: ပရိုဂရမ်က တစ်ခုခု ရိုက်နှိပ်ပြသသည့်အခါ ဤနေရာသို့ သွားသည်
+ - `STDERR`: ပရိုဂရမ်က အသုံးပြုရန် ရွေးချယ်နိုင်သော ဒုတိယမြောက် Output ဖြစ်သည်
+ - ပုံမှန်အားဖြင့် `STDIN` သည် သင်၏ Keyboard ဖြစ်ပြီး `STDOUT` နှင့် `STDERR` နှစ်ခုလုံးသည် သင်၏ Terminal ဖြစ်ကြသည်၊ သို့သော် ယင်းကို ပြောင်းလဲနိုင်ပါသည်!
+   - `a | b` သည် `a` ၏ `STDOUT` ကို `b` ၏ `STDIN` အဖြစ် ပြောင်းလဲပေးသည်
+   - အောက်ပါအတိုင်းလည်း ရှိကြသည်-
+     - `a > foo` (`a` ၏ `STDOUT` သည် `foo` ဖိုင်သို့ သွားသည်)
+     - `a 2> foo` (`a` ၏ `STDERR` သည် `foo` ဖိုင်သို့ သွားသည်)
+     - `a < foo` (`a` ၏ `STDIN` ကို `foo` ဖိုင်မှ ဖတ်ရှုသည်)
+     - အကြံပြုချက်- `tail -f` သည် ဖိုင်တစ်ခုအတွင်းသို့ ရေးသားနေစဉ် ယင်းဖိုင်ကို ရိုက်နှိပ်ပြသမည် ဖြစ်သည်
+ - ဒါဟာ ဘာကြောင့် အသုံးဝင်သနည်း? ပရိုဂရမ်တစ်ခု၏ Output ကို စိတ်ကြိုက် ပြုပြင်ပြောင်းလဲနိုင်စေသော ကြောင့်ဖြစ်သည်!
+   - `ls | grep foo`: `foo` စကားလုံး ပါဝင်သော ဖိုင်များအားလုံး
+   - `ps | grep foo`: `foo` စကားလုံး ပါဝင်သော Process များအားလုံး
+   - `journalctl | grep -i intel | tail -n5`: intel စကားလုံးပါသော အဖျားပိုင်း စနစ် Log မက်ဆေ့ချ် ၅ ခု (စာလုံး အသေးအကြီး မခွဲခြားပါ)
+   - `who | sendmail -t me@example.com`: Log in ဝင်ထားသော အသုံးပြုသူ စာရင်းကို `me@example.com` သို့ ပေးပို့သည်
+   - နောက်ပိုင်းတွင် ဖော်ပြမည့် Data-wrangling အများအပြားအတွက် အခြေခံ ဖြစ်လာသည်
 
-Bash also provides a number of other ways to compose programs.
+Bash သည် ပရိုဂရမ်များကို ပေါင်းစပ်ရန် အခြား နည်းလမ်းများစွာကိုလည်း ပံ့ပိုးပေးထားပါသည်။
 
-You can group commands with `(a; b) | tac`: run `a`, then `b`, and send
-all their output to `tac`, which prints its input in reverse order.
+Command များကို `(a; b) | tac` ဖြင့် အစုဖွဲ့နိုင်ပါသည်- `a` ကို Run ပြီး ထို့နောက် `b` ကို Run ကာ ၎င်းတို့၏ Output အားလုံးကို Input များကို ပြောင်းပြန် ရိုက်နှိပ်ပေးသည့် `tac` ထံ ပို့ဆောင်သည်။
 
-A lesser-known, but super useful one is _process substitution_.
-`b <(a)` will run `a`, generate a temporary file-name for its output
-stream, and pass that file-name to `b`. For example:
+လူသိနည်းသော်လည်း အလွန် အသုံးဝင်သော နည်းလမ်းတစ်ခုမှာ _process substitution_ ဖြစ်ပါသည်။ `b <(a)` သည် `a` ကို Run ပြီး ၎င်း၏ Output stream အတွက် ယာယီ ဖိုင်အမည်တစ်ခု ဖန်တီးကာ ထိုဖိုင်အမည်ကို `b` ထံ ပေးပို့မည် ဖြစ်သည်။ ဥပမာ-
 
 ```bash
 diff <(journalctl -b -1 | head -n20) <(journalctl -b -2 | head -n20)
 ```
-will show you the difference between the first 20 lines of the last boot
-log and the one before that.
+ယင်းက အရင်ကွန်ပျူတာ ပွင့်ခဲ့စဉ် (boot log) ၏ ပထမ စာကြောင်း ၂၀ နှင့် ယင်းမတိုင်မီက boot log တို့အကြား ကွဲပြားချက်များကို ပြသပေးမည် ဖြစ်ပါသည်။
 
 <!-- TODO: exit codes? -->
 
-## Job and process control
+## Job နှင့် Process များကို ထိန်းချုပ်ခြင်း
 
-What if you want to run longer-term things in the background?
+အချိန်ကြာမြင့်စွာ အလုပ်လုပ်ရမည့် အရာများကို နောက်ကွယ် (background) တွင် Run လိုပါက ဘာလုပ်ရမည်နည်း?
 
- - the `&` suffix runs a program "in the background"
-   - it will give you back your prompt immediately
-   - handy if you want to run two programs at the same time
-     like a server and client: `server & client`
-   - note that the running program still has your terminal as `STDOUT`!
-     try: `server > server.log & client`
- - see all such processes with `jobs`
-   - notice that it shows "Running"
- - bring it to the foreground with `fg %JOB` (no argument is latest)
- - if you want to background the current program: `^Z` + `bg` (Here `^Z` means pressing `Ctrl+Z`)
-   - `^Z` stops the current process and makes it a "job"
-   - `bg` runs the last job in the background (as if you did `&`)
- - background jobs are still tied to your current session, and exit if
-   you log out. `disown` lets you sever that connection. or use `nohup`.
- - `$!` is pid of last background process
+ - `&` နောက်ဆက်တွဲ သင်္ကေတသည် ပရိုဂရမ်တစ်ခုကို "background" တွင် Run ပေးသည်
+   - ယင်းက သင့်အား Prompt ကို ချက်ချင်း ပြန်လည် ပေးအပ်ပါလိမ့်မည်
+   - Server နှင့် Client ကဲ့သို့ ပရိုဂရမ် နှစ်ခုကို တစ်ပြိုင်နက်တည်း Run လိုပါက အသုံးဝင်သည်- `server & client`
+   - Run နေသော ပရိုဂရမ်သည် သင်၏ Terminal ကို `STDOUT` အဖြစ် အသုံးပြုနေဆဲ ဖြစ်သည်ကို သတိပြုပါ! `server > server.log & client` ကို စမ်းသပ်ကြည့်ပါ
+ - ထိုသို့သော Process အားလုံးကို `jobs` ဖြင့် ကြည့်ရှုနိုင်သည်
+   - ယင်းက "Running" ဟု ပြသနေသည်ကို သတိပြုပါ
+ - ယင်းကို Foreground သို့ ပြန်ယူဆောင်ရန် `fg %JOB` ကို အသုံးပြုပါ (Argument မပါလျှင် နောက်ဆုံး တစ်ခုဖြစ်သည်)
+ - လက်ရှိ ပရိုဂရမ်ကို Background သို့ ပို့လိုပါက- `^Z` + `bg` (ဤနေရာတွင် `^Z` ဆိုသည်မှာ `Ctrl+Z` နှိပ်ခြင်း ဖြစ်သည်)
+   - `^Z` သည် လက်ရှိ Process ကို ရပ်တန့်ပြီး "job" တစ်ခု အဖြစ် ပြုလုပ်ပေးသည်
+   - `bg` သည် နောက်ဆုံး job ကို Background တွင် Run ပေးသည် (`&` ထည့်ထားသကဲ့သို့)
+ - Background job များကို လက်ရှိ Session တွင် ချိတ်ဆက်ထားဆဲ ဖြစ်ပြီး Log out ထွက်ပါက ပိတ်သွားမည် ဖြစ်သည်၊ `disown` သည် ထိုချိတ်ဆက်မှုကို ဖြတ်တောက်ပေးသည် သို့မဟုတ် `nohup` ကို အသုံးပြုနိုင်သည်
+ - `$!` သည် နောက်ဆုံး Background process ၏ PID ဖြစ်သည်
 
 <!-- TODO: process output control (^S and ^Q)? -->
 
-What about other stuff running on your computer?
+သင့် ကွန်ပျူတာပေါ်တွင် Run နေသော အခြား အရာများအတွက် ဘာလုပ်နိုင်သနည်း?
 
- - `ps` is your friend: lists running processes
-   - `ps -A`: print processes from all users (also `ps ax`)
-   - `ps` has *many* arguments: see `man ps`
- - `pgrep`: find processes by searching (like `ps -A | grep`)
-   - `pgrep -af`: search and display with arguments
- - `kill`: send a _signal_ to a process by ID (`pkill` by search + `-f`)
-   - signals tell a process to "do something"
-   - most common: `SIGKILL` (`-9` or `-KILL`): tell it to exit *now*
-     equivalent to `^\`
-   - also `SIGTERM` (`-15` or `-TERM`): tell it to exit gracefully
-     equivalent to `^C`
+ - `ps` သည် သင့်အတွက် အကူအညီ ဖြစ်သည်- Run နေသော Process များကို စာရင်းထုတ်ပေးသည်
+   - `ps -A`: အသုံးပြုသူ အားလုံး၏ Process များကို ပြသသည် (`ps ax` လည်း ရသည်)
+   - `ps` တွင် Argument များ *စွာ* ရှိပါသည်- `man ps` ကို ကြည့်ပါ
+ - `pgrep`: ရှာဖွေခြင်းဖြင့် Process များကို ရှာဖွေပေးသည် (`ps -A | grep` ကဲ့သို့)
+   - `pgrep -af`: Argument များနှင့်တကွ ရှာဖွေပြသသည်
+ - `kill`: Process အား ID ဖြင့် _signal_ ပေးပို့သည် (ရှာဖွေ၍ `-f` ဖြင့် ပေးပို့ရန် `pkill`)
+   - Signal များသည် Process ကို "တစ်ခုခု ပြုလုပ်ရန်" ခိုင်းစေခြင်း ဖြစ်သည်
+   - အသုံးအများဆုံးမှာ: `SIGKILL` (`-9` သို့မဟုတ် `-KILL`): *ချက်ချင်း* Exit လုပ်ရန် ခိုင်းစေသည် (`^\` နှင့် တူညီသည်)
+   - ထို့အပြင် `SIGTERM` (`-15` သို့မဟုတ် `-TERM`): ပုံမှန်အတိုင်း ပြေပြစ်စွာ Exit လုပ်ရန် ခိုင်းစေသည် (`^C` နှင့် တူညီသည်)
 
 
-## Flags
+## Flag များ
 
-Most command line utilities take parameters using **flags**. Flags usually come in short form (`-h`) and long form (`--help`). Usually running `CMD -h` or `man CMD` will give you a list of the flags the program takes.
-Short flags can usually be combined, running `rm -r -f` is equivalent to running `rm -rf` or `rm -fr`.
-Some common flags are a de facto standard and you will seem them in many applications:
+Command line utility အများစုသည် Parameter များကို **flag** များ အသုံးပြု၍ ရယူကြသည်။ Flag များသည် အများအားဖြင့် အတိုပုံစံ (`-h`) နှင့် အရှည်ပုံစံ (`--help`) ဟူ၍ လာလေ့ရှိသည်။ ပုံမှန်အားဖြင့် `CMD -h` သို့မဟုတ် `man CMD` ကို Run ခြင်းက ပရိုဂရမ်က လက်ခံသည့် Flag စာရင်းကို ပေးပါလိမ့်မည်။
+Short flag များကို ပေါင်းစပ်နိုင်လေ့ ရှိသည်၊ `rm -r -f` ကို Run ခြင်းသည် `rm -rf` သို့မဟုတ် `rm -fr` ကို Run ခြင်းနှင့် တူညီပါသည်။
+အသုံးများသော Flag အချို့သည် စံနှုန်းတစ်ခုကဲ့သို့ ဖြစ်နေပြီး Application အများအပြားတွင် ၎င်းတို့ကို တွေ့ရမည် ဖြစ်သည်-
 
-* `-a` commonly refers to all files (i.e. also including those that start with a period)
-* `-f` usually refers to forcing something, like `rm -f`
-* `-h` displays the help for most commands
-* `-v` usually enables a verbose output
-* `-V` usually prints the version of the command
+* `-a` သည် ပုံမှန်အားဖြင့် ဖိုင်အားလုံးကို ညွှန်းဆိုသည် (ဆိုလိုသည်မှာ Dot (.) ဖြင့် စသော ဖိုင်များ ပါဝင်သည်)
+* `-f` သည် ပုံမှန်အားဖြင့် တစ်ခုခုကို အတင်းအကျပ် ပြုလုပ်ခြင်း (Force) ကို ညွှန်းဆိုသည်၊ ဥပမာ `rm -f`
+* `-h` သည် Command အများစုအတွက် အကူအညီ (Help) ကို ပြသပေးသည်
+* `-v` သည် ပုံမှန်အားဖြင့် အသေးစိတ် Output (Verbose) ကို ပေးသည်
+* `-V` သည် ပုံမှန်အားဖြင့် Command ၏ Version ကို ရိုက်နှိပ်ပြသသည်
 
-Also, a double dash `--` is used in built-in commands and many other commands to signify the end of command options, after which only positional parameters are accepted. So if you have a file called `-v` (which you can) and want to grep it `grep pattern -- -v` will work whereas `grep pattern -v` won't. In fact, one way to create such file is to do `touch -- -v`.
+ထို့အပြင် Double dash `--` ကို Built-in command များနှင့် အခြား Command အများအပြားတွင် Command Option များ ပြီးဆုံးကြောင်း ဖော်ပြရန် အသုံးပြုပြီး ယင်းနောက်တွင် Positional parameter များကိုသာ လက်ခံတော့မည် ဖြစ်သည်။ ထို့ကြောင့် သင့်တွင် `-v` အမည်ရှိ ဖိုင်တစ်ခု ရှိပါက (ဖန်တီးနိုင်ပါသည်) ထိုဖိုင်ကို grep လုပ်လိုလျှင် `grep pattern -- -v` က အလုပ်လုပ်မည် ဖြစ်ပြီး `grep pattern -v` က အလုပ်လုပ်မည် မဟုတ်ပါ။ အမှန်တော့ ထိုကဲ့သို့သော ဖိုင်တစ်ခုကို ဖန်တီးသည့် နည်းလမ်းတစ်ခုမှာ `touch -- -v` ပြုလုပ်ခြင်း ဖြစ်ပါသည်။
 
-## Exercises
+## လေ့ကျင့်ခန်းများ
 
-1. If you are completely new to the shell you may want to read a more comprehensive guide about it such as [BashGuide](https://mywiki.wooledge.org/BashGuide). If you want a more in-depth introduction [The Linux Command Line](https://linuxcommand.org/tlcl.php) is a good resource.
+1. သင်သည် Shell ကို လုံးဝ အသစ်စတင် အသုံးပြုသူ ဖြစ်ပါက [BashGuide](https://mywiki.wooledge.org/BashGuide) ကဲ့သို့သော ပိုမို ပြည့်စုံသည့် လမ်းညွှန်ကို ဖတ်ရှုလိုပေလိမ့်မည်။ အကယ်၍ ပိုမို နက်နဲသော မိတ်ဆက်ကို လိုချင်ပါက [The Linux Command Line](https://linuxcommand.org/tlcl.php) သည် အရင်းအမြစ် ကောင်းတစ်ခု ဖြစ်ပါသည်။
 
 1. **PATH, which, type**
 
-    We briefly discussed that the `PATH` environment variable is used to locate the programs that you run through the command line. Let's explore that a little further
-    - Run `echo $PATH` (or `echo $PATH | tr -s ':' '\n'` for pretty printing) and examine its contents, what locations are listed?
-    - The command `which` locates a program in the user PATH. Try running `which` for common commands like `echo`, `ls` or `mv`. Note that `which` is a bit limited since it does not understand shell aliases. Try running `type` and `command -v` for those same commands. How is the output different?
-    - Run `PATH=` and try running the previous commands again, some work and some don't, can you figure out why?
+    Command line မှတစ်ဆင့် Run သည့် ပရိုဂရမ်များကို ရှာဖွေရန် `PATH` environment variable ကို အသုံးပြုကြောင်း အနည်းငယ် ဆွေးနွေးခဲ့ကြပြီး ဖြစ်ပါသည်။ ၎င်းကို အနည်းငယ် ထပ်မံ လေ့လာကြည့်ကြစို့-
+    - `echo $PATH` (သို့မဟုတ် လှပစွာ ပြသရန် `echo $PATH | tr -s ':' '\n'`) ကို Run ပြီး ၎င်း၏ ပါဝင်မှုများကို စစ်ဆေးပါ၊ မည်သည့် တည်နေရာများ စာရင်းပါဝင်သနည်း?
+    - `which` command သည် User PATH အတွင်း၌ ပရိုဂရမ်တစ်ခုကို ရှာဖွေပေးသည်။ `echo`, `ls` သို့မဟုတ် `mv` ကဲ့သို့သော အသုံးများသည့် Command များအတွက် `which` ကို Run ကြည့်ပါ။ `which` သည် Shell alias များကို နားမလည်သောကြောင့် အနည်းငယ် ကန့်သတ်ချက် ရှိသည်ကို သတိပြုပါ၊ ထို Command များအတွက် `type` နှင့် `command -v` များကို Run ကြည့်ပါ။ Output မည်သို့ ကွဲပြားသနည်း?
+    - `PATH=` ကို Run ပြီး ယခင် Command များကို ထပ်မံ Run ကြည့်ပါ၊ အချို့ အလုပ်လုပ်ပြီး အချို့ အလုပ်မလုပ်ပါ၊ ဘာကြောင့်လဲဆိုတာ သင် ရှာဖွေနိုင်ပါသလား?
 
-1. **Special Variables**
-    - What does the variable `~` expands as? What about `.`? And `..`?
-    - What does the variable `$?` do?
-    - What does the variable `$_` do?
-    - What does the variable `!!` expand to? What about `!!*`? And `!l`?
-    - Look for documentation for these options and familiarize yourself with them
+1. **သီးသန့် Variable များ**
+    - `~` variable သည် မည်သို့ ဖြန့်ကားသနည်း? `.` ကော ဘာလဲ? `..` ကော ဘာလဲ?
+    - `$$?` variable က ဘာလုပ်ပေးသနည်း?
+    - `$_` variable က ဘာလုပ်ပေးသနည်း?
+    - `!!` variable သည် မည်သည့်အရာအဖြစ် ဖြန့်ကားသနည်း? `!!*` ကော ဘာလဲ? `!l` ကော ဘာလဲ?
+    - ဤ Option များအတွက် Documentation ကို ရှာဖွေပြီး ရင်းနှီးကျွမ်းဝင်အောင် ပြုလုပ်ပါ
 
 1. **xargs**
 
-    Sometimes piping doesn't quite work because the command being piped into does not expect the newline separated format. For example `file` command tells you properties of the file.
+    အချို့အချိန်များတွင် Pipe ပြုလုပ်ခံရသော Command သည် စာကြောင်းအသစ် (newline) ခွဲထားသည့် Format ကို မျှော်လင့်မထားသောကြောင့် Piping သည် အဆင်မပြေဖြစ်တတ်ပါသည်။ ဥပမာ `file` command သည် ဖိုင်၏ Property များကို ပြသပေးသည်။
 
-    Try running `ls | file` and `ls | xargs file`. What is `xargs` doing?
+    `ls | file` နှင့် `ls | xargs file` တို့ကို Run ကြည့်ပါ။ `xargs` က ဘာလုပ်နေသနည်း?
 
 
 1. **Shebang**
 
-    When you write a script you can specify to your shell what interpreter should be used to interpret the script by using a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line. Write a script called `hello` with the following contentsmake  it executable with `chmod +x hello`. Then execute it with `./hello`. Then remove the first line and execute it again? How is the shell using that first line?
+    Script တစ်ခုကို ရေးသားသည့်အခါ [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) စာကြောင်းကို အသုံးပြု၍ Script ကို အဓိပ္ပာယ်ပြန်ဆိုရန် မည်သည့် Interpreter ကို အသုံးပြုရမည်ကို သင်၏ Shell ထံ သတ်မှတ်ပေးနိုင်ပါသည်။ အောက်ပါ ပါဝင်မှုများဖြင့် `hello` အမည်ရှိ Script တစ်ခုကို ရေးသားပြီး `chmod +x hello` ဖြင့် Execute လုပ်နိုင်အောင် ပြုလုပ်ပါ။ ထို့နောက် `./hello` ဖြင့် Execute လုပ်ပါ။ ထို့နောက် ပထမစာကြောင်းကို ဖျက်ပြီး နောက်တစ်ကြိမ် ထပ်မံ Execute လုပ်ပါ? Shell သည် ထိုပထမစာကြောင်းကို မည်သို့ အသုံးပြုနေသနည်း?
 
 
     ```bash
@@ -287,12 +261,12 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       print("Hello World!")
     ```
 
-    You will often see programs that have a shebang that looks like `#! usr/bin/env bash`. This is a more portable solution with it own set of [advantages and disadvantages](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my). How is `env` different from `which`? What environment variable does `env` use to decide what program to run?
+    `#! usr/bin/env bash` ကဲ့သို့သော Shebang ပါဝင်သည့် ပရိုဂရမ်များကို မကြာခဏ တွေ့ရပါလိမ့်မည်။ ဤသည်မှာ ၎င်း၏ ကိုယ်ပိုင် [အားသာချက်၊ အားနည်းချက်များ](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my) ရှိသည့် ပိုမို Portable ဖြစ်သော ဖြေရှင်းချက် ဖြစ်ပါသည်။ `env` သည် `which` နှင့် မည်သို့ ကွဲပြားသနည်း? မည်သည့် ပရိုဂရမ်ကို Run ရမည်ကို ဆုံးဖြတ်ရန် `env` က မည်သည့် Environment variable ကို အသုံးပြုသနည်း?
 
 
 1. **Pipes, process substitution, subshell**
 
-    Create a script called `slow_seq.sh` with the following contents and do `chmod +x slow_seq.sh` to make it executable.
+    အောက်ပါ ပါဝင်မှုများဖြင့် `slow_seq.sh` အမည်ရှိ Script တစ်ခုကို ဖန်တီးပြီး Execute လုပ်နိုင်ရန် `chmod +x slow_seq.sh` ပြုလုပ်ပါ။
 
     ```bash
       #! /usr/bin/env bash
@@ -303,20 +277,20 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       done
     ```
 
-    There is a way in which pipes (and process substitution) differ from using subshell execution, i.e. `$()`. Run the following commands and observe the differences:
+    Pipe များ (နှင့် Process substitution) သည် Subshell execution သို့မဟုတ် `$()` အသုံးပြုခြင်းနှင့် ကွဲပြားသည့် နည်းလမ်းတစ်ခု ရှိသည်။ အောက်ပါ Command များကို Run ပြီး ကွဲပြားချက်များကို လေ့လာကြည့်ပါ-
 
     - `./slow_seq.sh | grep -P "[3-6]"`
     - `grep -P "[3-6]" <(./slow_seq.sh)`
     - `echo $(./slow_seq.sh) | grep -P "[3-6]"`
 
 
-1. **Misc**
-    - Try running `touch {a,b}{a,b}` then `ls` what did appear?
-    - Sometimes you want to keep STDIN and still pipe it to a file. Try running `echo HELLO | tee hello.txt`
-    - Try running `cat hello.txt > hello.txt ` what do you expect to happen? What does happen?
-    - Run `echo HELLO > hello.txt` and then run `echo WORLD >> hello.txt`. What are the contents of `hello.txt`? How is `>` different from `>>`?
-    - Run `printf "\e[38;5;81mfoo\e[0m\n"`. How was the output different? If you want to know more, search for ANSI color escape sequences.
-    - Run `touch a.txt` then run `^txt^log` what did bash do for you? In the same vein, run `fc`. What does it do?
+1. **အထွေထွေ (Misc)**
+    - `touch {a,b}{a,b}` ပြီးလျှင် `ls` ကို Run ကြည့်ပါ၊ ဘာပေါ်လာသနည်း?
+    - အချို့အချိန်များတွင် STDIN ကို ထိန်းသိမ်းထားပြီး ဖိုင်တစ်ခုသို့ Pipe ပို့လိုကြသည်။ `echo HELLO | tee hello.txt` ကို Run ကြည့်ပါ
+    - `cat hello.txt > hello.txt ` ကို Run ကြည့်ပါ၊ ဘာဖြစ်လာမည်ဟု မျှော်လင့်သနည်း? အမှန်တကယ် ဘာဖြစ်သွားသနည်း?
+    - `echo HELLO > hello.txt` ကို Run ပြီး ထို့နောက် `echo WORLD >> hello.txt` ကို Run ပါ။ `hello.txt` ၏ ပါဝင်မှုများမှာ မည်သည်တို့ ဖြစ်သနည်း? `>` သည် `>>` နှင့် မည်သို့ ကွဲပြားသနည်း?
+    - `printf "\e[38;5;81mfoo\e[0m\n"` ကို Run ပါ။ Output မည်သို့ ကွဲပြားသွားသနည်း? ပိုမို သိရှိလိုပါက ANSI color escape sequences ကို ရှာဖွေပါ။
+    - `touch a.txt` ကို Run ပြီး ထို့နောက် `^txt^log` ကို Run ပါ၊ bash က သင့်အတွက် ဘာလုပ်ပေးခဲ့သနည်း? ထိုနည်းတူစွာ `fc` ကို Run ကြည့်ပါ၊ ၎င်းက ဘာလုပ်ပေးသနည်း?
 
 {% comment %}
 
@@ -328,12 +302,12 @@ TODO
 
 {% endcomment %}
 
-1. **Keyboard shortcuts**
+1. **Keyboard shortcut များ**
 
-    As with any application you use frequently is worth familiarising yourself with its keyboard shortcuts. Type the following ones and try figuring out what they do and in what scenarios it might be convenient knowing about them. For some of them it might be easier searching online about what they do. (remember that `^X` means pressing `Ctrl+X`)
+    မကြာခဏ အသုံးပြုသည့် အခြား Application များကဲ့သို့ပင် Keyboard shortcut များနှင့် ရင်းနှီးအောင် ပြုလုပ်ထားခြင်းသည် အကျိုးရှိလှပါသည်။ အောက်ပါ အရာများကို ရိုက်ထည့်ကြည့်ပြီး ၎င်းတို့ မည်သို့ အလုပ်လုပ်သည်၊ မည်သည့် အခြေအနေများတွင် ၎င်းတို့အကြောင်း သိထားလျှင် အဆင်ပြေနိုင်မည်ကို ရှာဖွေကြည့်ပါ။ အချို့အတွက် အွန်လိုင်းတွင် ရှာဖွေခြင်းက ပိုမို လွယ်ကူနိုင်ပါသည်။ (`^X` ဆိုသည်မှာ `Ctrl+X` ကို နှိပ်ခြင်း ဖြစ်သည်ကို သတိရပါ)
 
     - `^A`, `^E`
     - `^R`
     - `^L`
-    - `^C`, `^\` and  `^D`
-    - `^U` and `^Y`
+    - `^C`, `^\` နှင့် `^D`
+    - `^U` နှင့် `^Y`

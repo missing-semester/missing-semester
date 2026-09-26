@@ -10,112 +10,47 @@ video:
 special: true
 ---
 
-Sometimes, computers misbehave. And very often, you want to know why.
-Let's look at some tools that help you do that!
+တစ်ခါတစ်ရံတွင် ကွန်ပျူတာများသည် ပုံမှန်မဟုတ်ဘဲ အမှားအယွင်းများ ဖြစ်ပေါ်တတ်သည်။ ထိုအခါ ဘာကြောင့် ထိုသို့ဖြစ်ရသည်ကို သင်သိရှိလိုပေမည်။
+ထိုသို့ စစ်ဆေးရာတွင် ကူညီပေးနိုင်သည့် တူးလ် (tool) အချို့ကို လေ့လာကြည့်ကြပါစို့။
 
-But first, let's make sure you're able to do introspection. Often,
-system introspection requires that you have certain privileges, like
-being the member of a group (like `power` for shutdown). The `root` user
-has the ultimate privilege; they can do pretty much anything. You can run
-a command as `root` (but be careful!) using `sudo`.
+ဒါပေမဲ့ ပထမဦးစွာ သင်သည် စက်၏ အတွင်းပိုင်း စစ်ဆေးမှု (introspection) ကို ပြုလုပ်နိုင်စွမ်း ရှိမရှိ သေချာအောင် လုပ်ဆောင်ရန် လိုအပ်ပါသည်။ အများအားဖြင့် စနစ်၏ အတွင်းပိုင်းကို စစ်ဆေးရန်အတွက် စနစ် ပိတ်ခြင်း (shutdown) အတွက် `power` group အဖွဲ့ဝင် ဖြစ်ရခြင်းကဲ့သို့သော သီးခြား လုပ်ပိုင်ခွင့် (privileges) များ ရှိရန် လိုအပ်ပါသည်။ `root` အသုံးပြုသူ (user) သည် အမြင့်ဆုံး လုပ်ပိုင်ခွင့် ရှိသူဖြစ်ပြီး မည်သည့်အရာကိုမဆို နီးပါး လုပ်ဆောင်နိုင်ပါသည်။ သင်သည် command တစ်ခုကို `sudo` အသုံးပြု၍ `root` အဖြစ် သွားရောက် လုပ်ဆောင်နိုင်ပါသည် (သို့သော် သတိထားရန် လိုအပ်ပါသည်။)
 
-## What happened?
+## ဘာတွေ ဖြစ်ပျက်ခဲ့သလဲ။
 
-If something goes wrong, the first place to start is to look at what
-happened around the time when things went wrong. For this, we need to
-look at logs.
+တစ်ခုခု အမှားအယွင်း ဖြစ်သွားပါက ပထမဦးစွာ စတင်ကြည့်ရှုရမည့် နေရာမှာ အမှား ဖြစ်ပွားခဲ့သည့် အချိန်ဝန်းကျင်တွင် ဘာတွေ ဖြစ်ပျက်ခဲ့သလဲ ဆိုသည်ပင် ဖြစ်သည်။ ၎င်းအတွက် ကျွန်ုပ်တို့သည် လော့ဂ် (log) များကို ကြည့်ရှုရန် လိုအပ်ပါသည်။
 
-Traditionally, logs were all stored in `/var/log`, and many still are.
-Usually there's a file or folder per program. Use `grep` or `less` to
-find your way through them.
+ရှေးယခင်က လော့ဂ် (log) များကို `/var/log` ထဲတွင် သိမ်းဆည်းခဲ့ကြပြီး ယခုထက်ထိလည်း များစွာသော လော့ဂ်များကို ထိုနေရာ၌ပင် သိမ်းဆည်းထားဆဲ ဖြစ်သည်။ ပုံမှန်အားဖြင့် ပရိုဂရမ် တစ်ခုစီအတွက် ဖိုင် သို့မဟုတ် ဖိုဒါ တစ်ခုစီ ရှိတတ်သည်။ ၎င်းတို့ကို ရှာဖွေစစ်ဆေးရန် `grep` သို့မဟုတ် `less` ကို အသုံးပြုပါ။
 
-There's also a kernel log that you can see using the `dmesg` command.
-This used to be available as a plain-text file, but nowadays you often
-have to go through `dmesg` to get at it.
+`dmesg` command ကို အသုံးပြု၍ ကြည့်ရှုနိုင်သော ကာနယ် လော့ဂ် (kernel log) လည်း ရှိပါသည်။ ယခင်က ၎င်းကို plain-text ဖိုင်အဖြစ် ရယူနိုင်ခဲ့သော်လည်း ယခုအခါတွင်မူ ၎င်းကို ကြည့်ရှုနိုင်ရန် `dmesg` မှတစ်ဆင့် သွားရောက်ရလေ့ ရှိသည်။
 
-Finally, there is the "system log", which is increasingly where all of
-your log messages go. On _most_, though not all, Linux systems, that log
-is managed by `systemd`, the "system daemon", which controls all the
-services that run in the background (and much much more at this point).
-That log is accessible through the somewhat inconvenient `journalctl`
-tool if you are root, or part of the `admin` or `wheel` groups.
+နောက်ဆုံးအနေဖြင့် သင်၏ log မက်ဆေ့ဂျ်များ အားလုံး အဓိက သွားရောက် စုစည်းသည့် "system log" ရှိပါသည်။ Linux စနစ် အားလုံးမဟုတ်သော်လည်း _အများစု_ တွင် ထို log ကို နောက်ကွယ်၌ ရန်း (run) နေသော ဝန်ဆောင်မှု (service) များအားလုံးကို ထိန်းချုပ်ပေးသည့် "system daemon" ဖြစ်သော `systemd` က စီမံခန့်ခွဲပေးပါသည် (ယခုအခါ နောက်ထပ် များစွာသော အရာများကိုပါ ထိန်းချုပ်ပေးထားပါသည်)။ သင်သည် root ဖြစ်ပါက သို့မဟုတ် `admin` သို့မဟုတ် `wheel` group များ၏ အဖွဲ့ဝင် ဖြစ်ပါက ထို log ကို အနည်းငယ် သုံးရခက်သော `journalctl` tool မှတစ်ဆင့် ရယူကြည့်ရှုနိုင်ပါသည်။
 
-For `journalctl`, you should be aware of these flags in particular:
+`journalctl` အတွက် အထူးသဖြင့် အောက်ပါ flag များကို သိရှိထားသင့်ပါသည်-
 
- - `-u UNIT`: show only messages related to the given systemd service
- - `--full`: don't truncate long lines (the stupidest feature)
- - `-b`: only show messages from the latest boot (see also `-b -2`)
- - `-n100`: only show last 100 entries
+ - `-u UNIT`: ပေးထားသော systemd service နှင့် သက်ဆိုင်သည့် မက်ဆေ့ဂျ်များကိုပဲ ဖော်ပြမည်
+ - `--full`: စာကြောင်းရှည်များကို ဖြတ်မပစ်ဘဲ (don't truncate) အပြည့်အစုံ ဖော်ပြမည်
+ - `-b`: နောက်ဆုံး စက်ပွင့်ခဲ့သည့်အချိန် (latest boot) မှ မက်ဆေ့ဂျ်များကိုသာ ဖော်ပြမည် (`-b -2` ကိုလည်း ကြည့်ပါ)
+ - `-n100`: နောက်ဆုံး ပါဝင်သော entry ၁၀၀ ကိုသာ ဖော်ပြမည်
 
-## What is happening?
+## လက်ရှိ ဘာတွေ ဖြစ်ပျက်နေသလဲ။
 
-If something _is_ wrong, or you just want to get a feel for what's going
-on in your system, you have a number of tools at your disposal for
-inspecting the currently running system:
+တစ်ခုခု အမှားဖြစ်နေခဲ့လျှင် သို့မဟုတ် သင့်စနစ်တွင် လက်ရှိ ဘာတွေဖြစ်ပျက်နေသည်ကို သိရှိလိုရုံမျှဆိုလျှင် လက်ရှိ ရန်းနေသော စနစ်ကို စစ်ဆေးနိုင်သည့် တူးလ်အမြောက်အမြား ရှိပါသည်။
 
-First, there's `top`, and the improved version `htop`, which show you
-various statistics for the currently running processes on the system.
-CPU use, memory use, process trees, etc. There are lots of shortcuts,
-but `t` is particularly useful for enabling the tree view. You can also
-see the process tree with `pstree` (+ `-p` to include PIDs). If you want
-to know what those programs are doing, you'll often want to tail their
-log files. `journalctl -f`, `dmesg -w`, and `tail -f` are you friends
-here.
+ပထမဦးစွာ သင့်စနစ်တွင် လက်ရှိ ရန်းနေသော ပရိုဆက်စ် (process) များ၏ စာရင်းဇယား အချက်အလက် (statistics) မျိုးစုံကို ပြသပေးသည့် `top` နှင့် ပိုမိုကောင်းမွန်အောင် ပြုလုပ်ထားသော `htop` တူးလ်များ ရှိပါသည်။ CPU အသုံးပြုမှု၊ memory အသုံးပြုမှု၊ process tree စသည်တို့ကို ပြသပေးသည်။ လမ်းဖြတ်ခလုတ် (shortcut) များစွာ ရှိသည့်အနက် `t` ခလုတ်သည် tree view ဖြင့် ကြည့်ရှုနိုင်ရန် အထူးပင် အသုံးဝင်ပါသည်။ Process tree ကို `pstree` (`+ -p` ထည့်သွင်းပါက PID များကိုပါ ပြသမည်) ဖြင့်လည်း ကြည့်ရှုနိုင်ပါသည်။ ထိုပရိုဂရမ်များ ဘာလုပ်နေသည်ကို သိရှိလိုပါက ၎င်းတို့၏ log ဖိုင်များကို တိုက်ရိုက် ကြည့်ရှု (tail) လေ့ရှိကြသည်။ ၎င်းအတွက် `journalctl -f`၊ `dmesg -w` နှင့် `tail -f` တို့သည် သင့်အတွက် အလွန် အသုံးဝင်ပါလိမ့်မည်။
 
-Sometimes, you want to know more about the resources being used overall
-on your system. [`dool`](https://github.com/scottchiefbaker/dool) is
-excellent for that. It gives you real-time resource metrics for lots of
-different subsystems like I/O, networking, CPU utilization, context
-switches, and the like. `man dool` is the place to start.
+တစ်ခါတစ်ရံတွင် သင့်စနစ်၌ စုစုပေါင်း အသုံးပြုနေသော ရင်းမြစ် (resource) များနှင့် ပတ်သက်၍ ပိုမို အသေးစိတ် သိရှိလိုပေမည်။ [`dool`](https://github.com/scottchiefbaker/dool) သည် အထူးပင် ကောင်းမွန်ပါသည်။ ၎င်းသည် I/O၊ networking၊ CPU အသုံးပြုမှု၊ context switch စသည့် သီးခြား စနစ်ခွဲ (subsystem) မျိုးစုံ၏ တိုက်ရိုက် ရင်းမြစ် တိုင်းတာချက်များ (real-time resource metrics) ကို ပြသပေးပါသည်။ `man dool` ကို စတင် လေ့လာနိုင်ပါသည်။
 
-If you're running out of disk space, there are two primary utilities
-you'll want to know about: `df` and `du`. The former shows you the
-status of all the partitions on your system (try it with `-h`), whereas
-the latter measures the size of all the folders you give it, including
-their contents (see also `-h` and `-s`).
+ဒစ်ခ်နေရာလွတ် (disk space) ကုန်သွားပါက သိရှိထားသင့်သည့် အဓိက တူးလ် (utility) နှစ်ခု ရှိပါသည်- `df` နှင့် `du` တို့ ဖြစ်ကြသည်။ `df` သည် သင့်စနစ်ရှိ partition များအားလုံး၏ အခြေအနေကို ပြသပေးပြီး (`-h` ထည့်သွင်း၍ စမ်းသပ်ကြည့်ပါ)၊ `du` သည်မူ သင်ပေးလိုက်သော ဖိုဒါများ (၎င်းတို့၏ ပါဝင်သည့် အကြောင်းအရာများ အပါအဝင်) ၏ အရွယ်အစားကို တိုင်းတာပေးပါသည် (`-h` နှင့် `-s` တို့ကိုလည်း ကြည့်ပါ)။
 
-To figure out what network connections you have open, `ss` is the way to
-go. `ss -t` will show all open TCP connections. `ss -tl` will show all
-listening (i.e., server) ports on your system. `-p` will also include
-which process is using that connection, and `-n` will give you the raw
-port numbers.
+မည်သည့် ကွန်ရက် ချိတ်ဆက်မှု (network connection) များ ပွင့်နေသည်ကို ရှာဖွေကြည့်ရှုရန် `ss` ကို အသုံးပြုနိုင်ပါသည်။ `ss -t` သည် ပွင့်နေသော TCP ချိတ်ဆက်မှု အားလုံးကို ပြသပေးမည် ဖြစ်ပြီး၊ `ss -tl` သည် သင့်စနစ်တွင် နားထောင်နေသော (ဆိုလိုသည်မှာ စာဗာအဖြစ် အလုပ်လုပ်နေသော) Port (port) အားလုံးကို ပြသပေးမည် ဖြစ်သည်။ `-p` ထည့်သွင်းပါက ထိုချိတ်ဆက်မှုကို မည်သည့် process က အသုံးပြုနေသည်ကိုပါ ပြသပေးမည်ဖြစ်ပြီး `-n` ကမူ မူရင်း port နံပါတ်များကို သီးသန့် ပြသပေးမည် ဖြစ်ပါသည်။
 
 
-## System configuration
+## စနစ် စီမံပြင်ဆင်ခြင်း (System configuration)
 
-There are _many_ ways to configure your system, but we'll go through
-two very common ones: networking and services. Most applications on your
-system tell you how to configure them in their manpage, and usually it
-will involve editing files in `/etc`; the system configuration
-directory.
+သင့်စနစ်ကို စီမံပြင်ဆင်ရန် (configure) နည်းလမ်း _များစွာ_ ရှိသော်လည်း ကျွန်ုပ်တို့သည် အလွန်အသုံးများသော နည်းလမ်း နှစ်ခုဖြစ်သည့် ကွန်ရက် (networking) နှင့် ဝန်ဆောင်မှုများ (services) အကြောင်းကို လေ့လာသွားပါမည်။ သင့်စနစ်ရှိ အပလီကေးရှင်း Manual page (man page) များတွင် ၎င်းတို့ကို မည်သို့ ပြင်ဆင်ရမည်ကို ဖော်ပြထားလေ့ရှိပြီး ပုံမှန်အားဖြင့် စနစ် စီမံပြင်ဆင်မှု ဖိုဒါဖြစ်သော `/etc` ထဲရှိ ဖိုင်များကို ပြင်ဆင်ခြင်း ပါဝင်ပါသည်။
 
-If you want to configure your network, the `ip` command lets you do
-that. Its arguments take on a slightly weird form, but `ip help command`
-will get you pretty far. `ip addr` shows you information about your
-network interfaces and how they're configured (IP addresses and such),
-and `ip route` shows you how network traffic is routed to different
-network hosts. Network problems can often be resolved purely through the
-`ip` tool. There's also `iw` for managing wireless network interfaces.
-`ping` is a handy tool for checking how deeply things are broken. Try
-pinging a hostname (google.com), an external IP address (1.1.1.1), and
-an internal IP address (192.168.1.1 or default gw). You may also want to
-fiddle with `/etc/resolv.conf` to check your DNS settings (how hostnames
-are resolved to IP addresses).
+သင်၏ ကွန်ရက်ကို ပြင်ဆင်လိုပါက `ip` command ဖြင့် ပြုလုပ်နိုင်ပါသည်။ ၎င်း၏ အာဂူးမန့် (argument) များသည် အနည်းငယ် ဆန်းကြယ်သော ပုံစံရှိသော်လည်း `ip help command` သည် သင့်အား များစွာ ကူညီပေးနိုင်ပါသည်။ `ip addr` သည် သင်၏ network interface များနှင့် ၎င်းတို့ကို မည်သို့ ပြင်ဆင်ထားကြောင်း (IP address များ စသဖြင့်) သတင်းအချက်အလက်ကို ပြသပေးပြီး `ip route` ကမူ ကွန်ရက် အချက်အလက်များ (network traffic) ကို မတူညီသော ကွန်ရက် ဟို့စ် (network host) များထံ မည်သို့ လမ်းကြောင်းလွှဲထားကြောင်း ပြသပေးသည်။ ကွန်ရက် ပြဿနာများကို `ip` တူးလ် သီးသန့်ဖြင့်ပင် ဖြေရှင်းနိုင်လေ့ ရှိသည်။ ကြိုးမဲ့ ကွန်ရက် (wireless network) စီမံခန့်ခွဲရန်အတွက် `iw` လည်း ရှိပါသည်။ `ping` သည် မည်မျှအထိ အမှားအယွင်း ဖြစ်နေကြောင်း စစ်ဆေးရန် အလွန် အသုံးဝင်သော တူးလ်တစ်ခု ဖြစ်သည်။ Hostname တစ်ခု (google.com)၊ ပြင်ပ IP address တစ်ခု (1.1.1.1) နှင့် အတွင်းပိုင်း IP address တစ်ခု (192.168.1.1 သို့မဟုတ် default gateway) တို့ကို ping လုပ်ကြည့်ပါ။ သင့် DNS ဆက်တင်များ (hostname များကို IP address အဖြစ် ပြောင်းလဲခြင်း) ကို စစ်ဆေးရန် `/etc/resolv.conf` ကိုလည်း ဝင်ရောက် စစ်ဆေး ပြင်ဆင်နိုင်ပါသည်။
 
-To configure services, you pretty much have to interact with `systemd`
-these days, for better or for worse. Most services on your system will
-have a systemd service file that defines a systemd _unit_. These files
-define what command to run when that services is started, how to stop
-it, where to log things, etc. They're usually not too bad to read, and
-you can find most of them in `/usr/lib/systemd/system/`. You can also
-define your own in `/etc/systemd/system` .
+ဝန်ဆောင်မှုများကို ပြင်ဆင်ရန်အတွက် ယခုအခါ ကောင်းသည်ဖြစ်စေ၊ ဆိုးသည်ဖြစ်စေ `systemd` နှင့် ထိတွေ့ ဆက်ဆံရမည် ဖြစ်သည်။ သင့်စနစ်ရှိ ဝန်ဆောင်မှု အများစုတွင် systemd _unit_ တစ်ခုကို သတ်မှတ်ပေးသည့် systemd service ဖိုင်တစ်ဖိုင် ရှိတတ်ကြသည်။ ထိုဖိုင်များသည် ဝန်ဆောင်မှုကို စတင်ချိန်တွင် မည်သည့် command ကို ရန်းရမည်၊ မည်သို့ ရပ်တန့်ရမည်၊ လော့ဂ်များကို မည်သည့်နေရာတွင် သိမ်းဆည်းရမည် စသည်တို့ကို သတ်မှတ်ပေးသည်။ ၎င်းတို့ကို ဖတ်ရှုရသည်မှာ ခက်ခဲလေ့မရှိဘဲ အများစုကို `/usr/lib/systemd/system/` တွင် တွေ့ရှိနိုင်ပါသည်။ မိမိပိုင် ဖိုင်များကိုမူ `/etc/systemd/system` တွင် သတ်မှတ်နိုင်ပါသည်။
 
-Once you have a systemd service in mind, you use the `systemctl` command
-to interact with it. `systemctl enable UNIT` will set the service to
-start on boot (`disable` removes it again), and `start`, `stop`, and
-`restart` will do what you expect. If something goes wrong, systemd will
-let you know, and you can use `journalctl -u UNIT` to see the
-application's log. You can also use `systemctl status` to see how all
-your system services are doing. If your boot feels slow, it's probably
-due to a couple of slow services, and you can use `systemd-analyze` (try
-it with `blame`) to figure out which ones.
+သင် စီမံလိုသည့် systemd service ကို သတ်မှတ်ပြီးပါက ၎င်းကို ထိန်းချုပ်ရန် `systemctl` command ကို အသုံးပြုနိုင်ပါသည်။ `systemctl enable UNIT` သည် ထို service ကို စက်စတင်ပွင့်ချိန် (boot) တွင် ရန်းရန် ပြင်ဆင်ပေးမည် ဖြစ်ပြီး (`disable` က ပြန်လည် ဖယ်ရှားပေးပါမည်)၊ `start`၊ `stop` နှင့် `restart` တို့သည်လည်း မျှော်လင့်ထားသည့်အတိုင်း အလုပ်လုပ်မည် ဖြစ်သည်။ တစ်ခုခု အမှားအယွင်း ဖြစ်ပါက systemd က အသိပေးမည်ဖြစ်ပြီး ၎င်းအပလီကေးရှင်း၏ log ကို ကြည့်ရန် `journalctl -u UNIT` ကို အသုံးပြုနိုင်ပါသည်။ သင့်စနစ်၏ ဝန်ဆောင်မှုများ မည်သို့ အလုပ်လုပ်နေသည်ကို ကြည့်ရန် `systemctl status` ကိုလည်း အသုံးပြုနိုင်ပါသည်။ စက်စတင်ပွင့်ချိန် (boot) အချိန်ကြာမြင့်နေပါက ၎င်းသည် နှေးကွေးနေသော ဝန်ဆောင်မှု အချို့ကြောင့် ဖြစ်နိုင်ပြီး မည်သည့် ဝန်ဆောင်မှုများဖြစ်သည်ကို ရှာဖွေရန် `systemd-analyze` (`blame` ဖြင့် စမ်းသပ်ကြည့်ပါ) ကို အသုံးပြုနိုင်ပါသည်။

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Past Offerings
+title: "Past Offerings"
 description: >
-  Find all past offerings of Missing Semester.
+  Missing Semester ၏ ယခင် သင်ခန်းစာများ အားလုံးကို ရှာဖွေပါ။
 ---
 
 {% comment %} pop to remove default "posts" collection {% endcomment %}
@@ -13,4 +13,4 @@ description: >
 {% endfor %}
 </ul>
 
-Each year's lectures are fully self-contained. We recommend starting with the most recent version of the material. There is variation in the topics covered year to year, so we continue to host notes and videos for earlier versions of this course.
+နှစ်စဉ် သင်ခန်းစာများသည် သီးခြားစီ လေ့လာနိုင်သော ခေါင်းစဉ်များ ဖြစ်ကြပါသည်။ အသစ်ဆုံး မူကွဲမှ စတင်ရန် အကြံပြုပါသည်။ နှစ်အလိုက် သင်ခန်းစာ ခေါင်းစဉ်များ ကွဲပြားနိုင်သဖြင့် ယခင် မူကွဲများ၏ မှတ်တမ်းများနှင့် ဗီဒီယိုများကို ဆက်လက် လွှင့်တင်ထားပါသည်။

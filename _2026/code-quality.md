@@ -2,7 +2,7 @@
 layout: lecture
 title: "Code Quality"
 description: >
-  Learn about formatting, linting, testing, continuous integration, and more.
+  Formatting၊ linting၊ testing၊ continuous integration နှင့် အခြား အကြောင်းအရာများ အကြောင်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2026/lec9.png
 date: 2026-01-23
 ready: true
@@ -11,7 +11,7 @@ video:
   id: XBiLUNx84CQ
 ---
 
-There are a variety of tools and techniques that support developers in writing high-quality code. In this lecture, we'll cover:
+Developer များ အရည်အသွေးမြင့် ကုဒ်များ ရေးသားနိုင်ရန် ကူညီပေးသည့် tool များနှင့် နည်းလမ်းများစွာ ရှိပါသည်။ ဤသင်ခန်းစာတွင် အောက်ပါတို့ အကြောင်းကို လွှမ်းခြုံ ဖော်ပြသွားပါမည် -
 
 - [Formatting](#formatting)
 - [Linting](#linting)
@@ -20,29 +20,29 @@ There are a variety of tools and techniques that support developers in writing h
 - [Continuous integration](#continuous-integration)
 - [Command runners](#command-runners)
 
-As a bonus topic, we'll also cover [regular expressions](#regular-expressions), a cross-cutting topic that has applications in code quality (e.g., for running a subset of tests that match a pattern) as well as other domains like IDEs (e.g., for search and replace).
+အပိုဆောင်း ခေါင်းစဉ်တစ်ခု အနေဖြင့် [regular expressions](#regular-expressions) (regex) အကြောင်းကိုလည်း လွှမ်းခြုံ ဖော်ပြသွားပါမည်။ regex သည် ကုဒ် အရည်အသွေး ထိန်းသိမ်းရာတွင် (ဥပမာ - pattern တစ်ခုနှင့် ကိုက်ညီသော test အစိတ်အပိုင်းများကို ရွေးချယ် စိစစ် run ရာတွင်) သာမက IDE များကဲ့သို့ အခြားသော နယ်ပယ်များတွင်ပါ (ဥပမာ - ရှာဖွေပြီး အစားထိုးရာတွင်) ကျယ်ပြန့်စွာ အသုံးပြုနိုင်သည့် နည်းပညာတစ်ခု ဖြစ်ပါသည်။
 
-Many of these tools will be language-specific (e.g., the [Ruff](https://docs.astral.sh/ruff/) linter/formatter for Python). In some cases, tools will support multiple languages (e.g., the [Prettier](https://prettier.io/) code formatter). The concepts, however, are near universal --- you can find code formatters, linters, testing libraries, and so on for any programming language.
+ဤ tool အများစုသည် သက်ဆိုင်ရာ programming language အလိုက် သီးခြား ဖြစ်ကြပါလိမ့်မည် (ဥပမာ - Python အတွက် [Ruff](https://docs.astral.sh/ruff/) linter/formatter)။ အချို့သော သာဓကများတွင်မူ tool များသည် language အများအပြားကို ပံ့ပိုးပေးနိုင်ပါသည် (ဥပမာ - [Prettier](https://prettier.io/) code formatter)။ သို့သော်လည်း သဘောတရားများမှာမူ နေရာတိုင်းလိုလိုတွင် အတူတူပင် ဖြစ်ပါသည် --- မည်သည့် programming language အတွက်မဆို code formatter များ၊ linter များ၊ testing library များနှင့် အခြား tool များကို ရှာဖွေ ရရှိနိုင်ပါသည်။
 
 # Formatting
 
-Code auto-formatters automatically prettify surface syntax. This way, you can focus on the more deep and challenging problems, while the auto-formatting tool handles mundane details such as consistency of `'` versus `"` syntax for strings, having spaces surrounding binary operators (`x + y` instead of `x+y`), having `import` statements in sorted order, and avoiding over-length lines. One major benefit of code formatters is that they standardize code style across all developers working on a codebase.
+Code auto-formatter များသည် စာသားဆိုင်ရာ syntax များ၏ ရူပသွင်ပြင်ကို အလိုအလျောက် သပ်ရပ်လှပစေပါသည်။ ဤနည်းဖြင့် auto-formatting tool က string များအတွက် `'` သို့မဟုတ် `"` စာလုံး ပုံစံ ညီညွတ်မှု၊ binary operator များ၏ ဘေးတွင် space ခြားခြင်း (`x+y` အစား `x + y`)၊ `import` statement များကို အစဉ်လိုက် စီစဉ်ထားခြင်း နှင့် လိုင်းအရှည် လွန်ကဲမှုကို ရှောင်လွှဲခြင်း ကဲ့သို့သော အသေးစိတ် ကိစ္စရပ်များကို အလိုအလျောက် ကိုင်တွယ်ပေးနေစဉ် သင်သည် ပိုမို နက်နဲပြီး စိန်ခေါ်မှု ရှိသော ပြဿနာများကိုသာ အာရုံစိုက်နိုင်မည် ဖြစ်ပါသည်။ code formatter များ၏ အဓိက အကျိုးကျေးဇူး တစ်ခုမှာ codebase တစ်ခုပေါ်တွင် လုပ်ဆောင်နေကြသော Developer အားလုံး၏ ကုဒ်စတိုင်လ်ကို စံနှုန်းတစ်ခုတည်း ဖြစ်အောင် ညှိပေးနိုင်ခြင်း ဖြစ်ပါသည်။
 
-Some tools such as Prettier are [highly configurable](https://prettier.io/docs/configuration); you should check in the configuration file into [version control](/2026/version-control/) for your project. Other tools, such as [Black](https://github.com/psf/black) and [gofmt](https://pkg.go.dev/cmd/gofmt) have limited or no configurability, to reduce [bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality).
+Prettier ကဲ့သို့သော tool အချို့သည် [စိတ်ကြိုက် ပြင်ဆင်ရန် စက်ဝန်း ကျယ်ပြန့်ပါသည်](https://prettier.io/docs/configuration); မိမိ ပရောဂျက်၏ configuration file ကို [version control](/2026/version-control/) ထဲသို့ ရောက်အောင် check in ပြုလုပ်ထားသင့်ပါသည်။ [Black](https://github.com/psf/black) နှင့် [gofmt](https://pkg.go.dev/cmd/gofmt) ကဲ့သို့သော အခြား tool များတွင်မူ မလိုအပ်ဘဲ အသေးအဖွဲ ကိစ္စများဖြင့် ငြင်းခုံနေခြင်း ([bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality)) ကို လျှော့ချရန်အတွက် စိတ်ကြိုက် ပြင်ဆင်နိုင်စွမ်းကို အကန့်အသတ်ဖြင့်သာ ပေးထားသည် သို့မဟုတ် လုံးဝ ပေးမထားပါ။
 
-You can set up [IDE integration](/2026/development-environment/#code-intelligence-and-language-servers) with your code formatter, so that your code will be auto-formatted as you type or when you save a file. You can also add an [EditorConfig](https://editorconfig.org/) file to your project, which communicates to your IDE certain project-level settings like indent size for each file type.
+သင့်ကုဒ်ကို စာရိုက်နေစဉ် သို့မဟုတ် ဖိုင်ကို သိမ်းဆည်းသည့်အခါ auto-format ပြုလုပ်ပေးနိုင်ရန် code formatter ကို [IDE integration](/2026/development-environment/#code-intelligence-and-language-servers) တွင် ထည့်သွင်း သတ်မှတ်ထားနိုင်ပါသည်။ ဖိုင်အမျိုးအစား အသီးသီးအတွက် indent size ကဲ့သို့သော ပရောဂျက်အဆင့် setting များကို မိမိ၏ IDE သို့ အကြောင်းကြားပေးသည့် [EditorConfig](https://editorconfig.org/) ဖိုင်တစ်ခုကိုလည်း မိမိပရောဂျက်တွင် ထည့်သွင်းထားနိုင်ပါသည်။
 
 # Linting
 
-Linters run static analysis (analyze your code without running it) to find antipatterns and potential issues in your code. These tools go deeper than autoformatters, looking beyond surface syntax. The depth of analysis varies by tool.
+Linter များသည် သင့်ကုဒ်ကို run စရာ မလိုဘဲ စစ်ဆေးသည့် static analysis စနစ်ကို အသုံးပြု၍ ကုဒ်အတွင်းရှိ antipattern များနှင့် ဖြစ်လာနိုင်ဖွယ်ရှိသော ပြဿနာများကို ရှာဖွေပေးပါသည်။ ဤ tool များသည် ရိုးရိုး syntax လောက်သာ မဟုတ်ဘဲ autoformatter များထက် ပိုမို နက်နဲစွာ စစ်ဆေးပေးပါသည်။ စစ်ဆေးမှု၏ နက်နဲမှုမှာမူ tool အလိုက် ကွဲပြားမှု ရှိပါသည်။
 
-Linters come equipped with lists of _rules_, with presets that can be configured on a project-level basis. Some linter rules produce false positives, so you can disable them on a per-file or per-line basis.
+Linter များတွင် စည်းမျဉ်းများ (_rules_) စာရင်း ပါဝင်ပြီး ပရောဂျက်အဆင့်အလိုက် စိတ်ကြိုက် ပြင်ဆင်နိုင်သော preset များ ပါဝင်ပါသည်။ အချို့သော linter rule များသည် false positive (မှားယွင်း အချက်ပေးခြင်း) များကို ဖြစ်ပေါ်စေနိုင်သဖြင့် ယင်းတို့ကို ဖိုင်တစ်ခုချင်းစီအလိုက် သို့မဟုတ် လိုင်းတစ်ခုချင်းစီအလိုက် disable လုပ်ထားနိုင်ပါသည်။
 
-Good linters will have built-in help or documentation that explains each linter rule --- what the rule is looking for, why it's bad, and what's a better alternative for the code pattern. For example, see the documentation for the [SIM102](https://docs.astral.sh/ruff/rules/collapsible-if/) rule in [Ruff](https://docs.astral.sh/ruff/) which catches unnecessarily nested `if` statements in Python code.
+ကောင်းမွန်သော linter များတွင် linter rule တစ်ခုချင်းစီ၏ သဘောတရား --- ထို rule က မည်သည့်အရာကို ရှာဖွေနေသနည်း၊ အဘယ်ကြောင့် မကောင်းသနည်း၊ ထို ကုဒ် pattern အတွက် ပိုမို ကောင်းမွန်သည့် အခြား ရွေးချယ်စရာမှာ မည်သည့်အရာ ဖြစ်သနည်း စသည်တို့ကို ရှင်းပြထားသည့် Documentation သို့မဟုတ် အကူအညီများ built-in ပါရှိပါသည်။ ဥပမာအားဖြင့် Python ကုဒ်တွင် မလိုအပ်ဘဲ ထပ်နေသော `if` statement များကို ဖမ်းထုတ်ပေးသည့် [Ruff](https://docs.astral.sh/ruff/) ထဲရှိ [SIM102](https://docs.astral.sh/ruff/rules/collapsible-if/) rule ၏ documentation ကို ကြည့်ရှုနိုင်ပါသည်။
 
-Some linters can not only flag issues but also automatically fix certain issues for you.
+အချို့သော linter များသည် ပြဿနာများကို အချက်ပြရုံသာမက သတ်မှတ်ထားသော ပြဿနာ အချို့ကိုပါ သင့်အတွက် အလိုအလျောက် ပြင်ဆင်ပေးနိုင်ပါသည်။
 
-Aside from language-specific linters, another tool that might come in handy is [semgrep](https://github.com/semgrep/semgrep), a "semantic grep" tool that works at the AST level (rather than character level, like grep) and supports many languages. You can use semgrep to easily write custom linter rules for your projects. For example, if you wanted to prevent the dangerous `subprocess.Popen(..., shell=True)` in Python, you could find that code pattern with:
+Language အလိုက် သီးခြား linter များအပြင် အသုံးဝင်နိုင်သည့် အခြား tool တစ်ခုမှာ [semgrep](https://github.com/semgrep/semgrep) ဖြစ်ပါသည်။ ၎င်းသည် (grep ကဲ့သို့ character အဆင့် မဟုတ်ဘဲ) AST (Abstract Syntax Tree) အဆင့်တွင် အလုပ်လုပ်သည့် "semantic grep" tool တစ်ခုဖြစ်ပြီး language အများအပြားကို ပံ့ပိုးပေးပါသည်။ သင့် ပရောဂျက်များအတွက် custom linter rule များကို လွယ်ကူစွာ ရေးသားရန် semgrep ကို အသုံးပြုနိုင်ပါသည်။ ဥပမာအားဖြင့် Python တွင် အန္တရာယ်ရှိသော `subprocess.Popen(..., shell=True)` အသုံးပြုမှုကို တားဆီးလိုပါက ထို ကုဒ် pattern ကို အောက်ပါအတိုင်း ရှာဖွေနိုင်ပါသည် -
 
 ```bash
 semgrep -l python -e "subprocess.Popen(..., shell=True, ...)"
@@ -50,85 +50,85 @@ semgrep -l python -e "subprocess.Popen(..., shell=True, ...)"
 
 # Testing
 
-Software testing is a standard technique to increase your confidence in the correctness of your code. You write code, and then you write code that exercises the code you wrote and raises an error if the code doesn't work as expected.
+Software testing သည် သင့်ကုဒ်၏ မှန်ကန်မှုအပေါ် ယုံကြည်မှု တိုးပွားစေရန် ဆောင်ရွက်သည့် စံနှုန်းမီ နည်းလမ်းတစ်ခု ဖြစ်ပါသည်။ သင်သည် ကုဒ် ရေးသားပြီးနောက် ထိုရေးသားထားသော ကုဒ်ကို စမ်းသပ် စစ်ဆေးသည့် ကုဒ်ကို ရေးသားရမည်ဖြစ်ပြီး၊ မျှော်မှန်းထားသည့်အတိုင်း အလုပ်မလုပ်ပါက error အချက်ပေးအောင် ပြုလုပ်ရမည် ဖြစ်ပါသည်။
 
-You can write tests for chunks of code at different levels of granularity: _unit tests_ for individual functions, _integration tests_ for interaction between modules or services, and _functional tests_ for end-to-end scenarios. You can do _test-driven development_, where you write tests before you write any implementation code. When you find bugs in your code, you can write _regression tests_, so you'll catch if the functionality ever breaks in the future. You can write _property-based tests_, pioneered in [QuickCheck](https://hackage.haskell.org/package/QuickCheck) in Haskell, and implemented in many libraries, like [Hypothesis](https://hypothesis.readthedocs.io/) for Python. Which approach to testing is right depends on your project; likely, you will adopt some combination.
+ကုဒ် အစိတ်အပိုင်းများအတွက် test များကို အသေးစိတ် အဆင့်အမျိုးမျိုးဖြင့် ရေးသားနိုင်ပါသည် - သီးခြား function တစ်ခုချင်းစီအတွက် _unit tests_၊ module သို့မဟုတ် service များအကြား ဓာတ်ပြု အလုပ်လုပ်ပုံအတွက် _integration tests_၊ နှင့် အစမှ အဆုံးအထိ လုပ်ငန်းစဉ်များ (end-to-end scenarios) အတွက် _functional tests_ တို့ ဖြစ်ကြပါသည်။ Implementation ကုဒ်များ မရေးမီ test များကို ဦးစွာ ရေးသားသည့် _test-driven development_ ကိုလည်း ပြုလုပ်နိုင်ပါသည်။ သင့်ကုဒ်တွင် bug များကို တွေ့ရှိပါက နောက်ပိုင်းတွင် ထိုလုပ်ဆောင်ချက်များ မပျက်စီးစေရန် စစ်ဆေးပေးသည့် _regression tests_ များကို ရေးသားနိုင်ပါသည်။ Haskell ၏ [QuickCheck](https://hackage.haskell.org/package/QuickCheck) တွင် စတင်ခဲ့ပြီး Python အတွက် [Hypothesis](https://hypothesis.readthedocs.io/) ကဲ့သို့သော library အမြောက်အမြားတွင် အသုံးပြုထားသည့် _property-based tests_ များကိုလည်း ရေးသားနိုင်ပါသည်။ မည်သည့် testing နည်းလမ်းက သင့်တော်သနည်း ဆိုသည်မှာ သင့် ပရောဂျက်ပေါ်တွင် မူတည်ပြီး နည်းလမ်း အချို့ကို ပေါင်းစပ် အသုံးပြုရလေ့ ရှိပါသည်။
 
-If your program has external dependencies like a database or web API, it may be helpful to _mock_ those dependencies in your tests, rather than have your code interact with third-party dependencies at test time.
+သင့် ပရိုဂရမ်တွင် database သို့မဟုတ် web API ကဲ့သို့သော ပြင်ပမှ ပံ့ပိုးမှုများ (external dependencies) ပါဝင်နေပါက test ပြုလုပ်ချိန်တွင် ပြင်ပ ပံ့ပိုးမှုများနှင့် တိုက်ရိုက် ချိတ်ဆက် အလုပ်လုပ်စေမည့်အစား ထို dependencies များကို _mock_ ပြုလုပ် (တုပထား) ခြင်းက အထောက်အကူ ဖြစ်စေနိုင်ပါသည်။
 
 ## Code coverage
 
-Code coverage is a metric by which you can measure how good your tests are. Code coverage looks at which lines of your code are executed when your tests are run, so you can ensure you are covering all code paths. Code coverage tools can show you line-by-line coverage to guide you in writing tests. Services such as [Codecov](https://app.codecov.io) provide web interfaces for tracking and viewing code coverage over the history of a project.
+Code coverage သည် သင့် test များ မည်မျှ ကောင်းမွန်ကြောင်း တိုင်းတာနိုင်သည့် တိုင်းတာမှု စံနှုန်း (metric) တစ်ခု ဖြစ်ပါသည်။ Code coverage သည် သင့် test များကို run သည့်အခါ မည်သည့် ကုဒ်လိုင်းများ အလုပ်လုပ်သွားသည်ကို ကြည့်ရှုစစ်ဆေးသဖြင့် ကုဒ် လမ်းကြောင်း အားလုံးကို လွှမ်းခြုံနိုင်စေရန် သေချာစေပါသည်။ Code coverage tool များသည် test များ ရေးသားရာတွင် လမ်းညွှန်ပေးနိုင်ရန် လိုင်းတစ်ခုချင်းစီ၏ coverage များကို ပြသပေးနိုင်ပါသည်။ [Codecov](https://app.codecov.io) ကဲ့သို့သော service များသည် ပရောဂျက်တစ်ခု၏ သမိုင်းကြောင်းတစ်လျှောက် code coverage ကို စောင့်ကြည့်ရန်နှင့် ကြည့်ရှုရန် web interface များကို ထောက်ပံ့ပေးပါသည်။
 
-Like any metric, code coverage is not perfect; don't over-index on coverage, focus on writing high-quality tests.
+မည်သည့် တိုင်းတာမှု စံနှုန်းမဆို ကောင်းမွန်ပြည့်စုံခြင်း မရှိသကဲ့သို့ code coverage သည်လည်း အပြည့်အဝ မမှန်ကန်နိုင်ပါ သို့ဖြစ်၍ coverage အပေါ်တွင်သာ အလွန်အမင်း အာရုံမစိုက်ဘဲ အရည်အသွေးမြင့်မားသော test များကို ရေးသားရန်သာ အဓိက ထားသင့်ပါသည်။
 
 # Pre-commit hooks
 
-Git pre-commit [hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks), made easier by the [pre-commit](https://pre-commit.com/) framework, automatically run user-specified code prior to every Git commit. Projects commonly use pre-commit hooks to run formatters and linters, and sometimes tests, automatically before every commit, to ensure that committed code matches the project code style and is free of certain issues.
+[pre-commit](https://pre-commit.com/) framework ကြောင့် ပိုမို လွယ်ကူလာသည့် Git pre-commit [hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) များသည် Git commit မပြုလုပ်မီ အချိန်တိုင်းတွင် အသုံးပြုသူ သတ်မှတ်ထားသော ကုဒ်များကို အလိုအလျောက် run ပေးပါသည်။ commit ပြုလုပ်လိုက်သော ကုဒ်များသည် ပရောဂျက်၏ ကုဒ်စတိုင်လ်နှင့် ကိုက်ညီမှုရှိပြီး သတ်မှတ်ထားသော ပြဿနာများ မရှိစေရန် သေချာစေရေးအတွက် commit တိုင်း မတိုင်မီ formatter များ၊ linter များနှင့် အချို့သော test များကို အလိုအလျောက် run ရန် ပရောဂျက်များတွင် pre-commit hook များကို ယေဘုယျအားဖြင့် အသုံးပြုကြပါသည်။
 
 # Continuous integration
 
-Continuous integration (CI) services like [GitHub Actions](https://github.com/features/actions) can run scripts for you every time you push code (or on every pull request, or on a schedule). Developers commonly use CI services to run code quality tools including formatters, linters, and tests. For compiled languages, you can ensure code compiles; for statically typed languages, you can make sure it type checks. Running CI every push of new commits can catch errors introduced into the main version of the code; running on pull requests can catch issues with contributor submissions; running on a schedule can catch issues with external dependencies (e.g., a developer accidentally releases a breaking change as [semver-compatible](/2026/shipping-code/#releases--versioning)).
+[GitHub Actions](https://github.com/features/actions) ကဲ့သို့သော Continuous integration (CI) service များသည် သင် ကုဒ် push လုပ်သည့် အကြိမ်တိုင်းတွင် (သို့မဟုတ် pull request တိုင်းတွင် သို့မဟုတ် အချိန်ဇယားအတိုင်း) script များကို run ပေးနိုင်ပါသည်။ Developer များသည် formatter များ၊ linter များနှင့် test များ အပါအဝင် ကုဒ် အရည်အသွေး ထိန်းသိမ်းသည့် tool များကို run ရန်အတွက် CI service များကို ယေဘုယျအားဖြင့် အသုံးပြုကြပါသည်။ Compiled language များအတွက် ကုဒ် compile ဖြစ်မဖြစ် စစ်ဆေးနိုင်ပြီး statically typed language များအတွက် type စစ်ဆေးမှု မှန်မမှန် စစ်ဆေးနိုင်ပါသည်။ Commit အသစ်များ push လုပ်သည့် အကြိမ်တိုင်း CI ကို run ပေးခြင်းဖြင့် ပင်မ ကုဒ်ထဲသို့ အမှားများ ပါဝင်သွားခြင်းကို တားဆီးပေးနိုင်သည်၊ pull request များတွင် run ပေးခြင်းဖြင့် ကူညီ ပံ့ပိုးသူများ၏ ပေးပို့ချက်များမှ ပြဿနာများကို ဖမ်းထုတ်ပေးနိုင်သည်၊ သတ်မှတ် အချိန်ဇယားအတိုင်း run ပေးခြင်းဖြင့် ပြင်ပ ပံ့ပိုးမှုများမှ ပြဿနာများကို ဖမ်းထုတ်ပေးနိုင်ပါသည် (ဥပမာ - Developer တစ်ဦးက သဟဇာတမဖြစ်သော ပြောင်းလဲမှုတစ်ခုကို [semver-compatible](/2026/shipping-code/#releases--versioning) အဖြစ် မှားယွင်း ထုတ်လုပ်လိုက်ခြင်း ကဲ့သို့သော)။
 
-Because CI scripts run separately from developer machines, you can easily run long-running jobs there. This can be leveraged, for example, to run a _matrix_ of tests across different operating systems and programming language versions to ensure that the software works properly across all of them.
+CI script များသည် Developer များ၏ စက်များနှင့် သီးခြားစီ run သောကြောင့် အချိန်အကြာကြီး run ရမည့် အလုပ်များကို ထိုနေရာတွင် လွယ်ကူစွာ run နိုင်ပါသည်။ ဥပမာအားဖြင့် ဆော့ဖ်ဝဲသည် operating system များနှင့် programming language version မျိုးစုံတွင် မှန်ကန်စွာ အလုပ်လုပ်ကြောင်း သေချာစေရန် test အမြောက်အမြား၏ _matrix_ အလိုက် run ရာတွင် ဤအချက်ကို အသုံးချနိုင်ပါသည်။
 
-Generally, the script running in CI will not directly make changes to your code: it will run tools in "check-only" mode rather than "fix" mode, so for example, the auto-formatter will raise an error when the code is not compliant with the format.
+ယေဘုယျအားဖြင့် CI တွင် run သော script သည် သင့်ကုဒ်ကို တိုက်ရိုက် ပြင်ဆင်မည် မဟုတ်ပါ - ၎င်းသည် tool များကို "fix" mode အစား "check-only" mode ဖြင့်သာ run မည်ဖြစ်ရာ ဥပမာအားဖြင့် ကုဒ်သည် သတ်မှတ်ပုံစံနှင့် မကိုက်ညီပါက auto-formatter က error အချက်ပေးမည် ဖြစ်ပါသည်။
 
-Repositories often include [status badges](https://docs.github.com/en/actions/how-tos/monitor-workflows/add-a-status-badge) in their README, showing CI status and other information such as code coverage. For example, below is Missing Semester's current build status.
+Repository အများအပြားသည် ၎င်းတို့၏ README တွင် CI အခြေအနေနှင့် code coverage ကဲ့သို့သော အခြား အချက်အလက်များကို ပြသသည့် [status badge](https://docs.github.com/en/actions/how-tos/monitor-workflows/add-a-status-badge) များကို ထည့်သွင်းထားလေ့ ရှိကြပါသည်။ ဥပမာအားဖြင့် အောက်တွင် ဖော်ပြထားသည်မှာ Missing Semester ၏ လက်ရှိ build status ဖြစ်ပါသည်။
 
 [![Build Status](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml)
 
-> Our [links checker](https://github.com/missing-semester/missing-semester/blob/master/.github/workflows/links.yml), which uses the [proof-html](https://github.com/anishathalye/proof-html) GitHub Action is often failing, usually due to issues with third-party websites. Still, it has helped us catch and fix many broken links (sometimes due to typos, most of the time due to websites moving around content without adding redirects or websites disappearing).
+> [proof-html](https://github.com/anishathalye/proof-html) GitHub Action ကို အသုံးပြုထားသည့် ကျွန်ုပ်တို့၏ [links checker](https://github.com/missing-semester/missing-semester/blob/master/.github/workflows/links.yml) သည် ပြင်ပ ဝဘ်ဆိုက်များ၏ ပြဿနာများကြောင့် မကြာခဏ အလုပ်မလုပ်ဘဲ ဖြစ်တတ်ပါသည်။ သို့သော်လည်း ၎င်းသည် ပျက်စီးနေသော link အမြောက်အမြားကို ဖမ်းထုတ်၍ ပြင်ဆင်နိုင်ရန် ကူညီပေးခဲ့ပါသည် (အချို့မှာ စာလုံးပေါင်း မှားယွင်းမှုကြောင့် ဖြစ်ပြီး အများစုမှာ ဝဘ်ဆိုက်များက redirect မလုပ်ဘဲ အကြောင်းအရာများကို ရွှေ့ပြောင်းလိုက်ခြင်း သို့မဟုတ် ဝဘ်ဆိုက်များ ပျောက်ကွယ်သွားခြင်း ကြောင့် ဖြစ်သည်)။
 
-A good way to learn the particulars of CI services, formatters, linters, and testing libraries is by example. Find high-quality open-source projects on GitHub---the more similar to your project in programming language, domain, size and scope, and so on, the better---and study their `pyproject.toml`, `.github/workflows/`, `DEVELOPMENT.md`, and other relevant files.
+CI service များ၊ formatter များ၊ linter များနှင့် testing library များနှင့် ပတ်သက်သော အသေးစိတ် အချက်အလက်များကို လေ့လာရန် ကောင်းမွန်သော နည်းလမ်းတစ်ခုမှာ နမူနာများကို ကြည့်ရှုခြင်း ဖြစ်ပါသည်။ GitHub တွင် အရည်အသွေးမြင့် open-source ပရောဂျက်များကို ရှာဖွေပါ --- သင့် ပရောဂျက်နှင့် programming language၊ နယ်ပယ်၊ အရွယ်အစားနှင့် နယ်ပယ် အတိုင်းအတာ စသည်ဖြင့် ပိုမို တူညီလေလေ ပိုမို ကောင်းမွန်လေလေ ဖြစ်သည် --- ပြီးလျှင် ၎င်းတို့၏ `pyproject.toml`၊ `.github/workflows/`၊ `DEVELOPMENT.md` နှင့် အခြား သက်ဆိုင်ရာ ဖိုင်များကို လေ့လာပါ။
 
 ## Continuous deployment
 
-Continuous deployment makes use of CI infrastructure to actually _deploy_ changes. For example, the Missing Semester repository uses continuous deployment to GitHub pages so that whenever we `git push` updated lecture notes, the site is automatically built and deployed. You can build other types of [artifacts](/2026/shipping-code/) in CI, such as binaries for applications or Docker images for services.
+Continuous deployment သည် ပြောင်းလဲမှုများကို လက်တွေ့ _deploy_ လုပ်ရန်အတွက် CI အခြေခံအဆောက်အအုံကို အသုံးပြုပါသည်။ ဥပမာအားဖြင့် Missing Semester repository သည် GitHub pages သို့ continuous deployment ကို အသုံးပြုထားရာ ကျွန်ုပ်တို့မှ မွမ်းမံထားသော သင်ခန်းစာ မှတ်စုများကို `git push` လုပ်လိုက်သည်နှင့် ဝဘ်ဆိုက်ကို အလိုအလျောက် build ပြီး deploy လုပ်ပေးပါသည်။ အပလီကေးရှင်းများအတွက် binary များ သို့မဟုတ် service များအတွက် Docker image များ ကဲ့သို့သော အခြားသော [artifact](/2026/shipping-code/) အမျိုးအစားများကိုလည်း CI တွင် build နိုင်ပါသည်။
 
 # Command runners
 
-Command runners like [just](https://github.com/casey/just) simplify the task of running commands in the context of a project. As you build up code quality infrastructure for your project, you don't want to make your developers memorize commands like `uv run ruff check --fix`. With a command runner, this can turn into `just lint`, and you can have analogous invocations like `just format`, `just typecheck`, etc., for all the different tools a developer might want to run for your project.
+[just](https://github.com/casey/just) ကဲ့သို့သော Command runner များသည် ပရောဂျက်တစ်ခုတွင် command များကို run သည့် အလုပ်ကို ပိုမို လွယ်ကူစေပါသည်။ သင့်ပရောဂျက်အတွက် ကုဒ် အရည်အသွေး ထိန်းသိမ်းမှု အခြေခံအဆောက်အအုံကို တည်ဆောက်သည့်အခါ သင့် Developer များကို `uv run ruff check --fix` ကဲ့သို့သော command များကို အလွတ်ကျက်ခိုင်းရန် မလိုတော့ပါ။ Command runner တစ်ခုဖြင့် ၎င်းကို `just lint` ဟု အပြောင်းအလဲ ပြုလုပ်နိုင်ပြီး Developer တစ်ဦး မိမိပရောဂျက်အတွက် run လိုသည့် tool မျိုးစုံအတွက် `just format`၊ `just typecheck` စသည်ဖြင့် အလားတူ ခေါ်ယူမှုများကို ထားရှိနိုင်ပါသည်။
 
-Some language-specific project or package managers have built-in support for such functionality, which means you don't need to use a language-agnostic tool like `just`. For example, the `scripts` section of a `package.json` for [npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager) (Node.js) and the `tool.hatch.envs.*.scripts` sections of a `pyproject.toml` for [Hatch](https://hatch.pypa.io/) (Python) support this functionality.
+Language အလိုက် သီးခြား ပရောဂျက် သို့မဟုတ် package manager အချို့တွင် ယင်းလုပ်ဆောင်ချက်အတွက် built-in ပံ့ပိုးမှု ပါဝင်သောကြောင့် `just` ကဲ့သို့သော ရိုးရိုး tool များကို အသုံးပြုရန် မလိုတော့ပါ။ ဥပမာအားဖြင့် [npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager) (Node.js) အတွက် `package.json` ၏ `scripts` အပိုင်းနှင့် [Hatch](https://hatch.pypa.io/) (Python) အတွက် `pyproject.toml` ၏ `tool.hatch.envs.*.scripts` အပိုင်းတို့သည် ဤလုပ်ဆောင်ချက်ကို ပံ့ပိုးပေးကြပါသည်။
 
 # Regular expressions
 
-_Regular expressions_, commonly abbreviated as "regex", is a language used to represent sets of strings. Regex patterns are commonly used for pattern matching in various contexts such as command-line tools and IDEs. For example, [ag](https://github.com/ggreer/the_silver_searcher) supports regex patterns for codebase-wide search (e.g., `ag "import .* as .*"` will find all renamed imports in Python), and [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) supports a `-run [regexp]` option for selecting a subset of tests. Furthermore, programming languages have built-in support or third-party libraries for regular expression matching, so you can use regexes for functionality such as pattern matching, validation, and parsing.
+အတိုကောက်အားဖြင့် "regex" ဟု ခေါ်လေ့ရှိသော _Regular expressions_ သည် string အစုအဝေးများကို ကိုယ်စားပြုရန် အသုံးပြုသည့် ဘာသာစကား တစ်ခု ဖြစ်ပါသည်။ Regex pattern များကို command-line tool များနှင့် IDE များကဲ့သို့သော အခြေအနေ အမျိုးမျိုးတွင် pattern matching ပြုလုပ်ရန် အသုံးပြုကြပါသည်။ ဥပမာအားဖြင့် [ag](https://github.com/ggreer/the_silver_searcher) သည် codebase တစ်ခုလုံးတွင် ရှာဖွေမှု ပြုလုပ်ရန် regex pattern များကို ပံ့ပိုးပေးပါသည် (ဥပမာ - `ag "import .* as .*"` သည် Python ရှိ အမည်ပြောင်းလဲထားသော import အားလုံးကို ရှာဖွေပေးမည်ဖြစ်သည်)။ ထို့ပြင် [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) သည် test အစိတ်အပိုင်းများကို ရွေးချယ်ရန်အတွက် `-run [regexp]` option ကို ပံ့ပိုးပေးပါသည်။ ထို့ပြင် programming language များတွင် regular expression matching အတွက် built-in ပံ့ပိုးမှု သို့မဟုတ် ပြင်ပ library များ ပါရှိသောကြောင့် pattern matching၊ validation နှင့် parsing ကဲ့သို့သော လုပ်ဆောင်ချက်များအတွက် regex များကို အသုံးပြုနိုင်ပါသည်။
 
-To help build intuition, below are some examples of regex patterns. In this lecture, we use [Python regex syntax](https://docs.python.org/3/library/re.html). There are many flavors of regex, with slight variation between them, especially in the more sophisticated functionality. You can use an online regex tester like [regex101](https://regex101.com/) to develop and debug regular expressions.
+နားလည်သဘောပေါက်လွယ်စေရန် အောက်တွင် regex pattern နမူနာအချို့ကို ဖော်ပြထားပါသည်။ ဤသင်ခန်းစာတွင် ကျွန်ုပ်တို့သည် [Python regex syntax](https://docs.python.org/3/library/re.html) ကို အသုံးပြုထားပါသည်။ Regex တွင် အမျိုးအစား (flavor) များစွာ ရှိပြီး ၎င်းတို့အကြားတွင် အထူးသဖြင့် ပိုမို ရှုပ်ထွေးသော လုပ်ဆောင်ချက်များ၌ ကွဲပြားမှု အနည်းငယ် ရှိကြပါသည်။ Regular expression များကို ရေးသားရန်နှင့် debug ပြုလုပ်ရန် [regex101](https://regex101.com/) ကဲ့သို့သော အွန်လိုင်း regex tester များကို အသုံးပြုနိုင်ပါသည်။
 
-- `abc` --- matches the literal "abc".
-- `missing|semester` --- matches the string "missing" or the string "semester".
-- `\d{4}-\d{2}-\d{2}` --- matches dates in YYYY-MM-DD format, such as "2026-01-14". Beyond ensuring that the string consists of four digits, a dash, two digits, a dash, and two digits, this does not validate the date, so "2026-01-99" matches this regex pattern too.
-- `.+@.+` --- matches email addresses, strings that contain some text, then an "@", and then some more text. This does only the most basic validation and matches strings like "nonsense@@@email". A regex that matches email addresses with no false positives or negatives [exists](https://pdw.ex-parrot.com/Mail-RFC822-Address.html) but is impractical.
+- `abc` --- တိုက်ရိုက် စာသား "abc" နှင့် ကိုက်ညီပါသည်။
+- `missing|semester` --- "missing" သို့မဟုတ် "semester" စာသားနှင့် ကိုက်ညီပါသည်။
+- `\d{4}-\d{2}-\d{2}` --- "2026-01-14" ကဲ့သို့သော YYYY-MM-DD ပုံစံရှိ ရက်စွဲများနှင့် ကိုက်ညီပါသည်။ စာသားတွင် ကိန်းဂဏန်း ၄ လုံး၊ dash တစ်ခု၊ ကိန်းဂဏန်း ၂ လုံး၊ dash တစ်ခု နှင့် ကိန်းဂဏန်း ၂ လုံး ပါဝင်ကြောင်း စစ်ဆေးရုံမျှမက ဤ regex သည် ရက်စွဲ အမှန်အကန် ဟုတ်မဟုတ် စိစစ်ပေးမည် မဟုတ်ပါ၊ သို့ဖြစ်၍ "2026-01-99" သည်လည်း ဤ regex pattern နှင့် ကိုက်ညီနေမည် ဖြစ်ပါသည်။
+- `.+@.+` --- အီးမေးလ် လိပ်စာများ၊ စာသားအချို့ ပါဝင်ပြီး နောက်တွင် "@" ပါကာ နောက်တွင် စာသားအချို့ ထပ်မံ ပါဝင်သော စာသားများနှင့် ကိုက်ညီပါသည်။ ၎င်းသည် အခြေခံကျသော စစ်ဆေးမှုကိုသာ ပြုလုပ်ပေးပြီး "nonsense@@@email" ကဲ့သို့သော စာသားများနှင့် ကိုက်ညီနေမည် ဖြစ်ပါသည်။ False positive သို့မဟုတ် false negative လုံးဝ မရှိဘဲ အီးမေးလ် လိပ်စာများကို စစ်ဆေးပေးသည့် regex [ရှိသော်လည်း](https://pdw.ex-parrot.com/Mail-RFC822-Address.html) လက်တွေ့တွင် အသုံးပြုရန် မလွယ်ကူပါ။
 
 ## Regex syntax
 
-You can find a comprehensive guide to regex syntax in [this documentation](https://docs.python.org/3/library/re.html#regular-expression-syntax) (or one of many other resources available online). Here are some of the basic building blocks:
+Regex syntax ဆိုင်ရာ အပြည့်အစုံ လမ်းညွှန်ကို [ဤ documentation](https://docs.python.org/3/library/re.html#regular-expression-syntax) တွင် (သို့မဟုတ် အွန်လိုင်းတွင် ရရှိနိုင်သော အခြား အရင်းအမြစ်များတွင်) ရှာဖွေနိုင်ပါသည်။ အဓိက အခြေခံ အစိတ်အပိုင်း အချို့မှာ အောက်ပါအတိုင်း ဖြစ်ကြပါသည် -
 
-- `abc` matches the literal string, when the characters have no special meaning (in this example, "abc")
-- `.` matches any single character
-- `[abc]` matches a single character contained in the brackets (in this example, "a", "b", or "c")
-- `[^abc]` matches a single character except those contained in the brackets (e.g., "d")
-- `[a-f]` matches a single character contained in the range indicated in the brackets (e.g., "c", but not "q")
-- `a|b` matches either pattern (e.g., "a" or "b")
-- `\d` matches any digit character (e.g., "3")
-- `\w` matches any word character (e.g., "x")
-- `\b` matches any word _boundary_ (e.g., in the string "missing semester", matches just before the "m", just after the "g", just before the "s", and just after the "r")
-- `(...)` matches the group of a pattern
-- `...?` matches zero or one of a pattern, such as `words?` to match "word" or "words"
-- `...*` matches any number of a pattern, such as `.*` to match any number of any character
-- `...+` matches one or more of a pattern, such as `\d+` to match any non-zero number of digits
-- `...{N}` matches exactly N of a pattern, such as `\d{4}` for 4 digits
-- `\.` matches a literal "."
-- `\\` matches a literal "\\"
-- `^` matches the start of the line
-- `$` matches the end of the line
+- `abc` သည် အက္ခရာများတွင် အထူး အဓိပ္ပာယ် မရှိသည့်အခါ တိုက်ရိုက် စာသားနှင့် ကိုက်ညီပါသည် (ဤနမူနာတွင် "abc")
+- `.` သည် မည်သည့် single character မဆို ၎င်းနှင့် ကိုက်ညီပါသည်
+- `[abc]` သည် bracket အတွင်း ပါရှိသော single character နှင့် ကိုက်ညီပါသည် (ဤနမူနာတွင် "a", "b", သို့မဟုတ် "c")
+- `[^abc]` သည် bracket အတွင်း ပါရှိသော character များမှလွဲ၍ ကျန် single character များနှင့် ကိုက်ညီပါသည် (ဥပမာ - "d")
+- `[a-f]` သည် bracket အတွင်း ဖော်ပြထားသော ပမာဏ အကွာအဝေးအတွင်း ပါရှိသော single character နှင့် ကိုက်ညီပါသည် (ဥပမာ - "c", သို့သော် "q" မဟုတ်ပါ)
+- `a|b` သည် pattern နှစ်ခုအနက် တစ်ခုခုနှင့် ကိုက်ညီပါသည် (ဥပမာ - "a" သို့မဟုတ် "b")
+- `\d` သည် မည်သည့် ဂဏန်း (digit) character မဆို ၎င်းနှင့် ကိုက်ညီပါသည် (ဥပမာ - "3")
+- `\w` သည် မည်သည့် word character မဆို ၎င်းနှင့် ကိုက်ညီပါသည် (ဥပမာ - "x")
+- `\b` သည် မည်သည့် စကားလုံး နယ်နိမိတ် (_boundary_) မဆို ၎င်းနှင့် ကိုက်ညီပါသည် (ဥပမာ - "missing semester" ဟူသော စာသားတွင် "m" ၏ အရှေ့၊ "g" ၏ အနောက်၊ "s" ၏ အရှေ့၊ နှင့် "r" ၏ အနောက်တို့နှင့် ကိုက်ညီပါသည်)
+- `(...)` သည် pattern တစ်ခု၏ အုပ်စု (group) နှင့် ကိုက်ညီပါသည်
+- `...?` သည် pattern တစ်ခု၏ သုည သို့မဟုတ် တစ်ခုနှင့် ကိုက်ညီပါသည်၊ ဥပမာ - "word" သို့မဟုတ် "words" နှင့် ကိုက်ညီစေရန် `words?`
+- `...*` သည် pattern တစ်ခု၏ မည်သည့် အရေအတွက်မဆို ကိုက်ညီပါသည်၊ ဥပမာ - မည်သည့် character ၏ မည်သည့် အရေအတွက်မဆို ကိုက်ညီစေရန် `.*`
+- `...+` သည် pattern တစ်ခု၏ တစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုသော အရေအတွက်နှင့် ကိုက်ညီပါသည်၊ ဥပမာ - သုည မဟုတ်သော ဂဏန်း အရေအတွက်မဆို ကိုက်ညီစေရန် `\d+`
+- `...{N}` သည် pattern တစ်ခု၏ တိကျသော အရေအတွက် N ခုနှင့် ကိုက်ညီပါသည်၊ ဥပမာ - ဂဏန်း ၄ လုံးအတွက် `\d{4}`
+- `\.` သည် တိုက်ရိုက် စာသား "." နှင့် ကိုက်ညီပါသည်
+- `\\` သည် တိုက်ရိုက် စာသား "\\" နှင့် ကိုက်ညီပါသည်
+- `^` သည် လိုင်း၏ အစနှင့် ကိုက်ညီပါသည်
+- `$` သည် လိုင်း၏ အဆုံးနှင့် ကိုက်ညီပါသည်
 
-## Capture groups and references
+## Capture groups နှင့် references
 
-If you use regex groups `(...)`, you can refer to sub-parts of the match for extraction or search-and-replace purposes. For example, to extract just the month from a YYYY-MM-DD style date, you can use the following Python code:
+Regex group `(...)` ကို အသုံးပြုပါက ရှာဖွေရန် သို့မဟုတ် အစားထိုးရန် အတွက် match ၏ အစိတ်အပိုင်းများကို ညွှန်းဆိုနိုင်ပါသည်။ ဥပမာအားဖြင့် YYYY-MM-DD ပုံစံ ရက်စွဲတစ်ခုမှ လ (month) ကိုသာ ထုတ်ယူရန်အတွက် အောက်ပါ Python ကုဒ်ကို အသုံးပြုနိုင်ပါသည် -
 
 ```python
 >>> import re
@@ -136,17 +136,17 @@ If you use regex groups `(...)`, you can refer to sub-parts of the match for ext
 '01'
 ```
 
-In your text editor, you can use reference capture groups in replace patterns. The syntax might vary between IDEs. For example, in VS Code, you can use variables like `$1`, `$2`, etc., and in Vim, you can use `\1`, `\2`, etc., to reference groups.
+သင့် text editor တွင် replace pattern များထဲ၌ reference capture group များကို အသုံးပြုနိုင်ပါသည်။ Syntax သည် IDE အလိုက် ကွဲပြားနိုင်ပါသည်။ ဥပမာအားဖြင့် VS Code တွင် group များကို ညွှန်းဆိုရန် `$1`, `$2` စသည်ဖြင့် သုံးနိုင်ပြီး Vim တွင် `\1`, `\2` စသည်ဖြင့် သုံးနိုင်ပါသည်။
 
 ## Limitations
 
-[Regular languages](https://en.wikipedia.org/wiki/Regular_language) are powerful but limited; there are classes of strings that cannot be expressed as a standard regex (e.g., it is [not possible](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages) to write a regular expression that matches the set of strings {a^n b^n \| n &ge; 0}, the set of strings of a number of "a"s followed by the same number of "b"s; more practically, languages like HTML are not regular languages). In practice, modern regex engines support features like lookahead and backreferences that extend support beyond regular languages, and they are practically extremely useful, but it is important to know that they are still limited in their expressive power. For more sophisticated languages, you might need to reach for a more capable type of parser (for one example, see [pyparsing](https://github.com/pyparsing/pyparsing), a [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) parser).
+[Regular language](https://en.wikipedia.org/wiki/Regular_language) များသည် စွမ်းဆောင်ရည် မြင့်မားသော်လည်း အကန့်အသတ် ရှိကြပါသည်; ရိုးရိုး regex အဖြစ် ဖော်ပြ၍ မရနိုင်သော စာသား အမျိုးအစားများ ရှိပါသည် (ဥပမာ - "a" အရေအတွက် အတိုင်း အနောက်တွင် "b" အရေအတွက် ပါဝင်သော {a^n b^n \| n &ge; 0} စာသား အစုအဝေးကို ကိုက်ညီစေမည့် regular expression ရေးသားရန် [မဖြစ်နိုင်ပါ](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages); လက်တွေ့တွင် HTML ကဲ့သို့သော ဘာသာစကားများသည် regular language များ မဟုတ်ကြပါ)။ လက်တွေ့တွင် ခေတ်မီ regex engine များသည် regular language များထက် ကျော်လွန်၍ lookahead နှင့် backreference ကဲ့သို့သော လုပ်ဆောင်ချက်များကို ပံ့ပိုးပေးထားသဖြင့် လက်တွေ့တွင် အလွန် အသုံးဝင်သော်လည်း ၎င်းတို့၏ ဖော်ပြနိုင်စွမ်းတွင် အကန့်အသတ် ရှိနေဆဲဖြစ်ကြောင်း သိရှိထားရန် အရေးကြီးပါသည်။ ပိုမို ရှုပ်ထွေးသော ဘာသာစကားများအတွက် ပိုမို စွမ်းဆောင်နိုင်သည့် parser အမျိုးအစားများကို အသုံးပြုရန် လိုအပ်နိုင်ပါသည် (ဥပမာတစ်ခုအနေဖြင့် [pyparsing](https://github.com/pyparsing/pyparsing) ဟူသော [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) parser ကို ကြည့်ပါ)။
 
 ## Learning regex
 
-We recommend learning the fundamentals (what we have covered in this lecture), and then looking at regex references as you need them, rather than memorizing the entirety of the language.
+ဘာသာစကား တစ်ခုလုံးကို အလွတ်ကျက်မှတ်နေမည့်အစား အခြေခံများကို လေ့လာပြီး (ဤသင်ခန်းစာတွင် ကျွန်ုပ်တို့ လွှမ်းခြုံထားသကဲ့သို့) လိုအပ်သည့်အခါမှသာ regex reference များကို ကြည့်ရှုရန် အကြံပြုလိုပါသည်။
 
-Conversational AI tools can be effective at helping you generating regex patterns. For example, try prompting your favorite LLM with the following query:
+Conversational AI tool များသည် regex pattern များ ထုတ်လုပ်ရာတွင် ကူညီပေးရန် ထိရောက်မှု ရှိနိုင်ပါသည်။ ဥပမာအားဖြင့် မိမိ နှစ်သက်ရာ LLM ကို အောက်ပါ query ဖြင့် prompt ပေးကြည့်ပါ -
 
 ```
 Write a Python-style regex pattern that matches the requested path from log lines from Nginx. Here is an example log line:
@@ -154,13 +154,13 @@ Write a Python-style regex pattern that matches the requested path from log line
 169.254.1.1 - - [09/Jan/2026:21:28:51 +0000] "GET /feed.xml HTTP/2.0" 200 2995 "-" "python-requests/2.32.3"
 ```
 
-# Exercises
+# လေ့ကျင့်ခန်းများ
 
-1. Configure a formatter, linter, and pre-commit hooks for a project you're working on. If you have lots of errors: autoformatting should take care of the format errors. For the linter errors, try using an [AI agent](/2026/agentic-coding/) to fix all the linter errors. Make sure the AI agent can run the linter and observe the results, so that it can run in an iterative loop to fix all the issues. Check the results carefully to ensure the AI doesn't break your code!
-1. Learn a testing library for a language you know and write a unit test for a project you're working on. Run a code coverage tool, generate an HTML-formatted coverage report, and observe the results. Can you find the lines that are covered? Your code coverage will likely be very low. Try manually writing some tests to improve it. Try using an [AI agent](/2026/agentic-coding/) to improve coverage; make sure the coding agent can run tests with coverage and produce a line-by-line coverage report, so it knows where to focus. Are the AI-generated tests actually good?
-1. Set up continuous integration to run on every push for a project you're working on. Have CI run formatting, linting, and tests. Break your code on purpose (e.g., introduce a linter violation), and ensure that CI catches it.
-1. Try writing a [regex pattern](#regular-expressions) and use the `grep` [command-line tool](/2026/course-shell/) to find occurrences of `subprocess.Popen(..., shell=True)` in your code. Now, try to "break" the regex pattern. Does [semgrep](#linting) still successfully match the dangerous code that trips up your grep invocation?
-1. Practice regex search-and-replace in your IDE or text editor by replacing the `-` [Markdown bullet markers](https://spec.commonmark.org/0.31.2/#bullet-list-marker) with `*` bullet markers in [these lecture notes](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/code-quality.md). Note that just replacing all the "-" characters in the file would be incorrect, as there are many uses of that character that are not bullet markers.
-1. Write a regex to capture from JSON structures of the form `{"name": "Alyssa P. Hacker", "college": "MIT"}` the name (e.g., `Alyssa P. Hacker`, in this example). Hint: in your first attempt, you might end up writing a regex that extracts `Alyssa P. Hacker", "college": "MIT`; read about greedy quantifiers in the [Python regex docs](https://docs.python.org/3/library/re.html) to figure out how to fix it.
-    1. Make the regex pattern work even in situations where the name has a `"` character in it (double quotes can be escaped in JSON with `\"`).
-    1. We do **not** recommend using regular expressions for sophisticated parsing problems in practice. Figure out how to use your programming language's JSON parser for this task. Write a command-line program that takes as input, on stdin, a JSON structure of the form described above, and output, on stdout, the name. You should only need a couple lines of code to do this. In Python, you can do it easily in one line of code beyond `import json`.
+1. သင် အလုပ်လုပ်နေသော ပရောဂျက်တစ်ခုအတွက် formatter၊ linter နှင့် pre-commit hook များကို သတ်မှတ်ပြင်ဆင်ပါ။ အကယ်၍ အမှားများစွာ ရှိနေပါက autoformatting က format အမှားများကို ရှင်းလင်းပေးပါလိမ့်မည်။ Linter အမှားများအတွက်မူ linter အမှားအားလုံးကို ပြင်ဆင်ရန် [AI agent](/2026/agentic-coding/) ကို အသုံးပြုကြည့်ပါ။ ပြဿနာအားလုံးကို ထပ်ခါတလဲလဲ ပြင်ဆင်နိုင်ရန် AI agent အနေဖြင့် linter ကို run နိုင်ပြီး ရလဒ်များကို လေ့လာနိုင်စေရန် သေချာပါစေ။ AI က သင့်ကုဒ်ကို ပျက်စီးမသွားစေရန် ရလဒ်များကို သေချာစွာ စစ်ဆေးပါ!
+1. သင်သိသော ဘာသာစကားတစ်ခုအတွက် testing library တစ်ခုကို လေ့လာပြီး သင် အလုပ်လုပ်နေသော ပရောဂျက်တစ်ခုအတွက် unit test တစ်ခု ရေးသားပါ။ Code coverage tool တစ်ခုကို run ပါ၊ HTML-formatted coverage report တစ်ခု ထုတ်ယူပြီး ရလဒ်များကို လေ့လာပါ။ လွှမ်းခြုံထားသော လိုင်းများကို ရှာဖွေနိုင်ပါသလား? သင့် code coverage သည် အလွန် နည်းပါးနိုင်ပါသည်။ ၎င်းကို မြှင့်တင်ရန် test အချို့ကို ကိုယ်တိုင် ရေးသားကြည့်ပါ။ Coverage ကို မြှင့်တင်ရန် [AI agent](/2026/agentic-coding/) ကို အသုံးပြုကြည့်ပါ; coding agent အနေဖြင့် စိစစ်ရမည့်နေရာကို သိရှိစေရန် coverage ဖြင့် test များကို run နိုင်ပြီး လိုင်းတစ်ခုချင်းစီ၏ coverage report ကို ထုတ်ယူနိုင်ကြောင်း သေချာပါစေ။ AI က ထုတ်လုပ်ပေးသော test များသည် အမှန်တကယ် ကောင်းမွန်ပါသလား?
+1. သင် အလုပ်လုပ်နေသော ပရောဂျက်တစ်ခုအတွက် push လုပ်သည့် အကြိမ်တိုင်းတွင် run ရန် continuous integration ကို သတ်မှတ်ပါ။ CI ကို formatting၊ linting နှင့် test များကို run ခိုင်းပါ။ သင့်ကုဒ်ကို တမင် ပျက်စီးအောင် ပြုလုပ်ကြည့်ပါ (ဥပမာ - linter စည်းမျဉ်းကို ချိုးဖောက်ကြည့်ပါ)၊ CI က ၎င်းကို ဖမ်းထုတ်နိုင်ကြောင်း သေချာပါစေ။
+1. [regex pattern](#regular-expressions) တစ်ခု ရေးသားကြည့်ပြီး သင့်ကုဒ်အတွင်းရှိ `subprocess.Popen(..., shell=True)` တွေ့ရှိချက်များကို ရှာဖွေရန် `grep` [command-line tool](/2026/course-shell/) ကို အသုံးပြုပါ။ ယခုအခါ regex pattern ကို "ပျက်စီးအောင်" ပြုလုပ်ကြည့်ပါ။ သင့် grep ခေါ်ယူမှုကို အဟန့်အတားဖြစ်စေသည့် အန္တရာယ်ရှိသော ကုဒ်ကို [semgrep](#linting) က အောင်မြင်စွာ ကိုက်ညီအောင် ရှာဖွေပေးနိုင်သေးသလား?
+1. [ဤသင်ခန်းစာ မှတ်စုများ](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/code-quality.md) ထဲရှိ `-` [Markdown bullet marker](https://spec.commonmark.org/0.31.2/#bullet-list-marker) များကို `*` bullet marker များဖြင့် အစားထိုးခြင်းဖြင့် သင့် IDE သို့မဟုတ် text editor တွင် regex search-and-replace ကို လေ့ကျင့်ပါ။ ဖိုင်အတွင်းရှိ "-" အက္ခရာ အားလုံးကို အစားထိုးလိုက်ပါက မှားယွင်းသွားမည်ဖြစ်ကြောင်း သတိပြုပါ၊ အကြောင်းမှာ ထိုအက္ခရာသည် bullet marker မဟုတ်ဘဲ အခြားနေရာများတွင်လည်း သုံးထားသောကြောင့် ဖြစ်ပါသည်။
+1. `{"name": "Alyssa P. Hacker", "college": "MIT"}` ပုံစံရှိသော JSON structure ထဲမှ အမည် (ဥပမာ - ဤနမူနာတွင် `Alyssa P. Hacker`) ကို ဖမ်းယူရန် regex တစ်ခု ရေးသားပါ။ လမ်းညွှန်: သင်၏ ပထမဆုံး ကြိုးပမ်းမှုတွင် `Alyssa P. Hacker", "college": "MIT` ကို ထုတ်ယူသည့် regex မျိုး ရေးမိသွားနိုင်သည်; ၎င်းကို ပြင်ဆင်ပုံအား လေ့လာရန် [Python regex docs](https://docs.python.org/3/library/re.html) ရှိ greedy quantifier များအကြောင်း ဖတ်ရှုပါ။
+    1. အမည်တွင် `"` အက္ခရာ ပါဝင်နေသည့် အခြေအနေမျိုးတွင်ပင် regex pattern ကို အလုပ်လုပ်အောင် ပြုလုပ်ပါ (JSON တွင် double quote များကို `\"` ဖြင့် escape ပြုလုပ်နိုင်ပါသည်)။
+    1. လက်တွေ့တွင် ပိုမို ရှုပ်ထွေးသော parsing ပြဿနာများအတွက် regular expression များကို အသုံးပြုရန် ကျွန်ုပ်တို့ **အကြံမပြုပါ**။ ဤအလုပ်အတွက် သင့် programming language ၏ JSON parser ကို မည်သို့ အသုံးပြုရမည်ကို ရှာဖွေပါ။ အထက်ပါ ဖော်ပြပါ JSON structure ကို stdin မှ input အဖြစ် ရယူပြီး stdout သို့ အမည်ကို ထုတ်ပေးသည့် command-line program တစ်ခု ရေးသားပါ။ ဤသို့ ပြုလုပ်ရန် ကုဒ်အနည်းငယ်မျှသာ လိုအပ်မည် ဖြစ်ပါသည်။ Python တွင် `import json` အပြင် ကုဒ်တစ်လိုင်းတည်းဖြင့် လွယ်ကူစွာ ပြုလုပ်နိုင်ပါသည်။

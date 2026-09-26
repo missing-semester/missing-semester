@@ -10,29 +10,23 @@ video:
 special: true
 ---
 
-Sometimes you write a script that does something but you want for it to run periodically, say a backup task. You can always write an *ad hoc* solution that runs in the background and comes online periodically. However, most UNIX systems come with the cron daemon which can run task with a frequency up to a minute based on simple rules.
+အချို့သော အခါများတွင် သင်သည် အလုပ်တစ်ခုခု လုပ်ဆောင်ပေးသည့် script တစ်ခုကို ရေးသားပြီး ၎င်းကို ပုံမှန် အချိန်ခြားပြီး (ဥပမာ- backup ပြုလုပ်သည့် လုပ်ဆောင်ချက်ကဲ့သို့) အလိုအလျောက် ပုံမှန် လည်ပတ်စေချင်ပေမည်။ နောက်ကွယ် (background) တွင် ပုံမှန် ပွင့်လာပြီး လည်ပတ်ပေးသည့် သီးသန့် အဆင်ပြေရာ *ad hoc* ဖြေရှင်းနည်းတစ်ခုကို ရေးသား၍လည်း ရနိုင်ပါသည်။ သို့သော်လည်း UNIX စနစ်အများစုတွင် ရိုးရှင်းသော စည်းမျဉ်းများအပေါ် အခြေခံ၍ အနည်းဆုံး တစ်မိနစ်လျှင် တစ်ကြိမ်အထိ လုပ်ဆောင်ချက်များကို ပုံမှန် လည်ပတ်ပေးနိုင်သည့် cron daemon ပါဝင်ပြီးသား ဖြစ်ပါသည်။
 
-On most UNIX systems the cron daemon, `crond` will be running by default but you can always check using `ps aux | grep crond`.
+UNIX စနစ်အများစုတွင် cron daemon ဖြစ်သည့် `crond` သည် မူလအတိုင်း (by default) လည်ပတ်နေလေ့ရှိသော်လည်း `ps aux | grep crond` ကို အသုံးပြု၍ အမြဲတမ်း စစ်ဆေးကြည့်နိုင်ပါသည်။
 
-## The crontab
+## crontab
 
-The configuration file for cron can be displayed running `crontab -l` edited running `crontab -e` The time format that cron uses are five space separated fields along with the user and command
+cron အတွက် configuration ဖိုင်ကို `crontab -l` ဖြင့် ကြည့်ရှုနိုင်ပြီး `crontab -e` ဖြင့် ပြင်ဆင်နိုင်သည်။ cron အသုံးပြုသော အချိန်ပုံစံ (time format) တွင် စペースဖြင့် ပိုင်းခြားထားသော ဖိန်း (field) ၅ ခု ပါဝင်ပြီး ယင်းနောက်တွင် user နှင့် command တို့ ပါဝင်သည်။
 
-- **minute** -  What minute of the hour the command will run on,
-     and is between '0' and '59'
-- **hour** -    This controls what hour the command will run on, and is specified in
-         the 24 hour clock, values must be between 0 and 23 (0 is midnight)
-- **dom** - This is the Day of Month, that you want the command run on, e.g. to
-     run a command on the 19th of each month, the dom would be 19.
-- **month** -   This is the month a specified command will run on, it may be specified
-     numerically (0-12), or as the name of the month (e.g. May)
-- **dow** - This is the Day of Week that you want a command to be run on, it can
-     also be numeric (0-7) or as the name of the day (e.g. sun).
-- **user** -    This is the user who runs the command.
-- **command** - This is the command that you want run. This field may contain
-     multiple words or spaces.
+- **minute** - command စတင် လည်ပတ်ရမည့် မိနစ် ဖြစ်ပြီး '0' နှင့် '59' ကြား သတ်မှတ်ရသည်။
+- **hour** - command စတင် လည်ပတ်ရမည့် နာရီ ဖြစ်ပြီး ၂၄ နာရီ စနစ်ဖြင့် သတ်မှတ်ရသည်၊ တန်ဖိုးများမှာ 0 မှ 23 ကြား ဖြစ်ရမည် (0 သည် သန်းခေါင်ယံ ဖြစ်သည်)။
+- **dom** - ၎င်းသည် Day of Month (လ၏ ရက်စွဲ) ဖြစ်ပြီး command ကို လည်ပတ်စေချင်သည့် ရက်ဖြစ်သည်၊ ဥပမာ- လစဉ် ၁၉ ရက်နေ့တွင် command လည်ပတ်စေချင်ပါက dom သည် 19 ဖြစ်မည်။
+- **month** - command လည်ပတ်မည့် လဖြစ်ပြီး ကိန်းဂဏန်း (0-12) ဖြင့်ဖြစ်စေ သို့မဟုတ် လအမည် (ဥပမာ- May) ဖြင့်ဖြစ်စေ သတ်မှတ်နိုင်သည်။
+- **dow** - ၎င်းသည် Day of Week (တစ်ပတ်၏ နေ့ရက်) ဖြစ်ပြီး command ကို လည်ပတ်စေချင်သည့် နေ့ဖြစ်သည်၊ ကိန်းဂဏန်း (0-7) ဖြင့်ဖြစ်စေ သို့မဟုတ် နေ့အမည် (ဥပမာ- sun) ဖြင့်ဖြစ်စေ သတ်မှတ်နိုင်သည်။
+- **user** - command ကို လည်ပတ်စေသည့် user ဖြစ်သည်။
+- **command** - လည်ပတ်စေချင်သည့် command ဖြစ်သည်။ ဤနေရာတွင် စကားလုံး အများအပြား သို့မဟုတ် စペースများ ပါဝင်နိုင်သည်။
 
-Note that using an asterisk `*` means all and using an asterisk followed by a slash and number means every nth value. So `*/5` means every five. Some examples are
+ကြယ်ပွင့် `*` ကို အသုံးပြုပါက "အားလုံး" ကို ဆိုလိုပြီး ကြယ်ပွင့်နောက်တွင် စလတ်ရှ် နှင့် ကိန်းဂဏန်း ယှဉ်တွဲသုံးပါက n ကြိမ်မြောက် တန်ဖိုးတိုင်းကို ဆိုလိုပါသည်။ ထို့ကြောင့် `*/5` ဆိုသည်မှာ ၅ ကြိမ်တိုင်းတွင် တစ်ကြိမ် ကို ဆိုလိုသည်။ ဥပမာအချို့မှာ-
 
 ```shell
 */5   *    *   *   *       # Every five minutes
@@ -42,31 +36,31 @@ Note that using an asterisk `*` means all and using an asterisk followed by a sl
   0   0    *   *   5       # Every Friday at 12:00 am
   0   0    1   */2 *       # Every other month, the first day, 12:00am
 ```
-You can find many more examples of common crontab schedules in [crontab.guru](https://crontab.guru/examples.html)
+အတွေ့ရများသော crontab ဇယားသတ်မှတ်ချက် နမူနာအမြောက်အမြားကို [crontab.guru](https://crontab.guru/examples.html) တွင် ပိုမို ရှာဖွေကြည့်ရှုနိုင်ပါသည်။
 
-## Shell environment and logging
+## Shell ပတ်ဝန်းကျင် (environment) နှင့် မှတ်တမ်းတင်ခြင်း (logging)
 
-A common pitfall when using cron is that it does not load the same environment scripts that common shells do such as `.bashrc`, `.zshrc`, &c and it does not log the output anywhere by default. Combined with the maximum frequency being one minute, it can become quite painful to debug cronscripts initially.
+cron ကို အသုံးပြုရာတွင် တွေ့ရလေ့ရှိသော အဓိက အမှားတစ်ခုမှာ ၎င်းသည် အသုံးများသော shell များကဲ့သို့ `.bashrc`၊ `.zshrc` အစရှိသည့် environment script များကို မူလအတိုင်း ရယူခြင်းမရှိဘဲ output များကိုလည်း မူလအတိုင်း မည်သည့်နေရာတွင်မှ မှတ်တမ်း (log) တင်ထားခြင်း မရှိခြင်းဖြစ်သည်။ အများဆုံး အကြိမ်ရေမှာ တစ်မိနစ်လျှင် တစ်ကြိမ်ဖြစ်ခြင်းနှင့် ပေါင်းစပ်လိုက်သည့်အခါ စတင် အသုံးပြုချိန်တွင် cronscript များကို debug ပြုလုပ်ရန် တော်တော်လေး အခက်တွေ့စေနိုင်ပါသည်။
 
-To deal with the environment, make sure that you use absolute paths in all your scripts and modify your environment variables such as `PATH` so the script can run successfully. To simplify logging, a good recommendation is to write your crontab in a format like this
+environment ပြဿနာကို ဖြေရှင်းရန် သင်၏ script များအားလုံးတွင် တိကျသော လမ်းကြောင်း (absolute path) များကို သုံးစွဲရန် သေချာစေပြီး script ကို အောင်မြင်စွာ လည်ပတ်နိုင်ရန် `PATH` ကဲ့သို့သော environment variable များကို ပြင်ဆင်ပါ။ logging ပြုလုပ်ခြင်းကို လွယ်ကူစေရန်အတွက် သင်၏ crontab ကို အောက်ပါ ပုံစံအတိုင်း ရေးသားရန် အကြံပြုပါသည်။
 
 
 ```shell
 * * * * *   user  /path/to/cronscripts/every_minute.sh >> /tmp/cron_every_minute.log 2>&1
 ```
 
-And write the script in a separate file. Remember that `>>` appends to the file and that `2>&1` redirects `stderr` to `stdout` (you might to want keep them separate though).
+ပြီးလျှင် script ကို သီးခြား ဖိုင်တစ်ခုတွင် ရေးသားပါ။ `>>` သည် ဖိုင်အဆုံးတွင် သွားရောက် ထည့်သွင်း (append) ပေးပြီး `2>&1` သည် `stderr` ကို `stdout` သို့ လမ်းကြောင်းပြောင်းပေးခြင်း (redirect) ဖြစ်ကြောင်း သတိရပါ (ယင်းတို့နှစ်ခုကို သီးခြားစီ ခွဲထားချင်ပါကလည်း ရပါသည်)။
 
 ## Anacron
 
-One caveat of using cron is that if the computer is powered off or asleep when the cron script should run then it is not executed. For frequent tasks this might be fine, but if a task runs less often, you may want to ensure that it is executed. [anacron](https://linux.die.net/man/8/anacron) works similar to `cron` except that the frequency is specified in days. Unlike cron, it does not assume that the machine is running continuously. Hence, it can be used on machines that aren't running 24 hours a day, to control regular jobs as daily, weekly, and monthly jobs.
+cron ကို အသုံးပြုရာတွင် သတိထားရန် အချက်တစ်ခုမှာ cron script လည်ပတ်ရမည့် အချိန်တွင် ကွန်ပျူတာ ပိတ်ထားပါက သို့မဟုတ် asleep ဖြစ်နေပါက script သည် လည်ပတ်မည် မဟုတ်ပေ။ မကြာခဏ လည်ပတ်သည့် လုပ်ဆောင်ချက်များအတွက် ၎င်းသည် အဆင်ပြေနိုင်သော်လည်း ခပ်ကျဲကျဲသာ လည်ပတ်သည့် လုပ်ဆောင်ချက်များအတွက်မူ ယင်းကို မပျက်မကွက် လည်ပတ်စေချင်ပေမည်။ [anacron](https://linux.die.net/man/8/anacron) သည် အကြိမ်ရေကို နေ့ရက်များဖြင့် သတ်မှတ်သည်မှလွဲ၍ `cron` နှင့် သဘောတရား ဆင်တူပါသည်။ cron နှင့်မတူသည်မှာ ၎င်းသည် စက်ကို အစဉ်မပြတ် လည်ပတ်နေသည်ဟု မယူဆထားပါ။ ထို့ကြောင့် ၎င်းကို ၂၄ နာရီပတ်လုံး လည်ပတ်မနေသော စက်များတွင် နေ့စဉ်၊ အပတ်စဉ်၊ နှင့် လစဉ် လုပ်ဆောင်ချက်များကဲ့သို့ ပုံမှန် အလုပ်များကို စီမံခန့်ခွဲရန် အသုံးပြုနိုင်သည်။
 
 
-## Exercises
+## လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Make a script that looks every minute in your downloads folder for any file that is a picture (you can look into [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) or use a regular expression to match common extensions) and moves them into your Pictures folder.
+1. သင်၏ Downloads ဖိုဒါအတွင်းရှိ ဓာတ်ပုံဖိုင်များ ( [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) ကို လေ့လာကြည့်ရှုနိုင်သည် သို့မဟုတ် အသုံးများသော extension များကို ကိုက်ညီစေရန် regular expression ကို အသုံးပြုနိုင်သည်) ကို တစ်မိနစ်လျှင် တစ်ကြိမ် စစ်ဆေးပြီး Pictures ဖိုဒါသို့ ရွှေ့ပြောင်းပေးသည့် script တစ်ခု ပြုလုပ်ပါ။
 
-1. Write a cron script to weekly check for outdated packages in your system and prompts you to update them or updates them automatically.
+1. သင်၏ စနစ်အတွင်း ခေတ်မမီတော့သော (outdated) package များကို အပတ်စဉ် စစ်ဆေးပြီး update ပြုလုပ်ရန် အကြောင်းကြားပေးသည့် သို့မဟုတ် အလိုအလျောက် update ပြုလုပ်ပေးသည့် cron script တစ်ခု ရေးသားပါ။
 
 
 

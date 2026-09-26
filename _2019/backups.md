@@ -10,94 +10,89 @@ video:
 special: true
 ---
 
-There are two types of people:
+လူ အမျိုးအစား နှစ်မျိုး ရှိပါသည်-
 
-- Those who do backups
-- Those who will do backups
+- ဒေတာ အရန်သိမ်းဆည်းမှု (Backup) ပြုလုပ်သူများ
+- ဒေတာ အရန်သိမ်းဆည်းမှု ပြုလုပ်လာမည့်သူများ
 
-Any data you own that you haven't backed up is data that could be gone at any moment, forever. Here we will cover some good backup basics and the pitfalls of some approaches.
+သင် ပိုင်ဆိုင်ထားပြီး အရန်သိမ်းဆည်း မထားသည့် မည်သည့် ဒေတာမဆို မည်သည့် အချိန်တွင်မဆို ထာဝရ ပျောက်ကွယ်သွားနိုင်သည့် ဒေတာ ဖြစ်ပါသည်။ ဤသင်ခန်းစာတွင် အသုံးဝင်သော ဒေတာ အရန်သိမ်းဆည်းခြင်းဆိုင်ရာ အခြေခံ အချက်များနှင့် ချဉ်းကပ်ပုံ အချို့၏ အားနည်းချက်/အမှားအယွင်းများကို ဆွေးနွေး ဖော်ပြသွားမည် ဖြစ်ပါသည်။
 
-## 3-2-1 Rule
+## 3-2-1 နည်းဥပဒေ (3-2-1 Rule)
 
-The [3-2-1 rule](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf) is a general recommended strategy for backing up your data. It state that you should have:
+[3-2-1 နည်းဥပဒေ](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf) ဆိုသည်မှာ မိမိ၏ ဒေတာများကို အရန်သိမ်းဆည်းရန် ယေဘုယျအားဖြင့် အကြံပြုထားသော မဟာဗျူဟာ တစ်ခု ဖြစ်ပါသည်။ ယင်းတွင် သင့်ထံ၌ အောက်ပါအတိုင်း ရှိသင့်သည်ဟု ဖော်ပြထားပါသည်-
 
-- at least **3 copies** of your data
-- **2** copies in **different mediums**
-- **1** of the copies being **offsite**
+- မိမိ ဒေတာ၏ **မိတ္တူ အနည်းဆုံး ၃ စုံ (3 copies)**
+- မတူညီသော **သိုလှောင်မှု မီဒီယာ (different mediums)** တွင် သိမ်းဆည်းထားသော မိတ္တူ **၂ စုံ**
+- မိတ္တူများအနက် **၁ စုံ** ကို **မူလ နေရာမဟုတ်သည့် တခြားနေရာ (offsite)** တွင် သိမ်းဆည်းထားခြင်း
 
-The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you'll lose everything! That's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
+ဤအကြံပြုချက်၏ အဓိက ရည်ရွယ်ချက်မှာ ဥများ အားလုံးကို ခြင်းတောင်း တစ်ခုတည်းထဲ မထည့်ထားရန် ဖြစ်ပါသည်။ မတူညီသော စက်ပစ္စည်း/ဒစ်ခ် (devices/disks) ၂ ခုတွင် သိမ်းဆည်းထားခြင်းဖြင့် ဟာ့ဒ်ဝဲ တစ်ခု ပျက်စီးရုံဖြင့် သင်၏ ဒေတာအားလုံး ဆုံးရှုံးမသွားစေရန် အာမခံနိုင်ပါသည်။ ထို့အတူ မိမိ၏ တစ်ခုတည်းသော အရန်သိမ်းဆည်းထားသည့် မိတ္တူကို အိမ်တွင်သာ သိမ်းဆည်းထားပြီး အိမ် မီးလောင်သွားလျှင် သို့မဟုတ် သူခိုး ခိုးခံရလျှင် သင် အရာအားလုံး ဆုံးရှုံးရမည် ဖြစ်ပါသည်။ အခြားနေရာတွင် သိမ်းဆည်းထားသည့် Offsite မိတ္တူမှာ ယင်းကဲ့သို့ အခြေအနေများအတွက် ရည်ရွယ်ထားခြင်း ဖြစ်ပါသည်။ မူလနေရာတွင် သိမ်းဆည်းသည့် (Onsite) အရန်မိတ္တူများသည် သုံးစွဲရလွယ်ကူမှုနှင့် မြန်ဆန်မှုကို ပေးစွမ်းပြီး မူလနေရာ မဟုတ်သည့် (Offsite) မိတ္တူများသည် ဘေးအန္တရာယ် ကြုံတွေ့ရပါက ပြန်လည် ရယူနိုင်သည့် ကြံ့ကြံ့ခံနိုင်စွမ်း (resiliency) ကို ပေးစွမ်းနိုင်ပါသည်။
 
-## Testing your backups
+## မိမိ၏ အရန်မိတ္တူများကို စမ်းသပ်စစ်ဆေးခြင်း (Testing your backups)
 
-A common pitfall when performing backups is blindly trusting whatever the system says it's doing and not verifying that the data can be properly recovered. Toy Story 2 was almost lost and their backups were not working, [luck](https://www.youtube.com/watch?v=8dhp_20j0Ys) ended up saving them.
+ဒေတာ အရန်သိမ်းဆည်းရာတွင် တွေ့ရလေ့ရှိသည့် အမှားတစ်ခုမှာ စနစ်က လုပ်ဆောင်နေသည်ဟု ဆိုသမျှကို မျက်စိမှိတ် ယုံကြည်ပြီး ဒေတာများကို စနစ်တကျ ပြန်လည်ရယူနိုင်ခြင်း ရှိမရှိ (verify) မစစ်ဆေးခြင်း ဖြစ်ပါသည်။ Toy Story 2 ရုပ်ရှင်သည် တစ်ခုလုံး နီးပါး ဆုံးရှုံးလုနီးပါး ဖြစ်ခဲ့ဖူးပြီး သူတို့၏ အရန်သိမ်းဆည်းမှုများ မလုပ်ဆောင်ခဲ့ဘဲ နောက်ဆုံးတွင် [ကံကောင်းမှု](https://www.youtube.com/watch?v=8dhp_20j0Ys) ကြောင့်သာ ကယ်တင်နိုင်ခဲ့ခြင်း ဖြစ်ပါသည်။
 
-## Versioning
+## ဗားရှင်း ခွဲခြားသိမ်းဆည်းခြင်း (Versioning)
 
-You should understand that [RAID](https://en.wikipedia.org/wiki/RAID) is not a backup, and in general **mirroring is not a backup solution**. Simply syncing your files somewhere will not help in several scenarios, such as:
+[RAID](https://en.wikipedia.org/wiki/RAID) သည် ဒေတာ အရန်သိမ်းဆည်းမှု မဟုတ်ကြောင်းနှင့် ယေဘုယျအားဖြင့် **mirroring သည် အရန်သိမ်းဆည်းမှု နည်းလမ်းတစ်ခု မဟုတ်ကြောင်း** နားလည်ထားသင့်ပါသည်။ မိမိ၏ ဖိုင်များကို အခြားနေရာ တစ်ခုခုသို့ Sync လုပ်ရုံမျှဖြင့် အောက်ပါ အခြေအနေမျိုးစုံတွင် ကူညီပေးနိုင်မည် မဟုတ်ပါ-
 
-- Data corruption
-- Malicious software
-- Deleting files by mistake
+- ဒေတာ ပျက်စီးယိုယွင်းခြင်း (Data corruption)
+- မလိုလားအပ်သော အန္တရာယ်ရှိ ဆော့ဖ်ဝဲများ (Malicious software)
+- ဖိုင်များကို မှားယွင်း ဖျက်ဆီးမိခြင်း (Deleting files by mistake)
 
-If the changes on your data propagate to the backup then you won't be able to recover in these scenarios. Note that this is the case for a lot of cloud storage solutions like Dropbox, Google Drive, One Drive, &c. Some of them do keep deleted data around for short amounts of time but usually the interface to recover is not something you want to be using to recover large amounts of files.
+မိမိဒေတာ၏ ပြောင်းလဲမှုများသည် အရန်သိမ်းဆည်းထားသည့် နေရာသို့ပါ ကူးစက် ပျံ့နှံ့သွားပါက ဤအခြေအနေများတွင် ပြန်လည် ရယူနိုင်တော့မည် မဟုတ်ပါ။ Dropbox, Google Drive, OneDrive စသည့် Cloud Storage ဝန်ဆောင်မှု အများအပြားတွင် ဤကဲ့သို့ ဖြစ်လေ့ရှိသည်ကို သတိပြုပါ။ ယင်းတို့အနက် အချို့သည် ဖျက်လိုက်သော ဒေတာများကို အချိန်တိုအတွင်း ထိန်းသိမ်းပေးထားသော်လည်း ဖိုင်ပမာဏ အများအပြားကို ပြန်လည်ရယူရန်အတွက် ယင်း interface များကို အသုံးပြုရခြင်းမှာ အဆင်ပြေလှသည် မဟုတ်ပါ။
 
-A proper backup system should be versioned in order to prevent this failure mode. By providing different snapshots in time one can easily navigate them to restore whatever was lost. The most widely known software of this kind is macOS Time Machine.
+ဤသို့ ပျက်စီးဆုံးရှုံးမှုမျိုး မဖြစ်စေရန် စနစ်ကျသော အရန်သိမ်းဆည်းမှု စနစ်တစ်ခုတွင် ဗားရှင်း ခွဲခြားခြင်း (versioned) ပါဝင်သင့်ပါသည်။ အချိန်ကာလ အလိုက် ကွဲပြားသော snapshot များကို ပေးဆောင်ထားခြင်းဖြင့် ဆုံးရှုံးသွားသော မည်သည့် ဒေတာကိုမဆို ပြန်လည် ရယူရန် လွယ်ကူစွာ ရှာဖွေနိုင်မည် ဖြစ်ပါသည်။ ဤကဲ့သို့သော အမျိုးအစားတွင် လူသိအများဆုံး ဆော့ဖ်ဝဲမှာ macOS ၏ Time Machine ဖြစ်ပါသည်။
 
-## Deduplication
+## ထပ်နေသော ဒေတာများကို ဖယ်ရှားခြင်း (Deduplication)
 
-However, making several copies of your data might be extremely costly in terms of disk space. Nevertheless, from one version to the next, most data will be identical and needs not be transferred again. This is where [data deduplication](https://en.wikipedia.org/wiki/Data_deduplication) comes into play, by keeping track of what has already been stored one can do **incremental backups** where only the changes from one version to the next need to be stored. This significantly reduces the amount of space needed for backups beyond the first copy.
+သို့သော် မိမိ၏ ဒေတာများကို မိတ္တူ အများအပြား ကူးယူထားခြင်းသည် ဒစ်ခ် ပမာဏ (disk space) အလွန် ကုန်ကျနိုင်ပါသည်။ သို့သော်လည်း ဗားရှင်းတစ်ခုမှ နောက်တစ်ခုသို့ ပြောင်းလဲရာတွင် ဒေတာ အများစုမှာ အတူတူပင်ဖြစ်ပြီး ထပ်မံ ပေးပို့ရန် မလိုပါ။ ဤနေရာတွင် [data deduplication](https://en.wikipedia.org/wiki/Data_deduplication) (ထပ်နေသော ဒေတာများကို ဖယ်ရှားခြင်း) နည်းပညာ ဝင်ရောက်လာပြီး၊ သိမ်းဆည်းပြီးသား ဒေတာများကို မှတ်တမ်းတင်ထားခြင်းဖြင့် ဗားရှင်းတစ်ခုမှ နောက်တစ်ခုသို့ ပြောင်းလဲသွားသော အချက်အလက်များကိုသာ သိမ်းဆည်းသည့် **incremental backups** များကို ပြုလုပ်နိုင်ပါသည်။ ယင်းက ပထမဆုံး မိတ္တူ လွန်ပြီးနောက် အရန်သိမ်းဆည်းရန် လိုအပ်သော နေရာပမာဏကို သိသိသာသာ လျှော့ချပေးပါသည်။
 
-## Encryption
+## ဒေတာ ဝှက်စာစနစ် (Encryption)
 
-Since we might be backing up to untrusted third parties like cloud providers it is worth considering that if you backup your data is copied *as is* then it could potentially be looked by unwanted agents. Documents like your taxes are sensitive information that should not be backed up in plain format. To prevent this, many backup solutions offer **client side encryption** where data is encrypted before being sent to the server. That way the server cannot read the data it is storing but you can decrypt it with your secret key.
+Cloud Provider များကဲ့သို့ မယုံကြည်ရသော အပြင်ပန်း ဝန်ဆောင်မှုများသို့ အရန်သိမ်းဆည်းနေပါက မိမိဒေတာကို *မူရင်းအတိုင်း (as is)* ကူးယူ သိမ်းဆည်းထားလျှင် မလိုလားအပ်သူများ ကြည့်ရှုသွားနိုင်ခြေ ရှိသည်ကို ထည့်သွင်း စဉ်းစားသင့်ပါသည်။ အခွန်ဆိုင်ရာ Document များကဲ့သို့သော Document များသည် အကဲဆတ်သော အချက်အလက်များဖြစ်ပြီး သာမန် စာသား (plain format) အဖြစ် အရန်မသိမ်းဆည်းသင့်ပါ။ ဤသည်ကို ကာကွယ်ရန် အရန်သိမ်းဆည်းမှု နည်းလမ်း အများအပြားသည် ဒေတာများကို Server သို့ မပေးပို့မီ Encryption ပြုလုပ်ပေးသည့် **client side encryption** ကို ထောက်ပံ့ပေးထားကြပါသည်။ ထိုနည်းဖြင့် Server သည် သိမ်းဆည်းထားသော ဒေတာများကို ဖတ်ရှုနိုင်မည် မဟုတ်ဘဲ သင့်ထံတွင် ရှိသည့် လျှို့ဝှက်ကီး (secret key) ဖြင့်သာ Decrypt ပြုလုပ် ဖတ်ရှုနိုင်မည် ဖြစ်ပါသည်။
 
-As a side note, if your disk (or home partition) is not encrypted, then anyone that get hold of your computer can manage to override the user access controls and read your data. Modern hardware supports fast and efficient read and writes of encrypted data so you might want to consider enabling **full disk encryption**.
+ဖြည့်စွက် အချက်အနေဖြင့် သင့်ဒစ်ခ် (သို့မဟုတ် home partition) ကို Encrypt မလုပ်ထားပါက သင့်ကွန်ပျူတာကို ရရှိသွားသူ မည်သူမဆို သုံးစွဲသူ မူပိုင်ခွင့် ဝင်ရောက်မှု ထိန်းချုပ်ချက်များကို ကျော်လွန်၍ သင့်ဒေတာများကို ဖတ်ရှုနိုင်မည် ဖြစ်ပါသည်။ ခေတ်မီ ဟာ့ဒ်ဝဲများသည် Encrypted ဒေတာများကို မြန်ဆန် ထိရောက်စွာ ဖတ်ရှု ရေးသားနိုင်သောကြောင့် **full disk encryption** ကို ဖွင့်လှစ် အသုံးပြုရန် စဉ်းစားသင့်ပါသည်။
 
+## ဖြည့်စွက်ရေးသားခြင်း သာပြုနိုင်ခြင်း (Append only)
 
-## Append only
+ယခုအချိန်ထိ သုံးသပ်ခဲ့သော အချက်များသည် ဟာ့ဒ်ဝဲ ပျက်စီးမှု သို့မဟုတ် သုံးစွဲသူ၏ အမှားများကိုသာ အဓိကထားပြီး မလိုလားအပ်သော အန္တရာယ်ရှိသူတစ်ဦးက သင့်ဒေတာများကို ဖျက်ဆီးလိုပါက မည်သို့ဖြစ်မည်ကို ဖြေရှင်းနိုင်ခြင်း မရှိသေးပါ။ ဆိုလိုသည်မှာ တစ်စုံတစ်ယောက်က သင့်စနစ်ကို Hack လုပ်လိုက်ပါက သင်ဂရုစိုက်ရသော ဒေတာ မိတ္တူ အားလုံးကို ဖျက်ဆီးပစ်နိုင်မည်လား။ အကယ်၍ ထိုအခြေအနေအတွက် စိုးရိမ်ပါက Append-only အရန်သိမ်းဆည်းမှု နည်းလမ်းတစ်မျိုး လိုအပ်မည် ဖြစ်ပါသည်။ ယေဘုယျအားဖြင့် ဒေတာအသစ်များ ပေးပို့ခြင်းကို ခွင့်ပြုသော်လည်း ရှိပြီးသား ဒေတာများကို ဖျက်ဆီးခြင်းကို ငြင်းပယ်သည့် Server တစ်ခု ရှိနေခြင်းကို ဆိုလိုပါသည်။ ပုံမှန်အားဖြင့် သုံးစွဲသူများတွင် Key နှစ်ခု ရှိကြပြီး၊ အရန်မိတ္တူ အသစ်များ ဖန်တီးခြင်းကို ထောက်ပံ့သည့် append-only key နှင့် မလိုအပ်တော့သည့် အဟောင်းများကို ဖျက်ဆီးခွင့်ပြုသည့် full access key တို့ ဖြစ်ကြပါသည်။ နောက်ဆုံး key ကိုတော့ offline တွင် သိမ်းဆည်းထားလေ့ ရှိပါသည်။
 
-The properties reviewed so far focus on hardware failure or user mistakes but fail to address what happens if a malicious agent wanted to delete your data. Namely, say someone hacks into your system, are they able to wipe all your copies of the data you care about? If you worry about that scenario then you need some sort of append only backup solution. In general, this means having a server that will allow you to send new data but will refuse to delete existing data. Usually users have two keys, an append only key that supports  creating new backups and a full access key that also allows for deleting old backups that are no longer needed. The latter one is stored offline.
+အန္တရာယ်ရှိ သုံးစွဲသူက သင့်ဒေတာကို ဖျက်ဆီးခြင်းမှ တားဆီးထားစဉ်မှာပင် ပြောင်းလဲမှုများ ပြုလုပ်နိုင်ရန် လိုအပ်သည့်အတွက် ဤသည်မှာ တော်တော်လေး ခက်ခဲသော အခြေအနေတစ်ခု ဖြစ်သည်ကို သတိပြုပါ။ လက်ရှိတွင် စီးပွားရေးအရ အသုံးပြုနိုင်သော နည်းလမ်းများတွင် [Tarsnap](https://www.tarsnap.com/) နှင့် [Borgbase](https://www.borgbase.com/) တို့ ပါဝင်ပါသည်။
 
-Note that this is a quite challenging scenario since you need the ability to make changes whilst still preventing a malicious user from deleting your data. Existing commercial solutions include [Tarsnap](https://www.tarsnap.com/) and [Borgbase](https://www.borgbase.com/).
+## ထပ်မံ စဉ်းစားသင့်သည့် အချက်များ (Additional considerations)
 
+ထပ်မံ လေ့လာ စဉ်းစားသင့်သည့် အခြား အချက်အချို့မှာ-
 
-## Additional considerations
+- **ပုံမှန် အချိန်အပိုင်းအခြားအလိုက် အရန်သိမ်းခြင်း (Periodic backups)**: ခေတ်နောက်ကျနေသော အရန်မိတ္တူများသည် အသုံးမဝင် သလောက် ဖြစ်သွားနိုင်ပါသည်။ ပုံမှန် အချိန်မှန် အရန်သိမ်းဆည်းခြင်းကို မိမိစနစ်အတွက် ထည့်သွင်း စဉ်းစားသင့်ပါသည်။
+- **Boot တိုက်ရိုက် လုပ်နိုင်သော အရန်မိတ္တူများ (Bootable backups)**: ပရိုဂရမ် အချို့သည် မိမိ၏ ဒစ်ခ်တစ်ခုလုံးကို Clone ကူးယူခွင့် ပြုထားပါသည်။ ထို့ကြောင့် စနစ်တစ်ခုလုံး၏ မိတ္တူပါဝင်သော Image တစ်ခုရရှိပြီး ယင်းမှ တိုက်ရိုက် Boot တက်နိုင်မည် ဖြစ်ပါသည်။
+- **ကွဲပြားသော အရန်သိမ်းဆည်းမှု မဟာဗျူဟာများ (Differential backup strategies)**: မိမိ၏ ဒေတာ အားလုံးကို အရေးပါမှု အတူတူ ထားရှိချင်မှ ထားရှိပါမည်။ ဒေတာ အမျိုးအစား မတူညီမှုအပေါ် မူတည်၍ ကွဲပြားသော အရန်သိမ်းဆည်းမှု မူဝါဒများကို သတ်မှတ်နိုင်ပါသည်။
+- **Append only အရန်သိမ်းဆည်းမှုများ (Append only backups)**: ဖြည့်စွက် စဉ်းစားရမည့် အချက်မှာ သင့်စက်ကို အန္တရာယ်ရှိသူများ ရရှိသွားပါက အရန်သိမ်းထားသည်များကို မဖျက်နိုင်စေရန် အရန် Repository များတွင် Append only စနစ်ကို သတ်မှတ်ထားခြင်း ဖြစ်ပါသည်။
 
-Some other things you may want to look into are:
+## ဝဘ်ဝန်ဆောင်မှုများ (Webservices)
 
-- **Periodic backups**: outdated backups can become pretty useless. Making backups regularly should be a consideration for your system
-- **Bootable backups**: some programs allow you to clone your entire disk. That way you have an image that contains an entire copy of your system you can boot directly from.
-- **Differential backup strategies**, you may not necessarily care the same about all your data. You can define different backup policies for different types of data.
-- **Append only backups** an additional consideration is to enforce append only operations to your backup repositories in order to prevent malicious agents to delete them if they get hold of your machine.
+သင် အသုံးပြုသည့် ဒေတာ အားလုံးသည် ဟာ့ဒစ်ခ်ပေါ်တွင်သာ ရှိနေသည် မဟုတ်ပါ။ အကယ်၍ သင်သည် **ဝဘ်ဝန်ဆောင်မှုများ (webservices)** ကို အသုံးပြုပါက Google Docs ပို့ချချက်များ သို့မဟုတ် Spotify ဖွင့်ရန် သီချင်းစာရင်းများကဲ့သို့သော သင်ဂရုစိုက်ရသည့် ဒေတာအချို့သည် အွန်လိုင်းတွင် သိမ်းဆည်းထားခြင်း ဖြစ်နိုင်ပါသည်။ မေ့လျော့ရလွယ်သည့် အခြား သာဓကတစ်ခုမှာ Gmail ကဲ့သို့သော ဝဘ်မှတစ်ဆင့် အသုံးပြုနိုင်သည့် အီးမေးလ် အကောင့်များ ဖြစ်ပါသည်။ ဤအခြေအနေများတွင် အရန်သိမ်းဆည်းမှု နည်းလမ်း ရှာဖွေခြင်းမှာ အနည်းငယ် ပိုမို ရှုပ်ထွေးနိုင်ပါသည်။ သို့သော်လည်း တိုက်ရိုက်ဖြစ်စေ၊ API မှတစ်ဆင့်ဖြစ်စေ မိမိ၏ ဒေတာများကို ဒေါင်းလုဒ်ဆွဲနိုင်စေမည့် ဝဘ်ဝန်ဆောင်မှုများစွာ ရှိပါသည်။ Gmail အတွက် [gmvault](https://github.com/gaubert/gmvault) ကဲ့သို့သော Tool များကို အီးမေးလ် ဖိုင်များကို သင့်ကွန်ပျူတာသို့ ဒေါင်းလုဒ်ဆွဲရန် အသုံးပြုနိုင်ပါသည်။
 
+## ဝဘ်စာမျက်နှာများ (Webpages)
 
-## Webservices
+ထို့အတူ အရည်အသွေးမြင့် အကြောင်းအရာ အချို့ကို အွန်လိုင်းတွင် ဝဘ်စာမျက်နှာများ အဖြစ် တွေ့ရှိနိုင်ပါသည်။ ထိုအကြောင်းအရာသည် Static ဖြစ်ပါက ဝဘ်ဆိုက်နှင့် ယင်း၏ Attachment အားလုံးကို Save လုပ်ရုံမျှဖြင့် လွယ်ကူစွာ အရန်သိမ်းဆည်းနိုင်ပါသည်။ အခြား နည်းလမ်းတစ်ခုမှာ မီဒီယာ ပုံစံမျိုးစုံကို ထိန်းသိမ်းစောင့်ရှောက်ခြင်းအပေါ် အဓိကထားသည့် အကျိုးအမြတ်မယူသော အဖွဲ့အစည်းတစ်ခုဖြစ်သော [Internet Archive](https://archive.org/) မှ စီမံခန့်ခွဲသည့် World Wide Web ၏ ကြီးမားလှသော ဒစ်ဂျစ်တယ် မော်ကွန်းတိုက်ကြီး ဖြစ်သည့် [Wayback Machine](https://archive.org/web/) ဖြစ်ပါသည်။ Wayback Machine သည် ဝဘ်စာမျက်နှာများကို ဖမ်းယူ (capture) ပြီး မော်ကွန်းတင် ထိန်းသိမ်းနိုင်စေကာ နောက်ပိုင်းတွင် ထိုဝဘ်ဆိုက်အတွက် သိမ်းဆည်းထားသော snapshot များအားလုံးကို ပြန်လည် ထုတ်ယူနိုင်စေပါသည်။ အကယ်၍ ယင်းကို အသုံးဝင်သည်ဟု ယူဆပါက စီမံကိန်းသို့ [လှူဒါန်းရန်](https://archive.org/donate/) စဉ်းစားပါ။
 
-Not all the data that you use lives on your hard disk. If you use **webservices**, then it might be the case that some data you care about, such as Google Docs presentations or Spotify playlists, is stored online. Another easy example that is easy to forget is email accounts with web access, such as Gmail. Figuring out a backup solution in these cases is somewhat trickier. However, there are many services that allow you to download your data, either directly or via an API. Tools such as [gmvault](https://github.com/gaubert/gmvault) for Gmail are available to download the email files to your computer.
+## အရင်းအမြစ်များ (Resources)
 
+ကျွန်ုပ်တို့ ကိုယ်တိုင် အသုံးပြုခဲ့ပြီး စိတ်ချလက်ချ အကြံပြုနိုင်သော အရန်သိမ်းဆည်းမှု ပရိုဂရမ်များနှင့် ဝန်ဆောင်မှု အချို့မှာ-
 
-## Webpages
+- [Tarsnap](https://www.tarsnap.com/) - လုံခြုံရေးအတွက် အလွန် သတိကြီးသူများအတွက် ထပ်နေသည်များ ဖယ်ရှားထားပြီး Encrypt လုပ်ထားသော အွန်လိုင်း အရန်သိမ်းဆည်းမှု ဝန်ဆောင်မှု။
+- [Borg Backup](https://borgbackup.readthedocs.io) - ချုံ့ခြင်း (compression) နှင့် စိစစ်ထားသော Encryption ကို ထောက်ပံ့ပေးသည့် ထပ်နေသည်များ ဖယ်ရှားထားသော အရန်သိမ်းဆည်းမှု ပရိုဂရမ်။ Cloud Provider လိုအပ်ပါက [BorgBase](https://www.borgbase.com/) သည် လူကြိုက်များသော ရွေးချယ်မှု တစ်ခု ဖြစ်ပါသည်။
+- [rsync](https://rsync.samba.org/) သည် မြန်ဆန်သော incremental ဖိုင် ကူးပြောင်းမှုကို ထောက်ပံ့ပေးသည့် Utility တစ်ခု ဖြစ်ပါသည်။ ယင်းသည် အပြည့်အဝ အရန်သိမ်းဆည်းမှု နည်းလမ်း မဟုတ်ပါ။
+- [rclone](https://rclone.org/) သည် rsync နှင့် ဆင်တူသော်လည်း Amazon S3, Dropbox, Google Drive, rsync.net စသည့် Cloud Storage Provider များအတွက် ဖြစ်ပါသည်။ Remote folder များကို Client-side Encryption ပြုလုပ်ခြင်းကို ထောက်ပံ့ပေးပါသည်။
 
-Similarly, some high quality content can be found online in the form of webpages. If said content is static one can easily back it up by just saving the website and all of its attachments. Another alternative is the [Wayback Machine](https://archive.org/web/), a massive digital archive of the World Wide Web managed by the [Internet Archive](https://archive.org/), a non profit organization focused on the preservation of all sorts of media. The Wayback Machine allows you to capture and archive webpages being able to later retrieve all the snapshots that have been archived for that website. If you find it useful, consider [donating](https://archive.org/donate/) to the project.
+## လေ့ကျင့်ခန်းများ (Exercises)
 
+1. မိမိ၏ ဒေတာများကို မည်သို့ အရန်သိမ်းဆည်းနေသလဲ (သို့မဟုတ် မသိမ်းဆည်းဘဲ ထားသလဲ) ဆိုသည်ကို စဉ်းစားကြည့်ပြီး ယင်းကို ပြင်ဆင်/တိုးမြှင့်ရန် ဆောင်ရွက်ပါ။
 
-## Resources
+1. မိမိ၏ အီးမေးလ် အကောင့်များကို မည်သို့ အရန်သိမ်းဆည်းရမည်ကို ရှာဖွေပါ။
 
-Some good backup programs and services we have used and can honestly recommend:
+1. မိမိ မကြာခဏ အသုံးပြုလေ့ရှိသည့် ဝဘ်ဝန်ဆောင်မှု တစ်ခု (Spotify, Google Music စသည်) ကို ရွေးချယ်ပြီး မိမိ ဒေတာများကို အရန်သိမ်းဆည်းနိုင်မည့် နည်းလမ်းများကို ရှာဖွေပါ။ ရရှိနိုင်သော API များပေါ်တွင် အခြေခံ၍ လူအများက ပြုလုပ်ထားပြီးဖြစ်သော Tool များ ([youtube-dl](https://ytdl-org.github.io/youtube-dl/) ကဲ့သို့သော) ဖြေရှင်းချက်များ ရှိလေ့ ရှိပါသည်။
 
-- [Tarsnap](https://www.tarsnap.com/) - deduplicated, encrypted online backup service for the truly paranoid.
-- [Borg Backup](https://borgbackup.readthedocs.io) - deduplicated backup program that supports compression and authenticated encryption. If you need a cloud provider [BorgBase](https://www.borgbase.com/) is one popular option.
-- [rsync](https://rsync.samba.org/) is a utility that provides fast incremental file transfer. It is not a full backup solution.
-- [rclone](https://rclone.org/) like rsync but for cloud storage providers such as Amazon S3, Dropbox, Google Drive, rsync.net, &c. Supports client side encryption of remote folders.
+1. နှစ်များစွာအတွင်း မိမိ ခေါက်တုံခေါက်ပြန် ဝင်ရောက်ကြည့်ရှုခဲ့သည့် ဝဘ်ဆိုက်တစ်ခုကို စဉ်းစားပြီး ယင်းကို [archive.org](https://archive.org/web/) တွင် ရှာဖွေကြည့်ပါ။ ယင်းတွင် ဗားရှင်း ပမာဏ မည်မျှ ရှိသနည်း။
 
-## Exercises
-
-1. Consider how you are (not) backing up your data and look into fixing/improving that.
-
-1. Figure out how to backup your email accounts
-
-1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solutions based on available APIs.
-
-1. Think of a website you have visited repeatedly over the years and look it up in [archive.org](https://archive.org/web/), how many versions does it have?
-
-1. One way to efficiently implement deduplication is to use hardlinks. Whereas symbolic link (also called a soft link or a symlink) is a file that points to another file or folder, a hardlink is a exact copy of the pointer (it uses the same inode and points to the same place in the disk). Thus if the original file is removed a symlink stops working whereas a hard link doesn't. However, hardlinks only work for files. Try using the command `ln` to create hard links and compare them to symlinks created with `ln -s`. (In macOS you will need to install the gnu coreutils or the hln package).
+1. Deduplication ကို ထိရောက်စွာ အကောင်အထည်ဖော်နိုင်သော နည်းလမ်းတစ်ခုမှာ Hardlink များကို အသုံးပြုခြင်း ဖြစ်ပါသည်။ Symbolic link (Soft link သို့မဟုတ် Symlink ဟုလည်း ခေါ်သည်) ဆိုသည်မှာ အခြား ဖိုင် သို့မဟုတ် ဖိုဒါကို ညွှန်းဆိုထားသည့် ဖိုင်တစ်ခု ဖြစ်သော်လည်း၊ Hardlink သည် Pointer ၏ ပုံတူ မိတ္တူတစ်စုံ ဖြစ်ပါသည် (ယင်းသည် မူလ inode ကိုပင် အသုံးပြုပြီး ဒစ်ခ်ပေါ်ရှိ တူညီသော နေရာကို ညွှန်းဆိုပါသည်)။ ထို့ကြောင့် မူရင်းဖိုင်ကို ဖျက်လိုက်ပါက Symlink သည် အလုပ်လုပ်တော့မည် မဟုတ်သော်လည်း Hardlink ကမူ ဆက်လက် အလုပ်လုပ်နေမည် ဖြစ်ပါသည်။ သို့သော် Hardlink များသည် ဖိုင်များအတွက်သာ အလုပ်လုပ်ပါသည်။ Hardlink များ ဖန်တီးရန် `ln` command ကို အသုံးပြုကြည့်ပါ၊ ယင်းတို့ကို `ln -s` ဖြင့် ဖန်တီးထားသော Symlink များနှင့် နှိုင်းယှဉ်ကြည့်ပါ။ (macOS တွင် gnu coreutils သို့မဟုတ် hln package ကို ထည့်သွင်းရန် လိုအပ်မည် ဖြစ်ပါသည်)။

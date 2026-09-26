@@ -2,7 +2,7 @@
 layout: lecture
 title: "Debugging and Profiling"
 description: >
-  Learn how to debug programs using logging, debuggers, and static analysis, and how to profile code for performance.
+  Logging၊ debuggers နှင့် static analysis တို့ကို အသုံးပြု၍ ပရိုဂရမ်များကို Debug ပြုလုပ်ပုံ နှင့် စွမ်းဆောင်ရည်အတွက် Code ကို Profile ပြုလုပ်ပုံများ လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
@@ -11,25 +11,25 @@ video:
   id: l812pUnKxME
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do.
-Bridging that gap can sometimes be a quite difficult feat.
-In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+ပရိုဂရမ်မင်းတွင် ရွှေရောင် စည်းမျဉ်းတစ်ခု ရှိသည်မှာ - Code သည် သင်မျှော်လင့်သလို အလုပ်လုပ်မည် မဟုတ်ဘဲ သင်ခိုင်းစေသည့်အတိုင်းသာ အလုပ်လုပ်မည် ဖြစ်သည်။
+ထို ကွာဟချက်ကို ပေါင်းကူးပေးရန်မှာ အချို့သော အခြေအနေများတွင် အလွန် ခက်ခဲသော စိန်ခေါ်မှု ဖြစ်နိုင်ပါသည်။
+ဤသင်ခန်းစာတွင် Bug ပါဝင်နေသော Code များနှင့် Resource စားသုံးမှု များပြားနေသော Code များကို ကိုင်တွယ် ဖြေရှင်းနိုင်မည့် အသုံးဝင်သော နည်းလမ်းနှစ်ခုဖြစ်သည့် Debugging ပြုလုပ်ခြင်း နှင့် Profiling ပြုလုပ်ခြင်း တို့ကို သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။
 
 # Debugging
 
 ## Printf debugging and Logging
 
-"The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+"ထိရောက်မှု အရှိဆုံး Debugging tool မှာ သေချာစွာ စဉ်းစားတွေးခေါ်ခြင်း ဖြစ်ပြီး ယင်းနှင့်အတူ သင့်တော်ရာ နေရာများ၌ ထည့်သွင်းထားသော print စာကြောင်းများ ဖြစ်သည်" — Brian Kernighan, _Unix for Beginners_.
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+ပရိုဂရမ်တစ်ခုကို Debug ပြုလုပ်ရန် ပထမဆုံး နည်းလမ်းမှာ ပြဿနာ တွေ့ရှိရသည့် နေရာများ၌ print စာကြောင်းများ ထည့်သွင်းပြီး ပြဿနာ ဖြစ်ပွားရခြင်း အကြောင်းအရင်းကို နားလည်စေရန် အချက်အလက် လုံလောက်စွာ ရရှိသည်အထိ အကြိမ်ကြိမ် စမ်းသပ်ခြင်း ဖြစ်သည်။
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is better than regular print statements for several reasons:
+ဒုတိယ နည်းလမ်းမှာ တိုက်ရိုက် print စာကြောင်းများ ရေးသားမည့်အစား သင်၏ ပရိုဂရမ်တွင် Logging ကို အသုံးပြုခြင်း ဖြစ်ပါသည်။ Logging ကို အသုံးပြုခြင်းသည် သာမန် print စာကြောင်းများထက် အကြောင်းကြောင်းကြောင့် ပိုမို ကောင်းမွန်ပါသည် -
 
-- You can log to files, sockets or even remote servers instead of standard output.
-- Logging supports severity levels (such as INFO, DEBUG, WARN, ERROR, &c), that allow you to filter the output accordingly.
-- For new issues, there's a fair chance that your logs will contain enough information to detect what is going wrong.
+- Standard Output သို့ မဟုတ်ဘဲ ဖိုင်များ၊ Socket များ သို့မဟုတ် Remote Server များထံသို့ Log များကို သိမ်းဆည်း ပေးပို့နိုင်ပါသည်။
+- Logging သည် သင့်တော်သလို Filter လုပ်နိုင်စေရန် Severity levels များ (ဥပမာ INFO, DEBUG, WARN, ERROR အစရှိသည်) ကို ထောက်ပံ့ပေးပါသည်။
+- ပြဿနာ အသစ်များ ဖြစ်ပေါ်သည့်အခါ သင်၏ Log များတွင် မည်သည် မှားယွင်းနေကြောင်း သိရှိနိုင်မည့် အချက်အလက် လုံလောက်စွာ ပါဝင်နိုင်ခြေ ရှိပါသည်။
 
-[Here](/static/files/logger.py) is an example code that logs messages:
+[ဒီနေရာတွင်](/static/files/logger.py) Log စာတိုများ ရေးသားထားသော နမူနာ Python Code ကို တွေ့နိုင်ပါသည် -
 
 ```bash
 $ python logger.py
@@ -42,11 +42,11 @@ $ python logger.py color
 # Color formatted output
 ```
 
-One of my favorite tips for making logs more readable is to color code them.
-By now you probably have realized that your terminal uses colors to make things more readable. But how does it do it?
-Programs like `ls` or `grep` are using [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code), which are special sequences of characters to indicate your shell to change the color of the output. For example, executing `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` prints the message `This is red` in red on your terminal, as long as it supports [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices). If your terminal doesn't support this (e.g. macOS's Terminal.app), you can use the more universally supported escape codes for 16 color choices, for example `echo -e "\e[31;1mThis is red\e[0m"`.
+Log များကို ပိုမို ဖတ်ရှုရ လွယ်ကူစေရန် ကျွန်ုပ် အနှစ်သက်ဆုံး အကြံပြုချက်တစ်ခုမှာ အရောင်များ (Color code) တပ်ဆင်ခြင်း ဖြစ်ပါသည်။
+သင်၏ Terminal တွင် အရာရာကို ဖတ်ရှုရ လွယ်ကူစေရန် အရောင်များ အသုံးပြုထားသည်ကို သတိပြုမိပေမည်။ သို့သော် ၎င်းသည် မည်သို့ အလုပ်လုပ်သနည်း။
+`ls` သို့မဟုတ် `grep` ကဲ့သို့သော ပရိုဂရမ်များသည် Terminal အား Output ၏ အရောင်ပြောင်းလဲရန် ညွှန်ကြားသည့် အထူး စာလုံး အစဉ်လိုက်များ ဖြစ်သော [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) များကို အသုံးပြုကြပါသည်။ ဥပမာအားဖြင့် `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` ကို ရန်းလိုက်ပါက သင်၏ Terminal က [true color](https://github.com/termstandard/colors#truecolor-support-in-output-devices) ကို ထောက်ပံ့ပါက `This is red` ဟူသော စာတိုကို အနီရောင်ဖြင့် ပြသမည် ဖြစ်သည်။ အကယ်၍ Terminal က ထောက်ခံမှု မရှိပါက (ဥပမာ macOS ၏ Terminal.app) ပိုမို အထွေထွေ ထောက်ပံ့သော အရောင် ၁၆ ရောင် Escape code ကို သုံးနိုင်ပါသည်၊ ဥပမာ `echo -e "\e[31;1mThis is red\e[0m"`။
 
-The following script shows how to print many RGB colors into your terminal (again, as long as it supports true color).
+အောက်ပါ Script သည် သင်၏ Terminal အတွင်းသို့ RGB အရောင်များစွာ ရိုက်နှိပ်ပြသပုံကို ဖော်ပြထားပါသည် (True color ထောက်ပံ့ပါက)။
 
 ```bash
 #!/usr/bin/env bash
@@ -61,22 +61,22 @@ done
 
 ## Third party logs
 
-As you start building larger software systems you will most probably run into dependencies that run as separate programs.
-Web servers, databases or message brokers are common examples of this kind of dependencies.
-When interacting with these systems it is often necessary to read their logs, since client side error messages might not suffice.
+ပိုမို ကြီးမားသော Software စနစ်များကို တည်ဆောက်လာသည့်အခါ သီးခြား ပရိုဂရမ်များအဖြစ် ရန်းနေသော Dependencies များနှင့် ကြုံတွေ့ရမည် ဖြစ်ပါသည်။
+Web server များ၊ Database များ သို့မဟုတ် Message broker များသည် ဤကဲ့သို့သော Dependency များ၏ အသုံးများသော ဥပမာများ ဖြစ်ကြသည်။
+ဤစနစ်များနှင့် မကြာခဏ ချိတ်ဆက် ဆောင်ရွက်သည့်အခါ Client side error စာတိုများ လုံလောက်မှု မရှိနိုင်သဖြင့် ယင်းတို့၏ Log များကို ဖတ်ရှုရန် လိုအပ်တတ်ပါသည်။
 
-Luckily, most programs write their own logs somewhere in your system.
-In UNIX systems, it is commonplace for programs to write their logs under `/var/log`.
-For instance, the [NGINX](https://www.nginx.com/) webserver places its logs under `/var/log/nginx`.
-More recently, systems have started using a **system log**, which is increasingly where all of your log messages go.
-Most (but not all) Linux systems use `systemd`, a system daemon that controls many things in your system such as which services are enabled and running.
-`systemd` places the logs under `/var/log/journal` in a specialized format and you can use the [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) command to display the messages.
-Similarly, on macOS there is still `/var/log/system.log` but an increasing number of tools use the system log, that can be displayed with [`log show`](https://www.manpagez.com/man/1/log/).
-On most UNIX systems you can also use the [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) command to access the kernel log.
+ကံကောင်းစွာပင် ပရိုဂရမ် အများစုသည် ယင်းတို့၏ မူပိုင် Log များကို သင်၏ စနစ်အတွင်း တစ်နေရာရာ၌ ရေးသားလေ့ ရှိကြသည်။
+UNIX စနစ်များတွင် ပရိုဂရမ်များသည် Log များကို `/var/log` အောက်၌ ရေးသားခြင်းမှာ အလေ့အထ ဖြစ်သည်။
+ဥပမာအားဖြင့် [NGINX](https://www.nginx.com/) Webserver သည် ယင်း၏ Log များကို `/var/log/nginx` အောက်တွင် ထားရှိသည်။
+နောက်ပိုင်းတွင် စနစ်များသည် **system log** ကို စတင် အသုံးပြုလာကြပြီး သင်၏ Log စာတို အားလုံး ရောက်ရှိရာ နေရာ ဖြစ်လာပါသည်။
+Linux စနစ် အများစု (အားလုံးတော့ မဟုတ်ပါ) သည် သင်၏ စနစ်ရှိ Service များ ဖွင့်ထားခြင်း၊ ရန်းနေခြင်း အစရှိသည်တို့ကို ထိန်းချုပ်သော System Daemon ဖြစ်သည့် `systemd` ကို အသုံးပြုကြသည်။
+`systemd` သည် Log များကို `/var/log/journal` အောက်တွင် သီးသန့် Format ဖြင့် ထားရှိပြီး [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) Command ကို အသုံးပြု၍ မက်ဆေ့ဂျ်များကို ပြသနိုင်ပါသည်။
+အလားတူ macOS တွင် `/var/log/system.log` ရှိနေဆဲ ဖြစ်သော်လည်း ကိရိယာ အမြောက်အမြားသည် System log ကို သုံးလာကြပြီး [`log show`](https://www.manpagez.com/man/1/log/) ဖြင့် ကြည့်ရှုနိုင်ပါသည်။
+UNIX စနစ် အများစုတွင် Kernel log များကို ကြည့်ရှုရန် [`dmesg`](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) Command ကိုလည်း အသုံးပြုနိုင်ပါသည်။
 
-For logging under the system logs you can use the [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html) shell program.
-Here's an example of using `logger` and how to check that the entry made it to the system logs.
-Moreover, most programming languages have bindings logging to the system log.
+System log များအောက်တွင် Logging ပြုလုပ်ရန် [`logger`](https://www.man7.org/linux/man-pages/man1/logger.1.html) ဟူသော Shell program ကို အသုံးပြုနိုင်ပါသည်။
+အောက်တွင် `logger` ကို အသုံးပြုပုံနှင့် System log သို့ ရောက်ရှိသွားခြင်း ရှိမရှိ စစ်ဆေးပုံ နမူနာကို ဖော်ပြထားပါသည်။
+ထို့ပြင် ပရိုဂရမ်မင်း ဘာသာစကား အများစုတွင် System log ထို့သို့ ရေးသားရန် Bindings များ ပါရှိကြပါသည်။
 
 ```bash
 logger "Hello Logs"
@@ -86,35 +86,35 @@ log show --last 1m | grep Hello
 journalctl --since "1m ago" | grep Hello
 ```
 
-As we saw in the data wrangling lecture, logs can be quite verbose and they require some level of processing and filtering to get the information you want.
-If you find yourself heavily filtering through `journalctl` and `log show` you can consider using their flags, which can perform a first pass of filtering of their output.
-There are also some tools like  [`lnav`](https://lnav.org/), that provide an improved presentation and navigation for log files.
+Data wrangling သင်ခန်းစာတွင် တွေ့မြင်ခဲ့သည့်အတိုင်း Log များသည် အလွန် ရှည်လျား များပြားနိုင်ပြီး လိုချင်သော အချက်အလက် ရရှိရန် စစ်ထုတ်မှု (filter) ပြုလုပ်ရန် လိုအပ်ပါသည်။
+`journalctl` နှင့် `log show` တို့တွင် များစွာ Filter လုပ်နေရပါက ယင်းတို့၏ Output ကို ပထမအဆင့် စစ်ထုတ်ပေးနိုင်သော Flag များကို အသုံးပြုရန် စဉ်းစားနိုင်ပါသည်။
+ထို့အပြင် Log ဖိုင်များကို ပိုမို ကောင်းမွန်စွာ ပြသပေးပြီး ကြည့်ရှုနိုင်စေသော [`lnav`](https://lnav.org/) ကဲ့သို့သော Tool များလည်း ရှိကြပါသည်။
 
 ## Debuggers
 
-When printf debugging is not enough you should use a debugger.
-Debuggers are programs that let you interact with the execution of a program, allowing the following:
+Printf debugging သည် မလုံလောက်တော့သည့်အခါ Debugger တစ်ခုကို အသုံးပြုသင့်ပါသည်။
+Debugger ဆိုသည်မှာ ပရိုဂရမ်၏ ရန်းနေမှုကို ချိတ်ဆက် ကွပ်ကဲနိုင်သော ပရိုဂရမ် ဖြစ်ပြီး အောက်ပါတို့ကို ပြုလုပ်နိုင်ပါသည် -
 
-- Halt execution of the program when it reaches a certain line.
-- Step through the program one instruction at a time.
-- Inspect values of variables after the program crashed.
-- Conditionally halt the execution when a given condition is met.
-- And many more advanced features
+- သီးခြား စာကြောင်းသို့ ရောက်ရှိသောအခါ ပရိုဂရမ်၏ အလုပ်လုပ်နေမှုကို ခေတ္တ ရပ်တန့်ခြင်း။
+- ပရိုဂရမ်ကို ညွှန်ကြားချက် တစ်ခုချင်းစီအလိုက် တဆင့်ချင်းစီ (step-by-step) သွားရောက်ခြင်း။
+- ပရိုဂရမ် ပျက်စီး (crash) သွားပြီးနောက် Variable များ၏ တန်ဖိုးများကို စစ်ဆေးခြင်း။
+- သတ်မှတ်ထားသော အခြေအနေ ကိုက်ညီသည့်အခါ ရပ်တန့်ခြင်း။
+- နှင့် အခြား အဆင့်မြင့် အင်္ဂါရပ်များစွာ။
 
-Many programming languages come with some form of debugger.
-In Python this is the Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html).
+ပရိုဂရမ်မင်း ဘာသာစကား အများစုတွင် Debugger တစ်မျိုးမျိုး ပါဝင်လေ့ ရှိကြပါသည်။
+Python တွင် ယင်းသည် Python Debugger [`pdb`](https://docs.python.org/3/library/pdb.html) ဖြစ်ပါသည်။
 
-Here is a brief description of some of the commands `pdb` supports:
+`pdb` က ထောက်ပံ့ပေးသော Command အချို့၏ အတိုချုပ် ရှင်းလင်းချက်မှာ အောက်ပါအတိုင်း ဖြစ်ပါသည် -
 
-- **l**(ist) - Displays 11 lines around the current line or continue the previous listing.
-- **s**(tep) - Execute the current line, stop at the first possible occasion.
-- **n**(ext) - Continue execution until the next line in the current function is reached or it returns.
-- **b**(reak) - Set a breakpoint (depending on the argument provided).
-- **p**(rint) - Evaluate the expression in the current context and print its value. There's also **pp** to display using [`pprint`](https://docs.python.org/3/library/pprint.html) instead.
-- **r**(eturn) - Continue execution until the current function returns.
-- **q**(uit) - Quit the debugger.
+- **l**(ist) - လက်ရှိ စာကြောင်း ဘေးပတ်ပတ်လည် ၁၁ ကြောင်းကို ပြသမည်။
+- **s**(tep) - လက်ရှိ စာကြောင်းကို ရန်းပြီး ပထမဆုံး ရနိုင်သော နေရာတွင် ရပ်မည်။
+- **n**(ext) - လက်ရှိ function ၏ နောက် စာကြောင်း ရောက်သည်အထိ သို့မဟုတ် Return ပြန်သည်အထိ ဆက်သွားမည်။
+- **b**(reak) - Breakpoint သတ်မှတ်မည်။
+- **p**(rint) - လက်ရှိ Context တွင် Expression ကို တွက်ချက်ပြမည်။ [`pprint`](https://docs.python.org/3/library/pprint.html) သုံးလိုပါက **pp** လည်း ရှိသည်။
+- **r**(eturn) - လက်ရှိ function return ပြန်သည်အထိ ဆက်လက် ရန်းမည်။
+- **q**(uit) - Debugger မှ ထွက်မည်။
 
-Let's go through an example of using `pdb` to fix the following buggy python code. (See the lecture video).
+အောက်ပါ Bug ပါဝင်သော Python Code ကို ပြင်ဆင်ရန် `pdb` ကို အသုံးပြုပုံ နမူနာကို လေ့လာကြည့်ပါ။ (သင်ခန်းစာ ဗီဒီယိုကို ကြည့်ပါ)။
 
 ```python
 def bubble_sort(arr):
@@ -129,21 +129,20 @@ def bubble_sort(arr):
 print(bubble_sort([4, 2, 1, 8, 7, 6]))
 ```
 
+Python သည် Interpreted language ဖြစ်သောကြောင့် `pdb` shell ကို အသုံးပြု၍ Command များ နှင့် Instruction များကို ရန်းနိုင်သည်ကို သတိပြုပါ။
+[`ipdb`](https://pypi.org/project/ipdb/) သည် [`IPython`](https://ipython.org) REPL ကို အသုံးပြုထားသည့် ပိုမိုကောင်းမွန်သော `pdb` ဖြစ်ပြီး Tab completion, Syntax highlighting, Tracebacks များကို ပေးစွမ်းနိုင်ပါသည်။
 
-Note that since Python is an interpreted language we can use the `pdb` shell to execute commands and to execute instructions.
-[`ipdb`](https://pypi.org/project/ipdb/) is an improved `pdb` that uses the [`IPython`](https://ipython.org) REPL enabling tab completion, syntax highlighting, better tracebacks, and better introspection while retaining the same interface as the `pdb` module.
-
-For more low level programming you will probably want to look into [`gdb`](https://www.gnu.org/software/gdb/) (and its quality of life modification [`pwndbg`](https://github.com/pwndbg/pwndbg)) and [`lldb`](https://lldb.llvm.org/).
-They are optimized for C-like language debugging but will let you probe pretty much any process and get its current machine state: registers, stack, program counter, &c.
+Low-level programming အတွက်ဆိုလျှင် [`gdb`](https://www.gnu.org/software/gdb/) (နှင့် ယင်း၏ [`pwndbg`](https://github.com/pwndbg/pwndbg)) သို့မဟုတ် [`lldb`](https://lldb.llvm.org/) တို့ကို ကြည့်ရှုလိုပါလိမ့်မည်။
+ယင်းတို့သည် C-like ဘာသာစကား Debugging အတွက် အထူးပြုထားသော်လည်း မည်သည့် Process ကိုမဆို စစ်ဆေးနိုင်ပြီး လက်ရှိ စက်၏ အခြေအနေဖြစ်သော Registers, Stack, Program Counter အစရှိသည်တို့ကို ရယူနိုင်ပါသည်။
 
 
 ## Specialized Tools
 
-Even if what you are trying to debug is a black box binary there are tools that can help you with that.
-Whenever programs need to perform actions that only the kernel can, they use [System Calls](https://en.wikipedia.org/wiki/System_call).
-There are commands that let you trace the syscalls your program makes. In Linux there's [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) and macOS and BSD have [`dtrace`](https://dtrace.org/about/). `dtrace` can be tricky to use because it uses its own `D` language, but there is a wrapper called [`dtruss`](https://www.manpagez.com/man/1/dtruss/) that provides an interface more similar to `strace` (more details [here](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)).
+သင် Debug ပြုလုပ်ရန် ကြိုးစားနေသည်မှာ Black box binary တစ်ခု ဖြစ်နေသည့်တိုင် အကူအညီပေးနိုင်သော Tool များ ရှိပါသည်။
+ပရိုဂရမ်များသည် Kernel သာ ပြုလုပ်နိုင်သော လုပ်ဆောင်ချက်များကို ဆောင်ရွက်ရန် လိုအပ်သည့်အခါ [System Calls](https://en.wikipedia.org/wiki/System_call) များကို အသုံးပြုကြသည်။
+သင်၏ ပရိုဂရမ် ပြုလုပ်သော Syscall များကို ခြေရာခံပေးသည့် Command များ ရှိပါသည်။ Linux တွင် [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) ရှိပြီး macOS နှင့် BSD တွင် [`dtrace`](https://dtrace.org/about/) ရှိပါသည်။ `dtrace` သည် ယင်း၏ မူပိုင် `D` ဘာသာစကားကို သုံးသဖြင့် သုံးရခက်ခဲနိုင်သော်လည်း `strace` နှင့် ပိုမို တူညီသော Wrapper ဖြစ်သည့် [`dtruss`](https://www.manpagez.com/man/1/dtruss/) ရှိပါသည် (အသေးစိတ်ကို [ဒီမှာ](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html) ကြည့်ပါ)။
 
-Below are some examples of using `strace` or `dtruss` to show [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall traces for an execution of `ls`. For a deeper dive into `strace`, [this article](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) and [this zine](https://jvns.ca/strace-zine-unfolded.pdf) are good reads.
+အောက်တွင် `ls` ၏ ရန်းမှုအတွက် [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) syscall trace များကို ပြသရန် `strace` သို့မဟုတ် `dtruss` ကို အသုံးပြုပုံ နမူနာကို ဖော်ပြထားပါသည်။ `strace` ကို ပိုမို အသေးစိတ် လေ့လာရန် [ဤဆောင်းပါး](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2) နှင့် [ဤ zine](https://jvns.ca/strace-zine-unfolded.pdf) တို့သည် ဖတ်ရှုရန် ကောင်းမွန်ပါသည်။
 
 ```bash
 # On Linux
@@ -152,25 +151,25 @@ sudo strace -e lstat ls -l > /dev/null
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
 
-Under some circumstances, you may need to look at the network packets to figure out the issue in your program.
-Tools like [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) are network packet analyzers that let you read the contents of network packets and filter them based on different criteria.
+အချို့သော အခြေအနေများတွင် သင်၏ ပရိုဂရမ်ရှိ ပြဿနာကို ရှာဖွေရန် Network packets များကို ကြည့်ရှုရန် လိုအပ်နိုင်ပါသည်။
+[`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) နှင့် [Wireshark](https://www.wireshark.org/) ကဲ့သို့သော Tool များသည် Network packet များ၏ ပါဝင်ပုံကို ဖတ်ရှုနိုင်ပြီး စစ်ထုတ်ပေးနိုင်သော Network packet analyzer များ ဖြစ်ကြပါသည်။
 
-For web development, the Chrome/Firefox developer tools are quite handy. They feature a large number of tools, including:
-- Source code - Inspect the HTML/CSS/JS source code of any website.
-- Live HTML, CSS, JS modification - Change the website content, styles and behavior to test (you can see for yourself that website screenshots are not valid proofs).
-- Javascript shell - Execute commands in the JS REPL.
-- Network - Analyze the requests timeline.
-- Storage - Look into the Cookies and local application storage.
+Web development အတွက် Chrome/Firefox ၏ Developer tools များသည် အလွန် အဆင်ပြေပါသည်။ ယင်းတို့တွင် အသုံးဝင်သော Tool များစွာ ပါဝင်ပါသည် -
+- Source code - မည်သည့် ဝဘ်ဆိုက်၏ HTML/CSS/JS source code ကိုမဆို စစ်ဆေးခြင်း။
+- Live HTML, CSS, JS modification - စမ်းသပ်ရန်အတွက် ဝဘ်ဆိုက် အကြောင်းအရာ၊ ပုံစံ၊ အမူအကျင့်များကို ပြောင်းလဲခြင်း။
+- Javascript shell - JS REPL တွင် Command များ ရန်းခြင်း။
+- Network - Request များ၏ အချိန်ဇယားကို ဆန်းစစ်ခြင်း။
+- Storage - Cookies နှင့် Local application storage များကို ကြည့်ရှုခြင်း။
 
 ## Static Analysis
 
-For some issues you do not need to run any code.
-For example, just by carefully looking at a piece of code you could realize that your loop variable is shadowing an already existing variable or function name; or that a program reads a variable before defining it.
-Here is where [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tools come into play.
-Static analysis programs take source code as input and analyze it using coding rules to reason about its correctness.
+အချို့သော ပြဿနာများအတွက် မည်သည့် Code ကိုမျှ ရန်းရန် မလိုပါ။
+ဥပမာအားဖြင့် Code ကို သေချာ ကြည့်ရုံဖြင့် သင်၏ Loop variable သည် ရှိပြီးသား Variable သို့မဟုတ် Function အမည်ကို ဖုံးအုပ် (shadowing) နေသည်ကို သို့မဟုတ် သတ်မှတ်ခြင်း မပြုမီ Variable ကို ဖတ်နေသည်ကို တွေ့ရှိနိုင်ပါသည်။
+ဤနေရာတွင် [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis) tool များ ရောက်ရှိလာပါသည်။
+Static analysis ပရိုဂရမ်များသည် Source code ကို လက်ခံပြီး ယင်း၏ မှန်ကန်မှုကို သုံးသပ်ရန် Coding rules များကို သုံး၍ စန်းစစ်ပေးပါသည်။
 
-In the following Python snippet there are several mistakes.
-First, our loop variable `foo` shadows the previous definition of the function `foo`. We also wrote `baz` instead of `bar` in the last line, so the program will crash after completing the `sleep` call (which will take one minute).
+အောက်ပါ Python snippet တွင် အမှားများစွာ ပါဝင်နေသည်။
+ပထမဦးစွာ Loop variable `foo` သည် မူလ function သတ်မှတ်ချက် `foo` ကို Shadowing ပြုလုပ်သွားသည်။ ထို့အပြင် နောက်ဆုံး စာကြောင်းတွင် `bar` အစား `baz` ဟု ရေးသားမိသဖြင့် (၁ မိနစ် ကြာမြင့်မည့်) `sleep` ပြီးနောက် ပရိုဂရမ် Crash ဖြစ်သွားပါမည်။
 
 ```python
 import time
@@ -180,14 +179,15 @@ def foo():
 
 for foo in range(5):
     print(foo)
+    
 bar = 1
 bar *= 0.2
 time.sleep(60)
 print(baz)
 ```
 
-Static analysis tools can identify these kinds of issues. When we run [`pyflakes`](https://pypi.org/project/pyflakes) on the code we get the errors related to both bugs. [`mypy`](https://mypy-lang.org/) is another tool that can detect type checking issues. Here, `mypy` will warn us that `bar` is initially an `int` and is then casted to a `float`.
-Again, note that all these issues were detected without having to run the code.
+Static analysis tool များသည် ဤကဲ့သို့သော ပြဿနာများကို ရှာဖွေပေးနိုင်ပါသည်။ [`pyflakes`](https://pypi.org/project/pyflakes) ကို ရန်းလိုက်ပါက Bug နှစ်ခုစလုံးနှင့် ပတ်သက်သော Error များကို ရရှိမည် ဖြစ်သည်။ [`mypy`](https://mypy-lang.org/) သည် Type စစ်ဆေးမှု ပြဿနာများကို ရှာဖွေပေးနိုင်သော အခြား Tool ဖြစ်ပါသည်။ ဤနေရာတွင် `mypy` က `bar` သည် မူလက `int` ဖြစ်ပြီး နောက်ပိုင်း `float` သို့ ပြောင်းလဲသွားကြောင်း သတိပေးမည် ဖြစ်သည်။
+ဤပြဿနာ အားလုံးကို Code ကို ရန်းစရာ မလိုဘဲ စစ်ဆေးတွေ့ရှိခဲ့ခြင်း ဖြစ်သည်ကို သတိပြုပါ။
 
 ```bash
 $ pyflakes foobar.py
@@ -201,29 +201,28 @@ foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
 
-In the shell tools lecture we covered [`shellcheck`](https://www.shellcheck.net/), which is a similar tool for shell scripts.
+Shell tools သင်ခန်းစာတွင် Shell script များအတွက် တူညီသော Tool ဖြစ်သည့် [`shellcheck`](https://www.shellcheck.net/) အကြောင်းကို သင်ကြားခဲ့ကြပါသည်။
 
-Most editors and IDEs support displaying the output of these tools within the editor itself, highlighting the locations of warnings and errors.
-This is often called **code linting** and it can also be used to display other types of issues such as stylistic violations or insecure constructs.
+Editor နှင့် IDE အများစုသည် ဤ Tool များ၏ Output ကို Editor အတွင်း၌ တိုက်ရိုက် ပြသပေးခြင်းကို ထောက်ပံ့ပေးပြီး Warning နှင့် Error များကို Highlight ပြပေးပါသည်။
+ဤသည်ကို **code linting** ဟု ခေါ်ဆိုကြပြီး စတိုင်လ် ပုံစံ ချိုးဖောက်မှုများ သို့မဟုတ် လုံခြုံရေး မရှိသော ရေးသားမှုများကိုပါ ပြသပေးနိုင်ပါသည်။
 
-In vim, the plugins [`ale`](https://vimawesome.com/plugin/ale) or [`syntastic`](https://vimawesome.com/plugin/syntastic) will let you do that.
-For Python, [`pylint`](https://github.com/PyCQA/pylint) and [`pep8`](https://pypi.org/project/pep8/) are examples of stylistic linters and [`bandit`](https://pypi.org/project/bandit/) is a tool designed to find common security issues.
-For other languages people have compiled comprehensive lists of useful static analysis tools, such as [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) (you may want to take a look at the _Writing_ section) and for linters there is [Awesome Linters](https://github.com/caramelomartins/awesome-linters).
+Vim တွင် [`ale`](https://vimawesome.com/plugin/ale) သို့မဟုတ် [`syntastic`](https://vimawesome.com/plugin/syntastic) plugin များက ထိုသို့ ပြုလုပ်ပေးပါသည်။
+Python အတွက် [`pylint`](https://github.com/PyCQA/pylint) နှင့် [`pep8`](https://pypi.org/project/pep8/) တို့သည် စတိုင်လ် Linter များ ဖြစ်ကြပြီး [`bandit`](https://pypi.org/project/bandit/) သည် အသုံးများသော လုံခြုံရေး ပြဿနာများကို ရှာဖွေရန် ဒီဇိုင်းထွင်ထားသော Tool ဖြစ်ပါသည်။
+အခြား ဘာသာစကားများအတွက် အသုံးဝင်သော Static analysis စာရင်းများကို [Awesome Static Analysis](https://github.com/mre/awesome-static-analysis) တွင် ကြည့်နိုင်ပြီး Linter များအတွက် [Awesome Linters](https://github.com/caramelomartins/awesome-linters) တွင် ကြည့်နိုင်ပါသည်။
 
-A complementary tool to stylistic linting are code formatters such as [`black`](https://github.com/psf/black) for Python, `gofmt` for Go, `rustfmt` for Rust or [`prettier`](https://prettier.io/) for JavaScript, HTML and CSS.
-These tools autoformat your code so that it's consistent with common stylistic patterns for the given programming language.
-Although you might be unwilling to give stylistic control about your code, standardizing code format will help other people read your code and will make you better at reading other people's (stylistically standardized) code.
+Stylistic linting ကို ဖြည့်စွက်ပေးသော Tool များမှာ Python အတွက် [`black`](https://github.com/psf/black)၊ Go အတွက် `gofmt`၊ Rust အတွက် `rustfmt` သို့မဟုတ် JavaScript, HTML, CSS အတွက် [`prettier`](https://prettier.io/) ကဲ့သို့သော Code formatters များ ဖြစ်ကြပါသည်။
+ဤ Tool များသည် သက်ဆိုင်ရာ ဘာသာစကား၏ စံနှုန်း စတိုင်လ် ပုံစံများအတိုင်း သင်၏ Code ကို အလိုအလျောက် Format ပြုလုပ်ပေးပါသည်။
 
 # Profiling
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process.
-Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs.
-Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+သင်၏ Code သည် မျှော်လင့်ထားသည့်အတိုင်း အလုပ်လုပ်သည့်တိုင်အောင် အလုပ်လုပ်နေစဉ်အတွင်း CPU သို့မဟုတ် Memory အားလုံးကို ယူဆောင်သွားပါက မလုံလောက်နိုင်ပါ။
+Algorithm အတန်းများတွင် Big _O_ notation အကြောင်းကို သင်ကြားပေးသော်လည်း ပရိုဂရမ်၏ Hot spots များကို မည်သို့ ရှာရမည်ကို မသင်ကြားပေးပါ။
+[အချိန်မတိုင်မီ အကောင်းဆုံးဖြစ်အောင် ပြုလုပ်ခြင်းသည် ဒုက္ခအားလုံး၏ အမြစ် ဖြစ်သောကြောင့်](https://wiki.c2.com/?PrematureOptimization) Profiler များ နှင့် Monitoring tool များကို လေ့လာသင့်ပါသည်။ ယင်းတို့သည် ပရိုဂရမ်၏ မည်သည့် အစိတ်အပိုင်းက အချိန် သို့မဟုတ် Resource အများဆုံး ယူနေသည်ကို နားလည်အောင် ကူညီပေးမည် ဖြစ်သဖြင့် ထို အစိတ်အပိုင်းများကို အဓိကထား အကောင်းဆုံးဖြစ်အောင် ပြုလုပ်နိုင်ပါမည်။
 
 ## Timing
 
-Similarly to the debugging case, in many scenarios it can be enough to just print the time it took your code between two points.
-Here is an example in Python using the [`time`](https://docs.python.org/3/library/time.html) module.
+Debugging ကဲ့သို့ပင်၊ နေရာနှစ်ခုကြား ကြာမြင့်ချိန်ကို ရိုက်နှိပ်ကြည့်ခြင်းသည် အခြေအနေများစွာတွင် လုံလောက်နိုင်ပါသည်။
+အောက်တွင် Python ရှိ [`time`](https://docs.python.org/3/library/time.html) module ကို အသုံးပြုထားသော နမူနာ ဖြစ်ပါသည်။
 
 ```python
 import time, random
@@ -244,13 +243,13 @@ print(time.time() - start)
 # 0.5713930130004883
 ```
 
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. It is common for tools to make a distinction between _Real_, _User_ and _Sys_ time. In general, _User_ + _Sys_ tells you how much time your process actually spent in the CPU (more detailed explanation [here](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1)).
+သို့သော် နာရီကြည့် ကြာမြင့်ချိန် (Wall clock time) သည် အလှည့်အပတ် ဖြစ်နိုင်သည်၊ အကြောင်းမှာ ကွန်ပျူတာသည် အခြား Process များကို ရန်းနေနိုင်သလို Event များကို စောင့်ဆိုင်းနေနိုင်သောကြောင့် ဖြစ်သည်။ Tool များသည် _Real_, _User_ နှင့် _Sys_ time တို့ကို ခွဲခြားသတ်မှတ်လေ့ ရှိကြပါသည်။ ယေဘုယျအားဖြင့် _User_ + _Sys_ သည် ပရိုဂရမ်က CPU တွင် အမှန်တကယ် ကုန်လွန်ခဲ့သော အချိန်ကို ဖော်ပြပေးသည် ([အသေးစိတ်ကို ဒီမှာ ကြည့်ပါ](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1))။
 
-- _Real_ - Wall clock elapsed time from start to finish of the program, including the time taken by other processes and time taken while blocked (e.g. waiting for I/O or network)
-- _User_ - Amount of time spent in the CPU running user code
-- _Sys_ - Amount of time spent in the CPU running kernel code
+- _Real_ - ပရိုဂရမ် စတင်ချိန်မှ ပြီးဆုံးချိန်အထိ နာရီကြည့် ကုန်လွန်ချိန် (အခြား process များ နှင့် စောင့်ဆိုင်းချိန်များ ပါဝင်သည်)
+- _User_ - User code ကို ရန်းရာတွင် CPU ၌ ကုန်လွန်ခဲ့သော အချိန်
+- _Sys_ - Kernel code ကို ရန်းရာတွင် CPU ၌ ကုန်လွန်ခဲ့သော အချိန်
 
-For example, try running a command that performs an HTTP request and prefixing it with [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html). Under a slow connection you might get an output like the one below. Here it took over 2 seconds for the request to complete but the process only took 15ms of CPU user time and 12ms of kernel CPU time.
+ဥပမာ HTTP request ပြုလုပ်သော Command တစ်ခု၏ ရှေ့တွင် [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html) ထည့်၍ ရန်းကြည့်ပါ။ လိုင်းနှေးသောအခါ အောက်ပါအတိုင်း Output ရရှိနိုင်ပါသည်။ ဤနေရာတွင် Request ပြီးဆုံးရန် ၂ စက္ကန့်ကျော် ကြာမြင့်ခဲ့သော်လည်း Process သည် CPU user time 15ms နှင့် Kernel CPU time 12ms သာ ကုန်လွန်ခဲ့သည်။
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -263,16 +262,15 @@ sys     0m0.012s
 
 ### CPU
 
-Most of the time when people refer to _profilers_ they actually mean _CPU profilers_,  which are the most common.
-There are two main types of CPU profilers: _tracing_ and _sampling_ profilers.
-Tracing profilers keep a record of every function call your program makes whereas sampling profilers probe your program periodically (commonly every millisecond) and record the program's stack.
-They use these records to present aggregate statistics of what your program spent the most time doing.
-[Here](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) is a good intro article if you want more detail on this topic.
+လူအများစုက _profilers_ ဟု ပြောသည့်အခါ အသုံးအများဆုံးဖြစ်သော _CPU profilers_ များကို ဆိုလိုခြင်း ဖြစ်သည်။
+CPU profiler အဓိက အမျိုးအစား နှစ်ခု ရှိသည် - _tracing_ နှင့် _sampling_ profilers။
+Tracing profiler များသည် ပရိုဂရမ် ပြုလုပ်သော Function call တိုင်းကို မှတ်တမ်းတင်ထားပြီး Sampling profiler များမူ ပရိုဂရမ်ကို ပုံမှန် အချိန်အပိုင်းအခြားအလိုက် (အများအားဖြင့် မီလီစက္ကန့်တိုင်း) စစ်ဆေး၍ Stack ကို မှတ်တမ်းတင်သည်။
+ယင်းတို့သည် ပရိုဂရမ်က အချိန်အများဆုံး ကုန်လွန်ခဲ့သည့် စာရင်းဇယားများကို ပြသပေးပါသည်။
+[ဤဆောင်းပါး](https://jvns.ca/blog/2017/12/17/how-do-ruby---python-profilers-work-) တွင် ပိုမို အသေးစိတ် လေ့လာနိုင်ပါသည်။
 
-Most programming languages have some sort of command line profiler that you can use to analyze your code.
-They often integrate with full fledged IDEs but for this lecture we are going to focus on the command line tools themselves.
+ပရိုဂရမ်မင်း ဘာသာစကား အများစုတွင် Code ကို ဆန်းစစ်ရန် Command line profiler ပါဝင်ကြပါသည်။
 
-In Python we can use the `cProfile` module to profile time per function call. Here is a simple example that implements a rudimentary grep in Python:
+Python တွင် Function call တစ်ခုစီ၏ အချိန်ကို Profile ပြုလုပ်ရန် `cProfile` module ကို အသုံးပြုနိုင်ပါသည်။ အောက်ပါအတိုင်း Python ဖြင့် ရေးထားသော မူလ Grep နမူနာ ဖြစ်ပါသည် -
 
 ```python
 #!/usr/bin/env python
@@ -296,7 +294,7 @@ if __name__ == '__main__':
             grep(pattern, file)
 ```
 
-We can profile this code using the following command. Analyzing the output we can see that IO is taking most of the time and that compiling the regex takes a fair amount of time as well. Since the regex only needs to be compiled once, we can factor it out of the for.
+အောက်ပါ Command ဖြင့် ဤ Code ကို Profile ပြုလုပ်နိုင်ပါသည်။ Output ကို ဆန်းစစ်ကြည့်ပါက IO က အချိန်အများဆုံး ယူနေပြီး Regex အား Compile လုပ်ခြင်းကလည်း အချိန်အတော်အတန် ယူနေသည်ကို တွေ့ရမည်။ Regex ကို တစ်ကြိမ်သာ Compile လုပ်ရန် လိုသဖြင့် Loop အပြင်သို့ ထုတ်ယူနိုင်ပါသည်။
 
 ```
 $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
@@ -317,11 +315,10 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 [omitted lines]
 ```
 
+Python ၏ `cProfile` ၏ အားနည်းချက်တစ်ခုမှာ Function call တစ်ခုစီအလိုက် အချိန်ကို ပြသခြင်း ဖြစ်သည်။ အထူးသဖြင့် Third-party library များကို သုံးသည့်အခါ ရှုပ်ထွေးသွားနိုင်ပါသည်။
+ပိုမို ရှင်းလင်းသော နည်းလမ်းမှာ Code စာကြောင်း တစ်ကြောင်းစီအလိုက် ကုန်လွန်ချိန်ကို ပြသခြင်း ဖြစ်ပြီး _line profilers_ များက ထိုသို့ ပြုလုပ်ပေးပါသည်။
 
-A caveat of Python's `cProfile` profiler (and many profilers for that matter) is that they display time per function call. That can become unintuitive really fast, especially if you are using third party libraries in your code since internal function calls are also accounted for.
-A more intuitive way of displaying profiling information is to include the time taken per line of code, which is what _line profilers_ do.
-
-For instance, the following piece of Python code performs a request to the class website and parses the response to get all URLs in the page:
+ဥပမာ အောက်ပါ Python code သည် အတန်း ဝဘ်ဆိုက်သို့ Request ပို့ပြီး URL များကို စစ်ထုတ်ယူပါသည် -
 
 ```python
 #!/usr/bin/env python
@@ -342,7 +339,7 @@ if __name__ == '__main__':
     get_urls()
 ```
 
-If we used Python's `cProfile` profiler we'd get over 2500 lines of output, and even with sorting it'd be hard to understand where the time is being spent. A quick run with [`line_profiler`](https://github.com/pyutils/line_profiler) shows the time taken per line:
+Python ၏ `cProfile` ကို သုံးပါက Output စာကြောင်း ၂၅၀၀ ကျော် ရရှိမည် ဖြစ်သည်။ [`line_profiler`](https://github.com/pyutils/line_profiler) ကို ရန်းလိုက်ပါက စာကြောင်းတစ်ကြောင်းစီ၏ အချိန်ကို တွေ့ရမည် -
 
 ```bash
 $ kernprof -l -v a.py
@@ -366,11 +363,11 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 
 ### Memory
 
-In languages like C or C++ memory leaks can cause your program to never release memory that it doesn't need anymore.
-To help in the process of memory debugging you can use tools like [Valgrind](https://valgrind.org/) that will help you identify memory leaks.
+C သို့မဟုတ် C++ ကဲ့သို့သော ဘာသာစကားများတွင် Memory leaks များသည် မလိုအပ်တော့သော Memory များကို ပယ်ဖျက်မပေးဘဲ ဖြစ်စေနိုင်ပါသည်။
+Memory debugging အတွက် [Valgrind](https://valgrind.org/) ကဲ့သို့သော Tool များကို အသုံးပြု၍ Memory leaks များကို ရှာဖွေနိုင်ပါသည်။
 
-In garbage collected languages like Python it is still useful to use a memory profiler because as long as you have pointers to objects in memory they won't be garbage collected.
-Here's an example program and its associated output when running it with [memory-profiler](https://pypi.org/project/memory-profiler/) (note the decorator like in `line-profiler`).
+Python ကဲ့သို့ Garbage collected ဘာသာစကားများတွင်လည်း Memory profiler ကို သုံးရန် အသုံးဝင်ပါသည်၊ အကြောင်းမှာ Memory ထဲရှိ Object များသို့ Pointer များ ရှိနေသရွှေ့ Garbage collection ပြုလုပ်မည် မဟုတ်သောကြောင့် ဖြစ်သည်။
+အောက်တွင် [memory-profiler](https://pypi.org/project/memory-profiler/) ဖြင့် ရန်းထားသော နမူနာ ဖြစ်ပါသည် -
 
 ```python
 @profile
@@ -398,58 +395,49 @@ Line #    Mem usage  Increment   Line Contents
 
 ### Event Profiling
 
-As it was the case for `strace` for debugging, you might want to ignore the specifics of the code that you are running and treat it like a black box when profiling.
-The [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) command abstracts CPU differences away and does not report time or memory, but instead it reports system events related to your programs.
-For example, `perf` can easily report poor cache locality, high amounts of page faults or livelocks. Here is an overview of the command:
+Debugging အတွက် `strace` ကဲ့သို့ပင်၊ Profile ပြုလုပ်သည့်အခါ Code ၏ အသေးစိတ်ကို လျစ်လျူရှုပြီး Black box အဖြစ် သတ်မှတ်လိုနိုင်ပါသည်။
+[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) Command သည် CPU ကွဲပြားမှုများကို ကျော်လွန်၍ Time သို့မဟုတ် Memory မဟုတ်ဘဲ System events များကို အစီရင်ခံပေးပါသည်။
+ဥပမာ `perf` သည် နည်းပါးသော Cache locality၊ များပြားသော Page faults များကို အလွယ်တကူ ပြသပေးနိုင်ပါသည်။
 
-- `perf list` - List the events that can be traced with perf
-- `perf stat COMMAND ARG1 ARG2` - Gets counts of different events related to a process or command
-- `perf record COMMAND ARG1 ARG2` - Records the run of a command and saves the statistical data into a file called `perf.data`
-- `perf report` - Formats and prints the data collected in `perf.data`
+- `perf list` - perf ဖြင့် ခြေရာခံနိုင်သော Event စာရင်းများကို ပြသည်
+- `perf stat COMMAND ARG1 ARG2` - Process သို့မဟုတ် Command နှင့် သက်ဆိုင်သော Event ရေတွက်မှုများကို ရယူသည်
+- `perf record COMMAND ARG1 ARG2` - Command ၏ ရန်းမှုကို မှတ်တမ်းတင်၍ `perf.data` ဖိုင်ထဲ သိမ်းဆည်းသည်
+- `perf report` - `perf.data` ရှိ အချက်အလက်များကို ပြသပေးသည်
 
 
 ### Visualization
 
-Profiler output for real world programs will contain large amounts of information because of the inherent complexity of software projects.
-Humans are visual creatures and are quite terrible at reading large amounts of numbers and making sense of them.
-Thus there are many tools for displaying profiler's output in an easier to parse way.
+စက္ကူပေါ်မှ Profiler output များသည် အလွန် များပြားနိုင်ပါသည်။ လူများသည် ပုံရိပ်ကြည့် သတ္တဝါများ ဖြစ်ကြပြီး ကိန်းဂဏန်း အများအပြားကို ဖတ်ရသည်ကို သဘောမကျကြပါ။
+ထို့ကြောင့် Profiler output များကို လွယ်ကူစွာ ကြည့်ရှုနိုင်သည့် Tool များ ရှိကြပါသည်။
 
-One common way to display CPU profiling information for sampling profilers is to use a [Flame Graph](https://www.brendangregg.com/flamegraphs.html), which will display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They are also interactive, letting you zoom into specific parts of the program and get their stack traces (try clicking in the image below).
+အသုံးများသော နည်းလမ်းတစ်ခုမှာ Y axis တွင် Function call အစဉ်လိုက်နှင့် X axis တွင် ကြာမြင့်ချိန်ကို ပြသပေးသော [Flame Graph](https://www.brendangregg.com/flamegraphs.html) ကို အသုံးပြုခြင်း ဖြစ်ပါသည်။
 
 [![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-Call graphs or control flow graphs display the relationships between subroutines within a program by including functions as nodes and functions calls between them as directed edges. When coupled with profiling information such as the number of calls and time taken, call graphs can be quite useful for interpreting the flow of a program.
-In Python you can use the [`pycallgraph`](https://pycallgraph.readthedocs.io/) library to generate them.
+Call graph သို့မဟုတ် Control flow graph များသည် Function များကို Node များအဖြစ်နှင့် Call များကို Directed Edge များအဖြစ် ပြသပေးပါသည်။
+Python တွင် [`pycallgraph`](https://pycallgraph.readthedocs.io/) library ဖြင့် ယင်းတို့ကို ထုတ်ယူနိုင်ပါသည်။
 
 ![Call Graph](https://upload.wikimedia.org/wikipedia/commons/2/2f/A_Call_Graph_generated_by_pycallgraph.png)
 
 
 ## Resource Monitoring
 
-Sometimes, the first step towards analyzing the performance of your program is to understand what its actual resource consumption is.
-Programs often run slowly when they are resource constrained, e.g. without enough memory or on a slow network connection.
-There are a myriad of command line tools for probing and displaying different system resources like CPU usage, memory usage, network, disk usage and so on.
+တစ်ခါတစ်ရံ ပရိုဂရမ်၏ စွမ်းဆောင်ရည်ကို ဆန်းစစ်ရန် ပထမအဆင့်မှာ ယင်း၏ အမှန်တကယ် Resource စားသုံးမှုကို နားလည်ခြင်း ဖြစ်သည်။
+CPU usage, Memory usage, Network, Disk usage များကို ကြည့်ရှုရန် Command line tool များစွာ ရှိပါသည် -
 
-- **General Monitoring** - Probably the most popular is [`htop`](https://htop.dev/), which is an improved version of [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html).
-`htop` presents various statistics for the currently running processes on the system. `htop` has a myriad of options and keybinds, some useful ones  are: `<F6>` to sort processes, `t` to show tree hierarchy and `h` to toggle threads.
-See also [`glances`](https://nicolargo.github.io/glances/) for similar implementation with a great UI. For getting aggregate measures across all processes, [`dool`](https://github.com/scottchiefbaker/dool) is another nifty tool that computes real-time resource metrics for lots of different subsystems like I/O, networking, CPU utilization, context switches, &c.
-- **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information and is handy to check if a process is doing heavy I/O disk operations
-- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) displays metrics per partitions and [`du`](https://man7.org/linux/man-pages/man1/du.1.html) displays **d**isk **u**sage per file for the current directory. In these tools the `-h` flag tells the program to print with **h**uman readable format.
-A more interactive version of `du` is [`ncdu`](https://dev.yorhel.nl/ncdu) which lets you navigate folders and delete files and folders as you navigate.
-- **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays the total amount of free and used memory in the system. Memory is also displayed in tools like `htop`.
-- **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html)  lists file information about files opened by processes. It can be quite useful for checking which process has opened a specific file.
-- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor incoming and outgoing network packets statistics as well as interface statistics. A common use case of `ss` is figuring out what process is using a given port in a machine. For displaying routing, network devices and interfaces you can use [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html). Note that `netstat` and `ifconfig` have been deprecated in favor of the former tools respectively.
-- **Network Usage** -  [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage.
+- **General Monitoring** - အသုံးအများဆုံးမှာ [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html) ၏ ပိုမိုကောင်းမွန်သော မူကွဲဖြစ်သည့် [`htop`](https://htop.dev/) ဖြစ်သည်။ `<F6>` ဖြင့် Process များ စီနိုင်သည်၊ `t` ဖြင့် Tree ပြနိုင်သည်၊ `h` ဖြင့် Thread များ ပိတ်/ဖွင့် နိုင်သည် ။ UI ကောင်းမွန်သော [`glances`](https://nicolargo.github.io/glances/) ကိုလည်း ကြည့်ပါ၊ Real-time resource metric များအတွက် [`dool`](https://github.com/scottchiefbaker/dool) လည်း ရှိသည်။
+- **I/O operations** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) သည် လက်ရှိ I/O အသုံးပြုမှုကို ပြသသည်။
+- **Disk Usage** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html) သည် Partition အလိုက် ပြသပြီး [`du`](https://man7.org/linux/man-pages/man1/du.1.html) သည် ဖိုင်အလိုက် **d**isk **u**sage ကို ပြသည်။ `-h` flag ဖြင့် Human readable format ရနိုင်သည်။ ၎င်းထက် ပိုမို အဆင်ပြေသော Interactive မုဒ်မှာ [`ncdu`](https://dev.yorhel.nl/ncdu) ဖြစ်သည်။
+- **Memory Usage** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) သည် စနစ်၏ မလွတ်သေးသော နှင့် လွတ်နေသော Memory ကို ပြသည်။
+- **Open Files** - [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) သည် Process များ ဖွင့်ထားသော ဖိုင် သတင်းအချက်အလက်များကို စာရင်းပြသည်။
+- **Network Connections and Config** - [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) သည် Network packet စာရင်းဇယားများကို စောင့်ကြည့်နိုင်ပြီး သီးခြား Port ကို မည်သည့် Process သုံးနေသည်ကို ရှာနိုင်သည်။ Routing နှင့် Interface များအတွက် [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html) ကို သုံးနိုင်သည်။
+- **Network Usage** - [`nethogs`](https://github.com/raboof/nethogs) နှင့် [`iftop`](https://pdw.ex-parrot.com/iftop/) တို့သည် Network အသုံးပြုမှုကို စောင့်ကြည့်ရန် ကောင်းမွန်သော Interactive CLI tool များ ဖြစ်သည်။
 
-If you want to test these tools you can also artificially impose loads on the machine using the [`stress`](https://linux.die.net/man/1/stress) command.
-
+စမ်းသပ်ရန်အတွက် [`stress`](https://linux.die.net/man/1/stress) command ဖြင့် Load များကို ဖန်တီးနိုင်ပါသည်။
 
 ### Specialized tools
 
-Sometimes, black box benchmarking is all you need to determine what software to use.
-Tools like [`hyperfine`](https://github.com/sharkdp/hyperfine) let you quickly benchmark command line programs.
-For instance, in the shell tools and scripting lecture we recommended `fd` over `find`. We can use `hyperfine` to compare them in tasks we run often.
-E.g. in the example below `fd` was 20x faster than `find` in my machine.
+Black box benchmarking ပြုလုပ်ရန် [`hyperfine`](https://github.com/sharkdp/hyperfine) ကဲ့သို့သော Tool များကို သုံး၍ Command line ပရိုဂရမ်များကို အမြန် စမ်းသပ်နိုင်ပါသည်။
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -466,18 +454,17 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-As it was the case for debugging, browsers also come with a fantastic set of tools for profiling webpage loading, letting you figure out where time is being spent (loading, rendering, scripting, &c).
-More info for [Firefox](https://profiler.firefox.com/docs/) and [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools).
+Browser များတွင်လည်း စွမ်းဆောင်ရည် စမ်းသပ်ရန် Tool များစွာ ပါဝင်ပါသည် ([Firefox](https://profiler.firefox.com/docs/) နှင့် [Chrome](https://developers.google.com/web/tools/chrome-devtools/rendering-tools))။
 
 # Exercises
 
 ## Debugging
-1. Use `journalctl` on Linux or `log show` on macOS to get the super user accesses and commands in the last day.
-If there aren't any you can execute some harmless commands such as `sudo ls` and check again.
+1. Linux တွင် `journalctl` သို့မဟုတ် macOS တွင် `log show` ကို သုံး၍ လွန်ခဲ့သော နေ့ရက်အတွင်း Superuser ဝင်ရောက်မှုများကို ကြည့်ပါ။
+မရှိပါက `sudo ls` ရန်းပြီး ပြန်စစ်ပါ။
 
-1. Do [this](https://github.com/spiside/pdb-tutorial) hands on `pdb` tutorial to familiarize yourself with the commands. For a more in depth tutorial read [this](https://realpython.com/python-debugging-pdb).
+1. `pdb` [သင်ခန်းစာ](https://github.com/spiside/pdb-tutorial) ကို ပြုလုပ်ပါ။ [ဤဆောင်းပါး](https://realpython.com/python-debugging-pdb) ကိုလည်း ဖတ်ပါ။
 
-1. Install [`shellcheck`](https://www.shellcheck.net/) and try checking the following script. What is wrong with the code? Fix it. Install a linter plugin in your editor so you can get your warnings automatically.
+1. [`shellcheck`](https://www.shellcheck.net/) ကို တပ်ဆင်ပြီး အောက်ပါ Script ကို စစ်ဆေးပါ။ ဘာမှားနေသနည်း ပြင်ပါ။
 
    ```bash
    #!/bin/sh
@@ -489,12 +476,13 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
    done
    ```
 
-1. (Advanced) Read about [reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) and get a simple example working using [`rr`](https://rr-project.org/) or [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html).
+1. (အဆင့်မြင့်) [Reversible debugging](https://undo.io/resources/reverse-debugging-whitepaper/) အကြောင်း ဖတ်ပြီး [`rr`](https://rr-project.org/) သို့မဟုတ် [`RevPDB`](https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html) ကို သုံးပါ။
+
 ## Profiling
 
-1. [Here](/static/files/sorts.py) are some sorting algorithm implementations. Use [`cProfile`](https://docs.python.org/3/library/profile.html) and [`line_profiler`](https://github.com/pyutils/line_profiler) to compare the runtime of insertion sort and quicksort. What is the bottleneck of each algorithm? Use then `memory_profiler` to check the memory consumption, why is insertion sort better? Check now the inplace version of quicksort. Challenge: Use `perf` to look at the cycle counts and cache hits and misses of each algorithm.
+1. [ဒီမှာ](/static/files/sorts.py) Sorting algorithm များ ရှိပါသည်။ [`cProfile`](https://docs.python.org/3/library/profile.html) နှင့် [`line_profiler`](https://github.com/pyutils/line_profiler) တို့ကို သုံး၍ Insertion sort နှင့် Quicksort ကြာမြင့်ချိန် ယှဉ်ပါ။ `memory_profiler` ကို သုံး၍ Memory စားသုံးမှုကို စစ်ပါ။
 
-1. Here's some (arguably convoluted) Python code for computing Fibonacci numbers using a function for each number.
+1. အောက်ပါ Python code ဖြင့် Fibonacci ကိန်းများ တွက်ချက်ပုံကို လေ့လာပါ -
 
    ```python
    #!/usr/bin/env python
@@ -514,13 +502,11 @@ If there aren't any you can execute some harmless commands such as `sudo ls` and
        print(eval("fib9()"))
    ```
 
-   Put the code into a file and make it executable. Install prerequisites: [`pycallgraph`](https://lewiscowles1986.github.io/py-call-graph/) and [`graphviz`](https://graphviz.org/). (If you can run `dot`, you already have GraphViz.) Run the code as is with `pycallgraph graphviz -- ./fib.py` and check the `pycallgraph.png` file. How many times is `fib0` called?. We can do better than that by memoizing the functions. Uncomment the commented lines and regenerate the images. How many times are we calling each `fibN` function now?
+   `pycallgraph graphviz -- ./fib.py` ဖြင့် ရန်း၍ `pycallgraph.png` ကို စစ်ပါ။ `fib0` ကို ဘယ်နှစ်ကြိမ် ခေါ်သနည်း။ Comment ဖြုတ်၍ ပြန်ရန်းပါ၊ အခု ဘယ်နှစ်ကြိမ် ခေါ်သနည်း။
 
-1. A common issue is that a port you want to listen on is already taken by another process. Let's learn how to discover that process pid. First execute `python -m http.server 4444` to start a minimal web server listening on port `4444`. On a separate terminal run `lsof | grep LISTEN` to print all listening processes and ports. Find that process pid and terminate it by running `kill <PID>`.
+1. Port 4444 တွင် `python -m http.server 4444` စတင် ရန်းပါ။ အခြား Terminal မှ `lsof | grep LISTEN` ဖြင့် စစ်ပါ၊ PID ကို ရှာပြီး `kill <PID>` ဖြင့် ပိတ်ပါ။
 
-1. Limiting a process's resources can be another handy tool in your toolbox.
-Try running `stress -c 3` and visualize the CPU consumption with `htop`. Now, execute `taskset --cpu-list 0,2 stress -c 3` and visualize it. Is `stress` taking three CPUs? Why not? Read [`man taskset`](https://www.man7.org/linux/man-pages/man1/taskset.1.html).
-Challenge: achieve the same using [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Try limiting the memory consumption of `stress -m`.
+1. `stress -c 3` ရန်းပြီး `htop` ဖြင့် ကြည့်ပါ။ `taskset --cpu-list 0,2 stress -c 3` ရန်းပြီး ကြည့်ပါ။ `man taskset` ကို ဖတ်ပါ။
+စိန်ခေါ်မှု- [`cgroups`](https://www.man7.org/linux/man-pages/man7/cgroups.7.html) ကို သုံး၍ ပြုလုပ်ပါ။ `stress -m` memory စားသုံးမှုကို ကန့်သတ်ကြည့်ပါ။
 
-1. (Advanced) The command `curl ipinfo.io` performs a HTTP request and fetches information about your public IP. Open [Wireshark](https://www.wireshark.org/) and try to sniff the request and reply packets that `curl` sent and received. (Hint: Use the `http` filter to just watch HTTP packets).
-
+1. (အဆင့်မြင့်) `curl ipinfo.io` ရန်းပြီး Wireshark ဖြင့် Packet များကို ဖမ်းယူကြည့်ပါ (`http` filter သုံးပါ)။

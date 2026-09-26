@@ -1,140 +1,84 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "ဤသင်တန်းကို သင်ကြားပေးရသည့် ရည်ရွယ်ချက်"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+ပုံမှန် ကွန်ပျူတာသိပ္ပံ ပညာရေးတွင် OS များ (Operating Systems) မှစ၍ ပရိုဂရမ်းမင်း ဘာသာစကားများ နှင့် စက်သင်ယူမှု (Machine Learning) အထိ CS ၏ အဆင့်မြင့် ခေါင်းစဉ်များစွာကို သင်ကြားရလေ့ ရှိပါသည်။ သို့သော် အဖွဲ့အစည်း အများစုတွင် သင်ကြားပေးခဲပြီး ကျောင်းသားများ ကိုယ်တိုင် လေ့လာယူရန် ချန်ထားလေ့ရှိသော အရေးကြီးသည့် ခေါင်းစဉ်တစ်ခု ရှိနေပါသည်—ယင်းမှာ ကွန်ပျူတာ နည်းပညာ ဂေဟစနစ်နှင့် tool များကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်မှုပင် ဖြစ်သည်။
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+နှစ်များစွာအတွင်း MIT တွင် သင်တန်းများစွာ ပူးတွဲ သင်ကြားပေးရင်း ကျောင်းသားများစွာသည် မိမိတို့ အသုံးပြုနိုင်သည့် tool များအကြောင်း ဗဟုသုတ နည်းပါးနေသည်ကို မကြာခဏ တွေ့မြင်ခဲ့ရသည်။ ကွန်ပျူတာများကို လက်ဖြင့် ပြုလုပ်ရသည့် အလုပ်များကို အလိုအလျောက် ပြုလုပ်ရန် ဖန်တီးထားခြင်း ဖြစ်သော်လည်း၊ ကျောင်းသားများသည် ထပ်ခါတလဲလဲ လုပ်ဆောင်ရသည့် အလုပ်များကို လက်ဖြင့်ပင် ပြုလုပ်နေကြဆဲ ဖြစ်ပြီး Version Control နှင့် Text Editor ကဲ့သို့သော စွမ်းအားထက်မြက်သည့် tool များကို အပြည့်အဝ အသုံးမချနိုင်ကြပါ။ အကောင်းဆုံး အခြေအနေတွင် အချိန်ကုန်ပြီး အလုပ်မတွင်ဘဲ ဖြစ်ရသကဲ့သို့၊ အဆိုးဆုံး အခြေအနေတွင် ဒေတာ ဆုံးရှုံးခြင်း သို့မဟုတ် အချို့သော အလုပ်များကို မပြီးမြောက်နိုင်ခြင်း အထိ ဖြစ်စေနိုင်ပါသည်။
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+ဤခေါင်းစဉ်များကို တက္ကသိုလ် သင်ရိုးညွှန်းတမ်းများတွင် ထည့်သွင်း သင်ကြားပေးခြင်း မရှိပါ—ကျောင်းသားများအား ဤ tool များကို မည်သို့ အသုံးပြုရမည်၊ သို့မဟုတ် ထိရောက်စွာ အသုံးပြုနည်းကို ပြသပေးခြင်း မရှိသဖြင့် ရိုးရှင်းသင့်သော အလုပ်များတွင် အချိန်နှင့် အားထုတ်မှုများ အဟောသိက္ခာ ဖြစ်ရပါသည်။ ပုံမှန် CS သင်ရိုးတွင် ကျောင်းသားများ၏ ဘဝကို အလွန် လွယ်ကူ အဆင်ပြေစေနိုင်မည့် ကွန်ပျူတာ နည်းပညာ ဂေဟစနစ်ဆိုင်ရာ အရေးကြီးသော ခေါင်းစဉ်များ လိုအပ်နေပါသည်။
 
-# The missing semester of your CS education
+# သင်၏ CS ပညာရေး၌ လိုအပ်နေသော သင်ရိုး (The missing semester of your CS education)
 
-To help remedy this, we created a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The latest iteration of this class, with
-substantially revised material, is being run during MIT's "Independent
-Activities Period" in January 2026 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to the MIT
-community, we will provide all lecture materials along with video recordings of
-lectures to the public.
+ဤလိုအပ်ချက်ကို ဖြည့်ဆည်းရန်အတွက် ထိရောက်သော ကွန်ပျူတာသိပ္ပံပညာရှင်နှင့် Programmer တစ်ယောက် ဖြစ်လာစေရန် မရှိမဖြစ် လိုအပ်သည်ဟု ကျွန်ုပ်တို့ ယူဆသော ခေါင်းစဉ်များအားလုံး ပါဝင်သည့် သင်တန်းတစ်ခုကို ဖန်တီးခဲ့ပါသည်။ ဤသင်တန်းသည် လက်တွေ့ကျပြီး သင်ကြုံတွေ့ရမည့် အခြေအနေအမျိုးမျိုးတွင် ချက်ချင်း အသုံးချနိုင်မည့် tool များနှင့် နည်းလမ်းများကို လက်တွေ့ မိတ်ဆက်ပေးသွားမည် ဖြစ်ပါသည်။ 
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+ဤသင်တန်းတွင် သင်ယူရမည့် အကြောင်းအရာများ၏ လက်တွေ့ စံနမူနာများမှာ-
 
 ## Command shell
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+Aliases၊ Scripts နှင့် Build Systems များကို အသုံးပြု၍ ပုံမှန် ထပ်ခါတလဲလဲ ပြုလုပ်ရသော အလုပ်များကို မည်သို့ အလိုအလျောက် (Automate) ပြုလုပ်မည်နည်း။ Text document မှ command များကို ကူးယူ ကူးထည့် (copy-paste) ရသည့် ဒုက္ခများ၊ command ၁၅ ခုကို တစ်ခုပြီးတစ်ခု အစဉ်လိုက် ရိုက်ထည့်ရခြင်းများ၊ argument များ ပို့ရန် မေ့လျော့ခြင်းများ နောက်ထပ် ကြုံတွေ့ရတော့မည် မဟုတ်ပါ။
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
+ဥပမာအားဖြင့်၊ Shell History အတွင်း မြန်ဆန်စွာ ရှာဖွေနိုင်ခြင်းသည် အချိန်များစွာ အသက်သာစေပါသည်။ အောက်ပါ စံနမူနာတွင် `convert` command များအတွက် shell history ကို ရှာဖွေအသုံးပြုပုံ အကွက်ဆန်းအချို့ကို ဖော်ပြထားပါသည်-
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Version control (Git)
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Version control ကို စနစ်တကျ မှန်ကန်စွာ အသုံးပြုနည်း၊ ယင်းကို အသုံးချ၍ မတော်တဆ ပျက်စီးမှုများမှ ကာကွယ်နည်း၊ အခြားသူများနှင့် ပူးပေါင်းဆောင်ရွက်နည်း၊ နှင့် ဒုက္ခပေးနေသော အပြောင်းအလဲများကို လျင်မြန်စွာ ရှာဖွေ ခွဲထုတ်နည်း။ `rm -rf; git clone` ပြုလုပ်စရာ မလိုတော့ပါ။ Merge conflict များလည်း (အနည်းဆုံးတော့ ပိုမို နည်းပါးသွားမည်) ဖြစ်ပါသည်။ Comment ပိတ်ထားသော စာကြောင်းကြီးများ ချန်ထားစရာ မလိုတော့ပါ။ ကုဒ် ပျက်စီးသွားသည့် နေရာကို ရှာဖွေရန် စိုးရိမ်စရာ မလိုတော့ပါ။ ဤသင်တန်းတွင် pull request များ အသုံးပြု၍ အခြားသူများ၏ project များတွင် မည်သို့ ပါဝင်ကူညီရမည်ကိုပါ သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+အောက်ပါ ဥပမာတွင် `git bisect` ကို အသုံးပြု၍ Unit Test ကို ပျက်စီးစေခဲ့သော commit ကို ရှာဖွေပြီး `git revert` ဖြင့် ပြန်လည် ပြင်ဆင်ပုံကို ဖော်ပြထားပါသည်-
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Text editing (Vim)
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Local နှင့် Remote စက်များရှိ file များကို command-line မှနေ၍ ထိရောက်စွာ Edit ပြုလုပ်နည်းနှင့် အဆင့်မြင့် Editor များ၏ လုပ်ဆောင်ချက်များကို အသုံးချနည်း။ File များကို ရှေ့နောက် ကူးယူနေစရာ မလိုတော့ပါ။ ထပ်ခါတလဲလဲ file ပြင်ဆင်နေစရာ မလိုတော့ပါ။
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Vim macros များသည် Vim ၏ အကောင်းဆုံး လုပ်ဆောင်ချက်တစ်ခု ဖြစ်ပြီး အောက်ပါ ဥပမာတွင် HTML table တစ်ခုကို CSV format သို့ Vim macro အသုံးပြု၍ လျင်မြန်စွာ ပြောင်းလဲပုံကို ဖော်ပြထားပါသည်-
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Remote machines (SSH & Terminal Multiplexing)
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+SSH keys များနှင့် terminal multiplexing များကို အသုံးပြု၍ remote machine များနှင့် အလုပ်လုပ်ရာတွင် စနစ်တကျ အဆင်ပြေစေရန် ပြုလုပ်နည်း။ Command နှစ်ခုကို ပြိုင်တူ လွှတ်ရန်အတွက် Terminal တွေ အများကြီး ဖွင့်ထားစရာ မလိုတော့ပါ။ ချိတ်ဆက်တိုင်း password ပြန်ရိုက်နေစရာ မလိုတော့ပါ။ အင်တာနက် လိုင်းကျသွားခြင်း သို့မဟုတ် Laptop reboot လုပ်လိုက်ရခြင်းကြောင့် အရာအားလုံး ဆုံးရှုံးသွားရခြင်းမျိုး မရှိတော့ပါ။
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
+အောက်ပါ ဥပမာတွင် `tmux` ကို အသုံးပြု၍ remote server များပေါ်တွင် session များကို အသက်ရှင်လျက် ထိန်းသိမ်းထားပုံနှင့် `mosh` အသုံးပြု၍ network ပြောင်းလဲမှုကို ထိန်းသိမ်းပေးပုံကို ဖော်ပြထားပါသည်-
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Finding files (ဖိုင်များ ရှာဖွေခြင်း)
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+သင် ရှာဖွေနေသော file များကို လျင်မြန်စွာ ရှာဖွေနည်း။ မိမိ လိုချင်သော ကုဒ် ပါသည့် file တွေ့သည့်အထိ project ထဲက file တစ်ခုချင်းစီလိုက် နှိပ်ကြည့်နေစရာ မလိုတော့ပါ။
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
+အောက်ပါ ဥပမာတွင် `fd` ဖြင့် file များကို မြန်ဆန်စွာ ရှာဖွေပြီး `rg` ဖြင့် ကုဒ် အစိတ်အပိုင်းများကို ရှာဖွေပုံ၊ ထို့ပြင် `fasd` ဖြင့် မကြာသေးမီက အသုံးပြုခဲ့သော file/folder သို့ လျင်မြန်စွာ `cd` နှင့် `vim` ဝင်ရောက်ပုံတို့ကို ဖော်ပြထားပါသည်-
 
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Data wrangling (ဒေတာ ပြုပြင်ပြင်ဆင်ခြင်း)
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Command-line မှ တိုက်ရိုက် ဒေတာနှင့် ဖိုင်များကို လျင်မြန် လွယ်ကူစွာ ပြုပြင်ခြင်း၊ ကြည့်ရှုခြင်း၊ Parse လုပ်ခြင်း၊ Plot ဆွဲခြင်းနှင့် တွက်ချက်ခြင်းများ ပြုလုပ်နည်း။ Log file များထဲမှ ကူးယူ ကူးထည့် စရာ မလိုတော့ပါ။ ဒေတာ စာရင်းအင်းများကို လက်ဖြင့် တွက်ချက်နေစရာ မလိုတော့ပါ။
 
 ## Code quality and continuous integration
 
-How to use autoformatting, linting, testing, and code coverage tools to improve
-code quality. No more ugly code. No more regressions. No more code that works
-on your computer but crashes on everyone else's.
+Autoformatting၊ Linting၊ Testing နှင့် Code coverage tool များကို အသုံးပြု၍ ကုဒ် အရည်အသွေး တိုးတက်အောင် ပြုလုပ်နည်း။ ရုပ်ဆိုးသော ကုဒ်များ၊ မလိုလားအပ်သော အမှားဟောင်းများ ပြန်ဖြစ်ခြင်းများ၊ မိမိစက်တွင် အလုပ်လုပ်ပြီး အခြားသူ စက်တွင် ပျက်စီးသွားသော ကုဒ်များ မရှိတော့ပါ။
 
-## Beyond the code
+## Beyond the code (ကုဒ်ရေးသားခြင်း အပြင်ဘက်)
 
-How to write great documentation, communicate clearly with open-source
-maintainers, submit actionable issues, and contribute pull requests that get
-merged. No more confused users who can't get started using your software. No
-more ghosting from maintainers.
+ကောင်းမွန်သော Documentation ရေးသားနည်း၊ Open-source ထိန်းသိမ်းသူများနှင့် ရှင်းလင်းစွာ ဆက်သွယ်နည်း၊ တိကျသော Issue များ တင်သွင်းနည်းနှင့် Merge လုပ်ခံရမည့် Pull Request များ ပါဝင်ကူညီနည်း။
 
-# Conclusion
+# နိဂုံး (Conclusion)
 
-This, and more, will be covered across the 9 class lectures, each including
-exercises for you to get more familiar with the tools on your own. If you can't
-wait until January 2026, you can also take a look at the lectures from the
-[previous offering of the course](/2020/), which covers many of the same
-topics.
-
-We hope to see you in January, whether virtually or in person!
+ဤအကြောင်းအရာများနှင့် အခြား အကြောင်းအရာများစွာကို သင်ခန်းစာများအတွင်း သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။ ဇန်နဝါရီ မတိုင်မီ စောစီးစွာ လေ့လာလိုပါက ယခင် သင်တန်း [2020 သင်ခန်းစာများ](/2020/) ကိုလည်း ဝင်ရောက် ကြည့်ရှုနိုင်ပါသည်။
 
 Happy hacking,<br>
-[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/)
+[Anish](https://anish.io/)၊ [Jon](https://thesquareplanet.com/) နှင့် [Jose](https://josejg.com/)
+

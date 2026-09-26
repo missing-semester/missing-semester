@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Package Management and Dependency Management"
+title: "Package Management နှင့် Dependency Management"
 presenter: Anish
 date: 2019-01-29
 order: 2
@@ -9,30 +9,19 @@ video:
   id: tgvt473T8xA
 ---
 
-Software usually builds on (a collection of) other software, which necessitates
-dependency management.
+ဆော့ဖ်ဝဲလ်များသည် အခြားသော ဆော့ဖ်ဝဲလ် (သို့မဟုတ် ဆော့ဖ်ဝဲလ်အစုအဝေး) များအပေါ် အခြေခံ၍ တည်ဆောက်လေ့ရှိသဖြင့် dependency စီမံခန့်ခွဲမှု (dependency management) ကို မဖြစ်မနေ လိုအပ်လာပါသည်။
 
-Package/dependency management programs are language-specific, but many share
-common ideas.
+Package/dependency စီမံခန့်ခွဲသည့် ပရိုဂရမ်များသည် ပရိုဂရမ်းမင်းဘာသာစကားအလိုက် သီးခြားစီ ကွဲပြားကြသော်လည်း အများစုမှာ ဘုံသဘောတရားအယူအဆများကို မျှဝေအသုံးပြုကြပါသည်။
 
-# Package repositories
+# Package repository များ
 
-Packages are hosted in _package repositories_. There are different repositories
-for different languages (and sometimes multiple for a particular language),
-such as [PyPI](https://pypi.org/) for Python, [RubyGems](https://rubygems.org/)
-for Ruby, and [crates.io](https://crates.io/) for Rust. They generally store
-software (source code and sometimes pre-compiled binaries for specific
-platforms) for all versions of a package.
+Package များကို _package repository များ_ တွင် သိမ်းဆည်းထားရှိကြပါသည်။ ပရိုဂရမ်းမင်းဘာသာစကားအမျိုးအစားအလိုက် မတူညီသော repository များရှိကြပြီး (အချို့သော ဘာသာစကားတစ်ခုတည်းအတွက်ပင် repository အများအပြား ရှိနိုင်သည်)၊ ဥပမာအားဖြင့် Python အတွက် [PyPI](https://pypi.org/)၊ Ruby အတွက် [RubyGems](https://rubygems.org/) နှင့် Rust အတွက် [crates.io](https://crates.io/) တို့ဖြစ်ကြပါသည်။ ယင်းတို့သည် အများအားဖြင့် package တစ်ခု၏ မူကွဲ (version) အားလုံးအတွက် ဆော့ဖ်ဝဲလ်များ (source code များ သို့မဟုတ် အချို့သော သီးခြား platform များအတွက် ကြိုတင် compile လုပ်ထားသည့် binary များ) ကို သိမ်းဆည်းပေးထားကြပါသည်။
 
 # Semantic versioning
 
-Software evolves over time, and we need a way to refer to software versions.
-Some simple ways could be to refer to software by a sequence number or a commit
-hash, but we can do better in terms of communicating more information: using
-version numbers.
+ဆော့ဖ်ဝဲလ်များသည် အချိန်နှင့်အမျှ ပြောင်းလဲတိုးတက်လာသောကြောင့် ဆော့ဖ်ဝဲလ် version များကို ရည်ညွှန်းညွှန်းဆိုနိုင်မည့် နည်းလမ်းတစ်ခု လိုအပ်ပါသည်။ အစဉ်လိုက်နံပါတ် သို့မဟုတ် commit hash ဖြင့် ရည်ညွှန်းခြင်းသည် ရိုးရှင်းသော နည်းလမ်းအချို့ ဖြစ်နိုင်သော်လည်း၊ version နံပါတ်များကို အသုံးပြုခြင်းဖြင့် ပိုမိုပြည့်စုံသော အချက်အလက်များကို ပေးပို့နိုင်သည့် ပိုမိုကောင်းမွန်သော နည်းလမ်းကို အသုံးပြုနိုင်ပါသည်။
 
-There are many approaches; one popular one is [Semantic
-Versioning](https://semver.org/):
+နည်းလမ်းမျိုးစုံ ရှိသည့်အနက် ရေပန်းစားသော နည်းလမ်းတစ်ခုမှာ [Semantic Versioning](https://semver.org/) ဖြစ်ပါသည်။
 
 ```
 x.y.z
@@ -42,69 +31,38 @@ x.y.z
 +----- major
 ```
 
-Increment **major** version when you make incompatible API changes.
+ရှေ့နောက် ကိုက်ညီမှုမရှိသော (incompatible) API ပြောင်းလဲမှုများကို ပြုလုပ်သည့်အခါ **major** version နံပါတ်ကို တိုးပေးပါ။
 
-Increment **minor** version when you add functionality in a backward-compatible manner.
+နောက်ပြန် ကိုက်ညီမှုရှိသော (backward-compatible) နည်းလမ်းဖြင့် လုပ်ဆောင်ချက်အသစ်များကို ထည့်သွင်းသည့်အခါ **minor** version နံပါတ်ကို တိုးပေးပါ။
 
-Increment **patch** when you make backward-compatible bug fixes.
+နောက်ပြန် ကိုက်ညီမှုရှိသော bug ပြင်ဆင်မှုများကို ပြုလုပ်သည့်အခါ **patch** version နံပါတ်ကို တိုးပေးပါ။
 
-For example, if you depend on a feature introduced in `v1.2.0` of some
-software, then you can install `v1.x.y` for any minor version `x >= 2` and any
-patch version `y`. You need to install major version `1` (because `2` can
-introduce backward-incompatible changes), and you need to install a minor
-version `>= 2` (because you depend on a feature introduced in that minor
-version). You can use any newer minor version or patch version because
-they should not introduce any backward-incompatible changes.
+ဥပမာအားဖြင့်၊ သင်သည် အချို့သော ဆော့ဖ်ဝဲလ်၏ `v1.2.0` တွင် စတင်မိတ်ဆက်ခဲ့သည့် အင်္ဂါရပ်တစ်ခုအပေါ် မှီခိုနေရပါက၊ minor version `x >= 2` နှင့် မည်သည့် patch version `y` အတွက်မဆို `v1.x.y` ကို တပ်ဆင်နိုင်ပါသည်။ major version `1` ကို တပ်ဆင်ရန် လိုအပ်ပြီး (အကြောင်းမှာ `2` သည် နောက်ပြန် ကိုက်ညီမှုမရှိသော ပြောင်းလဲမှုများကို သယ်ဆောင်လာနိုင်သောကြောင့်ဖြစ်သည်)၊ minor version `>= 2` ကို တပ်ဆင်ရန် လိုအပ်ပါသည် (အကြောင်းမှာ ထို minor version တွင် စတင်မိတ်ဆက်ခဲ့သော အင်္ဂါရပ်အပေါ် မှီခိုနေသောကြောင့်ဖြစ်သည်)။ နောက်ပိုင်းထွက် ပိုမိုသစ်လွင်သော minor version သို့မဟုတ် patch version မည်သည့်အရာကိုမဆို အသုံးပြုနိုင်သည်၊ အကြောင်းမှာ ယင်းတို့သည် နောက်ပြန် ကိုက်ညီမှုမရှိသော ပြောင်းလဲမှုများကို သယ်ဆောင်လာမည် မဟုတ်သောကြောင့်ဖြစ်ပါသည်။
 
-# Lock files
+# Lock file များ
 
-In addition to specifying versions, it can be nice to enforce that the
-_contents_ of the dependency have not changed to prevent tampering. Some tools
-use _lock files_ to specify cryptographic hashes of dependencies (along with
-versions) that are checked on package install.
+Version များကို သတ်မှတ်ပေးသည့်အပြင်၊ မသမာသော မသမာပြုပြင်မှုများကို ကာကွယ်ရန် dependency ၏ _အကြောင်းအရာများ (contents)_ ပြောင်းလဲခြင်း မရှိကြောင်း အတင်းအကျပ် သတ်မှတ်ပေးနိုင်ပါက ပိုမိုကောင်းမွန်ပါသည်။ အချို့သော tool များသည် package တပ်ဆင်ချိန်တွင် စစ်ဆေးမည့် dependency ၏ cryptographic hash များကို (version များနှင့်အတူ) သတ်မှတ်ရန် _lock file များ_ ကို အသုံးပြုကြပါသည်။
 
-# Specifying versions
+# Version များကို သတ်မှတ်ခြင်း
 
-Tools often let you specify versions in multiple ways, such as:
+Tool များသည် Version များကို အောက်ပါအတိုင်း နည်းလမ်းမျိုးစုံဖြင့် သတ်မှတ်နိုင်ရန် ဖန်တီးပေးထားလေ့ ရှိကြပါသည် -
 
-- exact version, e.g. `2.3.12`
-- minimum major version, e.g. `>= 2`
-- specific major version and minimum patch version, e.g. `>= 2.3, <3.0`
+- တိကျသော version၊ ဥပမာ `2.3.12`
+- အနည်းဆုံး major version၊ ဥပမာ `>= 2`
+- သီးခြား major version နှင့် အနည်းဆုံး patch version၊ ဥပမာ `>= 2.3, <3.0`
 
-Specifying an exact version can be advantageous to avoid different behaviors
-based on installed dependencies (this shouldn't happen if all dependencies
-faithfully follow semver, but sometimes people make mistakes). Specifying a
-minimum requirement has the advantage of allowing bug fixes to be installed
-(e.g. patch upgrades).
+တိကျသော version တစ်ခုကို သတ်မှတ်ခြင်းသည် တပ်ဆင်ထားသော dependency များပေါ် မူတည်၍ ကွဲပြားသော မူမမှန်မှုများကို ရှောင်ရှားနိုင်သည့် အကျိုးကျေးဇူး ရှိပါသည် (dependency အားလုံးသည် semver စံနှုန်းကို တိကျစွာ လိုက်နာပါက ဤသို့မဖြစ်သင့်သော်လည်း တစ်ခါတစ်ရံ လူတို့ အမှားပြုလုပ်တတ်ကြပါသည်)။ အနည်းဆုံး လိုအပ်ချက်ကို သတ်မှတ်ခြင်းသည် bug ပြင်ဆင်မှုများကို တပ်ဆင်ခွင့်ပြုသည့် အကျိုးကျေးဇူး ရှိပါသည် (ဥပမာ- patch မူကွဲမြှင့်တင်မှုများ)။
 
 # Dependency resolution
 
-Package managers use various dependency resolution algorithms to satisfy
-dependency requirements. This often gets challenging with complex dependencies
-(e.g. a package can be indirectly depended on by multiple top-level
-dependencies, and different versions could be required). Different package
-managers have different levels of sophistication in their dependency
-resolution, but it's something to be aware of: you may need to understand this
-if you are debugging dependencies.
+Package manager များသည် dependency လိုအပ်ချက်များကို ပြည့်မီစေရန် အမျိုးအစားစုံလင်သော dependency resolution algorithm များကို အသုံးပြုကြပါသည်။ ရှုပ်ထွေးသော dependency များရှိသည့်အခါ (ဥပမာ- package တစ်ခုကို ထိပ်တန်း dependency အများအပြားက သွယ်ဝိုက်၍ မှီခိုနေနိုင်ပြီး မတူညီသော version များကို လိုအပ်နေနိုင်ပါသည်) ဤသည်မှာ စိန်ခေါ်မှုများပြားလာလေ့ ရှိပါသည်။ မတူညီသော package manager များသည် ၎င်းတို့၏ dependency resolution တွင် ဆန်းသစ်ရှုပ်ထွေးမှု အဆင့်အတန်း ကွဲပြားကြသော်လည်း၊ ၎င်းသည် သတိပြုရမည့် အရာတစ်ခုဖြစ်ပါသည်- သင်သည် dependency များကို debug လုပ်နေပါက ဤအကြောင်းကို နားလည်ထားရန် လိုအပ်နိုင်ပါသည်။
 
-# Virtual environments
+# Virtual environment များ
 
-If you're developing multiple software projects, they may depend on different
-versions of a particular piece of software. Sometimes, your build tool will
-handle this naturally (e.g. by building a static binary).
+သင်သည် ဆော့ဖ်ဝဲလ် ပရောဂျက် အများအပြားကို ရေးသားထုတ်လုပ်နေပါက၊ ၎င်းတို့သည် သီးခြားဆော့ဖ်ဝဲလ်တစ်ခု၏ မတူညီသော version များကို မှီခိုနေနိုင်ပါသည်။ အချို့သော အခြေအနေများတွင် သင်၏ build tool က ဤပြဿနာကို အလိုအလျောက် ဖြေရှင်းပေးပါလိမ့်မည် (ဥပမာ- static binary တစ်ခုအဖြစ် တည်ဆောက်ခြင်းဖြင့်)။
 
-For other build tools and programming languages, one approach is handling this
-with virtual environments (e.g. with the
-[virtualenv](https://docs.python-guide.org/dev/virtualenvs/) tool for Python).
-Instead of installing dependencies system-wide, you can install dependencies
-per-project in a virtual environment, and _activate_ the virtual environment
-that you want to use when you're working on a specific project.
+အခြားသော build tool များနှင့် ပရိုဂရမ်းမင်းဘာသာစကားများအတွက် နည်းလမ်းတစ်ခုမှာ virtual environment များကို အသုံးပြု၍ စီမံခန့်ခွဲခြင်းဖြစ်ပါသည် (ဥပမာ- Python အတွက် [virtualenv](https://docs.python-guide.org/dev/virtualenvs/) tool ဖြင့်)။ Dependency များကို စနစ်တစ်ခုလုံး (system-wide) တွင် တပ်ဆင်မည့်အစား၊ virtual environment တစ်ခုအတွင်း ပရောဂျက်တစ်ခုချင်းစီအလိုက် တပ်ဆင်နိုင်ပြီး၊ သီးခြားပရောဂျက်တစ်ခုတွင် အလုပ်လုပ်နေချိန်၌ သင်အသုံးပြုလိုသော virtual environment ကို _activate_ ပြုလုပ် အသုံးပြုနိုင်ပါသည်။
 
 # Vendoring
 
-Another very different approach to dependency management is _vendoring_.
-Instead of using a dependency manager or build tool to fetch software, you copy
-the entire source code for a dependency into your software's repository. This
-has the advantage that you're always building against the same version of the
-dependency and you don't need to rely on a package repository, but it is more
-effort to upgrade dependencies.
+Dependency စီမံခန့်ခွဲမှုအတွက် သီးခြားကွဲပြားသော အခြားနည်းလမ်းတစ်ခုမှာ _vendoring_ ဖြစ်ပါသည်။ ဆော့ဖ်ဝဲလ်ကို ရယူရန် dependency manager သို့မဟုတ် build tool ကို အသုံးပြုမည့်အစား၊ dependency ၏ source code တစ်ခုလုံးကို သင်၏ ဆော့ဖ်ဝဲလ် repository ထဲသို့ ကူးယူထည့်သွင်းလိုက်ခြင်း ဖြစ်ပါသည်။ ဤသည်မှာ သင်သည် dependency ၏ တူညီသော version ပေါ်တွင် အမြဲတမ်း တည်ဆောက်နေနိုင်ပြီး package repository ပေါ်တွင် မှီခိုနေရန် မလိုတော့သည့် အကျိုးကျေးဇူး ရှိသော်လည်း၊ dependency များကို အဆင့်မြှင့်တင်ရန်အတွက် ပိုမိုအားထုတ် ကြိုးပမ်းရပါသည်။

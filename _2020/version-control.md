@@ -2,7 +2,7 @@
 layout: lecture
 title: "Version Control (Git)"
 description: >
-  Learn Git's data model and how to use Git for version control and collaboration.
+  Git ၏ data model နှင့် Version control၊ ပူးပေါင်းဆောင်ရွက်မှုများအတွက် Git ကို မည်သို့ အသုံးပြုရမည်နည်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2020/lec6.png
 date: 2020-01-22
 ready: true
@@ -11,61 +11,33 @@ video:
   id: 2sjqTHE0zok
 ---
 
-Version control systems (VCSs) are tools used to track changes to source code
-(or other collections of files and folders). As the name implies, these tools
-help maintain a history of changes; furthermore, they facilitate collaboration.
-VCSs track changes to a folder and its contents in a series of snapshots, where
-each snapshot encapsulates the entire state of files/folders within a top-level
-directory. VCSs also maintain metadata like who created each snapshot, messages
-associated with each snapshot, and so on.
+Version control systems (VCSs) ဆိုသည်မှာ Source Code များ (သို့မဟုတ် အခြား ဖိုင်နှင့် Folder စုစည်းမှုများ) ၏ အပြောင်းအလဲများကို ခြေရာခံရန် အသုံးပြုသည့် Tool များ ဖြစ်ကြသည်။ အမည်တွင် ဖော်ပြထားသည့်အတိုင်း ဤ Tool များသည် အပြောင်းအလဲများ၏ သမိုင်းကြောင်းကို ထိန်းသိမ်းပေးသည့်အပြင် အခြားသူများနှင့် ပူးပေါင်းဆောင်ရွက်မှုကိုလည်း လွယ်ကူစေပါသည်။
+VCS များသည် Folder တစ်ခုနှင့် ယင်း၏ ပါဝင်မှုများကို ပုံရိပ်လွှာ (snapshot) အစဉ်လိုက်များဖြင့် ခြေရာခံပေးပြီး၊ Snapshot တစ်ခုစီသည် Top-level Directory အတွင်းရှိ ဖိုင်/Folder များ၏ အခြေအနေတစ်ခုလုံးကို ငုံ့ကြည့်နိုင်အောင် စုစည်းထားပေးပါသည်။ ထို့အပြင် VCS များသည် Snapshot တစ်ခုစီကို မည်သူဖန်တီးခဲ့သည်၊ အမှတ်အသား စာတိုများ (messages) အစရှိသည့် Metadata များကိုပါ ထိန်းသိမ်းပေးပါသည်။
 
-Why is version control useful? Even when you're working by yourself, it can let
-you look at old snapshots of a project, keep a log of why certain changes were
-made, work on parallel branches of development, and much more. When working
-with others, it's an invaluable tool for seeing what other people have changed,
-as well as resolving conflicts in concurrent development.
+Version control ကို အသုံးပြုခြင်းသည် အဘယ်ကြောင့် အသုံးဝင်သနည်း။ မိမိတစ်ဦးတည်း အလုပ်လုပ်နေချိန်တွင်ပင် ပရောဂျက်၏ Snapshot အဟောင်းများကို ပြန်လည်ကြည့်ရှုနိုင်ခြင်း၊ အချို့သော အပြောင်းအလဲများကို အဘယ်ကြောင့် ပြုလုပ်ခဲ့ကြောင်း မှတ်တမ်းတင်ထားနိုင်ခြင်း၊ ပြိုင်တူ ဖွံ့ဖြိုးတိုးတက်ရေး Branch များ (parallel branches) ဖြင့် အလုပ်လုပ်နိုင်ခြင်း အစရှိသည်တို့ကို ပြုလုပ်နိုင်ပါသည်။ အခြားသူများနှင့် ပူးပေါင်းလုပ်ဆောင်သည့်အခါတွင်လည်း အခြားသူများ မည်သည့်အရာများ ပြောင်းလဲထားသည်ကို ကြည့်ရှုနိုင်သည့်အပြင် ပြိုင်တူ လုပ်ဆောင်ရာတွင် ဖြစ်ပေါ်လာသည့် ပဋိပက္ခများ (conflicts) ကို ဖြေရှင်းရာ၌ အလွန် တန်ဖိုးရှိသော Tool ဖြစ်ပါသည်။
 
-Modern VCSs also let you easily (and often automatically) answer questions
-like:
+ခေတ်မီ VCS များသည် အောက်ပါ မေးခွန်းများကိုလည်း လွယ်ကူစွာ (နှင့် အလိုအလျောက်) ဖြေကြားပေးနိုင်ပါသည် -
 
-- Who wrote this module?
-- When was this particular line of this particular file edited? By whom? Why
-  was it edited?
-- Over the last 1000 revisions, when/why did a particular unit test stop
-working?
+- ဤ Module ကို မည်သူ ရေးသားခဲ့သနည်း။
+- ဤ ဖိုင်၏ ဤ သီးခြား စာကြောင်းကို မည်သည့်အချိန်တွင်၊ မည်သူက ပြင်ဆင်ခဲ့သနည်း။ အဘယ်ကြောင့် ပြင်ဆင်ခဲ့သနည်း။
+- လွန်ခဲ့သော မူကွဲ ၁၀၀၀ အတွင်း၊ မည်သည့်အချိန်/မည်သည့်အကြောင်းကြောင့် သီးခြား Unit Test တစ်ခု အလုပ်မလုပ်တော့ဘဲ ဖြစ်သွားသနည်း။
 
-While other VCSs exist, **Git** is the de facto standard for version control.
-This [XKCD comic](https://xkcd.com/1597/) captures Git's reputation:
+အခြားသော VCS များ ရှိသော်လည်း **Git** သည် Version control အတွက် အဓိက စံနှုန်း (de facto standard) ဖြစ်ပါသည်။
+ဤ [XKCD comic](https://xkcd.com/1597/) လေးသည် Git ၏ ကျော်ကြားမှုကို သရော်ထားပါသည် -
 
 ![xkcd 1597](https://imgs.xkcd.com/comics/git.png)
 
-Because Git's interface is a leaky abstraction, learning Git top-down (starting
-with its interface / command-line interface) can lead to a lot of confusion.
-It's possible to memorize a handful of commands and think of them as magic
-incantations, and follow the approach in the comic above whenever anything goes
-wrong.
+Git ၏ Interface သည် leaky abstraction ဖြစ်သောကြောင့် Git ကို Top-down နည်းလမ်းဖြင့် (ယင်း၏ Interface / Command-line Interface မှ စတင်၍) လေ့လာခြင်းသည် ရှုပ်ထွေးမှုများစွာ ဖြစ်ပေါ်စေနိုင်ပါသည်။ Command အနည်းငယ်ကို အလွတ်ကျက်မှတ်ထားပြီး မန္တန်အဖြစ် မှတ်ယူကာ၊ ပြဿနာ တစ်ခုခု တက်လာပါက အထက်ပါ Comic ပါ အယူအဆအတိုင်း ပြုလုပ်လေ့ ရှိကြပါသည်။
 
-While Git admittedly has an ugly interface, its underlying design and ideas are
-beautiful. While an ugly interface has to be _memorized_, a beautiful design
-can be _understood_. For this reason, we give a bottom-up explanation of Git,
-starting with its data model and later covering the command-line interface.
-Once the data model is understood, the commands can be better understood in
-terms of how they manipulate the underlying data model.
+Git တွင် ရှုပ်ထွေးသော Interface ရှိသည်ကို လက်ခံရမည် ဖြစ်သော်လည်း ယင်း၏ အောက်ခံ ဒီဇိုင်းနှင့် အယူအဆများသည် အလွန် သပ်ရပ်လှပပါသည်။ ရှုပ်ထွေးသော Interface ကို အလွတ်ကျက်မှတ်ရမည် ဖြစ်သော်လည်း လှပသော ဒီဇိုင်းကိုမူ _နားလည်သဘောပေါက်_ နိုင်ပါသည်။ ထို့ကြောင့် ကျွန်ုပ်တို့သည် Git ကို ယင်း၏ Data model မှ စတင်၍ အောက်ခြေမှ အထက်သို့ (Bottom-up) ရှင်းလင်းသင်ကြားပေးမည် ဖြစ်ပြီး၊ နောက်ပိုင်းမှ Command-line Interface အကြောင်းကို လွှမ်းခြုံ သင်ကြားပါမည်။ Data model ကို နားလည်သွားပါက Command များသည် အောက်ခံ Data model ကို မည်သို့ စီမံခန့်ခွဲသည်ဆိုသည်ကို ပိုမို နားလည်သဘောပေါက်လာပါမည်။
 
 # Git's data model
 
-There are many ad-hoc approaches you could take to version control. Git has a
-well-thought-out model that enables all the nice features of version control,
-like maintaining history, supporting branches, and enabling collaboration.
+Version control အတွက် အသုံးပြုနိုင်သော နည်းလမ်းများစွာ ရှိပါသည်။ Git တွင် Version control ၏ အင်္ဂါရပ်ကောင်းများဖြစ်သော သမိုင်းကြောင်း ထိန်းသိမ်းခြင်း၊ Branch များကို ထောက်ပံ့ခြင်း နှင့် ပူးပေါင်းဆောင်ရွက်မှုကို လွယ်ကူစေခြင်း အစရှိသည်တို့ကို အပြည့်အဝ ပေးစွမ်းနိုင်သည့် သေချာစွာ စနစ်တကျ ရေးဆွဲထားသော Model တစ်ခု ရှိပါသည်။
 
 ## Snapshots
 
-Git models the history of a collection of files and folders within some
-top-level directory as a series of snapshots. In Git terminology, a file is
-called a "blob", and it's just a bunch of bytes. A directory is called a
-"tree", and it maps names to blobs or trees (so directories can contain other
-directories). A snapshot is the top-level tree that is being tracked. For
-example, we might have a tree as follows:
+Git သည် Top-level Directory တွင်းရှိ ဖိုင်များနှင့် Folder များ စုစည်းမှု၏ သမိုင်းကြောင်းကို Snapshot များ အစဉ်လိုက်အဖြစ် ပုံဖော်ထားပါသည်။ Git ဝေါဟာရတွင် ဖိုင်ကို "blob" ဟု ခေါ်ဆိုပြီး ယင်းသည် Byte အစုအဝေးမျှသာ ဖြစ်သည်။ Directory ကို "tree" ဟု ခေါ်ဆိုပြီး ယင်းသည် အမည်များကို blobs သို့မဟုတ် trees သို့ ချိတ်ဆက်ပေးပါသည် (ထို့ကြောင့် Directory များတွင် အခြား Directory များ ပါဝင်နိုင်သည်)။ Snapshot ဆိုသည်မှာ ခြေရာခံနေသော Top-level Tree ဖြစ်ပါသည်။ ဥပမာအားဖြင့် အောက်ပါအတိုင်း Tree တစ်ခု ရှိနိုင်ပါသည် -
 
 ```
 <root> (tree)
@@ -77,24 +49,15 @@ example, we might have a tree as follows:
 +- baz.txt (blob, contents = "git is wonderful")
 ```
 
-The top-level tree contains two elements, a tree "foo" (that itself contains
-one element, a blob "bar.txt"), and a blob "baz.txt".
+Top-level Tree တွင် အစိတ်အပိုင်း နှစ်ခု ပါဝင်ပါသည်၊ "foo" ဟုခေါ်သော Tree တစ်ခု (၎င်းကိုယ်တိုင်တွင် "bar.txt" ဟုခေါ်သော blob တစ်ခု ပါဝင်သည်) နှင့် "baz.txt" ဟုခေါ်သော blob တစ်ခုတို့ ဖြစ်ကြသည်။
 
 ## Modeling history: relating snapshots
 
-How should a version control system relate snapshots? One simple model would be
-to have a linear history. A history would be a list of snapshots in time-order.
-For many reasons, Git doesn't use a simple model like this.
+Version control စနစ်တစ်ခုသည် Snapshot များကို မည်သို့ ဆက်စပ်ပေးသင့်သနည်း။ ရိုးရှင်းသော Model တစ်ခုမှာ မျဉ်းဖြောင့် သမိုင်းကြောင်း (linear history) ဖြစ်ပါမည်။ သမိုင်းကြောင်းသည် အချိန်အစဉ်လိုက် Snapshot များ၏ စာရင်း ဖြစ်ပါမည်။ သို့သော် အကြောင်းကြောင်း ကြောင့် Git သည် ဤကဲ့သို့ ရိုးရှင်းသော Model ကို မသုံးပါ။
 
-In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
-sound like a fancy math word, but don't be intimidated. All this means is that
-each snapshot in Git refers to a set of "parents", the snapshots that preceded
-it. It's a set of parents rather than a single parent (as would be the case in
-a linear history) because a snapshot might descend from multiple parents, for
-example, due to combining (merging) two parallel branches of development.
+Git တွင် သမိုင်းကြောင်းဆိုသည်မှာ Snapshot များ၏ Directed Acyclic Graph (DAG) ဖြစ်ပါသည်။ ဤသည်မှာ သင်္ချာစကားလုံးဆန်း ဖြစ်ကောင်းဖြစ်နိုင်သော်လည်း စိတ်မပူပါနှင့်။ ဤသည်၏ အဓိပ္ပာယ်မှာ Git ရှိ Snapshot တစ်ခုစီသည် ယင်း၏ အလျင် ရှိခဲ့သော မိဘများ "parents" ၏ အစုအဝေးကို ညွှန်းဆိုနေခြင်း ဖြစ်ပါသည်။ မိဘ တစ်ခုတည်း (linear history တွင် ဖြစ်သကဲ့သို့) မဟုတ်ဘဲ မိဘ အစုအဝေး ဖြစ်နေရခြင်းမှာ Snapshot တစ်ခုသည် မိဘများစွာမှ ဆင်းသက်လာနိုင်သောကြောင့် ဖြစ်သည် (ဥပမာ ပြိုင်တူ ဖွံ့ဖြိုးတိုးတက်နေသော Branch နှစ်ခုကို ပေါင်းစပ် merge လုပ်လိုက်သည့်အခါမျိုးတွင် ဖြစ်သည်)။
 
-Git calls these snapshots "commit"s. Visualizing a commit history might look
-something like this:
+Git သည် ဤ Snapshot များကို "commit" များဟု ခေါ်ဆိုပါသည်။ Commit သမိုင်းကြောင်းကို ပုံဖော်ကြည့်ပါက အောက်ပါအတိုင်း တွေ့ရပါမည် -
 
 ```
 o <-- o <-- o <-- o
@@ -103,14 +66,8 @@ o <-- o <-- o <-- o
               --- o <-- o
 ```
 
-In the ASCII art above, the `o`s correspond to individual commits (snapshots).
-The arrows point to the parent of each commit (it's a "comes before" relation,
-not "comes after"). After the third commit, the history branches into two
-separate branches. This might correspond to, for example, two separate features
-being developed in parallel, independently from each other. In the future,
-these branches may be merged to create a new snapshot that incorporates both of
-the features, producing a new history that looks like this, with the newly
-created merge commit shown in bold:
+အထက်ပါ ASCII Art တွင် `o` များသည် သီးခြား Commit (snapshot) များကို ကိုယ်စားပြုပါသည်။
+မြားများသည် Commit တစ်ခုစီ၏ Parent ကို ညွှန်ပြနေခြင်း ဖြစ်ပါသည် ("နောက်မှ လာသည်" မဟုတ်ဘဲ "ရှေ့မှ လာသည်" ဆက်ဆံရေး ဖြစ်သည်)။ တတိယ Commit ပြီးနောက် သမိုင်းကြောင်းသည် သီးခြား Branch နှစ်ခုအဖြစ် ခွဲထွက်သွားသည်။ ဤသည်မှာ ဥပမာအားဖြင့် သီးခြား Feature နှစ်ခုကို တစ်ပြိုင်နက်တည်း သီးခြားစီ ဖွံ့ဖြိုးတိုးတက်အောင် ပြုလုပ်နေခြင်းနှင့် တူညီပါသည်။ နောင်တွင် ဤ Branch နှစ်ခုကို Merge ပြုလုပ်၍ Feature နှစ်ခုစလုံး ပါဝင်သော Snapshot အသစ်တစ်ခုကို ဖန်တီးနိုင်ပြီး၊ အောက်ပါအတိုင်း သမိုင်းကြောင်း အသစ်တစ်ခု ထွက်ပေါ်လာမည် ဖြစ်ကာ Merge commit အသစ်ကို စာလုံးအထူဖြင့် ဖော်ပြထားပါသည် -
 
 <pre class="highlight">
 <code>
@@ -121,23 +78,20 @@ o <-- o <-- o <-- o <---- <strong>o</strong>
 </code>
 </pre>
 
-Commits in Git are immutable. This doesn't mean that mistakes can't be
-corrected, however; it's just that "edits" to the commit history are actually
-creating entirely new commits, and references (see below) are updated to point
-to the new ones.
+Git ရှိ Commit များသည် မပြောင်းလဲနိုင်သော (immutable) အရာများ ဖြစ်ကြသည်။ ဤသည်မှာ အမှားများကို ပြင်ဆင်၍ မရနိုင်ဟု ဆိုလိုခြင်း မဟုတ်ပါ၊ Commit သမိုင်းကြောင်းကို "ပြင်ဆင်ခြင်း" ဆိုသည်မှာ အမှန်တကယ်အားဖြင့် Commit အသစ်တစ်ခုလုံးကို ဖန်တီးလိုက်ခြင်း ဖြစ်ပြီး References များကို Commit အသစ်သို့ ညွှန်ပြအောင် အပ်ဒိတ်လုပ်လိုက်ခြင်း ဖြစ်သည်။
 
 ## Data model, as pseudocode
 
-It may be instructive to see Git's data model written down in pseudocode:
+Git ၏ Data model ကို Pseudocode ဖြင့် ရေးသားထားသည်ကို ကြည့်ပါက ပိုမို ရှင်းလင်းသွားပါမည် -
 
 ```
-// a file is a bunch of bytes
+// file ဆိုသည်မှာ Byte အစုအဝေး ဖြစ်သည်
 type blob = array<byte>
 
-// a directory contains named files and directories
+// directory တွင် အမည်တပ်ထားသော ဖိုင်များနှင့် directory များ ပါဝင်သည်
 type tree = map<string, tree | blob>
 
-// a commit has parents, metadata, and the top-level tree
+// commit တွင် parents, metadata နှင့် top-level tree တို့ ပါဝင်သည်
 type commit = struct {
     parents: array<commit>
     author: string
@@ -146,18 +100,17 @@ type commit = struct {
 }
 ```
 
-It's a clean, simple model of history.
+ဤသည်မှာ သမိုင်းကြောင်း၏ သပ်ရပ်ရှင်းလင်းသော Model ဖြစ်ပါသည်။
 
 ## Objects and content-addressing
 
-An "object" is a blob, tree, or commit:
+"object" ဆိုသည်မှာ blob, tree သို့မဟုတ် commit ဖြစ်ပါသည် -
 
 ```
 type object = blob | tree | commit
 ```
 
-In Git data store, all objects are content-addressed by their [SHA-1
-hash](https://en.wikipedia.org/wiki/SHA-1).
+Git data store တွင် object အားလုံးကို ယင်းတို့၏ [SHA-1 hash](https://en.wikipedia.org/wiki/SHA-1) ဖြင့် Content-addressing ပြုလုပ်ထားပါသည် -
 
 ```
 objects = map<string, object>
@@ -170,23 +123,16 @@ def load(id):
     return objects[id]
 ```
 
-Blobs, trees, and commits are unified in this way: they are all objects. When
-they reference other objects, they don't actually _contain_ them in their
-on-disk representation, but have a reference to them by their hash.
+Blobs, trees နှင့် commits များကို ဤနည်းဖြင့် ပေါင်းစည်းထားပါသည် - ယင်းတို့ အားလုံးသည် object များ ဖြစ်ကြသည်။ ယင်းတို့သည် အခြား object များကို ညွှန်းဆိုသည့်အခါ၊ Disc ပေါ်တွင် Object တစ်ခုလုံးကို _ထည့်သွင်း_ ထားခြင်း မဟုတ်ဘဲ Hash ဖြင့် ညွှန်းဆိုထားသော Reference ကိုသာ သိမ်းဆည်းထားပါသည်။
 
-For example, the tree for the example directory structure [above](#snapshots)
-(visualized using `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`),
-looks like this:
+ဥပမာအားဖြင့် [အထက်ပါ](#snapshots) Directory စနစ်၏ Tree ကို (`git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d` ဖြင့် ကြည့်ရှုထားသော) အောက်ပါအတိုင်း တွေ့ရပါမည် -
 
 ```
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
 
-The tree itself contains pointers to its contents, `baz.txt` (a blob) and `foo`
-(a tree). If we look at the contents addressed by the hash corresponding to
-baz.txt with `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`, we get
-the following:
+Tree ကိုယ်တိုင်တွင် ပါဝင်သော အရာများဖြစ်သည့် `baz.txt` (blob) နှင့် `foo` (tree) သို့ ညွှန်ပြသော Pointers များ ပါဝင်ပါသည်။ `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85` Command ဖြင့် `baz.txt` ၏ hash ဖြင့် ကြည့်ရှုလိုက်ပါက အောက်ပါအတိုင်း ရရှိမည် ဖြစ်သည် -
 
 ```
 git is wonderful
@@ -194,14 +140,9 @@ git is wonderful
 
 ## References
 
-Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
-because humans aren't good at remembering strings of 40 hexadecimal characters.
+ယခုအခါ Snapshot အားလုံးကို SHA-1 Hashes များဖြင့် ခွဲခြားသတ်မှတ်နိုင်ပြီ ဖြစ်သည်။ သို့သော် လူများသည် 16 စီးပါ 40-digit Hexadecimal စာလုံးများကို မှတ်မိရန် မလွယ်ကူသဖြင့် အဆင်မပြေပါ။
 
-Git's solution to this problem is human-readable names for SHA-1 hashes, called
-"references". References are pointers to commits. Unlike objects, which are
-immutable, references are mutable (can be updated to point to a new commit).
-For example, the `master` reference usually points to the latest commit in the
-main branch of development.
+ဤပြဿနာအတွက် Git ၏ ဖြေရှင်းချက်မှာ SHA-1 Hashes များကို လူနားလည်လွယ်သော အမည်များ ပေးခြင်းဖြစ်ပြီး ယင်းတို့ကို "References" ဟု ခေါ်ဆိုပါသည်။ References များသည် Commit များကို ညွှန်ပြသော Pointers များ ဖြစ်ကြသည်။ မပြောင်းလဲနိုင်သော Objects များနှင့် မတူဘဲ References များသည် ပြောင်းလဲနိုင်ပါသည် (Commit အသစ်သို့ ညွှန်ပြအောင် အပ်ဒိတ်လုပ်နိုင်သည်)။ ဥပမာအားဖြင့် `master` reference သည် အဓိက Branch ၏ နောက်ဆုံး Commit ကို ညွှန်ပြလေ့ ရှိပါသည်။
 
 ```
 references = map<string, string>
@@ -219,55 +160,29 @@ def load_reference(name_or_id):
         return load(name_or_id)
 ```
 
-With this, Git can use human-readable names like "master" to refer to a
-particular snapshot in the history, instead of a long hexadecimal string.
+ဤနည်းဖြင့် Git သည် ရှည်လျားသော Hexadecimal String အစား "master" ကဲ့သို့သော လူနားလည်လွယ်သော အမည်များကို သမိုင်းကြောင်းရှိ သီးခြား Snapshot များကို ညွှန်းဆိုရန် အသုံးပြုနိုင်ပါသည်။
 
-One detail is that we often want a notion of "where we currently are" in the
-history, so that when we take a new snapshot, we know what it is relative to
-(how we set the `parents` field of the commit). In Git, that "where we
-currently are" is a special reference called "HEAD".
+အသေးစိတ် အချက်တစ်ခုမှာ သမိုင်းကြောင်းတွင် "လက်ရှိ ရောက်ရှိနေသော နေရာ" ကို သိရှိလိုခြင်း ဖြစ်သည်၊ ထို့မှသာ Snapshot အသစ်တစ်ခု ရယူသည့်အခါ မည်သည့်အရာနှင့် ယှဉ်တွဲရမည်နည်း (Commit ၏ `parents` field ကို မည်သို့ သတ်မှတ်မည်နည်း) ကို သိရှိနိုင်မည် ဖြစ်သည်။ Git တွင် ထို "လက်ရှိ ရောက်ရှိနေသော နေရာ" သည် "HEAD" ဟုခေါ်သော အထူး Reference ဖြစ်ပါသည်။
 
 ## Repositories
 
-Finally, we can define what (roughly) is a Git _repository_: it is the data
-`objects` and `references`.
+နောက်ဆုံးတွင် Git _repository_ ၏ အဓိပ္ပာယ်ကို သတ်မှတ်နိုင်ပါပြီ - ယင်းသည် `objects` နှင့် `references` Data များ ဖြစ်ကြပါသည်။
 
-On disk, all Git stores are objects and references: that's all there is to Git's
-data model. All `git` commands map to some manipulation of the commit DAG by
-adding objects and adding/updating references.
+Disc ပေါ်တွင် Git သိမ်းဆည်းထားသမျှသည် objects နှင့် references များသာ ဖြစ်ကြသည် - Git ၏ Data model တွင် ဒါအကုန်ပါပဲ။ `git` command အားလုံးသည် objects များကို ထည့်သွင်းခြင်းနှင့် references များကို အပ်ဒိတ်လုပ်ခြင်းဖြင့် Commit DAG ကို မွမ်းမံ ပြင်ဆင်နေခြင်း ဖြစ်ပါသည်။
 
-Whenever you're typing in any command, think about what manipulation the
-command is making to the underlying graph data structure. Conversely, if you're
-trying to make a particular kind of change to the commit DAG, e.g. "discard
-uncommitted changes and make the 'master' ref point to commit `5d83f9e`", there's
-probably a command to do it (e.g. in this case, `git checkout master; git reset
---hard 5d83f9e`).
+Command တစ်ခုခုကို ရိုက်နှိပ်လိုက်တိုင်း၊ ထို Command သည် အောက်ခံ Graph Data Structure ကို မည်သို့ ပြောင်းလဲနေသည်ဆိုသည်ကို စဉ်းစားပါ။ အလားတူပင် Commit DAG သို့ သီးခြား ပြောင်းလဲမှုတစ်ခုခု ပြုလုပ်လိုပါက (ဥပမာ "မသိမ်းရသေးသော အပြောင်းအလဲများကို စွန့်ပစ်ပြီး 'master' ref ကို commit `5d83f9e` သို့ ညွှန်ပြပါ") ထိုသို့ ပြုလုပ်ရန် Command တစ်ခုခု ရှိနေမည် ဖြစ်သည် (ဥပမာ `git checkout master; git reset --hard 5d83f9e`)။
 
 # Staging area
 
-This is another concept that's orthogonal to the data model, but it's a part of
-the interface to create commits.
+ဤသည်မှာ Data model နှင့် သီးခြား အယူအဆ ဖြစ်သော်လည်း Commit များ ဖန်တီးသည့် Interface ၏ အစိတ်အပိုင်းတစ်ခု ဖြစ်ပါသည်။
 
-One way you might imagine implementing snapshotting as described above is to have
-a "create snapshot" command that creates a new snapshot based on the _current
-state_ of the working directory. Some version control tools work like this, but
-not Git. We want clean snapshots, and it might not always be ideal to make a
-snapshot from the current state. For example, imagine a scenario where you've
-implemented two separate features, and you want to create two separate commits,
-where the first introduces the first feature, and the next introduces the
-second feature. Or imagine a scenario where you have debugging print statements
-added all over your code, along with a bugfix; you want to commit the bugfix
-while discarding all the print statements.
+Snapshot ရယူခြင်းကို အကောင်အထည်ဖော်ရာတွင် Working Directory ၏ _လက်ရှိ အခြေအနေ_ ကို အခြေခံ၍ Snapshot အသစ် ဖန်တီးပေးသည့် "create snapshot" command တစ်ခု ရှိမည်ဟု ထင်မြင်နိုင်ပါသည်။ အချို့သော Version control tool များသည် ဤသို့ အလုပ်လုပ်ကြသော်လည်း Git မဟုတ်ပါ။ ကျွန်ုပ်တို့သည် သပ်ရပ်သန့်ရှင်းသော Snapshot များကို အလိုရှိကြပြီး၊ လက်ရှိ အခြေအနေ တစ်ခုလုံးမှ Snapshot ရယူခြင်းသည် အမြဲတမ်း မသင့်တော်နိုင်ပါ။ ဥပမာအားဖြင့် သီးခြား Feature နှစ်ခုကို ရေးသားထားပြီး သီးခြား Commit နှစ်ခု ဖန်တီးလိုသည် ဆိုပါစို့၊ ပထမ Commit တွင် ပထမ Feature ပါဝင်ပြီး ဒုတိယ Commit တွင် ဒုတိယ Feature ပါဝင်စေလိုသည်။ သို့မဟုတ် Code တွင် ပုံနှိပ်ထုတ်ဝေထားသော Debugging print စာကြောင်းများ ပါဝင်နေပြီး Bugfix နှင့်အတူ ရောနှောနေသည် ဆိုပါစို့၊ Bugfix ကိုသာ Commit လုပ်ပြီး Print စာကြောင်းများကို စွန့်ပစ်လိုပါမည်။
 
-Git accommodates such scenarios by allowing you to specify which modifications
-should be included in the next snapshot through a mechanism called the "staging
-area".
+Git သည် "Staging area" ဟုခေါ်သော နည်းလမ်းမှတဆင့် မည်သည့် အပြောင်းအလဲများကို နောက် Snapshot တွင် ထည့်သွင်းမည်ဆိုသည်ကို သီးခြား သတ်မှတ်ခွင့် ပြုထားပါသည်။
 
 # Git command-line interface
 
-To avoid duplicating information, we're not going to explain the commands below
-in detail. See the highly recommended [Pro Git](https://git-scm.com/book/en/v2)
-for more information, or watch the lecture video.
+အချက်အလက်များ ထပ်မံ မဖြစ်စေရန်အတွက် အောက်ပါ Command များကို အသေးစိတ် ရှင်းပြမည် မဟုတ်ပါ။ အသေးစိတ်အတွက် အလွန် အကြံပြုထားသော [Pro Git](https://git-scm.com/book/en/v2) ကို ဖတ်ရှုပါ သို့မဟုတ် သင်ခန်းစာ ဗီဒီယိုကို ကြည့်ရှုပါ။
 
 ## Basics
 
@@ -297,7 +212,6 @@ $ echo "hello, git" > hello.txt
 $ git add hello.txt
 $ git status
 On branch master
-
 No commits yet
 
 Changes to be committed:
@@ -424,18 +338,18 @@ index 94bab17..f0013b2 100644
 
 {% endcomment %}
 
-- `git help <command>`: get help for a git command
-- `git init`: creates a new git repo, with data stored in the `.git` directory
-- `git status`: tells you what's going on
-- `git add <filename>`: adds files to staging area
-- `git commit`: creates a new commit
-    - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
-    - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
-- `git log`: shows a flattened log of history
-- `git log --all --graph --decorate`: visualizes history as a DAG
-- `git diff <filename>`: show changes you made relative to the staging area
-- `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
+- `git help <command>`: git command အတွက် အကူအညီ ရယူရန်
+- `git init`: Git repo အသစ်တစ်ခု ဖန်တီးရန် (`.git` directory တွင် metadata များကို သိမ်းဆည်းသည်)
+- `git status`: လက်ရှိ အခြေအနေများကို ကြည့်ရှုရန်
+- `git add <filename>`: ဖိုင်များကို Staging area သို့ ထည့်သွင်းရန်
+- `git commit`: Commit အသစ်တစ်ခု ဖန်တီးရန်
+    - [ကောင်းမွန်သော commit message များ](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) ရေးသားပါ!
+    - [ကောင်းမွန်သော commit message များ ရေးသားရခြင်း အကြောင်းအရင်းများ](https://chris.beams.io/posts/git-commit/)!
+- `git log`: သမိုင်းကြောင်း မှတ်တမ်းများကို မျဉ်းဖြောင့် ပုံစံဖြင့် ပြသရန်
+- `git log --all --graph --decorate`: သမိုင်းကြောင်းကို DAG Graph ပုံစံဖြင့် မြင်တွေ့ရရန်
+- `git diff <filename>`: Staging area နှင့် ယှဉ်လျှင် ပြုလုပ်ထားသော အပြောင်းအလဲများကို ပြသရန်
+- `git diff <revision> <filename>`: Snapshot များ ကြားရှိ ဖိုင်ပြောင်းလဲမှုများကို ပြသရန်
+- `git checkout <revision>`: HEAD ကို အပ်ဒိတ်လုပ်ရန် (Branch ကို checkout လုပ်ပါက လက်ရှိ branch ကိုပါ ပြောင်းလဲပေးသည်)
 
 ## Branching and merging
 
@@ -452,124 +366,68 @@ command is used for merging.
 
 {% endcomment %}
 
-- `git branch`: shows branches
-- `git branch <name>`: creates a branch
-- `git checkout -b <name>`: creates a branch and switches to it
-    - same as `git branch <name>; git checkout <name>`
-- `git merge <revision>`: merges into current branch
-- `git mergetool`: use a fancy tool to help resolve merge conflicts
-- `git rebase`: rebase set of patches onto a new base
+- `git branch`: Branch များကို ပြသရန်
+- `git branch <name>`: Branch အသစ် ဖန်တီးရန်
+- `git checkout -b <name>`: Branch အသစ် ဖန်တီးပြီး ထို branch သို့ ချက်ချင်း ပြောင်းလဲရန်
+    - `git branch <name>; git checkout <name>` နှင့် တူညီသည်
+- `git merge <revision>`: လက်ရှိ branch အတွင်းသို့ ပေါင်းစပ်ရန်
+- `git mergetool`: Merge conflicts များကို ဖြေရှင်းရန် Tool ဖြင့် အကူအညီ ရယူရန်
+- `git rebase`: Patches များကို Base အသစ်တစ်ခု ပေါ်သို့ Rebase ပြုလုပ်ရန်
 
 ## Remotes
 
-- `git remote`: list remotes
-- `git remote add <name> <url>`: add a remote
-- `git push <remote> <local branch>:<remote branch>`: send objects to remote, and update remote reference
-- `git branch --set-upstream-to=<remote>/<remote branch>`: set up correspondence between local and remote branch
-- `git fetch`: retrieve objects/references from a remote
-- `git pull`: same as `git fetch; git merge`
-- `git clone`: download repository from remote
+- `git remote`: Remote စာရင်းများကို ပြရန်
+- `git remote add <name> <url>`: Remote အသစ် ထည့်ရန်
+- `git push <remote> <local branch>:<remote branch>`: Remote သို့ Objects များကို ပို့ပြီး Remote reference ကို အပ်ဒိတ်လုပ်ရန်
+- `git branch --set-upstream-to=<remote>/<remote branch>`: Local နှင့် Remote branch ကြား ဆက်သွယ်မှု သတ်မှတ်ရန်
+- `git fetch`: Remote မှ Objects/References များကို ယူဆောင်ရန်
+- `git pull`: `git fetch; git merge` နှင့် တူညီသည်
+- `git clone`: Remote မှ Repository ကို ဒေါင်းလုဒ် ရယူရန်
 
 ## Undo
 
-- `git commit --amend`: edit a commit's contents/message
-- `git reset HEAD <file>`: unstage a file
-- `git checkout -- <file>`: discard changes
+- `git commit --amend`: Commit ၏ စာတို သို့မဟုတ် အကြောင်းအရာကို ပြင်ဆင်ရန်
+- `git reset HEAD <file>`: Staging area မှ ဖိုင်ကို ပြန်ထုတ်ရန်
+- `git checkout -- <file>`: ပြုလုပ်ထားသော အပြောင်းအလဲများကို စွန့်ပစ်ရန်
 
 # Advanced Git
 
-- `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
-- `git clone --depth=1`: shallow clone, without entire version history
-- `git add -p`: interactive staging
-- `git rebase -i`: interactive rebasing
-- `git blame`: show who last edited which line
-- `git stash`: temporarily remove modifications to working directory
-- `git bisect`: binary search history (e.g. for regressions)
-- `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
+- `git config`: Git ကို [စိတ်ကြိုက် ပြင်ဆင်နိုင်စွမ်း မြင့်မားသည်](https://git-scm.com/docs/git-config)
+- `git clone --depth=1`: သမိုင်းကြောင်း အပြည့်အစုံ မပါဘဲ အပေါ်ယံ Clone လုပ်ရန်
+- `git add -p`: Interactive ပုံစံဖြင့် Staging ပြုလုပ်ရန်
+- `git rebase -i`: Interactive ပုံစံဖြင့် Rebase ပြုလုပ်ရန်
+- `git blame`: စာကြောင်း တစ်ကြောင်းစီကို မည်သူ နောက်ဆုံး ပြင်ဆင်ခဲ့သည်ကို ပြသရန်
+- `git stash`: Working directory ရှိ ပြင်ဆင်ချက်များကို ခေတ္တ ဖယ်ရှားသိမ်းဆည်းထားရန်
+- `git bisect`: သမိုင်းကြောင်းတွင် အမှားများကို Binary search ဖြင့် ရှာဖွေရန်
+- `.gitignore`: ခြေရာမခံဘဲ ပစ်ပယ်ထားမည့် ဖိုင်များကို [သတ်မှတ်ရန်](https://git-scm.com/docs/gitignore)
 
 # Miscellaneous
 
-- **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
-out there for Git. We personally don't use them and use the command-line
-interface instead.
-- **Shell integration**: it's super handy to have a Git status as part of your
-shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
-[bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
-frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: similarly to the above, handy integrations with many
-features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
-one for Vim.
-- **Workflows**: we taught you the data model, plus some basic commands; we
-didn't tell you what practices to follow when working on big projects (and
-there are [many](https://nvie.com/posts/a-successful-git-branching-model/)
-[different](https://www.endoflineblog.com/gitflow-considered-harmful)
-[approaches](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
-- **GitHub**: Git is not GitHub. GitHub has a specific way of contributing code
-to other projects, called [pull
-requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-- **Other Git providers**: GitHub is not special: there are many Git repository
-hosts, like [GitLab](https://about.gitlab.com/) and
-[BitBucket](https://bitbucket.org/).
+- **GUIs**: Git အတွက် [GUI clients](https://git-scm.com/downloads/guis) များစွာ ရှိပါသည်။ ကျွန်ုပ်တို့ ကိုယ်တိုင်မူ ယင်းတို့ကို မသုံးဘဲ Command-line interface ကိုသာ အသုံးပြုပါသည်။
+- **Shell integration**: သင်၏ Shell prompt တွင် Git status ပါဝင်နေခြင်းသည် အလွန် အဆင်ပြေပါသည် ([zsh](https://github.com/olivierverdier/zsh-git-prompt), [bash](https://github.com/magicmonty/bash-git-prompt))။ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) ကဲ့သို့သော Framework များတွင် မူလ ပါဝင်လေ့ရှိသည်။
+- **Editor integration**: အထက်ပါအတိုင်း အသုံးဝင်သော အင်္ဂါရပ်များစွာဖြင့် ပေါင်းစပ်ထားနိုင်ပါသည်။ [fugitive.vim](https://github.com/tpope/vim-fugitive) သည် Vim အတွက် စံနှုန်း ဖြစ်ပါသည်။
+- **Workflows**: ကျွန်ုပ်တို့သည် Data model နှင့် အခြေခံ Command များကို သင်ကြားပေးခဲ့ပြီး ဖြစ်သည်; ပရောဂျက် ကြီးများတွင် အလုပ်လုပ်ရာ၌ မည်သည့် နည်းလမ်းများကို လိုက်နာရမည် ဆိုသည်ကိုမူ မပြောပြရသေးပါ ([နည်းလမ်း ကွဲပြားမှုများစွာ](https://nvie.com/posts/a-successful-git-branching-model/) ရှိကြသည်)။
+- **GitHub**: Git သည် GitHub မဟုတ်ပါ။ GitHub တွင် [pull requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) ဟုခေါ်သော အခြား ပရောဂျက်များသို့ Code ပံ့ပိုးပေးသည့် သီးခြား နည်းလမ်း ရှိပါသည်။
+- **Other Git providers**: GitHub သည် သီးခြား အထူး မဟုတ်ပါ - [GitLab](https://about.gitlab.com/) နှင့် [BitBucket](https://bitbucket.org/) အပါအဝင် Git Repository Hosts များစွာ ရှိကြပါသည်။
 
 # Resources
 
-- [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
-Going through Chapters 1--5 should teach you most of what you need to use Git
-proficiently, now that you understand the data model. The later chapters have
-some interesting, advanced material.
-- [Oh Shit, Git!?!](https://ohshitgit.com/) is a short guide on how to recover
-from some common Git mistakes.
-- [Git for Computer
-Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
-short explanation of Git's data model, with less pseudocode and more fancy
-diagrams than these lecture notes.
-- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
-is a detailed explanation of Git's implementation details beyond just the data
-model, for the curious.
-- [How to explain git in simple
-words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
-- [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
-game that teaches you Git.
+- [Pro Git](https://git-scm.com/book/en/v2) သည် **အလွန် ဖတ်ရှုသင့်သော စာအုပ်** ဖြစ်ပါသည်။ အခန်း ၁ မှ ၅ ထိ ဖတ်ရှုလိုက်ပါက Data model ကို နားလည်ထားပြီးဖြစ်၍ Git ကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်မည် ဖြစ်သည်။ နောက်ပိုင်း အခန်းများတွင် စိတ်ဝင်စားဖွယ် အဆင့်မြင့် အကြောင်းအရာများ ပါဝင်သည်။
+- [Oh Shit, Git!?!](https://ohshitgit.com/) သည် အတွေ့ရများသော Git အမှားများမှ မည်သို့ ပြန်လည် ကုစားရမည်ကို ရေးသားထားသော လမ်းညွှန် အတို ဖြစ်သည်။
+- [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/) သည် Git ၏ Data model ကို Pseudocode နည်းပါးစွာဖြင့် ပုံကားချပ်များစွာ အသုံးပြု၍ ရှင်းလင်းထားသော စာတမ်း ဖြစ်သည်။
+- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/) သည် စိတ်ဝင်စားသူများအတွက် Data model ထက်ကျော်လွန်သော Git ၏ အသေးစိတ် အကောင်အထည်ဖော်မှုများကို ရှင်းလင်းထားခြင်း ဖြစ်သည်။
+- [How to explain git in simple words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
+- [Learn Git Branching](https://learngitbranching.js.org/) သည် Git သင်ကြားပေးသော Browser အခြေပြု ဂိမ်း ဖြစ်သည်။
 
 # Exercises
 
-1. If you don't have any past experience with Git, either try reading the first
-   couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
-   tutorial like [Learn Git Branching](https://learngitbranching.js.org/). As
-   you're working through it, relate Git commands to the data model.
-1. Clone the [repository for the
-class website](https://github.com/missing-semester/missing-semester).
-    1. Explore the version history by visualizing it as a graph.
-    1. Who was the last person to modify `README.md`? (Hint: use `git log` with
-       an argument).
-    1. What was the commit message associated with the last modification to the
-       `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
-       show`).
-1. One common mistake when learning Git is to commit large files that should
-   not be managed by Git or adding sensitive information. Try adding a file to
-   a repository, making some commits and then deleting that file from history
-   (you may want to look at
-   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/)).
-1. Clone some repository from GitHub, and modify one of its existing files.
-   What happens when you do `git stash`? What do you see when running `git log
-   --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
-   In what scenario might this be useful?
-1. Like many command line tools, Git provides a configuration file (or dotfile)
-   called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
-   run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`. You can do this by directly
-   [editing](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias)
-   the `~/.gitconfig` file, or you can use the `git config` command to add the
-   alias. Information about git aliases can be found
-   [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
-1. You can define global ignore patterns in` ~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. This sets the
-   location of the global ignore file that Git will use, but you still need to
-   manually create the file at that path. Set up your global gitignore file to
-   ignore OS-specific or editor-specific temporary files, like `.DS_Store`.
-1. Fork the [repository for the class
-   website](https://github.com/missing-semester/missing-semester), find a typo
-   or some other improvement you can make, and submit a pull request on GitHub
-   (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
-   Please only submit PRs that are useful (don't spam us, please!). If you
-   can't find an improvement to make, you can skip this exercise.
+1. Git နှင့် ပတ်သက်၍ အတွေ့အကြုံ မရှိသေးပါက [Pro Git](https://git-scm.com/book/en/v2) ၏ ပထမ အခန်းအနည်းငယ်ကို ဖတ်ပါ သို့မဟုတ် [Learn Git Branching](https://learngitbranching.js.org/) သင်ခန်းစာကို ပြုလုပ်ပါ။ ပြုလုပ်နေစဉ်အတွင်း Git command များကို Data model နှင့် ယှဉ်တွဲ စဉ်းစားပါ။
+1. [ဤအတန်း၏ ဝဘ်ဆိုက် repository](https://github.com/missing-semester/missing-semester) ကို Clone လုပ်ပါ။
+    1. သမိုင်းကြောင်းကို Graph အဖြစ် ကြည့်ရှု၍ လေ့လာပါ။
+    1. `README.md` ကို နောက်ဆုံး ပြင်ဆင်ခဲ့သူမှာ မည်သူနည်း။ (အချက်အလက်- `git log` ကို argument ဖြင့် သုံးပါ)။
+    1. `_config.yml` ၏ `collections:` စာကြောင်းကို နောက်ဆုံး ပြင်ဆင်ခဲ့သည့် commit ၏ message မှာ ဘာနည်း။ (အချက်အလက်- `git blame` နှင့် `git show` ကို သုံးပါ)။
+1. Git လေ့လာရာတွင် အတွေ့ရများသော အမှားတစ်ခုမှာ Git ဖြင့် မစီမံသင့်သော ဖိုင်ကြီးများကို Commit လုပ်မိခြင်း သို့မဟုတ် အရေးကြီးသော အချက်အလက်များကို ထည့်သွင်းမိခြင်း ဖြစ်သည်။ Repository သို့ ဖိုင်တစ်ခု ထည့်ပါ၊ Commit လုပ်ပါ၊ ထို့နောက် သမိုင်းကြောင်းထဲမှ ထိုဖိုင်ကို ပယ်ဖျက်ပါ ([ဤနေရာတွင်](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) ကြည့်ရှုနိုင်သည်)။
+1. GitHub မှ Repository တစ်ခုကို Clone လုပ်ပါ၊ ရှိပြီးသား ဖိုင်တစ်ခုကို ပြင်ပါ။ `git stash` ရန်းလိုက်သည့်အခါ မည်သို့ ဖြစ်သွားသနည်း။ `git log --all --oneline` ရန်းသည့်အခါ မည်သည်ကို တွေ့ရသနည်း။ `git stash pop` ရန်း၍ ပြုလုပ်ခဲ့သည်ကို ပြန်ဖျက်ပါ။ မည်သည့် အခြေအနေတွင် ဤသည်မှာ အသုံးဝင်သနည်း။
+1. Command line tool အများစုကဲ့သို့ပင် Git တွင် `~/.gitconfig` ဟုခေါ်သော Configuration file (dotfile) ပါရှိသည်။ `~/.gitconfig` တွင် Alias တစ်ခု ဖန်တီး၍ `git graph` ရန်းလိုက်ပါက `git log --all --graph --decorate --oneline` ၏ output ရရှိအောင် ပြုလုပ်ပါ။ `~/.gitconfig` ဖိုင်ကို [တိုက်ရိုက် ပြင်ဆင်ခြင်း](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias) ဖြင့်လည်းကောင်း၊ `git config` command ဖြင့်လည်းကောင်း ပြုလုပ်နိုင်ပါသည်။ Git alias အကြောင်းကို [ဒီမှာ](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) ကြည့်နိုင်ပါသည်။
+1. `git config --global core.excludesfile ~/.gitignore_global` ကို ရန်းပြီးနောက် `~/.gitignore_global` တွင် Global ignore pattern များကို သတ်မှတ်နိုင်ပါသည်။ ဤသည်မှာ Git အသုံးပြုမည့် Global ignore file နေရာကို သတ်မှတ်ပေးခြင်း ဖြစ်သော်လည်း ထိုလမ်းကြောင်းတွင် ဖိုင်ကို ကိုယ်တိုင် ဖန်တီးရန် လိုအပ်ဆဲ ဖြစ်သည်။ သင်၏ Global gitignore ဖိုင်တွင် OS သို့မဟုတ် Editor သီးသန့် ယာယီဖိုင်များ (ဥပမာ `.DS_Store`) ကို Ignore လုပ်ရန် သတ်မှတ်ပါ။
+1. [ဤအတန်း၏ ဝဘ်ဆိုက် repository](https://github.com/missing-semester/missing-semester) ကို Fork လုပ်ပါ၊ စာလုံးပေါင်း မှားယွင်းမှု သို့မဟုတ် တိုးတက်ကောင်းမွန်အောင် ပြုလုပ်နိုင်မည့် အရာကို ရှာပြီး GitHub တွင် Pull Request တင်ပါ ([ဤနေရာတွင်](https://github.com/firstcontributions/first-contributions) ကြည့်နိုင်ပါသည်)။ အသုံးဝင်သော PR များကိုသာ တင်ပေးပါ (ကျေးဇူးပြု၍ Spam မလုပ်ပါနှင့်!)။ တိုးတက်အောင် ပြုလုပ်စရာ မတွေ့ပါက ဤလေ့ကျင့်ခန်းကို ကျော်နိုင်ပါသည်။

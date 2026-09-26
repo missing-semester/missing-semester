@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Virtual Machines and Containers"
+title: "Virtual Machines နှင့် Containers များ"
 presenter: Anish, Jon
 date: 2019-01-15
 order: 2
@@ -11,123 +11,89 @@ video:
 
 # Virtual Machines
 
-Virtual machines are simulated computers. You can configure a guest virtual
-machine with some operating system and configuration and use it without
-affecting your host environment.
+Virtual machine များသည် အတုပြုလုပ်ထားသော ကွန်ပျူတာများ (simulated computers) ဖြစ်ကြသည်။ သင်သည် guest virtual machine တစ်ခုတွင် operating system အချို့နှင့် configuration များကို ပြင်ဆင်သတ်မှတ်ကာ မိမိ၏ host ပတ်ဝန်းကျင်ကို ထိခိုက်မှုမရှိဘဲ အသုံးပြုနိုင်ပါသည်။
 
-For this class, you can use VMs to experiment with operating systems, software,
-and configurations without risk: you won't affect your primary development
-environment.
+ဤသင်တန်းအတွက် သင်သည် ဘေးအန္တရာယ် ကင်းရှင်းစွာဖြင့် operating system များ၊ ဆော့ဖ်ဝဲလ်များနှင့် configuration များကို စမ်းသပ်ရန် VM များကို အသုံးပြုနိုင်ပါသည်—ယင်းက သင်၏ အဓိက development ပတ်ဝန်းကျင်ကို ထိခိုက်စေမည် မဟုတ်ပါ။
 
-In general, VMs have lots of uses. They are commonly used for running software
-that only runs on a certain operating system (e.g. using a Windows VM on Linux
-to run Windows-specific software). They are often used for experimenting with
-potentially malicious software.
+ယေဘုယျအားဖြင့် VM များတွင် အသုံးပြုပုံ အများအပြား ရှိပါသည်။ ၎င်းတို့ကို သီးခြား operating system တစ်ခုပေါ်တွင်သာ run နိုင်သော ဆော့ဖ်ဝဲလ်များကို run ရန်အတွက် အလွန် အသုံးများကြပါသည် (ဥပမာ- Windows-သီးသန့် ဆော့ဖ်ဝဲလ်များကို run ရန် Linux ပေါ်တွင် Windows VM တစ်ခုကို အသုံးပြုခြင်း)။ ထို့အပြင် အန္တရာယ်ရှိနိုင်သော (malicious) ဆော့ဖ်ဝဲလ်များကို စမ်းသပ်ရန်အတွက်လည်း ၎င်းတို့ကို မကြာခဏ အသုံးပြုကြပါသည်။
 
-## Useful features
+## အသုံးဝင်သော အင်္ဂါရပ်များ
 
-- **Isolation**: hypervisors do a pretty good job of isolating the guest from
-the host, so you can use VMs to run buggy or untrusted software reasonably
-safely.
+- **Isolation (သီးခြားခွဲထုတ်ထားခြင်း)**: hypervisor များသည် guest ကို host မှ သီးခြားခွဲထုတ်ရာတွင် အတော်ပင် ကောင်းမွန်စွာ လုပ်ဆောင်ပေးနိုင်သောကြောင့် ဘဂ်ပါနိုင်သော သို့မဟုတ် မယုံကြည်ရသော ဆော့ဖ်ဝဲလ်များကို VM များ အသုံးပြု၍ စိတ်ချလက်ချ run နိုင်ပါသည်။
 
-- **Snapshots**: you can take "snapshots" of your virtual machine, capturing
-the entire machine state (disk, memory, etc.), make changes to your machine,
-and then restore to an earlier state. This is useful for testing out
-potentially destructive actions, among other things.
+- **Snapshots (ဓာတ်ပုံရိုက်ကူးသကဲ့သို့ သိမ်းဆည်းခြင်း)**: သင်၏ virtual machine ၏ "snapshots" များကို ရယူထားနိုင်ပြီး စက်တစ်ခုလုံး၏ အခြေအနေ (disk, memory စသည်ဖြင့်) ကို သိမ်းဆည်းကာ စက်တွင် ပြောင်းလဲမှုများ ပြုလုပ်ပြီးနောက် ယခင်အခြေအနေသို့ ပြန်လည် ထိန်းသိမ်း (restore ပြုလုပ်) နိုင်ပါသည်။ ၎င်းသည် အခြားအရာများအပြင် ပျက်စီးစေနိုင်သော လုပ်ဆောင်ချက်များကို စမ်းသပ်ကြည့်ရှုရန်အတွက် အလွန် အသုံးဝင်ပါသည်။
 
-## Disadvantages
+## အားနည်းချက်များ
 
-Virtual machines are generally slower than running on bare metal, so they may
-be unsuitable for certain applications.
+Virtual machine များသည် အမှန်တကယ် စက်ပစ္စည်း (bare metal) ပေါ်တွင် တိုက်ရိုက် run ခြင်းထက် ယေဘုယျအားဖြင့် ပိုမို နှေးကွေးသောကြောင့် အချို့သော application များအတွက် အဆင်မပြေနိုင်ပါ။
 
-## Setup
+## ပြင်ဆင်သတ်မှတ်ခြင်း (Setup)
 
-- **Resources**: shared with host machine; be aware of this when allocating
-physical resources.
+- **Resources**: host စက်နှင့် မျှဝေသုံးစွဲရပါသည်၊ ရုပ်ပိုင်းဆိုင်ရာ resource များကို ခွဲဝေပေးသည့်အခါ ဤအချက်ကို သတိပြုပါ။
 
-- **Networking**: many options, default NAT should work fine for most use
-cases.
+- **Networking**: ရွေးချယ်စရာ နည်းလမ်းများစွာ ရှိပြီး၊ မူလပါဝင်သော NAT သည် အသုံးပြုမှု အများစုအတွက် ကောင်းမွန်စွာ အလုပ်လုပ်သင့်ပါသည်။
 
-- **Guest addons**: many hypervisors can install software in the guest to
-enable nicer integration with host system. You should use this if you can.
+- **Guest addons**: hypervisor အများအပြားသည် host စနစ်နှင့် ပိုမို အဆင်ပြေစွာ ပေါင်းစပ်အသုံးပြုနိုင်ရန် guest အတွင်း၌ ဆော့ဖ်ဝဲလ် တပ်ဆင်ပေးနိုင်ပါသည်။ ဖြစ်နိုင်ပါက အဆိုပါ addon များကို အသုံးပြုသင့်ပါသည်။
 
-## Resources
+## အရင်းအမြစ်များ (Resources)
 
-- Hypervisors
+- Hypervisor များ
     - [VirtualBox](https://www.virtualbox.org/) (open-source)
-    - [Virt-manager](https://virt-manager.org/) (open-source, manages KVM virtual machines and LXC containers)
-    - [VMWare](https://www.vmware.com/) (commercial, available from IS&T [for
-    MIT students](https://ist.mit.edu/vmware-fusion))
+    - [Virt-manager](https://virt-manager.org/) (open-source, KVM virtual machine များနှင့် LXC container များကို စီမံခန့်ခွဲပေးပါသည်)
+    - [VMWare](https://www.vmware.com/) (commercial, IS&T မှတစ်ဆင့် [MIT ကျောင်းသားများအတွက်](https://ist.mit.edu/vmware-fusion) ရယူနိုင်ပါသည်)
 
-If you are already familiar with popular hypervisors/VMs you may want to learn more about how to do this from a command line friendly way. One option is the [libvirt](https://wiki.libvirt.org/page/UbuntuKVMWalkthrough) toolkit which allows you to manage multiple different virtualization providers/hypervisors.
+အကယ်၍ သင်သည် လူသိများသော hypervisor/VM များနှင့် ရင်းနှီးပြီးသားဖြစ်ပါက command line ဖြင့် ပိုမို လွယ်ကူစွာ မည်သို့ ပြုလုပ်နိုင်သည်ကို ပိုမို လေ့လာလိုပေလိမ့်မည်။ ရွေးချယ်စရာ တစ်ခုမှာ ကွဲပြားသော virtualization provider/hypervisor အများအပြားကို စီမံခန့်ခွဲနိုင်စေသည့် [libvirt](https://wiki.libvirt.org/page/UbuntuKVMWalkthrough) toolkit ဖြစ်ပါသည်။
 
-## Exercises
+## လေ့ကျင့်ခန်းများ
 
-1. Download and install a hypervisor.
+1. Hypervisor တစ်ခုကို ဒေါင်းလုဒ်လုပ်ပြီး install လုပ်ပါ။
 
-1. Create a new virtual machine and install a Linux distribution (e.g.
-[Debian](https://www.debian.org/)).
+1. Virtual machine အသစ်တစ်ခု ဖန်တီးပြီး Linux distribution တစ်ခု (ဥပမာ- [Debian](https://www.debian.org/)) ကို install လုပ်ပါ။
 
-1. Experiment with snapshots. Try things that you've always wanted to try, like
-   running `sudo rm -rf --no-preserve-root /`, and see if you can recover
-   easily.
+1. Snapshots များကို စမ်းသပ်ကြည့်ပါ။ `sudo rm -rf --no-preserve-root /` ကို run ခြင်းကဲ့သို့ သင် အမြဲ စမ်းကြည့်ချင်ခဲ့သည့် အရာများကို စမ်းသပ်ကြည့်ပြီး အလွယ်တကူ ပြန်လည်ရယူနိုင်ခြင်း ရှိမရှိ ကြည့်ပါ။
 
-1. Read what a [fork-bomb](https://en.wikipedia.org/wiki/Fork_bomb) (`:(){ :|:& };:`) is and run it on the VM to see that the resource isolation (CPU, Memory, &c) works.
+1. [fork-bomb](https://en.wikipedia.org/wiki/Fork_bomb) (`:(){ :|:& };:`) ဆိုသည်မှာ အဘယ်နည်းကို ဖတ်ရှုပြီး resource isolation (CPU, Memory, စသည်) အလုပ်လုပ်ကြောင်း တွေ့ရှိနိုင်ရန် ၎င်းကို VM ပေါ်တွင် run ကြည့်ပါ။
 
-1. Install guest addons and experiment with different windowing modes, file
-   sharing, and other features.
+1. Guest addons များကို install လုပ်ပြီး မတူညီသော windowing mode များ၊ file sharing နှင့် အခြား အင်္ဂါရပ်များကို စမ်းသပ်ကြည့်ပါ။
 
 # Containers
 
-Virtual Machines are relatively heavy-weight; what if you want to spin
-up machines in an automated fashion? Enter containers!
+Virtual Machine များသည် အတော်အတန် လေးလံပါသည် (heavy-weight)၊ အကယ်၍ သင်သည် စက်များကို အလိုအလျောက် စနစ်ဖြင့် ဖန်တီးလိုပါက မည်သို့ ပြုလုပ်မည်နည်း။ Containers များ ရောက်ရှိလာပါပြီ။
 
  - Amazon Firecracker
  - Docker
  - rkt
  - lxc
 
-Containers are _mostly_ just an assembly of various Linux security
-features, like virtual file system, virtual network interfaces, chroots,
-virtual memory tricks, and the like, that together give the appearance
-of virtualization.
+Containers ဆိုသည်မှာ virtual file system, virtual network interfaces, chroots, virtual memory နည်းလမ်းများ စသည့် အမျိုးမျိုးသော Linux လုံခြုံရေး အင်္ဂါရပ်များကို အတူတကွ ပေါင်းစပ်ထားခြင်း _အများစု_ သာ ဖြစ်ပြီး၊ ၎င်းတို့ အားလုံး ပေါင်းစပ်၍ virtualization ပုံစံမျိုး ထွက်ပေါ်လာခြင်း ဖြစ်ပါသည်။
 
-Not quite as secure or isolated as a VM, but pretty close and getting
-better. Usually higher performance, and much faster to start, but not
-always.
+VM တစ်ခုကဲ့သို့ လုံခြုံမှု သို့မဟုတ် သီးခြားခွဲထုတ်ထားမှု မရှိသော်လည်း အလွန် နီးစပ်ပြီး ပိုမို ကောင်းမွန်လာနေပါသည်။ ယေဘုယျအားဖြင့် စွမ်းဆောင်ရည် ပိုမို မြင့်မားပြီး စတင်ရန် အလွန် မြန်ဆန်သော်လည်း အမြဲတမ်းတော့ မဟုတ်ပါ။
 
-The performance boost comes from the fact that unlike VMs which run an entire copy of the operating system, containers share the linux kernel with the host. However note that if you are running linux containers on Windows/macOS a Linux VM will need to be active as a middle layer between the two.
+Operating system တစ်ခုလုံး၏ ကော်ပီကို run သည့် VM များနှင့် မတူဘဲ container များသည် host ၏ linux kernel ကို မျှဝေသုံးစွဲသည့် အချက်ကြောင့် စွမ်းဆောင်ရည် ပိုမို မြင့်မားလာခြင်း ဖြစ်ပါသည်။ သို့သော် Windows/macOS ပေါ်တွင် linux container များကို run နေပါက ယင်းနှစ်ခုကြားတွင် ကြားခံအလွှာ (middle layer) အဖြစ် Linux VM တစ်ခု ဖွင့်ထားရန် လိုအပ်မည်ဖြစ်ကြောင်း သတိပြုပါ။
 
 ![Docker vs VM](/2019/files/containers-vs-vms.png)
-_Comparison between Docker containers and Virtual Machines. Credit: blog.docker.com_
+_Docker containers နှင့် Virtual Machines များကြား နှိုင်းယှဉ်ချက်။ Credit: blog.docker.com_
 
-Containers are handy for when you want to run an automated task in a
-standardized setup:
+စံသတ်မှတ်ထားသော စီမံပြင်ဆင်မှုတစ်ခုတွင် အလိုအလျောက် အလုပ်တစ်ခုကို run လိုသည့်အခါ Container များသည် အသုံးဝင်ပါသည်။
 
  - Build systems
  - Development environments
  - Pre-packaged servers
- - Running untrusted programs
-   - Grading student submissions
-   - (Some) cloud computing
+ - မယုံကြည်ရသော ပရိုဂရမ်များကို run ခြင်း
+   - ကျောင်းသားများ၏ တင်ပြချက်များကို အမှတ်ပေးခြင်း
+   - (အချို့သော) cloud computing
  - Continuous integration
    - Travis CI
    - GitHub Actions
 
-Moreover, container software like Docker has also been extensively used as a solution for [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell). If a machine needs to be running many services with conflicting dependencies they can be isolated using containers.
+ထို့အပြင် Docker ကဲ့သို့သော container ဆော့ဖ်ဝဲလ်များကို [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) အတွက် ဖြေရှင်းချက်အဖြစ်လည်း ကျယ်ကျယ်ပြန့်ပြန့် အသုံးပြုကြပါသည်။ အကယ်၍ စက်တစ်ခုသည် ပဋိပက္ခဖြစ်နေသော dependency များရှိသည့် service အမြောက်အမြားကို run ရန် လိုအပ်ပါက container များကို အသုံးပြု၍ ၎င်းတို့ကို သီးခြား ခွဲထုတ်ထားနိုင်ပါသည်။
 
-Usually, you write a file that defines how to construct your container.
-You start with some minimal _base image_ (like Alpine Linux), and then
-a list of commands to run to set up the environment you want (install
-packages, copy files, build stuff, write config files, etc.). Normally,
-there's also a way to specify any external ports that should be
-available, and an _entrypoint_ that dictates what command should be run
-when the container is started (like a grading script).
+ပုံမှန်အားဖြင့် သင်သည် သင်၏ container ကို မည်သို့ တည်ဆောက်ရမည်ကို သတ်မှတ်သည့် ဖိုင်တစ်ခုကို ရေးသားရပါသည်။ သင်သည် အနည်းဆုံး ပါဝင်သော _base image_ တစ်ခု (Alpine Linux ကဲ့သို့) ဖြင့် စတင်ပြီး၊ ယင်းနောက် သင်လိုချင်သည့် ပတ်ဝန်းကျင်ကို ပြင်ဆင်သတ်မှတ်ရန် run ရမည့် command စာရင်းများ (package များ install လုပ်ခြင်း၊ ဖိုင်များ ကူးယူခြင်း၊ build လုပ်ခြင်း၊ config ဖိုင်များ ရေးသားခြင်း စသည်) ကို ရေးသားရပါသည်။ ပုံမှန်အားဖြင့် ရရှိနိုင်မည့် အပြင်ဘက် port များကို သတ်မှတ်ပေးသည့် နည်းလမ်းလည်း ပါဝင်ပြီး container စတင်သည့်အခါ မည်သည့် command ကို run ရမည်ကို ညွှန်ကြားသည့် _entrypoint_ တစ်ခု (အမှတ်ပေး script ကဲ့သို့) လည်း ပါဝင်ပါသည်။
 
-In a similar fashion to code repository websites (like [GitHub](https://github.com/)) there are some container repository websites (like [DockerHub](https://hub.docker.com/))where many software services have prebuilt images that one can easily deploy.
+Code repository ဝဘ်ဆိုက်များ ([GitHub](https://github.com/) ကဲ့သို့) နှင့် ဆင်တူစွာပင်၊ ဆော့ဖ်ဝဲလ် service အများအပြားအတွက် အလွယ်တကူ deploy လုပ်နိုင်သော prebuilt image များ ရှိသည့် container repository ဝဘ်ဆိုက်များ ([DockerHub](https://hub.docker.com/) ကဲ့သို့) လည်း ရှိပါသည်။
 
-## Exercises
+## လေ့ကျင့်ခန်းများ
 
-1. Choose a container software (Docker, LXC, …) and install a simple Linux image. Try SSHing into it.
+1. Container ဆော့ဖ်ဝဲလ် တစ်ခု (Docker, LXC, …) ကို ရွေးချယ်ပြီး ရိုးရှင်းသော Linux image တစ်ခုကို install လုပ်ပါ။ ၎င်းအတွင်းသို့ SSH ဝင်ကြည့်ရန် စမ်းသပ်ပါ။
 
-1. Search and download a prebuilt container image for a popular web server (nginx, apache, …)
+1. လူကြိုက်များသော ဝဘ်ဆာဗာ (nginx, apache, …) အတွက် prebuilt container image တစ်ခုကို ရှာဖွေပြီး ဒေါင်းလုဒ်လုပ်ပါ။

@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Development Environment and Tools"
+title: "Development Environment နှင့် ကိရိယာများ"
 description: >
-  Learn about IDEs, Vim, language servers, and AI-powered development tools.
+  IDEs၊ Vim၊ language servers နှင့် AI စွမ်းအားသုံး ဆော့ဖ်ဝဲလ် ရေးသားရေး ကိရိယာများ အကြောင်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
@@ -11,121 +11,121 @@ video:
   id: QnM1nVzrkx8
 ---
 
-A _development environment_ is a set of tools for developing software. At the heart of a development environment is text editing functionality, along with accompanying features such as syntax highlighting, type checking, code formatting, and autocomplete. _Integrated development environments_ (IDEs) such as [VS Code][vs-code] bring together all of this functionality into a single application. Terminal-based development workflows combine tools such as [tmux](https://github.com/tmux/tmux) (a terminal multiplexer), [Vim](https://www.vim.org/) (a text editor), [Zsh](https://www.zsh.org/) (a shell), and language-specific command-line tools, such as [Ruff](https://docs.astral.sh/ruff/) (a Python linter and code formatter) and [Mypy](https://mypy-lang.org/) (a Python type checker).
+_Development environment_ (ဆော့ဖ်ဝဲလ် ရေးသားသည့် ပတ်ဝန်းကျင်) ဆိုသည်မှာ ဆော့ဖ်ဝဲလ် ရေးသားထုတ်လုပ်ရန်အတွက် အသုံးပြုသည့် ကိရိယာများ အစုအဝေး ဖြစ်သည်။ Development environment တစ်ခု၏ အဓိက ဗဟိုချက်မှာ စာသား ပြင်ဆင်တည်းဖြတ်သည့် (text editing) လုပ်ဆောင်ချက် ဖြစ်ပြီး၊ ၎င်းနှင့်အတူ syntax highlighting၊ type checking၊ code formatting နှင့် autocomplete ကဲ့သို့သော တွဲဖက် လုပ်ဆောင်ချက်များ ပါဝင်သည်။ [VS Code][vs-code] ကဲ့သို့သော _Integrated development environments_ (IDEs) များသည် ဤလုပ်ဆောင်ချက် အားလုံးကို ဆော့ဖ်ဝဲလ် အက်ပလီကေးရှင်း တစ်ခုတည်းအတွင်း စုစည်း ပေးထားသည်။ Terminal အခြေပြု ဆော့ဖ်ဝဲလ် ရေးသားမှု လုပ်ငန်းစဉ်များ (Terminal-based development workflows) တွင်မူ [tmux](https://github.com/tmux/tmux) (terminal multiplexer တစ်ခု)၊ [Vim](https://www.vim.org/) (text editor တစ်ခု)၊ [Zsh](https://www.zsh.org/) (shell တစ်ခု) နှင့် [Ruff](https://docs.astral.sh/ruff/) (Python linter နှင့် code formatter တစ်ခု)၊ [Mypy](https://mypy-lang.org/) (Python type checker တစ်ခု) တို့ကဲ့သို့သော သက်ဆိုင်ရာ ပရိုဂရမ်းမင်း ဘာသာစကားအလိုက် သီးသန့် အသုံးပြုသည့် command-line ကိရိယာများကို ပေါင်းစပ် အသုံးပြုကြသည်။
 
-IDEs and terminal-based workflows each have their strengths and weaknesses. For example, graphical IDEs can be easier to learn, and today's IDEs generally have better out-of-the-box AI integrations like AI autocomplete; on the other hand, terminal-based workflows are lightweight, and they may be your only option in environments where you don't have a GUI or can't install software. We recommend you develop basic familiarity with both and develop mastery of at least one. If you don't already have a preferred IDE, we recommend starting with [VS Code][vs-code].
+IDEs နှင့် terminal အခြေပြု လုပ်ငန်းစဉ်များတွင် ၎င်းတို့၏ အားသာချက်၊ အားနည်းချက်များ အသီးသီး ရှိကြသည်။ ဥပမာအားဖြင့် Graphical IDEs များသည် လေ့လာရ ပိုမို လွယ်ကူနိုင်ပြီး ယနေ့ခေတ် IDEs များတွင် AI autocomplete ကဲ့သို့သော AI ပေါင်းစပ် လုပ်ဆောင်ချက်များ အသင့် ပါဝင်လေ့ ရှိသည်။ အခြားတစ်ဖက်တွင်လည်း Terminal အခြေပြု လုပ်ငန်းစဉ်များသည် ပေါ့ပါးပြီး GUI မရှိသော သို့မဟုတ် ဆော့ဖ်ဝဲလ် အသစ် တပ်ဆင်ခွင့် မရှိသော ပတ်ဝန်းကျင်များတွင် အသုံးပြုနိုင်သည့် တစ်ခုတည်းသော နည်းလမ်း ဖြစ်နိုင်သည်။ သင့်အနေဖြင့် နည်းလမ်း နှစ်ခုလုံးနှင့် အခြေခံကျွမ်းကျင်မှု ရှိထားပြီး အနည်းဆုံး နည်းလမ်း တစ်ခုကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်ရန် အကြံပြုလိုပါသည်။ သင့်တွင် အသုံးပြုနေကျ IDE မရှိသေးပါက [VS Code][vs-code] ဖြင့် စတင်ရန် အကြံပြုပါသည်။
 
-In this lecture, we'll cover:
+ဒီသင်ခန်းစာမှာ ကျွန်တော်တို့ အောက်ပါ အကြောင်းအရာများကို ဆွေးနွေးသွားပါမည်-
 
-- [Text editing and Vim](#text-editing-and-vim)
-- [Code intelligence and language servers](#code-intelligence-and-language-servers)
-- [AI-powered development](#ai-powered-development)
-- [Extensions and other IDE functionality](#extensions-and-other-ide-functionality)
+- [စာသား တည်းဖြတ်ခြင်း နှင့် Vim](#text-editing-and-vim)
+- [Code intelligence နှင့် language servers](#code-intelligence-and-language-servers)
+- [AI စွမ်းအားသုံး ဆော့ဖ်ဝဲလ် ရေးသားခြင်း](#ai-powered-development)
+- [Extensions များ နှင့် အခြား IDE လုပ်ဆောင်ချက်များ](#extensions-and-other-ide-functionality)
 
 [vs-code]: https://code.visualstudio.com/
 
-# Text editing and Vim
+# စာသား တည်းဖြတ်ခြင်း နှင့် Vim
 
-When programming, you spend most of your time navigating through code, reading snippets of code, and making edits to code, rather than writing long streams or reading files top-to-bottom. [Vim] is a text editor that is optimized for this distribution of tasks.
+ပရိုဂရမ် ရေးသားသည့်အခါ သင်၏ အချိန်အများစုကို စာကြောင်းအရှည်ကြီးများ ဆက်တိုက် ရေးသားခြင်း သို့မဟုတ် ဖိုင်တစ်ခုလုံးကို အထက်မှ အောက်သို့ အဆုံးထိ ဖတ်ရှုခြင်းတို့ထက် ကုဒ်များအတွင်း သွားလာလှုပ်ရှားခြင်း၊ ကုဒ် အစိတ်အပိုင်းများကို ဖတ်ရှုခြင်းနှင့် ကုဒ်များကို ပြင်ဆင်တည်းဖြတ်ခြင်းတို့တွင် ပိုမို ကုန်လွန်စေသည်။ [Vim] သည် ဤကဲ့သို့သော အလုပ်များကို ထိရောက်စွာ လုပ်ဆောင်နိုင်ရန် အထူး ပြုပြင်ဖန်တီးထားသည့် text editor တစ်ခု ဖြစ်သည်။
 
-**The philosophy of Vim.** Vim has a beautiful idea as its foundation: its interface is itself a programming language, designed for navigating and editing text. Keystrokes (with mnemonic names) are commands, and these commands are composable. Vim avoids the use of the mouse, because it's too slow; Vim even avoids use of the arrow keys because it requires too much movement. The result: an editor that feels like a brain-computer interface and matches the speed at which you think.
+**Vim ၏ အခြေခံ သဘောတရား။** Vim ၏ အခြေခံတွင် လှပသော အတွေးအခေါ် တစ်ခု ရှိသည် - ၎င်း၏ interface ကိုယ်တိုင်က စာသားများကို သွားလာကြည့်ရှုရန်နှင့် ပြင်ဆင်တည်းဖြတ်ရန် ဒီဇိုင်းထုတ်ထားသည့် ပရိုဂရမ်းမင်း ဘာသာစကား တစ်ခု ဖြစ်သည်။ ခလုတ်နှိပ်ချက်များ (မှတ်မိလွယ်သော အမည်များပါဝင်သည့်) သည် command များ ဖြစ်ကြပြီး ဤ command များကို ပေါင်းစပ် အသုံးပြုနိုင်ပါသည်။ Vim သည် မောက်စ် (mouse) အသုံးပြုခြင်းကို ရှောင်ကြဉ်သည်၊ အကြောင်းမှာ မောက်စ်ကို သုံးခြင်းသည် နှေးကွေးလွန်းသောကြောင့် ဖြစ်သည်။ Vim သည် အကွာအဝေး အဝေးကြီး လှုပ်ရှားရမှုများသည့်အတွက် arrow keys များကိုပင် ရှောင်ကြဉ်သည်။ ရလဒ်အနေဖြင့် - ဦးနှောက်နှင့် ကွန်ပျူတာ တိုက်ရိုက် ချိတ်ဆက်ထားသကဲ့သို့ ခံစားရပြီး သင်၏ တွေးခေါ်မှု မြန်နှုန်းနှင့် အမှီ လိုက်နိုင်သည့် editor တစ်ခု ဖြစ်လာစေသည်။
 
-**Vim support in other software.** You don't have to use [Vim] itself to benefit from the ideas at its core. Many programs that involve any kind of text editing support "Vim mode", either as built-in functionality or as a plugin. For example, VS Code has the [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin, Zsh has [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) for Vim emulation, and even Claude Code has [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) for Vim editor mode. Chances are that any tool you use that involves text editing supports Vim mode in one way or another.
+**အခြား ဆော့ဖ်ဝဲလ်များတွင် Vim ကို ထောက်ပံ့ပေးထားမှု။** Vim ၏ အဓိက အနှစ်သာရ အယူအဆများမှ အကျိုးကျေးဇူး ရရှိရန်အတွက် [Vim] ဆော့ဖ်ဝဲလ် သီးသန့်ကိုပဲ အသုံးပြုရန် မလိုပါ။ စာသား တည်းဖြတ်မှု ပါဝင်သည့် ပရိုဂရမ် အများအပြားသည် "Vim mode" ကို သီးသန့် plugin အဖြစ် သို့မဟုတ် အသင့်ပါဝင်သော လုပ်ဆောင်ချက်အဖြစ် ထောက်ပံ့ပေးထားကြသည်။ ဥပမာအားဖြင့် VS Code တွင် [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin ရှိပြီး၊ Zsh တွင် Vim emulation အတွက် [အသင့်ပါဝင်သည့် ထောက်ပံ့မှု](https://zsh.sourceforge.io/Guide/zshguide04.html) ပါရှိသည်၊ ထို့ပြင် Claude Code တွင်ပင် Vim editor mode အတွက် [အသင့်ပါဝင်သည့် ထောက်ပံ့မှု](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) ပါဝင်ပါသည်။ သင် အသုံးပြုသည့် စာသား တည်းဖြတ်မှု ပါဝင်သော မည်သည့် ကိရိယာမဆို Vim mode ကို နည်းလမ်း တစ်ခုခုဖြင့် ထောက်ပံ့ပေးထားနိုင်ခြေ အလွန် များပါသည်။
 
 ## Modal editing
 
-Vim is a _modal editor_: it has different operating modes for different classes of tasks.
+Vim သည် _modal editor_ တစ်ခု ဖြစ်သည် - လုပ်ဆောင်ရမည့် လုပ်ငန်း အမျိုးအစားများအပေါ် မူတည်၍ ကွဲပြားသော လုပ်ဆောင်မှု mode များ ပါရှိသည်။
 
-- **Normal**: for moving around a file and making edits
-- **Insert**: for inserting text
-- **Replace**: for replacing text
-- **Visual** (plain, line, or block): for selecting blocks of text
-- **Command-line**: for running a command
+- **Normal**: ဖိုင်အတွင်း သွားလာလှုပ်ရှားရန်နှင့် ပြင်ဆင်တည်းဖြတ်မှုများ ပြုလုပ်ရန်
+- **Insert**: စာသားများ ရိုက်ထည့်ရန်
+- **Replace**: စာသားများကို အစားထိုးရန်
+- **Visual** (plain၊ line သို့မဟုတ် block): စာသား အစိတ်အပိုင်းများကို ရွေးချယ် (select) ရန်
+- **Command-line**: command တစ်ခုကို Run ရန်
 
-Keystrokes have different meanings in different operating modes. For example, the letter `x` in Insert mode will just insert a literal character "x", but in Normal mode, it will delete the character under the cursor, and in Visual mode, it will delete the selection.
+ခလုတ်နှိပ်ချက်များ (Keystrokes) သည် သက်ဆိုင်ရာ လုပ်ဆောင်မှု mode အပေါ် မူတည်၍ အဓိပ္ပာယ် ကွဲပြားသွားသည်။ ဥပမာအားဖြင့် Insert mode တွင် `x` စာလုံးကို နှိပ်ပါက "x" စာလုံးကိုသာ ရိုက်ထည့်ပေးမည် ဖြစ်သော်လည်း Normal mode တွင် နှိပ်ပါက cursor ရောက်နေသော စာလုံးကို ဖျက်ပစ်မည် ဖြစ်ပြီး Visual mode တွင်မူ ရွေးချယ်ထားသော စာသား (selection) ကို ဖျက်ပစ်မည် ဖြစ်သည်။
 
-In its default configuration, Vim shows the current mode in the bottom left. The initial/default mode is Normal mode. You'll generally spend most of your time between Normal mode and Insert mode.
+Vim ၏ မူလ ပုံသေ သတ်မှတ်ချက်တွင် လက်ရှိ ရောက်ရှိနေသည့် mode ကို အောက်ခြေ ဘယ်ဘက်ထောင့်တွင် ဖော်ပြပေးထားသည်။ စတင်အသုံးပြုချိန် မူလ mode မှာ Normal mode ဖြစ်သည်။ ပုံမှန်အားဖြင့် သင်၏ အချိန်အများစုကို Normal mode နှင့် Insert mode တို့အကြား ကူးပြောင်း အသုံးပြုရမည် ဖြစ်သည်။
 
-You change modes by pressing `<ESC>` (the escape key) to switch from any mode back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with `:`.
+မည်သည့် mode မှမဆို Normal mode သို့ ပြန်လည် ကူးပြောင်းရန် `<ESC>` (escape key) ကို နှိပ်ခြင်းဖြင့် mode ကို ပြောင်းလဲနိုင်သည်။ Normal mode မှနေ၍ Insert mode သို့ ဝင်ရောက်ရန် `i`၊ Replace mode သို့ ဝင်ရောက်ရန် `R`၊ Visual mode သို့ ဝင်ရောက်ရန် `v`၊ Visual Line mode သို့ ဝင်ရောက်ရန် `V`၊ Visual Block mode သို့ ဝင်ရောက်ရန် `<C-v>` (Ctrl-V၊ အချို့နေရာများတွင် `^V` ဟုလည်း ရေးသားကြသည်) နှင့် Command-line mode သို့ ဝင်ရောက်ရန် `:` ကို အသုံးပြုနိုင်သည်။
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to Escape ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) or create an [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` with a simple key sequence.
+Vim အသုံးပြုချိန်တွင် `<ESC>` key ကို အကြိမ်အများပြား နှိပ်ရမည် ဖြစ်သဖြင့် Caps Lock key ကို Escape အဖြစ် ရေတွက်ရန် remapping လုပ်ခြင်း ([macOS အတွက် လမ်းညွှန်](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) သို့မဟုတ် ရိုးရှင်းသော key အစီအစဉ် တစ်ခုဖြင့် `<ESC>` အတွက် [အစားထိုး mapping ရေးဆွဲခြင်း](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) တို့ကို ပြုလုပ်ထားရန် စဉ်းစားပါ။
 
-## Basics: inserting text
+## အခြေခံများ- စာသား ရိုက်ထည့်ခြင်း
 
-From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any other text editor, until you press `<ESC>` to return to Normal mode. This, along with the basics explained above, are all you need to start editing files using Vim (though not particularly efficiently, if you're spending all your time editing from Insert mode).
+Normal mode မှနေ၍ Insert mode သို့ ဝင်ရောက်ရန် `i` ကို နှိပ်ပါ။ ၎င်းနောက်တွင် `<ESC>` ကို နှိပ်၍ Normal mode သို့ မပြန်မချင်း Vim သည် အခြားသော text editor များကဲ့သို့ လုပ်ဆောင်နေမည် ဖြစ်သည်။ ထိုလုပ်ဆောင်ချက်နှင့် အထက်တွင် ရှင်းပြခဲ့သော အခြေခံများသည် Vim ဖြင့် ဖိုင်များကို စတင် ပြင်ဆင်တည်းဖြတ်ရန် လိုအပ်သမျှ ဖြစ်ပါသည် (သို့သော် သင်၏ အချိန်အားလုံးကို Insert mode ထဲ၌သာ ကုန်လွန်နေပါက ပိုမို ထိရောက်မှု ရှိမည်တော့ မဟုတ်ပါ)။
 
-## Vim's interface is a programming language
+## Vim ၏ interface သည် ပရိုဂရမ်းမင်း ဘာသာစကား တစ်ခု ဖြစ်သည်
 
-Vim's interface is a programming language. Keystrokes (with mnemonic names) are commands, and these commands _compose_. This enables efficient movement and edits, especially once the commands become muscle memory, just like typing becomes super efficient once you've learned your keyboard layout.
+Vim ၏ interface သည် ပရိုဂရမ်းမင်း ဘာသာစကား တစ်ခု ဖြစ်သည်။ ခလုတ်နှိပ်ချက်များ (မှတ်မိလွယ်သော အမည်များပါရှိသော) သည် command များ ဖြစ်ကြပြီး ဤ command များကို _တွဲဖက် ပေါင်းစပ်_ နိုင်ပါသည်။ ၎င်းသည် မြန်ဆန် ထိရောက်သော ရွှေ့လျားမှုများနှင့် ပြင်ဆင်မှုများကို ပြုလုပ်နိုင်စေသည်၊ အထူးသဖြင့် keyboard ၏ ခလုတ် တည်နေရာများကို မှတ်မိသွားချိန်တွင် စာရိုက်ခြင်းက အလွန် မြန်ဆန် လာသကဲ့သို့ ထို command များသည် muscle memory ဖြစ်လာသည့်အခါ အလွန် ထိရောက် လာမည် ဖြစ်သည်။
 
-### Movement
+### ရွှေ့လျားခြင်း (Movement)
 
-You should spend most of your time in Normal mode, using movement commands to navigate the file. Movements in Vim are also called "nouns", because they refer to chunks of text.
+သင်၏ အချိန်အများစုကို Normal mode တွင် ကုန်လွန်စေပြီး ဖိုင်အတွင်း သွားလာ ရွှေ့လျားရန်အတွက် movement command များကို အသုံးပြုသင့်သည်။ Vim တွင် ရွှေ့လျားမှုများကို "နာမ်များ" (nouns) ဟုလည်း ခေါ်ဆိုကြသည်၊ အကြောင်းမှာ ၎င်းတို့သည် စာသား အစိတ်အပိုင်းများကို ညွှန်းဆိုသောကြောင့် ဖြစ်သည်။
 
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- Scroll: `Ctrl-u` (up), `Ctrl-d` (down)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-    - `<CR>` refers to the carriage return / enter key
-- Misc: `%` (matching item, like parenthesis or brace)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-    - `,` / `;` for navigating matches
-- Search: `/{regex}`, `n` / `N` for navigating matches
+- အခြေခံ ရွှေ့လျားမှု: `hjkl` (ဘယ်၊ အောက်၊ အထက်၊ ညာ)
+- စကားလုံးများ: `w` (နောက်စကားလုံး)၊ `b` (စကားလုံး၏ အစ)၊ `e` (စကားလုံး၏ အဆုံး)
+- စာကြောင်းများ: `0` (စာကြောင်း၏ အစ)၊ `^` (ပထမဆုံး စာလုံးပါသော နေရာ)၊ `$` (စာကြောင်း၏ အဆုံး)
+- မျက်နှာပြင်: `H` (မျက်နှာပြင် အထက်ပိုင်း)၊ `M` (မျက်နှာပြင် အလယ်ပိုင်း)၊ `L` (မျက်နှာပြင် အောက်ပိုင်း)
+- စခရင် ရွှေ့ခြင်း (Scroll): `Ctrl-u` (အထက်သို့)၊ `Ctrl-d` (အောက်သို့)
+- ဖိုင်: `gg` (ဖိုင်၏ အစ)၊ `G` (ဖိုင်၏ အဆုံး)
+- စာကြောင်း နံပါတ်များ: `:{number}<CR>` သို့မဟုတ် `{number}G` (စာကြောင်း နံပါတ် {number})
+    - `<CR>` သည် carriage return / enter key ကို ညွှန်းဆိုသည်
+- အထွေထွေ: `%` (ကွင်းစ/ကွင်းပိတ် သို့မဟုတ် တွန့်ကွင်း ကဲ့သို့သော ကိုက်ညီသည့် ပစ္စည်း)
+- ရှာဖွေမှု (Find): `f{character}`၊ `t{character}`၊ `F{character}`၊ `T{character}`
+    - လက်ရှိ စာကြောင်းပေါ်တွင် {character} ကို ရှေ့သို့/နောက်သို့ ရှာရန် သို့မဟုတ် ထိုနေရာအထိ ရွှေ့ရန်
+    - ကိုက်ညီသော နေရာများအကြား သွားလာရန် `,` / `;` ကို သုံးသည်
+- ရှာဖွေမှု (Search): `/{regex}`၊ ကိုက်ညီသော နေရာများအကြား သွားလာရန် `n` / `N` ကို သုံးသည်
 
-### Selection
+### ရွေးချယ်ခြင်း (Selection)
 
-Visual modes:
+Visual mode များ-
 
 - Visual: `v`
 - Visual Line: `V`
 - Visual Block: `Ctrl-v`
 
-Can use movement keys to make selection.
+စာသားများကို ရွေးချယ် (selection) ပြုလုပ်ရန် movement key များကို အသုံးပြုနိုင်သည်။
 
-### Edits
+### ပြင်ဆင်တည်းဖြတ်ခြင်း (Edits)
 
-Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here's where Vim's interface starts to look like a programming language. Vim's editing commands are also called "verbs", because verbs act on nouns.
+ယခင်က မောက်စ်ဖြင့် ပြုလုပ်ခဲ့သမျှ အရာအားလုံးကို ယခုအခါ movement command များ နှင့် ပေါင်းစပ်ထားသည့် editing command များ သုံး၍ keyboard ဖြင့် ပြုလုပ်နိုင်သည်။ ဤနေရာတွင် Vim ၏ interface သည် ပရိုဂရမ်းမင်း ဘာသာစကား တစ်ခုနှင့် စတင် တူညီလာသည်။ Vim ၏ editing command များကို "ကိရိယာ အပြုအမူများ" (verbs) ဟုလည်း ခေါ်ဆိုကြသည်၊ အကြောင်းမှာ ကိရိယာ အပြုအမူများသည် နာမ်များ (nouns) အပေါ် သက်ရောက် လုပ်ဆောင်သောကြောင့် ဖြစ်သည်။
 
-- `i` enter Insert mode
-    - but for manipulating/deleting text, want to use something more than backspace
-- `o` / `O` insert line below / above
-- `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete to beginning of line
-- `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equivalent to `dl`)
-- `s` substitute character (equivalent to `cl`)
-- Visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- `y` to copy / "yank" (some other commands like `d` also copy)
-- `p` to paste
-- Lots more to learn: for example, `~` flips the case of a character, and `J` joins together lines
+- `i` Insert mode သို့ ဝင်ရောက်ရန်
+    - သို့သော် စာသားများကို ပြုပြင်ရန်/ဖျက်ရန်အတွက် backspace ထက် ပိုမို ထိရောက်သော အရာများကို အသုံးပြုလိုမည် ဖြစ်သည်
+- `o` / `O` အောက်တွင် / အထက်တွင် စာကြောင်းအသစ် ရိုက်ထည့်ရန်
+- `d{motion}` {motion} ကို ဖျက်ရန်
+    - ဥပမာ `dw` သည် စကားလုံးကို ဖျက်ခြင်း ဖြစ်သည်၊ `d$` သည် စာကြောင်း အဆုံးထိ ဖျက်ခြင်း ဖြစ်သည်၊ `d0` သည် စာကြောင်း အစထိ ဖျက်ခြင်း ဖြစ်သည်
+- `c{motion}` {motion} ကို ပြောင်းလဲရန်
+    - ဥပမာ `cw` သည် စကားလုံးကို ပြောင်းလဲခြင်း ဖြစ်သည်
+    - `d{motion}` ပြီးနောက် `i` ကို နှိပ်သကဲ့သို့ ဖြစ်သည်
+- `x` စာလုံး တစ်လုံး ဖျက်ရန် (`dl` နှင့် တူညီသည်)
+- `s` စာလုံး တစ်လုံး အစားထိုးရန် (`cl` နှင့် တူညီသည်)
+- Visual mode + ပြုပြင်ဖန်တီးမှု
+    - စာသားကို ရွေးချယ်ပြီး ဖျက်ရန် `d` ကို သို့မဟုတ် ပြောင်းလဲရန် `c` ကို နှိပ်ပါ
+- Undo ပြုလုပ်ရန် `u`၊ Redo ပြုလုပ်ရန် `<C-r>`
+- ကူးယူရန် / "yank" လုပ်ရန် `y` (`d` ကဲ့သို့သော အခြား command အချို့သည်လည်း ကူးယူပေးသည်)
+- ကူးထည့် (paste) ရန် `p`
+- လေ့လာရန် အခြား အရာများစွာ ရှိသေးသည်: ဥပမာအားဖြင့် `~` သည် စာလုံး၏ စာလုံးကြီး/စာလုံးသေး (case) ကို ပြောင်းလဲပေးပြီး `J` သည် စာကြောင်းများကို ပေါင်းစပ်ပေးသည်
 
-### Counts
+### အရေအတွက်များ (Counts)
 
-You can combine nouns and verbs with a count, which will perform a given action a number of times.
+နာမ်များ (nouns) နှင့် ကိရိယာ အပြုအမူများ (verbs) ကို အရေအတွက် (count) တစ်ခုနှင့် ပေါင်းစပ် သုံးနိုင်ပြီး၊ ၎င်းသည် သတ်မှတ်ထားသော လုပ်ဆောင်ချက်ကို အရေအတွက် အကြိမ်အရေအတွက်အတိုင်း လုပ်ဆောင်ပေးမည် ဖြစ်သည်။
 
-- `3w` move 3 words forward
-- `5j` move 5 lines down
-- `7dw` delete 7 words
+- `3w` ရှေ့သို့ စကားလုံး ၃ လုံး ရွှေ့ရန်
+- `5j` အောက်သို့ စာကြောင်း ၅ ကြောင်း ရွှေ့ရန်
+- `7dw` စကားလုံး ၇ လုံး ဖျက်ရန်
 
-### Modifiers
+### ပြုပြင်မွမ်းမံမှုများ (Modifiers)
 
-You can use modifiers to change the meaning of a noun. Some modifiers are `i`, which means "inner" or "inside", and `a`, which means "around".
+နာမ်တစ်ခု၏ အဓိပ္ပာယ်ကို ပြောင်းလဲရန် modifiers များကို အသုံးပြုနိုင်သည်။ modifiers အချို့မှာ "အတွင်းပိုင်း" သို့မဟုတ် "အထဲ၌" ဟု အဓိပ္ပာယ်ရသော `i` နှင့် "အပြင်ဘက် အပါအဝင်" သို့မဟုတ် "ပတ်လည်" ဟု အဓိပ္ပာယ်ရသော `a` တို့ ဖြစ်ကြသည်။
 
-- `ci(` change the contents inside the current pair of parentheses
-- `ci[` change the contents inside the current pair of square brackets
-- `da'` delete a single-quoted string, including the surrounding single quotes
+- `ci(` လက်ရှိ ကွင်းစ/ကွင်းပိတ် အတွင်းရှိ ပါဝင်အကြောင်းအရာများကို ပြောင်းလဲရန်
+- `ci[` လက်ရှိ လေးထောင့်ကွင်း အတွင်းရှိ ပါဝင်အကြောင်းအရာများကို ပြောင်းလဲရန်
+- `da'` Single-quoted string တစ်ခုကို ဘေးပတ်လည် single-quote များ အပါအဝင် ဖျက်ပစ်ရန်
 
-## Putting it all together
+## အားလုံးကို ပေါင်းစပ် အသုံးပြုခြင်း
 
-Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation:
+ဤနေရာတွင် မှားယွင်းနေသော [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) ရေးသားချက် တစ်ခု ရှိသည်-
 
 ```python
 def fizz_buzz(limit):
@@ -142,73 +142,73 @@ def main():
     fizz_buzz(20)
 ```
 
-We use the following sequence of commands to fix the issues, beginning in Normal mode:
+Normal mode မှ စတင်၍ ပြဿနာများကို ပြင်ဆင်ရန် အောက်ပါ command အစီအစဉ်အတိုင်း အသုံးပြုကြပါမည်-
 
-- Main is never called
-    - `G` to jump to the end of the file
-    - `o` to **o**pen a new line below
-    - Type in `if __name__ == "__main__": main()`
-        - If your editor has Python language support, it might do some auto-indentation for you in Insert mode
-    - `<ESC>` to go back to Normal mode
-- Starts at 0 instead of 1
-    - `/` followed by `range` and `<CR>` to search for "range"
-    - `ww` to move forward two **w**ords (you could also use `2w`, but in practice, for small counts it's common to repeat the key instead of using the count functionality)
-    - `i` to switch to **i**nsert mode, and add `1,`
-    - `<ESC>` to go back to Normal mode
-    - `e` to jump to the **e**nd of the next word
-    - `a` to start **a**ppending text, and add `+ 1`
-    - `<ESC>` to go back to Normal mode
-- Prints "fizz" for multiples of 5
-    - `:6<CR>` to go to line 6
-    - `ci"` to **c**hange **i**nside the '**"**', change to `"buzz"`
-    - `<ESC>` to go back to Normal mode
+- Main ကို မည်သည့်အခါမျှ ခေါ်ဆိုထားခြင်း မရှိပါ
+    - ဖိုင်၏ အဆုံးသို့ သွားရန် `G` ကို နှိပ်ပါ
+    - အောက်တွင် စာကြောင်းအသစ် **ဖွင့်** ရန် `o` ကို နှိပ်ပါ
+    - `if __name__ == "__main__": main()` ဟု ရိုက်ထည့်ပါ
+        - သင့် editor တွင် Python ဘာသာစကား ထောက်ပံ့မှု ပါရှိပါက Insert mode တွင် အလိုအလျောက် indentation ပြုလုပ်ပေးပေလိမ့်မည်
+    - Normal mode သို့ ပြန်သွားရန် `<ESC>` ကို နှိပ်ပါ
+- 1 အစား 0 မှ စတင်နေပါသည်
+    - "range" ကို ရှာဖွေရန် `/` ပြီးနောက် `range` နှင့် `<CR>` ကို ရိုက်ထည့်ပါ
+    - ရှေ့သို့ စကားလုံး **၂ လုံး** ရွှေ့ရန် `ww` ကို နှိပ်ပါ (`2w` ကိုလည်း အသုံးပြုနိုင်သော်လည်း လက်တွေ့တွင် အရေအတွက် အနည်းငယ်အတွက် count လုပ်ဆောင်ချက်ကို သုံးမည့်အစား key ကို ထပ်ခါထပ်ခါ နှိပ်လေ့ ရှိကြသည်)
+    - **i**nsert mode သို့ ပြောင်းရန် `i` ကို နှိပ်ပြီး `1,` ကို ပေါင်းထည့်ပါ
+    - Normal mode သို့ ပြန်သွားရန် `<ESC>` ကို နှိပ်ပါ
+    - နောက်စကားလုံး၏ **အဆုံး** သို့ သွားရန် `e` ကို နှိပ်ပါ
+    - စာသား စတင် **နောက်ဆက်တွဲ ပေါင်းထည့်** ရန် `a` ကို နှိပ်ပြီး `+ 1` ကို ပေါင်းထည့်ပါ
+    - Normal mode သို့ ပြန်သွားရန် `<ESC>` ကို နှိပ်ပါ
+- 5 ၏ ဆောက်တွဲများအတွက် "fizz" ကို ရိုက်နှိပ်နေပါသည်
+    - စာကြောင်း ၆ သို့ သွားရန် `:6<CR>` ကို နှိပ်ပါ
+    - '**"**' ၏ **အတွင်းပိုင်းကို ပြောင်းလဲ** ရန် `ci"` ကို နှိပ်ပြီး `"buzz"` သို့ ပြောင်းလဲပါ
+    - Normal mode သို့ ပြန်သွားရန် `<ESC>` ကို နှိပ်ပါ
 
-## Learning Vim
+## Vim ကို လေ့လာခြင်း
 
-The best way to learn Vim is to learn the fundamentals (what we've covered so far) and then just enable Vim mode in all your software and start using it in practice. Avoid the temptation to use the mouse or the arrow keys; in some editors, you can unbind the arrow keys to force yourself to build good habits.
+Vim ကို လေ့လာရန် အကောင်းဆုံး နည်းလမ်းမှာ အခြေခံများ (ယခုအချိန်အထိ ကျွန်တော်တို့ ဆွေးနွေးခဲ့ပြီးသော အကြောင်းအရာများ) ကို လေ့လာပြီးနောက် သင်အသုံးပြုသည့် ဆော့ဖ်ဝဲလ် အားလုံးတွင် Vim mode ကို ဖွင့်ပြီး လက်တွေ့ စတင် အသုံးပြုခြင်း ဖြစ်သည်။ မောက်စ် သို့မဟုတ် arrow key များကို အသုံးပြုလိုသည့် သွေးဆောင်မှုကို ရှောင်ကြဉ်ပါ၊ အချို့သော editor များတွင် အလေ့အကျင့်ကောင်းများ စွဲမြဲစေရန် arrow key များကို unbind ပြုလုပ်ထားနိုင်သည်။
 
-### Additional resources
+### ထပ်ဆောင်း အရင်းအမြစ်များ
 
-- The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
-- `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
-- [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
+- ယခင် တန်းခွဲမှ [Vim သင်ခန်းစာ](/2020/editors/) --- ထိုနေရာတွင် Vim အကြောင်းကို ပိုမို အသေးစိတ် ဆွေးနွေးထားပါသည်
+- `vimtutor` သည် Vim နှင့်အတူ တပါတည်း ပါဝင်လာသည့် လမ်းညွှန် သင်ခန်းစာ ဖြစ်သည် --- Vim တပ်ဆင်ထားပါက သင့် shell မှနေ၍ `vimtutor` ကို Run နိုင်ရပါမည်
+- [Vim Adventures](https://vim-adventures.com/) သည် Vim ကို လေ့လာနိုင်သော ဂိမ်းတစ်ခု ဖြစ်သည်
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [VimGolf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Advent Calendar](https://vimways.org/2019/) တွင် Vim ဆိုင်ရာ အကြံပြုချက် အမျိုးမျိုး ပါဝင်သည်
+- [VimGolf](https://www.vimgolf.com/) သည် [code golf](https://en.wikipedia.org/wiki/Code_golf) ပုံစံ ဖြစ်သော်လည်း ပရိုဂရမ်းမင်း ဘာသာစကား နေရာတွင် Vim ၏ UI ကို အသုံးပြုထားခြင်း ဖြစ်သည်
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (စာအုပ်)
 
 [Vim]: https://www.vim.org/
 
-# Code intelligence and language servers
+# Code intelligence နှင့် language servers
 
-IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
+IDEs များသည် ပုံမှန်အားဖြင့် [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) ကို အကောင်အထည်ဖော်ထားသည့် _language servers_ များနှင့် ချိတ်ဆက်ထားသော IDE extensions များမှတစ်ဆင့် ကုဒ်၏ သဘောတရားဆိုင်ရာ နားလည်မှုကို လိုအပ်သည့် သက်ဆိုင်ရာ ပရိုဂရမ်းမင်း ဘာသာစကားအလိုက် ထောက်ပံ့မှုများကို ပေးအပ်ကြသည်။ ဥပမာအားဖြင့် [VS Code အတွက် Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) သည် [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) ပေါ်တွင် အမှီပြုထားပြီး၊ [VS Code အတွက် Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go) သည် သီးသန့်ထုတ်လုပ်ထားသော [gopls](https://go.dev/gopls/) ပေါ်တွင် အမှီပြုထားသည်။ သင် အသုံးပြုသည့် ဘာသာစကားများအတွက် extension နှင့် language server များကို တပ်ဆင်ခြင်းဖြင့် သင့် IDE တွင် ဘာသာစကားဆိုင်ရာ လုပ်ဆောင်ချက် အများအပြားကို အသုံးပြုနိုင်မည် ဖြစ်သည်၊ ဥပမာ-
 
-- **Code completion.** Better autocomplete and autosuggest, such as being able to see an object's fields and methods after typing `object.`.
-- **Inline documentation.** Seeing documentation on hover and autosuggest.
-- **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
-- **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
-- **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
-- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
+- **Code completion။** `object.` ဟု ရိုက်ပြီးသည့်နောက် object ၏ fields နှင့် methods များကို မြင်တွေ့နိုင်ခြင်းကဲ့သို့သော ပိုမိုကောင်းမွန်သည့် autocomplete နှင့် autosuggest များ။
+- **Inline documentation။** စာသားပေါ် mouse တင်ထားချိန် (hover) သို့မဟုတ် autosuggest ချိန်တွင် Documentation ကို မြင်တွေ့ရခြင်း။
+- **Jump-to-definition။** အသုံးပြုထားသည့် နေရာမှ သတ်မှတ်ထားသည့် နေရာသို့ တိုက်ရိုက် သွားရောက်နိုင်ခြင်း၊ ဥပမာ field ညွှန်းဆိုချက် `object.field` မှ ၎င်း field ၏ definition သို့ သွားရောက်နိုင်ခြင်း။
+- **Find references။** အထက်ပါ အချက်၏ ပြောင်းပြန် ဖြစ်ပြီး၊ field သို့မဟုတ် type ကဲ့သို့သော သီးခြား item တစ်ခုကို ညွှန်းဆိုထားသည့် နေရာ အားလုံးကို ရှာဖွေပေးခြင်း။
+- **Help with imports။** Imports များကို စနစ်တကျ စီစဉ်ခြင်း၊ မလိုအပ်သော imports များကို ဖယ်ရှားခြင်း၊ လိုအပ်နေသော imports များကို အလံပြ အသိပေးခြင်း။
+- **Code quality။** ဤကိရိယာများကို သီးသန့် အသုံးပြုနိုင်သော်လည်း ဤလုပ်ဆောင်ချက်ကို language servers များကလည်း ပေးအပ်လေ့ ရှိသည်။ Code formatting သည် ကုဒ်များကို အလိုအလျောက် Indent နှင့် Format လုပ်ပေးပြီး၊ type checkers နှင့် linters များသည် စာရိုက်နေစဉ် ကုဒ်အတွင်းရှိ အမှားများကို ရှာဖွေပေးသည်။ ကျွန်တော်တို့သည် ဤလုပ်ဆောင်ချက် အကွာအဝေးကို [code quality ဆိုင်ရာ သင်ခန်းစာ](/2026/code-quality/) တွင် ပိုမို အသေးစိတ် ဆွေးနွေးသွားပါမည်။
 
-## Configuring language servers
+## Language servers များကို ပြင်ဆင် သတ်မှတ်ခြင်း
 
-For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
+အချို့သော ဘာသာစကားများအတွက် extension နှင့် language server တို့ကို တပ်ဆင်လိုက်ရုံဖြင့် အားလုံး အဆင်သင့် ဖြစ်သွားမည် ဖြစ်သည်။ အခြားသော ဘာသာစကားများအတွက်မူ language server ထံမှ အပြည့်အဝ အကျိုးကျေးဇူး ရရှိရန် သင့် IDE ထံသို့ သင့် ပတ်ဝန်းကျင် (environment) အကြောင်း ပြောပြပေးရန် လိုအပ်သည်။ ဥပမာအားဖြင့် VS Code ကို သင့် [Python environment](https://code.visualstudio.com/docs/python/environments) ထို့သို့ ညွှန်ပြပေးခြင်းဖြင့် language server ကို သင် တပ်ဆင်ထားသော packages များကို မြင်တွေ့နိုင်စေမည် ဖြစ်သည်။ Environments အကြောင်းကို ကျွန်တော်တို့၏ [code များကို ထုပ်ပိုးခြင်း နှင့် ဖြန့်ဝေခြင်း ဆိုင်ရာ သင်ခန်းစာ](/2026/shipping-code/) တွင် ပိုမို အသေးစိတ် ဆွေးနွေးထားပါသည်။
 
-Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
+ဘာသာစကားအပေါ် မူတည်၍ သင့် language server အတွက် ပြင်ဆင် သတ်မှတ်နိုင်သည့် settings အချို့ ရှိနိုင်သည်။ ဥပမာအားဖြင့် VS Code တွင် Python ထောက်ပံ့မှုကို အသုံးပြု၍ Python ၏ optional type annotations များကို အသုံးမပြုသော project များအတွက် static type checking ကို ပိတ်ထားနိုင်သည်။
 
-# AI-powered development
+# AI စွမ်းအားသုံး ဆော့ဖ်ဝဲလ် ရေးသားခြင်း
 
-Since the introduction of [GitHub Copilot][github-copilot] using OpenAI's [Codex model](https://openai.com/index/openai-codex/) in mid 2021, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) have become widely adopted in software engineering. There are three main form factors in use right now: autocomplete, inline chat, and coding agents.
+၂၀၂၁ အလယ်ပိုင်းတွင် OpenAI ၏ [Codex model](https://openai.com/index/openai-codex/) ကို အသုံးပြုထားသည့် [GitHub Copilot][github-copilot] စတင် မိတ်ဆက်ချိန်မှစ၍ [LLMs](https://en.wikipedia.org/wiki/Large_language_model) များကို ဆော့ဖ်ဝဲလ် အင်ဂျင်နီယာ လောကတွင် ကျယ်ကျယ်ပြန့်ပြန့် အသုံးပြုလာကြသည်။ လက်ရှိတွင် အဓိက အသုံးပြုနေသည့် ပုံစံ ၃ မျိုး ရှိသည် - autocomplete၊ inline chat နှင့် coding agents တို့ ဖြစ်ကြသည်။
 
 [github-copilot]: https://github.com/features/copilot/ai-code-editor
 
 ## Autocomplete
 
-AI-powered autocomplete has the same form factor as traditional autocomplete in your IDE, suggesting completions at your cursor position as you type. Sometimes, it's used as a passive feature that "just works". Beyond that, AI autocomplete is generally [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) using code comments.
+AI စွမ်းအားသုံး autocomplete သည် သင့် IDE ရှိ ရိုးရာ autocomplete နှင့် ပုံစံတူပင် ဖြစ်ပြီး သင် စာရိုက်နေစဉ် cursor ရောက်ရှိနေသည့် နေရာတွင် ဖြည့်စွက်ချက်များကို အကြံပြုပေးသည်။ အချို့ အချိန်များတွင် ၎င်းကို "အလိုလို အဆင်ပြေနေသည့်" သာမန် လုပ်ဆောင်ချက် တစ်ခုအဖြစ် အသုံးပြုကြသည်။ ထို့ပြင် AI autocomplete ကို ပုံမှန်အားဖြင့် ကုဒ်မှတ်ချက်များ (code comments) အသုံးပြု၍ [prompt ပေးကြသည်](https://en.wikipedia.org/wiki/Prompt_engineering)။
 
-For example, let's write a script to download the contents of these lecture notes and extract all the links. We can start with:
+ဥပမာအားဖြင့် ဤသင်ခန်းစာ မှတ်စုများ၏ ပါဝင်အကြောင်းအရာများကို Download ရယူပြီး လင့်ခ်များ အားလုံးကို ထုတ်ယူပေးမည့် script တစ်ခု ရေးသားကြပါစို့။ ကျွန်တော်တို့အနေဖြင့် အောက်ပါအတိုင်း စတင် ရေးသားနိုင်သည်-
 
 ```python
 import requests
@@ -216,34 +216,34 @@ import requests
 def download_contents(url: str) -> str:
 ```
 
-The model will autocomplete the body of the function:
+Model သည် function ၏ အဓိက အစိတ်အပိုင်းကို အလိုအလျောက် ဖြည့်စွက်ပေးမည် ဖြစ်သည်-
 
 ```python
     response = requests.get(url)
     return response.text
 ```
 
-We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but it doesn't have a particularly descriptive name:
+ကျွန်တော်တို့သည် မှတ်ချက်များကို အသုံးပြု၍ ဖြည့်စွက်ချက်များကို ထပ်မံ လမ်းညွှန်ပေးနိုင်သည်။ ဥပမာအားဖြင့် Markdown လင့်ခ်များ အားလုံးကို ထုတ်ယူရန် function တစ်ခု စတင်ရေးသားသော်လည်း ၎င်းတွင် လုံလောက်သော အမည်ဖော်ပြချက် မရှိသေးပါက-
 
 ```python
 def extract(contents: str) -> list[str]:
 ```
 
-The model will autocomplete something like this:
+Model သည် အောက်ပါအတိုင်း ဖြည့်စွက်ပေးပေလိမ့်မည်-
 
 ```python
     lines = contents.splitlines()
     return [line for line in lines if line.strip()]
 ```
 
-We can guide the completion through code comments:
+ကျွန်တော်တို့သည် ကုဒ် မှတ်ချက်များမှတစ်ဆင့် ဖြည့်စွက်မှုကို လမ်းညွှန်ပေးနိုင်သည်-
 
 ```python
 def extract(content: str) -> list[str]:
     # extract all Markdown links from the content
 ```
 
-This time, the model gives a better completion:
+ဤတစ်ကြိမ်တွင် Model သည် ပိုမိုကောင်းမွန်သော ဖြည့်စွက်မှုကို ပေးအပ်သည်-
 
 ```python
     import re
@@ -251,11 +251,11 @@ This time, the model gives a better completion:
     return re.findall(pattern, content)
 ```
 
-Here, we see one downside of this AI coding tool: it can only provide completions at the cursor. In this case, it would be better practice to put the `import re` at the module level, rather than inside the function.
+ဤနေရာတွင် ဤ AI coding ကိရိယာ၏ အားနည်းချက် တစ်ခုကို မြင်တွေ့နိုင်သည်- ၎င်းသည် cursor နေရာတွင်သာ ဖြည့်စွက်ချက်များကို ပေးနိုင်ခြင်း ဖြစ်သည်။ ဤဖြစ်ရပ်တွင် `import re` ကို function အတွင်း၌ ထည့်သွင်းမည့်အစား module အဆင့်တွင် ထားရှိခြင်းက ပိုမိုကောင်းမွန်သော အလေ့အကျင့် ဖြစ်ပေလိမ့်မည်။
 
-The example above used a poorly-named function to demonstrate how code completion can be steered using comments; in practice, you'd want to write code with functions named more descriptively, like `extract_links`, and you'd want to write docstrings (and based on this, the model should generate a completion analogous to the one above).
+အထက်ပါ ဥပမာသည် ကုဒ်မှတ်ချက်များ သုံး၍ code completion ကို မည်သို့ လမ်းညွှန်နိုင်သည်ကို ပြသရန်အတွက် နာမည် သေချာ မပေးထားသော function ကို အသုံးပြုထားခြင်း ဖြစ်သည်፤ လက်တွေ့တွင် သင်အနေဖြင့် `extract_links` ကဲ့သို့သော ပိုမို ရှင်းလင်းစွာ အမည်ပေးထားသည့် function များဖြင့် ရေးသားလိုမည် ဖြစ်ပြီး docstring များကိုလည်း ရေးသားလိုမည် ဖြစ်သည် (ထိုအပေါ် မူတည်၍ model သည် အထက်ပါအတိုင်း တူညီသော ဖြည့်စွက်ချက်ကို ထုတ်ပေးရမည် ဖြစ်သည်)။
 
-For demonstration purposes, we can complete the script:
+စမ်းသပ်ပြသရန် အလို့ငှာ ကျွန်တော်တို့ script ကို အပြီးသတ် ရေးသားနိုင်သည်-
 
 ```python
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
@@ -263,15 +263,15 @@ print(extract(download_contents("https://raw.githubusercontent.com/missing-semes
 
 ## Inline chat
 
-Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
+Inline chat သည် စာကြောင်း သို့မဟုတ် အစိတ်အပိုင်းတစ်ခုကို ရွေးချယ်ပြီး ပြင်ဆင်မှု ပြုလုပ်ရန် AI model ထံသို့ တိုက်ရိုက် prompt ပေးနိုင်စေသည်။ ဤ တုံ့ပြန်မှု mode တွင် model သည် ရှိပြီးသား ကုဒ်များကို ပြင်ဆင်ပေးနိုင်သည် (cursor ၏ နောက်ပိုင်းမှ ကုဒ်များကိုသာ ဖြည့်စွက်ပေးသည့် autocomplete နှင့် ကွဲပြားသည်)။
 
-Continuing the example from above, suppose we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+အထက်ပါ ဥပမာကို ဆက်လက် လေ့လာရလျှင် ပြင်ပမှ `requests` library ကို မသုံးရန် ဆုံးဖြတ်လိုက်သည် ဆိုပါစို့။ သက်ဆိုင်ရာ စာကြောင်း ၃ ကြောင်းကို ရွေးချယ်၍ inline chat ကို ခေါ်ယူပြီး အောက်ပါအတိုင်း ပြောဆိုနိုင်သည်-
 
 ```
 use built-in libraries instead
 ```
 
-The model proposes:
+Model မှ အောက်ပါအတိုင်း အဆိုပြု ပေးပါမည်-
 
 ```python
 from urllib.request import urlopen
@@ -283,23 +283,23 @@ def download_contents(url: str) -> str:
 
 ## Coding agents
 
-Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
+Coding agents အကြောင်းကို [Agentic Coding သင်ခန်းစာ](/2026/agentic-coding/) တွင် ပိုမို အသေးစိတ် ဆွေးနွေးထားပါသည်။
 
-## Recommended software
+## အကြံပြုထားသော ဆော့ဖ်ဝဲလ်များ
 
-Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-copilot] extension and [Cursor](https://cursor.com/). GitHub Copilot is currently available [for free for students](https://github.com/education/students), teachers, and maintainers of popular open source projects. This is a rapidly evolving space. Many of the leading products have roughly equivalent functionality.
+လူကြိုက်များသော AI IDEs အချို့မှာ [GitHub Copilot][github-copilot] extension ပါဝင်သည့် [VS Code][vs-code] နှင့် [Cursor](https://cursor.com/) တို့ ဖြစ်ကြသည်။ GitHub Copilot ကို လက်ရှိတွင် ကျောင်းသားများ၊ ဆရာ/မများနှင့် လူကြိုက်များသော open source project များမှ ပြုပြင်ထိန်းသိမ်းသူများအတွက် [အခမဲ့ ရရှိနိုင်ပါသည်](https://github.com/education/students)။ ဤနယ်ပယ်သည် အလွန် လျင်မြန်စွာ တိုးတက်ပြောင်းလဲနေသော နယ်ပယ် ဖြစ်သည်။ ထိပ်တန်း ထုတ်ကုန် အများအပြားတွင် အကြမ်းအားဖြင့် တူညီသော လုပ်ဆောင်ချက်များ ပါရှိကြသည်။
 
-# Extensions and other IDE functionality
+# Extensions များ နှင့် အခြား IDE လုပ်ဆောင်ချက်များ
 
-IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
+IDEs များသည် စွမ်းဆောင်ရည်မြင့်မားသော ကိရိယာများ ဖြစ်ကြပြီး _extensions_ များ ကြောင့် ပိုမို စွမ်းဆောင်ရည် မြင့်မားလာကြသည်။ ကျွန်တော်တို့အနေဖြင့် သင်ခန်းစာ တစ်ခုတည်းတွင် ဤလုပ်ဆောင်ချက် အားလုံးကို မဖော်ပြနိုင်သော်လည်း လူကြိုက်များသော extension အချို့အတွက် ညွှန်ပြချက် အချို့ကို ဤနေရာတွင် ပေးအပ်ထားပါသည်။ ဤနယ်ပယ်ကို ကိုယ်တိုင် စူးစမ်း လေ့လာရန် တိုက်တွန်းပါသည်፤ အွန်လိုင်းတွင် Vim plugins များအတွက် [Vim Awesome](https://vimawesome.com/) နှင့် [လူကြိုက်အများဆုံး စီစဉ်ထားသော VS Code extensions များ](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs) ကဲ့သို့သော လူကြိုက်များသည့် IDE extensions စာရင်းများစွာ ရှိပါသည်။
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
-- Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
-- Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
+- [Development containers](https://containers.dev/): လူကြိုက်များသော IDEs များမှ ထောက်ပံ့ပေးထားပြီး (ဥပမာ [VS Code မှ ထောက်ပံ့ပေးထားမှု](https://code.visualstudio.com/docs/devcontainers/containers))၊ dev containers သည် သင့်အား development tools များကို Run ရန် container တစ်ခုကို အသုံးပြုနိုင်စေသည်။ ၎င်းသည် ရွှေ့ပြောင်းရလွယ်ကူမှု (portability) သို့မဟုတ် သီးခြားခွဲထုတ်ထားမှု (isolation) အတွက် အသုံးဝင်နိုင်သည်။ [code များကို ထုပ်ပိုးခြင်း နှင့် ဖြန့်ဝေခြင်း ဆိုင်ရာ သင်ခန်းစာ](/2026/shipping-code/) တွင် containers အကြောင်းကို ပိုမို အသေးစိတ် ဖော်ပြထားပါသည်။
+- Remote development: SSH ကို အသုံးပြု၍ အဝေးထိန်း စက် (remote machine) ပေါ်တွင် ဆော့ဖ်ဝဲလ် ရေးသားခြင်း (ဥပမာ [VS Code အတွက် Remote SSH plugin](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) ဖြင့်)။ ဥပမာအားဖြင့် Cloud ပေါ်ရှိ စွမ်းဆောင်ရည်မြင့် GPU စက်ပေါ်တွင် ကုဒ်များ ရေးသားပြီး Run လိုသည့်အခါ ဤအရာသည် အသုံးဝင်နိုင်သည်။
+- Collaborative editing: Google Docs ပုံစံအတိုင်း ဖိုင်တစ်ခုတည်းကို အတူတကွ တည်းဖြတ်ခြင်း (ဥပမာ [VS Code အတွက် Live Share plugin](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) ဖြင့်)။
 
-# Exercises
+# လေ့ကျင့်ခန်းများ
 
-1. Enable Vim mode in all the software you use that supports it, such as your editor and your shell, and use Vim mode for all your text editing for the next month. Whenever something seems inefficient, or when you think "there must be a better way", try Googling it, there probably is a better way.
-1. Complete a challenge from [VimGolf](https://www.vimgolf.com/).
-1. Configure an IDE extension and language server for a project that you're working on. Ensure that all the expected functionality, such as jump-to-definition for library dependencies, works as expected. If you don't have code that you can use for this exercise, you can use some open-source project from GitHub (such as [this one](https://github.com/spf13/cobra)).
-1. Browse a list of IDE extensions and install one that seems useful to you.
+1. သင့် editor နှင့် သင့် shell ကဲ့သို့သော Vim mode ထောက်ပံ့သည့် သင်အသုံးပြုနေသော ဆော့ဖ်ဝဲလ် အားလုံးတွင် Vim mode ကို ဖွင့်ပြီး ရှေ့လာမည့် လအတွင်း သင့် စာသား တည်းဖြတ်မှု အားလုံးအတွက် Vim mode ကို အသုံးပြုပါ။ တစ်စုံတစ်ခု လုပ်ဆောင်ရာတွင် မထိရောက်ဟု ခံစားရပါက သို့မဟုတ် "ပိုမိုကောင်းမွန်သော နည်းလမ်း ရှိရမည်" ဟု တွေးမိပါက Google တွင် ရှာဖွေကြည့်ပါ၊ ပိုမိုကောင်းမွန်သော နည်းလမ်း ရှိနေနိုင်ပါသည်။
+1. [VimGolf](https://www.vimgolf.com/) မှ စိန်ခေါ်မှု တစ်ခုကို အပြီးသတ်ပါ။
+1. သင် လုပ်ဆောင်နေသော project တစ်ခုအတွက် IDE extension နှင့် language server ကို ပြင်ဆင် သတ်မှတ်ပါ။ Library dependencies များအတွက် jump-to-definition ကဲ့သို့သော မျှော်လင့်ထားသည့် လုပ်ဆောင်ချက် အားလုံး မှန်ကန်စွာ အလုပ်လုပ်ကြောင်း သေချာပါစေ။ ဤလေ့ကျင့်ခန်းအတွက် သုံးနိုင်သော ကုဒ်မရှိပါက GitHub မှ open-source project တစ်ခုခုကို အသုံးပြုနိုင်ပါသည် ([ဤ project](https://github.com/spf13/cobra) ကဲ့သို့သော)။
+1. IDE extensions စာရင်းကို လေ့လာပြီး သင့်အတွက် အသုံးဝင်မည့် extension တစ်ခုကို တပ်ဆင်ပါ။

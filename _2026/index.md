@@ -2,7 +2,7 @@
 layout: page
 title: "2026 Lectures"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2026.
+  Missing Semester, MIT IAP 2026 ၏ သင်ခန်းစာ မှတ်တမ်းများနှင့် ဗီဒီယိုများ။
 permalink: /2026/
 phony: true
 ---
@@ -29,11 +29,11 @@ phony: true
   {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L).
+သင်ခန်းစာ ဗီဒီယို မှတ်တမ်းများကို [YouTube တွင်](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L) ကြည့်ရှုနိုင်ပါသည်။
 
 # Beyond MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+အခြားသူများလည်း ဤ အရင်းအမြစ်များမှ အကျိုးကျေးဇူး ရရှိနိုင်စေရန် ဤအတန်းကို MIT ၏ အပြင်ဘက်သို့လည်း မျှဝေထားပါသည်။ အောက်ပါ နေရာများတွင် ဆွေးနွေးချက်များကို ရှာဖွေနိုင်ပါသည် -
 
 - [Hacker News](https://news.ycombinator.com/item?id=47124171)
 - [Lobsters](https://lobste.rs/s/q4ykw7/missing_semester_your_cs_education_2026)
@@ -46,4 +46,4 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 
 # Acknowledgments
 
-We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
+သင်ခန်းစာ ဗီဒီယိုများ ရိုက်ကူးနိုင်ရန် ကူညီပေးခဲ့ကြသော Elaine Mello နှင့် [MIT Open Learning](https://openlearning.mit.edu/) တို့အား ကျေးဇူးတင်ရှိပါသည်။ ဤအတန်းကို [SIPB IAP 2026](https://sipb.mit.edu/iap/) ၏ အစိတ်အပိုင်းအဖြစ် ပံ့ပိုးပေးခဲ့သော Luis Turino / [SIPB](https://sipb.mit.edu/) အား ကျေးဇူးတင်ရှိပါသည်။

@@ -3,3 +3,5 @@ _site/
 __pycache__/
 .jekyll-metadata
 my/
+vendor/
+

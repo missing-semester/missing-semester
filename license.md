@@ -4,30 +4,29 @@ title: "License"
 permalink: /license/
 ---
 
-# License
+# မူပိုင်ခွင့် လိုင်စင် (License)
 
-All the content in this course, including the website source code, lecture notes, exercises, and lecture videos is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+ဤသင်တန်းရှိ ဝဘ်ဆိုက် source code၊ သင်ခန်းစာ မှတ်တမ်းများ၊ လေ့ကျင့်ခန်းများနှင့် သင်ခန်းစာ ဗီဒီယိုများ အပါအဝင် အကြောင်းအရာ အားလုံးကို [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) လိုင်စင်ဖြင့် ထုတ်ဝေထားပါသည်။
 
-This means that you are free to:
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+ဤသည်မှာ သင်၏ အခွင့်အရေးများ ဖြစ်ကြပါသည် -
+- **Share** — မည်သည့် မီဒီယာ သို့မဟုတ် မူဘောင် ဖြင့်မဆို အကြောင်းအရာများကို ကူးယူ ပြန်လည် ဖြန့်ဝေနိုင်ပါသည်။
+- **Adapt** — အကြောင်းအရာများကို ပြုပြင် ပြောင်းလဲခြင်း၊ တည်ဆောက်ခြင်းများ ပြုလုပ်နိုင်ပါသည်။
 
-Under the following terms:
+အောက်ပါ စည်းကမ်းချက်များနှင့် အညီ ပြုလုပ်ရမည် -
 
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+- **Attribution** — သင်သည် မူရင်း ဖန်တီးသူအား သင့်တော်သော အသိအမှတ်ပြုမှု ပေးရမည်၊ လိုင်စင်သို့ လင့်ခ် ချိတ်ဆက်ပေးရမည်၊ ပြောင်းလဲမှုများ ပြုလုပ်ထားပါက ညွှန်းဆိုပေးရမည်။
+- **NonCommercial** — ဤ အကြောင်းအရာများကို စီးပွားရေး ရည်ရွယ်ချက်ဖြင့် အသုံးပြုပိုင်ခွင့် မရှိပါ။
+- **ShareAlike** — အကယ်၍ သင်သည် ဤ အကြောင်းအရာများကို ပြုပြင် ပြောင်းလဲပါက၊ သင်၏ ပံ့ပိုးမှုများကို မူရင်း လိုင်စင်အတိုင်း အတိအကျ ပြန်လည် ဖြန့်ဝေရမည်။
 
-This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+ဤသည်မှာ [မူပိုင်ခွင့် Legal Code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) ၏ လူနားလည်လွယ်သော အတိုချုပ် ဖြစ်ပါသည်။
 
 ## Contribution guidelines
 
-You can submit corrections and suggestions to the course material by submitting issues and pull requests on our GitHub [repo](https://github.com/missing-semester/missing-semester). This includes the captions for the video lectures which are also in the repo (see [here](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020)).
+ကျွန်ုပ်တို့၏ GitHub [repo](https://github.com/missing-semester/missing-semester) တွင် Issues နှင့် Pull Requests တင်သွင်းခြင်းဖြင့် သင်ခန်းစာ အကြောင်းအရာများအတွက် ပြင်ဆင်ချက်များနှင့် အကြံပြုချက်များကို တင်သွင်းနိုင်ပါသည်။ ၎င်းတွင် ဗီဒီယို စာတန်းထိုးများလည်း ပါဝင်ပါသည် ([ဒီမှာ ကြည့်ပါ](https://github.com/missing-semester/missing-semester/tree/master/static/files/subtitles/2020))။
 
 ## Translation guidelines
 
-You are free to translate the lecture notes and exercises as long as you follow the license terms.
-If your translation mirrors the course structure, please contact us so we can link your translated version from our page.
+မူပိုင်ခွင့် စည်းကမ်းချက်များကို လိုက်နာသရွှေ့ သင်ခန်းစာ မှတ်တမ်းများနှင့် လေ့ကျင့်ခန်းများကို လွတ်လပ်စွာ ဘာသာပြန်ဆိုနိုင်ပါသည်။
+သင်၏ ဘာသာပြန်ဆိုမှုသည် သင်တန်း ပုံစံအတိုင်း ဖြစ်ပါက၊ ကျွန်ုပ်တို့၏ စာမျက်နှာမှတဆင့် သင်၏ ဘာသာပြန် မူကွဲကို လင့်ခ် ချိတ်ဆက်ပေးနိုင်ရန် ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ။
 
-For translating the video captions, please submit your translations as community contributions in YouTube.
-
+ဗီဒီယို စာတန်းထိုးများ ဘာသာပြန်ဆိုရန်အတွက် YouTube တွင် Community contribution အဖြစ် တင်သွင်းပေးပါ။

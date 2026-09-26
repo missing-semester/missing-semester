@@ -2,7 +2,7 @@
 layout: page
 title: "2020 Lectures"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2020.
+  Missing Semester, MIT IAP 2020 ၏ သင်ခန်းစာ မှတ်တမ်းများနှင့် ဗီဒီယိုများ။
 permalink: /2020/
 phony: true
 ---
@@ -29,11 +29,11 @@ phony: true
   {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+သင်ခန်းစာ ဗီဒီယို မှတ်တမ်းများကို [YouTube တွင်](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) ကြည့်ရှုနိုင်ပါသည်။
 
 # Beyond MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+အခြားသူများလည်း ဤ အရင်းအမြစ်များမှ အကျိုးကျေးဇူး ရရှိနိုင်စေရန် ဤအတန်းကို MIT ၏ အပြင်ဘက်သို့လည်း မျှဝေထားပါသည်။ အောက်ပါ နေရာများတွင် ဆွေးနွေးချက်များကို ရှာဖွေနိုင်ပါသည် -
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -57,4 +57,4 @@ Some more URLs:
 
 # Acknowledgments
 
-We thank Elaine Mello, Jim Cain, and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and [MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+သင်ခန်းစာ ဗီဒီယိုများ ရိုက်ကူးနိုင်ရန် ကူညီပေးခဲ့ကြသော Elaine Mello, Jim Cain နှင့် [MIT Open Learning](https://openlearning.mit.edu/)၊ A/V စက်ပစ္စည်းများ ကူညီပေးသော Anthony Zolnik နှင့် [MIT AeroAstro](https://aeroastro.mit.edu/)၊ ဤအတန်းကို ပံ့ပိုးပေးသော Brandi Adams နှင့် [MIT EECS](https://www.eecs.mit.edu/) တို့အား ကျေးဇူးတင်ရှိပါသည်။

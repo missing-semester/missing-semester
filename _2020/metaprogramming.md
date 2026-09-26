@@ -2,7 +2,7 @@
 layout: lecture
 title: "Metaprogramming"
 description: >
-  Learn about build systems, dependency management, testing, and continuous integration.
+  Build systems, dependency management, testing, နှင့် continuous integration တို့အကြောင်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2020/lec8.png
 details: build systems, dependency management, testing, CI
 date: 2020-01-27
@@ -12,53 +12,19 @@ video:
   id: _Ms1Z4xfqv4
 ---
 
-What do we mean by "metaprogramming"? Well, it was the best collective
-term we could come up with for the set of things that are more about
-_process_ than they are about writing code or working more efficiently.
-In this lecture, we will look at systems for building and testing your
-code, and for managing dependencies. These may seem like they are of
-limited importance in your day-to-day as a student, but the moment you
-interact with a larger code base through an internship or once you enter
-the "real world", you will see this everywhere. We should note that
-"metaprogramming" can also mean "[programs that operate on
-programs](https://en.wikipedia.org/wiki/Metaprogramming)", whereas that
-is not quite the definition we are using for the purposes of this
-lecture.
+"metaprogramming" ဟု ပြောရာတွင် မည်သည့်အရာကို ဆိုလိုသနည်း။ Code ကို တိုက်ရိုက် ရေးသားခြင်း သို့မဟုတ် ပိုမို ထိရောက်စွာ အလုပ်လုပ်ခြင်းထက် _လုပ်ငန်းစဉ် (process)_ နှင့် ပိုမို သက်ဆိုင်သော အရာများ၏ အစုအဝေးအတွက် ကျွန်ုပ်တို့ ပေးနိုင်သည့် အကောင်းဆုံး အမည်ဖြစ်ပါသည်။
+ဤသင်ခန်းစာတွင် Code များကို Build လုပ်ခြင်း၊ Testing ပြုလုပ်ခြင်း နှင့် Dependency များကို စီမံခန့်ခွဲခြင်း စနစ်များကို လေ့လာသွားပါမည်။ ကျောင်းသားတစ်ယောက်၏ နေ့စဉ် ဘဝတွင် ဤသည်တို့မှာ အရေးပါမှု နည်းပါးသည်ဟု ထင်ရသော်လည်း အလုပ်သင် အဖြစ် သို့မဟုတ် အပြင် ကမ္ဘာစစ်စစ်တွင် ကြီးမားသော Code base များနှင့် စတင် ထိတွေ့သည့်အခါ ဤအရာများကို နေရာတိုင်း၌ တွေ့မြင်ရမည် ဖြစ်ပါသည်။ "metaprogramming" ဟူသော ဝေါဟာရသည် "[ပရိုဂရမ်များကို စီမံဆောင်ရွက်သော ပရိုဂရမ်များ](https://en.wikipedia.org/wiki/Metaprogramming)" ဟုလည်း အဓိပ္ပာယ် ရနိုင်သည်ကို သတိပြုပါ၊ သို့သော် ဤသင်ခန်းစာ၏ ရည်ရွယ်ချက်မှာ ထို အဓိပ္ပာယ်မျိုး မဟုတ်ပါ။
 
 # Build systems
 
-If you write a paper in LaTeX, what are the commands you need to run to
-produce your paper? What about the ones used to run your benchmarks,
-plot them, and then insert that plot into your paper? Or to compile the
-code provided in the class you're taking and then running the tests?
+LaTeX ဖြင့် စာတမ်းတစ်စောင် ရေးသားပါက၊ စာတမ်း ထွက်ပေါ်လာရန် မည်သည့် Command များကို ရန်းရမည်နည်း။ Benchmark များကို ရန်းရန်၊ ပုံဆွဲရန်၊ ထိုပုံကို စာတမ်းထဲ ထည့်သွင်းရန် Command များရော မည်သို့နည်း။ သို့မဟုတ် အတန်းတွင် ပေးထားသော Code များကို Compile လုပ်ပြီး Test များကို ရန်းရန် မည်သို့ လုပ်ရမည်နည်း။
 
-For most projects, whether they contain code or not, there is a "build
-process". Some sequence of operations you need to do to go from your
-inputs to your outputs. Often, that process might have many steps, and
-many branches. Run this to generate this plot, that to generate those
-results, and something else to produce the final paper. As with so many
-of the things we have seen in this class, you are not the first to
-encounter this annoyance, and luckily there exist many tools to help
-you!
+Code ပါသည်ဖြစ်စေ မပါသည်ဖြစ်စေ ပရောဂျက် အများစုတွင် "build process" (ဆောက်လုပ်မှု လုပ်ငန်းစဉ်) တစ်ခု ရှိကြပါသည်။ Input မျက်နှာပြင်မှ Output သို့ ရောက်ရှိရန် လုပ်ဆောင်ရမည့် လုပ်ငန်းစဉ် အစဉ်လိုက် ဖြစ်ပါသည်။ မကြာခဏဆိုသလို ထို လုပ်ငန်းစဉ်တွင် အဆင့်များစွာ၊ လမ်းခွဲများစွာ ပါဝင်နိုင်ပါသည်။ ပုံဆွဲရန် ဤသည်ကို ရန်းပါ၊ ရလဒ်များ ထုတ်ရန် ထိုသည်ကို ရန်းပါ၊ စာတမ်းအချောသတ် ထုတ်ရန် အခြားတစ်ခု ရန်းပါ ဟူ၍ ဖြစ်ပါသည်။ ဤအတန်းတွင် တွေ့မြင်ခဲ့ရသော အရာများစွာကဲ့သို့ပင် ဤ စိတ်ပျက်ဖွယ်ရာများနှင့် ကြုံတွေ့ရသူမှာ သင် တစ်ယောက်တည်း မဟုတ်ပါ၊ ကံကောင်းစွာပင် သင့်ကို ကူညီနိုင်မည့် Tool များစွာ ရှိနေပါပြီ။
 
-These are usually called "build systems", and there are _many_ of them.
-Which one you use depends on the task at hand, your language of
-preference, and the size of the project. At their core, they are all
-very similar though. You define a number of _dependencies_, a number of
-_targets_, and _rules_ for going from one to the other. You tell the
-build system that you want a particular target, and its job is to find
-all the transitive dependencies of that target, and then apply the rules
-to produce intermediate targets all the way until the final target has
-been produced. Ideally, the build system does this without unnecessarily
-executing rules for targets whose dependencies haven't changed and where
-the result is available from a previous build.
+ယင်းတို့ကို အများအားဖြင့် "build systems" ဟု ခေါ်ဆိုကြပြီး အမျိုးအစား _များစွာ_ ရှိကြပါသည်။
+မည်သည့် စနစ်ကို သုံးမည်ဆိုသည်မှာ လက်ရှိ လုပ်ဆောင်ရမည့် အလုပ်၊ နှစ်သက်သော ဘာသာစကား နှင့် ပရောဂျက် ဆိုဒ် ပေါ် မူတည်ပါသည်။ သို့သော် ယင်းတို့၏ ပင်မ အနှစ်သာရမှာ အလွန် ဆင်တူကြပါသည်။ အချို့သော _dependencies_ များ၊ _targets_ များ နှင့် တစ်ခုမှ တစ်ခုသို့ ကူးပြောင်းရန် _rules_ များကို သတ်မှတ်ပေးရသည်။ Build system ကို သီးခြား Target တစ်ခု လိုချင်ကြောင်း ပြောလိုက်ပါက၊ ယင်း Target ၏ မှီခိုမှုများ အားလုံးကို ရှာဖွေပြီး နောက်ဆုံး Target မထွက်မချင်း ရလဒ်အလယ်အလတ်များကို ထုတ်လုပ်ရန် Rule များကို ကျင့်သုံးပေးခြင်းမှာ ယင်း၏ အလုပ် ဖြစ်ပါသည်။ ထို့အပြင် Build system သည် Dependency မပြောင်းလဲဘေ ယခင် Build မှ ရလဒ် ရရှိနိုင်သော Target များအတွက် မလိုအပ်ဘဲ Rule များကို ရန်းမနေဘဲ ထိရောက်စွာ ဆောင်ရွက်ပေးပါသည်။
 
-`make` is one of the most common build systems out there, and you will
-usually find it installed on pretty much any UNIX-based computer. It has
-its warts, but works quite well for simple-to-moderate projects. When
-you run `make`, it consults a file called `Makefile` in the current
-directory. All the targets, their dependencies, and the rules are
-defined in that file. Let's take a look at one:
+`make` သည် အသုံးအများဆုံး Build system များထဲမှ တစ်ခု ဖြစ်ပြီး UNIX အခြေပြု ကွန်ပျူတာ အများစုတွင် တပ်ဆင်ထားသည်ကို တွေ့ရမည် ဖြစ်သည်။ အားနည်းချက် အချို့ ရှိသော်လည်း ရိုးရှင်းမှ အသင့်အတင့် ပရောဂျက်များအတွက် အလွန် အဆင်ပြေပါသည်။ `make` ကို ရန်းလိုက်သောအခါ လက်ရှိ Directory ရှိ `Makefile` ဟုခေါ်သော ဖိုင်ကို ဖတ်ရှုပါသည်။ Target များ၊ Dependencies များနှင့် Rules များ အားလုံးကို ထိုဖိုင်ထဲတွင် သတ်မှတ်ထားသည်။ အောက်ပါ နမူနာကို ကြည့်ပါ -
 
 ```make
 paper.pdf: paper.tex plot-data.png
@@ -68,29 +34,16 @@ plot-%.png: %.dat plot.py
 	./plot.py -i $*.dat -o $@
 ```
 
-Each directive in this file is a rule for how to produce the left-hand
-side using the right-hand side. Or, phrased differently, the things
-named on the right-hand side are dependencies, and the left-hand side is
-the target. The indented block is a sequence of programs to produce the
-target from those dependencies. In `make`, the first directive also
-defines the default goal. If you run `make` with no arguments, this is
-the target it will build. Alternatively, you can run something like
-`make plot-data.png`, and it will build that target instead.
+ဤဖိုင်ရှိ ညွှန်ကြားချက် တစ်ခုစီသည် ညာဘက်ခြမ်းကို အသုံးပြု၍ ဘယ်ဘက်ခြမ်းကို မည်သို့ ထုတ်လုပ်မည်ဟူသော Rule ဖြစ်ပါသည်။ သို့မဟုတ် အခြားတစ်မျိုး ပြောရလျှင် ညာဘက်ခြမ်းရှိ အရာများသည် Dependencies များ ဖြစ်ကြပြီး ဘယ်ဘက်ခြမ်းသည် Target ဖြစ်ပါသည်။ ခြားထားသော အောက်ပါ Block သည် ထို Dependency များမှ Target ကို ထုတ်လုပ်ပေးမည့် ပရိုဂရမ် အစဉ်လိုက် ဖြစ်သည်။ `make` တွင် ပထမဆုံး ညွှန်ကြားချက်သည် Default goal လည်း ဖြစ်ပါသည်။ Argument မပါဘဲ `make` ရန်းပါက ဤ Target ကို Build လုပ်မည် ဖြစ်သည်။ သို့မဟုတ် `make plot-data.png` ဟု ရန်းပါက ထို Target ကို သီးသန့် Build လုပ်မည် ဖြစ်သည်။
 
-The `%` in a rule is a "pattern", and will match the same string on the
-left and on the right. For example, if the target `plot-foo.png` is
-requested, `make` will look for the dependencies `foo.dat` and
-`plot.py`. Now let's look at what happens if we run `make` with an empty
-source directory.
+Rule ရှိ `%` သည် "pattern" ဖြစ်ပြီး ဘယ်ဘက်နှင့် ညာဘက်ရှိ တူညီသော String ကို ကိုက်ညီစေပါသည်။ ဥပမာ Target `plot-foo.png` ကို တောင်းဆိုပါက `make` သည် Dependency များ ဖြစ်သော `foo.dat` နှင့် `plot.py` တို့ကို ရှာဖွေမည် ဖြစ်သည်။ ယခု အလွတ် ဖြစ်နေသော Directory တွင် `make` ရန်းပါက မည်သို့ ဖြစ်မည်ကို ကြည့်ပါ -
 
 ```console
 $ make
 make: *** No rule to make target 'paper.tex', needed by 'paper.pdf'.  Stop.
 ```
 
-`make` is helpfully telling us that in order to build `paper.pdf`, it
-needs `paper.tex`, and it has no rule telling it how to make that file.
-Let's try making it!
+`make` က `paper.pdf` ကို Build ရန် `paper.tex` လိုအပ်ကြောင်းနှင့် ထိုဖိုင် ဖန်တီးရန် Rule မရှိကြောင်း သတိပေးလိုက်ခြင်း ဖြစ်သည်။ ဖိုင်ကို ဖန်တီးကြည့်ကြပါစို့ -
 
 ```console
 $ touch paper.tex
@@ -98,10 +51,7 @@ $ make
 make: *** No rule to make target 'plot-data.png', needed by 'paper.pdf'.  Stop.
 ```
 
-Hmm, interesting, there _is_ a rule to make `plot-data.png`, but it is a
-pattern rule. Since the source files do not exist (`data.dat`), `make`
-simply states that it cannot make that file. Let's try creating all the
-files:
+စိတ်ဝင်စားစရာမှာ `plot-data.png` ကို ဖန်တီးရန် Rule _ရှိသော်လည်း_ ယင်းသည် Pattern rule ဖြစ်နေခြင်း ဖြစ်သည်။ Source file (`data.dat`) မရှိသေးသောကြောင့် `make` က ထိုဖိုင်ကို မထုတ်လုပ်နိုင်ကြောင်း ပြောခြင်း ဖြစ်သည်။ ဖိုင်များ အားလုံး ဖန်တီးကြည့်ကြပါစို့ -
 
 ```console
 $ cat paper.tex
@@ -133,7 +83,7 @@ $ cat data.dat
 5 8
 ```
 
-Now what happens if we run `make`?
+ယခု `make` ရန်းလိုက်ပါက မည်သို့ ဖြစ်မည်နည်း -
 
 ```console
 $ make
@@ -142,18 +92,15 @@ pdflatex paper.tex
 ... lots of output ...
 ```
 
-And look, it made a PDF for us!
-What if we run `make` again?
+PDF ဖိုင် ထွက်ရှိလာသည်ကို တွေ့ရမည် ဖြစ်သည်!
+`make` ကို ထပ်မံ ရန်းကြည့်ပါက မည်သို့ ဖြစ်မည်နည်း -
 
 ```console
 $ make
 make: 'paper.pdf' is up to date.
 ```
 
-It didn't do anything! Why not? Well, because it didn't need to. It
-checked that all of the previously-built targets were still up to date
-with respect to their listed dependencies. We can test this by modifying
-`paper.tex` and then re-running `make`:
+ဘာမှ ထပ်မလုပ်တော့ပါ! အဘယ်ကြောင့်နည်း။ အကြောင်းမှာ ထပ်မလုပ်ရန် မလိုအပ်သောကြောင့် ဖြစ်သည်။ ယခင်က Build လုပ်ထားသော Target များသည် မူလ Dependency များနှင့် ယှဉ်လျှင် အပ်ဒိတ် ဖြစ်နေဆဲ ဖြစ်ကြောင်း စစ်ဆေးလိုက်ခြင်း ဖြစ်သည်။ `paper.tex` ကို ပြင်ဆင်ပြီး `make` ပြန်ရန်းကြည့်ပါက -
 
 ```console
 $ vim paper.tex
@@ -162,168 +109,50 @@ pdflatex paper.tex
 ...
 ```
 
-Notice that `make` did _not_ re-run `plot.py` because that was not
-necessary; none of `plot-data.png`'s dependencies changed!
+`make` သည် `plot.py` ကို ပြန်လည် မရန်းခဲ့သည်ကို သတိပြုပါ၊ အကြောင်းမှာ မလိုအပ်သောကြောင့် ဖြစ်သည်; `plot-data.png` ၏ Dependency မည်သည့်အရာမျှ မပြောင်းလဲခဲ့ပါ!
 
 # Dependency management
 
-At a more macro level, your software projects are likely to have
-dependencies that are themselves projects. You might depend on installed
-programs (like `python`), system packages (like `openssl`), or libraries
-within your programming language (like `matplotlib`). These days, most
-dependencies will be available through a _repository_ that hosts a
-large number of such dependencies in a single place, and provides a
-convenient mechanism for installing them. Some examples include the
-Ubuntu package repositories for Ubuntu system packages, which you access
-through the `apt` tool, RubyGems for Ruby libraries, PyPI for Python
-libraries, or the Arch User Repository for Arch Linux user-contributed
-packages.
+ပိုမို ကျယ်ပြန့်သော အဆင့်တွင် သင်၏ Software ပရောဂျက်များသည် အခြား ပရောဂျက်များကို Dependency အဖြစ် မှီခိုနေလေ့ ရှိပါသည်။ တပ်ဆင်ထားသော ပရိုဂရမ်များ (ဥပမာ `python`)၊ System package များ (ဥပမာ `openssl`) သို့မဟုတ် သင်၏ ဘာသာစကားရှိ Library များ (ဥပမာ `matplotlib`) ကို မှီခိုနိုင်ပါသည်။ ယနေ့ခေတ်တွင် Dependency အများစုကို တစ်နေရာတည်း၌ ထားရှိပြီး လွယ်ကူစွာ တပ်ဆင်နိုင်သော _repository_ များမှ ရရှိနိုင်ပါသည်။ Ubuntu system package များအတွက် `apt` tool မှတဆင့် ဝင်ရောက်သော Ubuntu package repositories၊ Ruby library များအတွက် RubyGems၊ Python library များအတွက် PyPI သို့မဟုတ် Arch Linux အတွက် Arch User Repository တို့ ဖြစ်ကြပါသည်။
 
-Since the exact mechanisms for interacting with these repositories vary
-a lot from repository to repository and from tool to tool, we won't go
-too much into the details of any specific one in this lecture. What we
-_will_ cover is some of the common terminology they all use. The first
-among these is _versioning_. Most projects that other projects depend on
-issue a _version number_ with every release. Usually something like
-8.1.3 or 64.1.20192004. They are often, but not always, numerical.
-Version numbers serve many purposes, and one of the most important of
-them is to ensure that software keeps working. Imagine, for example,
-that I release a new version of my library where I have renamed a
-particular function. If someone tried to build some software that
-depends on my library after I release that update, the build might fail
-because it calls a function that no longer exists! Versioning attempts
-to solve this problem by letting a project say that it depends on a
-particular version, or range of versions, of some other project. That
-way, even if the underlying library changes, dependent software
-continues building by using an older version of my library.
+ဤ Repository များနှင့် ချိတ်ဆက် ဆောင်ရွက်သည့် နည်းလမ်းများသည် Repository တစ်ခုနှင့်တစ်ခု Tool တစ်ခုနှင့်တစ်ခု ကွဲပြားသောကြောင့် သီးခြား တစ်ခုချင်းစီ၏ အသေးစိတ်ကို သွားမည် မဟုတ်ပါ။ အစား ယင်းတို့ အားလုံး သုံးစွဲကြသော အသုံးများသော ဝေါဟာရများကို သင်ကြားပေးပါမည်။ ပထမဆုံးမှာ _versioning_ (မူကွဲ သတ်မှတ်ခြင်း) ဖြစ်ပါသည်။ အခြား ပရောဂျက်များ မှီခိုသော ပရောဂျက် အများစုသည် Release တိုင်းတွင် _version number_ တစ်ခု ထုတ်ပြန်ကြသည်။ ဥပမာ `8.1.3` သို့မဟုတ် `64.1.20192004`။ ကိန်းဂဏန်းများ ဖြစ်လေ့ရှိကြသည်။ Version number များသည် ရည်ရွယ်ချက် အများအပြား ဆောင်ရွက်ပြီး အရေးကြီးဆုံးမှာ Software ဆက်လက် အလုပ်လုပ်စေရန် ဖြစ်သည်။ ဥပမာ ကျွန်ုပ်၏ Library တွင် Function တစ်ခု၏ အမည်ကို ပြောင်းလဲလိုက်သော Release အသစ်တစ်ခု ထုတ်လိုက်သည် ဆိုပါစို့။ အကယ်၍ အခြားသူက ကျွန်ုပ်၏ Library ကို မှီခို၍ Build လုပ်ပါက Function မရှိတော့သဖြင့် Build ပျက်စီးသွားနိုင်ပါသည်။ Versioning သည် သီးခြား Version သို့မဟုတ် Version အပိုင်းအခြားကို သတ်မှတ်ခွင့် ပြုခြင်းဖြင့် ဤပြဿနာကို ဖြေရှင်းပေးပါသည်။
 
-That also isn't ideal though! What if I issue a security update which
-does _not_ change the public interface of my library (its "API"), and
-which any project that depended on the old version should immediately
-start using? This is where the different groups of numbers in a version
-come in. The exact meaning of each one varies between projects, but one
-relatively common standard is [_semantic
-versioning_](https://semver.org/). With semantic versioning, every
-version number is of the form: major.minor.patch. The rules are:
+သို့သော် ဤသည်မှာလည်း အပြည့်အဝ မဟုတ်သေးပါ! အကယ်၍ Public API ကို မပြောင်းလဲဘဲ လုံခြုံရေး အပ်ဒိတ်တစ်ခု ထုတ်လိုက်ပြီး မူလ Version အသုံးပြုသူ အားလုံး ချက်ချင်း သုံးသင့်သည် ဆိုပါစို့။ ဤနေရာတွင် Version နံပါတ် အုပ်စုများ ရောက်ရှိလာပါသည်။ နံပါတ်တစ်ခုစီ၏ အဓိပ္ပာယ်သည် ပရောဂျက်အလိုက် ကွဲပြားသော်လည်း အသုံးများသော စံနှုန်းတစ်ခုမှာ [_semantic versioning_](https://semver.org/) ဖြစ်ပါသည်။ Semantic versioning တွင် Version နံပါတ်တိုင်းသည် major.minor.patch ပုံစံ ဖြစ်သည် -
 
- - If a new release does not change the API, increase the patch version.
- - If you _add_ to your API in a backwards-compatible way, increase the
-   minor version.
- - If you change the API in a non-backwards-compatible way, increase the
-   major version.
+ - API ပြောင်းလဲမှု မရှိပါက patch version ကို တိုးပါ။
+ - နောက်ပြန် ညီညွတ်မှု ရှိသော (backwards-compatible) API အသစ် ထည့်ပါက minor version ကို တိုးပါ။
+ - နောက်ပြန် ညီညွတ်မှု မရှိသော API ပြောင်းလဲမှု ပြုလုပ်ပါက major version ကို တိုးပါ။
 
-This already provides some major advantages. Now, if my project depends
-on your project, it _should_ be safe to use the latest release with the
-same major version as the one I built against when I developed it, as
-long as its minor version is at least what it was back then. In other
-words, if I depend on your library at version `1.3.7`, then it _should_
-be fine to build it with `1.3.8`, `1.6.1`, or even `1.3.0`. Version
-`2.2.4` would probably not be okay, because the major version was
-increased. We can see an example of semantic versioning in Python's
-version numbers. Many of you are probably aware that Python 2 and Python
-3 code do not mix very well, which is why that was a _major_ version
-bump. Similarly, code written for Python 3.5 might run fine on Python
-3.7, but possibly not on 3.4.
+ဤသည်မှာ အကျိုးကျေးဇူးများစွာ ပေးစွမ်းပါသည်။ ယခုအခါ ကျွန်ုပ်၏ ပရောဂျက်သည် သင်၏ ပရောဂျက်ကို မှီခိုပါက၊ Major version တူညီနေသရွှေ့ နောက်ဆုံး Release ကို အသုံးပြုခြင်းသည် ဘေးကင်းသင့်ပါသည်။ ဥပမာ Version `1.3.7` ကို မှီခိုပါက `1.3.8`, `1.6.1` သို့မဟုတ် `1.3.0` တို့ဖြင့် Build လုပ်ခြင်းသည် အဆင်ပြေသင့်ပါသည်။ Version `2.2.4` မူ Major version တိုးသွားသဖြင့် အဆင်မပြေနိုင်ပါ။ Python ၏ Version နံပါတ်များတွင်လည်း ဤသည်ကို တွေ့နိုင်ပါသည်။ Python 2 နှင့် Python 3 code များ ရောနှော၍ မရခြင်းမှာ _major_ version bump ဖြစ်ခဲ့သောကြောင့် ဖြစ်သည်။
 
-When working with dependency management systems, you may also come
-across the notion of _lock files_. A lock file is simply a file that
-lists the exact version you are _currently_ depending on of each
-dependency. Usually, you need to explicitly run an update program to
-upgrade to newer versions of your dependencies. There are many reasons
-for this, such as avoiding unnecessary recompiles, having reproducible
-builds, or not automatically updating to the latest version (which may
-be broken). An extreme version of this kind of dependency locking is
-_vendoring_, which is where you copy all the code of your dependencies
-into your own project. That gives you total control over any changes to
-it, and lets you introduce your own changes to it, but also means you
-have to explicitly pull in any updates from the upstream maintainers
-over time.
+Dependency စီမံခန့်ခွဲမှု စနစ်များနှင့် အလုပ်လုပ်သည့်အခါ _lock files_ အယူအဆကိုလည်း တွေ့ရနိုင်ပါသည်။ Lock file ဆိုသည်မှာ လက်ရှိ မှီခိုနေသော Dependency တစ်ခုစီ၏ တိကျသော Version ကို စာရင်းပြုလုပ်ထားသည့် ဖိုင်ဖြစ်ပါသည်။ သာမန်အားဖြင့် အပ်ဒိတ် ပရိုဂရမ်ကို ရန်းမှသာ Version အသစ်များသို့ အဆင့်မြှင့်မည် ဖြစ်သည်။ မလိုအပ်ဘဲ ပြန်လည် Compile လုပ်ခြင်းကို ရှောင်ရှားရန်၊ ပြန်လည် ထုတ်လုပ်နိုင်သော Build များ ရရှိရန် စသည့် အကြောင်းပြချက်များ ရှိပါသည်။ ဤ Lock ပြုလုပ်ခြင်း၏ ပြင်းထန်သော မူကွဲမှာ _vendoring_ ဖြစ်ပြီး ယင်းသည် Dependency များ၏ Code အားလုံးကို မိမိ ပရောဂျက်ထဲသို့ ကူးယူလိုက်ခြင်း ဖြစ်သည်။ ၎င်းသည် အပြောင်းအလဲများကို အပြည့်အဝ ထိန်းချုပ်နိုင်စေသော်လည်း Maintainer များထံမှ အပ်ဒိတ်များကို ကိုယ်တိုင် ယူဆောင်ရမည် ဖြစ်သည်။
 
 # Continuous integration systems
 
-As you work on larger and larger projects, you'll find that there are
-often additional tasks you have to do whenever you make a change to it.
-You might have to upload a new version of the documentation, upload a
-compiled version somewhere, release the code to pypi, run your test
-suite, and all sort of other things. Maybe every time someone sends you
-a pull request on GitHub, you want their code to be style checked and
-you want some benchmarks to run? When these kinds of needs arise, it's
-time to take a look at continuous integration.
+ကြီးမားသော ပရောဂျက်များတွင် အလုပ်လုပ်လာသည်နှင့်အမျှ အပြောင်းအလဲ ပြုလုပ်တိုင်း ထပ်မံ လုပ်ဆောင်ရမည့် အလုပ်များ ရှိလာသည်ကို တွေ့ရမည်။ Documentation မူကွဲအသစ် တင်ခြင်း၊ Compiled version တင်ခြင်း၊ Code များကို PyPI သို့ လွှင့်ခြင်း၊ Test စာအုပ်များ ရန်းခြင်း စသည်တို့ ဖြစ်သည်။ GitHub တွင် Pull Request တင်တိုင်း စတိုင် စစ်ဆေးစေချင်သလား။ ဤကဲ့သို့သော လိုအပ်ချက်များအတွက် Continuous Integration ကို လေ့လာရမည် ဖြစ်သည်။
 
-Continuous integration, or CI, is an umbrella term for "stuff that runs
-whenever your code changes", and there are many companies out there that
-provide various types of CI, often for free for open-source projects.
-Some of the big ones are Travis CI, Azure Pipelines, and GitHub Actions.
-They all work in roughly the same way: you add a file to your repository
-that describes what should happen when various things happen to that
-repository. By far the most common one is a rule like "when someone
-pushes code, run the test suite". When the event triggers, the CI
-provider spins up a virtual machines (or more), runs the commands in
-your "recipe", and then usually notes down the results somewhere. You
-might set it up so that you are notified if the test suite stops
-passing, or so that a little badge appears on your repository as long as
-the tests pass.
+Continuous integration (CI) ဆိုသည်မှာ "Code ပြောင်းလဲတိုင်း ရန်းမည့် အရာများ" အတွက် ခြုံငုံ ခေါ်ဆိုသော ဝေါဟာရ ဖြစ်ပြီး Open-source ပရောဂျက်များအတွက် အခမဲ့ ပေးသော CI ကုမ္ပဏီများစွာ ရှိပါသည်။ Travis CI, Azure Pipelines နှင့် GitHub Actions တို့ ဖြစ်ကြသည်။ ယင်းတို့ အားလုံးသည် ပရောဂျက်တွင် ဖိုင်တစ်ခု ထည့်သွင်း၍ ဖြစ်ရပ်များ ဖြစ်ပေါ်သည့်အခါ မည်သို့ ပြုလုပ်ရမည်ကို သတ်မှတ်ပေးရသည်။ အသုံးအများဆုံး Rule မှာ "Code ပို့လိုက်ပါက Test များ ရန်းပါ" ဟူ၍ ဖြစ်သည်။ ဖြစ်ရပ် ဖြစ်ပေါ်ပါက Virtual machine ကို စတင်၍ ရလဒ်များကို မှတ်တမ်းတင်ပေးပါသည်။ Test ပျက်စီးပါက အကြောင်းကြားစာ ရရှိရန် ပြုလုပ်ထားနိုင်ပါသည်။
 
-As an example of a CI system, the class website is set up using GitHub
-Pages. Pages is a CI action that runs the Jekyll blog software on every
-push to `master` and makes the built site available on a particular
-GitHub domain. This makes it trivial for us to update the website! We
-just make our changes locally, commit them with git, and then push. CI
-takes care of the rest.
+CI စနစ်၏ ဥပမာတစ်ခုအဖြစ် ဤအတန်း၏ ဝဘ်ဆိုက်ကို GitHub Pages ဖြင့် ပြင်ဆင်ထားပါသည်။ Pages သည် `master` သို့ Push လုပ်တိုင်း Jekyll ကို ရန်းပေးသော CI Action ဖြစ်ပါသည်။ ဤသည်မှာ ဝဘ်ဆိုက်ကို အပ်ဒိတ်လုပ်ရန် အလွန် လွယ်ကူစေပါသည်! Local တွင် ပြင်ဆင်သည်၊ Git ဖြင့် Commit လုပ်သည်၊ Push လုပ်သည်။ CI က ကျန်သည်များကို လုပ်ဆောင်ပေးပါသည်။
 
 ## A brief aside on testing
 
-Most large software projects come with a "test suite". You may already
-be familiar with the general concept of testing, but we thought we'd
-quickly mention some approaches to testing and testing terminology that
-you may encounter in the wild:
+ကြီးမားသော Software ပရောဂျက် အများစုတွင် "test suite" ပါရှိကြပါသည်။ Testing ၏ အယူအဆအချို့ကို အောက်ပါအတိုင်း တွေ့ရနိုင်ပါသည် -
 
- - Test suite: a collective term for all the tests
- - Unit test: a "micro-test" that tests a specific feature in isolation
- - Integration test: a "macro-test" that runs a larger part of the
-   system to check that different feature or components work _together_.
- - Regression test: a test that implements a particular pattern that
-   _previously_ caused a bug to ensure that the bug does not resurface.
- - Mocking: to replace a function, module, or type with a fake
-   implementation to avoid testing unrelated functionality. For example,
-   you might "mock the network" or "mock the disk".
+ - Test suite: Test အားလုံး၏ စုစည်းမှု
+ - Unit test: သီးခြား အင်္ဂါရပ်တစ်ခုကို သီးသန့် စမ်းသပ်သော "micro-test"
+ - Integration test: အစိတ်အပိုင်း အသီးသီး အတူတကွ အလုပ်လုပ်ပုံကို စမ်းသပ်သော "macro-test"
+ - Regression test: ယခင်က ဖြစ်ပွားခဲ့သော Bug ထပ်မံ မဖြစ်စေရန် စမ်းသပ်သော Test
+ - Mocking: သီးခြား အင်္ဂါရပ်များကို သီးသန့် စမ်းသပ်နိုင်ရန် Function, Module များကို အတု ပြုလုပ်ခြင်း (ဥပမာ "mock the network" သို့မဟုတ် "mock the disk")
 
 # Exercises
 
- 1. Most makefiles provide a target called `clean`. This isn't intended
-    to produce a file called `clean`, but instead to clean up any files
-    that can be re-built by make. Think of it as a way to "undo" all of
-    the build steps. Implement a `clean` target for the `paper.pdf`
-    `Makefile` above. You will have to make the target
-    [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html).
-    You may find the [`git
-    ls-files`](https://git-scm.com/docs/git-ls-files) subcommand useful.
-    A number of other very common make targets are listed
-    [here](https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets).
- 2. Take a look at the various ways to specify version requirements for
-    dependencies in [Rust's build
-    system](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html).
-    Most package repositories support similar syntax. For each one
-    (caret, tilde, wildcard, comparison, and multiple), try to come up
-    with a use-case in which that particular kind of requirement makes
-    sense.
- 3. Git can act as a simple CI system all by itself. In `.git/hooks`
-    inside any git repository, you will find (currently inactive) files
-    that are run as scripts when a particular action happens. Write a
-    [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) hook
-    that runs `make paper.pdf` and refuses the commit if the `make`
-    command fails. This should prevent any commit from having an
-    unbuildable version of the paper.
- 4. Set up a simple auto-published page using [GitHub
-    Pages](https://pages.github.com/).
-    Add a [GitHub Action](https://github.com/features/actions) to the
-    repository to run `shellcheck` on any shell files in that
-    repository (here is [one way to do
-    it](https://github.com/marketplace/actions/shellcheck)). Check that
-    it works!
- 5. [Build your
-    own](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)
-    GitHub action to run [`proselint`](https://github.com/amperser/proselint) or
-    [`write-good`](https://github.com/btford/write-good) on all the
-    `.md` files in the repository. Enable it in your repository, and
-    check that it works by filing a pull request with a typo in it.
+ 1. Makefile အများစုတွင် `clean` ဟုခေါ်သော Target ပါရှိသည်။ ယင်းသည် `clean` ဖိုင် ထုတ်ရန် မဟုတ်ဘဲ ပြန်လည် Build လုပ်နိုင်သော ဖိုင်များကို ရှင်းလင်းရန် ဖြစ်သည်။ `paper.pdf` ၏ `Makefile` တွင် `clean` target ထည့်သွင်းပါ။ Target ကို [phony](https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html) ပြုလုပ်ရန် လိုပါမည်။ [`git ls-files`](https://git-scm.com/docs/git-ls-files) ကို သုံးနိုင်ပါသည်။
+
+ 2. [Rust ၏ build system](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html) ရှိ Dependency Version သတ်မှတ်ချက် နည်းလမ်းများကို လေ့လာပါ။ နည်းလမ်း တစ်ခုစီအတွက် သင့်တော်သော အခြေအနေများကို စဉ်းစားပါ။
+
+ 3. Git ကိုယ်တိုင်သည် ရိုးရှင်းသော CI စနစ်အဖြစ် အလုပ်လုပ်နိုင်ပါသည်။ Git repo တိုင်းရှိ `.git/hooks` တွင် သီးခြား အရေးယူမှုများ ဖြစ်ပေါ်ပါက ရန်းမည့် Script ဖိုင်များ ရှိပါသည်။ `make paper.pdf` ရန်းမည့် [`pre-commit`](https://git-scm.com/docs/githooks#_pre_commit) hook တစ်ခု ရေးပါ၊ `make` မအောင်မြင်ပါက Commit ကို ငြင်းပယ်ပါစေ။
+
+ 4. [GitHub Pages](https://pages.github.com/) ဖြင့် အလိုအလျောက် ထုတ်ဝေသော စာမျက်နှာတစ်ခု ပြင်ဆင်ပါ။ Repo ရှိ Shell ဖိုင်များတွင် `shellcheck` ရန်းရန် [GitHub Action](https://github.com/features/actions) ထည့်သွင်းပါ။
+
+ 5. Repo ရှိ `.md` ဖိုင်များတွင် [`proselint`](https://github.com/amperser/proselint) သို့မဟုတ် [`write-good`](https://github.com/btford/write-good) ရန်းမည့် မိမိပိုင် GitHub action ကို [ဖန်တီးပါ](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/building-actions)။ စာလုံးပေါင်း မှားသော PR ဖြင့် စမ်းသပ်ပါ။

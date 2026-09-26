@@ -2,7 +2,7 @@
 layout: page
 title: "2019 Lectures"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2019.
+  Missing Semester, MIT IAP 2019 ၏ သင်ခန်းစာ မှတ်တမ်းများနှင့် ဗီဒီယိုများ။
 permalink: /2019/
 phony: true
 ---
@@ -25,7 +25,7 @@ phony: true
 
 # Beyond MIT
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+အခြားသူများလည်း ဤ အရင်းအမြစ်များမှ အကျိုးကျေးဇူး ရရှိနိုင်စေရန် ဤအတန်းကို MIT ၏ အပြင်ဘက်သို့လည်း မျှဝေထားပါသည်။ အောက်ပါ နေရာများတွင် ဆွေးနွေးချက်များကို ရှာဖွေနိုင်ပါသည် -
 
 - [Hacker News](https://news.ycombinator.com/item?id=19078281)
 - [Lobsters](https://lobste.rs/s/h6157x/mit_hacker_tools_lecture_series_on)
@@ -36,4 +36,4 @@ We've also shared this class beyond MIT in the hopes that others may benefit fro
 
 # Acknowledgments
 
-This class was taught as part of [SIPB IAP 2019](https://sipb.mit.edu/iap/2019/) and co-sponsored by [SIPB](https://sipb.mit.edu/) and [MIT EECS](https://www.eecs.mit.edu/).
+ဤအတန်းကို [SIPB IAP 2019](https://sipb.mit.edu/iap/2019/) ၏ အစိတ်အပိုင်းအဖြစ် သင်ကြားခဲ့ပြီး [SIPB](https://sipb.mit.edu/) နှင့် [MIT EECS](https://www.eecs.mit.edu/) တို့မှ ပူးတွဲ ပံ့ပိုးပေးခဲ့ပါသည်။

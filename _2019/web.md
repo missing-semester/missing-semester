@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Web and Browsers"
+title: "Web နှင့် Web Browser များ"
 presenter: Jose
 date: 2019-01-31
 order: 1
@@ -10,65 +10,65 @@ video:
 special: true
 ---
 
-Apart from the terminal, the web browser is a tool you will find yourself spending significant amounts of time into. Thus it is worth learning how to use it efficiently and productively.
+Terminal ပြီးရင် Web Browser ဟာ သင်အချိန်တော်တော်များများ အသုံးပြုရမယ့် Tool တစ်ခုဖြစ်ပါတယ်။ ဒါကြောင့်မို့လို့ သူ့ကို ထိရောက်ပြီး အကျိုးရှိရှိ ဘယ်လိုအသုံးပြုရမလဲဆိုတာ လေ့လာသင်ယူထားတာ ထိုက်တန်ပါတယ်။
 
-## Shortcuts
+## Shortcuts (ဖြတ်လမ်းနည်းများ)
 
-Clicking around in your browser is often not the fastest option, getting familiar with common shortcuts can really pay off in the long run.
+မိမိရဲ့ Browser ထဲမှာ ကလစ်လိုက်နှိပ်နေခြင်းဟာ အမြဲတမ်း အမြန်ဆုံးနည်းလမ်း မဟုတ်ပါဘူး။ အသုံးများတဲ့ Shortcut တွေကို ယှဉ်တွဲသိရှိထားခြင်းဟာ ရေရှည်မှာ တကယ်ပဲ အကျိုးရှိစေမှာ ဖြစ်ပါတယ်။
 
-- `Middle Button Click` in a link opens it in a new tab
-- `Ctrl+T` Opens a new tab
-- `Ctrl+Shift+T` Reopens a recently closed tab
-- `Ctrl+L` selects the contents of the search bar
-- `Ctrl+F` to search within a webpage. If you do this often, you may benefit from an extension that supports regular expressions in searches.
-
-
-## Search operators
-
-Web search engines like Google or DuckDuckGo provide search operators to enable more elaborate web searches:
-
-- `"bar foo"` enforces an exact match of bar foo
-- `foo site:bar.com` searches for foo within bar.com
-- `foo -bar ` excludes the terms containing bar from the search
-- `foobar filetype:pdf` Searches for files of that extension
-- `(foo|bar)` searches for matches that have foo OR bar
-
-More through lists are available for popular engines like [Google](https://ahrefs.com/blog/google-advanced-search-operators/) and [DuckDuckGo](https://duck.co/help/results/syntax)
+- Link တစ်ခုပေါ်မှာ `Middle Button Click` (Mouse ဘီးနှိပ်ခြင်း) နှိပ်ပါက Tab အသစ်တစ်ခုမှာ ဖွင့်ပေးပါမည်။
+- `Ctrl+T` - Tab အသစ်တစ်ခု ဖွင့်ရန်။
+- `Ctrl+Shift+T` - မကြာသေးမီက ပိတ်လိုက်သော Tab ကို ပြန်ဖွင့်ရန်။
+- `Ctrl+L` - Search bar ထဲမှ စာသားများကို ရွေးချယ်ရန်။
+- `Ctrl+F` - Webpage အတွင်း ရှာဖွေရန်။ အကယ်၍ သင်သည် ဤသို့မကြာခဏ ရှာဖွေလေ့ရှိပါက Search များတွင် Regular Expression များကို ပံ့ပိုးပေးသည့် Extension တစ်ခုကို အသုံးပြုခြင်းဖြင့် အကျိုးရှိနိုင်ပါတယ်။
 
 
-## Searchbar
+## Search operators (ရှာဖွေမှု သင်္ကေတများ)
 
-The searchbar is a powerful tool too. Most browsers can infer search engines from websites and will store them. By editing the keyword argument
+Google သို့မဟုတ် DuckDuckGo ကဲ့သို့သော Web Search Engine များသည် ပိုမိုတိကျ အသေးစိတ်ကျသော ရှာဖွေမှုများ ပြုလုပ်နိုင်ရန် Search Operator များကို ပံ့ပိုးပေးထားပါတယ်-
 
-- In Google Chrome they are in [chrome://settings/searchEngines](chrome://settings/searchEngines)
-- In Firefox they are in [about:preferences#search](about:preferences#search)
+- `"bar foo"` - bar foo ဟူသော စကားစု အတိအကျ ပါဝင်မှုကို သတ်မှတ်ရှာဖွေပေးသည်။
+- `foo site:bar.com` - bar.com ဝက်ဘ်ဆိုက် အတွင်း၌သာ foo ကို ရှာဖွေပေးသည်။
+- `foo -bar` - bar ဟူသော စကားလုံး ပါဝင်သည့် ရလဒ်များကို ရှာဖွေမှုမှ ဖယ်ထုတ်ပေးသည်။
+- `foobar filetype:pdf` - ထို File Extension ရှိသည့် ဖိုင်များကို ရှာဖွေပေးသည်။
+- `(foo|bar)` - foo သို့မဟုတ် bar ပါဝင်သည့် ကိုက်ညီမှုများကို ရှာဖွေပေးသည်။
 
-For example you can make so that `y SOME SEARCH TERMS` to directly search in youtube.
-
-Moreover, if you own a domain you can setup subdomain forwards using your registrar. For instance I have mapped `https://ht.josejg.com` to this course website. That way I can just type `ht.` and the searchbar will autocomplete. Another good feature of this setup is that unlike bookmarks they will work in every browser.
-
-## Privacy extensions
-
-Nowadays surfing the web can get quite annoying due to ads and invasive due to trackers. Moreover a good adblocker not only blocks most ad content but it will also block sketchy and malicious websites since they will be included in the common blacklists. They will also reduce page load times sometimes by reducing the amount of requests performed. A couple of recommendations are:
-
-- **uBlock origin** ([Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)): block ads and trackers based on predefined rules. You should also consider taking a look at the enabled blacklists in settings since you can enable more based on your region or browsing habits. You can even install filters from [around the web](https://github.com/gorhill/uBlock/wiki/Filter-lists-from-around-the-web)
-
-- **[Privacy Badger](https://privacybadger.org/)**: detects and blocks trackers automatically. For example when you go from website to website ad companies track which sites you visit and build a profile of you
-
-- **[HTTPS everywhere](https://www.eff.org/https-everywhere)** is a wonderful extension that redirects to HTTPS version of a website automatically, if available.
-
-You can find about more addons of this kind [here](https://www.privacytools.io/privacy-browser-addons/)
-
-## Style customization
-
-Web browsers are just another piece of software running in _your machine_ and thus you usually have the last say about what they should display or how they should behave. An example of this are custom styles. Browsers determine how to render the style of a  webpage using Cascading Style Sheets often abbreviated as CSS.
-
-You can access the source code of a website by inspecting it and changing its contents and styles temporarily (this is also a reason why you should never trust webpage screenshots).
-
-If you want to permanently tell your browser to override the style settings for a webpage you will need to use an extension. Our recommendation is **[Stylus](https://github.com/openstyles/stylus)** ([Firefox](https://addons.mozilla.org/en-US/firefox/addon/styl-us/), [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne?hl=en)).
+[Google](https://ahrefs.com/blog/google-advanced-search-operators/) နှင့် [DuckDuckGo](https://duck.co/help/results/syntax) ကဲ့သို့သော လူကြိုက်များသည့် Engine များအတွက် ပိုမိုပြည့်စုံသည့် စာရင်းများကို သက်ဆိုင်ရာ Link များတွင် ဝင်ရောက်ကြည့်ရှုနိုင်ပါတယ်။
 
 
-For example, we can write the following style for the class website
+## Searchbar (ရှာဖွေမှုဘား)
+
+Searchbar ဟာလည်း စွမ်းဆောင်ရည်ထက်မြက်တဲ့ Tool တစ်ခု ဖြစ်ပါတယ်။ Browser အများစုဟာ ဝက်ဘ်ဆိုက်များမှ Search Engine များကို အလိုအလျောက် ရယူမှတ်သားထားနိုင်ပါတယ်။ Keyword argument ကို ပြင်ဆင်ခြင်းဖြင့်-
+
+- Google Chrome တွင် [chrome://settings/searchEngines](chrome://settings/searchEngines) ၌ ရှိသည်။
+- Firefox တွင် [about:preferences#search](about:preferences#search) ၌ ရှိသည်။
+
+ဥပမာအားဖြင့် `y SOME SEARCH TERMS` ဟု ရိုက်ထည့်ရုံဖြင့် YouTube ထဲတွင် တိုက်ရိုက် ရှာဖွေနိုင်အောင် ပြုလုပ်နိုင်ပါတယ်။
+
+ထို့ပြင် သင့်ထံတွင် ကိုယ်ပိုင် Domain ရှိပါက Registrar မှတစ်ဆင့် Subdomain Forward ပြုလုပ်ထားနိုင်ပါတယ်။ ဥပမာအားဖြင့် ကျွန်တော်သည် `https://ht.josejg.com` ကို ဤသင်တန်း ဝက်ဘ်ဆိုက်သို့ ချိန်ညှိ (map) ထားပါတယ်။ ဤနည်းဖြင့် `ht.` ဟု ရိုက်ထည့်လိုက်သည်နှင့် Searchbar က အလိုအလျောက် ဖြည့်စွက် (autocomplete) ပေးသွားမှာ ဖြစ်ပါတယ်။ ဤစနစ်၏ အခြားကောင်းမွန်သည့် အချက်တစ်ခုမှာ Bookmark များနှင့် မတူဘဲ Browser တိုင်းတွင် အလုပ်လုပ်မည် ဖြစ်ခြင်းပင် ဖြစ်ပါတယ်။
+
+## Privacy extensions (သီးသန့်လုံခြုံရေးဆိုင်ရာ Extension များ)
+
+ယနေ့ခေတ်တွင် ကြော်ငြာများကြောင့် Web ကြည့်ရှုရသည်မှာ စိတ်ရှုပ်စရာ ကောင်းလာပြီး Tracker များကြောင့် ကိုယ်ရေးအချက်အလက် ကျူးလွန်ခံရမှုများ ရှိလာပါတယ်။ ထို့ပြင် ကောင်းမွန်သည့် Adblocker တစ်ခုသည် ကြော်ငြာအများစုကို ပိတ်ပင်ပေးရုံသာမက သံသယဖြစ်ဖွယ်နှင့် မကောင်းသော မဲလ်ဝဲ ဝက်ဘ်ဆိုက်များကိုလည်း အများသုံး Blacklist စာရင်းများတွင် ပါဝင်သောကြောင့် ပိတ်ပင်ပေးသွားမည် ဖြစ်ပါတယ်။ ၎င်းတို့သည် ပြုလုပ်ရသည့် Request အရေအတွက်ကို လျှော့ချပေးခြင်းဖြင့် ဝက်ဘ်ဆိုက် ပွင့်သည့်ကြာချိန် (page load time) ကိုလည်း အချို့နေရာများတွင် ပိုမိုမြန်ဆန်စေပါတယ်။ အကြံပြုလိုသည့် Extension အချို့မှာ-
+
+- **uBlock origin** ([Chrome](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)) - သတ်မှတ်ထားသော စည်းမျဉ်းများ (rules) ပေါ်မူတည်၍ ကြော်ငြာများနှင့် Tracker များကို ပိတ်ပင်ပေးသည်။ သင်၏ ဒေသ သို့မဟုတ် သုံးစွဲမှု အလေ့အထများပေါ် မူတည်၍ ထပ်မံဖွင့်လှစ်နိုင်သောကြောင့် Settings ထဲရှိ ဖွင့်ထားသော Blacklist စာရင်းများကို ကြည့်ရှုစစ်ဆေးသင့်ပါတယ်။ [အင်တာနက်ပေါ်ရှိ](https://github.com/gorhill/uBlock/wiki/Filter-lists-from-around-the-web) Filter စာရင်းများကိုလည်း ထည့်သွင်း အသုံးပြုနိုင်ပါတယ်။
+
+- **[Privacy Badger](https://privacybadger.org/)** - Tracker များကို အလိုအလျောက် ထောက်လှမ်း၍ ပိတ်ပင်ပေးသည်။ ဥပမာ သင်သည် ဝက်ဘ်ဆိုက်တစ်ခုမှ တစ်ခုသို့ ကူးပြောင်း ကြည့်ရှုသည့်အခါ ကြော်ငြာကုမ္ပဏီများသည် သင်ဝင်ရောက်သည့် ဆိုက်များကို စောင့်ကြည့်မှတ်သားပြီး သင့်ဆိုင်ရာ Profile တစ်ခု တည်ဆောက်ကြသည်။
+
+- **[HTTPS everywhere](https://www.eff.org/https-everywhere)** - ရရှိနိုင်ပါက ဝက်ဘ်ဆိုက်၏ HTTPS Version သို့ အလိုအလျောက် ပြန်လည်ညွှန်းပို့ (redirect) ပေးသည့် ကောင်းမွန်သော Extension တစ်ခု ဖြစ်သည်။
+
+ဤကဲ့သို့သော Addon များအကြောင်း ပိုမို၍ [ဤနေရာတွင်](https://www.privacytools.io/privacy-browser-addons/) လေ့လာနိုင်ပါတယ်။
+
+## Style customization (ဒီဇိုင်း ပုံစံ ပြင်ဆင်ခြင်း)
+
+Web Browser များသည် သင်၏ _ကွန်ပျူတာစက်_ ပေါ်တွင် အလုပ်လုပ်နေသည့် အခြားသော Software တစ်ခု မျှသာ ဖြစ်သောကြောင့် ၎င်းတို့ ဘာပြသရမည်၊ ဘယ်လို ပြုမူဆောင်ရွက်ရမည် ဆိုသည်ကို နောက်ဆုံး ဆုံးဖြတ်ခွင့်မှာ သင့်တွင် ရှိပါတယ်။ ထိုသို့ ပြုလုပ်နိုင်သည့် ဥပမာတစ်ခုမှာ Custom Style များ ပြုလုပ်ခြင်း ဖြစ်ပါတယ်။ Browser များသည် Webpage တစ်ခု၏ ဒီဇိုင်းပုံစံကို ဖော်ပြရန် (render) Cascading Style Sheets (အတိုကောက် CSS) ကို အသုံးပြုကြပါတယ်။
+
+ဝက်ဘ်ဆိုက်တစ်ခု၏ Source Code ကို Inspect ပြုလုပ်ခြင်းဖြင့် ၎င်း၏ အကြောင်းအရာများနှင့် ဒီဇိုင်းပုံစံများကို ယာယီ ပြောင်းလဲကြည့်ရှုနိုင်ပါတယ်။ (ဒါကြောင့်လည်း Webpage ၏ Screenshot များကို မည်သည့်အခါမျှ ရာနှုန်းပြည့် မယုံကြည်သင့်သည့် အကြောင်းရင်း ဖြစ်ပါတယ်)။
+
+အကယ်၍ သင်သည် Webpage တစ်ခု၏ Style Settings များကို အမြဲတမ်း အစားထိုး (override) ပြုလုပ်ရန် သင်၏ Browser အား ခိုင်းစေလိုပါက Extension တစ်ခုကို အသုံးပြုရန် လိုအပ်မည် ဖြစ်သည်။ ကျွန်ုပ်တို့ အကြံပြုလိုသည်မှာ **[Stylus](https://github.com/openstyles/stylus)** ([Firefox](https://addons.mozilla.org/en-US/firefox/addon/styl-us/), [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne?hl=en)) ဖြစ်ပါတယ်။
+
+
+ဥပမာအားဖြင့် သင်တန်း ဝက်ဘ်ဆိုက်အတွက် အောက်ပါ Style ကို ရေးသားနိုင်ပါတယ်-
 
 
 ```css
@@ -86,14 +86,14 @@ a:link {
 }
 ```
 
-Moreover, Stylus can find styles written by other users and published in [userstyles.org](https://userstyles.org/). Most common websites have one or several dark theme stylesheets for instance. FYI, you should not use Stylish since it was shown to leak user data, more [here](https://arstechnica.com/information-technology/2018/07/stylish-extension-with-2m-downloads-banished-for-tracking-every-site-visit/)
+ထို့ပြင် Stylus သည် အခြားသူများ ရေးသားထားပြီး [userstyles.org](https://userstyles.org/) တွင် တင်ထားသော Style များကိုလည်း ရှာဖွေပေးနိုင်ပါတယ်။ လူသိများသော ဝက်ဘ်ဆိုက် အများစုတွင် Dark Theme အပြင်အဆင် အနည်းဆုံး တစ်ခု သို့မဟုတ် တစ်ခုထက်မက ရှိတတ်ကြပါတယ်။ FYI အနေဖြင့် Stylish ကို အသုံးမပြုသင့်ပါ။ အဘယ်ကြောင့်ဆိုသော် အသုံးပြုသူ၏ ဒေတာများကို ပေါက်ကြားစေကြောင်း တွေ့ရှိထားရသောကြောင့် ဖြစ်ပြီး အသေးစိတ်ကို [ဤနေရာတွင်](https://arstechnica.com/information-technology/2018/07/stylish-extension-with-2m-downloads-banished-for-tracking-every-site-visit/) ဖတ်ရှုနိုင်ပါတယ်။
 
 
-## Functionality Customization
+## Functionality Customization (လုပ်ဆောင်ချက်များ ပုံစံပြင်ဆင်ခြင်း)
 
-In the same way that you can modify the style, you can also modify the behaviour of a website by writing custom javascript and them sourcing it using a web browser extension such as [Tampermonkey](https://tampermonkey.net/)
+ဒီဇိုင်းပုံစံကို ပြင်ဆင်နိုင်သကဲ့သို့ပင် ဝက်ဘ်ဆိုက်တစ်ခု၏ လုပ်ဆောင်ပုံ ပြုမူပုံကိုလည်း Custom JavaScript ရေးသားပြီး [Tampermonkey](https://tampermonkey.net/) ကဲ့သို့သော Browser Extension ဖြင့် ချိတ်ဆက်အသုံးပြုကာ ပြောင်းလဲနိုင်ပါတယ်။
 
-For example the following script enables vim-like navigation using the J and K keys.
+ဥပမာ အောက်ပါ Script သည် J နှင့် K Key များကို အသုံးပြု၍ Vim ကဲ့သို့ သွားလာလှုပ်ရှားမှု (navigation) ပြုလုပ်နိုင်စေပါတယ်-
 
 ```js
 // ==UserScript==
@@ -104,7 +104,7 @@ For example the following script enables vim-like navigation using the J and K k
 // @author       You
 // @match        https://hacker-tools.github.io/*
 // @grant        none
-// ==/UserScript==
+// ==UserScript==
 
 
 (function() {
@@ -122,14 +122,14 @@ For example the following script enables vim-like navigation using the J and K k
 })();
 ```
 
-There are also script repositories such as [OpenUserJS](https://openuserjs.org/) and [Greasy Fork](https://greasyfork.org/en). However, be warned, installing user scripts from others can be very dangerous since they can pretty much do anything such as steal your credit card numbers. Never install a script unless you read the whole thing yourself, understand what it does, and are absolutely sure that you know it isn't doing anything suspicious. Never install a script that contains minified or obfuscated code that you can't read!
+[OpenUserJS](https://openuserjs.org/) နှင့် [Greasy Fork](https://greasyfork.org/en) ကဲ့သို့သော Script Repository များလည်း ရှိကြပါတယ်။ သို့သော်လည်း သတိပြုရမည်မှာ အခြားသူများ၏ User Script များကို ထည့်သွင်းခြင်းသည် သင့်ခရက်ဒစ်ကတ် နံပါတ်များကို ခိုးယူခြင်းကဲ့သို့သော မည်သည့်အရာကိုမဆို ပြုလုပ်နိုင်သဖြင့် အလွန် အန္တရာယ်များနိုင်ပါတယ်။ သင့်ကိုယ်တိုင် စာကြောင်း တစ်ကြောင်းချင်းစီ ဖတ်ကြည့်ပြီး ၎င်းပြုလုပ်သည်များကို နားလည်ကာ သံသယဖြစ်ဖွယ် မရှိကြောင်း သေချာစွာ မသိမချင်း မည်သည့် Script ကိုမျှ မထည့်သွင်းပါနှင့်။ သင် မဖတ်နိုင်သော Minified သို့မဟုတ် Obfuscated (ထှာဆန်းအောင် ဖုံးကွယ်ထားသော) Code များ ပါဝင်သည့် Script ကို မည်သည့်အခါမျှ မထည့်သွင်းပါနှင့်။
 
 ## Web APIs
 
-It has become more and more common for webservices to offer an application interface aka web API so you can interact with the services making web requests.
-A more in depth introduction to the topic can be found [here](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction). There are [many public APIs](https://github.com/toddmotto/public-apis). Web APIs can be useful for very many reasons:
+Web service များတွင် Web Request များ ပြုလုပ်ပြီး သက်ဆိုင်ရာ ဝန်ဆောင်မှုများနှင့် ချိတ်ဆက် လုပ်ဆောင်နိုင်ရန် Web API ဟုခေါ်သော Application Interface များကို ပံ့ပိုးပေးလာကြခြင်းမှာ ပိုမို ခေတ်စားလာခဲ့ပါတယ်။
+ဤခေါင်းစဉ်နှင့် ပတ်သက်ပြီး ပိုမို အသေးစိတ်ကျသော မိတ်ဆက်ကို [ဤနေရာတွင်](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction) ဖတ်ရှုနိုင်ပါတယ်။ အများသုံးနိုင်သော [Public API အများအပြား](https://github.com/toddmotto/public-apis) ရှိကြပါတယ်။ Web API များသည် အကြောင်းရင်း အမြောက်အမြားအတွက် အသုံးဝင်လှပါတယ်-
 
-- **Retrieval**. Web APIs can quite easily provide you information such as maps, weather or what your public ip address. For instance `curl ipinfo.io` will return a JSON object with some details about your public ip, region, location, &c. With proper parsing these tools can be integrated even with command line tools. The following bash functions talks to Googles autocompletion API and returns the first ten matches.
+- **Retrieval (အချက်အလက်ရယူခြင်း)** - Web API များသည် မြေပုံများ၊ မိုးလေဝသ အခြေအနေ သို့မဟုတ် သင့် Public IP Address ကဲ့သို့သော အချက်အလက်များကို အလွယ်တကူ ပံ့ပိုးပေးနိုင်ပါတယ်။ ဥပမာအားဖြင့် `curl ipinfo.io` သည် သင့် Public IP၊ တိုင်းဒေသကြီး၊ တည်နေရာ စသည်တို့နှင့် ပတ်သက်သည့် အသေးစိတ် အချက်အလက်အချို့ ပါဝင်သော JSON object တစ်ခုကို ပြန်ပေးမည် ဖြစ်သည်။ စနစ်တကျ Parse ပြုလုပ်ခြင်းဖြင့် ဤ Tool များကို Command Line Tool များနှင့်ပင် ချိတ်ဆက်နိုင်ပါတယ်။ အောက်ပါ Bash function သည် Google ၏ Autocompletion API နှင့် ချိတ်ဆက်ပြီး ပထမဆုံး ကိုက်ညီမှု ၁၀ ခုကို ပြန်လည် ထုတ်ပေးပါသည်။
 
 ```bash
 function c() {
@@ -141,17 +141,17 @@ function c() {
 }
 ```
 
-- **Interaction**. Web API endpoints can also be used to trigger actions. These usually require some sort of authentication token that you can obtain through the service. For example performing the following
-`curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' "https://hooks.slack.com/services/$SLACK_TOKEN"` will send a `Hello, World!` message in a channel.
+- **Interaction (တုံ့ပြန်ဆောင်ရွက်ခြင်း)** - Web API endpoint များကို လုပ်ဆောင်ချက်များ စတင်ရန် (trigger action) လည်း အသုံးပြုနိုင်ပါတယ်။ ၎င်းတို့သည် သက်ဆိုင်ရာ ဝန်ဆောင်မှုမှတစ်ဆင့် ရယူနိုင်သော Authentication Token တစ်ခုခု လိုအပ်လေ့ရှိပါတယ်။ ဥပမာ အောက်ပါ command ကို သုံးစွဲခြင်းဖြင့်
+`curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' "https://hooks.slack.com/services/$SLACK_TOKEN"` သည် Channel တစ်ခုအတွင်းသို့ `Hello, World!` ဟူသော မက်ဆေ့ဂျ်ကို ပေးပို့ပေးမည် ဖြစ်သည်။
 
-- **Piping**. Since some services with web APIs are rather popular, common web API "gluing" has already been implemented and is provided with server included. This is the case for services like [If This Then That](https://ifttt.com/) and [Zapier](https://zapier.com/)
+- **Piping (ချိတ်ဆက် အလုပ်လုပ်စေခြင်း)** - Web API ရှိသည့် ဝန်ဆောင်မှု အချို့သည် အတော်ပင် လူကြိုက်များသောကြောင့် အများသုံး Web API များကို အချင်းချင်း ချိတ်ဆက်ပေးခြင်း (gluing) များကို Server တွင် တစ်ပါတည်း ထည့်သွင်း အကောင်အထည်ဖော် ပံ့ပိုးပေးထားပြီး ဖြစ်ပါတယ်။ [If This Then That](https://ifttt.com/) နှင့် [Zapier](https://zapier.com/) ကဲ့သို့သော ဝန်ဆောင်မှုများမှာ ထိုသို့ ပြုလုပ်ပေးထားခြင်း ဖြစ်ပါတယ်။
 
 
-## Web Automation
+## Web Automation (ဝက်ဘ်ဆိုက် လုပ်ဆောင်ချက်များကို အလိုအလျောက် ခိုင်းစေခြင်း)
 
-Sometimes web APIs are not enough. If only reading is needed you can use a html parser like `pup` or use a library, for example python has BeautifulSoup. However if interactivity or javascript execution is required those solutions fall short. 
+အချို့သော အခြေအနေများတွင် Web API များသည် မလုံလောက်ပါ။ အကယ်၍ ဖတ်ရှုရန်သာ လိုအပ်ပါက `pup` ကဲ့သို့သော HTML Parser သို့မဟုတ် Python ၏ BeautifulSoup ကဲ့သို့သော Library များကို အသုံးပြုနိုင်ပါတယ်။ သို့သော် တုံ့ပြန်ဆောင်ရွက်မှု သို့မဟုတ် JavaScript အကောင်အထည်ဖော်မှု လိုအပ်ပါက ထိုနည်းလမ်းများသည် လုံလောက်မှု မရှိတော့ပါ။
 
-- **WebDriver**. For example, the following script will save the specified url using the wayback machine simulating the interaction of typing the website.
+- **WebDriver** - ဥပမာ အောက်ပါ Script သည် ဝက်ဘ်ဆိုက် ရိုက်ထည့်သည့် အပြုအမူကို တုပ (simulate) ပြီး သတ်မှတ်ထားသော URL ကို Wayback Machine အသုံးပြု၍ သိမ်းဆည်းပေးမည် ဖြစ်သည်-
 
 ```python
 from selenium.webdriver import Firefox
@@ -174,12 +174,10 @@ snapshot_wayback(driver, url)
 ```
 
 
-## Exercises
+## Exercises (လေ့ကျင့်ခန်းများ)
 
-1. Edit a keyword search engine that you use often in your web browser
-1. Install the mentioned extensions. Look into how uBlock Origin/Privacy Badger can be disabled for a website. What differences do you see? Try doing it in a website with plenty of ads like YouTube.
-1. Install Stylus and write a custom style for the class website using the CSS provided. Here are some common programming characters `=   ==   ===   >=   =>   ++   /=   ~=`. What happens to them when changing the font to Fira Code? If you want to know more search for programming font ligatures.
-1. Find a web api to get the weather in your city/area.
-1. Use a WebDriver software like [Selenium](https://www.selenium.dev/documentation/) to automate some repetitive manual task that you perform often with your browser.
-
-
+1. သင်၏ Web Browser တွင် မကြာခဏ အသုံးပြုလေ့ရှိသော Keyword Search Engine တစ်ခုကို ပြင်ဆင်ကြည့်ပါ။
+1. ဖော်ပြခဲ့သော Extension များကို ထည့်သွင်းပါ။ ဝက်ဘ်ဆိုက်တစ်ခုအတွက် uBlock Origin/Privacy Badger ကို မည်သို့ ပိတ်နိုင်မည်နည်းဆိုသည်ကို လေ့လာပါ။ မည်သည့် ကွာခြားချက်များကို မြင်တွေ့ရပါသနည်း။ YouTube ကဲ့သို့ ကြော်ငြာများပြားသည့် ဝက်ဘ်ဆိုက်တစ်ခုတွင် စမ်းသပ်ကြည့်ပါ။
+1. Stylus ကို ထည့်သွင်းပြီး ပေးထားသော CSS ကို အသုံးပြု၍ သင်တန်း ဝက်ဘ်ဆိုက်အတွက် Custom Style တစ်ခု ရေးသားပါ။ အသုံးများသော ပရိုဂရမ်းမင်း သင်္ကေတများမှာ `=   ==   ===   >=   =>   ++   /=   ~=` ဖြစ်ကြသည်။ Font ကို Fira Code သို့ ပြောင်းလိုက်သည့်အခါ ၎င်းတို့တွင် မည်သို့ ပြောင်းလဲသွားသနည်း။ ပိုမိုသိရှိလိုပါက Programming Font Ligatures အကြောင်း ရှာဖွေကြည့်ပါ။
+1. သင့်မြို့/ဒေသ၏ မိုးလေဝသ အခြေအနေကို ရယူနိုင်သည့် Web API တစ်ခုကို ရှာဖွေပါ။
+1. သင်၏ Browser တွင် မကြာခဏ ပြုလုပ်ရသည့် ထပ်တလဲလဲ အလုပ်များကို အလိုအလျောက် ပြုလုပ်နိုင်ရန် [Selenium](https://www.selenium.dev/documentation/) ကဲ့သို့သော WebDriver Software တစ်ခုကို အသုံးပြုကြည့်ပါ။

@@ -10,81 +10,60 @@ video:
 special: true
 ---
 
-There is a lot you can do to customize your operating system beyond what is
-available in the settings menus.
+သင့် operating system ၏ settings မီနူးများတွင် ပါရှိသည်များအပြင် မိမိ၏ OS ကို ပိုမိုစိတ်ကြိုက်ပြင်ဆင်နိုင်သော အရာများစွာ ရှိပါသည်။
 
-# Keyboard remapping
+# ကီးဘုတ် ခလုတ်များ ပြန်လည်သတ်မှတ်ခြင်း (Keyboard remapping)
 
-Your keyboard probably has keys that you aren't using very much. Instead of
-having useless keys, you can remap them to do useful things.
+သင့်ကီးဘုတ်တွင် သင်အသုံးသိပ်မပြုသည့် ခလုတ်များ ရှိနေနိုင်ပါသည်။ ထိုသို့ အသုံးမဝင်သော ခလုတ်များ ရှိနေမည့်အစား ၎င်းတို့ကို အသုံးဝင်သော လုပ်ဆောင်ချက်များ ပြုလုပ်နိုင်ရန် ပြန်လည်သတ်မှတ်ပေးနိုင်ပါသည် (remap ပြုလုပ်နိုင်ပါသည်။)
 
-## Remapping to other keys
+## အခြားခလုတ်များဆီသို့ ပြန်လည်သတ်မှတ်ခြင်း (Remapping to other keys)
 
-The simplest thing is to remap keys to other keys. For example, if you don't
-use the caps lock key very much, then you can remap it to something more
-useful. If you are a Vim user, for example, you might want to remap caps lock
-to escape.
+အရိုးရှင်းဆုံး အရာမှာ ခလုတ်တစ်ခုကို အခြားခလုတ်တစ်ခုအဖြစ် ပြန်လည်သတ်မှတ်ပေးခြင်း ဖြစ်ပါသည်။ ဥပမာအားဖြင့် သင်သည် Caps Lock ခလုတ်ကို သိပ်မသုံးလျှင် ၎င်းကို ပိုမိုအသုံးဝင်သော ခလုတ်တစ်ခုခုအဖြစ် ပြောင်းလဲသတ်မှတ်နိုင်ပါသည်။ ဥပမာ သင်သည် Vim အသုံးပြုသူတစ်ဦးဖြစ်ပါက Caps Lock ခလုတ်ကို Escape ခလုတ်အဖြစ် ပြန်လည်သတ်မှတ်လိုပေမည်။
 
-On macOS, you can do some remappings through Keyboard settings in System
-Preferences; for more complicated mappings, you need special software.
+macOS တွင် System Preferences ရှိ Keyboard settings ထဲမှတစ်ဆင့် ခလုတ်အချို့ကို ပြန်လည်သတ်မှတ်နိုင်ပြီး ပိုမိုရှုပ်ထွေးသော သတ်မှတ်မှုများအတွက် သီးသန့်ဆော့ဖ်ဝဲလ် လိုအပ်ပါသည်။
 
-## Remapping to arbitrary commands
+## စိတ်ကြိုက် command များဆီသို့ ပြန်လည်သတ်မှတ်ခြင်း (Remapping to arbitrary commands)
 
-You don't just have to remap keys to other keys: there are tools that will let
-you remap keys (or combinations of keys) to arbitrary commands. For example,
-you could make command-shift-t open a new terminal window.
+ခလုတ်တစ်ခုကို အခြားခလုတ်တစ်ခုအဖြစ်သာ မကဘဲ ခလုတ်များ (သို့မဟုတ် ခလုတ်တွဲများ) ကို မိမိစိတ်ကြိုက် command များနှင့် တွဲဖက်သတ်မှတ်ပေးနိုင်သော tool များလည်း ရှိပါသည်။ ဥပမာအားဖြင့် `command-shift-t` နှိပ်လိုက်ပါက terminal window အသစ်တစ်ခု ဖွင့်လှစ်ပေးနိုင်ရန် သတ်မှတ်နိုင်ပါသည်။
 
-# Customizing hidden OS settings
+# ဝှက်ထားသော OS Settings များကို စိတ်ကြိုက်ပြင်ဆင်ခြင်း (Customizing hidden OS settings)
 
 ## macOS
 
-macOS exposes a lot of useful settings through the `defaults` command. For
-example, you can make Dock icons of hidden applications translucent:
+macOS တွင် `defaults` command မှတစ်ဆင့် အသုံးဝင်သော setting အများအပြားကို ပြင်ဆင်နိုင်ရန် ပံ့ပိုးပေးထားပါသည်။ ဥပမာအားဖြင့် ဝှက်ထားသော application များ၏ Dock icon များကို အလင်းစိမ့်ဝင်မြင်နိုင်သော (translucent) ပုံစံ ဖြစ်စေရန် ပြုလုပ်နိုင်ပါသည်-
 
 ```shell
 defaults write com.apple.dock showhidden -bool true
 ```
 
-There is no single list of all possible settings, but you can find lists of
-specific customizations online, such as Mathias Bynens'
-[.macos](https://github.com/mathiasbynens/dotfiles/blob/master/.macos).
+ဖြစ်နိုင်ခြေရှိသော setting များ အားလုံးပါဝင်သည့် စာရင်းတစ်ခုတည်း ရနိုင်မည်မဟုတ်သော်လည်း သီးခြားစိတ်ကြိုက် ပြင်ဆင်မှုများ၏ စာရင်းများကို အွန်လိုင်းတွင် ရှာဖွေနိုင်ပါသည်၊ ဥပမာအားဖြင့် Mathias Bynens ၏ [.macos](https://github.com/mathiasbynens/dotfiles/blob/master/.macos) ကဲ့သို့ ဖြစ်ပါသည်။
 
-# Window management
+# Window စီမံခန့်ခွဲခြင်း (Window management)
 
-## Tiling window management
+## Tiling window management (ဝင်းဒိုးများကို မျက်နှာပြင်ပေါ်တွင် နေရာယူ စီစဉ်ခြင်း)
 
-[Tiling window management](https://en.wikipedia.org/wiki/Tiling_window_manager)
-is one approach to window management, where you organize windows into
-non-overlapping frames. If you're using a Linux-based operating system, you can
-install a tiling window manager; if you're using something like Windows or
-macOS, you can install applications that let you approximate this behavior.
+[Tiling window management](https://en.wikipedia.org/wiki/Tiling_window_manager) ဆိုသည်မှာ window များကို ထပ်မနေသော frame များအဖြစ် စီစဉ်ပေးသည့် window စီမံခန့်ခွဲမှု နည်းလမ်းတစ်ခု ဖြစ်ပါသည်။ သင်သည် Linux အခြေခံ operating system ကို အသုံးပြုနေပါက tiling window manager တစ်ခုကို ထည့်သွင်းအသုံးပြုနိုင်ပြီး Windows သို့မဟုတ် macOS ကဲ့သို့သော OS များကို အသုံးပြုနေပါက ထိုသို့ လုပ်ဆောင်ချက်မျိုး ရရှိစေမည့် application များကို ထည့်သွင်းနိုင်ပါသည်။
 
-## Screen management
+## Screen စီမံခန့်ခွဲခြင်း (Screen management)
 
-You can set up keyboard shortcuts to help you manipulate windows across
-screens.
+မျက်နှာပြင်များအကြား window များကို ရွှေ့ပြောင်း ထိန်းချုပ်နိုင်ရန် ကီးဘုတ် shortcut များကို သတ်မှတ်ထားနိုင်ပါသည်။
 
-## Layouts
+## Layout များ (Layouts)
 
-If there are specific ways you lay out windows on a screen, rather than
-"executing" that layout manually, you can script it, making instantiating a
-layout trivial.
+မျက်နှာပြင်တစ်ခုပေါ်တွင် window များကို သီးခြားနေရာချထားလေ့ရှိပါက ထို layout ကို ကိုယ်တိုင် ကိုယ်ကျ လိုက်လံနေရာချနေမည့်အစား script ရေးသားထားနိုင်ပြီး layout အသစ်တစ်ခု ဖန်တီးခြင်းကို လွယ်ကူလျင်မြန်စွာ ပြုလုပ်နိုင်မည် ဖြစ်ပါသည်။
 
-# Resources
+# လေ့လာရန် သယံဇာတများနှင့် Tool များ (Resources)
 
-- [Hammerspoon](https://www.hammerspoon.org/) - macOS desktop automation
+- [Hammerspoon](https://www.hammerspoon.org/) - macOS desktop များကို အလိုအလျောက် လုပ်ဆောင်ပေးသည့် tool
 - [Rectangle](https://rectangleapp.com/) - macOS window manager
-- [Karabiner](https://karabiner-elements.pqrs.org/) - sophisticated macOS keyboard remapping
-- [r/unixporn](https://www.reddit.com/r/unixporn/) - screenshots and
-documentation of people's fancy configurations
+- [Karabiner](https://karabiner-elements.pqrs.org/) - ဆန်းသစ်သော macOS keyboard remapping tool
+- [r/unixporn](https://www.reddit.com/r/unixporn/) - လူအများ၏ ဆန်းသစ်လှပသော configuration များ၏ screenshot များနှင့် မှတ်တမ်းများ
 
-# Exercises
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Figure out how to remap your Caps Lock key to something you use more often
-   (such as Escape or Ctrl or Backspace).
+1. သင့် Caps Lock ခလုတ်ကို သင် ပိုမိုအသုံးပြုသည့် ခလုတ်တစ်ခုခုဆီသို့ (ဥပမာ Escape၊ Ctrl သို့မဟုတ် Backspace ကဲ့သို့သော) မည်သို့ ပြန်လည်သတ်မှတ်ရမည်ကို လေ့လာရှာဖွေပါ။
 
-1. Make a custom global keyboard shortcut to open a new terminal window or a
-   new browser window.
+1. Terminal window အသစ် သို့မဟုတ် browser window အသစ် ဖွင့်လှစ်ရန် စိတ်ကြိုက် global keyboard shortcut တစ်ခု ပြုလုပ်ပါ။
 
 {% comment %}
 

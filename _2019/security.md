@@ -10,22 +10,15 @@ video:
 special: true
 ---
 
-The world is a scary place, and everyone's out to get you.
+ကမ္ဘာကြီးသည် ကြောက်စရာကောင်းသော နေရာတစ်ခုဖြစ်ပြီး လူတိုင်းက သင့်ကို ဒုက္ခပေးရန် စောင့်ဆိုင်းနေကြသည်။
 
-Okay, maybe not, but that doesn't mean you want to flaunt all your
-secrets. Security (and privacy) is generally all about raising the bar
-for attackers. Find out what your threat model is, and then design your
-security mechanisms around that! If the threat model is the NSA or
-Mossad, you're _probably_ going to have a bad time.
+ကဲ၊ အမှန်တကယ်တော့ ထိုသို့မဟုတ်ကောင်း မဟုတ်နိုင်သော်လည်း၊ ယင်းက သင့်လျှို့ဝှက်ချက်အားလုံးကို ပေါ်ပေါ်ထင်ထင် ထုတ်ပြသင့်သည်ဟု မဆိုလိုပါ။ လုံခြုံရေး (နှင့် သီးသန့်လုံခြုံမှု) ဆိုသည်မှာ ယေဘုယျအားဖြင့် တိုက်ခိုက်သူများအတွက် ခက်ခဲအောင် အတားအဆီး မြှင့်တင်ပေးခြင်း ဖြစ်သည်။ သင့်တွင် မည်သည့် ခြိမ်းခြောက်မှု မူဘောင် (threat model) ရှိသည်ကို ရှာဖွေပြီး ထိုအပေါ် အခြေခံ၍ လုံခြုံရေး နည်းလမ်းများကို ဒီဇိုင်းထုတ်ပါ! သင့် ခြိမ်းခြောက်မှု မူဘောင်သည် NSA သို့မဟုတ် Mossad ဖြစ်နေပါက သင့်အတွက် ဒုက္ခလှလှ ရောက်ရပေလိမ့်မည်။
 
-There are _many_ ways to make your technical persona more secure. We'll
-touch on a lot of high-level things here, but this is a process, and
-educating yourself is one of the best things you can do. So:
+သင့်နည်းပညာဆိုင်ရာ ကိုယ်ရည်ကိုယ်သွေး (technical persona) ကို ပိုမိုလုံခြုံစေရန် နည်းလမ်း _များစွာ_ ရှိပါသည်။ ဤနေရာတွင် အထွေထွေ အဆင့်မြင့် အရာအများအပြားကို ဆွေးနွေးသွားမည် ဖြစ်သော်လည်း၊ ဤသည်မှာ စဉ်ဆက်မပြတ် လုပ်ဆောင်ရမည့် လုပ်ငန်းစဉ် တစ်ခုဖြစ်ပြီး မိမိကိုယ်ကို လေ့လာသင်ယူခြင်းသည် သင်ပြုလုပ်နိုင်သည့် အကောင်းဆုံး အရာများထဲမှ တစ်ခုဖြစ်သည်။ ထို့ကြောင့် -
 
-## Follow the Right People
+## သင့်တော်သော လူများကို Follow လုပ်ပါ (Follow the Right People)
 
-One of the best ways to improve your security know-how is to follow
-other people who are vocal about security. Some suggestions:
+သင့်လုံခြုံရေးဆိုင်ရာ ဗဟုသုတများကို မြှင့်တင်ရန် အကောင်းဆုံး နည်းလမ်းတစ်ခုမှာ လုံခြုံရေးအကြောင်း ပြောဆိုဆွေးနွေးလေ့ရှိသော အခြားသူများကို Follow လုပ်ခြင်း ဖြစ်သည်။ အကြံပြုချက် အချို့မှာ -
 
  - [@TroyHunt](https://twitter.com/TroyHunt)
  - [@SwiftOnSecurity](https://twitter.com/SwiftOnSecurity)
@@ -35,179 +28,68 @@ other people who are vocal about security. Some suggestions:
  - [@mattblaze](https://twitter.com/mattblaze)
  - [@moxie](https://twitter.com/moxie)
 
-See also [this
-list](https://heimdalsecurity.com/blog/best-twitter-cybersec-accounts/)
-for more suggestions.
+ပိုမိုသိရှိလိုပါက [ဤစာရင်း (this list)](https://heimdalsecurity.com/blog/best-twitter-cybersec-accounts/) ကိုလည်း ကြည့်ရှုပါ။
 
-## General Security Advice
+## ယေဘုယျ လုံခြုံရေး အကြံပြုချက်များ (General Security Advice)
 
-Tech Solidarity has a pretty great list of [do's and don'ts for
-journalists](https://web.archive.org/web/20221123204419/https://techsolidarity.org/resources/basic_security.htm)
-that has a lot of sane advice, and is decently up-to-date. [@thegrugq](https://medium.com/@thegrugq)
-also has a good blog post on [travel security
-advice](https://medium.com/@thegrugq/stop-fabricating-travel-security-advice-35259bf0e869)
-that's worth reading. We'll repeat much of the advice from those sources
-here, plus some more. Also, get a [USB data
-blocker](https://www.amazon.com/dp/B00QRRZ2QM/), because [USB is
-scary](https://www.bleepingcomputer.com/news/security/heres-a-list-of-29-different-types-of-usb-attacks/).
+Tech Solidarity တွင် လက်တွေ့ကျသော အကြံပြုချက်များစွာ ပါဝင်ပြီး အတော်အတန် ခေတ်မီဆန်းသစ်သော [သတင်းထောက်များအတွက် ပြုလုပ်ရန်နှင့် ရှောင်ကြဉ်ရန် အချက်များ (do's and don'ts for journalists)](https://web.archive.org/web/20221123204419/https://techsolidarity.org/resources/basic_security.htm) စာရင်းကောင်းတစ်ခု ရှိပါသည်။ [@thegrugq](https://medium.com/@thegrugq) တွင်လည်း ဖတ်ရှုသင့်သော [ခရီးသွားလာရေး လုံခြုံရေး အကြံပြုချက် (travel security advice)](https://medium.com/@thegrugq/stop-fabricating-travel-security-advice-35259bf0e869) ဘလော့ဂ်ဆောင်းပါးကောင်း တစ်ခုရှိသည်။ ထိုရင်းမြစ်များမှ အကြံပြုချက် အများအပြားနှင့် အခြားအချက်များကို ဤနေရာတွင် ထပ်မံဖော်ပြပေးပါမည်။ ထို့အပြင် [USB သည် ကြောက်စရာကောင်းသောကြောင့်](https://www.bleepingcomputer.com/news/security/heres-a-list-of-29-different-types-of-usb-attacks/) [USB data blocker](https://www.amazon.com/dp/B00QRRZ2QM/) တစ်ခု ဝယ်ယူထားပါ။
 
-## Authentication
+## အထောက်အထား စိစစ်ခြင်း (Authentication)
 
-The very first thing you should do, if you haven't already, is download
-a password manager. Some good ones are:
+သင် မပြုလုပ်ရသေးပါက ပထမဆုံး ပြုလုပ်သင့်သည့် အရာမှာ password manager တစ်ခု ဒေါင်းလုဒ်လုပ်ခြင်း ဖြစ်သည်။ သုံးစွဲရန် ကောင်းမွန်သော အချို့မှာ -
 
  - [1password](https://1password.com/)
  - [KeePass](https://keepass.info/)
  - [BitWarden](https://bitwarden.com/)
  - [`pass`](https://git.zx2c4.com/password-store/about/)
 
-If you're particularly paranoid, use one that encrypts the passwords
-locally on your computer, as opposed to storing them in plain-text at
-the server. Use it to generate passwords
-for all the web sites you care about right now. Then, switch on
-two-factor authentication, ideally with a
-[FIDO/U2F](https://fidoalliance.org/) dongle (a
-[YubiKey](https://www.yubico.com/quiz/) for example, which has [20% off
-for students](https://www.yubico.com/why-yubico/for-education/)). TOTP
-(like Google Authenticator or Duo) will also work in a pinch, but
-[doesn't protect against
-phishing](https://twitter.com/taviso/status/1082015009348104192). SMS is
-pretty much useless unless your threat model only includes random
-strangers picking up your password in transit.
+အကယ်၍ သင်သည် အလွန်အမင်း စိုးရိမ်တက်ပါက စာဗာတွင် Plain-text အဖြစ် သိမ်းဆည်းခြင်း မဟုတ်ဘဲ သင့်ကွန်ပျူတာပေါ်တွင် လျှို့ဝှက်ချက်များကို Local အလိုက် Encrypt ပြုလုပ်ပေးသည့် အရာကို အသုံးပြုပါ။ သင် အရေးစိုက်သော ဝဘ်ဆိုက်အားလုံးအတွက် စကားဝှက်များ ထုတ်ယူရန် ယင်းကို ချက်ချင်း အသုံးပြုပါ။ ထို့နောက် Two-factor authentication (၂ ဆင့် အထောက်အထား စိစစ်ခြင်း) ကို ဖွင့်ပါ၊ အထူးသဖြင့် [FIDO/U2F](https://fidoalliance.org/) dongle ဖြင့် ပြုလုပ်ခြင်းက အကောင်းဆုံး ဖြစ်သည် (ဥပမာ [YubiKey](https://www.yubico.com/quiz/) ကဲ့သို့သော အရာဖြစ်ပြီး [ကျောင်းသားများအတွက် ၂၀% လျှော့ဈေး](https://www.yubico.com/why-yubico/for-education/) ရှိသည်)။ TOTP (Google Authenticator သို့မဟုတ် Duo ကဲ့သို့သော) သည်လည်း လိုအပ်ပါက သုံးနိုင်သော်လည်း [Phishing ကို ကာကွယ်မပေးနိုင်ပါ](https://twitter.com/taviso/status/1082015009348104192)။ သင့် ခြိမ်းခြောက်မှု မူဘောင်တွင် လမ်းခုလတ်မှ သင့်စကားဝှက်ကို ကြုံရာလူ ရယူသွားခြင်း တစ်ခုတည်းသာ ပါဝင်ပါက လွဲ၍ SMS သည် အသုံးမဝင်သလောက် ဖြစ်သည်။
 
-Also, a note about paper keys. Often, services will give you a "backup
-key" that you can use as a second factor if you lose your real second
-factor (btw, always keep a backup dongle somewhere safe!). While you
-_can_ stick those in your password managers, that means that should
-someone get access to your password manager, you're totally hosed (but
-maybe you're okay with that thread model). If you are truly paranoid,
-print out these paper keys, never store them digitally, and place them
-in a safe in the real world.
+ထို့အပြင် စက္ကူသော့များ (paper keys) အကြောင်း မှတ်ချက်တစ်ခု။ ဝန်ဆောင်မှုများသည် သင်၏ အစစ်အမှန် ဒုတိယ အချက်အလက် ဆုံးရှုံးသွားပါက သုံးနိုင်သည့် "backup key" တစ်ခုကို ပေးလေ့ရှိကြသည် (စကားမစပ်၊ အရန် dongle တစ်ခုကို အမြဲတမ်း ဘေးကင်းသော နေရာတွင် သိမ်းဆည်းထားပါ!)။ ယင်းတို့ကို သင့် password manager တွင် ထည့်ထားနိုင်သော်လည်း တစ်စုံတစ်ယောက်က သင့် password manager ကို ရယူသွားပါက သင့်အတွက် အကုန်လုံး အန္တရာယ်ရှိသွားမည် ဖြစ်သည် (သို့သော် ထို ခြိမ်းခြောက်မှု မူဘောင်ကို သင် လက်ခံနိုင်ပေလိမ့်မည်)။ အကယ်၍ သင်သည် အမှန်တကယ် စိုးရိမ်တက်ပါက ဤ စက္ကူသော့များကို ပရင့်ထုတ်ပါ၊ ဒီဂျစ်တယ်စနစ်ဖြင့် ဘယ်တော့မှ မသိမ်းဆည်းပါနှင့်၊ ထို့နောက် အပြင်ကမ္ဘာရှိ လုံခြုံသော မီးခံသေတ္တာထဲတွင် ထည့်ထားပါ။
 
-## Private Communication
+## သီးသန့် ဆက်သွယ်ပြောဆိုခြင်း (Private Communication)
 
-Use [Signal](https://www.signal.org/) ([setup
-instructions](https://medium.com/@mshelton/signal-for-beginners-c6b44f76a1f0).
-[Wire](https://wire.com/en/) is [fine
-too](https://www.securemessagingapps.com/); WhatsApp is okay; [don't use
-Telegram](https://twitter.com/bascule/status/897187286554628096)).
-Desktop messengers are pretty broken (partially due to usually relying
-on Electron, which is a huge trust stack).
+[Signal](https://www.signal.org/) ကို အသုံးပြုပါ ([တပ်ဆင်နည်း ညွှန်ကြားချက်များ](https://medium.com/@mshelton/signal-for-beginners-c6b44f76a1f0)။ [Wire](https://wire.com/en/) ကိုလည်း [သုံးနိုင်ပါသည်](https://www.securemessagingapps.com/)၊ WhatsApp သည်လည်း အဆင်ပြေပါသည်၊ [Telegram ကို မသုံးပါနှင့်](https://twitter.com/bascule/status/897187286554628096))။ Desktop messenger များသည် အလွန် အားနည်းပါသည် (အဓိကအားဖြင့် ကြီးမားသော ယုံကြည်မှု အစုအဝေး ဖြစ်သည့် Electron ကို အားကိုးလေ့ ရှိသောကြောင့် ဖြစ်သည်)။
 
-E-mail is particularly problematic, even if PGP signed. It's not
-generally forward-secure, and the key-distribution problem is pretty
-severe. [keybase.io](https://keybase.io/) helps, and is useful for a
-number of other reasons. Also, PGP keys are generally handled on desktop
-computers, which is one of the least secure computing environments.
-Relatedly, consider getting a Chromebook, or just work on a tablet with
-a keyboard.
+E-mail သည် PGP လက်မှတ်ထိုးထားလျှင်ပင် အထူးသဖြင့် ပြဿနာများစွာ ရှိသည်။ ယင်းသည် ယေဘုယျအားဖြင့် Forward-secure မဖြစ်သလို key-distribution ပြဿနာမှာလည်း အလွန်ဆိုးရွားပါသည်။ [keybase.io](https://keybase.io/) က ကူညီပေးနိုင်ပြီး အခြား အကြောင်းပြချက်များစွာအတွက် အသုံးဝင်ပါသည်။ ထို့အပြင် PGP key များကို ယေဘုယျအားဖြင့် Desktop ကွန်ပျူတာများပေါ်တွင် ကိုင်တွယ်လေ့ရှိပြီး ယင်းသည် လုံခြုံရေး အနည်းဆုံး ကွန်ပျူတာ ပတ်ဝန်းကျင်များထဲမှ တစ်ခုဖြစ်သည်။ ဆက်စပ်၍ Chromebook တစ်ခု ဝယ်ယူရန် စဉ်းစားပါ၊ သို့မဟုတ် ကီးဘုတ်ပါသော Tablet ပေါ်တွင်သာ အလုပ်လုပ်ပါ။
 
-## File Security
+## ဖိုင် လုံခြုံရေး (File Security)
 
-File security is hard, and operates on many level. What is it you're
-trying to secure against?
+ဖိုင် လုံခြုံရေးသည် ခက်ခဲပြီး အဆင့်များစွာတွင် လုပ်ဆောင်သည်။ သင်သည် မည်သည့်အရာကို ကာကွယ်ရန် ကြိုးစားနေသနည်း။
 
 [![$5 wrench](https://imgs.xkcd.com/comics/security.png)](https://xkcd.com/538/)
 
- - Offline attacks (someone steals your laptop while it's off): turn on
-   full disk encryption. ([cryptsetup +
-   LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system)
-   on Linux,
-   [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/)
-   on Windows, [FileVault](https://support.apple.com/en-us/HT204837) on
-   macOS. Note that this won't help if the attacker _also_ has you and
-   really wants your secrets.
- - Online attacks (someone has your laptop and it's on): use file
-   encryption. There are two primary mechanisms for doing so
-    - Encrypted filesystems: stacked filesystem encryption software encrypts files individually rather than having encrypted block devices. You can "mount" these filesystems by providing the decryption key, and then browse the files inside it freely. When you unmount it, those files are all unavailable.  Modern solutions include [gocryptfs](https://github.com/rfjakob/gocryptfs) and [eCryptFS](https://www.ecryptfs.org/). More detailed comparisons can be found [here](https://nuetzlich.net/gocryptfs/comparison/) and [here](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table)
-    - Encrypted files: encrypt individual files with symmetric
-      encryption (see `gpg -c`) and a secret key. Or, like `pass`, also
-      encrypt the key with your public key so only you can read it back
-      later with your private key. Exact encryption settings matter a
-      lot!
- - [Plausible
-   deniability](https://en.wikipedia.org/wiki/Plausible_deniability)
-   (what seems to be the problem officer?): usually lower performance,
-   and easier to lose data. Hard to actually prove that it provides
-   [deniable
-   encryption](https://en.wikipedia.org/wiki/Deniable_encryption)! See
-   the [discussion
-   here](https://security.stackexchange.com/questions/135846/is-plausible-deniability-actually-feasible-for-encrypted-volumes-disks),
-   and then consider whether you may want to try
-   [VeraCrypt](https://www.veracrypt.fr/en/Home.html) (the maintained
-   fork of good ol' TrueCrypt).
- - Encrypted backups: use [Tarsnap](https://www.tarsnap.com/) or [Borgbase](https://www.borgbase.com/)
-    - Think about whether an attacker can delete your backups if they
-      get a hold of your laptop!
+ - အော့ဖ်လိုင်း တိုက်ခိုက်မှုများ (အော့ဖ်ဖြစ်နေချိန်တွင် သင့်လက်ပ်တော့ကို တစ်စုံတစ်ယောက်က ခိုးယူသွားခြင်း) - Full disk encryption ကို ဖွင့်ပါ။ (Linux တွင် [cryptsetup + LUKS](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_a_non-root_file_system)၊ Windows တွင် [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/)၊ macOS တွင် [FileVault](https://support.apple.com/en-us/HT204837)။ တိုက်ခိုက်သူက သင့်ကိုပါ ဖမ်းဆီးရရှိထားပြီး သင့်လျှို့ဝှက်ချက်များကို တကယ်လိုချင်နေပါက ဤသည်က ကူညီနိုင်မည် မဟုတ်ကြောင်း သတိပြုပါ)။
+ - အွန်လိုင်း တိုက်ခိုက်မှုများ (သင့်လက်ပ်တော့ ပွင့်နေချိန်တွင် တစ်စုံတစ်ယောက်က ရရှိသွားခြင်း) - ဖိုင် Encrypt ပြုလုပ်ခြင်းကို အသုံးပြုပါ။ ယင်းအတွက် အဓိက နည်းလမ်း နှစ်ခုရှိသည် -
+    - Encrypted filesystems - အဆင့်ဆင့် ပြုလုပ်ထားသော Filesystem encryption စော့ဖ်ဝဲလ်သည် Encrypted block device များအစား ဖိုင်များကို တစ်ခုချင်းစီ Encrypt ပြုလုပ်သည်။ Decryption key ပေးသွင်းခြင်းဖြင့် ဤ Filesystem များကို "mount" ပြုလုပ်နိုင်ပြီး အတွင်းရှိ ဖိုင်များကို လွတ်လပ်စွာ ဝင်ရောက် ကြည့်ရှုနိုင်သည်။ "unmount" ပြုလုပ်လိုက်သည့်အခါ ထိုဖိုင်များအားလုံးကို ရရှိနိုင်တော့မည် မဟုတ်ပါ။ ခေတ်မီ နည်းလမ်းများတွင် [gocryptfs](https://github.com/rfjakob/gocryptfs) နှင့် [eCryptFS](https://www.ecryptfs.org/) တို့ ပါဝင်သည်။ ပိုမိုအသေးစိတ်ကျသော နှိုင်းယှဉ်ချက်များကို [ဤနေရာ](https://nuetzlich.net/gocryptfs/comparison/) နှင့် [ဤနေရာ](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table) တွင် ကြည့်ရှုနိုင်ပါသည်။
+    - Encrypted files - သီးခြား ဖိုင်များကို Symmetric encryption (`gpg -c` ကိုကြည့်ပါ) နှင့် လျှို့ဝှက်သော Key ဖြင့် Encrypt ပြုလုပ်ပါ။ သို့မဟုတ် `pass` ကဲ့သို့ပင် သင့် Private key ဖြင့်သာ နောက်မှ ပြန်လည်ဖတ်ရှုနိုင်စေရန် Key ကို သင့် Public key ဖြင့် Encrypt ပြုလုပ်ပါ။ တိကျသော Encryption ဆက်တင်များသည် အလွန်အရေးကြီးပါသည်!
+ - [ယုတ္တိတန်စွာ ငြင်းဆိုနိုင်မှု (Plausible deniability)](https://en.wikipedia.org/wiki/Plausible_deniability) (အရာရှိမင်း ဘာပြဿနာများ ရှိလို့လဲ) - ပုံမှန်အားဖြင့် Performance ပိုမိုနိမ့်ကျပြီး ဒေတာ ဆုံးရှုံးရန် ပိုမိုလွယ်ကူသည်။ ယင်းက [deniable encryption](https://en.wikipedia.org/wiki/Deniable_encryption) ပေးဆောင်ကြောင်း အမှန်တကယ် သက်သေပြရန် ခက်ခဲပါသည်! [ဤနေရာရှိ ဆွေးနွေးချက်](https://security.stackexchange.com/questions/135846/is-plausible-deniability-actually-feasible-for-encrypted-volumes-disks) ကို ကြည့်ပါ၊ ထို့နောက် [VeraCrypt](https://www.veracrypt.fr/en/Home.html) (ယခင် TrueCrypt ၏ ထိန်းသိမ်းထားသော Fork ဖြစ်သည်) ကို စမ်းသပ်ကြည့်လိုခြင်း ရှိမရှိ စဉ်းစားပါ။
+ - Encrypted backups - [Tarsnap](https://www.tarsnap.com/) သို့မဟုတ် [Borgbase](https://www.borgbase.com/) ကို အသုံးပြုပါ
+    - တိုက်ခိုက်သူက သင့်လက်ပ်တော့ကို ရရှိသွားပါက သင့်အရန်သိမ်းဆည်းမှု (backups) များကို ဖျက်ဆီးနိုင်မနိုင် စဉ်းစားပါ!
 
-## Internet Security & Privacy
+## အင်တာနက် လုံခြုံရေး နှင့် သီးသန့်လုံခြုံမှု (Internet Security & Privacy)
 
-The internet is a _very_ scary place. Open WiFi networks
-[are](https://www.troyhunt.com/the-beginners-guide-to-breaking-website/)
-[scary](https://www.troyhunt.com/talking-with-scott-hanselman-on/). Make
-sure you delete them afterwards, otherwise your phone will happily
-announce and re-connect to something with the same name later!
+အင်တာနက်သည် _အလွန်_ ကြောက်စရာကောင်းသော နေရာတစ်ခုဖြစ်သည်။ Open WiFi ကွန်ရက်များသည် [ကြောက်စရာကောင်းပါသည်](https://www.troyhunt.com/the-beginners-guide-to-breaking-website/) [ကြောက်စရာကောင်းပါသည်](https://www.troyhunt.com/talking-with-scott-hanselman-on/)။ အသုံးပြုပြီးပါက ယင်းတို့ကို ပြန်လည်ဖျက်ပစ်ရန် သေချာပါစေ၊ သို့မဟုတ်ပါက သင့်ဖုန်းသည် အမည်တူသော ကွန်ရက်တစ်ခုခုကို နောက်ပိုင်းတွင် ဝမ်းမြောက်ဝမ်းသာ ကြေညာ၍ ပြန်လည်ချိတ်ဆက်ပါလိမ့်မည်!
 
-If you're ever on a network you don't trust, a VPN _may_ be worthwhile,
-but keep in mind that you're trusting the VPN provider _a lot_. Do you
-really trust them more than your ISP? If you truly want a VPN, use a
-provider you're sure you trust, and you should probably pay for it. Or
-set up [WireGuard](https://www.wireguard.com/) for yourself -- it's
-[excellent](https://web.archive.org/web/20210526211307/https://latacora.micro.blog/there-will-be/)!
+အကယ်၍ သင်သည် မယုံကြည်ရသော ကွန်ရက်တစ်ခုပေါ်တွင် ရောက်ရှိနေပါက VPN ကို အသုံးပြုခြင်းက အကျိုးရှိ _နိုင်ပါသည်_၊ သို့သော် သင်သည် VPN ဝန်ဆောင်မှုပေးသူကို _အလွန်_ ယုံကြည်ရမည်ဖြစ်ကြောင်း သတိရပါ။ သင့် ISP ထက် ယင်းတို့ကို သင် တကယ် ပိုယုံကြည်ပါသလား။ အကယ်၍ သင်သည် VPN တစ်ခု အမှန်တကယ် လိုအပ်ပါက သင်ယုံကြည်ကြောင်း သေချာသည့် ဝန်ဆောင်မှုကို အသုံးပြုပါ၊ ထို့ပြင် ယင်းအတွက် ပိုက်ဆံပေး၍ သုံးသင့်သည်။ သို့မဟုတ်ပါက မိမိကိုယ်တိုင် [WireGuard](https://www.wireguard.com/) တပ်ဆင်ပါ -- ယင်းသည် [အလွန်ကောင်းမွန်ပါသည်](https://web.archive.org/web/20210526211307/https://latacora.micro.blog/there-will-be/)!
 
-There are also secure configuration settings for a lot of internet-enabled
-applications at [cipherlist.eu](https://cipherlist.eu/). If you're particularly
-privacy-oriented, [privacytools.io](https://privacytools.io) is also a good
-resource.
+[cipherlist.eu](https://cipherlist.eu/) တွင် အင်တာနက် ချိတ်ဆက်ထားသော အပလီကေးရှင်းများစွာအတွက် လုံခြုံသော ဆက်တင်ဖွဲ့စည်းမှုများလည်း ရှိပါသည်။ အကယ်၍ သင်သည် သီးသန့်လုံခြုံမှုကို အထူးဦးစားပေးပါက [privacytools.io](https://privacytools.io) သည်လည်း အရင်းအမြစ်ကောင်းတစ်ခု ဖြစ်သည်။
 
-Some of you may wonder about [Tor](https://www.torproject.org/). Keep in
-mind that Tor is _not_ particularly resistant to powerful global
-attackers, and is weak against traffic analysis attacks. It may be
-useful for hiding traffic on a small scale, but won't really buy you all
-that much in terms of privacy. You're better off using more secure
-services in the first place (Signal, TLS + certificate pinning, etc.).
+သင်တို့အနက် အချို့သည် [Tor](https://www.torproject.org/) အကြောင်း သိလိုကြပေမည်။ Tor သည် အင်အားကြီးမားသော ကမ္ဘာလုံးဆိုင်ရာ တိုက်ခိုက်သူများကို ခုခံနိုင်စွမ်း အထူး _မရှိပါ_၊ ထို့ပြင် Traffic analysis တိုက်ခိုက်မှုများကိုလည်း အားနည်းကြောင်း သတိရပါ။ ယင်းသည် သေးငယ်သော စကေးတွင် Traffic ကို ဖုံးကွယ်ရန် အသုံးဝင်နိုင်သော်လည်း သီးသန့်လုံခြုံမှုအတွက် များစွာ ကူညီပေးနိုင်မည် မဟုတ်ပါ။ ပိုမိုလုံခြုံသော ဝန်ဆောင်မှုများကို စတင်ကတည်းက အသုံးပြုခြင်းက ပိုမိုကောင်းမွန်ပါသည် (Signal, TLS + certificate pinning, စသည်ဖြင့်)။
 
-## Web Security
+## ဝဘ် လုံခြုံရေး (Web Security)
 
-So, you want to go on the Web too?
-Jeez, you're really pushing your luck here.
+ဒါဆို သင်က ဝဘ်ကိုပါ အသုံးပြုချင်သေးတာပေါ့?
+အို၊ သင် တကယ်ကို ကံစမ်းနေတာပဲ။
 
-Install [HTTPS Everywhere](https://www.eff.org/https-everywhere).
-SSL/TLS is
-[critical](https://www.troyhunt.com/ssl-is-not-about-encryption/), and
-it's _not_ just about encryption, but also about being able to verify
-that you're talking to the right service in the first place! If you run
-your own web server, [test it](https://www.ssllabs.com/ssltest/index.html). TLS configuration
-[can get hairy](https://wiki.mozilla.org/Security/Server_Side_TLS).
-HTTPS Everywhere will do its very best to never navigate you to HTTP
-sites when there's an alternative. That doesn't save you, but it helps.
-If you're truly paranoid, blacklist any SSL/TLS CAs that you don't
-absolutely need.
+[HTTPS Everywhere](https://www.eff.org/https-everywhere) ကို တပ်ဆင်ပါ။ SSL/TLS သည် [အလွန်အရေးကြီးပါသည်](https://www.troyhunt.com/ssl-is-not-about-encryption/)၊ ယင်းသည် Encryption တစ်ခုတည်းတင် _မကဘဲ_၊ သင့်တော်သော ဝန်ဆောင်မှုနှင့် စကားပြောနေခြင်း ဟုတ်မဟုတ် ပထမဆုံး စိစစ်နိုင်ခြင်းလည်း ဖြစ်ပါသည်! အကယ်၍ သင်သည် ကိုယ်ပိုင် Web server ကို စိစစ်ရန်းနေပါက [ယင်းကို စမ်းသပ်ပါ](https://www.ssllabs.com/ssltest/index.html)။ TLS ဆက်တင်ဖွဲ့စည်းမှုသည် [ရှုပ်ထွေးနိုင်ပါသည်](https://wiki.mozilla.org/Security/Server_Side_TLS)။ HTTPS Everywhere သည် အခြားရွေးချယ်စရာ ရှိပါက သင့်ကို HTTP ဆိုက်များသို့ ဘယ်တော့မှ မရောက်ရှိစေရန် အစွမ်းကုန် ကြိုးစားပေးပါလိမ့်မည်။ ယင်းက သင့်ကို လုံးဝ ကယ်တင်နိုင်မည် မဟုတ်သော်လည်း ကူညီပေးနိုင်ပါသည်။ အကယ်၍ သင်သည် အမှန်တကယ် စိုးရိမ်တက်ပါက သင် အမှန်တကယ် မလိုအပ်သော SSL/TLS CA များကို Blacklist ထည့်ထားပါ။
 
-Install [uBlock Origin](https://github.com/gorhill/uBlock). It is a
-[wide-spectrum
-blocker](https://github.com/gorhill/uBlock/wiki/Blocking-mode) that
-doesn't just stop ads, but all sorts of third-party communication a page
-may try to do. And inline scripts and such. If you're willing to spend
-some time on configuration to make things work, go to [medium
-mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-medium-mode)
-or even [hard
-mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode).
-Those _will_ make some sites not work until you've fiddled with the
-settings enough, but will also significantly improve your online
-security.
+[uBlock Origin](https://github.com/gorhill/uBlock) ကို တပ်ဆင်ပါ။ ယင်းသည် ကြော်ငြာများကို သာမက စာမျက်နှာတစ်ခုမှ ပြုလုပ်ရန် ကြိုးစားနိုင်သော အခြား ပြင်ပဆက်သွယ်မှု အမျိုးအစား အားလုံးကို တားဆီးပေးသည့် [နယ်ပယ်ကျယ်ပြန့်သော တားဆီးမှုစနစ် (wide-spectrum blocker)](https://github.com/gorhill/uBlock/wiki/Blocking-mode) ဖြစ်သည်။ Inline script များ စသည်တို့ကိုလည်း တားဆီးပေးသည်။ အကယ်၍ သင်သည် အရာရာ အဆင်ပြေစေရန် ဆက်တင်များ ပြင်ဆင်ရာတွင် အချိန်အနည်းငယ် ပေးနိုင်ပါက [medium mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-medium-mode) သို့မဟုတ် [hard mode](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode) သို့ သွားပါ။ ထိုဆက်တင်များသည် ဆက်တင်များကို လုံလောက်စွာ မချိန်ညှိမချင်း အချို့ဝဘ်ဆိုက်များကို အလုပ်မလုပ်အောင် ပြုလုပ်သွားမည် _ဖြစ်သော်လည်း_ သင့်အွန်လိုင်း လုံခြုံရေးကိုလည်း သိသိသာသာ တိုးတက်စေပါလိမ့်မည်။
 
-If you're using Firefox, enable [Multi-Account
-Containers](https://support.mozilla.org/en-US/kb/containers). Create
-separate containers for social networks, banking, shopping, etc. Firefox
-will keep the cookies and other state for each of the containers totally
-separate, so sites you visit in one container can't snoop on sensitive
-data from the others. In Google Chrome, you can use [Chrome
-Profiles](https://support.google.com/chrome/answer/2364824) to achieve
-similar results.
+အကယ်၍ သင်သည် Firefox ကို အသုံးပြုနေပါက [Multi-Account Containers](https://support.mozilla.org/en-US/kb/containers) ကို ဖွင့်ပါ။ လူမှုကွန်ရက်များ၊ ဘဏ်လုပ်ငန်း၊ ဈေးဝယ်ခြင်း စသည်တို့အတွက် သီးခြား Container များ ဖန်တီးပါ။ Firefox သည် Container တစ်ခုစီအတွက် Cookies နှင့် အခြား State များကို လုံးဝ သီးခြားစီ သိမ်းဆည်းထားမည်ဖြစ်သဖြင့် Container တစ်ခုတွင် သင်ဝင်ရောက်ကြည့်ရှုသော ဆိုက်များသည် အခြား Container များမှ အထိလွယ်သော ဒေတာများကို ချောင်းကြည့်နိုင်မည် မဟုတ်ပါ။ Google Chrome တွင် တူညီသော ရလဒ်များ ရရှိရန် [Chrome Profiles](https://support.google.com/chrome/answer/2364824) ကို အသုံးပြုနိုင်သည်။
 
-## Exercises
+## လေ့ကျင့်ခန်းများ (Exercises)
 
-1. Encrypt a file using PGP
-1. Use veracrypt to create a simple encrypted volume
-1. Enable 2FA for your most data sensitive accounts i.e. GMail, Dropbox, Github, &c
+1. PGP အသုံးပြု၍ ဖိုင်တစ်ခုကို Encrypt ပြုလုပ်ပါ။
+1. ရိုးရှင်းသော Encrypted volume တစ်ခု ဖန်တီးရန် veracrypt ကို အသုံးပြုပါ။
+1. သင့်ဒေတာ အထိလွယ်ဆုံး အကောင့်များ (ဥပမာ GMail, Dropbox, Github, စသည်) အတွက် 2FA ကို ဖွင့်ပါ။

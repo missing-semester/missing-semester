@@ -9,30 +9,18 @@ video:
   id: qw2c6ffSVOM
 ---
 
-# Motivation
+# စိတ်ဓာတ်တက်ကြွမှုနှင့် ရည်ရွယ်ချက် (Motivation)
 
-This class is about [hacker](https://en.wikipedia.org/wiki/Hacker_culture)
-tools, not [hacker](https://en.wikipedia.org/wiki/Security_hacker) tools.
+ဤသင်တန်းသည် [hacker](https://en.wikipedia.org/wiki/Hacker_culture) tool များအကြောင်း သင်ကြားပေးခြင်း ဖြစ်ပြီး [hacker](https://en.wikipedia.org/wiki/Security_hacker) tool များအကြောင်း မဟုတ်ပါ။
 
-MIT classes do not cover any of this content in detail. It's hugely beneficial
-to be proficient with your tools: it'll save you a lot of time (and the payoff
-time is very short).
+MIT သင်တန်းများတွင် ဤအကြောင်းအရာများကို အသေးစိတ် သင်ကြားပေးခြင်း မရှိပါ။ မိမိ၏ tool များကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်ခြင်းသည် အလွန်ပင် အကျိုးကျေးဇူး ကြီးမားလှသည်—ယင်းက သင်၏ အချိန်များစွာကို သက်သာစေမည် ဖြစ်သည် (အကျိုးအမြတ် ပြန်ရသည့် အချိန်မှာလည်း အလွန် တိုတောင်းပါသည်)။
 
-We want to teach you about new tools, how to make the most of your tools, how
-to customize your tools, and how to extend your tools.
+ကျွန်ုပ်တို့သည် tool အသစ်များအကြောင်း၊ မိမိ၏ tool များကို အထိရောက်ဆုံး မည်သို့ အသုံးချရမည်၊ မိမိ၏ tool များကို စိတ်ကြိုက် မည်သို့ စီမံပြင်ဆင်ရမည် (customize) နှင့် tool များကို ပိုမို တိုးချဲ့ အသုံးပြုနည်း (extend) တို့ကို သင်ကြားပေးလိုပါသည်။
 
-# Class structure
+# သင်တန်း ဖွဲ့စည်းပုံ (Class structure)
 
-We have 6 lectures covering a [variety of topics](/2019/). We have lecture
-notes online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording lectures.
+ကျွန်ုပ်တို့တွင် [ခေါင်းစဉ်အမျိုးမျိုး](/2019/) ကို လွှမ်းခြုံထားသည့် သင်ခန်းစာ ၆ ခု ပါဝင်ပါသည်။ သင်ခန်းစာ မှတ်စုများကို အွန်လိုင်းတွင် ရယူနိုင်သော်လည်း မှတ်စုများတွင် ပါဝင်မည်မဟုတ်သည့် လက်တွေ့ ပြသမှု (demo) များစွာကို အတန်းထဲတွင် သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။ သင်ခန်းစာ ရိုက်ကူးချက်များကိုလည်း အွန်လိုင်းတွင် တင်ပေးထားမည် ဖြစ်ပါသည်။
 
-Each class is split into two 50-minute lectures with a 10-minute break in
-between. Lectures are mostly live demonstrations followed by hands-on
-exercises. We might have a short amount of time at the end of each class to get
-started on the exercises in an office-hours-style setting.
+အတန်း တစ်ခုစီကို မိနစ် ၅၀ ကြာ သင်ခန်းစာ ၂ ခုဖြင့် ပိုင်းခြားထားပြီး ကြားထဲတွင် ၁၀ မိနစ် နားချိန် ပါဝင်ပါသည်။ သင်ခန်းစာများသည် အဓိကအားဖြင့် တိုက်ရိုက် လက်တွေ့ ပြသမှုများ ဖြစ်ပြီး ယင်းနောက် လက်တွေ့ လေ့ကျင့်ခန်းများ ပြုလုပ်ရမည် ဖြစ်ပါသည်။ အတန်းတစ်ခုစီ၏ အဆုံးတွင် office-hours ပုံစံဖြင့် လေ့ကျင့်ခန်းများကို စတင် ပြုလုပ်နိုင်ရန် အချိန်တိုတစ်ခု ရရှိနိုင်ပါသည်။
 
-To make the most of the class, you should go through all the exercises on your
-own. We'll inspire you to learn more about your tools, and we'll show you
-what's possible and cover some of the basics in detail, but we can't teach you
-everything in the time we have.
+ဤသင်တန်းမှ အကျိုးကျေးဇူး အပြည့်အဝ ရရှိနိုင်ရန် လေ့ကျင့်ခန်း အားလုံးကို မိမိကိုယ်တိုင် ပြုလုပ်ကြည့်သင့်ပါသည်။ ကျွန်ုပ်တို့သည် မိမိ၏ tool များအကြောင်း ပိုမို လေ့လာရန် စိတ်အားထက်သန်မှုများ ပေးစွမ်းမည်ဖြစ်ပြီး၊ မည်သို့ ပြုလုပ်နိုင်သည်ကို ပြသကာ အခြေခံ အချက်အချို့ကို အသေးစိတ် လွှမ်းခြုံ သင်ကြားပေးမည် ဖြစ်သော်လည်း ရရှိထားသည့် အချိန်အတွင်း အရာအားလုံးကိုတော့ သင်ကြားပေးနိုင်မည် မဟုတ်ပါ။

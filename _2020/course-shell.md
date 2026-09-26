@@ -2,7 +2,7 @@
 layout: lecture
 title: "Course Overview + The Shell"
 description: >
-  Learn about the motivation for this class, and get started with the shell.
+  ဤသင်တန်းကို သင်ကြားပေးရသည့် ရည်ရွယ်ချက်နှင့် Shell ကို စတင် အသုံးပြုနည်းကို လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2020/lec1.png
 date: 2020-01-13
 ready: true
@@ -11,92 +11,41 @@ video:
   id: Z56Jmr9Z34Q
 ---
 
-# Motivation
+# စိတ်ဓာတ်တက်ကြွမှုနှင့် ရည်ရွယ်ချက် (Motivation)
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools
-available at our fingertips that enable us to be more productive and
-solve more complex problems when working on any computer-related
-problem. Yet many of us utilize only a small fraction of those tools; we
-only know enough magical incantations by rote to get by, and blindly
-copy-paste commands from the internet when we get stuck.
+ကွန်ပျူတာသိပ္ပံပညာရှင်များအနေဖြင့် ကွန်ပျူတာများသည် ထပ်ခါတလဲလဲ ပြုလုပ်ရသည့် အလုပ်များကို အလိုအလျောက် ကူညီဆောင်ရွက်ပေးရာတွင် အလွန်တော်စွမ်းကြောင်း ကျွန်ုပ်တို့ သိကြပါသည်။ သို့သော် ဤအချက်သည် ကျွန်ုပ်တို့ ရေးသားသော ပရိုဂရမ်များ၏ တွက်ချက်မှုများအတွက်သာမက၊ မိမိတို့ ကိုယ်တိုင် ကွန်ပျူတာကို _အသုံးပြုမှု_ တွင်ပါ တူညီစွာ သက်ရောက်ကြောင်း မကြာခဏ မေ့လျော့နေတတ်ကြသည်။ ကွန်ပျူတာနှင့် သက်ဆိုင်သော မည်သည့် ပြဿနာကိုမဆို ဖြေရှင်းရာတွင် ပိုမို အလုပ်တွင်စေပြီး ပိုမို ရှုပ်ထွေးသော ပြဿနာများကို ဖြေရှင်းနိုင်စေမည့် tool အမျိုးအစားများစွာကို ကျွန်ုပ်တို့ လက်တစ်ကမ်းတွင် ရရှိနိုင်ပါသည်။ သို့သော် ကျွန်ုပ်တို့အနက် အများစုသည် ယင်း tool များ၏ အစိတ်အပိုင်း အနည်းငယ်မျှကိုသာ အသုံးပြုကြပြီး၊ အခက်အခဲ ကြုံတွေ့ရသည့်အခါ အင်တာနက်မှ command များကို အလွတ်ကျက်၍ ကူးယူ ကူးထည့် (copy-paste) ပြုလုပ်ရုံမျှသာ တတ်မြောက်ထားကြသည်။
 
-This class is an attempt to address this.
+ဤသင်တန်းသည် ဤပြဿနာကို ဖြေရှင်းရန် ကြိုးပမ်းချက် ဖြစ်ပါသည်။
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+သင် သိရှိပြီးသား tool များကို အထိရောက်ဆုံး မည်သို့ အသုံးချရမည်၊ မိမိ၏ tool အိတ်အတွင်းသို့ tool အသစ်များ မည်သို့ ထည့်သွင်းရမည်ကို သင်ကြားပေးလိုပြီး၊ မိမိကိုယ်တိုင် tool များကို ပိုမို လေ့လာရှာဖွေရန် (နှင့် ဖန်တီးရန်) စိတ်အားထက်သန်မှုများ ရရှိစေရန် မျှော်လင့်ပါသည်။ ဤသည်မှာ ကွန်ပျူတာသိပ္ပံ သင်ရိုးညွှန်းတမ်း အများစုတွင် လိုအပ်နေသော သင်ရိုးဖြစ်သည်ဟု ကျွန်ုပ်တို့ ယုံကြည်ပါသည်။
 
-# Class structure
+# သင်တန်း ဖွဲ့စည်းပုံ (Class structure)
 
-The class consists of 11 1-hour lectures, each one centering on a
-[particular topic](/2020/). The lectures are largely independent,
-though as the semester goes on we will presume that you are familiar
-with the content from the earlier lectures. We have lecture notes
-online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording
-lectures and posting the recordings online.
+ဤသင်တန်းတွင် ၁ နာရီကြာ သင်ခန်းစာ ၁၁ ခု ပါဝင်ပြီး သင်ခန်းစာ တစ်ခုစီသည် [သီးခြား ခေါင်းစဉ်တစ်ခု](/2020/) ပေါ်တွင် ဗဟိုပြုထားပါသည်။ သင်ခန်းစာတစ်ခုချင်းစီသည် သီးခြားစီ လေ့လာနိုင်သော ခေါင်းစဉ်များ ဖြစ်ကြသော်လည်း၊ သင်တန်းကာလ တိုးတက်လာသည်နှင့်အမျှ ယခင် သင်ခန်းစာပါ အကြောင်းအရာများကို သိရှိပြီးဖြစ်သည်ဟု ယူဆသွားမည် ဖြစ်ပါသည်။ သင်ခန်းစာ မှတ်စုများကို အွန်လိုင်းတွင် ရယူနိုင်သော်လည်း၊ သင်ခန်းစာ မှတ်စုတွင် ပါဝင်မည်မဟုတ်သည့် လက်တွေ့ ပြသမှု (demo) များစွာကို အတန်းထဲတွင် သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။ သင်ခန်းစာ ရိုက်ကူးချက်များကိုလည်း အွန်လိုင်းတွင် တင်ပေးထားမည် ဖြစ်ပါသည်။
 
-We are trying to cover a lot of ground over the course of just 11 1-hour
-lectures, so the lectures are fairly dense. To allow you some time to
-get familiar with the content at your own pace, each lecture includes a
-set of exercises that guide you through the lecture's key points. After
-each lecture, we are hosting office hours where we will be present to
-help answer any questions you might have. If you are attending the class
-online, you can send us questions at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+၁ နာရီကြာ သင်ခန်းစာ ၁၁ ခုအတွင်း အကြောင်းအရာများစွာကို လွှမ်းခြုံနိုင်ရန် ကြိုးစားထားသဖြင့် သင်ခန်းစာများသည် အလွန် သိပ်သည်းပါသည်။ မိမိ၏ လေ့လာမှု အရှိန်အဟုန်အတိုင်း လေ့လာနိုင်ရန်အတွက် သင်ခန်းစာ တစ်ခုစီတွင် အဓိက အချက်များကို လမ်းညွှန်ပေးသော လေ့ကျင့်ခန်းများ ပါဝင်ပါသည်။ သင်ခန်းစာများအပြီးတွင် မေးမြန်းလိုသည်များအတွက် Office Hours ပြုလုပ်ပေးသွားမည် ဖြစ်ပါသည်။ အွန်လိုင်းမှ တက်ရောက်ပါက မေးခွန်းများကို [missing-semester@mit.edu](mailto:missing-semester@mit.edu) သို့ ပို့ဆိုနိုင်ပါသည်။
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+အချိန် အကန့်အသတ်ရှိသဖြင့် အပြည့်အစုံ သင်ကြားပေးသော သင်တန်းတစ်ခုကဲ့သို့ tool အားလုံးကို အသေးစိတ် မသင်ကြားနိုင်ပါ။ တတ်နိုင်သမျှ သက်ဆိုင်ရာ tool သို့မဟုတ် ခေါင်းစဉ်ကို ပိုမို နက်နက်နဲနဲ လေ့လာနိုင်မည့် အရင်းအမြစ်များကို ညွှန်းဆိုပေးသွားမည် ဖြစ်ပါသည်။
 
-# Topic 1: The Shell
+# ခေါင်းစဉ် ၁: Shell (Topic 1: The Shell)
 
-## What is the shell?
+## Shell ဆိုတာ ဘာလဲ? (What is the shell?)
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, and
-even AR/VR are everywhere. These are great for 80% of use-cases, but
-they are often fundamentally restricted in what they allow you to do —
-you cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+ယနေ့ခေတ် ကွန်ပျူတာများတွင် Command ပေးနိုင်သော Interface အမျိုးမျိုး ရှိကြပါသည်—လှပသော Graphical User Interface (GUI) များ၊ Voice Interface များ၊ နှင့် AR/VR များအထိ နေရာတိုင်းတွင် ရှိနေကြသည်။ ၎င်းတို့သည် သုံးစွဲမှု ၈၀% အတွက် အလွန် ကောင်းမွန်သော်လည်း၊ ပြုလုပ်နိုင်သည့် အတိုင်းအတာတွင် မူလကတည်းက ကန့်သတ်ချက်များ ရှိနေသည်—မရှိသေးသော ခလုတ်တစ်ခုကို နှိပ်၍ မရသကဲ့သို့ ပရိုဂရမ် မလုပ်ရသေးသော အသံမိန့်န့်ပေးချက်ကို ပေး၍ မရပါ။ မိမိ ကွန်ပျူတာက ပံ့ပိုးပေးထားသော tool များကို အပြည့်အဝ အသုံးချနိုင်ရန်အတွက် ရှေးမူလ စာသား အခြေပြု Interface ဖြစ်သည့် **The Shell** ထံသို့ ဆင်းသက် အသုံးပြုရမည် ဖြစ်သည်။
 
-Nearly all platforms you can get your hands on have a shell in one form or
-another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+သင် အသုံးပြုနိုင်သည့် စက်အများစုတွင် Shell တစ်မျိုးမဟုတ် တစ်မျိုး ပါဝင်ပြီး၊ အချို့တွင် ရွေးချယ်စရာ Shell အမျိုးမျိုး ပါရှိကြသည်။ အသေးစိတ် ကွဲပြားနိုင်သော်လည်း၊ အခြေခံအားဖြင့် ၎င်းတို့သည် တူညီကြသည်—ပရိုဂရမ်များကို Run ရန်၊ Output များကို ကြည့်ရှုရန်နှင့် စနစ်တကျ အလုပ်လုပ်ရန် အခွင့်အရေး ပေးထားသည်။
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for
-short. This is one of the most widely used shells, and its syntax is
-similar to what you will see in many other shells. To open a shell
-_prompt_ (where you can type commands), you first need a _terminal_.
-Your device probably shipped with one installed, or you can install one
-fairly easily.
+ဤသင်ခန်းစာတွင် Bourne Again SHell သို့မဟုတ် အတိုကောက် **"bash"** ကို အဓိက ထား သင်ကြားပေးသွားမည် ဖြစ်သည်။ ဤသည်မှာ အသုံးအများဆုံး Shell များအနက် တစ်ခုဖြစ်ပြီး ယင်း၏ Syntax သည် အခြား Shell အများစုနှင့် ဆင်တူပါသည်။ Command များကို ရိုက်ထည့်နိုင်သော Shell Prompt ဖွင့်လှစ်ရန်အတွက် ပထမဦးစွာ **Terminal** တစ်ခု လိုအပ်ပါသည်။ သင်၏ စက်တွင် Terminal ပါဝင်ပြီးဖြစ်ပါလိမ့်မည်။
 
-## Using the shell
+## Shell ကို အသုံးပြုခြင်း (Using the shell)
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Terminal ကို ဖွင့်လှစ်လိုက်သည့်အခါ အောက်ပါအတိုင်း တွေ့မြင်ရမည့် **Prompt** ကို တွေ့ရမည် ဖြစ်သည်-
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+ဤသည်မှာ Shell ၏ အဓိက စာသား Interface ဖြစ်သည်။ သင်သည် `missing` ဆိုသည့် စက်ပေါ်တွင် ရောက်ရှိနေပြီး မိမိ၏ "Current Working Directory" (လက်ရှိ ရောက်ရှိနေသော Directory) မှာ `~` (Home ၏ အတိုကောက်) ဖြစ်ကြောင်း ဖော်ပြနေခြင်း ဖြစ်သည်။ `$` သင်္ကေတသည် သင်သည် Root user မဟုတ်ကြောင်း ဖော်ပြနေခြင်း ဖြစ်သည်။ ဤ Prompt တွင် Shell မှ အဓိပ္ပာယ်ဖော်ယူမည့် Command ကို ရိုက်ထည့်နိုင်ပါသည်။ အခြေခံအကျဆုံး Command မှာ ပရိုဂရမ်တစ်ခုကို Run ခြင်း ဖြစ်သည်-
 
 ```console
 missing:~$ date
@@ -104,35 +53,16 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+ဒီနေရာမှာ `date` ပရိုဂရမ်ကို Execute လုပ်ခဲ့ပြီး၊ ယင်းက လက်ရှိ ရက်စွဲနှင့် အချိန်ကို ရိုက်နှိပ်ပြသခဲ့သည်။ ထို့နောက် Shell က အခြား Execute လုပ်မည့် Command ကို ထပ်မံ တောင်းဆိုသည်။ Arguments (ကိန်းရှင်/အရာဝတ္ထု) များနှင့်လည်း Command ကို Execute လုပ်နိုင်သည်-
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+ဤနေရာတွင် `echo` ပရိုဂရမ်အား `hello` ဆိုသည့် Argument ဖြင့် Run ရန် Shell ကို ခိုင်းစေခဲ့ခြင်း ဖြစ်သည်။ `echo` ပရိုဂရမ်သည် ၎င်းထံ ပို့လိုက်သော Argument ကို ပြန်လည် ထုတ်ပေးရုံမျှသာ ပြုလုပ်သည်။ Shell သည် Command ကို ဟာကွက် (whitespace) များဖြင့် ခွဲခြား၍ အဓိပ္ပာယ်ဖော်ပြီး ပထမဆုံး စကားလုံးအတိုင်း ပရိုဂရမ်ကို Run ၍ နောက်ဆက်တွဲ စကားလုံးများကို Argument အဖြစ် ပေးပို့သည်။ ဟာကွက် သို့မဟုတ် အထူး သင်္ကေတများ ပါဝင်သော Argument (ဥပမာ "My Photos" အမည်ရှိ Directory) ပေးပို့လိုပါက `'` သို့မဟုတ် `"` ဖြင့် အုပ်ပေးနိုင်သည် (`"My Photos"`) သို့မဟုတ် သင်္ကေတ ရှေ့တွင် `\` ခံပေးနိုင်သည် (`My\ Photos`)။
 
-But how does the shell know how to find the `date` or `echo` programs?
-Well, the shell is a programming environment, just like Python or Ruby,
-and so it has variables, conditionals, loops, and functions (next
-lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
-
+သို့သော် Shell သည် `date` သို့မဟုတ် `echo` ပရိုဂရမ်များကို မည်သို့ ရှာဖွေရမည်ကို မည်သို့ သိရှိသနည်း။ Shell သည် Python သို့မဟုတ် Ruby ကဲ့သို့သော ပရိုဂရမ်းမင်း ပတ်ဝန်းကျင်တစ်ခု ဖြစ်သဖြင့် Variables များ၊ Conditionals များ၊ Loops များနှင့် Functions များ ပါဝင်ကြသည်။ Shell တွင် Command များ Run သည့်အခါ Shell က အဓိပ္ပာယ်ဖော်မည့် ကုဒ် အသေးစားလေးကို ရေးသားနေခြင်း ဖြစ်သည်။ Command တစ်ခုသည် သီးသန့် Keyword များနှင့် မကိုက်ညီပါက၊ Shell စက်ပေါ်တွင် ပရိုဂရမ်များ ရှာဖွေရမည့် Directory စာရင်း ပါဝင်သော `$PATH` ဆိုသည့် Environment Variable ကို စစ်ဆေးပါသည်-
 
 ```console
 missing:~$ echo $PATH
@@ -143,26 +73,11 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+`echo` command ကို Run သည့်အခါ Shell က `$PATH` ထဲရှိ `:` ဖြင့် ခွဲခြားထားသော Directory စာရင်းများအတွင်း ထိုအမည်ရှိ ဖိုင်ကို ရှာဖွေသည်။ တွေ့ရှိပါက Run ပေးသည် (ဖိုင်သည် Executable ဖြစ်ပါက)။ သတ်မှတ်ထားသော ပရိုဂရမ် မည်သည့် ဖိုင်မှ Execute ဖြစ်သည်ကို `which` ပရိုဂရမ် ဖြင့် ရှာဖွေနိုင်ပါသည်။ `$PATH` ကို ကျော်လွန်၍ ဖိုင်၏ လမ်းကြောင်း (path) အပြည့်အစုံ ပေး၍လည်း Run နိုင်ပါသည်။
 
-## Navigating in the shell
+## Shell အတွင်း လမ်းကြောင်းရှာခြင်း (Navigating in the shell)
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/`
-is the "root" of the file system, under which all directories and files
-lie, whereas on Windows there is one root for each disk partition (e.g.,
-`C:\`). We will generally assume that you are using a Linux filesystem
-in this class. A path that starts with `/` is called an _absolute_ path.
-Any other path is a _relative_ path. Relative paths are relative to the
-current working directory, which we can see with the `pwd` command and
-change with the `cd` command. In a path, `.` refers to the current
-directory, and `..` to its parent directory:
+Shell ပေါ်ရှိ Path သည် Directory များ၏ လမ်းကြောင်းဖြစ်ပြီး Linux/macOS တွင် `/` ဖြင့်လည်းကောင်း Windows တွင် `\` ဖြင့်လည်းကောင်း ခွဲခြားထားသည်။ Linux နှင့် macOS တွင် `/` လမ်းကြောင်းသည် File System ၏ "Root" (ပင်မ) ဖြစ်ပြီး Directory နှင့် File အားလုံး ယင်းအောက်တွင် ရှိကြသည်။ `/` ဖြင့် စတင်သော Path ကို **Absolute path** ဟု ခေါ်ဆိုပြီး အခြား Path များကို **Relative path** ဟု ခေါ်ဆိုသည်။ Relative path သည် လက်ရှိ ရောက်ရှိနေသော Directory ပေါ် မူတည်ပြီး `pwd` command ဖြင့် ကြည့်ရှုနိုင်ကာ `cd` command ဖြင့် ပြောင်းလဲနိုင်ပါသည်။ Path တွင် `.` သည် လက်ရှိ Directory ကို ညွှန်းဆိုပြီး `..` သည် မိခင် (Parent) Directory ကို ညွှန်းဆိုသည်-
 
 ```console
 missing:~$ pwd
@@ -183,15 +98,7 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current
-working directory was. You can configure your prompt to show you all
-sorts of useful information, which we will cover in a later lecture.
-
-In general, when we run a program, it will operate in the current
-directory unless we tell it otherwise. For example, it will usually
-search for files there, and create new files there if it needs to.
-
-To see what lives in a given directory, we use the `ls` command:
+မိမိ ရောက်ရှိနေသော Directory အတွင်း မည်သည့် ဖိုင်/ဖိုင်တွဲများ ရှိသည်ကို ကြည့်ရှုရန် `ls` command ကို အသုံးပြုသည်-
 
 ```console
 missing:~$ ls
@@ -208,12 +115,7 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the
-contents of the current directory. Most commands accept flags and
-options (flags with values) that start with `-` to modify their
-behavior. Usually, running a program with the `-h` or `--help` flag
-will print some help text that tells you what flags
-and options are available. For example, `ls --help` tells us:
+Command အများစုသည် ၎င်းတို့၏ လုပ်ဆောင်ချက်ကို ပြောင်းလဲရန် `-` ဖြင့် စတင်သော Flags နှင့် Options များကို လက်ခံကြသည်။ ပုံမှန်အားဖြင့် `-h` သို့မဟုတ် `--help` flag ဖြင့် Run ပါက အကူအညီ စာသားများကို ရိုက်နှိပ်ပြသပေးသည်။ ဥပမာ `ls --help` က အောက်ပါအတိုင်း ပြသသည်-
 
 ```
   -l                         use a long listing format
@@ -224,45 +126,21 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory
-present. First, the `d` at the beginning of the line tells us that
-`missing` is a directory. Then follow three groups of three characters
-(`rwx`). These indicate what permissions the owner of the file
-(`missing`), the owning group (`users`), and everyone else respectively
-have on the relevant item. A `-` indicates that the given principal does
-not have the given permission. Above, only the owner is allowed to
-modify (`w`) the `missing` directory (i.e., add/remove files in it). To
-enter a directory, a user must have "search" (represented by "execute":
-`x`) permissions on that directory (and its parents). To list its
-contents, a user must have read (`r`) permissions on that directory. For
-files, the permissions are as you would expect. Notice that nearly all
-the files in `/bin` have the `x` permission set for the last group,
-"everyone else", so that anyone can execute those programs.
+ဤသည်မှာ ဖိုင် သို့မဟုတ် Directory ၏ အသေးစိတ် အချက်အလက်များကို ဖော်ပြပေးခြင်း ဖြစ်သည်။ ပထမဆုံး စာကြောင်းစအစရှိ `d` သည် `missing` မှာ Directory ဖြစ်ကြောင်း ဖော်ပြသည်။ ထို့နောက် စာလုံး ၃ လုံးပါ အုပ်စု ၃ စု (`rwx`) ပါရှိပြီး ယင်းတို့သည် ပိုင်ရှင် (`missing`)၊ ပိုင်ဆိုင်သော အုပ်စု (`users`)၊ နှင့် အခြားသူများ၏ ရပိုင်ခွင့် ခွင့်ပြုချက် (Permissions) များကို အစဉ်လိုက် ဖော်ပြထားခြင်း ဖြစ်သည်။ `r` မှာ Read၊ `w` မှာ Write (ပြင်ဆင်ခြင်း)၊ `x` မှာ Execute (Run ခြင်း သို့မဟုတ် Directory ထဲ ဝင်ရောက်ခြင်း) ဖြစ်ကြသည်။
 
-Some other handy programs to know about at this point are `mv` (to
-rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new
-directory).
+အခြား အသုံးဝင်သော Command များမှာ `mv` (ဖိုင် အမည်ပြောင်း/ရွှေ့ခြင်း)၊ `cp` (ဖိုင် ကူးယူခြင်း)၊ နှင့် `mkdir` (Directory အသစ် ဖန်တီးခြင်း) တို့ ဖြစ်ကြသည်။
 
-If you ever want _more_ information about a program's arguments, inputs,
-outputs, or how it works in general, give the `man` program a try. It
-takes as an argument the name of a program, and shows you its _manual
-page_. Press `q` to exit.
+ပရိုဂရမ်တစ်ခု၏ အသေးစိတ် မူရင်း လမ်းညွှန်ချက် စာအုပ်ကို ကြည့်လိုပါက `man` command ကို အသုံးပြုနိုင်ပြီး ထွက်ခွာရန် `q` ကို နှိပ်ပါ-
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## ပရိုဂရမ်များကို ချိတ်ဆက်ခြင်း (Connecting programs)
 
-In the shell, programs have two primary "streams" associated with them:
-their input stream and their output stream. When the program tries to
-read input, it reads from the input stream, and when it prints
-something, it prints to its output stream. Normally, a program's input
-and output are both your terminal. That is, your keyboard as input and
-your screen as output. However, we can also rewire those streams!
+Shell တွင် ပရိုဂရမ်များနှင့် သက်ဆိုင်သော အဓိက "Streams" နှစ်ခု ရှိပါသည်—ယင်းတို့မှာ Input stream နှင့် Output stream တို့ ဖြစ်ကြသည်။ ပုံမှန်အားဖြင့် Input မှာ Keyboard ဖြစ်ပြီး Output မှာ သင်၏ ဖန်သားပြင် ဖြစ်သည်။ သို့သော် ဤ Stream များကို လမ်းကြောင်း ပြောင်းလဲပေးနိုင်ပါသည်!
 
-The simplest form of redirection is `< file` and `> file`. These let you
-rewire the input and output streams of a program to a file respectively:
+အလွယ်ကူဆုံး လမ်းကြောင်း ပြောင်းလဲခြင်း (Redirection) မှာ `< file` နှင့် `> file` တို့ ဖြစ်ကြသည်-
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -275,16 +153,9 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates
-files. When given file names as arguments, it prints the contents of each of
-the files in sequence to its output stream. But when `cat` is not given any
-arguments, it prints contents from its input stream to its output stream (like
-in the third example above).
+`cat` သည် ဖိုင်များကို ဆက်စပ်ပေးသော ပရိုဂရမ် ဖြစ်သည်။ ထို့ပြင် `>>` ကို အသုံးပြု၍ ဖိုင်၏ အဆုံးတွင် စာသားများ ထပ်ပေါင်းထည့်နိုင်ပါသည်။
 
-You can also use `>>` to append to a file. Where this kind of
-input/output redirection really shines is in the use of _pipes_. The `|`
-operator lets you "chain" programs such that the output of one is the
-input of another:
+ဤ Input/Output redirection ၏ စွမ်းအားကို **Pipes** များတွင် ပိုမို တွေ့မြင်နိုင်ပါသည်။ `|` သင်္ကေတသည် ပရိုဂရမ်တစ်ခု၏ Output ကို အခြား ပရိုဂရမ်တစ်ခု၏ Input အဖြစ် ချိတ်ဆက်ပေးနိုင်ပါသည်။
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -293,127 +164,36 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes
-in the lecture on data wrangling.
+## သုံးရလွယ်ကူပြီး စွမ်းအားထက်မြက်သော tool တစ်ခု (A versatile and powerful tool)
 
-## A versatile and powerful tool
+Unix စနစ်များတွင် အထူး ပိုင်ဆိုင်ခွင့်ရှိသော User တစ်ယောက် ရှိပါသည်—ယင်းမှာ **"root"** user ဖြစ်သည်။ Root user သည် စနစ်တစ်ခုလုံးရှိ မည်သည့် ဖိုင်ကိုမဆို ဖန်တီးခြင်း၊ ဖတ်ရှုခြင်း၊ ပြင်ဆင်ခြင်းနှင့် ဖျက်ဆီးခြင်းများ ပြုလုပ်နိုင်သည်။ သို့သော် မတော်တဆ ပျက်စီးမှုများ မဖြစ်စေရန်အတွက် ပုံမှန်အားဖြင့် Root user အဖြစ် Log in မဝင်ဘဲ **`sudo`** command ကို အသုံးပြုကြသည်။ Permission denied error များ ကြုံတွေ့ရပါက Root အဖြစ် လုပ်ဆောင်ရန် လိုအပ်၍ ဖြစ်လေ့ရှိသည်။
 
-On most Unix-like systems, one user is special: the "root" user. You may
-have seen it in the file listings above. The root user is above (almost)
-all access restrictions, and can create, read, update, and delete any
-file in the system. You will not usually log into your system as the
-root user though, since it's too easy to accidentally break something.
-Instead, you will be using the `sudo` command. As its name implies, it
-lets you "do" something "as su" (short for "super user", or "root").
-When you get permission denied errors, it is usually because you need to
-do something as root. Though make sure you first double-check that you
-really wanted to do it that way!
-
-One thing you need to be root in order to do is writing to the `sysfs` file
-system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as
-files, so that you can easily reconfigure the kernel on the fly without
-specialized tools. **Note that sysfs does not exist on Windows or macOS.**
-
-For example, the brightness of your laptop's screen is exposed through a file
-called `brightness` under
-
-```
-/sys/class/backlight
-```
-
-By writing a value into that file, we can change the screen brightness.
-Your first instinct might be to do something like:
-
-```console
-$ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
-/sys/class/backlight/thinkpad_screen/brightness
-$ cd /sys/class/backlight/thinkpad_screen
-$ sudo echo 3 > brightness
-An error occurred while redirecting file 'brightness'
-open: Permission denied
-```
-
-This error may come as a surprise. After all, we ran the command with
-`sudo`! This is an important thing to know about the shell. Operations
-like `|`, `>`, and `<` are done _by the shell_, not by the individual
-program. `echo` and friends do not "know" about `|`. They just read from
-their input and write to their output, whatever it may be. In the case
-above, the _shell_ (which is authenticated just as your user) tries to
-open the brightness file for writing, before setting that as `sudo
-echo`'s output, but is prevented from doing so since the shell does not
-run as root. Using this knowledge, we can work around this:
+ဥပမာအားဖြင့် Laptop စခရင်၏ လင်းထင်းမှုကို `/sys/class/backlight` အောက်ရှိ `brightness` ဖိုင်အတွင်း စာသား ရေးသားခြင်းဖြင့် ပြောင်းလဲနိုင်ပါသည်။
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing,
-and _it_ is running as `root`, the permissions all work out. You can
-control all sorts of fun and useful things through `/sys`, such as the
-state of various system LEDs (your path might be different):
+`tee` ပရိုဂရမ်သည် `root` အဖြစ် အလုပ်လုပ်သဖြင့် `/sys` ဖိုင်ကို ရေးသားနိုင်ခြင်း ဖြစ်ပါသည်။
 
-```console
-$ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
-```
+# နောက်ထပ် လုပ်ဆောင်ရမည့် အဆင့်များ (Next steps)
 
-# Next steps
+ယခုအခါ အခြေခံ အလုပ်များကို လုပ်ဆောင်နိုင်ရန် Shell ကို အသုံးပြုတတ်ပြီ ဖြစ်သည်။ နောက်သင်ခန်းစာတွင် Shell နှင့် အသုံးဝင်သော Command-line ပရိုဂရမ်များကို အသုံးပြု၍ ပိုမို ရှုပ်ထွေးသော အလုပ်များကို မည်သို့ အလိုအလျောက် ခိုင်းစေရမည်ကို သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-# Exercises
-
-All classes in this course are accompanied by a series of exercises. Some give
-you a specific task to do, while others are open-ended, like "try using X and Y
-programs". We highly encourage you to try them out.
-
-We have not written solutions for the exercises. If you are stuck on anything
-in particular, feel free to send us an email describing what you've tried so
-far, and we will try to help you out.
-
- 1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
-    are on Linux or macOS, you don't have to do anything special. If you are on
-    Windows, you need to make sure you are not running cmd.exe or PowerShell;
-    you can use [Windows Subsystem for
-    Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-    machine to use Unix-style command-line tools. To make sure you're running
-    an appropriate shell, you can try the command `echo $SHELL`. If it says
-    something like `/bin/bash` or `/usr/bin/zsh`, that means you're running the
-    right program.
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
-    ```
-    #!/bin/sh
-    curl --head --silent https://missing.csail.mit.edu
-    ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
-    [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+၁။ ဤသင်တန်းအတွက် Bash သို့မဟုတ် ZSH ကဲ့သို့သော Unix Shell တစ်ခု အသုံးပြုရန် လိုအပ်ပါသည်။ Windows အသုံးပြုသူ ဖြစ်ပါက [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/) သို့မဟုတ် Linux Virtual Machine ကို အသုံးပြုနိုင်သည်။ မိမိ သင့်လျော်သော Shell အသုံးပြုနေကြောင်း စစ်ဆေးရန် `echo $SHELL` ဟု ရိုက်ထည့် စစ်ဆေးပါ။
+၂။ `/tmp` အောက်တွင် `missing` အမည်ရှိ Directory အသစ်တစ်ခု ဖန်တီးပါ။
+၃။ `touch` ပရိုဂရမ်အကြောင်း `man touch` ဖြင့် လေ့လာပါ။
+၄။ `touch` ကို အသုံးပြု၍ `missing` ထဲတွင် `semester` အမည်ရှိ ဖိုင်အသစ်တစ်ခု ဖန်တီးပါ။
+၅။ ထိုဖိုင်အတွင်း အောက်ပါအတိုင်း တစ်ကြောင်းစီ ရေးသားပါ-
+   ```
+   #!/bin/sh
+   curl --head --silent https://missing.csail.mit.edu
+   ```
+၆။ ဖိုင်ကို Execute လုပ်ကြည့်ပါ (ဥပမာ `./semester` ဟု ရိုက်ထည့်ပါ)။ အဘယ်ကြောင့် အလုပ်မလုပ်ကြောင်း `ls` output ကို စစ်ဆေး၍ နားလည်အောင် ကြည့်ပါ။
+၇။ Command ကို Explicit အဖြစ် `sh semester` ဟု Run ကြည့်ပါ။ အဘယ်ကြောင့် `./semester` တုန်းက အလုပ်မလုပ်ဘဲ ယခု အလုပ်လုပ်သနည်း။
+၈။ `chmod` ပရိုဂရမ်အကြောင်း လေ့လာပါ။ (`man chmod`)
+၉။ `chmod` ကို အသုံးပြု၍ `sh semester` ရိုက်စရာ မလိုဘဲ `./semester` ဟု တိုက်ရိုက် Run နိုင်အောင် ပြုလုပ်ပါ။
+၁၀။ `|` နှင့် `>` များကို အသုံးပြု၍ `semester` မှ ထွက်ပေါ်လာသော "last modified" ရက်စွဲကို မိမိ Home directory ထဲရှိ `last-modified.txt` ဖိုင်ထဲသို့ ရေးသားပါ။
+၁၁။ `/sys` မှ မိမိ Laptop ဘက်ထရီ ပမာဏ သို့မဟုတ် CPU အပူချိန်ကို ဖတ်ရှုသော Command တစ်ခု ရေးသားပါ။

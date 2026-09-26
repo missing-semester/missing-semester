@@ -9,59 +9,58 @@ video:
   id: X5c2Y8BCowM
 ---
 
-It has become more and more common for programmers to use remote servers in their everyday work. If you need to use remote servers in order to deploy backend software or you need a server with higher computational capabilities, you will end up using a Secure Shell (SSH). As with most tools covered, SSH is highly configurable so it is worth learning about it.
+Programmer များအနေဖြင့် မိမိတို့၏ နေ့စဉ်လုပ်ငန်းခွင်တွင် remote server များကို အသုံးပြုလာကြခြင်းသည် ပိုမို ခေတ်စားလာခဲ့ပါသည်။ အကယ်၍ သင်သည် backend ဆော့ဖ်ဝဲလ်များကို ဖြန့်ကျက်ရန် (deploy ပြုလုပ်ရန်) သို့မဟုတ် ပိုမိုမြင့်မားသော တွက်ချက်မှုစွမ်းရည် (computational capabilities) ရှိသည့် server တစ်ခု လိုအပ်၍ remote server များကို အသုံးပြုရန် လိုအပ်ပါက၊ နောက်ဆုံးတွင် သင်သည် Secure Shell (SSH) ကို အသုံးပြုရမည် ဖြစ်ပါသည်။ ဤသင်တန်းတွင် ဖော်ပြခဲ့သော tool အများစုကဲ့သို့ပင် SSH သည် အလွန်အမင်း စိတ်ကြိုက် ပြင်ဆင်သတ်မှတ်နိုင်စွမ်း (highly configurable) ရှိသဖြင့် ယင်းအကြောင်းကို လေ့လာသင်ယူရကျိုး နပ်ပါသည်။
 
 
-## Executing commands
+## Command များကို မောင်းနှင်ခြင်း
 
-An often overlooked feature of `ssh` is the ability to run commands directly.
+`ssh` ၏ မကြာခဏ သတိမမူမိတတ်ကြသော feature တစ်ခုမှာ command များကို တိုက်ရိုက် မောင်းနှင်နိုင်သည့် (run နိုင်သည့်) စွမ်းဆောင်ရည် ဖြစ်ပါသည်။
 
-- `ssh foobar@server ls` will execute ls in the home folder of foobar
-- It works with pipes, so `ssh foobar@server ls | grep PATTERN` will grep locally the remote output of `ls` and `ls | ssh foobar@server grep PATTERN` will grep remotely the local output of `ls`.
+- `ssh foobar@server ls` သည် foobar ၏ home folder အတွင်း၌ ls ကို မောင်းနှင်မည် ဖြစ်သည်
+- ယင်းသည် pipe များနှင့်လည်း အလုပ်လုပ်သောကြောင့် `ssh foobar@server ls | grep PATTERN` သည် remote မှထွက်လာသော `ls` output ကို local တွင် grep လုပ်မည်ဖြစ်ပြီး၊ `ls | ssh foobar@server grep PATTERN` သည် local မှထွက်လာသော `ls` output ကို remote တွင် grep လုပ်မည် ဖြစ်သည်။
 
-## SSH Keys
+## SSH Key များ
 
-Key-based authentication exploits public-key cryptography to prove to the server that the client owns the secret private key without revealing the key. This way you do not need to reenter your password every time. Nevertheless the private key (e.g. `~/.ssh/id_rsa`) is effectively your password so treat it like so.
+Key အခြေပြု အတည်ပြုစစ်ဆေးခြင်း (Key-based authentication) သည် လျှို့ဝှက် private key ကို ထုတ်ဖော်ပြသခြင်း မရှိဘဲ client တွင် ထို private key ရှိကြောင်း server ထံ သက်သေပြရန် public-key cryptography ကို အသုံးပြုထားခြင်း ဖြစ်ပါသည်။ ဤနည်းဖြင့် သင်သည် အကြိမ်တိုင်းတွင် သင်၏ password ကို ပြန်လည် ရိုက်ထည့်ရန် မလိုအပ်တော့ပါ။ သို့သော်လည်း private key (ဥပမာ `~/.ssh/id_rsa`) သည် အမှန်တကယ်အားဖြင့် သင်၏ password ပင် ဖြစ်သောကြောင့် ထိုအတိုင်း ဂရုစိုက် စီမံရမည် ဖြစ်သည်။
 
-- Key generation. To generate a pair you can simply run `ssh-keygen -t rsa -b 4096`. If you do not choose a passphrase anyone that gets hold of your private key will be able to access authorized servers so it is recommended to choose  one and use `ssh-agent` to manage shell sessions.
+- **Key ထုတ်လုပ်ခြင်း (Key generation)**: Key အတွဲတစ်ခု ထုတ်လုပ်ရန် `ssh-keygen -t rsa -b 4096` ကို ရိုးရှင်းစွာ ရန်းနိုင်ပါသည်။ အကယ်၍ သင်သည် passphrase တစ်ခုကို မရွေးချယ်ပါက သင်၏ private key ကို ရရှိသွားသူ မည်သူမဆို ခွင့်ပြုချက်ရထားသော server များကို ဝင်ရောက် အသုံးပြုနိုင်မည် ဖြစ်သဖြင့် passphrase တစ်ခု ရွေးချယ်ပြီး shell session များကို စီမံခန့်ခွဲရန် `ssh-agent` ကို အသုံးပြုရန် အကြံပြုပါသည်။
 
-If you have configured pushing to Github using SSH keys you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+အကယ်၍ သင်သည် SSH key များကို အသုံးပြု၍ GitHub သို့ push ပြုလုပ်ရန် ပြင်ဆင်ထားပြီးပါက [ဤနေရာတွင်](https://help.github.com/articles/connecting-to-github-with-ssh/) ဖော်ပြထားသော အဆင့်များကို လုပ်ဆောင်ခဲ့ပြီးဖြစ်ကာ တရားဝင် key အတွဲတစ်ခု ရှိပြီးသား ဖြစ်နိုင်ပါသည်။ သင့်တွင် passphrase ရှိမရှိ စစ်ဆေးရန်နှင့် ယင်းကို အတည်ပြုရန်အတွက် `ssh-keygen -y -f /path/to/key` ကို ရန်းနိုင်ပါသည်။
 
-- Key based authentication. `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over we can use the
+- **Key အခြေပြု အတည်ပြုစစ်ဆေးခြင်း (Key based authentication)**: `ssh` သည် မည်သည့် client များကို ဝင်ရောက်ခွင့်ပြုရမည်ကို ဆုံးဖြတ်ရန် `.ssh/authorized_keys` ကို ကြည့်ရှုမည် ဖြစ်သည်။ Public key တစ်ခုကို အခြားဘက်သို့ ကူးယူရန်အတွက် အောက်ပါအတိုင်း အသုံးပြုနိုင်ပါသည် -
 
 ```bash
 cat .ssh/id_dsa.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
-A simpler solution can be achieved with `ssh-copy-id` where available.
+ရရှိနိုင်သည့် နေရာများတွင် `ssh-copy-id` ကို အသုံးပြု၍ ပိုမို ရိုးရှင်းသော ဖြေရှင်းချက်ကို ရရှိနိုင်ပါသည်။
 
 ```bash
 ssh-copy-id -i .ssh/id_dsa.pub foobar@remote
 ```
 
-## Copying files over ssh
+## SSH မှတစ်ဆင့် ဖိုင်များကို ကူးယူခြင်း
 
-There are many ways to copy files over ssh
+SSH မှတစ်ဆင့် ဖိုင်များကို ကူးယူရန် နည်းလမ်းများစွာ ရှိပါသည် -
 
-- `ssh+tee`, the simplest is to use `ssh` command execution and stdin input by doing `cat localfile | ssh remote_server tee serverfile`
-- `scp` when copying large amounts of files/directories, the secure copy `scp` command is more convenient since it can easily recurse over paths. The syntax is `scp path/to/local_file remote_host:path/to/remote_file`
-- `rsync` improves upon `scp` by detecting identical files in local and remote and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+- **`ssh+tee`**: အရိုးရှင်းဆုံး နည်းလမ်းမှာ `cat localfile | ssh remote_server tee serverfile` ကို ပြုလုပ်ခြင်းဖြင့် `ssh` command execution နှင့် stdin input ကို အသုံးပြုခြင်း ဖြစ်ပါသည်။
+- **`scp`**: ဖိုင်များ/directory ပမာဏ အများအပြားကို ကူးယူသည့်အခါ secure copy `scp` command သည် path များအပေါ် အဆင့်ဆင့် လွယ်ကူစွာ သွားရောက်နိုင်သောကြောင့် (recurse ပြုလုပ်နိုင်သောကြောင့်) ပိုမို အဆင်ပြေစေပါသည်။ Syntax မှာ `scp path/to/local_file remote_host:path/to/remote_file` ဖြစ်ပါသည်။
+- **`rsync`**: `rsync` သည် local နှင့် remote တွင် တူညီသော ဖိုင်များကို ထောက်လှမ်းသိရှိပြီး ၎င်းတို့ကို ထပ်မံ ကူးယူခြင်းမှ တားဆီးပေးခြင်းဖြင့် `scp` ထက် ပိုမို ကောင်းမွန်အောင် ပြုလုပ်ထားပါသည်။ ယင်းသည် symlink များ၊ permission များနှင့် ပတ်သက်၍ ပိုမို အသေးစိတ် စီမံခန့်ခွဲနိုင်စေပြီး ယခင်က ပြတ်တောက်သွားခဲ့သော ကူးယူမှုကို ပြန်လည် စတင်နိုင်သည့် `--partial` flag ကဲ့သို့သော အပိုဆောင်း feature များလည်း ပါဝင်ပါသည်။ `rsync` တွင် `scp` နှင့် ဆင်တူသော syntax ရှိပါသည်။
 
 
-## Backgrounding processes
+## Process များကို Background တွင် လည်ပတ်စေခြင်း
 
-By default when interrupting a ssh connection, child processes of the parent shell are killed along with it. There are a couple of alternatives
+Default အားဖြင့် ssh ချိတ်ဆက်မှု ပြတ်တောက်သွားသည့်အခါ parent shell ၏ child process များသည် ယင်းနှင့်အတူ သေဆုံးသွားကြပါသည်။ အခြား ရွေးချယ်စရာ နည်းလမ်းအချို့ ရှိကြပါသည် -
 
-- `nohup` - the `nohup` tool effectively allows for a process to live when the terminal gets killed. Although this can sometimes be achieved with `&` and `disown`, nohup is a better default. More details can be found [here](https://unix.stackexchange.com/questions/3886/difference-between-nohup-disown-and).
+- **`nohup`**: `nohup` tool သည် terminal သေဆုံးသွားသည့်အခါတွင်ပင် process တစ်ခု ဆက်လက် အသက်ရှင်နေစေရန် ထိရောက်စွာ ဆောင်ရွက်ပေးပါသည်။ ဤအရာကို တစ်ခါတစ်ရံတွင် `&` နှင့် `disown` တို့ဖြင့် ပြုလုပ်နိုင်သော်လည်း `nohup` သည် ပိုမိုကောင်းမွန်သော default တစ်ခု ဖြစ်ပါသည်။ အသေးစိတ်ကို [ဒီနေရာတွင်](https://unix.stackexchange.com/questions/3886/difference-between-nohup-disown-and) ရှာဖွေနိုင်ပါသည်။
 
-- `tmux`, `screen` - whereas `nohup` effectively backgrounds the process it is not convenient for interactive shell sessions. In that case using a terminal multiplexer like `screen` or `tmux` is a convenient choice since one can easily detach and reattach the associated shells.
+- **`tmux`၊ `screen`**: `nohup` သည် process ကို background သို့ ထိရောက်စွာ ပို့ဆောင်ပေးသော်လည်း interactive shell session များအတွက်တော့ အဆင်မပြေလှပါ။ ထိုသို့သော အခြေအနေမျိုးတွင် `screen` သို့မဟုတ် `tmux` ကဲ့သို့သော terminal multiplexer တစ်ခုကို အသုံးပြုခြင်းသည် သက်ဆိုင်ရာ shell များကို လွယ်ကူစွာ detach နှင့် reattach ပြုလုပ်နိုင်သောကြောင့် အဆင်ပြေသည့် ရွေးချယ်မှု ဖြစ်ပါသည်။
 
-Lastly, if you disown a program and want to reattach it to the current terminal, you can look into [reptyr](https://github.com/nelhage/reptyr). `reptyr PID` will grab the process with id PID and attach it to your current terminal.
+နောက်ဆုံးအနေဖြင့် အကယ်၍ သင်သည် ပရိုဂရမ်တစ်ခုကို disown ပြုလုပ်ခဲ့ပြီး ယင်းကို လက်ရှိ terminal ထံ ပြန်လည် reattach ပြုလုပ်လိုပါက [reptyr](https://github.com/nelhage/reptyr) ကို လေ့လာကြည့်နိုင်ပါသည်။ `reptyr PID` သည် ID PID ပါရှိသော process ကို ရယူပြီး သင်၏ လက်ရှိ terminal သို့ တွဲဆက် (attach) ပေးမည် ဖြစ်သည်။
 
 ## Port Forwarding
 
-In many scenarios you will run into software that works by listening to ports in the machine. When this happens in your local machine you can simply do `localhost:PORT` or `127.0.0.1:PORT`, but what do you do with a remote server that does not have its ports directly available through the network/internet?. This is called port forwarding and it
-comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the pictures for more details, credit of the pictures from [this SO post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot)).
+အခြေအနေ အများအပြားတွင် သင်သည် စက်အတွင်းရှိ port များကို နားထောင်ခြင်း (listen လုပ်ခြင်း) ဖြင့် အလုပ်လုပ်သော ဆော့ဖ်ဝဲလ်များနှင့် ကြုံတွေ့ရမည် ဖြစ်သည်။ ဤသို့ သင်၏ local စက်တွင် ဖြစ်ပျက်သည့်အခါ `localhost:PORT` သို့မဟုတ် `127.0.0.1:PORT` ကို ရိုးရှင်းစွာ ပြုလုပ်နိုင်သော်လည်း၊ ကွန်ရက်/အင်တာနက်မှတစ်ဆင့် ယင်း၏ port များကို တိုက်ရိုက် ရယူသုံးစွဲနိုင်ခြင်း မရှိသော remote server တစ်ခုနှင့် ကြုံလျှင် မည်သို့ ပြုလုပ်မည်နည်း။ ဤသည်ကို port forwarding ဟု ခေါ်ဆိုပြီး ယင်းတွင် ပုံစံနှစ်မျိုး ပါဝင်ပါသည်- Local Port Forwarding နှင့် Remote Port Forwarding (အသေးစိတ်အတွက် ပုံများကို ကြည့်ပါ၊ ပုံများ၏ credit မှာ [ဤ SO post](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot) မှ ဖြစ်ပါသည်)။
 
 
 **Local Port Forwarding**
@@ -71,17 +70,17 @@ comes in two flavors: Local Port Forwarding and Remote Port Forwarding (see the 
 ![Remote Port Forwarding](https://i.stack.imgur.com/4iK3b.png)
 
 
-The most common scenario is local port forwarding where a service in the remote machine listens in a port and you want to link a port in your local machine to forward to the remote port. For example if we execute  `jupyter notebook` in the remote server that listens to the port `8888`. Thus to forward that to the local port `9999` we would do `ssh -L 9999:localhost:8888 foobar@remote_server` and then navigate to `localhost:9999` in our local machine.
+အတွေ့ရအများဆုံး အခြေအနေမှာ local port forwarding ဖြစ်ပြီး၊ remote စက်အတွင်းရှိ service တစ်ခုက port တစ်ခုတွင် နားထောင်နေကာ သင်က remote port ထံ ပေးပို့ရန် (forward ပြုလုပ်ရန်) အတွက် သင်၏ local စက်ရှိ port တစ်ခုကို ချိတ်ဆက်လိုခြင်း ဖြစ်ပါသည်။ ဥပမာအားဖြင့် remote server တွင် port `8888` ကို နားထောင်နေသည့် `jupyter notebook` ကို မောင်းနှင်လိုက်သည် ဆိုပါစို့။ ထို့ကြောင့် ယင်းကို local port `9999` သို့ forward ပြုလုပ်ရန်အတွက် `ssh -L 9999:localhost:8888 foobar@remote_server` ကို ပြုလုပ်မည်ဖြစ်ပြီး၊ ထို့နောက် မိမိတို့ local စက်တွင် `localhost:9999` သို့ ဝင်ရောက် ကြည့်ရှုမည် ဖြစ်သည်။
 
 ## Graphics Forwarding
 
-Sometimes forwarding ports is not enough since we want to run a GUI based program in the server. You can always resort to Remote Desktop Software that sends the entire Desktop Environment (ie. options like RealVNC, Teamviewer, &c). However for a single GUI tool, SSH provides a good alternative: Graphics Forwarding.
+တစ်ခါတစ်ရံတွင် server ၌ GUI အခြေပြု ပရိုဂရမ်တစ်ခုကို မောင်းနှင်လိုသောကြောင့် port များကို forward ပြုလုပ်ရုံဖြင့် မလုံလောက်ပါ။ Desktop Environment တစ်ခုလုံးကို ပေးပို့ပေးသည့် Remote Desktop Software များကို အမြဲတမ်း အသုံးပြုနိုင်ပါသည် (ဥပမာ RealVNC, Teamviewer စသည့် ရွေးချယ်စရာများ)။ သို့သော်လည်း သီးခြား GUI tool တစ်ခုတည်းအတွက်မူ SSH သည် ကောင်းမွန်သော အခြားရွေးချယ်စရာတစ်ခုကို ပေးစွမ်းထားပါသည်- Graphics Forwarding ဖြစ်ပါသည်။
 
-Using the `-X` flag tells SSH to forward
+`-X` flag ကို အသုံးပြုခြင်းဖြင့် X11 ကို forward ပြုလုပ်ရန် SSH အား ညွှန်ကြားပါသည်။
 
- For trusted X11 forwarding the `-Y` flag can be used.
+ ယုံကြည်ရသော (trusted) X11 forwarding အတွက် `-Y` flag ကို အသုံးပြုနိုင်ပါသည်။
 
-Final note is that for this to work the `sshd_config` on the server must have the following options
+နောက်ဆုံး သတိပြုရန်အချက်မှာ ဤသည် အလုပ်လုပ်ရန်အတွက် server ပေါ်ရှိ `sshd_config` တွင် အောက်ပါ option များ ရှိနေရမည် ဖြစ်ပါသည် -
 
 ```bash
 X11Forwarding yes
@@ -90,17 +89,17 @@ X11DisplayOffset 10
 
 ## Roaming
 
-A common pain when connecting to a remote server are disconnections due to shutting down/sleeping your computer or changing a network. Moreover if one has a connection with significant lag using ssh can become quite frustrating. [Mosh](https://mosh.org/), the mobile shell, improves upon ssh, allowing roaming connections, intermittent connectivity and providing intelligent local echo.
+Remote server တစ်ခုသို့ ချိတ်ဆက်သည့်အခါ ကြုံတွေ့ရလေ့ရှိသော အခက်အခဲတစ်ခုမှာ မိမိ၏ ကွန်ပျူတာကို ပိတ်လိုက်ခြင်း/sleep လုပ်လိုက်ခြင်း သို့မဟုတ် ကွန်ရက် ပြောင်းလဲလိုက်ခြင်းတို့ကြောင့် ချိတ်ဆက်မှု ပြတ်တောက်သွားခြင်း ဖြစ်ပါသည်။ ထို့အပြင် အကယ်၍ ချိတ်ဆက်မှုတွင် သိသာသော lag ရှိနေပါက ssh ကို အသုံးပြုခြင်းသည် အတော်လေး စိတ်ပျက်စရာ ကောင်းလာနိုင်ပါသည်။ Mobile shell ဖြစ်သော [Mosh](https://mosh.org/) သည် ssh ကို ပိုမိုကောင်းမွန်အောင် ပြုလုပ်ထားပြီး roaming ချိတ်ဆက်မှုများ၊ ပြတ်တောင်းပြတ်တောင်း ချိတ်ဆက်နိုင်မှုများကို ခွင့်ပြုပေးသည့်အပြင် ဉာဏ်ရည်ထက်မြက်သော local echo ကိုလည်း ပေးစွမ်းနိုင်ပါသည်။
 
-Mosh is present in all common distributions and package managers. Mosh requires an ssh server to be working in the server. You do not need to be superuser to install mosh  but it does require that ports 60000 through 60010 to be open in the server (they usually are since they are not in the privileged range).
+Mosh ကို အသုံးများသော distribution များနှင့် package manager များ အားလုံးတွင် ရယူနိုင်ပါသည်။ Mosh သည် server အတွင်း၌ ssh server တစ်ခု အလုပ်လုပ်နေရန် လိုအပ်ပါသည်။ Mosh ကို ထည့်သွင်းရန်အတွက် သင်သည် superuser ဖြစ်ရန် မလိုအပ်သော်လည်း server တွင် port 60000 မှ 60010 အထိ ပွင့်နေရန် လိုအပ်ပါသည်။ (၎င်းတို့သည် privileged range အတွင်း မရှိသောကြောင့် ပုံမှန်အားဖြင့် ပွင့်နေလေ့ ရှိပါသည်)။
 
-A downside of `mosh` is that is does not support roaming port/graphics forwarding so if you use those often `mosh` won't be of much help.
+`mosh` ၏ အားနည်းချက်တစ်ခုမှာ ယင်းသည် roaming port/graphics forwarding ကို ထောက်ပံ့မပေးခြင်း ဖြစ်သောကြောင့် အကယ်၍ သင်သည် ၎င်းတို့ကို မကြာခဏ သုံးစွဲပါက `mosh` သည် များစွာ အကူအညီ ဖြစ်မည် မဟုတ်ပါ။
 
 ## SSH Configuration
 
-### Client
+### Client ပိုင်း
 
-We have covered many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_server="ssh -X -i ~/.ssh/id_rsa -L 9999:localhost:8888 foobar@remote_server"`, however there is a better alternative, using `~/.ssh/config`.
+ကျွန်ုပ်တို့သည် ပေးပို့နိုင်သည့် argument အများအပြားကို ဆွေးနွေးခဲ့ကြပြီး ဖြစ်သည်။ စိတ်ဝင်စားစရာ အခြားရွေးချယ်စရာတစ်ခုမှာ `alias my_server="ssh -X -i ~/.ssh/id_rsa -L 9999:localhost:8888 foobar@remote_server"` ကဲ့သို့သော shell alias များကို ဖန်တီးခြင်း ဖြစ်သော်လည်း၊ `~/.ssh/config` ကို အသုံးပြုခြင်းဟူသော ပိုမိုကောင်းမွန်သည့် အခြားရွေးချယ်စရာတစ်ခု ရှိပါသည်။
 
 ```bash
 Host vm
@@ -116,46 +115,45 @@ Host *.mit.edu
 ```
 
 
-An additional advantage of using the `~/.ssh/config` file over aliases  is that other programs like `scp`, `rsync`, `mosh`, &c are able to read it as well and convert the settings into the corresponding flags.
+Alias များထက် `~/.ssh/config` ဖိုင်ကို အသုံးပြုခြင်း၏ အပိုဆောင်း အားသာချက်တစ်ခုမှာ `scp`၊ `rsync`၊ `mosh` စသည့် အခြားသော ပရိုဂရမ်များသည်လည်း ယင်းကို ဖတ်ရှုနိုင်ပြီး အပြင်အဆင်များကို သက်ဆိုင်ရာ flag များအဖြစ် ပြောင်းလဲပေးနိုင်ခြင်း ဖြစ်ပါသည်။
 
 
-Note that the `~/.ssh/config` file can be considered a dotfile, and in general it is fine for it to be included with the rest of your dotfiles. However if you make it public, think about the information that you are potentially providing strangers on the internet: the addresses of your servers, the users you are using, the open ports, &c. This may facilitate some types of attacks so be thoughtful about sharing your SSH configuration.
+`~/.ssh/config` ဖိုင်ကို dotfile တစ်ခုအဖြစ် သတ်မှတ်နိုင်ပြီး၊ ယေဘုယျအားဖြင့် ယင်းကို သင်၏ အခြားသော dotfile များနှင့်အတူ ထည့်သွင်းထားခြင်းသည် အဆင်ပြေပါသည်။ သို့သော်လည်း အကယ်၍ သင်သည် ယင်းကို အများပြည်သူသို့ ထုတ်ဖော်ပြသလိုက်ပါက (public ပြုလုပ်လိုက်ပါက) အင်တာနက်ပေါ်ရှိ ပြင်ပသူများထံ သင် ပေးအပ်လိုက်နိုင်သည့် အချက်အလက်များကို စဉ်းစားကြည့်ပါ- သင်၏ server များ၏ လိပ်စာများ၊ သင် အသုံးပြုနေသော user များ၊ ပွင့်နေသော port များ စသည်တို့ ဖြစ်ပါသည်။ ဤသည်မှာ အချို့သော တိုက်ခိုက်မှု အမျိုးအစားများကို လွယ်ကူချောမွေ့သွားစေနိုင်သဖြင့် သင်၏ SSH configuration ကို မျှဝေရာတွင် သေချာ စဉ်းစားဆင်ခြင်ပါ။
 
-Warning: Never include your RSA keys ( `~/.ssh/id_rsa*` ) in a public repository!
+သတိပေးချက်- သင်၏ RSA key များကို (`~/.ssh/id_rsa*`) public repository တွင် မည်သည့်အခါမျှ ထည့်သွင်းခြင်း မပြုပါနှင့်!
 
-### Server side
+### Server ပိုင်း
 
-Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make  changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings in a per user basis.
+Server ပိုင်း configuration ကို ပုံမှန်အားဖြင့် `/etc/ssh/sshd_config` တွင် သတ်မှတ်လေ့ရှိပါသည်။ ဤနေရာတွင် သင်သည် password ဖြင့် အတည်ပြုစစ်ဆေးခြင်းကို ပိတ်ထားခြင်း၊ ssh port များကို ပြောင်းလဲခြင်း၊ X11 forwarding ကို ဖွင့်လှစ်ခြင်း စသည့် ပြောင်းလဲမှုများကို ပြုလုပ်နိုင်ပါသည်။ Config အပြင်အဆင်များကို user တစ်ဦးချင်းစီအလိုက် သတ်မှတ်ပေးနိုင်ပါသည်။
 
-## Remote Filesystem
+## Remote Filesystem (အဝေးထိန်း ဖိုင်စနစ်)
 
-Sometimes it is convenient to mount a remote folder. [sshfs](https://github.com/libfuse/sshfs) can mount a folder on a remote server
-locally, and then you can use a local editor.
+တစ်ခါတစ်ရံတွင် remote folder တစ်ခုကို mount ပြုလုပ်ထားခြင်းက အဆင်ပြေစေပါသည်။ [sshfs](https://github.com/libfuse/sshfs) သည် remote server ပေါ်ရှိ folder တစ်ခုကို local တွင် mount ပြုလုပ်ပေးနိုင်ပြီး၊ ထို့နောက် သင်သည် local editor တစ်ခုကို အသုံးပြုနိုင်မည် ဖြစ်သည်။
 
-## Exercises
+## လေ့ကျင့်ခန်းများ
 
-1. For SSH to work the host needs to be running an SSH server. Install an SSH server (such as OpenSSH) in a virtual machine so you can do the rest of the exercises. To figure out what is the ip of the machine run the command `ip addr` and look for the inet field (ignore the `127.0.0.1` entry, that corresponds to the loopback interface).
+1. SSH အလုပ်လုပ်ရန်အတွက် host စက်တွင် SSH server တစ်ခု ရန်းနေရန် လိုအပ်ပါသည်။ ကျန်ရှိသော လေ့ကျင့်ခန်းများကို လုပ်ဆောင်နိုင်ရန်အတွက် virtual machine တစ်ခုအတွင်း၌ SSH server တစ်ခု (ဥပမာ OpenSSH) ထည့်သွင်းပါ။ စက်၏ IP မည်မျှဖြစ်သည်ကို သိရှိနိုင်ရန် `ip addr` command ကို ရန်းပြီး `inet` နေရာကို ရှာဖွေပါ (loopback interface နှင့် သက်ဆိုင်သော `127.0.0.1` စာရင်းကို ကျော်ပါ)။
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -t rsa -b 4096`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
+1. `~/.ssh/` သို့ သွားရောက်ပြီး ထိုနေရာတွင် SSH key အတွဲတစ်ခု ရှိမရှိ စစ်ဆေးပါ။ မရှိပါက `ssh-keygen -t rsa -b 4096` ဖြင့် ထုတ်လုပ်ပါ။ သင့်အနေဖြင့် password တစ်ခုကို အသုံးပြုပြီး `ssh-agent` ကို သုံးစွဲရန် အကြံပြုပါသည်၊ အသေးစိတ် အချက်အလက်များကို [ဒီနေရာတွင်](https://www.ssh.com/ssh/agent) ကြည့်ပါ။
 
-1. Use `ssh-copy-id` to copy the key to your virtual machine. Test that you can ssh without a password. Then, edit your `sshd_config` in the server to disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`.
+1. Key ကို မိမိ၏ virtual machine ထံ ကူးယူရန် `ssh-copy-id` ကို အသုံးပြုပါ။ Password မလိုဘဲ ssh ဝင်ရောက်နိုင်မနိုင် စမ်းသပ်ပါ။ ထို့နောက် server ပေါ်ရှိ သင်၏ `sshd_config` ကို ပြင်ဆင်ပြီး `PasswordAuthentication` ၏ တန်ဖိုးကို ပြောင်းလဲကာ password ဖြင့် အတည်ပြုစစ်ဆေးခြင်းကို ပိတ်ပါ။ `PermitRootLogin` ၏ တန်ဖိုးကို ပြောင်းလဲခြင်းဖြင့် root login ဝင်ရောက်ခြင်းကို ပိတ်ပါ။
 
-1. Edit the `sshd_config` in the server to change the ssh port and check that you can still ssh. If you ever have a public facing server, a non default port and key only login will throttle a significant amount of malicious attacks.
+1. SSH port ကို ပြောင်းလဲရန် server ရှိ `sshd_config` ကို ပြင်ဆင်ပြီး ssh ဝင်ရောက်နိုင်ဆဲ ဟုတ်မဟုတ် စစ်ဆေးပါ။ အကယ်၍ သင့်တွင် အများပြည်သူ ဝင်ရောက်နိုင်သော (public facing) server တစ်ခု ရှိပါက default မဟုတ်သော port တစ်ခုနှင့် key သာ သုံးသည့် login တို့သည် မသမာသော တိုက်ခိုက်မှု ပမာဏ အမြောက်အမြားကို ဟန့်တားပေးနိုင်မည် ဖြစ်သည်။
 
-1. Install mosh in your server/VM, establish a connection and then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. သင်၏ server/VM တွင် mosh ကို ထည့်သွင်းပါ၊ ချိတ်ဆက်မှုတစ်ခု ပြုလုပ်ပြီးနောက် server/VM ၏ network adapter ကို ဖြုတ်လိုက်ပါ။ Mosh သည် ယင်းမှ အဆင်ပြေစွာ ပြန်လည် စတင်နိုင်ပါသလား (recover ဖြစ်ပါသလား)။
 
-1. Another use of local port forwarding is to tunnel certain host to the server. If your network filters some website like for example `reddit.com` you can tunnel it through the server as follows:
+1. Local port forwarding ၏ အခြားသော အသုံးပြုမှုတစ်ခုမှာ သီးခြား host တစ်ခုကို server သို့ tunnel ဖောက်၍ ဆက်သွယ်ခြင်း ဖြစ်သည်။ အကယ်၍ သင်၏ ကွန်ရက်သည် ဥပမာ `reddit.com` ကဲ့သို့သော ဝဘ်ဆိုက်အချို့ကို စစ်ထုတ်ထားပါက ယင်းကို server မှတစ်ဆင့် အောက်ပါအတိုင်း tunnel ဖောက်၍ ဝင်ရောက်နိုင်သည် -
 
-    - Run `ssh remote_server -L 80:reddit.com:80`
-    - Set `reddit.com` and `www.reddit.com` to `127.0.0.1` in `/etc/hosts`
-    - Check that you are accessing that website through the server
-    - If it is not obvious use a website such as [ipinfo.io](https://ipinfo.io/) which will change depending on your host public ip.
-
-
-1. Background port forwarding can easily be achieved with a couple of extra flags. Look into what the `-N` and `-f` flags do in `ssh` and figure out what a command such as this `ssh -N -f -L 9999:localhost:8888 foobar@remote_server` does.
+    - `ssh remote_server -L 80:reddit.com:80` ကို ရန်းပါ
+    - `/etc/hosts` တွင် `reddit.com` နှင့် `www.reddit.com` တို့ကို `127.0.0.1` ဟု သတ်မှတ်ပါ
+    - ထိုဝဘ်ဆိုက်သို့ server မှတစ်ဆင့် ဝင်ရောက်နေခြင်း ဟုတ်မဟုတ် စစ်ဆေးပါ
+    - သိသာထင်ရှားမှု မရှိပါက သင်၏ host public IP အပေါ် မူတည်၍ ပြောင်းလဲမည်ဖြစ်သော [ipinfo.io](https://ipinfo.io/) ကဲ့သို့သော ဝဘ်ဆိုက်တစ်ခုကို အသုံးပြုပါ
 
 
-## References
+1. Background port forwarding ကို အပိုဆောင်း flag အနည်းငယ်ဖြင့် လွယ်ကူစွာ ပြုလုပ်နိုင်ပါသည်။ `ssh` တွင် `-N` နှင့် `-f` flag များက မည်သည့်အရာ ပြုလုပ်သည်ကို စုံစမ်းလေ့လာပြီး `ssh -N -f -L 9999:localhost:8888 foobar@remote_server` ကဲ့သို့သော command တစ်ခုက မည်သည့်အရာ ပြုလုပ်သည်ကို အဖြေရှာပါ။
+
+
+## ကိုးကားချက်များ
 
 - [SSH Hacks](https://matt.might.net/articles/ssh-hacks/)
 - [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)

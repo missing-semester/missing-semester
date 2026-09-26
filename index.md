@@ -1,36 +1,20 @@
 ---
 layout: page
-title: The Missing Semester of Your CS Education
+title: "The Missing Semester of Your CS Education"
 description: >
-  Master powerful tools that will make you a more productive computer scientist and programmer.
+  သင်၏ ကွန်ပျူတာသိပ္ပံနှင့် ပရိုဂရမ်းမင်း လုပ်ငန်းစဉ်များတွင် ပိုမို ထိရောက် စွမ်းဆောင်ရည်မြင့်မားစေမည့် စွမ်းအားထက်မြက်သော tool များကို ကျွမ်းကျင်စွာ အသုံးပြုနည်း သင်ယူပါ။
 # subtitle: IAP 2026
 subtitle: "2026"
 nositetitle: true
 ---
 
-Classes teach you all about advanced topics within CS, from operating systems
-to machine learning, but there's one critical subject that's rarely covered,
-and is instead left to students to figure out on their own: proficiency with
-their tools. We'll teach you how to master the command-line, use a powerful
-text editor, use fancy features of version control systems, and much more!
+ကွန်ပျူတာသိပ္ပံ (CS) သင်တန်းများတွင် OS များ (Operating Systems) မှစ၍ စက်သင်ယူမှု (Machine Learning) အထိ အဆင့်မြင့် ခေါင်းစဉ်များကို သင်ကြားပေးကြသော်လည်း၊ ကျောင်းသားများ ကိုယ်တိုင် ကြိုးစားလေ့လာယူရလေ့ရှိပြီး ပုံမှန် သင်ရိုးများတွင် ထည့်သွင်းသင်ကြားပေးခဲသော အရေးကြီးသည့် ဘာသာရပ်တစ်ခု ရှိနေပါသည်—ယင်းမှာ မိမိတို့ အသုံးပြုသည့် tool (ကိရိယာ) များကို ကျွမ်းကျင်စွာ ကိုင်တွယ်နိုင်မှုပင် ဖြစ်သည်။ ဤသင်တန်းတွင် Command-line ကို ကျွမ်းကျင်စွာ အသုံးပြုပုံ၊ စွမ်းအားထက်မြက်သော Text Editor များ အသုံးပြုပုံ၊ Version Control စနစ်များ၏ အဆင့်မြင့် လုပ်ဆောင်ချက်များ အသုံးပြုပုံနှင့် အခြား အရေးပါသော အကြောင်းအရာများကို သင်ကြားပေးသွားမည် ဖြစ်ပါသည်။
 
-Students spend hundreds of hours using these tools over the course of their
-education (and thousands over their career), so it makes sense to make the
-experience as fluid and frictionless as possible. Mastering these tools not
-only enables you to spend less time on figuring out how to bend your tools to
-your will, but it also lets you solve problems that would previously seem
-impossibly complex.
+ကျောင်းသားများသည် မိမိတို့၏ ကျောင်းသားဘဝတွင် ဤ tool များကို အသုံးပြု၍ နာရီပေါင်း ရာချီ (နှင့် သက်မွေးဝမ်းကျောင်း လုပ်ငန်းခွင်တွင် နာရီပေါင်း သောင်းချီ) အချိန်ကုန်လွန်ကြရသဖြင့်၊ ယင်း tool များကို တတ်နိုင်သမျှ ချောမွေ့လွယ်ကူစွာ အသုံးပြုနိုင်အောင် ပြုလုပ်ထားခြင်းသည် အလွန်အဓိပ္ပာယ်ရှိလှပါသည်။ ဤ tool များကို ကျွမ်းကျင်အောင် သင်ယူခြင်းဖြင့် tool များနှင့် ရုန်းကန်ရသည့် အချိန်များကို လျှော့ချပေးနိုင်ရုံမျှမက၊ ယခင်က အလွန်ခက်ခဲနက်နဲသည်ဟု ထင်မှတ်ခဲ့သော ပြဿနာများကိုပါ ဖြေရှင်းနိုင်စွမ်း ရရှိစေမည် ဖြစ်ပါသည်။
 
-These days, many aspects of software engineering are also in flux
-through the introduction of AI-enabled and AI-enhanced tools and
-workflows. When used appropriately and with awareness of their
-shortcomings, these can often provide significant benefits to
-CS practitioners and are thus worth developing working knowledge of.
-Since AI is a cross-functional enabling technology, there is not a
-standalone AI lecture; we've instead folded the use of the latest
-applicable AI tools and techniques into each lecture directly.
+ယနေ့ခေတ်တွင် AI နည်းပညာသုံး tool များနှင့် လုပ်ငန်းစဉ်များ ပေါ်ထွက်လာခြင်းကြောင့် ဆော့ဖ်ဝဲလ် အင်ဂျင်နီယာ ဘာသာရပ်၏ အသွင်အပြင်များစွာ ပြောင်းလဲလျက် ရှိပါသည်။ ယင်း tool များကို အကန့်အသတ်များနှင့်တကွ သင့်လျော်စွာ အသုံးပြုတတ်ပါက CS ကျွမ်းကျင်သူများအတွက် များစွာ အကျိုးရှိစေမည် ဖြစ်၍ လက်တွေ့ အသုံးပြုနိုင်သည့် အသိပညာ ရရှိထားရန် လိုအပ်ပါသည်။ AI သည် နယ်ပယ်ပေါင်းစုံတွင် အထောက်အကူပြုသော နည်းပညာဖြစ်၍ သီးခြား AI သင်ခန်းစာအဖြစ် မထားရှိဘဲ၊ နောက်ဆုံးပေါ် AI tool များနှင့် နည်းလမ်းများကို သက်ဆိုင်ရာ သင်ခန်းစာ တစ်ခုချင်းစီတွင် တိုက်ရိုက် ထည့်သွင်းပေးထားပါသည်။
 
-Read about the [motivation behind this class](/about/).
+[ဤသင်တန်းကို ဖန်တီးခဲ့သည့် ရည်ရွယ်ချက်ကို ဖတ်ရှုပါ (Motivation)](/about/)။
 
 {% comment %}
 # Registration
@@ -38,7 +22,7 @@ Read about the [motivation behind this class](/about/).
 Sign up for the IAP 2026 class by filling out this [registration form](https://forms.gle/j2wMzi7qeiZmzEWy9).
 {% endcomment %}
 
-# Syllabus
+# သင်ရိုးညွှန်းတမ်း (Syllabus)
 
 {% comment %}
 **Lecture**: [35-225](https://whereis.mit.edu/?go=35), 1:30--2:30pm (_exception_: 3--4pm on Friday 1/16)<br>
@@ -61,9 +45,9 @@ Sign up for the IAP 2026 class by filling out this [registration form](https://f
 {% endfor %}
 </ul>
 
-## Special topics from previous years
+## လွန်ခဲ့သော နှစ်များမှ သီးသန့် ခေါင်းစဉ်များ (Special topics from previous years)
 
-The topics we cover vary from year to year. For students who are interested in the complete set of topics we have covered over the years, we highlight topics covered in previous years that we did not cover in 2026.
+ကျွန်ုပ်တို့ သင်ကြားပေးသော ခေါင်းစဉ်များသည် တစ်နှစ်နှင့်တစ်နှစ် ကွဲပြားနိုင်ပါသည်။ လွန်ခဲ့သော နှစ်များတွင် သင်ကြားခဲ့သော်လည်း ၂၀၂၆ တွင် မပါဝင်သေးသော ခေါင်းစဉ်စုံကို လေ့လာလိုသူများအတွက် အောက်ပါအတိုင်း စုစည်းဖော်ပြပေးထားပါသည်။
 
 {% comment %} pop to remove default "posts" collection {% endcomment %}
 {% assign sorted_collections = site.collections | sort: 'label' | pop | reverse %}
@@ -84,24 +68,15 @@ The topics we cover vary from year to year. For students who are interested in t
 {% endfor %}
 </ul>
 
-{% comment %}
-Lecture videos will be made available to MIT students immediately after lecture (via Panopto). The system has a limitation that only those with an MIT Kerberos can access the raw lecture videos. We are working on editing lecture videos and uploading them to YouTube. A couple have been uploaded already; we expect the rest to be uploaded by mid-February.
+# အထွေထွေ အချက်အလက်များ (General information)
 
-If you can't wait until January 2026, you can also take a look at the lectures
-from the [previous offering of the course](/2020/), which covers many of the
-same topics.
-{% endcomment %}
+**သင်ကြားပေးသူများ**: ဤသင်တန်းကို [Anish](https://anish.io/)၊ [Jon](https://thesquareplanet.com/) နှင့် [Jose](https://josejg.com/) တို့မှ ပူးတွဲ သင်ကြားပေးပါသည်။<br>
+**မေးမြန်းရန်**: [missing-semester@mit.edu](mailto:missing-semester@mit.edu) သို့ အီးမေးလ် ပို့ဆိုနိုင်ပါသည်။<br>
+**ဆွေးနွေးပွဲများ**: [OSSU Discord](https://ossu.dev/#community) (မေးခွန်းများအတွက် `#missing-semester-forum` နှင့် တိုက်ရိုက်ဆွေးနွေးရန် `#missing-semester` ကို အသုံးပြုပါ)။
 
-# General information
+# MIT အပြင်ဘက် (Beyond MIT)
 
-**Staff**: This class is co-taught by [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/).<br>
-**Questions**: Email us at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).<br>
-**Discussion**: [OSSU Discord](https://ossu.dev/#community) (use `#missing-semester-forum` like you would use Piazza, and `#missing-semester` to chat with the class/instructors).
-
-# Beyond MIT
-
-We've also shared this class beyond MIT in the hopes that others may
-benefit from these resources. You can find posts and discussion on
+MIT အပြင်ဘက်မှ လေ့လာသူများလည်း ဤ အရင်းအမြစ်များမှ အကျိုးကျေးဇူး ရရှိနိုင်ရန်အတွက် မျှဝေပေးထားပါသည်။ အောက်ပါ link များတွင် ဆွေးနွေးချက်များကို ဝင်ရောက် ကြည့်ရှုနိုင်ပါသည်-
 
  - Hacker News ([2026](https://news.ycombinator.com/item?id=47124171), [2020](https://news.ycombinator.com/item?id=22226380), [2019](https://news.ycombinator.com/item?id=19078281))
  - Lobsters ([2026](https://lobste.rs/s/q4ykw7/missing_semester_your_cs_education_2026), [2020](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit), [2019](https://lobste.rs/s/h6157x/mit_hacker_tools_lecture_series_on))
@@ -113,12 +88,11 @@ benefit from these resources. You can find posts and discussion on
  - LinkedIn ([2026](https://www.linkedin.com/posts/anishathalye_i-returned-to-mit-during-iap-january-term-activity-7430285026933522433-Ehr9))
  - YouTube ([2026](https://www.youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L), [2020](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J), [2019](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuiujH1lpn8cA9dsyulbYRv))
 
-# Translations
-
-{% comment %} keep these in alphabetical order {% endcomment %}
+# ဘာသာပြန်ဆိုချက်များ (Translations)
 
 - [Arabic](https://missing-semester-ar.github.io/)
 - [Bengali](https://missing-semester-bn.github.io/)
+- [Myanmar](https://github.com/missing-semester-my)
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional, Taiwan)](https://missing-semester-tw.github.io/)
 - [German](https://missing-semester-de.github.io/)
@@ -137,20 +111,13 @@ benefit from these resources. You can find posts and discussion on
 - [Turkish](https://missing-semester-tr.github.io/)
 - [Vietnamese](https://missing-semester-vn.github.io/)
 
-Note: these are external links to community translations. We have not vetted
-them.
+Note: ဤသည်တို့မှာ အသိုင်းအဝိုင်းမှ ပြုလုပ်ထားသော ပြင်ပ ဘာသာပြန် link များ ဖြစ်ကြပါသည်။
 
-Have you created a translation of the course notes from this class? Submit a
-[pull request](https://github.com/missing-semester/missing-semester/pulls) so
-we can add it to the list!
+သင်သည် ဤသင်တန်း၏ သင်ခန်းစာများကို အခြားဘာသာသို့ ဘာသာပြန်ဆိုထားပါက ကျွန်ုပ်တို့၏ စာရင်းတွင် ထည့်သွင်းနိုင်ရန် [pull request](https://github.com/missing-semester/missing-semester/pulls) တင်သွင်းနိုင်ပါသည်။
 
-## Acknowledgments
+## ကျေးဇူးတင်လွှာ (Acknowledgments)
 
-{% comment %}
-2026 acks; previous years' acks are on their respective pages
-{% endcomment %}
-
-We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos. We thank Luis Turino / [SIPB](https://sipb.mit.edu/) for supporting this class as part of [SIPB IAP 2026](https://sipb.mit.edu/iap/).
+သင်ခန်းစာ ဗီဒီယိုများ ရိုက်ကူးနိုင်ရန် ကူညီပေးခဲ့ကြသော Elaine Mello နှင့် [MIT Open Learning](https://openlearning.mit.edu/) တို့ကို ကျေးဇူးတင်ရှိပါသည်။ [SIPB IAP 2026](https://sipb.mit.edu/iap/) ၏ အစိတ်ပိုင်းတစ်ခုအဖြစ် ဤသင်တန်းကို ကူညီပံ့ပိုးပေးခဲ့သော Luis Turino / [SIPB](https://sipb.mit.edu/) တို့ကိုလည်း အထူး ကျေးဇူးတင်ရှိပါသည်။
 
 ---
 
@@ -159,3 +126,4 @@ We thank Elaine Mello and [MIT Open Learning](https://openlearning.mit.edu/) for
 <p>Licensed under CC BY-NC-SA.</p>
 <p>See <a href="/license/">here</a> for contribution &amp; translation guidelines.</p>
 </div>
+

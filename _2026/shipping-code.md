@@ -2,7 +2,7 @@
 layout: lecture
 title: "Packaging and Shipping Code"
 description: >
-  Learn about project packaging, environments, versioning, and deploying libraries, applications, and services.
+  ပရောဂျက် ထုပ်ပိုးခြင်း (packaging)၊ ပတ်ဝန်းကျင်များ (environments)၊ ဗားရှင်းသတ်မှတ်ခြင်း (versioning)၊ နှင့် လိုင်ဘရီများ၊ အပလီကေးရှင်းများ၊ ဝန်ဆောင်မှုများကို တပ်ဆင်ဖြန့်ဖြူးခြင်း (deploying) တို့အကြောင်း လေ့လာပါ။
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
@@ -11,32 +11,32 @@ video:
   id: KBMiB-8P4Ns
 ---
 
-Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
+ကုဒ်တစ်ခုကို ရည်ရွယ်ချက်အတိုင်း အလုပ်လုပ်အောင် ရေးသားရန် ခက်ခဲပါသည်፤ ထိုကုဒ်ကိုပင် မိမိစက်နှင့် မတူသော အခြားစက်တစ်ခုပေါ်တွင် အလုပ်လုပ်အောင် ပြုလုပ်ရန်မှာ ပို၍ပင် ခက်ခဲလေ့ရှိပါသည်။
 
-Shipping code means taking the code you wrote and converting it into a usable form that someone else can run without your computer's exact setup.
-Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
-It also depends on what you are building: a software library, a command line tool, and a web service all have different requirements and deployment steps.
-Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a. the _artifact_ --- and what assumptions it makes about the environment around it.
+ကုဒ်များကို Shipping ပြုလုပ်ခြင်း (ဖြန့်ဖြူးထုတ်လုပ်ခြင်း) ဆိုသည်မှာ သင်ရေးသားထားသော ကုဒ်ကို မိမိကွန်ပျူတာ၏ တိကျသော Setup မလိုဘဲ အခြားသူတစ်ဦးဦးက အလွယ်တကူ Run နိုင်သော အသုံးပြုနိုင်သည့် ပုံစံသို့ ပြောင်းလဲပေးခြင်း ဖြစ်ပါသည်။
+ကုဒ်များကို Shipping ပြုလုပ်ရာတွင် ပုံစံအမျိုးမျိုး ရှိနိုင်ပြီး Programming language၊ System library များ၊ Operating system စသည့် အချက်အလက်များစွာပေါ်တွင် မူတည်ပါသည်။
+၎င်းသည် သင်တည်ဆောက်နေသည့် အရာပေါ်တွင်လည်း မူတည်ပါသည်—Software library တစ်ခု၊ Command line tool တစ်ခု၊ သို့မဟုတ် Web service တစ်ခု စသည်တို့တွင် လိုအပ်ချက်များနှင့် Deployment အဆင့်များ အသီးသီး ကွဲပြားကြပါသည်။
+မည်သို့ပင်ဖြစ်စေ၊ ဤအခြေအနေအားလုံးတွင် ဘုံတူညီသော ပုံစံတစ်ခု ရှိပါသည်—၎င်းမှာ ပေးအပ်ရမည့် အရာ (deliverable) သို့မဟုတ် _artifact_ ဆိုသည်မှာ ဘာလဲဆိုသည်ကို သတ်မှတ်ရန်နှင့် ၎င်းသည် ၎င်း၏ ပတ်ဝန်းကျင် (environment) ပေါ်တွင် မည်သည့် ယူဆချက်များ ထားရှိသည်ဆိုသည်ကို သတ်မှတ်ပေးရန် လိုအပ်ခြင်း ဖြစ်ပါသည်။
 
-In this lecture, we'll cover:
+ဤသင်ခန်းစာတွင် အောက်ပါတို့အကြောင်း လွှမ်းခြုံဆွေးနွေးသွားပါမည်-
 
-- [Dependencies & Environments](#dependencies--environments)
-- [Artifacts & Packaging](#artifacts--packaging)
-- [Releases & Versioning](#releases--versioning)
-- [Reproducibility](#reproducibility)
-- [VMs & Containers](#vms--containers)
-- [Configuration](#configuration)
-- [Services & Orchestration](#services--orchestration)
-- [Publishing](#publishing)
+- [မှီခိုမှုများနှင့် ပတ်ဝန်းကျင်များ (Dependencies & Environments)](#dependencies--environments)
+- [Artifact များနှင့် ထုပ်ပိုးခြင်း (Artifacts & Packaging)](#artifacts--packaging)
+- [ထုတ်လုပ်မှုများနှင့် ဗားရှင်းသတ်မှတ်ခြင်း (Releases & Versioning)](#releases--versioning)
+- [ထပ်မံဖန်တီးနိုင်စွမ်း (Reproducibility)](#reproducibility)
+- [VM များနှင့် Containers များ (VMs & Containers)](#vms--containers)
+- [စနစ်ပြင်ဆင်မှု (Configuration)](#configuration)
+- [ဝန်ဆောင်မှုများနှင့် စီမံခန့်ခွဲမှု (Services & Orchestration)](#services--orchestration)
+- [ထုတ်ဝေခြင်း (Publishing)](#publishing)
 
-We'll explain these concepts through examples from the Python ecosystem, as concrete examples are helpful for understanding. While the tools are different for other programming language ecosystems, the concepts will largely be the same.
+ပိုမိုနားလည်လွယ်ကူစေရန်အတွက် လက်တွေ့ကျသော ဥပမာများဖြစ်သည့် Python ecosystem ထဲမှ ဥပမာများဖြင့် ဤသဘောတရားများကို ရှင်းပြသွားပါမည်။ အခြား programming language ecosystem များအတွက် tool များ ကွဲပြားနိုင်သော်လည်း သဘောတရားအများစုမှာ အတူတူပင် ဖြစ်ပါသည်။
 
 # Dependencies & Environments
 
-In modern software development, layers of abstraction are ubiquitous.
-Programs naturally offload logic to other libraries or services.
-However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
-For instance, in Python, to fetch the content of a website we often do:
+ခေတ်သစ် ဆော့ဖ်ဝဲလ် ဖွံ့ဖြိုးတိုးတက်မှုတွင် အဆင့်ဆင့် သီးခြားခွဲထုတ်ထားသော အလွှာများ (layers of abstraction) သည် နေရာတိုင်းတွင် ရှိနေပါသည်။
+ပရိုဂရမ်များသည် အခြားလိုင်ဘရီများ သို့မဟုတ် ဝန်ဆောင်မှုများထံသို့ လုပ်ဆောင်ချက်များကို သဘာဝအတိုင်း လွှဲပြောင်းလုပ်ဆောင်လေ့ ရှိကြပါသည်။
+သို့သော် ၎င်းသည် သင်၏ ပရိုဂရမ်နှင့် အလုပ်လုပ်ရန် လိုအပ်သော လိုင်ဘရီများအကြား _မှီခိုမှု (dependency)_ ဆက်ဆံရေးတစ်ခုကို ပေါ်ပေါက်စေပါသည်။
+ဥပမာအားဖြင့် Python တွင် ဝဘ်ဆိုက်တစ်ခု၏ အကြောင်းအရာကို ဆွဲယူရန်အတွက် ကျွန်ုပ်တို့သည် အောက်ပါအတိုင်း ပြုလုပ်လေ့ရှိကြသည်-
 
 ```python
 import requests
@@ -44,7 +44,7 @@ import requests
 response = requests.get("https://missing.csail.mit.edu")
 ```
 
-Yet the `requests` library does not come bundled with the Python runtime, so if we try to run this code without having `requests` installed, Python will raise an error:
+သို့သော် `requests` လိုင်ဘရီသည် Python runtime နှင့်အတူ တစ်ပါတည်း ပါဝင်မလာပါ၊ ထို့ကြောင့် `requests` ကို Install မလုပ်ဘဲ ဤကုဒ်ကို Run ရန် ကြိုးပမ်းပါက Python သည် Error ပြသပါလိမ့်မည်-
 
 ```console
 $ python fetch.py
@@ -54,14 +54,14 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'requests'
 ```
 
-To make this library available we need to first run `pip install requests` to install it.
-`pip` is the command line tool that the Python programming language provides for installing packages.
-Executing `pip install requests` produces the following sequence of actions:
+ဤလိုင်ဘရီကို အသုံးပြုနိုင်ရန်အတွက် ကျွန်ုပ်တို့သည် ၎င်းကို install ပြုလုပ်ရန် ပထမဦးစွာ `pip install requests` ကို Run ရန် လိုအပ်ပါသည်။
+`pip` ဆိုသည်မှာ Package များကို install ပြုလုပ်ရန်အတွက် Python programming language က ပံ့ပိုးပေးထားသော command line tool ဖြစ်ပါသည်။
+`pip install requests` ကို စတင်ပတ်မောင်းလိုက်ပါက အောက်ပါ အဆင့်အတန်းအတိုင်း ဆက်တိုက် လုပ်ဆောင်သွားပါသည်-
 
-1. Search for requests in the Python Package Index ([PyPI](https://pypi.org/))
-1. Search for the appropriate artifact for the platform we are running under
-1. Resolve dependencies --- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies and install them beforehand
-1. Download the artifacts, then unpack and copy the files into the right places in our filesystem
+1. Python Package Index ([PyPI](https://pypi.org/)) တွင် requests ကို ရှာဖွေခြင်း
+1. ကျွန်ုပ်တို့ အသုံးပြုနေသော platform အတွက် သင့်လျော်သော artifact ကို ရှာဖွေခြင်း
+1. မှီခိုမှုများကို ဖြေရှင်းခြင်း (Resolve dependencies) --- `requests` လိုင်ဘရီကိုယ်တိုင်ကလည်း အခြား package များကို မှီခိုနေသဖြင့် installer သည် ဆက်စပ်မှီခိုနေသော (transitive dependencies) package များ၏ ကိုက်ညီသော ဗားရှင်းအားလုံးကို ရှာဖွေပြီး မတိုင်မီ ကြိုတင် install လုပ်ပေးရပါမည်
+1. Artifact များကို Download ပြုလုပ်ပြီးနောက် ဖိုင်များကို ကျွန်ုပ်တို့၏ filesystem အတွင်းရှိ မှန်ကန်သော နေရာများသို့ ဖြေညှိ၍ ကူးယူထည့်သွင်းခြင်း
 
 ```console
 $ pip install requests
@@ -79,8 +79,8 @@ Installing collected packages: urllib3, idna, charset-normalizer, certifi, reque
 Successfully installed certifi-2024.8.30 charset-normalizer-3.4.0 idna-3.10 requests-2.32.3 urllib3-2.2.3
 ```
 
-Here we can see that `requests` has its own dependencies such as `certifi` or `charset-normalizer` and that they have to be installed before `requests` can be installed.
-Once installed, the Python runtime can find this library when importing it.
+ဤနေရာတွင် `requests` ၌ `certifi` သို့မဟုတ် `charset-normalizer` ကဲ့သို့သော မိမိကိုယ်ပိုင် dependency များ ရှိနေပြီး `requests` ကို install မပြုလုပ်မီ ၎င်းတို့ကို အရင် install လုပ်ရမည်ကို တွေ့မြင်နိုင်ပါသည်။
+Install လုပ်ပြီးသွားပါက Python runtime သည် import ပြုလုပ်သည့်အခါ ဤလိုင်ဘရီကို ရှာဖွေတွေ့ရှိနိုင်ပြီ ဖြစ်ပါသည်။
 
 ```console
 $ python -c 'import requests; print(requests.__path__)'
@@ -90,19 +90,19 @@ $ pip list | grep requests
 requests        2.32.3
 ```
 
-Programming languages have different tools, conventions and practices for installing and publishing libraries.
-In some languages like Rust, the toolchain is unified --- `cargo` handles building, testing, dependency management, and publishing.
-In others like Python, the unification happens at a specification level --- rather than a single tool, there are standardized specifications that define how packaging works, allowing multiple competing tools for each task (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
-And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
+Programming languages များတွင် လိုင်ဘရီများကို install ပြုလုပ်ခြင်းနှင့် ထုတ်ဝေခြင်း (publishing) တို့အတွက် မတူညီသော tool များ၊ စံနှုန်းများနှင့် အလေ့အထများ ရှိကြပါသည်။
+Rust ကဲ့သို့သော အချို့ language များတွင် toolchain ကို တစ်ခုတည်းအဖြစ် ပေါင်းစည်းထားပါသည်—`cargo` က ထုတ်လုပ်ခြင်း (building)၊ စမ်းသပ်ခြင်း (testing)၊ dependency စီမံခန့်ခွဲခြင်း နှင့် ထုတ်ဝေခြင်းတို့အားလုံးကို ကိုင်တွယ်ပေးပါသည်။
+Python ကဲ့သို့သော အခြား language များတွင်မူ ပေါင်းစည်းမှုသည် စံသတ်မှတ်ချက်အဆင့် (specification level) တွင် ဖြစ်ပေါ်ပါသည်—tool တစ်ခုတည်း မဟုတ်ဘဲ packaging မည်သို့ အလုပ်လုပ်သည်ကို သတ်မှတ်ပေးသည့် စံသတ်မှတ်ချက်များ ရှိနေသဖြင့် အလုပ်တစ်ခုစီအတွက် ယှဉ်ပြိုင်နေသော tool အများအပြားကို အသုံးပြုနိုင်စေပါသည် (`pip` သို့မဟုတ် [`uv`](https://docs.astral.sh/uv/)၊ `setuptools` သို့မဟုတ် [`hatch`](https://hatch.pypa.io/) သို့မဟုတ် [`poetry`](https://python-poetry.org/) စသည်ဖြင့်)။
+LaTeX ကဲ့သို့သော အချို့ ecosystem များတွင်မူ TeX Live သို့မဟုတ် MacTeX ကဲ့သို့သော distribution များတွင် package ထောင်ပေါင်းများစွာကို ကြိုတင် install ပြုလုပ်၍ တစ်ပါတည်း ထည့်သွင်းပေးထားပါသည်။
 
-Introducing dependencies also introduces dependency conflicts.
-Conflicts happen when programs require incompatible versions of the same dependency.
-For example, if `tensorflow==2.3.0` requires `numpy>=1.16.0,<1.19.0` and `pandas==1.2.0`  requires `numpy>=1.16.5`, then any version satisfying `numpy>=1.16.5,<1.19.0` will be valid.
-But if another package in your project requires `numpy>=1.19`, you have a conflict with no valid version that satisfies all constraints.
+Dependency များကို စတင်အသုံးပြုလာသည်နှင့်အမျှ Dependency ပဋိပက္ခများ (dependency conflicts) လည်း ပေါ်ပေါက်လာပါသည်။
+ပရိုဂရမ်များသည် တူညီသော dependency ၏ ကိုက်ညီမှုမရှိသော ဗားရှင်းများကို တောင်းဆိုသည့်အခါ ပဋိပက္ခများ ဖြစ်ပေါ်တတ်ပါသည်။
+ဥပမာအားဖြင့် `tensorflow==2.3.0` က `numpy>=1.16.0,<1.19.0` ကို လိုအပ်ပြီး `pandas==1.2.0` က `numpy>=1.16.5` ကို လိုအပ်ပါက `numpy>=1.16.5,<1.19.0` ကို ပြည့်မီသော မည်သည့်ဗားရှင်းမဆို ကိုက်ညီမည် ဖြစ်ပါသည်။
+သို့သော် သင့်ပရောဂျက်ရှိ အခြား package တစ်ခုက `numpy>=1.19` ကို လိုအပ်နေပါက ကန့်သတ်ချက်အားလုံးကို ပြည့်မီသည့် ကိုက်ညီသော ဗားရှင်းမရှိတော့သဖြင့် ပဋိပက္ခ ဖြစ်ပေါ်လာမည် ဖြစ်ပါသည်။
 
-This situation --- where multiple packages require mutually incompatible versions of shared dependencies --- is commonly referred to as _dependency hell_.
-One way to deal with conflicts is to isolate the dependencies of each program into their own _environment_.
-In Python we create a virtual environment by running:
+package အများအပြားက မျှဝေသုံးစွဲထားသော dependency များ၏ အပြန်အလှန် ကိုက်ညီမှုမရှိသော ဗားရှင်းများကို တောင်းဆိုနေသည့် ဤအခြေအနေကို လေ့ရှိသောအားဖြင့် _dependency hell_ ဟု ခေါ်ဆိုကြပါသည်။
+ပဋိပက္ခများကို ကိုင်တွယ်ဖြေရှင်းနည်း တစ်ခုမှာ ပရိုဂရမ်တစ်ခုစီ၏ dependency များကို ၎င်းတို့၏ သီးခြား _environment_ အတွင်းသို့ ခွဲထုတ်ထားခြင်း (isolate) ဖြစ်ပါသည်။
+Python တွင် ကျွန်ုပ်တို့သည် အောက်ပါအတိုင်း Run ခြင်းဖြင့် virtual environment တစ်ခုကို ဖန်တီးပါသည်-
 
 ```console
 $ which python
@@ -124,17 +124,17 @@ Package Version
 pip     24.0
 ```
 
-You can think of an environment as an entire standalone version of the language runtime with its own set of installed packages.
-This virtual environment or venv isolates the installed dependencies from the global Python installation.
-It is a good practice to have a virtual environment for each project, containing the dependencies it requires.
+Environment တစ်ခုကို မိမိကိုယ်ပိုင် install လုပ်ထားသော package များ ပါဝင်သည့် သီးခြား ရပ်တည်နေသော language runtime တစ်ခုလုံးအဖြစ် တွေးတောနိုင်ပါသည်။
+ဤ virtual environment သို့မဟုတ် venv သည် install လုပ်ထားသော dependency များကို မူလ global Python installation မှ ခွဲထုတ်ပေးပါသည်။
+ပရောဂျက်တစ်ခုစီအတွက် လိုအပ်သော dependency များကို သီးခြားထည့်သွင်းထားသည့် virtual environment တစ်ခု စီထားရှိခြင်းသည် ကောင်းမွန်သော အလေ့အထတစ်ခု ဖြစ်ပါသည်။
 
-> While many modern operating systems ship with installations of programming language runtimes like Python, it is unwise to modify these installations since the OS might rely on them for its own functionality. Prefer using separate environments instead.
+> ခေတ်သစ် operating system အများအပြားတွင် Python ကဲ့သို့သော programming language runtime များကို တစ်ပါတည်း ထည့်သွင်းပေးထားသော်လည်း OS ကိုယ်တိုင်က ယင်းတို့၏ လုပ်ဆောင်ချက်များအတွက် ၎င်းတို့ကို အားကိုးနေရနိုင်သဖြင့် ထို မူလ installation များကို ပြင်ဆင်ခြင်း မပြုသင့်ပါ။ ထို့အစား သီးခြား environment များကို အသုံးပြုခြင်းကို ပိုမို ဦးစားပေးပါ။
 
-In some languages, the installation protocol is not defined by a tool but as a specification.
-In Python [PEP 517](https://peps.python.org/pep-0517/) defines the build system interface and [PEP 621](https://peps.python.org/pep-0621/) specifies how project metadata is stored in `pyproject.toml`.
-This has enabled developers to improve upon `pip` and produce more optimized tools like `uv`. To install `uv` it suffices to do `pip install uv`.
+အချို့သော language များတွင် installation protocol ကို tool တစ်ခုဖြင့် သတ်မှတ်ထားခြင်း မဟုတ်ဘဲ စံသတ်မှတ်ချက် (specification) အဖြစ် သတ်မှတ်ထားပါသည်။
+Python တွင် [PEP 517](https://peps.python.org/pep-0517/) က build system interface ကို သတ်မှတ်ပေးပြီး [PEP 621](https://peps.python.org/pep-0621/) က ပရောဂျက်၏ metadata များကို `pyproject.toml` တွင် မည်သို့ သိမ်းဆည်းရမည်ကို ဖော်ပြထားပါသည်။
+၎င်းသည် developer များအား `pip` ထက် ပိုမို ကောင်းမွန်လာစေရန်နှင့် `uv` ကဲ့သို့ ပိုမို ပေါ့ပါးမြန်ဆန်သော tool များကို ဖန်တီးနိုင်စေရန် အထောက်အကူပြုခဲ့ပါသည်။ `uv` ကို install လုပ်ရန်အတွက် `pip install uv` ဟု လုပ်ဆောင်ရုံမျှဖြင့် လုံလောက်ပါသည်။
 
-Using `uv` instead of `pip` follows the same interface but is significantly faster:
+`pip` အစား `uv` ကို အသုံးပြုခြင်းသည် interface တူညီသော်လည်း သိသိသာသာ ပိုမို မြန်ဆန်ပါသည်-
 
 ```console
 $ uv pip install requests
@@ -148,9 +148,9 @@ Installed 5 packages in 8ms
  + urllib3==2.2.3
 ```
 
-> We strongly recommend using `uv pip` instead of `pip` whenever possible as it dramatically reduces the installation time.
+> Install လုပ်သည့် အချိန်ကို အလွန်အမင်း လျှော့ချပေးနိုင်သောကြောင့် ဖြစ်နိုင်ပါက `pip` အစား `uv pip` ကို အသုံးပြုရန် အလွန် အကြံပြုအပ်ပါသည်။
 
-Beyond dependency isolation, environments also allow you to have different versions of your programming language runtime.
+Dependency များကို ခွဲထုတ်ပေးသည့်အပြင် Environment များသည် သင်၏ programming language runtime ၏ မတူညီသော ဗားရှင်းများကို သုံးနိုင်စေရန်လည်း ဆောင်ရွက်ပေးနိုင်ပါသည်။
 
 ```console
 $ uv venv --python 3.12 venv312
@@ -168,15 +168,15 @@ $ source venv311/bin/activate && python --version
 Python 3.11.10
 ```
 
-This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
+မိမိ၏ ကုဒ်ကို Python ဗားရှင်း အများအပြားတွင် စမ်းသပ်ရန် လိုအပ်သည့်အခါ သို့မဟုတ် ပရောဂျက်တစ်ခုက တိကျသော ဗားရှင်းတစ်ခု လိုအပ်သည့်အခါ ဤအရာက အကူအညီဖြစ်စေပါသည်။
 
-> In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
+> အချို့သော programming language များတွင် ပရောဂျက်တစ်ခုစီသည် မိမိကိုယ်တိုင် ကိုယ်တိုင်ကိုယ်ကျ ဖန်တီးစရာ မလိုဘဲ ၎င်း၏ dependency များအတွက် environment တစ်ခုကို အလိုအလျောက် ရရှိကြသော်လည်း မူဝါဒမှာ အတူတူပင် ဖြစ်ပါသည်။ ယနေ့ခေတ် language အများစုတွင် စနစ်တစ်ခုတည်း၌ language ဗားရှင်း အများအပြားကို စီမံခန့်ခွဲနိုင်သည့် စနစ် ပါရှိကြပြီး ပရောဂျက်တစ်ခုစီအတွက် မည်သည့် ဗားရှင်းကို အသုံးပြုရမည်ဆိုသည်ကို သတ်မှတ်ပေးနိုင်ပါသည်။
 
 # Artifacts & Packaging
 
-In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code --- ready to be installed or deployed.
-An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
-Consider this example where we have a Python file `greet.py` in our current directory:
+ဆော့ဖ်ဝဲလ် ဖွံ့ဖြိုးတိုးတက်မှုတွင် ကျွန်ုပ်တို့သည် မူရင်းကုဒ် (source code) နှင့် artifact များကို ခြားနားစွာ သတ်မှတ်ကြပါသည်။ Developer များသည် source code များကို ရေးသားကြပြီး ဖတ်ရှုကြသည်၊ artifact များမှာမူ ထို source code မှ ထုတ်လုပ်ထားသော၊ ထုပ်ပိုးထားသည့်၊ ဖြန့်ဖြူးနိုင်သော ရလဒ်များဖြစ်ပြီး install လုပ်ရန် သို့မဟုတ် deploy လုပ်ရန် အသင့်ဖြစ်နေသော အရာများ ဖြစ်ကြပါသည်။
+Artifact တစ်ခုသည် ကျွန်ုပ်တို့ Run သော ကုဒ်ဖိုင်တစ်ခုကဲ့သို့ ရိုးရှင်းနိုင်သကဲ့သို့ အပလီကေးရှင်းတစ်ခု၏ လိုအပ်သော အစိတ်အပိုင်းအားလုံး ပါဝင်သည့် Virtual Machine တစ်ခုလုံးကဲ့သို့ ရှုပ်ထွေးနိုင်ပါသည်။
+ကျွန်ုပ်တို့၏ လက်ရှိ directory တွင် Python ဖိုင် `greet.py` ရှိသည့် ဤဥပမာကို ကြည့်ပါ-
 
 ```console
 $ cat greet.py
@@ -191,15 +191,15 @@ $ python -c "from greet import greet; greet('World')"
 ModuleNotFoundError: No module named 'greet'
 ```
 
-The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
+အခြား directory တစ်ခုသို့ ပြောင်းရွှေ့လိုက်သည်နှင့် import လုပ်ခြင်း မအောင်မြင်တော့ပါ၊ အကြောင်းမှာ Python သည် သတ်မှတ်ထားသော နေရာများတွင်သာ module များကို ရှာဖွေသောကြောင့် ဖြစ်ပါသည် (လက်ရှိ directory၊ install လုပ်ထားသော package များ၊ နှင့် `PYTHONPATH` တွင် ပါဝင်သည့် လမ်းကြောင်းများ)။ Packaging သည် ကုဒ်ကို သိရှိပြီးသား နေရာတစ်ခုသို့ install ပြုလုပ်ပေးခြင်းဖြင့် ဤပြဿနာကို ဖြေရှင်းပေးပါသည်။
 
-In Python, packaging a library involves producing an artifact that package installers like `pip` or `uv` can use to install the relevant files.
-Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
-Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other information. In Python, we use `pyproject.toml` for this purpose.
+Python တွင် လိုင်ဘရီတစ်ခုကို packaging ပြုလုပ်ရာ၌ `pip` သို့မဟုတ် `uv` ကဲ့သို့သော package installer များက သက်ဆိုင်ရာ ဖိုင်များကို install လုပ်ရာတွင် အသုံးပြုနိုင်သည့် artifact တစ်ခုကို ထုတ်လုပ်ပေးခြင်း ပါဝင်ပါသည်။
+Python artifact များကို _wheels_ ဟု ခေါ်ဆိုပြီး package တစ်ခုကို install ရန် လိုအပ်သော အချက်အလက်များ အားလုံး ပါဝင်ပါသည်- ကုဒ်ဖိုင်များ၊ package ဆိုင်ရာ metadata များ (အမည်၊ ဗားရှင်း၊ dependency များ)၊ နှင့် environment ထဲရှိ မည်သည့်နေရာတွင် ဖိုင်များ ထည့်သွင်းရမည်ဆိုသည့် ညွှန်ကြားချက်များ။
+Artifact တစ်ခုကို Build ပြုလုပ်ရန်အတွက် ပရောဂျက်၏ အသေးစိတ်အချက်အလက်များ၊ လိုအပ်သော dependency များ၊ package ၏ ဗားရှင်း နှင့် အခြား အချက်အလက်များကို ဖော်ပြထားသည့် project file တစ်ခု (manifest ဟုလည်း ခေါ်လေ့ရှိသည်) ရေးသားရန် လိုအပ်ပါသည်။ Python တွင် ဤရည်ရွယ်ချက်အတွက် `pyproject.toml` ကို အသုံးပြုကြပါသည်။
 
-> `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
+> `pyproject.toml` သည် ခေတ်သစ် နည်းလမ်းဖြစ်ပြီး အကြံပြုထားသော နည်းလမ်းဖြစ်ပါသည်။ `requirements.txt` သို့မဟုတ် `setup.py` ကဲ့သို့သော ယခင် packaging နည်းလမ်းများကို ထောက်ပံ့ပေးနေဆဲ ဖြစ်သော်လည်း ဖြစ်နိုင်လျှင် `pyproject.toml` ကို ဦးစားပေး အသုံးပြုသင့်ပါသည်။
 
-Here's a minimal `pyproject.toml` for a library that also provides a command-line tool:
+အောက်တွင် Command-line tool တစ်ခုကိုလည်း ပံ့ပိုးပေးထားသည့် လိုင်ဘရီတစ်ခုအတွက် အနည်းဆုံး လိုအပ်သော `pyproject.toml` ဖိုင် ဥပမာ ဖြစ်ပါသည်-
 
 ```toml
 [project]
@@ -216,9 +216,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
-The `typer` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+`typer` လိုင်ဘရီသည် သာမန် boilerplate များစွာ ရေးစရာ မလိုဘဲ command-line interface များကို ဖန်တီးရန်အတွက် လူကြိုက်များသော Python package တစ်ခု ဖြစ်ပါသည်။
 
-And the corresponding `greeting.py`:
+၎င်းနှင့် သက်ဆိုင်သည့် `greeting.py` ဖိုင်မှာ အောက်ပါအတိုင်း ဖြစ်ပါသည်-
 
 ```python
 import typer
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     cli()
 ```
 
-With this file, we can now build the wheel:
+ဤဖိုင်ဖြင့် ယခုအခါ ကျွန်ုပ်တို့သည် wheel ကို build ပြုလုပ်နိုင်ပြီ ဖြစ်ပါသည်-
 
 ```console
 $ uv build
@@ -250,9 +250,9 @@ greeting-0.1.0-py3-none-any.whl
 greeting-0.1.0.tar.gz
 ```
 
-The `.whl` file is the wheel (a zip archive with a specific structure), and the `.tar.gz` is a source distribution for systems that need to build from source.
+`.whl` ဖိုင်သည် wheel (သတ်မှတ်ထားသော တည်ဆောက်ပုံပါရှိသည့် zip archive) ဖြစ်ပြီး၊ `.tar.gz` မှာမူ မူရင်း source ထံမှ build ပြုလုပ်ရန် လိုအပ်သည့် စနစ်များအတွက် source distribution ဖိုင် ဖြစ်ပါသည်။
 
-You can inspect the contents of a wheel to see what gets packaged:
+မည်သည့်အရာများ ထုပ်ပိုးသွားသည်ကို ကြည့်ရှုရန် wheel ၏ အကြောင်းအရာများကို စစ်ဆေးနိုင်ပါသည်။
 
 ```console
 $ unzip -l dist/greeting-0.1.0-py3-none-any.whl
@@ -268,7 +268,7 @@ Archive:  dist/greeting-0.1.0-py3-none-any.whl
       998                     5 files
 ```
 
-Now if we were to give this wheel to someone else, they could install it by running:
+ယခုအခါ ဤ wheel ကို အခြားသူတစ်ဦးထံ ပေးလိုက်ပါက ၎င်းတို့သည် အောက်ပါအတိုင်း Run ၍ install ပြုလုပ်နိုင်ပါသည်-
 
 ```console
 $ uv pip install ./greeting-0.1.0-py3-none-any.whl
@@ -276,72 +276,68 @@ $ greet Alice
 Hello, Alice!
 ```
 
-This would install the library we built earlier into their environment, including the `greet` cli tool.
+၎င်းသည် အစောပိုင်းက ကျွန်ုပ်တို့ build ပြုလုပ်ခဲ့သော လိုင်ဘရီနှင့် `greet` cli tool အပါအဝင် ၎င်းတို့၏ environment ထဲသို့ install ပြုလုပ်ပေးမည် ဖြစ်ပါသည်။
 
-There are limitations to this approach. In particular if our library depends on platform-specific libraries, e.g. CUDA for GPU acceleration, then our artifact only works on systems with those specific libraries installed, and we may need to build separate wheels for different platforms (Linux, macOS, Windows) and architectures (x86, ARM).
+ဤနည်းလမ်းတွင် ကန့်သတ်ချက်များ ရှိပါသည်။ အထူးသဖြင့် ကျွန်ုပ်တို့၏ လိုင်ဘရီသည် GPU အရှိန်မြှင့်တင်ရန်အတွက် CUDA ကဲ့သို့သော platform အလိုက် သီးခြားဖြစ်သော လိုင်ဘရီများကို မှီခိုနေပါက ကျွန်ုပ်တို့၏ artifact သည် ထိုသီးခြားလိုင်ဘရီများ install လုပ်ထားသည့် စနစ်များတွင်သာ အလုပ်လုပ်မည်ဖြစ်ပြီး၊ မတူညီသော platform များ (Linux, macOS, Windows) နှင့် architecture များ (x86, ARM) အတွက် သီးခြား wheel များကို build ပြုလုပ်ရန် လိုအပ်နိုင်ပါသည်။
 
+ဆော့ဖ်ဝဲလ်များကို install ပြုလုပ်ရာတွင် source မှ install ပြုလုပ်ခြင်းနှင့် ကြိုတင် build လုပ်ထားသော binary (prebuilt binary) မှ install ပြုလုပ်ခြင်းတို့အကြား အရေးကြီးသော ခြားနားချက် ရှိပါသည်။ Source မှ install ပြုလုပ်ခြင်း ဆိုသည်မှာ မူရင်းကုဒ်ကို Download ပြုလုပ်ပြီး မိမိစက်ပေါ်တွင် compile ပြုလုပ်ခြင်းကို ဆိုလိုပါသည်—၎င်းသည် မိမိစက်တွင် compiler နှင့် build tool များ ရှိနေရန် လိုအပ်ပြီး၊ ပရောဂျက်ကြီးများအတွက် အချိန်အတော်အတန် ယူရနိုင်ပါသည်။
 
-When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine --- this requires having a compiler and build tools installed, and can take significant time for large projects.
-
-Installing a prebuilt binary means downloading an artifact that was already compiled by someone else --- faster and simpler, but the binary must match your platform and architecture.
-For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
-
+Prebuilt binary ကို install ပြုလုပ်ခြင်းဆိုသည်မှာ အခြားသူတစ်ဦးက compile လုပ်ပြီးသား artifact ကို Download ပြုလုပ်ခြင်း ဖြစ်ပါသည်—ပိုမို မြန်ဆန်ပြီး ရိုးရှင်းသော်လည်း binary သည် သင့်စက်၏ platform နှင့် architecture တို့နှင့် ကိုက်ညီရပါမည်။
+ဥပမာအားဖြင့် [ripgrep ၏ releases စာမျက်နှာ](https://github.com/BurntSushi/ripgrep/releases) တွင် Linux (x86_64, ARM)၊ macOS (Intel, Apple Silicon)၊ နှင့် Windows တို့အတွက် prebuilt binary များကို ပြသထားပါသည်။
 
 # Releases & Versioning
 
-Code is built in a continuous process but is released on a discrete basis.
-In software development there is a clear distinction between development and production environments.
-Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
-The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
+ကုဒ်များကို အစဉ်အမြဲ ဆက်တိုက် တည်ဆောက်နေကြသော်လည်း ရလဒ်များ (releases) ကိုမူ သီးခြား အချိန်ကာလအလိုက် ထုတ်ဝေကြပါသည်။
+ဆော့ဖ်ဝဲလ် ဖွံ့ဖြိုးတိုးတက်မှုတွင် ဖွံ့ဖြိုးတိုးတက်ရေး environment (development environment) နှင့် ထုတ်လုပ်ရေး environment (production environment) တို့အကြား ရှင်းလင်းသော ခြားနားချက် ရှိပါသည်။
+ကုဒ်ကို prod စက်များထံသို့ _shipped_ မပြုလုပ်မီ dev environment တွင် အလုပ်လုပ်ကြောင်း သက်သေပြရန် လိုအပ်ပါသည်။
+Release ပြုလုပ်သည့် လုပ်ငန်းစဉ်တွင် စမ်းသပ်ခြင်း၊ dependency စီမံခန့်ခွဲခြင်း၊ ဗားရှင်းသတ်မှတ်ခြင်း၊ configuration စနစ်ပြင်ဆင်ခြင်း၊ deployment ပြုလုပ်ခြင်း နှင့် ထုတ်ဝေခြင်း အပါအဝင် အဆင့်များစွာ ပါဝင်ပါသည်။
 
+Software library များသည် တည်ငြိမ်၍ ရပ်တန့်မနေဘဲ အမှားပြင်ဆင်ချက်များနှင့် လုပ်ဆောင်ချက်အသစ်များ ရရှိလာသည်နှင့်အမျှ အချိန်နှင့်အမျှ တိုးတက်ပြောင်းလဲလာကြပါသည်။
+အချိန်ကာလတစ်ခုရှိ လိုင်ဘရီ၏ အခြေအနေနှင့် ကိုက်ညီသော သီးခြား ဗားရှင်း အမှတ်အသားများဖြင့် ဤတိုးတက်ပြောင်းလဲမှုကို ကျွန်ုပ်တို့ စောင့်ကြည့်မှတ်တမ်းတင်ကြပါသည်။
+လိုင်ဘရီတစ်ခု၏ မူလလုပ်ဆောင်ချက် ပြောင်းလဲမှုများသည် အရေးမကြီးသော လုပ်ဆောင်ချက်များကို ပြင်ဆင်သည့် patch များ၊ လုပ်ဆောင်ချက်များကို တိုးချဲ့ပေးသည့် feature အသစ်များ မှသည် နောက်ပြန်ဆုတ်မရသော ပြောင်းလဲမှုများ (breaking backwards compatibility) အထိ ရှိနိုင်ပါသည်။
+Changelog များသည် ဗားရှင်းတစ်ခုက မည်သည့် ပြောင်းလဲမှုများကို မိတ်ဆက်ပေးသည်ဆိုသည်ကို မှတ်တမ်းတင်ထားပါသည်—ဤသည်မှာ သတင်းလွှာပုံစံဖြင့် ထုတ်ဝေမှုအသစ်နှင့် သက်ဆိုင်သည့် ပြောင်းလဲမှုများကို ဆက်သွယ်အကြောင်းကြားရန် ဆော့ဖ်ဝဲလ် developer များ အသုံးပြုသည့် Documentation များ ဖြစ်ကြပါသည်။
 
-Software libraries are not static and evolve over time getting fixes and new features.
-We track this evolution by discrete version identifiers that correspond to the state of the library at a certain point in time.
-Changes in the behavior of a library can range from patches that fix noncritical functionality, new features that extend its functionality, to changes breaking backwards compatibility.
-Changelogs document what changes a version introduces --- these are documents that software developers use to communicate the changes associated with a new release.
+သို့သော် dependency တိုင်းရှိ ပြောင်းလဲမှုများကို အမြဲမပြတ် စောင့်ကြည့်မှတ်တမ်းတင်နေရန်မှာ လက်တွေ့မကျပါ၊ ကျွန်ုပ်တို့၏ dependency များ၏ dependency များဖြစ်သည့် transitive dependency များကို ထည့်သွင်းစဉ်းစားသည့်အခါ ပို၍ပင် ခက်ခဲပါလိမ့်မည်။
 
-However, keeping track of the ongoing changes in each and every dependency is impractical, even more so when we consider the transitive dependencies --- i.e. the dependencies of our dependencies.
+> သင့်ပရောဂျက်၏ dependency သစ်ပင်တစ်ခုလုံးကို package အားလုံးနှင့် ၎င်းတို့၏ transitive dependency များကို သစ်ပင်ပုံစံဖြင့် ပြသပေးသည့် `uv tree` ဖြင့် မြင်တွေ့နိုင်ပါသည်။
 
-> You can visualize the entire dependency tree of your project with `uv tree`, which shows all packages and their transitive dependencies in a tree format.
+ဤပြဿနာကို ရိုးရှင်းစေရန်အတွက် ဆော့ဖ်ဝဲလ် ဗားရှင်း သတ်မှတ်နည်းဆိုင်ရာ စံနှုန်းများ ရှိကြပြီး၊ အထင်ရှားဆုံး တစ်ခုမှာ [Semantic Versioning](https://semver.org/) သို့မဟုတ် SemVer ဖြစ်ပါသည်။
+Semantic Versioning အောက်တွင် ဗားရှင်းတစ်ခု၌ အကိန်းပြည့် တန်ဖိုးတစ်ခုစီ ယူသော MAJOR.MINOR.PATCH ပုံစံပါရှိသည့် အမှတ်အသားတစ်ခု ရှိပါသည်။ အတိုချုပ်အားဖြင့် အဆင့်မြှင့်တင်ရာတွင်-
 
-To simplify this problem there are conventions on how to version software, and one of the most prevalent is [Semantic Versioning](https://semver.org/) or SemVer.
-Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PATCH where each one of the values takes an integer value. The short version is that upgrading:
+- PATCH (ဥပမာ- 1.2.3 → 1.2.4) တွင် အမှားပြင်ဆင်ချက်များ (bug fixes) သာ ပါဝင်သင့်ပြီး နောက်ကြောင်းပြန် သဟဇာတ ဖြစ်မှု (backwards compatible) အပြည့်အဝ ရှိရပါမည်
+- MINOR (ဥပမာ- 1.2.3 → 1.3.0) သည် နောက်ကြောင်းပြန် သဟဇာတဖြစ်သော နည်းလမ်းဖြင့် လုပ်ဆောင်ချက်အသစ်များကို ထည့်သွင်းပေးပါသည်
+- MAJOR (ဥပမာ- 1.2.3 → 2.0.0) သည် ကုဒ်ပြင်ဆင်မှုများ လိုအပ်နိုင်သည့် ဘက်ပေါင်းစုံ ပြောင်းလဲမှုများ (breaking changes) ကို ညွှန်ပြပါသည်
 
-- PATCH (e.g., 1.2.3 → 1.2.4) should only contain bug fixes and be fully backwards compatible
-- MINOR (e.g., 1.2.3 → 1.3.0) adds new functionality in a backwards-compatible way
-- MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
+> ဤသည်မှာ အတိုချုပ် ရှင်းပြချက်ဖြစ်ပြီး ဥပမာအားဖြင့် 0.1.3 မှ 0.2.0 သို့ ပြောင်းလဲခြင်းက အဘယ်ကြောင့် breaking change များ ဖြစ်ပေါ်စေနိုင်သည် သို့မဟုတ် 1.0.0-rc.1 က မည်သည့်အဓိပ္ပာယ်ဆောင်သည်ဆိုသည်ကို နားလည်ရန်အတွက် SemVer Specification အပြည့်အစုံကို ဖတ်ရှုရန် တိုက်တွန်းပါသည်။
+Python packaging သည် semantic versioning ကို မူလကတည်းက ထောက်ပံ့ပေးထားသဖြင့် ကျွန်ုပ်တို့၏ dependency ဗားရှင်းများကို သတ်မှတ်သည့်အခါ သတ်မှတ်ကန့်သတ်ချက် အမျိုးမျိုးကို အသုံးပြုနိုင်ပါသည်။
 
-> This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
-
-In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies:
+`pyproject.toml` ဖိုင်တွင် ကျွန်ုပ်တို့၏ dependency များ၏ ကိုက်ညီသော ဗားရှင်းအပိုင်းအခြားများကို ကန့်သတ်ရန် မတူညီသော နည်းလမ်းများ ရှိကြပါသည်-
 
 ```toml
 [project]
 dependencies = [
-    "requests==2.32.3",  # Exact version - only this specific version
-    "click>=8.0",        # Minimum version - 8.0 or newer
-    "numpy>=1.24,<2.0",  # Range - at least 1.24 but less than 2.0
-    "pandas~=2.1.0",     # Compatible release - >=2.1.0 and <2.2.0
+    "requests==2.32.3",  # Exact version - ဤသီးခြားဗားရှင်းတစ်ခုတည်းသာ
+    "click>=8.0",        # Minimum version - 8.0 သို့မဟုတ် ပိုသစ်သောဗားရှင်း
+    "numpy>=1.24,<2.0",  # Range - အနည်းဆုံး 1.24 သို့သော် 2.0 ထက်ငယ်ရမည်
+    "pandas~=2.1.0",     # Compatible release - >=2.1.0 နှင့် <2.2.0
 ]
 ```
 
-Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator --- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
+ဗားရှင်း သတ်မှတ်ချက်ကန့်သတ်မှုများ (Version specifiers) သည် မတူညီသော သီးခြားအဓိပ္ပာယ်များဖြင့် package manager အများအပြား (npm, cargo စသည်) တွင် တည်ရှိကြပါသည်။ `~=` operator သည် Python ၏ "compatible release" operator ဖြစ်ပါသည်—`~=2.1.0` ဆိုသည်မှာ "2.1.0 နှင့် ကိုက်ညီမှုရှိသော မည်သည့် ဗားရှင်းမဆို" ဟု အဓိပ္ပာယ်ရပြီး `>=2.1.0` နှင့် `<2.2.0` သို့ ပြောင်းလဲအဓိပ္ပာယ်ထွက်ပါသည်။ ၎င်းသည် npm နှင့် cargo တို့ရှိ SemVer ၏ သဟဇာတဖြစ်မှုဆိုင်ရာ သဘောတရားကို လိုက်နာသည့် caret (`^`) operator နှင့် ကြမ်းဖျင်းအားဖြင့် တူညီပါသည်။
 
-Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
+ဆော့ဖ်ဝဲလ် အားလုံးသည် semantic versioning ကို အသုံးပြုကြသည် မဟုတ်ပါ။ အခြား အသုံးများသော နည်းလမ်းတစ်ခုမှာ Calendar Versioning (CalVer) ဖြစ်ပြီး ဗားရှင်းများကို semantic အဓိပ္ပာယ်ထက် ထုတ်ဝေသည့် ရက်စွဲများပေါ်တွင် အခြေခံထားပါသည်။ ဥပမာအားဖြင့် Ubuntu သည် `24.04` (၂၀၂၄ ခုနှစ် ဧပြီလ) နှင့် `24.10` (၂၀၂၄ ခုနှစ် အောက်တိုဘာလ) ကဲ့သို့သော ဗားရှင်းများကို အသုံးပြုပါသည်။ CalVer သည် ကိုက်ညီမှုဆိုင်ရာ အချက်အလက်များကို အသိပေးခြင်း မရှိသော်လည်း ထုတ်ဝေမှုတစ်ခု မည်မျှ ပုံရိပ်ဟောင်းနေပြီဆိုသည်ကို အလွယ်တကူ သိရှိစေပါသည်။ နောက်ဆုံးအနေဖြင့် semantic versioning သည်လည်း အမှားကင်းစင်သည်တော့ မဟုတ်ပါ၊ တစ်ခါတစ်ရံ ပြုပြင်ထိန်းသိမ်းသူများသည် မတော်တဆ minor သို့မဟုတ် patch release များတွင် breaking change များကို မိတ်ဆက်မိတတ်ကြပါသည်။
 
+# ထပ်မံဖန်တီးနိုင်စွမ်း (Reproducibility)
 
-# Reproducibility
+ခေတ်သစ် ဆော့ဖ်ဝဲလ် ဖွံ့ဖြိုးတိုးတက်မှုတွင် သင်ရေးသားသော ကုဒ်သည် သိသာထင်ရှားလှသော အလွှာများစွာ (layers of abstraction) ပေါ်တွင် တည်ရှိနေပါသည်။
+၎င်းတို့တွင် သင်၏ programming language runtime၊ ပြင်ပလိုင်ဘရီများ (third party libraries)၊ operating system သို့မဟုတ် hardware ကိုယ်တိုင် ပါဝင်ပါသည်။
+ဤအလွှာများအနက် မည်သည့်အလွှာတွင်မဆို ကွဲပြားမှုရှိပါက သင့်ကုဒ်၏ မူလလုပ်ဆောင်ချက်ကို ပြောင်းလဲသွားစေနိုင်သည် သို့မဟုတ် ရည်ရွယ်ထားသည့်အတိုင်း အလုပ်မလုပ်အောင် တားဆီးနိုင်ပါသည်။
+ထို့အပြင် အောက်ခံ hardware တွင် ကွဲပြားမှုများ ရှိနေခြင်းကပင် ဆော့ဖ်ဝဲလ်ကို Shipping ပြုလုပ်နိုင်သည့် သင့်စွမ်းရည်ကို သက်ရောက်မှု ရှိစေပါသည်။
 
-In modern software development the code you write sits atop a significant number of layers of abstraction.
-This includes things like your programming language runtime, third party libraries, the operating system, or even the hardware itself.
-Any difference across any of these layers might change the behavior of your code or even prevent it from working as intended.
-Furthermore, even differences in the underlying hardware impact your ability to ship software.
+လိုင်ဘရီတစ်ခုကို Pinning ပြုလုပ်ခြင်းဆိုသည်မှာ အပိုင်းအခြားတစ်ခု သတ်မှတ်ခြင်း (ဥပမာ `requests>=2.0`) မဟုတ်ဘဲ တိကျသော ဗားရှင်းတစ်ခုကို သတ်မှတ်ပေးခြင်း ဖြစ်ပါသည် (ဥပမာ `requests==2.32.3`)။
 
-Pinning a library refers to specifying an exact version rather than a range, e.g. `requests==2.32.3` instead of `requests>=2.0`.
-
-Part of the job of a package manager is to consider all the constraints provided by the dependencies --- and transitive dependencies --- and then produce a valid list of versions that will satisfy all the constraints.
-The specific list of versions can then be saved to a file for reproducibility purposes; these files are referred to as _lock files_.
+Package manager ၏ အလုပ်တစ်ခုမှာ dependency များ နှင့် transitive dependency များက ထောက်ပံ့ပေးထားသော ကန့်သတ်ချက်များအားလုံးကို ထည့်သွင်းစဉ်းစားပြီး ထိုကန့်သတ်ချက်များအားလုံးကို ပြည့်မီစေမည့် ကိုက်ညီသော ဗားရှင်းစာရင်းတစ်ခုကို ထုတ်လုပ်ပေးရန် ဖြစ်ပါသည်။
+ထို တိကျသော ဗားရှင်းစာရင်းကို ထပ်မံဖန်တီးနိုင်စွမ်း (reproducibility) ရည်ရွယ်ချက်များအတွက် ဖိုင်တစ်ခုအဖြစ် သိမ်းဆည်းထားနိုင်သည်—ဤဖိုင်များကို _lock files_ ဟု ခေါ်ဆိုကြပါသည်။
 
 ```console
 $ uv lock
@@ -362,37 +358,36 @@ wheels = [
 ...
 ```
 
-One critical distinction when dealing with dependency versioning and reproducibility is the difference between libraries and applications/services.
-A library is intended to be imported and used by other code which might have its own dependencies, so specifying overly strict version constraints can cause conflicts with the user's other dependencies.
-In contrast, applications or services are final consumers of the software and typically expose their functionality through a user interface or an API, not through a programming interface.
-For libraries, it is good practice to specify version ranges to maximize compatibility with the wider package ecosystem. For applications, pinning exact versions ensures reproducibility --- everyone running the application uses the exact same dependencies.
+Dependency ဗားရှင်း သတ်မှတ်ခြင်းနှင့် reproducibility တို့ကို ကိုင်တွယ်ရာတွင် အဓိကကျသော ခြားနားချက်တစ်ခုမှာ လိုင်ဘရီများ နှင့် အပလီကေးရှင်းများ/ဝန်ဆောင်မှုများ (applications/services) အကြား ခြားနားချက် ဖြစ်ပါသည်။
+လိုင်ဘရီတစ်ခုကို မိမိကိုယ်ပိုင် dependency များ ရှိကောင်းရှိနိုင်သည့် အခြားကုဒ်များက import ပြုလုပ်၍ အသုံးပြုရန် ရည်ရွယ်ထားသဖြင့် အလွန်အမင်း တင်းကျပ်သော ဗားရှင်းကန့်သတ်ချက်များ သတ်မှတ်ခြင်းသည် သုံးစွဲသူ၏ အခြား dependency များနှင့် ပဋိပက္ခများ ဖြစ်ပေါ်စေနိုင်ပါသည်။
+ဆန့်ကျင်ဘက်အားဖြင့် အပလီကေးရှင်းများ သို့မဟုတ် ဝန်ဆောင်မှုများသည် ဆော့ဖ်ဝဲလ်၏ နောက်ဆုံး သုံးစွဲသူများ ဖြစ်ကြပြီး မကြာခဏဆိုသလို ၎င်းတို့၏ လုပ်ဆောင်ချက်များကို programming interface ထက် user interface သို့မဟုတ် API မှတစ်ဆင့် ထုတ်ဖော် ပြသလေ့ရှိကြပါသည်။
+လိုင်ဘရီများအတွက် ကျယ်ပြန့်သော package ecosystem နှင့် ကိုက်ညီမှု အများဆုံး ရရှိစေရန် ဗားရှင်း အပိုင်းအခြားများ (version ranges) ကို သတ်မှတ်ခြင်းသည် ကောင်းမွန်သော အလေ့အထ ဖြစ်ပါသည်။ အပလီကေးရှင်းများအတွက်မူ တိကျသော ဗားရှင်းများကို Pinning ပြုလုပ်ခြင်းက reproducibility ကို သေချာစေပါသည်—အပလီကေးရှင်းကို မောင်းနှင်နေသူ တိုင်းသည် တူညီသော တိကျသော dependency များကို အသုံးပြုကြမည် ဖြစ်ပါသည်။
 
+အမြင့်ဆုံး reproducibility လိုအပ်သော ပရောဂျက်များအတွက် [Nix](https://nixos.org/) နှင့် [Bazel](https://bazel.build/) ကဲ့သို့သော tool များသည် _hermetic_ build များကို ပံ့ပိုးပေးပါသည်—ထိုတွင် compiler များ၊ system library များ၊ နှင့် build environment ကိုယ်တိုင်အပါအဝင် input တိုင်းကို pinning ပြုလုပ်ထားပြီး content-addressed ပြုလုပ်ထားပါသည်။ ၎င်းသည် build ကို မည်သည့်အချိန် သို့မဟုတ် မည်သည့်နေရာတွင်မဆို မောင်းနှင်သည်ဖြစ်စေ bit-for-bit အတူတူပင်ဖြစ်သော ရလဒ်များကို အာမခံပေးပါသည်။
 
-For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
+> သင့်ကွန်ပျူတာ setup ၏ မိတ္တူအသစ်များကို လွယ်ကူစွာ စတင်နိုင်ရန်နှင့် ၎င်းတို့၏ စနစ်တစ်ခုလုံး ပြင်ဆင်ချက်များကို version-controlled ပြုလုပ်ထားသော configuration ဖိုင်များမှတစ်ဆင့် စီမံခန့်ခွဲနိုင်ရန် သင်၏ ကွန်ပျူတာ installation တစ်ခုလုံးကို စီမံရန်အတွက် NixOS ကိုပင် အသုံးပြုနိုင်ပါသည်။
 
-> You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
+ဆော့ဖ်ဝဲလ် ဖွံ့ဖြိုးတိုးတက်ရေးတွင် မပြီးဆုံးနိုင်သော တင်းမာမှုတစ်ခုမှာ ဆော့ဖ်ဝဲလ် ဗားရှင်းအသစ်များသည် ရည်ရွယ်ချက်ရှိရှိဖြစ်စေ မရည်ရွယ်ဘဲဖြစ်စေ ပျက်စီးမှုများကို မိတ်ဆက်ပေးလေ့ရှိပြီး၊ အခြားတစ်ဖက်တွင်မူ ဆော့ဖ်ဝဲလ် ဗားရှင်းအဟောင်းများသည် အချိန်နှင့်အမျှ လုံခြုံရေးဆိုင်ရာ အားနည်းချက်များ (security vulnerabilities) ကြုံတွေ့ရလေ့ရှိခြင်း ဖြစ်ပါသည်။
+ကျွန်ုပ်တို့သည် ဤအရာကို ဆော့ဖ်ဝဲလ် ဗားရှင်းအသစ်များနှင့် ယှဉ်၍ အပလီကေးရှင်းကို စမ်းသပ်သည့် continuous integration pipeline များ အသုံးပြုခြင်းဖြင့်လည်းကောင်း ([Code Quality and CI](/2026/code-quality/) သင်ခန်းစာတွင် ပိုမို ကြည့်ရှုပါမည်)၊ [Dependabot](https://github.com/dependabot) ကဲ့သို့သော ကျွန်ုပ်တို့၏ dependency များ၏ ဗားရှင်းအသစ်များ ထွက်ရှိလာသည့်အခါ သိရှိနိုင်သည့် အလိုအလျောက် စနစ်များကို ထားရှိခြင်းဖြင့်လည်းကောင်း ဖြေရှင်းနိုင်ပါသည်။
 
-A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
-We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
+CI စမ်းသပ်မှုများ ထားရှိသော်လည်း ဆော့ဖ်ဝဲလ် ဗားရှင်းများကို အဆင့်မြှင့်တင်သည့်အခါ dev နှင့် prod environment များအကြား ရှောင်လွှဲမရနိုင်သော ကွဲလွဲမှုများကြောင့် ပြဿနာများ ဖြစ်ပေါ်နေဆဲ ဖြစ်ပါသည်။
+ထိုသို့သော အခြေအနေများတွင် အကောင်းဆုံး လုပ်ဆောင်ချက်မှာ ဗားရှင်း အဆင့်မြှင့်တင်မှုကို ပြန်လည် ရုပ်သိမ်းပြီး ၎င်းအစား သိရှိပြီးသား ကောင်းမွန်သော ဗားရှင်းကို ပြန်လည် deploy ပြုလုပ်သည့် _rollback_ အစီအစဉ်တစ်ခု ထားရှိခြင်း ဖြစ်ပါသည်။
 
-Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
-In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
+# VM များနှင့် Containers များ (VMs & Containers)
 
-# VMs & Containers
+ပိုမို ရှုပ်ထွေးသော dependency များကို အားကိုးလာသည်နှင့်အမျှ သင့်ကုဒ်၏ dependency များသည် package manager ကိုင်တွယ်နိုင်သည့် နယ်နိမိတ်ထက် ကျော်လွန်သွားနိုင်ခြေ ရှိပါသည်။
+အသုံးများသော အကြောင်းအရင်းတစ်ခုမှာ သီးခြား system library များ သို့မဟုတ် hardware driver များနှင့် ချိတ်ဆက် လုပ်ဆောင်ရခြင်း ဖြစ်ပါသည်။
+ဥပမာအားဖြင့် သိပ္ပံနည်းကျ တွက်ချက်မှုနှင့် AI တို့တွင် ပရိုဂရမ်များသည် GPU hardware ကို အသုံးပြုနိုင်ရန်အတွက် သီးသန့် လိုင်ဘရီများနှင့် driver များကို မကြာခဏ လိုအပ်ကြပါသည်။
+System အဆင့် dependency အများအပြား (GPU driver များ၊ တိကျသော compiler ဗားရှင်းများ၊ OpenSSL ကဲ့သို့သော မျှဝေသုံးစွဲသည့် လိုင်ဘရီများ) သည် စနစ်တစ်ခုလုံးအလိုက် (system-wide) install လုပ်ရန် လိုအပ်နေဆဲ ဖြစ်ပါသည်။
 
-As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
-One common reason is having to interface with specific system libraries or hardware drivers.
-For example, in scientific computing and AI, programs often need specialized libraries and drivers to utilize GPU hardware.
-Many system-level dependencies (GPU drivers, specific compiler versions, shared libraries like OpenSSL) still require system-wide installation.
+ရှေးယခင်က ဤပိုမိုကျယ်ပြန့်သော dependency ပြဿနာကို Virtual Machines (VMs) များဖြင့် ဖြေရှင်းခဲ့ကြပါသည်။
+VM များသည် ကွန်ပျူတာတစ်လုံးလုံးကို abstraction ပြုလုပ်ပြီး မိမိကိုယ်ပိုင် သီးသန့် operating system ပါရှိသော လုံးဝ ခွဲထုတ်ထားသည့် environment တစ်ခုကို ပံ့ပိုးပေးပါသည်။
+ပိုမို ခေတ်မီသော နည်းလမ်းမှာ container များ ဖြစ်ကြပြီး၊ ၎င်းတို့သည် ကွန်ပျူတာတစ်လုံးလုံးကို virtualize ပြုလုပ်ခြင်းထက် အပလီကေးရှင်းတစ်ခုကို ၎င်း၏ dependency များ၊ လိုင်ဘရီများ၊ နှင့် filesystem တို့နှင့်အတူ ထုပ်ပိုးထားသော်လည်း host ၏ operating system kernel ကို မျှဝေသုံးစွဲကြပါသည်။
+Container များသည် kernel ကို မျှဝေသုံးစွဲသောကြောင့် VM များထက် ပေါ့ပါးပြီး စတင်ရလွယ်ကူကာ မောင်းနှင်ရာတွင် ပိုမို အလုပ်တွင် စွမ်းဆောင်ရည် ကောင်းမွန်ပါသည်။
 
-Traditionally this wider dependency problem was solved with Virtual Machines (VMs).
-VMs abstract the entire computer and provide a completely isolated environment with its own dedicated operating system.
-A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
-Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
+လူကြိုက်အများဆုံး container platform မှာ [Docker](https://www.docker.com/) ဖြစ်ပါသည်။ Docker သည် container များကို build ပြုလုပ်ခြင်း၊ ဖြန့်ဖြူးခြင်း နှင့် run ခြင်းတို့အတွက် စံသတ်မှတ်ထားသော နည်းလမ်းတစ်ခုကို မိတ်ဆက်ခဲ့ပါသည်။ အတွင်းပိုင်းတွင် Docker သည် containerd ကို ၎င်း၏ container runtime အဖြစ် အသုံးပြုပါသည်—၎င်းသည် Kubernetes ကဲ့သို့သော အခြား tool များပါ အသုံးပြုကြသည့် စက်မှုလုပ်ငန်းဆိုင်ရာ စံနှုန်းတစ်ခု ဖြစ်ပါသည်။
 
-The most popular container platform is [Docker](https://www.docker.com/). Docker introduced a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime --- an industry standard that other tools like Kubernetes also use.
-
-Running a container is straightforward. For example, to run a Python interpreter inside a container we use `docker run` (The `-it` flags make the container interactive with a terminal. When you exit, the container stops.).
+Container တစ်ခုကို run ခြင်းသည် ရိုးရှင်းပါသည်။ ဥပမာအားဖြင့် container တစ်ခုအတွင်း Python interpreter တစ်ခုကို မောင်းနှင်ရန် `docker run` ကို အသုံးပြုကြပါသည် (`-it` flag များသည် container ကို terminal ဖြင့် အပြန်အလှန် တုံ့ပြန်နိုင်စေရန် ပြုလုပ်ပေးပါသည်။ သင်ထွက်လိုက်သည့်အခါ container ရပ်တန့်သွားပါမည်။)။
 
 ```console
 $ docker run -it python:3.12 python
@@ -401,9 +396,9 @@ Python 3.12.7 (main, Nov  5 2024, 02:53:25) [GCC 12.2.0] on linux
 Hello from inside a container!
 ```
 
-In practice your program might depend on the entire filesystem.
-To overcome this, we can use container images that ship the entire filesystem of the application as the artifact.
-The container images are created programmatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
+လက်တွေ့တွင် သင့်ပရိုဂရမ်သည် filesystem တစ်ခုလုံးပေါ်တွင် မူတည်နေနိုင်ပါသည်။
+ဤအရာကို ကျော်လွှားရန်အတွက် ကျွန်ုပ်တို့သည် အပလီကေးရှင်း၏ filesystem တစ်ခုလုံးကို artifact အဖြစ် Shipping ပြုလုပ်ပေးသည့် container image များကို အသုံးပြုနိုင်ပါသည်။
+Container image များကို ပရိုဂရမ်နည်းလမ်းဖြင့် ဖန်တီးကြပါသည်။ Docker ဖြင့် ကျွန်ုပ်တို့သည် Dockerfile syntax ကို အသုံးပြု၍ image ၏ dependency များ၊ system library များ၊ နှင့် configuration များကို တိကျစွာ သတ်မှတ်ပေးကြပါသည်-
 
 ```dockerfile
 FROM python:3.12
@@ -417,11 +412,11 @@ WORKDIR /app
 RUN pip install .
 ```
 
-An important distinction: a Docker **image** is the packaged artifact (like a template), while a **container** is a running instance of that image. You can run multiple containers from the same image. Images are built in layers, where each instruction (`FROM`, `RUN`, `COPY`, etc) in a Dockerfile creates a new layer. Docker caches these layers, so if you change a line in your Dockerfile, only that layer and subsequent layers need to be rebuilt.
+အရေးကြီးသော ခြားနားချက်တစ်ခုမှာ- Docker **image** ဆိုသည်မှာ ထုပ်ပိုးထားသော artifact (template တစ်ခုကဲ့သို့) ဖြစ်ပြီး၊ **container** မှာမူ ထို image ၏ မောင်းနှင်နေသော instance တစ်ခု ဖြစ်ပါသည်။ Image တစ်ခုတည်းမှ container အများအပြားကို မောင်းနှင်နိုင်ပါသည်။ Image များကို layer များဖြင့် တည်ဆောက်ထားပြီး Dockerfile ထဲရှိ instruction တိုင်း (`FROM`, `RUN`, `COPY` စသည်) က layer အသစ်တစ်ခုကို ဖန်တီးပါသည်။ Docker သည် ဤ layer များကို cache လုပ်ထားသဖြင့် သင့် Dockerfile ထဲရှိ လိုင်းတစ်ခုကို ပြောင်းလဲပါက ထို layer နှင့် နောက်ဆက်တွဲ layer များကိုသာ ပြန်လည် build လုပ်ရန် လိုအပ်ပါလိမ့်မည်။
 
-The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, versions are not pinned, and it doesn't clean up package manager caches, shipping unnecessary files. Other frequent mistakes include insecurely running containers as root and accidentally embedding secrets in layers.
+ယခင် Dockerfile တွင် ပြဿနာအချို့ ရှိပါသည်- ၎င်းသည် slim variant အစား full Python image ကို အသုံးပြုထားသည်၊ လိုအပ်ချက်ထက် ပိုသော layer များကို ဖန်တီးသည့် သီးခြား `RUN` command များကို မောင်းနှင်ထားသည်၊ ဗားရှင်းများကို pinning ပြုလုပ်ထားခြင်း မရှိပါ၊ ထို့အပြင် မလိုအပ်သော ဖိုင်များကို Shipping ပြုလုပ်ပြီး package manager cache များကို ရှင်းလင်းထားခြင်း မရှိပါ။ အခြား ခဏခဏ မှားတတ်သော အမှားများတွင် container များကို root အဖြစ် မလုံမခြုံ မောင်းနှင်ခြင်း နှင့် မတော်တဆ လျှို့ဝှက်ချက်များ (secrets) ကို layer များအတွင်း မြှုပ်နှံမိခြင်းတို့ ပါဝင်ပါသည်။
 
-Here's an improved version
+အောက်တွင် ပိုမိုကောင်းမွန်အောင် ပြုပြင်ထားသော ဗားရှင်းဖြစ်ပါသည်-
 
 ```dockerfile
 FROM python:3.12-slim
@@ -437,29 +432,29 @@ COPY . .
 RUN uv sync --locked --no-dev
 ```
 
-In the previous example we see that instead of installing `uv` from source, we are copying the prebuilt binary from the `ghcr.io/astral-sh/uv:latest` image. This is known as the _builder_ pattern. With this pattern we do not need to ship all the tools needed to compile our code, just the final binary that is needed to run the application (`uv` in this case).
+ယခင်ဥပမာတွင် `uv` ကို source မှ install ပြုလုပ်ခြင်းထက် prebuilt binary ကို `ghcr.io/astral-sh/uv:latest` image ထံမှ ကူးယူထားသည်ကို တွေ့ရပါမည်။ ဤအရာကို _builder_ pattern ဟု ခေါ်ဆိုကြပါသည်။ ဤ pattern ဖြင့် ကျွန်ုပ်တို့သည် ကုဒ်ကို compile လုပ်ရန် လိုအပ်သည့် tool များအားလုံးကို Shipping ပြုလုပ်ရန် မလိုဘဲ အပလီကေးရှင်းကို မောင်းနှင်ရန် လိုအပ်သည့် နောက်ဆုံး binary ကိုသာ Shipping ပြုလုပ်ရန် လိုအပ်ပါသည် (ဤနေရာတွင် `uv` ဖြစ်ပါသည်)။
 
-Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
+Docker တွင် သတိပြုရမည့် အရေးကြီးသော ကန့်သတ်ချက်များ ရှိပါသည်။ ပထမချက်မှာ container image များသည် မကြာခဏ platform-specific ဖြစ်လေ့ရှိပါသည်—`linux/amd64` အတွက် build ပြုလုပ်ထားသော image သည် နှေးကွေးသော emulation မပါဘဲ `linux/arm64` (Apple Silicon Mac များ) ပေါ်တွင် မူလအတိုင်း အလုပ်လုပ်မည် မဟုတ်ပါ။ ဒုတိယချက်မှာ Docker container များသည် Linux kernel ကို လိုအပ်သဖြင့် macOS နှင့် Windows ပေါ်တွင် Docker သည် နောက်ကွယ်၌ ပေါ့ပါးသော Linux VM တစ်ခုကို မောင်းနှင်ရပြီး overhead ကို တိုးပွားစေပါသည်။ တတိယချက်မှာ Docker ၏ isolation သည် VM များထက် ပိုမို အားနည်းပါသည်—container များသည် host kernel ကို မျှဝေသုံးစွဲကြသဖြင့် multi-tenant environment များတွင် လုံခြုံရေးဆိုင်ရာ စိုးရိမ်စရာ ဖြစ်လာစေပါသည်။
 
-> These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
+> ယနေ့ခေတ်တွင် ပရောဂျက်အများအပြားသည် [nix flakes](https://serokell.io/blog/practical-nix-flakes) မှတစ်ဆင့် ပရောဂျက်တစ်ခုစီအလိုက် "system-wide" လိုင်ဘရီများနှင့် အပလီကေးရှင်းများကို စီမံခန့်ခွဲရန် nix ကို အသုံးပြုလာကြပါသည်။
 
-# Configuration
+# စနစ်ပြင်ဆင်မှု (Configuration)
 
-Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
-Software configuration should not be embedded in the code but be provided at runtime.
-A couple of common ones being environment variables and config files.
+ဆော့ဖ်ဝဲလ်သည် မူလကတည်းက စနစ်ပြင်ဆင်နိုင်စွမ်း (configurable) ရှိပါသည်။ [Command line environment](/2026/command-line-environment/) သင်ခန်းစာတွင် ပရိုဂရမ်များသည် flag များ၊ environment variable များ သို့မဟုတ် dotfiles ဟုခေါ်သော configuration ဖိုင်များမှတစ်ဆင့် option များကို လက်ခံရရှိသည်ကို ကျွန်ုပ်တို့ တွေ့မြင်ခဲ့ရပါသည်။ ဤသည်မှာ ပိုမို ရှုပ်ထွေးသော အပလီကေးရှင်းများအတွက်ပါ မှန်ကန်ပြီး အတိုင်းအတာကြီးမားသော configuration ကို စီမံခန့်ခွဲရန် ခိုင်မာသော pattern များ ရှိကြပါသည်။
+ဆော့ဖ်ဝဲလ် configuration ကို ကုဒ်အတွင်း၌ မြှုပ်နှံမထားသင့်ဘဲ runtime တွင် ပံ့ပိုးပေးသင့်ပါသည်။
+အသုံးများသော နည်းလမ်းအချို့မှာ environment variable များနှင့် config ဖိုင်များ ဖြစ်ကြပါသည်။
 
-Here's an example of an application that is configured via environment variables:
+အောက်ပါတို့မှာ Environment variable များမှတစ်ဆင့် စနစ်ပြင်ဆင်ထားသော အပလီကေးရှင်းတစ်ခု၏ ဥပမာ ဖြစ်ပါသည်-
 
 ```python
 import os
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///local.db")
 DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
-API_KEY = os.environ["API_KEY"]  # Required - will raise if not set
+API_KEY = os.environ["API_KEY"]  # လိုအပ်သည် - သတ်မှတ်မထားပါက Error တက်မည်
 ```
 
-An application could also be configured via a configuration file (e.g., a Python program that loads a config via `yaml.load`), `config.yaml`:
+အပလီကေးရှင်းတစ်ခုကို စနစ်ပြင်ဆင်မှု ဖိုင်တစ်ဆင့်လည်း စနစ်ပြင်ဆင်နိုင်ပါသည် (ဥပမာ- `yaml.load` မှတစ်ဆင့် config ကို load လုပ်သည့် Python ပရိုဂရမ်)၊ `config.yaml`-
 
 ```yaml
 database:
@@ -471,22 +466,21 @@ server:
   debug: false
 ```
 
-A good right-hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
+Configuration စနစ်ပြင်ဆင်မှုအကြောင်း စဉ်းစားရာတွင် လက်စွဲလမ်းညွှန်ကောင်းတစ်ခုမှာ ကုဒ်ပြောင်းလဲမှု လုံးဝမပါဘဲ configuration ပြောင်းလဲမှုများဖြင့်သာ တူညီသော codebase ကို မတူညီသော environment များသို့ (development, staging, production) deploy ပြုလုပ်နိုင်ရမည် ဖြစ်ပါသည်။
 
-Among the many configuration options there is often sensitive data such as API keys.
-Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
+Configuration စနစ်ပြင်ဆင်မှုများစွာအနက် API key များကဲ့သို့သော အရေးကြီးဒေတာများ (sensitive data) မကြာခဏ ပါဝင်လေ့ရှိပါသည်။
+လျှို့ဝှက်ချက်များကို (Secrets) မတော်တဆ ထုတ်ဖော်ပြသမိခြင်းမှ ရှောင်ရှားရန် ဂရုတစိုက် ကိုင်တွယ်ရန် လိုအပ်ပြီး၊ version control အတွင်း၌ ထည့်သွင်းခြင်း မပြုရပါ။
 
+# ဝန်ဆောင်မှုများနှင့် စီမံခန့်ခွဲမှု (Services & Orchestration)
 
-# Services & Orchestration
+ခေတ်သစ် အပလီကေးရှင်းများသည် သီးခြားခွဲထွက်၍ တည်ရှိလေ့ မရှိကြပါ။ သာမန် web application တစ်ခုသည် ဒေတာများ ရေရှည်သိမ်းဆည်းရန်အတွက် database တစ်ခု၊ စွမ်းဆောင်ရည်အတွက် cache တစ်ခု၊ နောက်ကွယ်မှ task များအတွက် message queue တစ်ခု၊ နှင့် အခြား ထောက်ပံ့ပေးသော ဝန်ဆောင်မှုအမျိုးမျိုးကို လိုအပ်နိုင်ပါသည်။ အရာအားလုံးကို monolithic application တစ်ခုတည်းအဖြစ် စုစည်းထားခြင်းထက် ခေတ်သစ် တည်ဆောက်ပုံများသည် လုပ်ဆောင်ချက်များကို သီးခြားစီ ဖွံ့ဖြိုးတိုးတက်စေနိုင်၊ deploy လုပ်နိုင်၊ နှင့် တိုးချဲ့နိုင်သည့် သီးခြား ဝန်ဆောင်မှုများအဖြစ် မကြာခဏ ခွဲထုတ်လေ့ရှိကြပါသည်။
 
-Modern applications rarely exist in isolation. A typical web application might need a database for persistent storage, a cache for performance, a message queue for background tasks, and various other supporting services. Rather than bundling everything into a single monolithic application, modern architectures often decompose functionality into separate services that can be developed, deployed, and scaled independently.
+ဥပမာအားဖြင့် ကျွန်ုပ်တို့၏ အပလီကေးရှင်းသည် cache တစ်ခုကို အသုံးပြုခြင်းဖြင့် အကျိုးကျေးဇူး ရရှိနိုင်သည်ဟု ဆုံးဖြတ်ပါက ကိုယ်ပိုင် ဖန်တီးမည့်အစား [Redis](https://redis.io/) သို့မဟုတ် [Memcached](https://memcached.org/) ကဲ့သို့သော စမ်းသပ်စစ်ဆေးပြီးသား ခိုင်မာသည့် နည်းလမ်းများကို အသုံးပြုနိုင်ပါသည်။
+ကျွန်ုပ်တို့သည် Redis ကို container ၏ အစိတ်အပိုင်းအဖြစ် build ပြုလုပ်၍ အပလီကေးရှင်း၏ dependency များအတွင်း မြှုပ်နှံထားနိုင်သော်လည်း၊ ထိုသို့ပြုလုပ်ပါက Redis နှင့် ကျွန်ုပ်တို့၏ အပလီကေးရှင်းအကြား dependency အားလုံးကို ညှိနှိုင်းရမည်ဖြစ်ရာ ခက်ခဲနိုင်သလို မဖြစ်နိုင်သည်အထိ ဖြစ်သွားနိုင်ပါသည်။
+ထို့အစား ကျွန်ုပ်တို့ ပြုလုပ်နိုင်သည်မှာ အပလီကေးရှင်းတစ်ခုစီကို ၎င်း၏ သီးခြား container အတွင်း၌ သီးခြားစီ deploy လုပ်ခြင်း ဖြစ်ပါသည်။
+ဤအရာကို လေ့ရှိသောအားဖြင့် မူလပါဝင်သည့် အစိတ်အပိုင်းတစ်ခုစီသည် ကွန်ရက်မှတစ်ဆင့် (ပုံမှန်အားဖြင့် HTTP API များမှတစ်ဆင့်) ဆက်သွယ်ပေးသည့် သီးခြား ဝန်ဆောင်မှုအဖြစ် မောင်းနှင်သော microservice architecture ဟု ခေါ်ဆိုကြပါသည်။
 
-As an example, if we determine our application might benefit from using a cache, instead of rolling our own we can leverage existing battle tested solutions like [Redis](https://redis.io/) or [Memcached](https://memcached.org/).
-We could embed Redis in our application dependencies by building it as part of the container, but that means harmonizing all the dependencies between Redis and our application which could be challenging or even unfeasible.
-Instead what we can do is deploy each application separately in its own container.
-This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs.
-
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together. Now our full application encompasses more than one container:
+[Docker Compose](https://docs.docker.com/compose/) သည် container အများအပြားပါဝင်သော အပလီကေးရှင်းများကို သတ်မှတ်ရန်နှင့် မောင်းနှင်ရန်အတွက် tool တစ်ခု ဖြစ်ပါသည်။ Container များကို သီးခြားစီ စီမံခန့်ခွဲခြင်းထက် ဝန်ဆောင်မှုအားလုံးကို YAML ဖိုင်တစ်ခုတည်းတွင် ကြေညာပြီး ၎င်းတို့ကို အတူတကွ စီမံခန့်ခွဲမောင်းနှင် (orchestrate) နိုင်ပါသည်။ ယခုအခါ ကျွန်ုပ်တို့၏ အပလီကေးရှင်းတစ်ခုလုံးတွင် container တစ်ခုထက်မက ပါဝင်လာပြီ ဖြစ်ပါသည်-
 
 ```yaml
 # docker-compose.yml
@@ -509,10 +503,10 @@ volumes:
   redis_data:
 ```
 
-With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
-Docker Compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
+`docker compose up` ဖြင့် ဝန်ဆောင်မှု နှစ်ခုစလုံး အတူတကွ စတင်မည်ဖြစ်ပြီး web application သည် hostname `cache` ကို အသုံးပြု၍ Redis ထံသို့ ချိတ်ဆက်နိုင်ပါသည် (Docker ၏ internal DNS က service အမည်များကို အလိုအလျောက် ဖြေရှင်းပေးပါသည်)။
+Docker Compose သည် ဝန်ဆောင်မှုတစ်ခု သို့မဟုတ် တစ်ခုထက်မက မည်သို့ deploy ပြုလုပ်လိုသည်ကို ကြေညာစေပြီး၊ ၎င်းတို့ကို အတူတကွ စတင်ခြင်း၊ ၎င်းတို့အကြား networking ပြုလုပ်ပေးခြင်း၊ နှင့် ဒေတာ ရေရှည်တည်တံ့ရေးအတွက် shared volume များကို စီမံခန့်ခွဲခြင်းဆိုင်ရာ orchestration ကို ကိုင်တွယ်ပေးပါသည်။
 
-For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
+Production တွင် deploy ပြုလုပ်ရန်အတွက် သင်သည် သင့် docker compose ဝန်ဆောင်မှုများကို စနစ်စတင်သည့်အခါ (boot) အလိုအလျောက် စတင်စေချင်ပြီး ပျက်စီးသွားပါက ပြန်လည် စတင်စေချင်ပါလိမ့်မည်။ အသုံးများသော နည်းလမ်းတစ်ခုမှာ docker compose deployment ကို စီမံခန့်ခွဲရန် systemd ကို အသုံးပြုခြင်း ဖြစ်ပါသည်-
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -532,11 +526,11 @@ ExecStop=/usr/bin/docker compose down
 WantedBy=multi-user.target
 ```
 
-This systemd unit file ensures your application starts when the system boots (after Docker is ready), and provides standard controls like `systemctl start myapp`, `systemctl stop myapp`, and `systemctl status myapp`.
+ဤ systemd unit ဖိုင်သည် သင့်အပလီကေးရှင်းကို စနစ်စတင်ချိန်တွင် (Docker အသင့်ဖြစ်ပြီးနောက်) စတင်ကြောင်း သေချာစေပြီး `systemctl start myapp`၊ `systemctl stop myapp`၊ နှင့် `systemctl status myapp` ကဲ့သို့သော စံမိုဘိုင်း/စနစ်ထိန်းချုပ်မှုများကို ပံ့ပိုးပေးပါသည်။
 
-As deployment requirements grow more complex --- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees --- organizations turn to sophisticated container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. That said, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
+Deployment လိုအပ်ချက်များ ပိုမို ရှုပ်ထွေးလာသည်နှင့်အမျှ—စက်အများအပြားတွင် တိုးချဲ့နိုင်စွမ်း (scalability) လိုအပ်ခြင်း၊ ဝန်ဆောင်မှုများ ပျက်စီးသွားသည့်အခါ fault tolerance ရှိခြင်း၊ နှင့် ရရှိနိုင်မှုမြင့်မားသော (high availability) အာမခံချက်များ လိုအပ်ခြင်း—အဖွဲ့အစည်းများသည် စက်စုစည်းမှုများ (clusters) ပေါ်ရှိ container ထောင်ပေါင်းများစွာကို စီမံခန့်ခွဲနိုင်သည့် Kubernetes (k8s) ကဲ့သို့သော ဆန်းသစ်သော container orchestration platform များကို အသုံးပြုလာကြပါသည်။ သို့သော်လည်း Kubernetes တွင် လေ့လာရန် ခက်ခဲသော သင်ယူမှုမျဉ်းဆွဲနှင့် သုံးစွဲရသည့် စက်လည်ပတ်မှု ကုန်ကျစရိတ် သိသာထင်ရှားစွာ ရှိနေသဖြင့် ပရောဂျက်ငယ်များအတွက် လိုအပ်သည်ထက် ပိုလွန်နေတတ်ပါသည်။
 
-This multi-container setup is partly feasible because modern services communicate with each other via standardized APIs, with HTTP REST APIs. For example, whenever a program interacts with an LLM provider like OpenAI or Anthropic, under the hood it is sending an HTTP request to their servers and parsing the response:
+ဤ container အများအပြား ပါဝင်သည့် setup သည် ခေတ်သစ် ဝန်ဆောင်မှုများသည် စံသတ်မှတ်ထားသော API များ (HTTP REST API များ) မှတစ်ဆင့် အပြန်အလှန် ဆက်သွယ်ကြသောကြောင့် အတိုင်းအတာတစ်ခုအထိ ဖြစ်နိုင်ခြင်း ဖြစ်ပါသည်။ ဥပမာအားဖြင့် ပရိုဂရမ်တစ်ခုသည် OpenAI သို့မဟုတ် Anthropic ကဲ့သို့သော LLM provider များနှင့် ဆက်သွယ်တိုင်း၊ နောက်ကွယ်တွင် ၎င်းတို့၏ server များထံ HTTP request ပို့ဆောင်ပြီး ရလဒ်ကို တုံ့ပြန်ချက်စစ်ဆေးခြင်း (parsing) ပြုလုပ်နေခြင်း ဖြစ်ပါသည်။
 
 ```console
 $ curl https://api.anthropic.com/v1/messages \
@@ -547,33 +541,32 @@ $ curl https://api.anthropic.com/v1/messages \
          "messages": [{"role": "user", "content": "Explain containers vs VMs in one sentence."}]}'
 ```
 
-# Publishing
+# ထုတ်ဝေခြင်း (Publishing)
 
-Once you have shown your code to work, you might be interested in distributing it for others to download and install.
-Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
+သင်၏ ကုဒ်အလုပ်လုပ်ကြောင်း ပြသပြီးသည်နှင့် အခြားသူများ Download ပြုလုပ်၍ install လုပ်နိုင်ရန်အတွက် ၎င်းကို ဖြန့်ဝေပေးရန် စိတ်ဝင်စားပေလိမ့်မည်။
+ဖြန့်ဝေခြင်း (Distribution) တွင် ပုံစံအမျိုးမျိုး ရှိပြီး သင်အသုံးပြုသော programming language နှင့် environment တို့နှင့် အစဉ်အမြဲ ဆက်စပ်နေပါသည်။
 
-The simplest form of distribution is uploading artifacts for people to download and install locally.
-This is still common and you can find it in places like [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/), which is essentially an HTTP directory listing of `.deb` files.
+ဖြန့်ဝေခြင်း၏ အရိုးရှင်းဆုံး ပုံစံမှာ အခြားသူများ မိမိတို့စက်များတွင် Download ပြုလုပ်၍ install ပြုလုပ်နိုင်ရန် artifact များကို တင်ပေးခြင်း (upload ပြုလုပ်ခြင်း) ဖြစ်ပါသည်။
+ဤသည်မှာ ယခုထက်ထိ ခေတ်စားနေဆဲ ဖြစ်ပြီး `.deb` ဖိုင်များပါဝင်သည့် HTTP directory listing တစ်ခုဖြစ်သော [Ubuntu ၏ package archive](http://archive.ubuntu.com/ubuntu/pool/main/) ကဲ့သို့သော နေရာများတွင် တွေ့ရှိနိုင်ပါသည်။
 
-These days, GitHub has become the de facto platform for publishing source code and artifacts.
-While the source code is often publicly available, GitHub Releases allow maintainers to attach prebuilt binaries and other artifacts to tagged versions.
+ယနေ့ခေတ်တွင် GitHub သည် source code နှင့် artifact များကို ထုတ်ဝေရန်အတွက် de facto platform တစ်ခု ဖြစ်လာခဲ့ပါသည်။
+Source code ကို မကြာခဏ အများပြည်သူ လွတ်လပ်စွာ ရယူနိုင်သော်လည်း GitHub Releases သည် ပြုပြင်ထိန်းသိမ်းသူများအား tag တပ်ထားသော ဗားရှင်းများတွင် prebuilt binary များနှင့် အခြား artifact များကို တွဲဆက်ပေးနိုင်စေပါသည်။
 
-
-Package managers sometimes support installing directly from GitHub, either from source or from a pre-built wheel:
+Package manager မျာသည် အချို့အချိန်များတွင် source မှဖြစ်စေ သို့မဟုတ် ကြိုတင် build လုပ်ထားသော wheel မှဖြစ်စေ GitHub မှ တိုက်ရိုက် install ပြုလုပ်ခြင်းကို ထောက်ပံ့ပေးကြပါသည်-
 
 ```console
-# Install from source (will clone and build)
+# Source မှ install ပြုလုပ်ခြင်း (clone ပြုလုပ်၍ build လုပ်မည်)
 $ pip install git+https://github.com/psf/requests.git
 
-# Install from a specific tag/branch
+# သီးခြား tag/branch မှ install ပြုလုပ်ခြင်း
 $ pip install git+https://github.com/psf/requests.git@v2.32.3
 
-# Install a wheel directly from a GitHub release
+# GitHub release မှ wheel ကို တိုက်ရိုက် install ပြုလုပ်ခြင်း
 $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
-In fact, some languages like Go use a decentralized distribution model --- rather than a central package repository, Go modules are distributed directly from their source code repositories.
-Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo`, or `brew` have central indexes of pre-packaged projects for ease of distribution and installation. If we run
+အမှန်စင်စစ် Go ကဲ့သို့သော အချို့ language များသည် ဗဟိုချုပ်ကိုင်မှုမရှိသော ဖြန့်ဝေရေး မော်ဒယ်ကို အသုံးပြုကြပါသည်—ဗဟို package repository တစ်ခုအဖြစ် မဟုတ်ဘဲ Go module များကို ၎င်းတို့၏ source code repository များထံမှ တိုက်ရိုက် ဖြန့်ဝေကြပါသည်။
+`github.com/gorilla/mux` ကဲ့သို့သော Module လမ်းကြောင်းများသည် ကုဒ်ရှိရာနေရာကို ညွှန်ပြပြီး `go get` က ထိုနေရာထံမှ တိုက်ရိုက် ဆွဲယူပေးပါသည်။ သို့သော်လည်း `pip`၊ `cargo`၊ သို့မဟုတ် `brew` ကဲ့သို့သော package manager အများစုတွင် ဖြန့်ဝေရလွယ်ကူစေရန်နှင့် install ပြုလုပ်ရလွယ်ကူစေရန်အတွက် ကြိုတင်ထုပ်ပိုးထားသော ပရောဂျက်များ၏ ဗဟို index များ ရှိကြပါသည်။ အကယ်၍ ကျွန်ုပ်တို့သည် အောက်ပါအတိုင်း Run လိုက်ပါက-
 
 ```console
 $ uv pip install requests --verbose --no-cache 2>&1 | grep -F '.whl'
@@ -582,18 +575,18 @@ DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3ea
 DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl
 ```
 
-we see where we are fetching the `requests` wheel from. Notice the `py3-none-any` in the filename --- this means the wheel works with any Python 3 version, on any OS, on any architecture. For packages with compiled code, the wheel is platform-specific:
+ကျွန်ုပ်တို့သည် `requests` wheel ကို မည်သည့်နေရာမှ ဆွဲယူနေသည်ဆိုသည်ကို မြင်တွေ့နိုင်ပါသည်။ ဖိုင်အမည်ရှိ `py3-none-any` ကို သတိပြုပါ—၎င်း၏ အဓိပ္ပာယ်မှာ ဤ wheel သည် မည်သည့် OS၊ မည်သည့် architecture ပေါ်တွင်မဆို မည်သည့် Python 3 ဗားရှင်းဖြင့်မဆို အလုပ်လုပ်သည်ဟု ဆိုလိုခြင်း ဖြစ်ပါသည်။ Compile လုပ်ထားသော ကုဒ်ပါဝင်သည့် package များအတွက် wheel သည် platform အလိုက် သီးခြား ဖြစ်ပါသည်-
 
 ```console
 $ uv pip install numpy --verbose --no-cache 2>&1 | grep -F '.whl'
 DEBUG Selecting: numpy==2.2.1 [compatible] (numpy-2.2.1-cp312-cp312-macosx_14_0_arm64.whl)
 ```
 
-Here `cp312-cp312-macosx_14_0_arm64` indicates this wheel is specifically for CPython 3.12 on macOS 14+ for ARM64 (Apple Silicon). If you're on a different platform, `pip` will download a different wheel or build from source.
+ဤနေရာတွင် `cp312-cp312-macosx_14_0_arm64` က ဤ wheel သည် ARM64 (Apple Silicon) အတွက် macOS 14+ ပေါ်ရှိ CPython 3.12 အတွက် သီးသန့် ဖြစ်ကြောင်း ညွှန်ပြနေပါသည်။ အကယ်၍ သင်သည် အခြား platform တစ်ခုပေါ်တွင် ရောက်ရှိနေပါက `pip` သည် မတူညီသော wheel တစ်ခုကို Download ပြုလုပ်မည် သို့မဟုတ် source မှ build ပြုလုပ်ပါလိမ့်မည်။
 
-Conversely, for people to be able to find a package we've created, we need to publish it to one of these registries.
-In Python, the main registry is the [Python Package Index (PyPI)](https://pypi.org).
-Like with installing, there are multiple ways of publishing packages. The `uv publish` command provides a modern interface for uploading packages to PyPI:
+ဆန့်ကျင်ဘက်အားဖြင့် ကျွန်ုပ်တို့ ဖန်တီးခဲ့သော package ကို အခြားသူများ ရှာဖွေတွေ့ရှိနိုင်ရန်အတွက် ကျွန်ုပ်တို့သည် ၎င်းကို ဤ registry များအနက် တစ်ခုခုထံ ထုတ်ဝေ (publish) ရန် လိုအပ်ပါသည်။
+Python တွင် ပင်မ registry မှာ [Python Package Index (PyPI)](https://pypi.org) ဖြစ်ပါသည်။
+Install ပြုလုပ်ခြင်းကဲ့သို့ပင် package များကို ထုတ်ဝေရန် နည်းလမ်းများစွာ ရှိပါသည်။ `uv publish` command သည် package များကို PyPI ထံ upload လုပ်ရန်အတွက် ခေတ်မီသော interface တစ်ခုကို ပံ့ပိုးပေးပါသည်-
 
 ```console
 $ uv publish --publish-url https://test.pypi.org/legacy/
@@ -601,33 +594,32 @@ Publishing greeting-0.1.0.tar.gz
 Publishing greeting-0.1.0-py3-none-any.whl
 ```
 
-Here we are using [TestPyPI](https://test.pypi.org) --- a separate package registry intended for testing your publishing workflow without polluting the real PyPI. Once uploaded, you can install from TestPyPI:
+ဤနေရာတွင် ကျွန်ုပ်တို့သည် တကယ့် PyPI ကို မညစ်ညမ်းစေဘဲ သင်၏ ထုတ်ဝေရေး workflow ကို စမ်းသပ်ရန် ရည်ရွယ်ထားသော သီးခြား package registry တစ်ခု ဖြစ်သည့် [TestPyPI](https://test.pypi.org) ကို အသုံးပြုနေကြပါသည်။ Upload လုပ်ပြီးပါက TestPyPI ထံမှ install ပြုလုပ်နိုင်ပြီ ဖြစ်ပါသည်-
 
 ```console
 $ uv pip install --index-url https://test.pypi.org/simple/ greeting
 ```
 
-A key consideration when publishing software is trust. How do users verify that the package they download actually comes from you and hasn't been tampered with? Package registries use checksums to verify integrity, and some ecosystems support package signing to provide cryptographic proof of authorship.
+ဆော့ဖ်ဝဲလ် ထုတ်ဝေရာတွင် အဓိက စဉ်းစားရမည့် အချက်မှာ ယုံကြည်စိတ်ချရမှု (trust) ဖြစ်ပါသည်။ သုံးစွဲသူများသည် ၎င်းတို့ Download ပြုလုပ်သော package သည် သင့်ထံမှ အမှန်တကယ် လာခြင်းဖြစ်ကြောင်းနှင့် ပြုပြင်မွမ်းမံထားခြင်း မရှိကြောင်း မည်သို့ အတည်ပြုကြမည်နည်း။ Package registry များသည် တည်ငြိမ်မှန်ကန်မှုကို အတည်ပြုရန် checksum များကို အသုံးပြုကြပြီး အချို့သော ecosystem များသည် မူပိုင်ခွင့်ဆိုင်ရာ သင်္ကေတပြ အထောက်အထား ပံ့ပိုးရန် package လက်မှတ်ရေးထိုးခြင်း (package signing) ကို ထောက်ပံ့ပေးကြပါသည်။
 
-Different languages have their own package registries: [crates.io](https://crates.io) for Rust, [npm](https://www.npmjs.com) for JavaScript, [RubyGems](https://rubygems.org) for Ruby, and [Docker Hub](https://hub.docker.com) for container images. Meanwhile, for private or internal packages, organizations often deploy their own package repositories (such as a private PyPI server or a private Docker registry) or use managed solutions from cloud providers.
+မတူညီသော language များတွင် မိမိတို့၏ ကိုယ်ပိုင် package registry များ ရှိကြပါသည်- Rust အတွက် [crates.io](https://crates.io)၊ JavaScript အတွက် [npm](https://www.npmjs.com)၊ Ruby အတွက် [RubyGems](https://rubygems.org)၊ နှင့် container image များအတွက် [Docker Hub](https://hub.docker.com) ဖြစ်ကြပါသည်။ ထိုအတောအတွင်း သီးသန့် သို့မဟုတ် အတွင်းပိုင်း package များအတွက် အဖွဲ့အစည်းများသည် မိမိတို့၏ ကိုယ်ပိုင် package repository များကို မကြာခဏ deploy လုပ်လေ့ ရှိကြပါသည် (သီးသန့် PyPI server သို့မဟုတ် သီးသန့် Docker registry ကဲ့သို့သော) သို့မဟုတ် cloud provider များထံမှ စီမံခန့်ခွဲပေးထားသော နည်းလမ်းများကို အသုံးပြုကြပါသည်။
 
-Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
+ဝဘ်ဝန်ဆောင်မှုတစ်ခုကို အင်တာနက်ထံ deploy ပြုလုပ်ခြင်းတွင် အပိုဆောင်း အဆောက်အအုံများ ပါဝင်ပါသည်- domain name မှတ်ပုံတင်ခြင်း၊ သင့် domain ကို သင့် server ထံ ညွှန်းဆိုရန် DNS စနစ်ပြင်ဆင်ခြင်း၊ နှင့် မကြာခဏဆိုသလို HTTPS ကို ကိုင်တွယ်ရန်နှင့် traffic လမ်းကြောင်းပေးရန် nginx ကဲ့သို့သော reverse proxy တစ်ခု သုံးစွဲခြင်း။ Documentation များ သို့မဟုတ် static site များကဲ့သို့ ပိုမို ရိုးရှင်းသော အသုံးပြုမှုများအတွက် [GitHub Pages](https://pages.github.com/) သည် repository ထံမှ တိုက်ရိုက် အခမဲ့ hosting ကို ပံ့ပိုးပေးပါသည်။
 
 <!--
 ## Documentation
 
-So far we have emphasized the deliverable _artifact_ as the main output of packaging and shipping code.
-In addition to the artifact, we need to document for users the code's functionality, installation instructions, and usage examples.
+ယခုအချိန်အထိ ကျွန်ုပ်တို့သည် ကုဒ်များကို packaging နှင့် shipping ပြုလုပ်ခြင်း၏ အဓိက ရလဒ်အဖြစ် ပေးအပ်ရမည့် _artifact_ ကို အလေးပေးဖော်ပြခဲ့ပါသည်။
+Artifact အပြင် ကျွန်ုပ်တို့သည် သုံးစွဲသူများအတွက် ကုဒ်၏ လုပ်ဆောင်ချက်၊ install ပြုလုပ်နည်း ညွှန်ကြားချက်များ၊ နှင့် အသုံးပြုပုံ ဥပမာများကို မှတ်တမ်းတင်ပေးရန် လိုအပ်ပါသည်။
 
-Tools like [Sphinx](https://www.sphinx-doc.org/) (Python) and [MkDocs](https://www.mkdocs.org/) can automatically generate browsable documentation from docstrings and markdown files, often hosted on services like [Read the Docs](https://readthedocs.org/).
-For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (formerly Swagger) provides a standard format for describing API endpoints, which tools can use to generate interactive documentation and client libraries automatically. -->
+[Sphinx](https://www.sphinx-doc.org/) (Python) နှင့် [MkDocs](https://www.mkdocs.org/) ကဲ့သို့သော tool များသည် docstring များနှင့် markdown ဖိုင်များထံမှ ဖတ်ရှုနိုင်သော Documentation များကို အလိုအလျောက် ထုတ်လုပ်ပေးနိုင်ပြီး [Read the Docs](https://readthedocs.org/) ကဲ့သို့သော ဝန်ဆောင်မှုများတွင် မကြာခဏ host လုပ်လေ့ရှိကြပါသည်။
+HTTP အခြေခံ API များအတွက် [OpenAPI specification](https://www.openapis.org/) (ယခင် Swagger) သည် API endpoint များကို ဖော်ပြရန်အတွက် စံသတ်မှတ်ထားသော ပုံစံတစ်ခုကို ပံ့ပိုးပေးထားပြီး tool များက အပြန်အလှန် တုံ့ပြန်နိုင်သော Documentation များနှင့် client library များကို အလိုအလျောက် ထုတ်လုပ်ရန် အသုံးပြုနိုင်ပါသည်။ -->
 
+# လေ့ကျင့်ခန်းများ (Exercises)
 
-# Exercises
-
-1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
-1. Create a Python package with a `pyproject.toml` and install it in a virtual environment. Create a lockfile and inspect it.
-1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
-1. Write a Dockerfile for a simple Python application. Then write a `docker-compose.yml` that runs your application alongside a Redis cache.
-1. Publish a Python package to TestPyPI (don't publish to the real PyPI unless it's worth sharing!). Then build a Docker image with said package and push it to `ghcr.io`.
-1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra (non-)credit: configure it with a custom domain.
+1. သင့် environment ကို `printenv` ဖြင့် ဖိုင်တစ်ခုထဲသို့ သိမ်းဆည်းပါ၊ venv တစ်ခု ဖန်တီးပါ၊ ၎င်းကို activate ပြုလုပ်ပါ၊ အခြားဖိုင်တစ်ခုထဲသို့ `printenv` လုပ်ပြီး `diff before.txt after.txt` ပြုလုပ်ပါ။ Environment တွင် မည်သည့်အရာများ ပြောင်းလဲသွားသနည်း။ Shell က venv ကို အဘယ်ကြောင့် ဦးစားပေးသနည်း။ (အချက်အလက်- activation ပြုလုပ်မီနှင့် ပြုလုပ်ပြီးနောက် `$PATH` ကို ကြည့်ပါ။) `which deactivate` ကို မောင်းနှင်ပြီး deactivate bash function သည် မည်သည့်အရာ ပြုလုပ်နေသည်ကို အကြောင်းပြချက် ဖော်ထုတ်ပါ။
+1. `pyproject.toml` ပါရှိသော Python package တစ်ခုကို ဖန်တီးပြီး ၎င်းကို virtual environment တစ်ခုတွင် install ပြုလုပ်ပါ။ Lockfile တစ်ခု ဖန်တီးပြီး စစ်ဆေးပါ။
+1. Docker ကို install ပြုလုပ်ပြီး docker compose ကို အသုံးပြု၍ Missing Semester သင်တန်း ဝဘ်ဆိုက်ကို မိမိစက်တွင် build ပြုလုပ်ရန် ၎င်းကို အသုံးပြုပါ။
+1. ရိုးရှင်းသော Python application တစ်ခုအတွက် Dockerfile တစ်ခု ရေးသားပါ။ ထို့နောက် Redis cache နှင့်အတူ သင့် application ကို မောင်းနှင်သည့် `docker-compose.yml` တစ်ခု ရေးသားပါ။
+1. Python package တစ်ခုကို TestPyPI ထံ ထုတ်ဝေပါ (ဝေမျှထိုက်ပါမှလွဲ၍ တကယ့် PyPI ထံ ထုတ်ဝေခြင်း မပြုပါနှင့်!)။ ထို့နောက် ထို package ဖြင့် Docker image တစ်ခုကို build ပြုလုပ်ပြီး ၎င်းကို `ghcr.io` ထံ push ပြုလုပ်ပါ။
+1. [GitHub Pages](https://docs.github.com/en/pages/quickstart) ကို အသုံးပြု၍ ဝဘ်ဆိုက်တစ်ခု ပြုလုပ်ပါ။ Extra (non-)credit- ၎င်းကို custom domain တစ်ခုဖြင့် စနစ်ပြင်ဆင်ပါ။
