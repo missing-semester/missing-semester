@@ -119,6 +119,7 @@ benefit from these resources. You can find posts and discussion on
 
 - [Arabic](https://missing-semester-ar.github.io/)
 - [Bengali](https://missing-semester-bn.github.io/)
+- [Burmese](https://missing-semester-my.github.io/)
 - [Chinese (Simplified)](https://missing-semester-cn.github.io/)
 - [Chinese (Traditional, Taiwan)](https://missing-semester-tw.github.io/)
 - [German](https://missing-semester-de.github.io/)
