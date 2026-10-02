@@ -6,6 +6,8 @@ description: >
 thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
+previous_lesson: "/2020/metaprogramming"
+next_lesson: "/2020/potpourri"
 video:
   aspect: 56.25
   id: tjwobAmnKTo
