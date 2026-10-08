@@ -312,7 +312,7 @@ Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PA
 - MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
 
 > This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
+Python packaging supports standardized version specifiers defined by [PEP 440](https://peps.python.org/pep-0440/), so when we specify the versions of our dependencies we can use various constraints:
 
 In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies:
 
