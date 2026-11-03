@@ -165,6 +165,21 @@ The `-c` flag runs the specified command and sets `cpid` to its PID, which is us
 
 ### Network Debugging
 
+Before inspecting network packets, check whether a hostname resolves and whether a TCP port is reachable. On Linux, `getent hosts` uses the system's name resolution configuration, while `dig` queries DNS servers. The `nc` (netcat) utility can test TCP connectivity:
+
+```bash
+# Check hostname resolution using the system resolver
+getent hosts github.com
+
+# Query DNS records
+dig github.com
+
+# Test TCP connectivity on port 443
+nc -vz github.com 443
+```
+
+These checks help distinguish DNS resolution failures from TCP connectivity problems. Some utilities may need to be installed separately.
+
 For network issues, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) let you capture and analyze network packets:
 
 ```bash
