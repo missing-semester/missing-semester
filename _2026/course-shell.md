@@ -259,31 +259,31 @@ is when using a relative one!
 ## What is available in the shell?
 
 But how does the shell know how to find programs like `date` or `echo`?
-If the shell is asked to execute a command, it consults an _environment
-variable_ called `$PATH` that lists which directories the shell should
-search for programs when it is given a command:
+To find external programs, the shell consults an _environment variable_
+called `$PATH`. It lists the directories to search, separated by `:`.
 
 ```console
 missing:~$ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 missing:~$ which echo
 /bin/echo
+missing:~$ type -a echo
+echo is a shell builtin
+echo is /bin/echo
 missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Shells also have _builtins_, commands that the shell implements itself.
+Bash uses its builtin for the first `echo $PATH` above. The `which`
+program finds an external executable on `$PATH`, and Bash's
+`type -a echo` shows both the builtin and the external matches. The
+paths may differ on your system. Giving an explicit path, like
+`/bin/echo`, runs that file directly.
 
-This also gives a clue for how we can determine _all_ the programs we're
-able to execute in the shell: by listing the contents of all the
-directories on `$PATH`. We can do this by passing a given directory path
-to the `ls` program, which lists files:
+This also gives a clue for how we can find the programs available on
+`$PATH`. We can pass each directory to the `ls` program, which lists
+its contents.
 
 ```console
 missing:~$ ls /bin
