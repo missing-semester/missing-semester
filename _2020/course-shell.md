@@ -127,11 +127,9 @@ But how does the shell know how to find the `date` or `echo` programs?
 Well, the shell is a programming environment, just like Python or Ruby,
 and so it has variables, conditionals, loops, and functions (next
 lecture!). When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. If the shell is asked to
-execute a command that doesn't match one of its programming keywords, it
-consults an _environment variable_ called `$PATH` that lists which
-directories the shell should search for programs when it is given a
-command:
+small bit of code that your shell interprets. To find external programs,
+the shell consults an _environment variable_ called `$PATH`. It lists
+the directories to search, separated by `:`.
 
 
 ```console
@@ -139,17 +137,19 @@ missing:~$ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 missing:~$ which echo
 /bin/echo
+missing:~$ type -a echo
+echo is a shell builtin
+echo is /bin/echo
 missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+Shells also have _builtins_, commands that the shell implements itself.
+Bash uses its builtin for the first `echo $PATH` above. The `which`
+program finds an external executable on `$PATH`, and Bash's
+`type -a echo` shows both the builtin and the external matches. The
+paths may differ on your system. Giving an explicit path, like
+`/bin/echo`, runs that file directly.
 
 ## Navigating in the shell
 
